@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "initial",
+    "count",
+    "lookup"
+  ],
+  "properties": {
+    "schema": {
+      "const": "active_character_lookup_shard.v2"
+    },
+    "initial": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "lookup": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

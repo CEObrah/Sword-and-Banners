@@ -1,0 +1,135 @@
+{
+  "base_region": "Dairyou region",
+  "finance_equipment_and_mounts": {
+    "armed_personnel": 1200,
+    "assigned_mounts": 135,
+    "assigned_war_arrows": 43200,
+    "facility_factor": 1.024,
+    "fodder_stock_kg": 81000,
+    "food_stock_kg": 129600,
+    "issued_combat_loadouts": 1200,
+    "loadout_id": "loadout_school_martial",
+    "monthly_normal_expense_silver": 13500,
+    "monthly_realized_revenue_silver": 16200,
+    "mount_type": "horse_war_military",
+    "reserve_combat_loadouts": 120,
+    "reserve_war_arrows": 43200,
+    "support_personnel": 150,
+    "treasury_silver": 108000
+  },
+  "institution_class": "martial_school",
+  "leader_status": "unresolved named full sheet only when encountered",
+  "name": "Bronze Gate War School",
+  "owner_id": "school_wei",
+  "owner_type": "institution",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "independent-institution.v38",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state": "WEI",
+  "subprocess_id": "process_school_wei",
+  "total_people": 450,
+  "direct_members": 450,
+  "affiliate_network_members": 650,
+  "field_ready_members": 208,
+  "institution_rule": "direct membership is not equivalent to deployable military manpower; mobilization requires explicit reorganization and support loss",
+  "home_establishment_ref": "establishment.school_wei",
+  "formation_library_ref": "formation.school.mobilization",
+  "reconstitution_policy_ref": "reconstitution.school",
+  "doctrine": "doc.organization.school_instruction",
+  "training": "train.organization.school",
+  "combat_tendencies": {
+    "aggression": 30,
+    "initiative": 45,
+    "caution": 75,
+    "adaptability": 55,
+    "flank_bias": 25,
+    "counterattack_bias": 55,
+    "pursuit_bias": 10,
+    "reserve_bias": 70,
+    "withdrawal_willingness": 80,
+    "casualty_tolerance": 20,
+    "objective_focus": 90,
+    "ally_support": 90,
+    "formation_discipline": 65,
+    "commander_dependence": 65
+  },
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 18
+      },
+      "count": 18,
+      "fatigue_mean": 0.0,
+      "role": "school_instructor",
+      "pool_id": "school_wei:pool_school_instructor",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_instructor",
+      "accounting_scale": "small_1_24",
+      "capability_ref": "state/manpower-capability/school-wei-pool-school-instructor.json"
+    },
+    {
+      "condition": {
+        "fit": 45
+      },
+      "count": 45,
+      "fatigue_mean": 0.0,
+      "role": "school_senior",
+      "pool_id": "school_wei:pool_school_senior",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_senior",
+      "accounting_scale": "tactical_25",
+      "capability_ref": "state/manpower-capability/school-wei-pool-school-senior.json"
+    },
+    {
+      "condition": {
+        "fit": 145
+      },
+      "count": 145,
+      "fatigue_mean": 0.0,
+      "role": "school_general",
+      "pool_id": "school_wei:pool_school_general",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_general",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/school-wei-pool-school-general.json"
+    },
+    {
+      "condition": {
+        "fit": 165
+      },
+      "count": 165,
+      "fatigue_mean": 0.0,
+      "role": "school_junior",
+      "pool_id": "school_wei:pool_school_junior",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_junior",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/school-wei-pool-school-junior.json"
+    },
+    {
+      "condition": {
+        "fit": 77
+      },
+      "count": 77,
+      "fatigue_mean": 0.0,
+      "role": "school_support",
+      "pool_id": "school_wei:pool_school_support",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_support",
+      "accounting_scale": "tactical_25",
+      "capability_ref": "state/manpower-capability/school-wei-pool-school-support.json"
+    }
+  ],
+  "stat_order_ref": "data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true,
+  "institutional_track_record_index": 142
+}

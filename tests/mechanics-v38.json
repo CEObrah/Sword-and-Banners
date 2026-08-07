@@ -1,0 +1,226 @@
+{
+  "schema": "mechanics-regression-tests.v38",
+  "tests": [
+    {
+      "id": "reach_170cm",
+      "inputs": {
+        "height_m": 1.7
+      },
+      "expected": 0.765
+    },
+    {
+      "id": "weapon_adjustment_190cm",
+      "inputs": {
+        "item_reach": 1.5,
+        "height_m": 1.9
+      },
+      "expected": 1.544
+    },
+    {
+      "id": "fall_energy_80kg_2m",
+      "inputs": {
+        "mass": 80,
+        "height": 2
+      },
+      "expected": 1569.064
+    },
+    {
+      "id": "attack_control_example",
+      "inputs": {},
+      "expected": 110.5
+    },
+    {
+      "id": "dodge_control_example",
+      "inputs": {},
+      "expected": 93.0
+    },
+    {
+      "id": "contact_grade_17_5",
+      "inputs": {
+        "margin": 17.5
+      },
+      "expected": {
+        "grade": "clean",
+        "multiplier": 1.0
+      }
+    },
+    {
+      "id": "armor_penetration_ratio",
+      "inputs": {
+        "penetration": 100,
+        "resistance": 60,
+        "condition": 1,
+        "fit": 0.92,
+        "angle": 1
+      },
+      "expected": 1.812
+    },
+    {
+      "id": "armor_impact_ratio",
+      "inputs": {
+        "impact": 80,
+        "transfer": 0.35,
+        "blunt": 50,
+        "condition": 1,
+        "fit": 0.92,
+        "angle": 1
+      },
+      "expected": 0.609
+    },
+    {
+      "id": "siege_crew_factor",
+      "inputs": {
+        "fit": 4,
+        "optimal": 6
+      },
+      "expected": 0.667
+    },
+    {
+      "id": "siege_control_factor",
+      "inputs": {},
+      "expected": 0.887
+    },
+    {
+      "id": "representation_efficiency",
+      "inputs": {},
+      "expected": {
+        "exact": 1.0,
+        "individual_lite": 1.0,
+        "unit": 1.0
+      }
+    },
+    {
+      "id": "morale_detailed_example",
+      "inputs": {
+        "base": 100,
+        "recent_casualty_fraction": 0.08,
+        "cumulative_casualty_fraction": 0.15,
+        "commander_lost": 0,
+        "deputy_lost": 0,
+        "positional": "flanked",
+        "isolation": "connected",
+        "supply": "strained",
+        "fear_pressure": 0,
+        "cohesion": 90,
+        "Leadership": 100,
+        "Presence": 80,
+        "Formation_Command": 90,
+        "command_action_used": 1,
+        "commander_familiarity_factor": 1.0
+      },
+      "expected": {
+        "pressure": 17.75,
+        "effective": 82.25,
+        "state": "steady"
+      }
+    },
+    {
+      "id": "training_capacity_example",
+      "inputs": {
+        "instructor_hours": 8,
+        "required_instructor_hours": 10,
+        "facility_slots": 12,
+        "required_slots": 10,
+        "equipment_sets": 10,
+        "required_sets": 10
+      },
+      "expected": 0.8
+    },
+    {
+      "id": "skill_cost_100",
+      "inputs": {
+        "current_score": 100
+      },
+      "expected": 123.093
+    },
+    {
+      "id": "diminishing_at_ceiling",
+      "inputs": {
+        "score": 120,
+        "ceiling": 120
+      },
+      "expected": 0.45
+    },
+    {
+      "id": "rust_450d",
+      "inputs": {
+        "unused_days": 450
+      },
+      "expected": 0.03
+    },
+    {
+      "id": "raw_edu_example",
+      "inputs": {
+        "verified_hours": 10,
+        "competency_share": 0.5,
+        "intensity": 1.0,
+        "practice_mode": 1.05,
+        "instruction": 1.1,
+        "instructor_capacity": 0.8,
+        "facility": 1.08,
+        "equipment": 1.0,
+        "health": 1.0,
+        "recovery": 1.0,
+        "feedback": 1.08,
+        "age": 1.12,
+        "aptitude": 1.2,
+        "potential": 1.12,
+        "relevance": 1.0,
+        "interruption": 1.0,
+        "representation": 1.0
+      },
+      "expected": 8.112
+    },
+    {
+      "id": "scheme_progress_example",
+      "inputs": {
+        "access": 20,
+        "agent": 25,
+        "resources": 15,
+        "vulnerability": 10,
+        "preparation": 15,
+        "difficulty": 30,
+        "opposition": 20
+      },
+      "expected": 35
+    },
+    {
+      "id": "evidence_weight_example",
+      "inputs": {
+        "quality": 80,
+        "reliability": 0.9,
+        "custody": 0.95,
+        "corroboration": 0.8,
+        "contradiction": 5
+      },
+      "expected": 49.72
+    },
+    {
+      "id": "war_capacity_example",
+      "inputs": {
+        "force": 120,
+        "supply": 90,
+        "treasury": 110,
+        "command": 130,
+        "political": 80,
+        "route": 100
+      },
+      "expected": 80
+    },
+    {
+      "id": "coalition_support_example",
+      "inputs": {
+        "support": [
+          80,
+          50,
+          30
+        ],
+        "oppose": [
+          70,
+          40
+        ]
+      },
+      "expected": 50
+    }
+  ]
+}

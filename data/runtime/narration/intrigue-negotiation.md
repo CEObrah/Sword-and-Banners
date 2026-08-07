@@ -1,0 +1,2 @@
+# Intrigue, contracts, and negotiation narration
+Tension comes from information asymmetry, leverage, deadlines, witnesses, credibility, payment, law, security, and the possibility that someone simply refuses. Keep rumor distinct from proof. Merchants and mercenaries care about terms, risk, reputation, opportunity cost, and enforcement. Political or commercial success should emerge from valid leverage rather than charisma as magic.

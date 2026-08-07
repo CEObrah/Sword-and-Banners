@@ -1,0 +1,281 @@
+{
+  "age_distribution": {
+    "age_16_20": 160000,
+    "age_21_29": 360000,
+    "age_30_39": 260000,
+    "age_40_49": 100000,
+    "age_50_plus": 20000
+  },
+  "experience_distribution": {
+    "elite": 50000,
+    "trained": 390000,
+    "unseasoned": 260000,
+    "veteran": 200000
+  },
+  "headcount": 900000,
+  "lifecycle": {
+    "completed_reviews": 0,
+    "deaths": 0,
+    "demobilized": 0,
+    "desertions": 0,
+    "mobilized": 0,
+    "promotions": 0,
+    "recruits": 0,
+    "retirements": 0,
+    "veteran_gain": 0
+  },
+  "location": "Chu strategic force pool",
+  "materialized_members": [],
+  "morale": 70,
+  "name": "Chu State Force Pool",
+  "named_members": [],
+  "owner_id": "force_pool_chu",
+  "owner_type": "force_pool",
+  "posture": "accounting_only",
+  "qualification_distribution": {
+    "advanced_qualified": 190000,
+    "levy_or_basic_ready": 240000,
+    "regular_qualified": 420000,
+    "specialist_or_command_qualified": 50000
+  },
+  "readiness": 70,
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "force_pool.v1",
+  "source_class": "external_state_force",
+  "stable_seed": "seed_92070f93be5b01d5b4ab",
+  "state": "Chu",
+  "supply": 70,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 171,
+      "sd": 5.6
+    },
+    "weight_kg": {
+      "mean": 60,
+      "sd": 7.0
+    },
+    "individual_records_required": false
+  },
+  "quality_distribution": {
+    "recent_or_raw": 162000,
+    "regular": 432000,
+    "experienced": 198000,
+    "veteran": 81000,
+    "elite": 27000
+  },
+  "quality_distribution_rule": "training/promotion transfers real people between tiers; no whole-pool advancement",
+  "aptitude_distribution": {
+    "mean": 103,
+    "sd": 16,
+    "low_pct": 12,
+    "normal_pct": 62,
+    "high_pct": 22,
+    "exceptional_pct": 4,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "home_establishment_ref": "establishment.state.chu.army",
+  "reconstitution_policy_ref": "reconstitution.state_army",
+  "troop_pools": [
+    {
+      "condition": {
+        "fit_or_available": 60000
+      },
+      "count": 60000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "cavalry",
+      "service_class": "state_force_pool",
+      "stable_seed": "7d5fb85bb65338bb8c7b3b1b",
+      "id": "force_pool_chu_cavalry",
+      "troop_type": "cavalry",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-chu-cavalry.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 25000
+      },
+      "count": 25000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "chariot",
+      "service_class": "state_force_pool",
+      "stable_seed": "2896f1496b411d7430eed3aa",
+      "id": "force_pool_chu_chariot",
+      "troop_type": "chariot",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-chu-chariot.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 47385
+      },
+      "count": 47385,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "signal",
+      "service_class": "state_force_pool",
+      "stable_seed": "6902cffb661d901cbf2937c8",
+      "id": "force_pool_chu_signal",
+      "troop_type": "signal",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-chu-signal.json"
+    },
+    {
+      "id": "force_pool_chu_command_personnel",
+      "pool_kind": "command_personnel",
+      "role": "command_personnel",
+      "count": 2615,
+      "condition": {
+        "fit_or_available": 2615
+      },
+      "service_class": "state_command_personnel_pool",
+      "readiness_class": "active_command_personnel_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "individual_claims_and_command_slots",
+      "materialization_rule": "Commanders, deputies and staff are people, never units. Materializing a named/lite command person consumes one conserved claim from this pool unless another exact source owner already accounts for that person."
+    },
+    {
+      "condition": {
+        "fit_or_available": 500000
+      },
+      "count": 500000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "line_infantry",
+      "service_class": "state_force_pool",
+      "stable_seed": "9ecb418deefd9f94540550d6",
+      "id": "force_pool_chu_line_infantry",
+      "troop_type": "line_infantry",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "reservoir_100k_plus",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-chu-line-infantry.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 50000
+      },
+      "count": 50000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "logistics",
+      "service_class": "state_force_pool",
+      "stable_seed": "6ed5ed3c0f59ef6e2a19f85e",
+      "id": "force_pool_chu_logistics",
+      "troop_type": "logistics",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "reservoir_100k_plus",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-chu-logistics.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 50000
+      },
+      "count": 50000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "medical",
+      "service_class": "state_force_pool",
+      "stable_seed": "9f0224ed6be987aaafa95b59",
+      "id": "force_pool_chu_medical",
+      "troop_type": "medical",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "reservoir_100k_plus",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-chu-medical.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 130000
+      },
+      "count": 130000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "missile_crossbow",
+      "service_class": "state_force_pool",
+      "stable_seed": "06af1295c26bd8658529e288",
+      "id": "force_pool_chu_missile_crossbow",
+      "troop_type": "crossbow_infantry",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "reservoir_100k_plus",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-chu-missile-crossbow.json",
+      "specialty": "missile_crossbow"
+    },
+    {
+      "condition": {
+        "fit_or_available": 35000
+      },
+      "count": 35000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "siege_engineering",
+      "service_class": "state_force_pool",
+      "stable_seed": "299ac352d378a0783f902c8e",
+      "id": "force_pool_chu_siege_engineering",
+      "troop_type": "engineer",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-chu-siege-engineering.json",
+      "specialty": "siege_engineering"
+    }
+  ],
+  "accounting_only": true
+}

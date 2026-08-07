@@ -1,0 +1,281 @@
+{
+  "age_distribution": {
+    "age_16_20": 80000,
+    "age_21_29": 220000,
+    "age_30_39": 170000,
+    "age_40_49": 70000,
+    "age_50_plus": 20000
+  },
+  "experience_distribution": {
+    "elite": 40000,
+    "trained": 250000,
+    "unseasoned": 120000,
+    "veteran": 150000
+  },
+  "headcount": 560000,
+  "lifecycle": {
+    "completed_reviews": 0,
+    "deaths": 0,
+    "demobilized": 0,
+    "desertions": 0,
+    "mobilized": 0,
+    "promotions": 0,
+    "recruits": 0,
+    "retirements": 0,
+    "veteran_gain": 0
+  },
+  "location": "Zhao strategic force pool",
+  "materialized_members": [],
+  "morale": 70,
+  "name": "Zhao State Force Pool",
+  "named_members": [],
+  "owner_id": "force_pool_zhao",
+  "owner_type": "force_pool",
+  "posture": "accounting_only",
+  "qualification_distribution": {
+    "advanced_qualified": 160000,
+    "levy_or_basic_ready": 90000,
+    "regular_qualified": 270000,
+    "specialist_or_command_qualified": 40000
+  },
+  "readiness": 70,
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "force_pool.v1",
+  "source_class": "external_state_force",
+  "stable_seed": "seed_5822c673f5894bbafa7b",
+  "state": "Zhao",
+  "supply": 70,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 174,
+      "sd": 6.6
+    },
+    "weight_kg": {
+      "mean": 68,
+      "sd": 7.5
+    },
+    "individual_records_required": false
+  },
+  "quality_distribution": {
+    "recent_or_raw": 56000,
+    "regular": 252000,
+    "experienced": 156800,
+    "veteran": 72800,
+    "elite": 22400
+  },
+  "quality_distribution_rule": "training/promotion transfers real people between tiers; no whole-pool advancement",
+  "aptitude_distribution": {
+    "mean": 103,
+    "sd": 16,
+    "low_pct": 12,
+    "normal_pct": 62,
+    "high_pct": 22,
+    "exceptional_pct": 4,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "home_establishment_ref": "establishment.state.zhao.army",
+  "reconstitution_policy_ref": "reconstitution.state_army",
+  "troop_pools": [
+    {
+      "condition": {
+        "fit_or_available": 100000
+      },
+      "count": 100000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "cavalry",
+      "service_class": "state_force_pool",
+      "stable_seed": "8232b58f4d4f05fc230abc83",
+      "id": "force_pool_zhao_cavalry",
+      "troop_type": "cavalry",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "reservoir_100k_plus",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-zhao-cavalry.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 15000
+      },
+      "count": 15000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "chariot",
+      "service_class": "state_force_pool",
+      "stable_seed": "12e6f72835d86142cb591fb3",
+      "id": "force_pool_zhao_chariot",
+      "troop_type": "chariot",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-zhao-chariot.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 48187
+      },
+      "count": 48187,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "signal",
+      "service_class": "state_force_pool",
+      "stable_seed": "f324012960df11e8d46436e6",
+      "id": "force_pool_zhao_signal",
+      "troop_type": "signal",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-zhao-signal.json"
+    },
+    {
+      "id": "force_pool_zhao_command_personnel",
+      "pool_kind": "command_personnel",
+      "role": "command_personnel",
+      "count": 1813,
+      "condition": {
+        "fit_or_available": 1813
+      },
+      "service_class": "state_command_personnel_pool",
+      "readiness_class": "active_command_personnel_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "individual_claims_and_command_slots",
+      "materialization_rule": "Commanders, deputies and staff are people, never units. Materializing a named/lite command person consumes one conserved claim from this pool unless another exact source owner already accounts for that person."
+    },
+    {
+      "condition": {
+        "fit_or_available": 220000
+      },
+      "count": 220000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "line_infantry",
+      "service_class": "state_force_pool",
+      "stable_seed": "26b32ad9c926ef74e44dd387",
+      "id": "force_pool_zhao_line_infantry",
+      "troop_type": "line_infantry",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "reservoir_100k_plus",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-zhao-line-infantry.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 32500
+      },
+      "count": 32500,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "logistics",
+      "service_class": "state_force_pool",
+      "stable_seed": "5fe90fb95856b81ec64cc8ed",
+      "id": "force_pool_zhao_logistics",
+      "troop_type": "logistics",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-zhao-logistics.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 32500
+      },
+      "count": 32500,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "medical",
+      "service_class": "state_force_pool",
+      "stable_seed": "00cf77280012c338955f0a5c",
+      "id": "force_pool_zhao_medical",
+      "troop_type": "medical",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-zhao-medical.json"
+    },
+    {
+      "condition": {
+        "fit_or_available": 90000
+      },
+      "count": 90000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "missile_crossbow",
+      "service_class": "state_force_pool",
+      "stable_seed": "6e8b236bfe7b09eac01ae6ff",
+      "id": "force_pool_zhao_missile_crossbow",
+      "troop_type": "crossbow_infantry",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-zhao-missile-crossbow.json",
+      "specialty": "missile_crossbow"
+    },
+    {
+      "condition": {
+        "fit_or_available": 20000
+      },
+      "count": 20000,
+      "equipment_profile": {
+        "source": "state doctrine and force catalogs"
+      },
+      "lifecycle": {
+        "next_materialization_index": 1
+      },
+      "role": "siege_engineering",
+      "service_class": "state_force_pool",
+      "stable_seed": "3b402ab2ba5075ff6eda022b",
+      "id": "force_pool_zhao_siege_engineering",
+      "troop_type": "engineer",
+      "readiness_class": "active_military_accounting_pool",
+      "accounting_only": true,
+      "accounting_scale": "strategic_10k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/force-pool-zhao-siege-engineering.json",
+      "specialty": "siege_engineering"
+    }
+  ],
+  "accounting_only": true
+}

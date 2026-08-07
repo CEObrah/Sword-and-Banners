@@ -1,0 +1,52 @@
+{
+  "schema": "runtime-catchup-tests.v1",
+  "cases": [
+    {
+      "id": "weekly_multi_month",
+      "recurrence": {
+        "kind": "fixed_interval",
+        "interval_seconds": 604800
+      },
+      "start_seconds": 0,
+      "first_due_seconds": 604800,
+      "target_seconds": 8640000,
+      "expected_full_boundaries": 14,
+      "expected_last_boundary_seconds": 8467200,
+      "expected_residual_seconds": 172800
+    },
+    {
+      "id": "monthly_six_boundaries_plus_partial",
+      "recurrence": {
+        "kind": "calendar_month_start"
+      },
+      "start": "2000-01-01T00:00:00",
+      "first_due": "2000-02-01T00:00:00",
+      "target": "2000-07-15T00:00:00",
+      "expected_boundaries": [
+        "2000-02-01",
+        "2000-03-01",
+        "2000-04-01",
+        "2000-05-01",
+        "2000-06-01",
+        "2000-07-01"
+      ],
+      "expected_residual_start": "2000-07-01",
+      "expected_residual_end": "2000-07-15"
+    },
+    {
+      "id": "successor_continues",
+      "description": "If a plan completes at an internal boundary and owner remains autonomous, successor begins at that boundary and is also caught up through target.",
+      "required": true
+    },
+    {
+      "id": "hard_interrupt_stops_early",
+      "description": "If player decision is required before requested target, reached time becomes interrupt time and no later work resolves.",
+      "required": true
+    },
+    {
+      "id": "new_process_catches_up",
+      "description": "A process activated inside the skip is settled from activation through target, including all of its due cycles.",
+      "required": true
+    }
+  ]
+}

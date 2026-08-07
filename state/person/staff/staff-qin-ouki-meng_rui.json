@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite.v38",
+  "id": "staff.qin.ouki.meng_rui",
+  "name": "Meng Rui",
+  "resolution": "individual_lite",
+  "owner": "army.ouki_army",
+  "family_id": "fam.meng_rui",
+  "origin": "Qin",
+  "rank": "named_staff_officer",
+  "role": "reconnaissance officer",
+  "stats": {
+    "attributes": {
+      "Strength": 84,
+      "Agility": 84,
+      "Endurance": 103,
+      "Toughness": 87,
+      "Coordination": 81,
+      "Awareness": 97,
+      "Composure": 83,
+      "Intelligence": 99,
+      "Presence": 80
+    },
+    "skills": {
+      "Sword": 97,
+      "Spear": 69,
+      "Glaive": 95,
+      "Axe": 83,
+      "Mace": 96,
+      "Staff": 100,
+      "Dagger": 69,
+      "Bow": 99,
+      "Crossbow": 86,
+      "Shield": 93,
+      "Defense": 79,
+      "Athletics": 85,
+      "Mass Combat": 115,
+      "Grappling": 102,
+      "Unarmed": 92,
+      "Riding": 113,
+      "Formation Fighting": 112,
+      "Survival": 69,
+      "Stealth": 73,
+      "Scouting": 137,
+      "Navigation": 90,
+      "Medicine": 71,
+      "Engineering": 103,
+      "Leadership": 113,
+      "Formation Command": 128,
+      "Tactics": 128,
+      "Strategy": 90,
+      "Logistics": 78,
+      "Intelligence Operations": 92,
+      "Training": 71,
+      "Diplomacy": 101,
+      "Law": 92,
+      "Trade": 92,
+      "Intrigue": 78,
+      "Governance": 72
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Qin",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in reconnaissance officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "274-BCE-10-17",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 182.6,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 84.3,
+    "frame": "average",
+    "source": "simulation_assigned"
+  },
+  "appearance": 78,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 99,
+    "technical_learning": 106,
+    "tactical_learning": 106,
+    "academic_learning": 96,
+    "social_learning": 100,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "curious",
+      "cautious",
+      "terrain-minded"
+    ],
+    "preferences": [
+      "fresh scouts",
+      "confirmed routes"
+    ],
+    "dislikes": [
+      "stale maps",
+      "unverified sightings"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.ouki_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_ouki",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "keep reconnaissance ahead of the army and distinguish confirmed movement from rumor",
+  "background": "Persistent named reconnaissance officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.qin.ouki.meng_rui.json"
+}

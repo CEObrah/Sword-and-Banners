@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "owner_count",
+    "prefix_index"
+  ],
+  "properties": {
+    "schema": {
+      "const": "owner_index.v39"
+    },
+    "authority": {
+      "const": false
+    },
+    "owner_count": {
+      "type": "integer"
+    },
+    "prefix_index": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

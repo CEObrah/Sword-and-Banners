@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "representation",
+    "hints_are_authority"
+  ],
+  "properties": {
+    "schema": {
+      "const": "cold-active-identity.v1"
+    }
+  },
+  "additionalProperties": true
+}

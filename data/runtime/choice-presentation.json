@@ -1,0 +1,35 @@
+{
+  "schema": "choice-presentation.v1",
+  "when_to_offer": "only at a genuine unresolved player decision when the player has not already declared an action",
+  "suggested_choice_count": {
+    "minimum": 3,
+    "maximum": 5
+  },
+  "free_form_option_required": true,
+  "duration_required_for_every_suggested_choice": true,
+  "duration_display": "square-bracketed estimated in-world duration or narrow justified range",
+  "legality_gate": [
+    "current authority",
+    "current knowledge",
+    "current location",
+    "current equipment/resources",
+    "current health/status",
+    "known deadlines and interrupts"
+  ],
+  "horizons": {
+    "short": "minutes to about 30 minutes",
+    "medium": "roughly 1 to 8 hours",
+    "long": "half a day to weeks or a deliberate campaign-scale wait"
+  },
+  "normal_scene_horizon_mix": [
+    "short",
+    "medium",
+    "long when legally meaningful",
+    "materially different approach"
+  ],
+  "crisis_rule": "Do not manufacture medium/long waiting options during immediate danger; only legal crisis-resolving actions qualify.",
+  "interrupt_rule": "If a choice crosses a known scheduled obligation or hard interrupt, annotate that expected boundary.",
+  "information_rule": "Choices may state predictable commitments and known tradeoffs, but may not promise success or reveal hidden facts.",
+  "menu_rule": "Choices are nonbinding suggestions. Any legal free-form action remains allowed.",
+  "storage_rule": "Never cache generated choice menus in scene state."
+}

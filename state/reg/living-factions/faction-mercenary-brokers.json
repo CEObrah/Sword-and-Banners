@@ -1,0 +1,55 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.mercenary_brokers",
+    "name": "Mercenary Contract Brokers",
+    "leadership_ids": [],
+    "status": "active",
+    "goal": "match employers to companies while protecting reputation and payment",
+    "current_plan": "Track company strength, wage expectations, and employer credit before recommending contracts.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "match employers to available companies",
+      "protect brokerage reputation and payment reliability"
+    ],
+    "resources": [
+      "company contacts",
+      "contract information",
+      "payment channels"
+    ],
+    "constraints": [
+      "casualty volatility",
+      "employer default",
+      "company reputation"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Interstate mercenary contracting, payment channels, employer reputation, and company availability",
+    "leadership_model": "distributed_contract_brokers",
+    "relationships": [
+      {
+        "target_id": "faction.tang_household",
+        "relationship_type": "contract_market_access",
+        "stance": "transactional",
+        "intensity": 62
+      },
+      {
+        "target_id": "faction.central_merchant_houses",
+        "relationship_type": "security_contract_market",
+        "stance": "transactional",
+        "intensity": 55
+      },
+      {
+        "target_id": "faction.martial_school_networks",
+        "relationship_type": "veteran_and_instructor_labor_market",
+        "stance": "transactional",
+        "intensity": 38
+      }
+    ]
+  }
+}

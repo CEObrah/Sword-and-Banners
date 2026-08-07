@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite.v38",
+  "id": "staff.tang.gao_fen",
+  "name": "Gao Fen",
+  "resolution": "individual_lite",
+  "owner": "house.tang",
+  "family_id": "fam.gao_fen",
+  "origin": "House Tang",
+  "rank": "named_professional_staff",
+  "role": "armorer",
+  "stats": {
+    "attributes": {
+      "Strength": 52,
+      "Agility": 69,
+      "Endurance": 58,
+      "Toughness": 61,
+      "Coordination": 64,
+      "Awareness": 59,
+      "Composure": 53,
+      "Intelligence": 69,
+      "Presence": 54
+    },
+    "skills": {
+      "Sword": 32,
+      "Spear": 41,
+      "Glaive": 44,
+      "Axe": 42,
+      "Mace": 54,
+      "Staff": 58,
+      "Dagger": 48,
+      "Bow": 25,
+      "Crossbow": 37,
+      "Shield": 49,
+      "Defense": 39,
+      "Athletics": 48,
+      "Mass Combat": 73,
+      "Grappling": 52,
+      "Unarmed": 54,
+      "Riding": 51,
+      "Formation Fighting": 77,
+      "Survival": 54,
+      "Stealth": 55,
+      "Scouting": 31,
+      "Navigation": 32,
+      "Medicine": 23,
+      "Engineering": 31,
+      "Leadership": 61,
+      "Formation Command": 63,
+      "Tactics": 68,
+      "Strategy": 46,
+      "Logistics": 32,
+      "Intelligence Operations": 54,
+      "Training": 56,
+      "Diplomacy": 44,
+      "Law": 42,
+      "Trade": 57,
+      "Intrigue": 50,
+      "Governance": 31
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_house_tang_civil_staff",
+  "mount": null,
+  "loc": "House Tang",
+  "unit": null,
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in armorer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "287-BCE-01-01",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 163.9,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 52.6,
+    "frame": "broad",
+    "source": "simulation_assigned"
+  },
+  "appearance": 45,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 80,
+    "technical_learning": 96,
+    "tactical_learning": 104,
+    "academic_learning": 128,
+    "social_learning": 125,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "proud",
+      "meticulous",
+      "practical"
+    ],
+    "preferences": [
+      "scheduled maintenance",
+      "honest damage reports"
+    ],
+    "dislikes": [
+      "cosmetic demands",
+      "field repairs hidden from the shop"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "house.tang",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_tang_wei",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "keep House armor and weapons reliable while preserving scarce skilled labor and materials",
+  "background": "Persistent named armorer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount."
+}

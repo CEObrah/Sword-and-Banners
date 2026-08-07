@@ -1,0 +1,82 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qi_role_missile_crossbow",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        55,
+        58,
+        62,
+        58,
+        68,
+        65,
+        62,
+        53,
+        45
+      ],
+      "skill_values": [
+        45,
+        42,
+        35,
+        35,
+        35,
+        40,
+        42,
+        62,
+        77,
+        48,
+        58,
+        56,
+        44,
+        45,
+        42,
+        30,
+        56,
+        52,
+        48,
+        55,
+        50,
+        28,
+        35,
+        35,
+        30,
+        40,
+        30,
+        38,
+        38,
+        39,
+        30,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qi_role_missile_crossbow",
+    "monthly_factor_inputs": "instruction 1.01; facility 1.01; equipment 0.99; recovery 1.00; administration 0.78",
+    "role": "missile_crossbow",
+    "state": "QI",
+    "identity_notes": "Wealthy, organized defensive state: logistics, training, administration, missile support, and strategic patience.",
+    "balance_adjustment": {
+      "state_identity": "QI",
+      "role": "missile_crossbow",
+      "attribute_modifiers": {
+        "Intelligence": 3,
+        "Composure": 2,
+        "Awareness": 1,
+        "Coordination": 2
+      },
+      "skill_modifiers": {
+        "Logistics": 4,
+        "Training": 3,
+        "Crossbow": 5,
+        "Leadership": 1,
+        "Tactics": 2,
+        "Defense": 3
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

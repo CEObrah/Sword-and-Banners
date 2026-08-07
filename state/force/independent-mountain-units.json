@@ -1,0 +1,552 @@
+{
+  "name": "Mountain and Independent Units",
+  "owner_id": "independent_mountain_units",
+  "owner_type": "independent_force_registry",
+  "records": [
+    {
+      "facts": {
+        "attribute_order": [
+          "Strength",
+          "Agility",
+          "Endurance",
+          "Toughness",
+          "Coordination",
+          "Awareness",
+          "Composure",
+          "Intelligence",
+          "Presence"
+        ],
+        "unit_resolution_rule": "combat resolves directly from homogeneous units; no hidden persistent combat organization exists beneath the unit",
+        "skill_order": [
+          "Sword",
+          "Spear",
+          "Glaive",
+          "Axe",
+          "Mace",
+          "Staff",
+          "Dagger",
+          "Bow",
+          "Crossbow",
+          "Shield",
+          "Defense",
+          "Athletics",
+          "Mass Combat",
+          "Grappling",
+          "Unarmed",
+          "Riding",
+          "Formation Fighting",
+          "Survival",
+          "Stealth",
+          "Scouting",
+          "Navigation",
+          "Medicine",
+          "Engineering",
+          "Leadership",
+          "Formation Command",
+          "Tactics",
+          "Strategy",
+          "Logistics",
+          "Intelligence Operations",
+          "Training",
+          "Diplomacy",
+          "Law",
+          "Trade",
+          "Intrigue",
+          "Governance"
+        ]
+      },
+      "label": "Overview",
+      "notes": [
+        "All counts are mutable current simulation state initialized from deterministic balance values, not claims of canon census totals. Named mountain characters retain their canonical names and separate full sheets. Anonymous mountain people remain units."
+      ],
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "attribute_values": [
+          96,
+          105,
+          104,
+          96,
+          105,
+          110,
+          108,
+          78,
+          88
+        ],
+        "qualification_multiplier": 1.0,
+        "skill_values": [
+          112,
+          115,
+          90,
+          110,
+          95,
+          80,
+          95,
+          90,
+          55,
+          85,
+          120,
+          118,
+          115,
+          120,
+          115,
+          95,
+          110,
+          125,
+          95,
+          110,
+          120,
+          35,
+          45,
+          90,
+          82,
+          100,
+          70,
+          80,
+          75,
+          85,
+          45,
+          35,
+          40,
+          45,
+          40
+        ],
+        "quality_band": "elite shock 90-105; not general population"
+      },
+      "label": "capability_mountain_shock_warrior",
+      "record_id": "capability_mountain_shock_warrior"
+    },
+    {
+      "facts": {
+        "attribute_values": [
+          92,
+          128,
+          112,
+          92,
+          126,
+          138,
+          118,
+          88,
+          82
+        ],
+        "qualification_multiplier": 1.0,
+        "skill_values": [
+          105,
+          95,
+          65,
+          70,
+          65,
+          80,
+          100,
+          125,
+          55,
+          70,
+          120,
+          130,
+          80,
+          90,
+          90,
+          105,
+          95,
+          150,
+          130,
+          145,
+          140,
+          45,
+          45,
+          75,
+          65,
+          90,
+          65,
+          75,
+          90,
+          80,
+          50,
+          35,
+          50,
+          55,
+          40
+        ],
+        "quality_band": "experienced specialist 78-95; terrain multiplies effectiveness"
+      },
+      "label": "capability_mountain_hunter_scout",
+      "record_id": "capability_mountain_hunter_scout"
+    },
+    {
+      "facts": {
+        "attribute_values": [
+          102,
+          124,
+          114,
+          102,
+          122,
+          128,
+          120,
+          82,
+          86
+        ],
+        "qualification_multiplier": 1.0,
+        "skill_values": [
+          120,
+          120,
+          80,
+          85,
+          75,
+          80,
+          90,
+          110,
+          60,
+          80,
+          130,
+          135,
+          95,
+          100,
+          95,
+          100,
+          105,
+          135,
+          110,
+          125,
+          125,
+          35,
+          42,
+          80,
+          72,
+          92,
+          65,
+          72,
+          82,
+          82,
+          45,
+          35,
+          45,
+          50,
+          38
+        ],
+        "quality_band": "experienced specialist 78-94; terrain multiplies effectiveness"
+      },
+      "label": "capability_mountain_skirmisher",
+      "record_id": "capability_mountain_skirmisher"
+    },
+    {
+      "facts": {
+        "attribute_values": [
+          82,
+          92,
+          102,
+          88,
+          100,
+          110,
+          112,
+          92,
+          86
+        ],
+        "qualification_multiplier": 1.0,
+        "skill_values": [
+          70,
+          65,
+          55,
+          70,
+          65,
+          75,
+          75,
+          70,
+          50,
+          65,
+          90,
+          100,
+          60,
+          70,
+          72,
+          75,
+          75,
+          110,
+          70,
+          85,
+          90,
+          80,
+          105,
+          75,
+          60,
+          72,
+          60,
+          100,
+          65,
+          90,
+          50,
+          45,
+          70,
+          45,
+          60
+        ]
+      },
+      "label": "capability_mountain_support_craft",
+      "record_id": "capability_mountain_support_craft"
+    },
+    {
+      "facts": {
+        "legal_alignment": "independent mountain confederation",
+        "named_authority": "char_yotanwa; separate exact character",
+        "population_total": 300000,
+        "armed_warriors": 70000,
+        "direct_campaign_support_estimate": 25000,
+        "civilian_and_dependent_population_estimate": 205000,
+        "monthly_process": "process_mountain_confederation_yotanwa",
+        "warrior_units": [
+          {
+            "id": "yotanwa.general_tribal_warriors",
+            "count": 28000,
+            "quality": "general",
+            "target_quality_band": 75,
+            "aptitude_distribution": {
+              "mean": 108,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "strategic_10k"
+          },
+          {
+            "id": "yotanwa.experienced_assault_warriors",
+            "count": 12000,
+            "quality": "experienced",
+            "target_quality_band": 84,
+            "aptitude_distribution": {
+              "mean": 102,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "strategic_10k"
+          },
+          {
+            "id": "yotanwa.skirmisher_missile_warriors",
+            "count": 8000,
+            "quality": "specialist",
+            "target_quality_band": 84,
+            "aptitude_distribution": {
+              "mean": 107,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "macro_1k"
+          },
+          {
+            "id": "yotanwa.hunters_scouts",
+            "count": 7000,
+            "quality": "specialist",
+            "target_quality_band": 86,
+            "aptitude_distribution": {
+              "mean": 102,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "macro_1k"
+          },
+          {
+            "id": "yotanwa.mountain_siege_climbers",
+            "count": 5000,
+            "quality": "specialist",
+            "target_quality_band": 88,
+            "aptitude_distribution": {
+              "mean": 109,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "macro_1k"
+          },
+          {
+            "id": "yotanwa.specialized_tribal_elite",
+            "count": 4000,
+            "quality": "elite",
+            "target_quality_band": 96,
+            "aptitude_distribution": {
+              "mean": 115,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "macro_1k"
+          },
+          {
+            "id": "yotanwa.royal_tribal_guard",
+            "count": 3000,
+            "quality": "elite",
+            "target_quality_band": 100,
+            "aptitude_distribution": {
+              "mean": 116,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "macro_1k"
+          },
+          {
+            "id": "yotanwa.mounted_guide_escorts",
+            "count": 2000,
+            "quality": "experienced",
+            "target_quality_band": 86,
+            "aptitude_distribution": {
+              "mean": 101,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "macro_1k"
+          },
+          {
+            "id": "yotanwa.elite_command_guard",
+            "count": 1000,
+            "quality": "elite_command",
+            "target_quality_band": 104,
+            "aptitude_distribution": {
+              "mean": 112,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "macro_1k"
+          }
+        ],
+        "support_is_separate_from_armed_count": true,
+        "status": "offscreen but causally active"
+      },
+      "label": "mountain_confederation_yotanwa",
+      "record_id": "mountain_confederation_yotanwa"
+    },
+    {
+      "facts": {
+        "legal_alignment": "multiple autonomous highland communities",
+        "population_total": 40000,
+        "armed_warriors": 4500,
+        "support_artisans": 2500,
+        "civilian_population": 33000,
+        "monthly_process": "review_independent_world_quarterly",
+        "warrior_units": [
+          {
+            "id": "highlands.general",
+            "count": 2600,
+            "quality": "ordinary_tribal",
+            "target_quality_band": "55-72",
+            "aptitude_distribution": {
+              "mean": 93,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "macro_1k"
+          },
+          {
+            "id": "highlands.experienced",
+            "count": 1100,
+            "quality": "experienced",
+            "target_quality_band": "65-82",
+            "aptitude_distribution": {
+              "mean": 107,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "macro_1k"
+          },
+          {
+            "id": "highlands.hunters",
+            "count": 650,
+            "quality": "hunter_scout",
+            "target_quality_band": "68-86",
+            "aptitude_distribution": {
+              "mean": 111,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "operational_100"
+          },
+          {
+            "id": "highlands.champions",
+            "count": 150,
+            "quality": "rare_champion",
+            "target_quality_band": "90+",
+            "aptitude_distribution": {
+              "mean": 125,
+              "sd": 16,
+              "low_pct": 12,
+              "normal_pct": 62,
+              "high_pct": 22,
+              "exceptional_pct": 4,
+              "source": "population_distribution_not_training_bonus"
+            },
+            "resolution_scale": "operational_100"
+          }
+        ],
+        "status": "offscreen"
+      },
+      "label": "independent_highland_communities",
+      "record_id": "independent_highland_communities"
+    },
+    {
+      "facts": {
+        "yotanwa_population": 300000,
+        "independent_highland_population": 40000,
+        "combined_mountain_population": 340000,
+        "named_people_inside_anonymous_counts": 0
+      },
+      "label": "conservation",
+      "notes": [
+        "mixed civilian population cannot enter combat until split by age, health, role, and equipment."
+      ],
+      "record_id": "conservation"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "independent-force-registry.v38",
+  "home_establishment_refs": [
+    "establishment.mountain_confederation_yotanwa",
+    "establishment.independent_highland_communities"
+  ],
+  "formation_library_ref": "formation.mountain.standard",
+  "reconstitution_policy_ref": "reconstitution.mountain",
+  "standing_procedure_ref": "procedure.mountain.standard"
+}

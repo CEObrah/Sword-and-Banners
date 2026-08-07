@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "rules",
+    "planning_water_liters_per_day",
+    "party_size_factor",
+    "movement_mode_factor",
+    "load_factor",
+    "condition_factor_levels"
+  ],
+  "properties": {
+    "schema": {
+      "const": "logistics-mechanics.v38"
+    },
+    "formulas": {},
+    "rules": {},
+    "planning_water_liters_per_day": {},
+    "party_size_factor": {},
+    "movement_mode_factor": {},
+    "load_factor": {},
+    "condition_factor_levels": {}
+  }
+}

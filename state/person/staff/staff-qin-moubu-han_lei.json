@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite.v38",
+  "id": "staff.qin.moubu.han_lei",
+  "name": "Han Lei",
+  "resolution": "individual_lite",
+  "owner": "army.moubu_army",
+  "family_id": "fam.han_lei",
+  "origin": "Qin",
+  "rank": "named_staff_officer",
+  "role": "assault officer",
+  "stats": {
+    "attributes": {
+      "Strength": 100,
+      "Agility": 76,
+      "Endurance": 91,
+      "Toughness": 82,
+      "Coordination": 86,
+      "Awareness": 84,
+      "Composure": 102,
+      "Intelligence": 96,
+      "Presence": 100
+    },
+    "skills": {
+      "Sword": 103,
+      "Spear": 76,
+      "Glaive": 77,
+      "Axe": 89,
+      "Mace": 73,
+      "Staff": 77,
+      "Dagger": 97,
+      "Bow": 98,
+      "Crossbow": 96,
+      "Shield": 74,
+      "Defense": 82,
+      "Athletics": 72,
+      "Mass Combat": 124,
+      "Grappling": 102,
+      "Unarmed": 67,
+      "Riding": 72,
+      "Formation Fighting": 129,
+      "Survival": 67,
+      "Stealth": 95,
+      "Scouting": 90,
+      "Navigation": 72,
+      "Medicine": 82,
+      "Engineering": 67,
+      "Leadership": 109,
+      "Formation Command": 125,
+      "Tactics": 97,
+      "Strategy": 97,
+      "Logistics": 86,
+      "Intelligence Operations": 76,
+      "Training": 80,
+      "Diplomacy": 84,
+      "Law": 87,
+      "Trade": 69,
+      "Intrigue": 89,
+      "Governance": 91
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Qin",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in assault officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "271-BCE-05-14",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 182.4,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 87.3,
+    "frame": "athletic",
+    "source": "simulation_assigned"
+  },
+  "appearance": 78,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 93,
+    "technical_learning": 153,
+    "tactical_learning": 112,
+    "academic_learning": 99,
+    "social_learning": 140,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "aggressive",
+      "steady under fire",
+      "competitive"
+    ],
+    "preferences": [
+      "clear breach point",
+      "committed reserves"
+    ],
+    "dislikes": [
+      "half-measures",
+      "orders that change mid-charge"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.moubu_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_mou_bu",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "prepare assault elements to hit one objective hard without scattering effort",
+  "background": "Persistent named assault officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.qin.moubu.han_lei.json"
+}

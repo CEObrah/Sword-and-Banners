@@ -1,0 +1,46 @@
+{
+  "schema": "process-contract.v1",
+  "cadence": "monthly",
+  "constraints": [
+    "instructors, facilities, supply, duty conflicts, and standards bound"
+  ],
+  "contract_id": "contract_process_sword_manor_aggregate",
+  "domain": "training_institution",
+  "goals": [
+    "maintain trainee readiness and discipline",
+    "balance instruction against escort obligations",
+    "identify promotion candidates"
+  ],
+  "owner_id": "process_sword_manor_aggregate",
+  "plan_lifecycle": [
+    "proposed",
+    "active",
+    "blocked",
+    "completed",
+    "failed",
+    "abandoned",
+    "superseded"
+  ],
+  "plan_revision": 1,
+  "reconstruction_policy": "Use saved state, standing orders, resources, opposition, exact events, stable seed, and prior receipts. Never award unsupported success or make Tang Wei choices.",
+  "replanning_policy": "After every settled interval, reassess goals, authority, knowledge, health, resources, dependencies, opposition, constraints, and risk. Continue, block, fail, complete, or supersede the current plan and create a supported successor when the owner remains autonomous.",
+  "result_requirement": [
+    "progress",
+    "maintenance",
+    "recovery",
+    "decline",
+    "loss",
+    "transformation",
+    "closure",
+    "blocked",
+    "no_material_change"
+  ],
+  "revision": 1,
+  "safe_compaction_policy": "A span receipt may cover multiple intervals only when each interval is internally processed in order and material interruptions split the span.",
+  "standing_orders": [
+    "settle institution readiness",
+    "exact people receive development only with evidence"
+  ],
+  "successor_plan_required": true,
+  "visibility": "owner_internal"
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "process-contract.v1",
+  "cadence": "monthly",
+  "constraints": [
+    "no synthetic attendance",
+    "no duplicate doctrine per member"
+  ],
+  "contract_id": "contract_process_player_unit_doctrines",
+  "domain": "unit_doctrine_and_training",
+  "goals": [
+    "settle approved unit and personnel-lite doctrine training",
+    "preserve exact attendance, facilities, instructors, recovery and duty constraints"
+  ],
+  "owner_id": "process_player_unit_doctrines",
+  "plan_lifecycle": [
+    "proposed",
+    "active",
+    "blocked",
+    "completed",
+    "failed",
+    "abandoned",
+    "superseded"
+  ],
+  "plan_revision": 1,
+  "reconstruction_policy": "Use saved doctrine, roster, duty, health, location, pay, food, equipment, instructor and facility state.",
+  "replanning_policy": "Training plans change only through player-authorized doctrine revision or autonomous institutional authority.",
+  "result_requirement": [
+    "progress",
+    "maintenance",
+    "recovery",
+    "decline",
+    "loss",
+    "transformation",
+    "closure",
+    "blocked",
+    "no_material_change"
+  ],
+  "revision": 1,
+  "safe_compaction_policy": "Each month is internally resolved; split at roster, order, campaign, injury, facility, supply or doctrine change.",
+  "standing_orders": [
+    "do not create player doctrine without player authorization",
+    "process existing baseline programs and approved revisions"
+  ],
+  "successor_plan_required": true,
+  "visibility": "owner_internal"
+}

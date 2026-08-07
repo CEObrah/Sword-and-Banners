@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Current canonical schema: scene.v38",
+  "type": "object",
+  "required": [
+    "known_clock_boundaries",
+    "location",
+    "location_id",
+    "narrative",
+    "observable_pressures",
+    "scene_summary",
+    "physical_scene",
+    "player_observable_state",
+    "relevant_owner_ids",
+    "scene_id",
+    "schema",
+    "unresolved_decision",
+    "world_time"
+  ],
+  "properties": {
+    "known_clock_boundaries": {
+      "type": "array"
+    },
+    "location": {
+      "type": "string"
+    },
+    "location_id": {
+      "type": "string"
+    },
+    "narrative": {
+      "type": "object"
+    },
+    "observable_pressures": {
+      "type": "array"
+    },
+    "physical_scene": {
+      "type": "object"
+    },
+    "player_observable_state": {
+      "type": "object"
+    },
+    "relevant_owner_ids": {
+      "type": "array"
+    },
+    "scene_id": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "unresolved_decision": {
+      "type": "string"
+    },
+    "world_time": {
+      "type": "string"
+    },
+    "scene_summary": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Canonical scene context only. Choice menus are generated from current state and are never stored as authority."
+}

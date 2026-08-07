@@ -1,0 +1,144 @@
+{
+  "base_or_current_contract": "Qin-Han fortified corridor",
+  "equipment_and_mounts": {
+    "assigned_mounts": 0,
+    "assigned_war_arrows": 0,
+    "assigned_war_bolts": 49200,
+    "issued_loadouts": [
+      {
+        "count": 1800,
+        "loadout_id": "loadout_mercenary_heavy_infantry"
+      },
+      {
+        "count": 200,
+        "loadout_id": "loadout_mercenary_crossbow"
+      },
+      {
+        "count": 200,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 0,
+    "reserve_war_arrows": 0,
+    "reserve_war_bolts": 49200
+  },
+  "food_stock_kg": 211200,
+  "force_class": "mercenary_company",
+  "headcount": 2200,
+  "name": "Ashen Wall Veterans",
+  "owner_id": "merc_ashen_wall",
+  "owner_type": "mercenary_company",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company.v38",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state_alignment": "Independent",
+  "subprocess_id": "process_merc_ashen_wall",
+  "treasury_silver": 176000,
+  "doctrine": "doc.merc_ashen_wall.standard",
+  "training": "train.merc_ashen_wall.standard",
+  "combat_tendencies": {
+    "aggression": 55,
+    "initiative": 55,
+    "caution": 50,
+    "adaptability": 55,
+    "flank_bias": 50,
+    "counterattack_bias": 55,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45,
+    "casualty_tolerance": 55,
+    "objective_focus": 70,
+    "ally_support": 65,
+    "formation_discipline": 70,
+    "commander_dependence": 55
+  },
+  "doctrine_familiarity": 80,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 5.5
+    },
+    "weight_kg": {
+      "mean": 68,
+      "sd": 7.2
+    },
+    "individual_records_required": false
+  },
+  "home_establishment_ref": "establishment.merc_ashen_wall",
+  "formation_library_ref": "formation.mercenary.standard",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 1800
+      },
+      "count": 1800,
+      "display": "Veteran Infantry",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_heavy_infantry",
+      "mount_type": null,
+      "role": "veteran",
+      "doctrine": "doc.merc_ashen_wall.veteran",
+      "training": "train.merc_ashen_wall.veteran",
+      "pool_id": "merc_ashen_wall:pool_veteran",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "heavy_infantry",
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-ashen-wall-pool-veteran.json",
+      "specialty": "veteran"
+    },
+    {
+      "condition": {
+        "fit": 200
+      },
+      "count": 200,
+      "display": "Crossbow Troops",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_crossbow",
+      "mount_type": null,
+      "role": "crossbow",
+      "doctrine": "doc.merc_ashen_wall.crossbow",
+      "training": "train.merc_ashen_wall.crossbow",
+      "pool_id": "merc_ashen_wall:pool_crossbow",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "crossbow_infantry",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-ashen-wall-pool-crossbow.json",
+      "specialty": "crossbow"
+    },
+    {
+      "condition": {
+        "fit": 200
+      },
+      "count": 200,
+      "display": "Support",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_support",
+      "mount_type": null,
+      "role": "support",
+      "doctrine": "doc.merc_ashen_wall.support",
+      "training": "train.merc_ashen_wall.support",
+      "pool_id": "merc_ashen_wall:pool_support",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "line_infantry",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-ashen-wall-pool-support.json",
+      "specialty": "support"
+    }
+  ],
+  "stat_order_ref": "data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true
+}

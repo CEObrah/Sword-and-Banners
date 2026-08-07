@@ -1,0 +1,131 @@
+{
+  "schema": "mercenary.v38",
+  "owner_id": "merc.major.08",
+  "owner_type": "mercenary_company",
+  "name": "Blue Banner",
+  "headcount": 2100,
+  "doctrine": "doc.merc.major.08",
+  "training": "train.merc.regular",
+  "combat_tendencies": {
+    "aggression": 58,
+    "initiative": 54,
+    "caution": 48,
+    "adaptability": 62,
+    "pursuit_bias": 50,
+    "casualty_tolerance": 55,
+    "objective_focus": 68
+  },
+  "doctrine_familiarity": 75,
+  "status": "available",
+  "contracts": [],
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 170,
+      "sd": 5.6
+    },
+    "weight_kg": {
+      "mean": 65,
+      "sd": 7.9
+    },
+    "individual_records_required": false
+  },
+  "specialty": "balanced",
+  "composition_rule": "company is persistent combined force, not one generic blob",
+  "home_establishment_ref": "establishment.merc.major.08",
+  "formation_library_ref": "formation.mercenary.standard",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "troop_pools": [
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.08.line",
+      "count": 1008,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_line",
+      "doctrine": "doc.merc.major.08",
+      "training": "train.merc.regular",
+      "role": "line",
+      "troop_type": "line_infantry",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-08-line.json",
+      "specialty": "line"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.08.spear",
+      "count": 378,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_spear",
+      "doctrine": "doc.merc.major.08",
+      "training": "train.merc.regular",
+      "role": "spear",
+      "troop_type": "spear_infantry",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-08-spear.json",
+      "specialty": "spear"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.08.crossbow",
+      "count": 294,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_crossbow",
+      "doctrine": "doc.merc.major.08",
+      "training": "train.merc.regular",
+      "role": "crossbow",
+      "troop_type": "crossbow_infantry",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-08-crossbow.json",
+      "specialty": "crossbow"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.08.scouts",
+      "count": 168,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_scout",
+      "doctrine": "doc.merc.major.08",
+      "training": "train.merc.regular",
+      "role": "scouts",
+      "troop_type": "scout",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-08-scouts.json",
+      "specialty": "scouts"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.08.support",
+      "count": 252,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_support",
+      "doctrine": "doc.merc.major.08",
+      "training": "train.merc.regular",
+      "role": "support",
+      "troop_type": "support_staff",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-08-support.json",
+      "specialty": "support"
+    }
+  ],
+  "accounting_only": true
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.merc_copper_falcon",
+    "owner_id": "merc_copper_falcon",
+    "owner_type": "mercenary_company",
+    "source_force_ref": "state/merc/copper-falcon.json",
+    "formation_library_ref": "formation.mercenary.standard",
+    "reconstitution_policy_ref": "reconstitution.mercenary",
+    "unit_series": [
+      {
+        "series_id": "est.merc_copper_falcon.riders",
+        "source_manpower_id": "merc_copper_falcon:pool_riders",
+        "role": "riders",
+        "unit_count": 4,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.merc_copper_falcon.riders.{ordinal:03d}",
+        "doctrine": "doc.merc_copper_falcon.riders",
+        "training": "train.merc_copper_falcon.riders",
+        "loadout_standard": "loadout_mercenary_cavalry",
+        "troop_type": "cavalry",
+        "specialty": "riders"
+      },
+      {
+        "series_id": "est.merc_copper_falcon.support",
+        "source_manpower_id": "merc_copper_falcon:pool_support",
+        "role": "support",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.merc_copper_falcon.support.{ordinal:03d}",
+        "doctrine": "doc.merc_copper_falcon.support",
+        "training": "train.merc_copper_falcon.support",
+        "loadout_standard": "loadout_mercenary_support",
+        "troop_type": "support_staff",
+        "specialty": "support"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mercenary.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.mercenary_captain"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 55,
+      "initiative": 50,
+      "caution": 50,
+      "adaptability": 50,
+      "flank_bias": 45,
+      "counterattack_bias": 55,
+      "pursuit_bias": 45,
+      "reserve_bias": 55,
+      "withdrawal_willingness": 45,
+      "casualty_tolerance": 60,
+      "objective_focus": 70,
+      "ally_support": 60,
+      "formation_discipline": 70,
+      "commander_dependence": 60
+    }
+  }
+}

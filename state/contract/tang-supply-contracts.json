@@ -1,0 +1,55 @@
+{
+  "name": "Tang Supply Contracts and Delivery Queue",
+  "owner_id": "tang_supply_contracts",
+  "owner_type": "supply_contract_registry",
+  "records": [
+    {
+      "label": "Overview",
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "buyer": "House Tang master treasury",
+        "carrier": "consortium contracted carts and draft animals",
+        "clock_owner": "registry_processes#process_house_tang_resources_aggregate",
+        "commodity": "ordinary food grain and preserved staples",
+        "departure": "monthly, timed so custody transfer occurs at the resource month-end close",
+        "escort": "Sword Manor contract allocation or seller security as recorded per convoy",
+        "loss_rule": "exact route/weather/security loss; no expected quantity becomes inventory before arrival",
+        "payment_per_delivery_silver": 48000,
+        "price_silver_per_kg": 0.08,
+        "quantity_per_delivery_kg": 600000,
+        "receiver": "Gu Wen at Tang Manor central warehouse and granary",
+        "route": "road_kanyou_tang_main_gate",
+        "seller": "Kanyou Grain and Fodder Consortium",
+        "source_stock": "owner:regional_depots#state_depot_qin.grain_kg"
+      },
+      "label": "contract_tang_monthly_food",
+      "record_id": "contract_tang_monthly_food"
+    },
+    {
+      "facts": {
+        "buyer": "House Tang master treasury",
+        "carrier": "consortium contracted carts and draft animals",
+        "clock_owner": "registry_processes#process_house_tang_resources_aggregate",
+        "commodity": "hay, grain fodder, and preserved feed",
+        "departure": "monthly, timed so custody transfer occurs at the resource month-end close",
+        "escort": "Sword Manor contract allocation or seller security as recorded per convoy",
+        "loss_rule": "exact route/weather/security loss; no expected quantity becomes inventory before arrival",
+        "payment_per_delivery_silver": 10000,
+        "price_silver_per_kg": 0.1,
+        "quantity_per_delivery_kg": 100000,
+        "receiver": "Ma Xun and Gu Wen at Tang Manor stable and warehouse custody",
+        "route": "road_kanyou_tang_main_gate",
+        "seller": "Kanyou Grain and Fodder Consortium",
+        "source_stock": "owner:regional_depots#state_depot_qin.fodder_kg"
+      },
+      "label": "contract_tang_monthly_fodder",
+      "record_id": "contract_tang_monthly_fodder"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "supply-contract-registry.v38"
+}

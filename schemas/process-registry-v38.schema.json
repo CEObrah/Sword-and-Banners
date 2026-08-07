@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Current canonical schema: process registry v38",
+  "type": "object",
+  "required": [
+    "owner_id",
+    "owner_type",
+    "processes",
+    "schema"
+  ],
+  "properties": {
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "processes": {
+      "type": "object"
+    },
+    "schema": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current canonical schema contract."
+}

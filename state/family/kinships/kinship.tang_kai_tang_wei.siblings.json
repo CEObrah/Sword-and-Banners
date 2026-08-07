@@ -1,0 +1,26 @@
+{
+  "schema": "family-kinship.v1",
+  "kinship_id": "kinship.tang_kai_tang_wei.siblings",
+  "authority": true,
+  "participants": [
+    "char_tang_kai",
+    "char_tang_wei"
+  ],
+  "kinship_type": "sibling",
+  "relation_roles": {
+    "char_tang_kai": "younger_brother",
+    "char_tang_wei": "older_sibling"
+  },
+  "status": "active",
+  "recognition": {
+    "recognized": true,
+    "basis": "preexisting saved Tang Kai relationship posture explicitly identified him as Tang Wei younger brother; unknown parents are not inferred"
+  },
+  "source_refs": [
+    "state/char/tang-kai.json",
+    "state/rel/relationship-edges/char_tang_kai.json"
+  ],
+  "notes": [
+    "Migration preserves an already-saved sibling fact without inventing parent identities, birth order beyond younger/older, property rights, or succession consequences."
+  ]
+}

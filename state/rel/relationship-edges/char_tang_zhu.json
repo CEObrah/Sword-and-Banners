@@ -1,0 +1,26 @@
+{
+  "schema": "relationship-edge-shard.v1",
+  "source_id": "char_tang_zhu",
+  "relationship_edges": {
+    "rel.char_tang_zhu.char_tang_ling.spouse": {
+      "id": "rel.char_tang_zhu.char_tang_ling.spouse",
+      "source_id": "char_tang_zhu",
+      "target_id": "char_tang_ling",
+      "relationship_type": "spouse",
+      "trust": 75,
+      "respect": 75,
+      "affection": 65,
+      "history": "established relationship",
+      "current_tension": "none_saved",
+      "institutional_union_ref": "state/family/unions/union.tang_zhu_tang_ling.json"
+    },
+    "rel.char_tang_zhu.char_tang_wei.house_principal_to_heir": {
+      "id": "rel.char_tang_zhu.char_tang_wei.house_principal_to_heir",
+      "source_id": "char_tang_zhu",
+      "target_id": "char_tang_wei",
+      "relationship_type": "house_principal_to_heir",
+      "history": "proud, protective, demanding without hostility; refuses empty flattery",
+      "current_tension": "none_saved"
+    }
+  }
+}

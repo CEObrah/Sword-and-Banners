@@ -1,0 +1,119 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.force.quanrong.ryouyou",
+    "owner_id": "force.quanrong.ryouyou",
+    "owner_type": "independent_force",
+    "source_force_ref": "state/force/quanrong.json",
+    "formation_library_ref": "formation.irregular.standard",
+    "reconstitution_policy_ref": "reconstitution.irregular",
+    "unit_series": [
+      {
+        "series_id": "est.force.quanrong.ryouyou.royal_core",
+        "source_manpower_id": "quanrong.royal_core",
+        "role": "royal_core",
+        "unit_count": 40,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.force.quanrong.ryouyou.royal_core.{ordinal:03d}",
+        "troop_type": "line_infantry",
+        "loadout_standard": "loadout_mercenary_line",
+        "specialty": "royal_core",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force"
+      },
+      {
+        "series_id": "est.force.quanrong.ryouyou.major_warband_a",
+        "source_manpower_id": "quanrong.major_warband_a",
+        "role": "major_warband",
+        "unit_count": 48,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.force.quanrong.ryouyou.major_warband_a.{ordinal:03d}",
+        "troop_type": "line_infantry",
+        "loadout_standard": "loadout_mercenary_line",
+        "specialty": "major_warband",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force"
+      },
+      {
+        "series_id": "est.force.quanrong.ryouyou.major_warband_b",
+        "source_manpower_id": "quanrong.major_warband_b",
+        "role": "major_warband",
+        "unit_count": 44,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.force.quanrong.ryouyou.major_warband_b.{ordinal:03d}",
+        "troop_type": "line_infantry",
+        "loadout_standard": "loadout_mercenary_line",
+        "specialty": "major_warband",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force"
+      },
+      {
+        "series_id": "est.force.quanrong.ryouyou.major_warband_c",
+        "source_manpower_id": "quanrong.major_warband_c",
+        "role": "major_warband",
+        "unit_count": 40,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.force.quanrong.ryouyou.major_warband_c.{ordinal:03d}",
+        "troop_type": "line_infantry",
+        "loadout_standard": "loadout_mercenary_line",
+        "specialty": "major_warband",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force"
+      },
+      {
+        "series_id": "est.force.quanrong.ryouyou.tracking_scouts",
+        "source_manpower_id": "quanrong.tracking_clans",
+        "role": "tracking_scouts",
+        "unit_count": 20,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.force.quanrong.ryouyou.tracking_scouts.{ordinal:03d}",
+        "troop_type": "scout",
+        "loadout_standard": "loadout_mercenary_scout",
+        "specialty": "tracking_scouts",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force"
+      },
+      {
+        "series_id": "est.force.quanrong.ryouyou.armed_reserve",
+        "source_manpower_id": "quanrong.clan_reserve",
+        "role": "armed_reserve",
+        "unit_count": 60,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.force.quanrong.ryouyou.armed_reserve.{ordinal:03d}",
+        "troop_type": "line_infantry",
+        "loadout_standard": "loadout_mercenary_line",
+        "specialty": "armed_reserve",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force"
+      },
+      {
+        "series_id": "est.force.quanrong.ryouyou.champion_guard",
+        "source_manpower_id": "quanrong.champion_guard",
+        "role": "champion_guard",
+        "unit_count": 8,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.force.quanrong.ryouyou.champion_guard.{ordinal:03d}",
+        "troop_type": "guard_infantry",
+        "loadout_standard": "loadout_mercenary_line",
+        "specialty": "champion_guard",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mountain.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.irregular_leader"
+    },
+    "series_rule_ref": "establishment.rule.standard"
+  }
+}

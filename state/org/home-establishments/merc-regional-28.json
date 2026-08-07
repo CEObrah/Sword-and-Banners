@@ -1,0 +1,41 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.merc.regional.28",
+    "owner_id": "merc.regional.28",
+    "owner_type": "regional_mercenary_company",
+    "source_force_ref": "state/merc/regional/merc-regional-28.json",
+    "formation_library_ref": "formation.mercenary.standard",
+    "reconstitution_policy_ref": "reconstitution.mercenary",
+    "unit_series": [
+      {
+        "series_id": "est.merc.regional.28.field",
+        "source_manpower_id": "merc.regional.28",
+        "role": "spear",
+        "unit_count": 3,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.merc.regional.28.field.{ordinal:03d}",
+        "doctrine": "doc.merc.regional.28",
+        "training": "train.merc.regional",
+        "troop_type": "spear_infantry",
+        "loadout_standard": "loadout_mercenary_spear",
+        "specialty": "spear"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mercenary.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.mercenary_captain"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 56,
+      "initiative": 57,
+      "caution": 55,
+      "adaptability": 64
+    }
+  }
+}

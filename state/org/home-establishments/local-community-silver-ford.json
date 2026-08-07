@@ -1,0 +1,93 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.local.community.silver_ford",
+    "owner_id": "local.community.silver_ford",
+    "owner_type": "local_armed_community",
+    "source_force_ref": "state/force/local-autonomous-composition.json#communities/Silver Ford",
+    "formation_library_ref": "formation.local_defense.standard",
+    "reconstitution_policy_ref": "reconstitution.local_defense",
+    "standing_procedure_ref": "procedure.local_defense.standard",
+    "unit_series": [
+      {
+        "series_id": "est.local.community.silver_ford.merchant_watch",
+        "source_manpower_id": "local:Silver Ford:merchant_watch",
+        "role": "merchant_watch",
+        "unit_count": 3,
+        "nominal_strength": 250,
+        "final_unit_strength": 200,
+        "stable_unit_id_pattern": "est.local.community.silver_ford.merchant_watch.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_state_line_infantry",
+        "troop_type": "guard_infantry",
+        "specialty": "merchant_watch"
+      },
+      {
+        "series_id": "est.local.community.silver_ford.river_guards",
+        "source_manpower_id": "local:Silver Ford:river_guards",
+        "role": "river_guards",
+        "unit_count": 5,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.local.community.silver_ford.river_guards.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_state_line_infantry",
+        "troop_type": "guard_infantry",
+        "specialty": "river_guards"
+      },
+      {
+        "series_id": "est.local.community.silver_ford.crossbows",
+        "source_manpower_id": "local:Silver Ford:crossbows",
+        "role": "crossbows",
+        "unit_count": 4,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.local.community.silver_ford.crossbows.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_state_missile_crossbow",
+        "troop_type": "crossbow_infantry",
+        "specialty": "crossbows"
+      },
+      {
+        "series_id": "est.local.community.silver_ford.mounted_couriers",
+        "source_manpower_id": "local:Silver Ford:mounted_couriers",
+        "role": "mounted_couriers",
+        "unit_count": 3,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.local.community.silver_ford.mounted_couriers.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_mercenary_scout",
+        "troop_type": "mounted_scout",
+        "specialty": "mounted_couriers"
+      }
+    ],
+    "command_structure": {
+      "home_command": "local civic/clan authority",
+      "unit_command": "local captains/leaders",
+      "succession": "local authority",
+      "default_commander_profile_ref": "command_profile.irregular_leader"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 40,
+      "initiative": 55,
+      "caution": 75,
+      "adaptability": 65,
+      "flank_bias": 40,
+      "counterattack_bias": 65,
+      "pursuit_bias": 20,
+      "reserve_bias": 65,
+      "withdrawal_willingness": 60,
+      "casualty_tolerance": 35,
+      "objective_focus": 90,
+      "ally_support": 85,
+      "formation_discipline": 70,
+      "commander_dependence": 55
+    }
+  }
+}

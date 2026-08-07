@@ -1,0 +1,93 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.independent_highland_communities",
+    "owner_id": "independent_highland_communities",
+    "owner_type": "mountain_force",
+    "source_force_ref": "state/force/independent-mountain-units.json#independent_highland_communities",
+    "formation_library_ref": "formation.mountain.standard",
+    "reconstitution_policy_ref": "reconstitution.mountain",
+    "standing_procedure_ref": "procedure.mountain.standard",
+    "unit_series": [
+      {
+        "series_id": "est.independent_highland_communities.general",
+        "source_manpower_id": "highlands.general",
+        "role": "general",
+        "unit_count": 11,
+        "nominal_strength": 250,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.independent_highland_communities.general.{ordinal:03d}",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force",
+        "loadout_standard": "loadout_mercenary_light",
+        "troop_type": "light_infantry",
+        "specialty": "general"
+      },
+      {
+        "series_id": "est.independent_highland_communities.experienced",
+        "source_manpower_id": "highlands.experienced",
+        "role": "experienced",
+        "unit_count": 5,
+        "nominal_strength": 250,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.independent_highland_communities.experienced.{ordinal:03d}",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force",
+        "loadout_standard": "loadout_mercenary_light",
+        "troop_type": "light_infantry",
+        "specialty": "experienced"
+      },
+      {
+        "series_id": "est.independent_highland_communities.hunters",
+        "source_manpower_id": "highlands.hunters",
+        "role": "hunters",
+        "unit_count": 7,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.independent_highland_communities.hunters.{ordinal:03d}",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force",
+        "loadout_standard": "loadout_mercenary_scout",
+        "troop_type": "scout",
+        "specialty": "hunters"
+      },
+      {
+        "series_id": "est.independent_highland_communities.champions",
+        "source_manpower_id": "highlands.champions",
+        "role": "champions",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.independent_highland_communities.champions.{ordinal:03d}",
+        "doctrine": "doc.organization.mountain_force",
+        "training": "train.organization.mountain_force",
+        "loadout_standard": "loadout_mercenary_light",
+        "troop_type": "light_infantry",
+        "specialty": "champions"
+      }
+    ],
+    "command_structure": {
+      "home_command": "named confederation authority or local highland councils",
+      "unit_command": "tribal/band leaders",
+      "succession": "local tribal/community authority",
+      "default_commander_profile_ref": "command_profile.irregular_leader"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 65,
+      "initiative": 75,
+      "caution": 60,
+      "adaptability": 90,
+      "flank_bias": 80,
+      "counterattack_bias": 75,
+      "pursuit_bias": 55,
+      "reserve_bias": 50,
+      "withdrawal_willingness": 80,
+      "casualty_tolerance": 45,
+      "objective_focus": 75,
+      "ally_support": 70,
+      "formation_discipline": 60,
+      "commander_dependence": 35
+    }
+  }
+}

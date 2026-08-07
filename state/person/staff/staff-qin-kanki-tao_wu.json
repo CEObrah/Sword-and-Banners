@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite.v38",
+  "id": "staff.qin.kanki.tao_wu",
+  "name": "Tao Wu",
+  "resolution": "individual_lite",
+  "owner": "army.kanki_army",
+  "family_id": "fam.tao_wu",
+  "origin": "Qin",
+  "rank": "named_staff_officer",
+  "role": "irregular operations officer",
+  "stats": {
+    "attributes": {
+      "Strength": 83,
+      "Agility": 99,
+      "Endurance": 77,
+      "Toughness": 103,
+      "Coordination": 78,
+      "Awareness": 95,
+      "Composure": 79,
+      "Intelligence": 82,
+      "Presence": 102
+    },
+    "skills": {
+      "Sword": 99,
+      "Spear": 71,
+      "Glaive": 81,
+      "Axe": 103,
+      "Mace": 79,
+      "Staff": 81,
+      "Dagger": 94,
+      "Bow": 69,
+      "Crossbow": 99,
+      "Shield": 83,
+      "Defense": 103,
+      "Athletics": 69,
+      "Mass Combat": 116,
+      "Grappling": 68,
+      "Unarmed": 76,
+      "Riding": 88,
+      "Formation Fighting": 128,
+      "Survival": 91,
+      "Stealth": 88,
+      "Scouting": 100,
+      "Navigation": 68,
+      "Medicine": 75,
+      "Engineering": 71,
+      "Leadership": 102,
+      "Formation Command": 100,
+      "Tactics": 100,
+      "Strategy": 85,
+      "Logistics": 99,
+      "Intelligence Operations": 83,
+      "Training": 102,
+      "Diplomacy": 73,
+      "Law": 87,
+      "Trade": 71,
+      "Intrigue": 91,
+      "Governance": 69
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Qin",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in irregular operations officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "279-BCE-05-07",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 183.0,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 71.6,
+    "frame": "broad",
+    "source": "simulation_assigned"
+  },
+  "appearance": 64,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 82,
+    "technical_learning": 105,
+    "tactical_learning": 163,
+    "academic_learning": 143,
+    "social_learning": 131,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "adaptive",
+      "hard-edged",
+      "opportunistic"
+    ],
+    "preferences": [
+      "useful intelligence",
+      "freedom of maneuver"
+    ],
+    "dislikes": [
+      "rigid schedules",
+      "outsiders moralizing without context"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.kanki_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_kanki",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "coordinate irregular detachments while keeping their actions aligned with the commander’s actual objective",
+  "background": "Persistent named irregular operations officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.qin.kanki.tao_wu.json"
+}

@@ -1,0 +1,18 @@
+{
+  "cases": [
+    "12_seconds",
+    "5_minutes",
+    "1_hour",
+    "1_day",
+    "1_month",
+    "1_year",
+    "5_years"
+  ],
+  "invariants": [
+    "settle every process due through reached time",
+    "repeat or batch recurring cycles until frontier is beyond reached time",
+    "split batches at material changes",
+    "hard-interrupt at player-required decisions",
+    "never update unrelated not-due owners merely because a Git commit occurs"
+  ]
+}

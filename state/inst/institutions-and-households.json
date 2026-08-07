@@ -1,0 +1,100 @@
+{
+  "name": "07C Factions Households And Institutions",
+  "owner_id": "institutions_and_households",
+  "owner_type": "institution_registry",
+  "records": [
+    {
+      "label": "Overview",
+      "notes": [
+        "# Factions, Households, and Institutions"
+      ],
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "legal_status": "common-born private household recognized by Qin charter",
+        "main_house_membership_requires_permanent_loyalty_covenant": true,
+        "name": "House Tang",
+        "outside_property": null,
+        "outside_state_service_allowed": false,
+        "appointments_ref": "state/app/appointments-and-command.json"
+      },
+      "label": "institution_house_tang",
+      "record_id": "institution_house_tang"
+    },
+    {
+      "facts": {
+        "equipment_sales": "prohibited",
+        "functions": "recruitment, training, personnel evaluation, escort contracts, scouts, couriers, medical support",
+        "intake_pipeline_for_house_tang": true,
+        "name": "Sword Manor",
+        "outside_training_for_money": "prohibited",
+        "owner": "House Tang",
+        "physical_location": "inside Tang Manor",
+        "appointments_ref": "state/app/appointments-and-command.json"
+      },
+      "label": "institution_sword_manor",
+      "record_id": "institution_sword_manor"
+    },
+    {
+      "facts": {
+        "monthly_output": "Tang Armor 16; Tang Helmet 16; Tang Shield 24; Tang Horse Armor 8; Tang Tack 16",
+        "outside_sales": "prohibited",
+        "owner": "House Tang",
+        "physical_location": "inside Tang Manor",
+        "appointment_ref": "state/app/appointments-and-command.json"
+      },
+      "label": "department_tang_forge_armory",
+      "record_id": "department_tang_forge_armory"
+    },
+    {
+      "facts": {
+        "House Tang coverage": "all members",
+        "Sword Manor coverage": "Commander, senior instructors, senior officers, escort captains",
+        "allows": "honest error, respectful disagreement, warning, capture, injury, deception by outsiders, death",
+        "personal force coverage": "every member by lifetime vow",
+        "prohibits": "betrayal, defection, sabotage, embezzlement, hostile deception, resentment-driven harm, coup, sale of protected information"
+      },
+      "label": "loyalty_covenant",
+      "record_id": "loyalty_covenant"
+    },
+    {
+      "institution_owner_ids": [
+        "escort_chu",
+        "escort_han",
+        "escort_qi",
+        "escort_qin",
+        "escort_wei",
+        "escort_yan",
+        "escort_zhao",
+        "school_chu",
+        "school_han",
+        "school_qi",
+        "school_qin",
+        "school_wei",
+        "school_yan",
+        "school_zhao"
+      ],
+      "label": "Famous external institutions",
+      "record_id": "famous_external_institutions",
+      "settlement_process_id": "process_independent_world_ecosystem"
+    },
+    {
+      "facts": {
+        "classification": "dedicated camp medical and logistical support",
+        "field_deployment_rule": "may accompany a formation as a protected support echelon but is never counted as a frontline combat unit without an exact reorganization order",
+        "functions": "treatment, sanitation, casualty collection, stabilization, camp infirmary, medical inventory, evacuation preparation",
+        "headcount": 50,
+        "legal_owner": "Sword Manor",
+        "loadout": "loadout_sword_manor_camp_medical",
+        "frontline_combat_units": 0
+      },
+      "label": "support_sword_manor_medical_camp",
+      "record_id": "support_sword_manor_medical_camp"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "institution-registry.v38"
+}

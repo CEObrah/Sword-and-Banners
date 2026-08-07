@@ -1,0 +1,58 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.qin_ryofui_network",
+    "name": "Ryo Fui Political Network",
+    "leadership_ids": [
+      "char_ryo_fui"
+    ],
+    "status": "active",
+    "goal": "protect political leverage, commercial influence, and allies",
+    "current_plan": "Maintain patronage ties and gather leverage before committing openly against rival court blocs.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "preserve Ryo Fui’s political and commercial leverage",
+      "place dependable clients where appointments and contracts matter"
+    ],
+    "resources": [
+      "wealth",
+      "merchant ties",
+      "clients",
+      "court access"
+    ],
+    "constraints": [
+      "royal scrutiny",
+      "rival factions",
+      "reputation risk"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Qin court patronage, commercial influence, clients, and associated political capital",
+    "leadership_model": "patronage_network",
+    "relationships": [
+      {
+        "target_id": "faction.qin_court_reform",
+        "relationship_type": "court_power_struggle",
+        "stance": "adversarial",
+        "intensity": 92
+      },
+      {
+        "target_id": "faction.central_merchant_houses",
+        "relationship_type": "commercial_political_support",
+        "stance": "cooperative",
+        "intensity": 78
+      },
+      {
+        "target_id": "faction.tang_merchant_partners",
+        "relationship_type": "commercial_contact",
+        "stance": "transactional",
+        "intensity": 46
+      }
+    ]
+  }
+}

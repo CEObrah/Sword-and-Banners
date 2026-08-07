@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deterministic Unit Partition Mechanics",
+  "type": "object",
+  "required": [
+    "schema",
+    "principle",
+    "neutral_split",
+    "explicit_selection",
+    "largest_remainder",
+    "merge",
+    "receipts",
+    "authority"
+  ],
+  "properties": {
+    "schema": {
+      "const": "unit_partition_mechanics.v1"
+    },
+    "neutral_split": {
+      "type": "object"
+    },
+    "explicit_selection": {
+      "type": "object"
+    },
+    "largest_remainder": {
+      "type": "object"
+    },
+    "merge": {
+      "type": "object"
+    },
+    "receipts": {
+      "type": "object"
+    },
+    "authority": {
+      "const": "data/mechanics/unit-partition.json"
+    }
+  },
+  "additionalProperties": true
+}

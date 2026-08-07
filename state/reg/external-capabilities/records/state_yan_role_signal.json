@@ -1,0 +1,76 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_yan_role_signal",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        58,
+        57,
+        65,
+        60,
+        62,
+        70,
+        72,
+        70,
+        66
+      ],
+      "skill_values": [
+        58,
+        52,
+        40,
+        38,
+        38,
+        45,
+        50,
+        54,
+        48,
+        55,
+        60,
+        58,
+        54,
+        48,
+        45,
+        60,
+        64,
+        58,
+        45,
+        61,
+        58,
+        38,
+        48,
+        40,
+        35,
+        38,
+        30,
+        51,
+        54,
+        60,
+        52,
+        48,
+        45,
+        50,
+        50
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_yan_role_signal",
+    "monthly_factor_inputs": "instruction 0.98; facility 0.96; equipment 0.97; recovery 0.96; administration 0.64",
+    "role": "signal",
+    "state": "YAN",
+    "identity_notes": "Frontier and mountain-oriented: cavalry, bows, scouts, survival, and terrain knowledge exceed its generic line quality. Signal personnel are communications specialists; commander authority is modeled separately as people/command assignments.",
+    "balance_adjustment": {
+      "state_identity": "YAN",
+      "role": "signal",
+      "attribute_modifiers": {
+        "Agility": 1,
+        "Awareness": 2,
+        "Endurance": 1
+      },
+      "skill_modifiers": {
+        "Formation Fighting": -1
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "tests"
+  ],
+  "properties": {
+    "schema": {
+      "const": "development-fairness-tests.v38"
+    },
+    "tests": {
+      "type": "array",
+      "minItems": 6
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,2 @@
+# Court and political narration
+Make authority tangible through seals, witnesses, precedence, offices, treasury control, kinship, patronage, law, rival blocs, and who may speak or commit resources. Political actors can comply publicly while pursuing lawful/private goals only when their saved incentives and knowledge support it. Avoid exposition dumps: reveal politics through what people ask, refuse, delay, promise, witness, or report.

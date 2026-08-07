@@ -1,0 +1,143 @@
+{
+  "base_or_current_contract": "roaming Qin-Wei corridor",
+  "equipment_and_mounts": {
+    "assigned_mounts": 300,
+    "assigned_war_arrows": 97200,
+    "assigned_war_bolts": 0,
+    "issued_loadouts": [
+      {
+        "count": 2400,
+        "loadout_id": "loadout_mercenary_line"
+      },
+      {
+        "count": 300,
+        "loadout_id": "loadout_mercenary_scout"
+      },
+      {
+        "count": 300,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 30,
+    "reserve_war_arrows": 97200,
+    "reserve_war_bolts": 0
+  },
+  "food_stock_kg": 288000,
+  "force_class": "mercenary_company",
+  "headcount": 3000,
+  "name": "Black Banner Free Company",
+  "owner_id": "merc_black_banner",
+  "owner_type": "mercenary_company",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company.v38",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state_alignment": "Independent",
+  "subprocess_id": "process_merc_black_banner",
+  "treasury_silver": 240000,
+  "doctrine": "doc.merc_black_banner.standard",
+  "training": "train.merc_black_banner.standard",
+  "combat_tendencies": {
+    "aggression": 55,
+    "initiative": 55,
+    "caution": 50,
+    "adaptability": 55,
+    "flank_bias": 50,
+    "counterattack_bias": 55,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45,
+    "casualty_tolerance": 55,
+    "objective_focus": 70,
+    "ally_support": 65,
+    "formation_discipline": 70,
+    "commander_dependence": 55
+  },
+  "doctrine_familiarity": 80,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 5.7
+    },
+    "weight_kg": {
+      "mean": 67,
+      "sd": 7.2
+    },
+    "individual_records_required": false
+  },
+  "home_establishment_ref": "establishment.merc_black_banner",
+  "formation_library_ref": "formation.mercenary.standard",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 2400
+      },
+      "count": 2400,
+      "display": "Line Infantry",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_line",
+      "mount_type": null,
+      "role": "line",
+      "doctrine": "doc.merc_black_banner.line",
+      "training": "train.merc_black_banner.line",
+      "pool_id": "merc_black_banner:pool_line",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "line_infantry",
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-black-banner-pool-line.json",
+      "specialty": "line"
+    },
+    {
+      "condition": {
+        "fit": 300
+      },
+      "count": 300,
+      "display": "Scouts",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_scout",
+      "mount_type": "horse_frontier_trained",
+      "role": "scout",
+      "doctrine": "doc.merc_black_banner.scout",
+      "training": "train.merc_black_banner.scout",
+      "pool_id": "merc_black_banner:pool_scout",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "scout",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-black-banner-pool-scout.json"
+    },
+    {
+      "condition": {
+        "fit": 300
+      },
+      "count": 300,
+      "display": "Support",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_support",
+      "mount_type": null,
+      "role": "support",
+      "doctrine": "doc.merc_black_banner.support",
+      "training": "train.merc_black_banner.support",
+      "pool_id": "merc_black_banner:pool_support",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "line_infantry",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-black-banner-pool-support.json",
+      "specialty": "support"
+    }
+  ],
+  "stat_order_ref": "data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true
+}

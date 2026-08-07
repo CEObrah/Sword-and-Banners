@@ -1,0 +1,77 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qi_role_logistics",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        50,
+        50,
+        58,
+        54,
+        58,
+        63,
+        70,
+        72,
+        50
+      ],
+      "skill_values": [
+        38,
+        35,
+        28,
+        30,
+        32,
+        42,
+        40,
+        35,
+        37,
+        42,
+        43,
+        50,
+        38,
+        40,
+        42,
+        30,
+        38,
+        50,
+        35,
+        42,
+        48,
+        28,
+        48,
+        43,
+        34,
+        38,
+        34,
+        86,
+        38,
+        55,
+        42,
+        38,
+        60,
+        36,
+        52
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qi_role_logistics",
+    "monthly_factor_inputs": "instruction 1.01; facility 1.01; equipment 0.99; recovery 1.00; administration 0.78",
+    "role": "logistics",
+    "state": "QI",
+    "identity_notes": "Wealthy, organized defensive state: logistics, training, administration, missile support, and strategic patience.",
+    "balance_adjustment": {
+      "state_identity": "QI",
+      "role": "logistics",
+      "attribute_modifiers": {
+        "Intelligence": 6,
+        "Composure": 4,
+        "Awareness": 1
+      },
+      "skill_modifiers": {
+        "Logistics": 10,
+        "Training": 7
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

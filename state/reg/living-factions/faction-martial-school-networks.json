@@ -1,0 +1,50 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.martial_school_networks",
+    "name": "Martial School Networks",
+    "leadership_ids": [],
+    "status": "active",
+    "goal": "protect lineage reputation, patrons, recruitment, and teaching rights",
+    "current_plan": "Manage invitations, rivalries, students, and patrons while keeping direct membership distinct from affiliates.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "protect institutional reputation and patronage",
+      "maintain training lineages without becoming state armies"
+    ],
+    "resources": [
+      "schools",
+      "instructors",
+      "alumni links",
+      "patrons"
+    ],
+    "constraints": [
+      "limited deployable manpower",
+      "reputation risk",
+      "regional politics"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Famous schools, regional lineages, instructors, alumni, patrons, and teaching rights",
+    "leadership_model": "distributed_lineage_network",
+    "relationships": [
+      {
+        "target_id": "faction.tang_household",
+        "relationship_type": "martial_lineage_and_reputation",
+        "stance": "cooperative_competitive",
+        "intensity": 72
+      },
+      {
+        "target_id": "faction.mercenary_brokers",
+        "relationship_type": "veteran_and_instructor_labor_market",
+        "stance": "transactional",
+        "intensity": 38
+      }
+    ]
+  }
+}

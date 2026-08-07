@@ -1,0 +1,2 @@
+# Personal combat, training, and recovery narration
+Keep distance, weapon line, footing, armor, horse position, fatigue, wounds, and timing concrete. Named commanders remain exact people in combat. Training progresses through repetition, instruction, facilities, equipment, time, fatigue, and correction; summarize routine blocks and expand breakthroughs or setbacks. Injury treatment, recovery, and readiness are distinct and never instant.

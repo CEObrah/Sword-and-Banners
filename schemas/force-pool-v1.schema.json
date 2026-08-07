@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "State Force Pool",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "owner_type",
+    "name",
+    "headcount",
+    "troop_pools",
+    "accounting_only"
+  ],
+  "properties": {
+    "schema": {
+      "const": "force_pool.v1"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "const": "force_pool"
+    },
+    "name": {
+      "type": "string"
+    },
+    "headcount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "accounting_only": {
+      "const": true
+    },
+    "troop_pools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "count",
+          "accounting_only",
+          "pool_kind"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "troop_type": {
+            "type": "string"
+          },
+          "accounting_only": {
+            "const": true
+          },
+          "pool_kind": {
+            "enum": [
+              "unit_manpower",
+              "command_personnel"
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "pool_kind": {
+                  "const": "unit_manpower"
+                }
+              },
+              "required": [
+                "pool_kind"
+              ]
+            },
+            "then": {
+              "required": [
+                "troop_type"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true,
+  "description": "Accounting authority for state military population by homogeneous troop type. It is not a deployable formation and cannot fight directly."
+}

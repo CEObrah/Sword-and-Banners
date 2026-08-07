@@ -1,0 +1,128 @@
+{
+  "base_region": "Qi merchant roads",
+  "finance_equipment_and_mounts": {
+    "armed_personnel": 516,
+    "assigned_mounts": 96,
+    "assigned_war_arrows": 18576,
+    "facility_factor": 0.988,
+    "fodder_stock_kg": 57600,
+    "food_stock_kg": 57600,
+    "issued_combat_loadouts": 516,
+    "loadout_id": "role-specific escort loadouts",
+    "monthly_normal_expense_silver": 10200,
+    "monthly_realized_revenue_silver": 13200,
+    "mount_type": "horse_riding_common",
+    "reserve_combat_loadouts": 52,
+    "reserve_war_arrows": 18576,
+    "support_personnel": 84,
+    "treasury_silver": 72000
+  },
+  "institution_class": "escort_agency",
+  "leader_status": "unresolved named full sheet only when encountered",
+  "name": "Jade Ledger Escort House",
+  "owner_id": "escort_qi",
+  "owner_type": "institution",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "independent-institution.v38",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state": "QI",
+  "subprocess_id": "process_escort_qi",
+  "total_people": 600,
+  "direct_members": 600,
+  "armed_members": 401,
+  "field_ready_members": 387,
+  "support_members": 199,
+  "institution_rule": "escort house is a transport/security business; support, stable, warehouse, route-agent, medical, and clerical personnel are not frontline units",
+  "home_establishment_ref": "establishment.escort_qi",
+  "formation_library_ref": "formation.escort.standard",
+  "reconstitution_policy_ref": "reconstitution.escort",
+  "doctrine": "doc.organization.escort_bureau",
+  "training": "train.organization.escort_bureau",
+  "combat_tendencies": {
+    "aggression": 40,
+    "initiative": 55,
+    "caution": 70,
+    "adaptability": 65,
+    "flank_bias": 35,
+    "counterattack_bias": 60,
+    "pursuit_bias": 20,
+    "reserve_bias": 60,
+    "withdrawal_willingness": 70,
+    "casualty_tolerance": 35,
+    "objective_focus": 90,
+    "ally_support": 85,
+    "formation_discipline": 80,
+    "commander_dependence": 55
+  },
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 16
+      },
+      "count": 16,
+      "fatigue_mean": 0.0,
+      "role": "escort_captain",
+      "loadout_id": "loadout_escort_captain",
+      "pool_id": "escort_qi:pool_escort_captain",
+      "pool_kind": "command_personnel",
+      "accounting_only": true,
+      "accounting_scale": "individual_command_slots",
+      "capability_ref": "state/manpower-capability/escort-qi-pool-escort-captain.json"
+    },
+    {
+      "condition": {
+        "fit": 315
+      },
+      "count": 315,
+      "fatigue_mean": 0.0,
+      "role": "escort_guard",
+      "loadout_id": "loadout_escort_guard",
+      "pool_id": "escort_qi:pool_escort_guard",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "troop_type": "guard_infantry",
+      "capability_ref": "state/manpower-capability/escort-qi-pool-escort-guard.json",
+      "specialty": "escort_guard"
+    },
+    {
+      "condition": {
+        "fit": 70
+      },
+      "count": 70,
+      "fatigue_mean": 0.0,
+      "role": "escort_scout",
+      "loadout_id": "loadout_escort_scout",
+      "pool_id": "escort_qi:pool_escort_scout",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "accounting_scale": "tactical_25",
+      "troop_type": "scout",
+      "capability_ref": "state/manpower-capability/escort-qi-pool-escort-scout.json",
+      "specialty": "escort_scout"
+    },
+    {
+      "condition": {
+        "fit": 199
+      },
+      "count": 199,
+      "fatigue_mean": 0.0,
+      "role": "escort_support",
+      "loadout_id": "loadout_escort_support",
+      "pool_id": "escort_qi:pool_escort_support",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "troop_type": "logistics",
+      "capability_ref": "state/manpower-capability/escort-qi-pool-escort-support.json",
+      "specialty": "escort_support"
+    }
+  ],
+  "stat_order_ref": "data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true,
+  "institutional_track_record_index": 149
+}

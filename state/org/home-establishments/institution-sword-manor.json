@@ -1,0 +1,125 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.institution_sword_manor",
+    "owner_id": "institution_sword_manor",
+    "owner_type": "house_institution",
+    "source_force_ref": "state/force/sword-manor-personnel.json",
+    "formation_library_ref": "formation.house_tang.standard",
+    "reconstitution_policy_ref": "reconstitution.house_tang",
+    "unit_series": [
+      {
+        "series_id": "est.institution_sword_manor.senior_disciple",
+        "source_manpower_id": "sword_manor_senior",
+        "role": "senior_disciple",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.institution_sword_manor.senior_disciple.{ordinal:03d}",
+        "doctrine": "doc.sword_manor_institution.senior_disciple",
+        "training": "train.sword_manor_institution.senior_disciple",
+        "loadout_standard": "loadout_house_guard",
+        "troop_type": "senior_disciple"
+      },
+      {
+        "series_id": "est.institution_sword_manor.general_disciple",
+        "source_manpower_id": "sword_manor_general",
+        "role": "general_disciple",
+        "unit_count": 6,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.institution_sword_manor.general_disciple.{ordinal:03d}",
+        "doctrine": "doc.sword_manor_institution.general_disciple",
+        "training": "train.sword_manor_institution.general_disciple",
+        "loadout_standard": "loadout_sword_manor_standard",
+        "troop_type": "general_disciple"
+      },
+      {
+        "series_id": "est.institution_sword_manor.junior_disciple",
+        "source_manpower_id": "sword_manor_junior",
+        "role": "junior_disciple",
+        "unit_count": 8,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.institution_sword_manor.junior_disciple.{ordinal:03d}",
+        "doctrine": "doc.sword_manor_institution.junior_disciple",
+        "training": "train.sword_manor_institution.junior_disciple",
+        "loadout_standard": "loadout_sword_manor_standard",
+        "mobilization": "institutional_training_or_defense; deployment still requires authority",
+        "troop_type": "junior_disciple"
+      },
+      {
+        "series_id": "est.institution_sword_manor.trainee",
+        "source_manpower_id": "sword_manor_trainees",
+        "role": "trainee",
+        "unit_count": 20,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.institution_sword_manor.trainee.{ordinal:03d}",
+        "doctrine": "doc.sword_manor_institution.trainee",
+        "training": "train.sword_manor_institution.trainee",
+        "loadout_standard": "loadout_sword_manor_trainee",
+        "mobilization": "institutional_training_or_defense; deployment still requires authority",
+        "troop_type": "trainee"
+      },
+      {
+        "series_id": "est.institution_sword_manor.scout_couriers",
+        "source_manpower_id": "sword_manor_scouts",
+        "role": "scout_couriers",
+        "unit_count": 1,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.institution_sword_manor.scout_couriers.{ordinal:03d}",
+        "doctrine": "doc.sword_manor_institution.scout_couriers",
+        "training": "train.sword_manor_institution.scout_couriers",
+        "loadout_standard": "loadout_sword_manor_scout_couriers",
+        "troop_type": "scout",
+        "specialty": "scout_couriers"
+      },
+      {
+        "series_id": "est.institution_sword_manor.medical_support",
+        "source_manpower_id": "support_sword_manor_medical_camp",
+        "role": "medical_support",
+        "unit_count": 1,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.institution_sword_manor.medical_support.{ordinal:03d}",
+        "doctrine": "doc.sword_manor_institution.medical_support",
+        "training": "train.sword_manor_institution.medical_support",
+        "loadout_standard": "loadout_sword_manor_camp_medical",
+        "troop_type": "medical",
+        "specialty": "medical_support"
+      }
+    ],
+    "player_exception": "Tang Wei Personal Retinue in state/pforce/wei.json remains player-organized.",
+    "standing_procedure_ref": "procedure.house_tang.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.state_line_officer"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 55,
+      "initiative": 50,
+      "caution": 50,
+      "adaptability": 50,
+      "flank_bias": 45,
+      "counterattack_bias": 55,
+      "pursuit_bias": 45,
+      "reserve_bias": 55,
+      "withdrawal_willingness": 45,
+      "casualty_tolerance": 60,
+      "objective_focus": 70,
+      "ally_support": 60,
+      "formation_discipline": 70,
+      "commander_dependence": 60
+    },
+    "command_personnel_establishment": {
+      "source_manpower_id": "sword_manor_officers",
+      "total_personnel": 50,
+      "rule": "Sword Manor officers are individual command/instruction personnel, not an officer combat unit."
+    }
+  }
+}

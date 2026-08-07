@@ -1,0 +1,79 @@
+{
+  "name": "Markets, Commodities, and Trade",
+  "owner_id": "markets_and_trade",
+  "owner_type": "market_registry",
+  "records": [
+    {
+      "facts": {
+        "average_monthly_realized_revenue_silver": [
+          {
+            "internal agricultural and processed-food surplus": 260000
+          },
+          {
+            "warehouse, caravan staging, toll, and storage services": 90000
+          },
+          {
+            "stable, carriage, and ordinary non-Tang animal services": 45000
+          },
+          {
+            "Sword Manor escort and security contracts": 280000
+          },
+          {
+            "ordinary forge, construction, and repair contracts excluding Tang secrets": 110000
+          },
+          {
+            "rents, legal fees, and institutional subscriptions": 165000
+          },
+          {
+            "total": 950000
+          }
+        ],
+        "prohibited_revenue": [
+          "outside martial tuition using Tang or Sword Manor restricted doctrine",
+          "Tang equipment sales",
+          "Tang doctrine sales",
+          "Tang horse, breeding, tack, or armor sales"
+        ]
+      },
+      "label": "Overview",
+      "notes": [
+        "House Tang owns no outside market property. Traders use contracted routes and enter only through the Main Gate processing complex. Outside visitors remain within authorized trade and reception zones unless separately escorted and cleared."
+      ],
+      "record_id": "overview"
+    },
+    {
+      "label": "Procurement",
+      "notes": [
+        "House Tang may buy ordinary grain, fodder, timber, iron, medicine, carts, draft animals, cloth, and nonrestricted weapons or ammunition through exact market transactions. The regional stock owner is `owner:regional_depots`. Expected delivery is not inventory until the convoy arrives and custody transfers."
+      ],
+      "record_id": "procurement"
+    },
+    {
+      "label": "Tang horse closed-bloodline policy",
+      "notes": [
+        "Tang Heavy Warhorses, Tang Swift Warhorses, breeding mares, breeding stallions, foals, stud service, training methods, Tang Tack, and Tang Horse Armor have no external market route. They cannot be sold, leased, gifted, pledged, exported, or accepted as routine contract payment. Battle loss or capture creates a security and recovery event, not a legal sale."
+      ],
+      "record_id": "tang_horse_closed_bloodline_policy"
+    },
+    {
+      "facts": {
+        "cart_silver_each": 75,
+        "common_pack_horse_silver_each": 90,
+        "crossbow_bolt_silver_each": 0.55,
+        "fodder_silver_per_kg": 0.1,
+        "food_grain_silver_per_kg": 0.08,
+        "medicine_lot_silver_each": 18,
+        "war_arrow_silver_each": 0.35
+      },
+      "label": "Base reference prices",
+      "notes": [
+        "These are baseline reference values, not current guaranteed transaction prices. Exact transactions use current local supply, demand, authority, route, risk, and negotiated terms."
+      ],
+      "record_id": "base_reference_prices"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "market-registry.v38"
+}

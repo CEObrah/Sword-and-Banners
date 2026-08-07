@@ -1,0 +1,83 @@
+{
+  "schema": "unit_model.v2",
+  "id": "unit_model.sword_and_banners",
+  "authority": "data/organization/unit-model.json",
+  "canonical_example": {
+    "assigned": [
+      "5000 infantry",
+      "2000 archers"
+    ],
+    "valid_split": [
+      "2500 infantry unit A",
+      "2500 infantry unit B",
+      "1000 archer unit A",
+      "1000 archer unit B"
+    ],
+    "invalid": [
+      "two mixed units each containing 2500 infantry and 1000 archers"
+    ],
+    "partial_loadout_example": "To change equipment for 1000 of a 5000-infantry unit, split to 4000 + 1000 first, then re-equip the 1000-person unit."
+  },
+  "split_transaction": {
+    "trigger": "Any durable subset property change requires SPLIT UNIT before the change.",
+    "conservation": [
+      "personnel",
+      "named member claims",
+      "animals/mounts where applicable",
+      "equipment",
+      "ammunition",
+      "injuries",
+      "fatigue",
+      "experience",
+      "cohesion inputs",
+      "morale inputs",
+      "history/lineage"
+    ],
+    "default_partition": "For anonymous aggregate personnel, split proportionally/deterministically from the parent distributions. Do not silently place the best personnel into one child.",
+    "selected_partition": "Selecting the best/most experienced/qualified people is a real selection action requiring criteria, authority and time; recalculate resulting child distributions from that selection.",
+    "identity": "The remainder may keep the parent unit ID while the detached subset gets a new unit ID; a complete reorganization may retire the parent and create child IDs. Never leave overlapping personnel claims."
+  },
+  "merge_transaction": {
+    "preconditions": [
+      "same troop_type",
+      "compatible ownership/authority",
+      "standard loadout reconciled before merge",
+      "doctrine/training/command differences explicitly resolved"
+    ],
+    "result": "Weighted conserved state. Integration may reduce cohesion/order familiarity until real joint training/time restores it.",
+    "forbidden": "Merging never resets casualties, fatigue, equipment loss, morale, experience or history."
+  },
+  "loadout_boundary": {
+    "standard": "One intended standard loadout per unit.",
+    "partial_change": "If only part of the unit should adopt another intended standard, split that subset first and then change the child unit loadout.",
+    "under_issue": "A temporary shortage or damaged/missing issue does not create a second standard. Track issue/readiness shortfall separately.",
+    "personal_exception": "Named exact/individual-lite members may hold personal equipment exceptions. If a meaningful subset is intentionally standardized differently, it becomes a separate unit.",
+    "issue_state": "The unit standard is doctrine/organization; actual issued condition is an exception layer. Track shortages, damage, unavailable items, substitutes, ammunition depletion and repair state as issue/readiness/inventory state without creating a second intended standard.",
+    "forbidden_issue_state": "Issue-state exceptions may describe missing/damaged/substitute items, but may not encode a second intended organizational loadout for a durable subset. Split first for a different intended standard.",
+    "refit_transition": "A loadout-change order may create refit_state targeting a new standard. The target is not combat-effective merely because it was ordered. Consume real inventory and time; resolve transitional actual equipment from issue state. On completed refit, promote the target to the unit standard and clear the transition."
+  },
+  "vectorized_resolution": {
+    "purpose": "Efficiency only; never a persistent organization.",
+    "rule": "Several equivalent units may be evaluated together in one calculation when troop type, loadout, doctrine/familiarity, training, commander chain, order, location/sector, exposure, supply, morale/cohesion/fatigue state and relevant conditions are equivalent.",
+    "settlement": "Allocate casualties, ammunition, fatigue, equipment loss and other results deterministically back to the actual unit IDs. Any material divergence ends shared calculation immediately.",
+    "no_hidden_layer": "Do not persist any resolution batch or pseudo-unit beneath or above the real units. Vectorization is computation only."
+  },
+  "aggregate_combat_authority": "data/mechanics/unit-resolution.json",
+  "command_authority": "data/mechanics/command.json",
+  "core_invariants": [
+    "One persistent unit has exactly one troop_type.",
+    "One persistent unit has exactly one intended organizational standard loadout.",
+    "A durable subset change to loadout, doctrine, training, commander, independent assignment, mount standard or other persistent unit property requires a split first.",
+    "Split/merge conserves every person and every material/history claim; no free capability, equipment, frontage or action economy is created.",
+    "Commanders are separate people. A commander may control multiple units through the command hierarchy; command never merges troop types.",
+    "Formation is a temporary operational arrangement of units and owns no manpower.",
+    "Unorganized/replacement manpower pools are accounting only and cannot fight until allocated into units.",
+    "Large ordinary units resolve as aggregate statistical actors; do not materialize one sheet per soldier."
+  ],
+  "subset_change_example": "5,000 infantry with one standard; changing 1,000 requires 4,000+1,000 split",
+  "command_capacity_rule": "All units reporting directly to a commander, regardless of ownership, consume that commander shared direct personnel and command-slot capacity. Delegated whole units transfer their direct load to the subordinate; the subordinate command node costs one superior direct command slot.",
+  "large_battle_rule": "Use the derived battle kernel for broad mass resolution and wake the full unit capability only when detail can change the result. Vectorized batching is computation only and never creates pseudo-units.",
+  "partition_authority": "data/mechanics/unit-partition.json",
+  "split_selection_rule": "Neutral aggregate splits use data/mechanics/unit-partition.json and preserve the parent represented distribution; only a persisted explicit selection action may create systematically different child capability distributions.",
+  "merge_rule": "Merge only compatible same-troop-type units and use data/mechanics/unit-partition.json pooled-moment/conservation formulas. Merging never heals, resets, duplicates, or erases material/history state."
+}

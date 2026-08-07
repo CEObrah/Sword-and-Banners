@@ -1,0 +1,32 @@
+{
+  "schema": "player-combat-tendencies.v1",
+  "authority": "player_combat_tendencies",
+  "combat_tendencies": {
+    "dismounted_posture": [
+      "Leave or ground the lance and secure, hand off, or stow the bow.",
+      "Ready Tang shield and one-handed long sword.",
+      "Control the weapon line, attack the shortest opening, and use grappling after the enemy weapon is trapped, displaced, or lost."
+    ],
+    "efficiency_rule": "Do not waste actions after the player establishes the objective. Use the fastest reliable sequence that remains consistent with declared duel style, lethal or nonlethal intent for named opponents, command obligations, terrain, formation safety, and equipment state.",
+    "identity": "decisive mounted archer and lancer; after dismounting, shield-sword and grappling specialist",
+    "mounted_bow_posture": [
+      "Great War Bow uses both hands.",
+      "Shield remains slung and lance remains secured while firing.",
+      "Use mobility, distance, terrain, and deliberate high-value shots."
+    ],
+    "mounted_lance_posture": [
+      "Cavalry lance is readied in the dominant hand.",
+      "Tang shield is readied in the opposite hand.",
+      "Maintain charge geometry, avoid stopping inside enemy reach, and break away or reposition after contact."
+    ],
+    "ordinary_troop_rule": "Once the player authorizes combat against ordinary hostile troops, subordinate execution may disable or kill them quickly according to tactical necessity unless the player declares a broader nonlethal, surrender-acceptance, or capture policy. Do not stop for the disposition of every anonymous combatant.",
+    "player_agency": [
+      "The player decides whether Tang Wei accepts or prolongs a duel.",
+      {
+        "The player decides disposition of named or featured opponents": "disable, capture, release, or kill."
+      },
+      "The player decides surrender, pursuit, prisoner disposition, mercy, execution, and irreversible escalation."
+    ]
+  },
+  "player_ref": "char_tang_wei"
+}

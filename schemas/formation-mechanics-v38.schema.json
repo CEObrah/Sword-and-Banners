@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "contact_fraction_by_formation_margin",
+    "integrity_states",
+    "standard_exchange_seconds",
+    "rules"
+  ],
+  "properties": {
+    "schema": {
+      "const": "formation-mechanics.v38"
+    },
+    "formulas": {},
+    "contact_fraction_by_formation_margin": {},
+    "integrity_states": {},
+    "standard_exchange_seconds": {},
+    "rules": {}
+  }
+}

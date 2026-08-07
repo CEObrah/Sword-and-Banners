@@ -1,0 +1,74 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_zhao_role_medical",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        50,
+        52,
+        58,
+        54,
+        58,
+        64,
+        67,
+        66,
+        50
+      ],
+      "skill_values": [
+        38,
+        35,
+        28,
+        30,
+        32,
+        42,
+        40,
+        35,
+        35,
+        42,
+        42,
+        50,
+        40,
+        40,
+        42,
+        32,
+        38,
+        52,
+        35,
+        45,
+        48,
+        58,
+        48,
+        42,
+        34,
+        38,
+        34,
+        36,
+        38,
+        48,
+        42,
+        38,
+        54,
+        36,
+        48
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_zhao_role_medical",
+    "monthly_factor_inputs": "instruction 1.02; facility 0.98; equipment 0.98; recovery 0.98; administration 0.75",
+    "role": "medical",
+    "state": "ZHAO",
+    "identity_notes": "Cavalry and frontier warfare leader: superior riding, scouting, maneuver, field experience, and mobile command.",
+    "balance_adjustment": {
+      "state_identity": "ZHAO",
+      "role": "medical",
+      "attribute_modifiers": {
+        "Agility": 2,
+        "Awareness": 2,
+        "Composure": 1
+      },
+      "skill_modifiers": {},
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

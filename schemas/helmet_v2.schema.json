@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "mass_kg",
+    "coverage",
+    "vision_factor",
+    "hearing_factor"
+  ],
+  "properties": {
+    "schema": {
+      "const": "helmet_v2"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mass_kg": {},
+    "coverage": {},
+    "cut_resistance": {},
+    "thrust_resistance": {},
+    "blunt_resistance": {},
+    "vision_factor": {},
+    "hearing_factor": {}
+  },
+  "additionalProperties": true
+}

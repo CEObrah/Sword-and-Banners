@@ -1,0 +1,132 @@
+{
+  "schema": "injury-mechanics.v38",
+  "armor": {
+    "layer_contribution": [
+      1.0,
+      0.35,
+      0.15
+    ],
+    "angle_factor": {
+      "weak_line": 0.75,
+      "direct": 1.0,
+      "oblique": 1.2,
+      "strong_deflection": 1.4
+    },
+    "formulas": {
+      "layer_protection": "channel_resistance*condition_factor*fit_factor*angle_factor",
+      "penetration_ratio": "penetration_index/max(total_contacted_channel_protection,0.001)",
+      "impact_ratio": "impact_index*channel_impact_transfer/max(total_contacted_blunt_protection,0.001)"
+    },
+    "impact_transfer": {
+      "cut": 0.35,
+      "thrust": 0.25,
+      "blunt": 1.0
+    },
+    "uncovered_reference_resistance": {
+      "cut": 30,
+      "thrust": 28,
+      "blunt": 35
+    }
+  },
+  "ratio_to_severity": {
+    "<0.50": 0,
+    "0.50_to_0.89": 1,
+    "0.90_to_1.29": 2,
+    "1.30_to_1.99": 3,
+    "2.00_plus": 4
+  },
+  "base_impairment": {
+    "0": 0,
+    "1": 10,
+    "2": 30,
+    "3": 60,
+    "4": 90
+  },
+  "substructure_adjustment": {
+    "peripheral_flesh": -5,
+    "ordinary_zone": 0,
+    "joint_tendon_hand_eye_airway_spine_major_vessel_load_bearing_bone": 10
+  },
+  "bleeding_units_per_minute": {
+    "cut": [
+      0,
+      2,
+      6,
+      14,
+      25
+    ],
+    "thrust": [
+      0,
+      1,
+      5,
+      12,
+      22
+    ],
+    "blunt": [
+      0,
+      0,
+      1,
+      4,
+      8
+    ]
+  },
+  "formulas": {
+    "local_impairment": "clamp(base_severity_impairment+substructure_adjustment,0,100)",
+    "shock_index": "severity*18 + bleeding_units_per_minute + current_blood_loss/2 + pain/5",
+    "control_reserve": "0.35*usable_Toughness + 0.35*usable_Composure + 0.20*usable_Endurance + 0.10*usable_Coordination",
+    "armor_component_wear": "min(18,max(0.2,2.5*maximum_ratio)*severity_multiplier)",
+    "weapon_overload_ratio": "transmitted_hard_contact_impact_index/max(1,current_structural_capacity)",
+    "weapon_failure_threshold": "0.85 + 0.65*pre_contact_condition_fraction*durability_modifier"
+  },
+  "shock_resolution": {
+    "shock_above_reserve": "immediate_incapacitation_or_fall_by_contacted_function",
+    "within_15_below_reserve": "forced_loss_of_action_and_balance_recovery",
+    "otherwise": "retains_action_with_exact_impairment"
+  },
+  "death_rule": "Death requires irreversible anatomy or a later physiological process crossing its exact threshold; identity or narrative importance never changes the result.",
+  "physiology": {
+    "infection_pressure": "contamination+treatment_delay+sanitation_burden+foreign_material+tissue_damage-cleaning-drainage-ongoing_care",
+    "recovery_progress": "treatment_quality+nutrition_rest+sanitation+rehabilitation-severity_burden-infection_burden-repeated_trauma",
+    "infection_rule": "all components are saved numeric inputs; missing clinical evidence blocks a precise infection progression result rather than being guessed",
+    "fixed_level_values": {
+      "minor": 4,
+      "clear": 8,
+      "major": 12,
+      "decisive": 16
+    },
+    "infection_pressure_bands": [
+      {
+        "max": 0,
+        "state": "controlled"
+      },
+      {
+        "min": 1,
+        "max": 8,
+        "state": "monitor"
+      },
+      {
+        "min": 9,
+        "max": 16,
+        "state": "local_infection"
+      },
+      {
+        "min": 17,
+        "max": 24,
+        "state": "spreading_infection_and_systemic_stress"
+      },
+      {
+        "min": 25,
+        "max": null,
+        "state": "critical_sepsis_risk"
+      }
+    ],
+    "recovery_stages": [
+      "unstable",
+      "stabilized",
+      "early_healing",
+      "functional_rehabilitation",
+      "healed_with_or_without_sequelae"
+    ],
+    "maximum_stage_advance_per_scheduled_review": 1
+  }
+}

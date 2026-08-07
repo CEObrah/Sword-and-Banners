@@ -1,0 +1,60 @@
+{
+  "name": "Tang Manor Artillery Runtime State",
+  "owner_id": "tang_manor_artillery",
+  "owner_type": "artillery_state",
+  "records": [
+    {
+      "facts": {
+        "ammunition_owner": "owner:tang_manor_siege_inventory",
+        "crew_assignment_rule": "exact fit crew must be assigned from non-overlapping duty ledgers; company existence alone never crews a weapon",
+        "crew_owner_ids": [
+          "merc_red_crane",
+          "merc_white_lantern",
+          "char_mu_zhen"
+        ],
+        "weapon_id_rule": "each installed weapon has stable ID derived from emplacement group plus three-digit index; reserve weapons receive an ID only when installed",
+        "default_condition_if_unmodified": "100 for every installed weapon",
+        "default_crew_fatigue_if_unmodified": "0 for every crew unit"
+      },
+      "label": "Overview",
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "standing_assignment": [
+          {
+            "Red Crane Bed Crossbow Corps": "all 320 installed bed crossbows at minimum crew when full emergency manning is ordered"
+          },
+          {
+            "Red Crane Trebuchet Corps": "all 48 installed trebuchets at minimum crew when full emergency manning is ordered"
+          },
+          {
+            "White Lantern Stone-Drop and Firepot Corps": "all 128 cranes and 128 cauldrons at minimum crew when full emergency manning is ordered"
+          },
+          {
+            "Mu Zhen": "overall contracted artillery and outer-defense command"
+          }
+        ]
+      },
+      "items": [
+        "outer_wall_bed_crossbow: 256; IDs OW-BC-001 through OW-BC-256",
+        "inner_citadel_bed_crossbow: 48; IDs IC-BC-001 through IC-BC-048",
+        "main_gate_bed_crossbow: 16; IDs MG-BC-001 through MG-BC-016",
+        "outer_wall_trebuchet: 32; IDs OW-TR-001 through OW-TR-032",
+        "inner_citadel_trebuchet: 12; IDs IC-TR-001 through IC-TR-012",
+        "main_gate_trebuchet: 4; IDs MG-TR-001 through MG-TR-004",
+        "outer_wall_stone_drop_crane: 128; IDs OW-SD-001 through OW-SD-128",
+        "outer_wall_firepot_cauldron: 128; IDs OW-FP-001 through OW-FP-128"
+      ],
+      "label": "emplacement_groups",
+      "notes": [
+        "No weapon is considered crewed merely because a company exists. A combat event must assign exact fit crew and specialists from a non-overlapping duty ledger."
+      ],
+      "record_id": "emplacement_groups"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "artillery-state.v38"
+}

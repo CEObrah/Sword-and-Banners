@@ -1,0 +1,18 @@
+{
+  "schema": "unit_resolution_mechanics.v1",
+  "principle": "A large ordinary unit is one aggregate combat actor. The unit is not expanded into one character per soldier. Aggregate statistics are the authoritative mass-resolution representation; named exact/individual-lite people remain separate bodies.",
+  "resolution_depths": {
+    "organization_only": "For ownership, assignment, splitting, merging, command, location or logistics queries, load the unit owner and only the referenced organizational standards needed. Do not load combat capability unless the question requires it.",
+    "mass_battle_kernel": "For broad large-battle screening, movement/contact, expected exchange, morale pressure and command synchronization, use the unit battle kernel plus live headcount, troop type, loadout/issue state, morale, cohesion, readiness, fatigue/condition, commander chain, terrain and order.",
+    "full_unit_capability": "Load the full unit capability distribution when variance/tails, specialist skill, unusual terrain/equipment interaction, threshold qualification, technique use, medical/engineering detail, named-person action or a close result could materially change the outcome.",
+    "exact_person": "Named exact or individual-lite actors resolve from their own sheets. Never replace them with the unit mean once individually represented."
+  },
+  "kernel_authority": "Battle kernels are derived caches, never independent truth. They preserve the source capability mean and spread vectors and carry a source hash. If the hash is stale, rebuild from the full capability before resolution.",
+  "vectorization": "Several materially equivalent units may be evaluated together for computation only. Equivalence requires matching troop type, standard/issue state, relevant capability kernel, doctrine familiarity, commander chain quality, order, sector/terrain/exposure, supply, morale/cohesion/readiness/fatigue and specialist state. Settle every result deterministically back to the real unit IDs; any divergence ends batching.",
+  "determinism": "Same authoritative state, same player/NPC orders and same registered deterministic random inputs must produce the same mechanical result. Narrative wording and model variation are never random inputs.",
+  "anti_overcompression": "Never collapse a unit to one scalar power score. Preserve multidimensional capability, headcount, equipment, morale, cohesion, readiness, fatigue, injuries/casualties, experience, doctrine familiarity, terrain, supply and command as separate causal inputs.",
+  "casualty_settlement": "Casualties/injuries/equipment loss reduce the real unit state and remain conserved. Aggregate casualties may be deterministic expected allocations or registered deterministic draws only where the mechanic explicitly requires distribution sampling.",
+  "support": "Service/combat-support capacity is resolved through its own support mechanics and does not become free line frontage.",
+  "authority": "data/mechanics/unit-resolution.json",
+  "game_scope": "This repository only."
+}

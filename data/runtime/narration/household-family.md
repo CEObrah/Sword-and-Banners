@@ -1,0 +1,2 @@
+# Household and family narration
+Keep household life distinct from court politics. Familiar people may interrupt, tease, object, protect, or disagree without serving as exposition machines. Marriage proposals, births, funerals, guardianship, inheritance, and succession use etiquette, silence, witnesses, gifts/terms, private/public stakes, and real household resources. Kinship is not affection; political advantage is not consent.

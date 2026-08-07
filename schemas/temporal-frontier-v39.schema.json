@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "world_time",
+    "processes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "temporal-frontier.v39"
+    },
+    "world_time": {
+      "type": "string"
+    },
+    "processes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "settlement_mode",
+          "settled_through",
+          "next_due",
+          "source",
+          "recurrence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "settlement_mode": {
+            "enum": [
+              "event",
+              "iterative",
+              "batchable",
+              "triggered"
+            ]
+          },
+          "settled_through": {
+            "type": "string"
+          },
+          "next_due": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "coverage": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "coverage_ref": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "recurrence": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true,
+  "description": "Hot temporal frontier: current world time and process boundaries only. Static policy/coverage requirements live under data/runtime; large process coverage lists are routed by coverage_ref."
+}

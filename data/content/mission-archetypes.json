@@ -1,0 +1,135 @@
+{
+  "schema": "content-archetypes.v1",
+  "kind": "mission_archetypes",
+  "authority": "cold_non_state_content",
+  "assignment_rule": "A mission becomes canonical only after issuer, assignee, objective, location/route, timing, authority/reward, known information, hidden facts, opposition, and success/failure conditions are committed before player tactics.",
+  "archetypes": [
+    {
+      "id": "mission.escort_envoy",
+      "category": "escort",
+      "description": "Protect a political envoy across a seeded route under diplomatic constraints."
+    },
+    {
+      "id": "mission.caravan_security",
+      "category": "escort",
+      "description": "Protect a merchant caravan with fixed cargo, route, schedule, and threat state."
+    },
+    {
+      "id": "mission.fortress_inspection",
+      "category": "inspection",
+      "description": "Inspect a fortification, supplies, command readiness, and repair needs."
+    },
+    {
+      "id": "mission.prisoner_recovery",
+      "category": "recovery",
+      "description": "Recover or exchange a captured person through force, negotiation, ransom, or covert action."
+    },
+    {
+      "id": "mission.raider_suppression",
+      "category": "security",
+      "description": "Locate and suppress an identified raider group under the assigned legal and territorial constraints."
+    },
+    {
+      "id": "mission.corruption_investigation",
+      "category": "investigation",
+      "description": "Investigate a governor, official, depot, or tax office using evidence and political authority."
+    },
+    {
+      "id": "mission.engineering_protection",
+      "category": "protection",
+      "description": "Protect engineers, surveyors, or a works project through a defined risk window."
+    },
+    {
+      "id": "mission.counterintelligence",
+      "category": "intelligence",
+      "description": "Identify a spy, leak, or compromised courier chain from available evidence."
+    },
+    {
+      "id": "mission.steal_plans",
+      "category": "covert",
+      "description": "Acquire enemy plans or records from the assigned location."
+    },
+    {
+      "id": "mission.sabotage_siege_train",
+      "category": "military",
+      "description": "Damage or delay an identified enemy siege train."
+    },
+    {
+      "id": "mission.agent_extraction",
+      "category": "covert",
+      "description": "Extract an intelligence contact or agent from a seeded location."
+    },
+    {
+      "id": "mission.pass_recon",
+      "category": "reconnaissance",
+      "description": "Survey a pass, road, river crossing, or enemy approach and return actionable information."
+    },
+    {
+      "id": "mission.bridge_security",
+      "category": "military",
+      "description": "Secure, defend, repair, seize, or deny a bridge according to the issued orders."
+    },
+    {
+      "id": "mission.command_detachment",
+      "category": "military",
+      "description": "Command an assigned detachment for the stated operational objective."
+    },
+    {
+      "id": "mission.screen_army",
+      "category": "military",
+      "description": "Screen a larger army movement using cavalry, scouts, terrain, and information."
+    },
+    {
+      "id": "mission.hold_crossing",
+      "category": "military",
+      "description": "Hold a crossing until a fixed condition, deadline, or withdrawal order."
+    },
+    {
+      "id": "mission.raid_supplies",
+      "category": "military",
+      "description": "Raid a defined supply node or convoy using existing logistics state."
+    },
+    {
+      "id": "mission.defend_siege_works",
+      "category": "military",
+      "description": "Protect siege works and crews from a pre-seeded enemy response."
+    },
+    {
+      "id": "mission.secure_retreat",
+      "category": "military",
+      "description": "Maintain a route for withdrawing forces under actual casualty, terrain, and morale conditions."
+    },
+    {
+      "id": "mission.house_tax_dispute",
+      "category": "political",
+      "description": "Resolve a tax, jurisdiction, or privilege dispute involving House Tang through lawful, political, or coercive means."
+    },
+    {
+      "id": "mission.house_marriage_proposal",
+      "category": "political",
+      "description": "Handle a marriage/alliance proposal without presuming Tang Wei consent or family outcome.",
+      "family_domain": "family_transition",
+      "state_authority": "state/family/"
+    },
+    {
+      "id": "mission.house_trade_dispute",
+      "category": "political",
+      "description": "Resolve an embargo, contract failure, toll dispute, or merchant pressure."
+    },
+    {
+      "id": "mission.sword_manor_incident",
+      "category": "institutional",
+      "description": "Handle an incident involving a Sword Manor member, patron, rival school, or local authority."
+    },
+    {
+      "id": "mission.mercenary_contract_crisis",
+      "category": "contract",
+      "description": "Resolve payment, casualties, scope, replacement, or employer disagreement with a mercenary company."
+    },
+    {
+      "id": "mission.prisoner_exchange",
+      "category": "diplomatic",
+      "description": "Negotiate or execute a prisoner exchange with explicit custody and security state."
+    }
+  ]
+}

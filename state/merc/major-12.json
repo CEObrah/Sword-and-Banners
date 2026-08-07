@@ -1,0 +1,113 @@
+{
+  "schema": "mercenary.v38",
+  "owner_id": "merc.major.12",
+  "owner_type": "mercenary_company",
+  "name": "Northern Hawk",
+  "headcount": 1400,
+  "doctrine": "doc.merc.major.12",
+  "training": "train.merc.regular",
+  "combat_tendencies": {
+    "aggression": 58,
+    "initiative": 54,
+    "caution": 48,
+    "adaptability": 62,
+    "pursuit_bias": 50,
+    "casualty_tolerance": 55,
+    "objective_focus": 68
+  },
+  "doctrine_familiarity": 75,
+  "status": "available",
+  "contracts": [],
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 170,
+      "sd": 6.1
+    },
+    "weight_kg": {
+      "mean": 64,
+      "sd": 7.0
+    },
+    "individual_records_required": false
+  },
+  "specialty": "frontier_cavalry",
+  "composition_rule": "company is persistent combined force, not one generic blob",
+  "home_establishment_ref": "establishment.merc.major.12",
+  "formation_library_ref": "formation.mercenary.standard",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "troop_pools": [
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.12.cavalry",
+      "count": 770,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_cavalry",
+      "doctrine": "doc.merc.major.12",
+      "training": "train.merc.regular",
+      "role": "cavalry",
+      "troop_type": "cavalry",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-12-cavalry.json"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.12.scouts",
+      "count": 308,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_scout",
+      "doctrine": "doc.merc.major.12",
+      "training": "train.merc.regular",
+      "role": "scouts",
+      "troop_type": "scout",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-12-scouts.json",
+      "specialty": "scouts"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.12.light_line",
+      "count": 154,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_light",
+      "doctrine": "doc.merc.major.12",
+      "training": "train.merc.regular",
+      "role": "light_line",
+      "troop_type": "light_infantry",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-12-light-line.json",
+      "specialty": "light_line"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.12.support",
+      "count": 168,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_support",
+      "doctrine": "doc.merc.major.12",
+      "training": "train.merc.regular",
+      "role": "support",
+      "troop_type": "support_staff",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-12-support.json",
+      "specialty": "support"
+    }
+  ],
+  "accounting_only": true
+}

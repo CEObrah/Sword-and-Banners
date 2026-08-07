@@ -1,0 +1,114 @@
+{
+  "schema": "mercenary.v38",
+  "owner_id": "merc.major.02",
+  "owner_type": "mercenary_company",
+  "name": "Jade Spear",
+  "headcount": 2800,
+  "doctrine": "doc.merc.major.02",
+  "training": "train.merc.regular",
+  "combat_tendencies": {
+    "aggression": 58,
+    "initiative": 54,
+    "caution": 48,
+    "adaptability": 62,
+    "pursuit_bias": 50,
+    "casualty_tolerance": 55,
+    "objective_focus": 68
+  },
+  "doctrine_familiarity": 75,
+  "status": "available",
+  "contracts": [],
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 171,
+      "sd": 6.2
+    },
+    "weight_kg": {
+      "mean": 58,
+      "sd": 7.4
+    },
+    "individual_records_required": false
+  },
+  "specialty": "spear_assault",
+  "composition_rule": "company is persistent combined force, not one generic blob",
+  "home_establishment_ref": "establishment.merc.major.02",
+  "formation_library_ref": "formation.mercenary.standard",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "troop_pools": [
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.02.spear_line",
+      "count": 1960,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_spear",
+      "doctrine": "doc.merc.major.02",
+      "training": "train.merc.regular",
+      "role": "spear_line",
+      "troop_type": "spear_infantry",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-02-spear-line.json",
+      "specialty": "spear_line"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.02.crossbow",
+      "count": 280,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_crossbow",
+      "doctrine": "doc.merc.major.02",
+      "training": "train.merc.regular",
+      "role": "crossbow",
+      "troop_type": "crossbow_infantry",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-02-crossbow.json",
+      "specialty": "crossbow"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.02.scouts",
+      "count": 224,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_scout",
+      "doctrine": "doc.merc.major.02",
+      "training": "train.merc.regular",
+      "role": "scouts",
+      "troop_type": "scout",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-02-scouts.json",
+      "specialty": "scouts"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.02.support",
+      "count": 336,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_support",
+      "doctrine": "doc.merc.major.02",
+      "training": "train.merc.regular",
+      "role": "support",
+      "troop_type": "support_staff",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-02-support.json",
+      "specialty": "support"
+    }
+  ],
+  "accounting_only": true
+}

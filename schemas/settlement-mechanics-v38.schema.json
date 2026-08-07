@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "rules",
+    "facility_patterns",
+    "disease_level_values",
+    "disease_contact_fraction_by_margin"
+  ],
+  "properties": {
+    "schema": {
+      "const": "settlement-mechanics.v38"
+    },
+    "formulas": {},
+    "rules": {},
+    "facility_patterns": {},
+    "disease_level_values": {},
+    "disease_contact_fraction_by_margin": {}
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite.v38",
+  "id": "staff.zhao.riboku.zhao_ke",
+  "name": "Zhao Ke",
+  "resolution": "individual_lite",
+  "owner": "army.riboku_command",
+  "family_id": "fam.zhao_ke",
+  "origin": "Zhao",
+  "rank": "named_staff_officer",
+  "role": "planning officer",
+  "stats": {
+    "attributes": {
+      "Strength": 88,
+      "Agility": 86,
+      "Endurance": 87,
+      "Toughness": 80,
+      "Coordination": 79,
+      "Awareness": 103,
+      "Composure": 78,
+      "Intelligence": 89,
+      "Presence": 79
+    },
+    "skills": {
+      "Sword": 79,
+      "Spear": 81,
+      "Glaive": 75,
+      "Axe": 71,
+      "Mace": 79,
+      "Staff": 86,
+      "Dagger": 85,
+      "Bow": 84,
+      "Crossbow": 87,
+      "Shield": 75,
+      "Defense": 79,
+      "Athletics": 100,
+      "Mass Combat": 112,
+      "Grappling": 69,
+      "Unarmed": 69,
+      "Riding": 67,
+      "Formation Fighting": 119,
+      "Survival": 99,
+      "Stealth": 84,
+      "Scouting": 97,
+      "Navigation": 81,
+      "Medicine": 88,
+      "Engineering": 73,
+      "Leadership": 109,
+      "Formation Command": 120,
+      "Tactics": 119,
+      "Strategy": 82,
+      "Logistics": 75,
+      "Intelligence Operations": 88,
+      "Training": 69,
+      "Diplomacy": 73,
+      "Law": 100,
+      "Trade": 90,
+      "Intrigue": 70,
+      "Governance": 101
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Zhao",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in planning officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "279-BCE-09-24",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 173.9,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 63.5,
+    "frame": "lean",
+    "source": "simulation_assigned"
+  },
+  "appearance": 72,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 100,
+    "technical_learning": 136,
+    "tactical_learning": 125,
+    "academic_learning": 123,
+    "social_learning": 137,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "analytical",
+      "patient",
+      "politically aware"
+    ],
+    "preferences": [
+      "complete maps",
+      "multiple courses of action"
+    ],
+    "dislikes": [
+      "wishful estimates",
+      "court rumors treated as facts"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.riboku_command",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_riboku",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "turn intelligence, terrain, logistics, and political constraints into executable options",
+  "background": "Persistent named planning officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.zhao.riboku.zhao_ke.json"
+}

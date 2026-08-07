@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "count",
+    "record_index",
+    "shards"
+  ],
+  "properties": {
+    "schema": {
+      "const": "loadouts-index.v1"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "record_index": {
+      "type": "object"
+    },
+    "shards": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

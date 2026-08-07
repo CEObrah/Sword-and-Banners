@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite.v38",
+  "id": "staff.tang.liu_fang",
+  "name": "Liu Fang",
+  "resolution": "individual_lite",
+  "owner": "house.tang",
+  "family_id": "fam.liu_fang",
+  "origin": "House Tang",
+  "rank": "named_professional_staff",
+  "role": "intelligence contact manager",
+  "stats": {
+    "attributes": {
+      "Strength": 54,
+      "Agility": 52,
+      "Endurance": 53,
+      "Toughness": 70,
+      "Coordination": 48,
+      "Awareness": 54,
+      "Composure": 64,
+      "Intelligence": 53,
+      "Presence": 50
+    },
+    "skills": {
+      "Sword": 51,
+      "Spear": 30,
+      "Glaive": 38,
+      "Axe": 28,
+      "Mace": 23,
+      "Staff": 33,
+      "Dagger": 22,
+      "Bow": 43,
+      "Crossbow": 47,
+      "Shield": 36,
+      "Defense": 56,
+      "Athletics": 28,
+      "Mass Combat": 61,
+      "Grappling": 47,
+      "Unarmed": 23,
+      "Riding": 57,
+      "Formation Fighting": 47,
+      "Survival": 39,
+      "Stealth": 37,
+      "Scouting": 46,
+      "Navigation": 31,
+      "Medicine": 35,
+      "Engineering": 50,
+      "Leadership": 57,
+      "Formation Command": 67,
+      "Tactics": 60,
+      "Strategy": 26,
+      "Logistics": 37,
+      "Intelligence Operations": 137,
+      "Training": 52,
+      "Diplomacy": 55,
+      "Law": 39,
+      "Trade": 24,
+      "Intrigue": 24,
+      "Governance": 39
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_house_tang_civil_staff",
+  "mount": null,
+  "loc": "House Tang",
+  "unit": null,
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in intelligence contact manager duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "279-BCE-07-23",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 180.6,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 72.4,
+    "frame": "broad",
+    "source": "simulation_assigned"
+  },
+  "appearance": 72,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 96,
+    "technical_learning": 116,
+    "tactical_learning": 129,
+    "academic_learning": 155,
+    "social_learning": 134,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "discreet",
+      "skeptical",
+      "socially perceptive"
+    ],
+    "preferences": [
+      "independent corroboration",
+      "contacts with clear motives"
+    ],
+    "dislikes": [
+      "single-source certainty",
+      "gossip dressed as intelligence"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "house.tang",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_tang_wei",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "maintain a useful contact network without confusing rumor, favor, and verified information",
+  "background": "Persistent named intelligence contact manager. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount."
+}

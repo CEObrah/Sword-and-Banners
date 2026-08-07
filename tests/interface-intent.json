@@ -1,0 +1,17 @@
+{
+  "schema": "interface-intent-tests.v1",
+  "cases": [
+    {
+      "input": "OOC: Would this officer be a good future commander?",
+      "expected_persistence": false
+    },
+    {
+      "input": "PREVIEW: FORM FORMATION from my currently assigned troops",
+      "expected_persistence": false
+    },
+    {
+      "input": "ORDER: Adopt the previewed formation using only troops lawfully assigned to me.",
+      "expected_persistence": "normal_transaction_required"
+    }
+  ]
+}

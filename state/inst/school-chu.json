@@ -1,0 +1,135 @@
+{
+  "base_region": "Ying region",
+  "finance_equipment_and_mounts": {
+    "armed_personnel": 1745,
+    "assigned_mounts": 200,
+    "assigned_war_arrows": 62820,
+    "facility_factor": 1.036,
+    "fodder_stock_kg": 120000,
+    "food_stock_kg": 192000,
+    "issued_combat_loadouts": 1745,
+    "loadout_id": "loadout_school_martial",
+    "monthly_normal_expense_silver": 20000,
+    "monthly_realized_revenue_silver": 24000,
+    "mount_type": "horse_war_military",
+    "reserve_combat_loadouts": 175,
+    "reserve_war_arrows": 62820,
+    "support_personnel": 255,
+    "treasury_silver": 160000
+  },
+  "institution_class": "martial_school",
+  "leader_status": "unresolved named full sheet only when encountered",
+  "name": "Great River Martial Academy",
+  "owner_id": "school_chu",
+  "owner_type": "institution",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "independent-institution.v38",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state": "CHU",
+  "subprocess_id": "process_school_chu",
+  "total_people": 900,
+  "direct_members": 900,
+  "affiliate_network_members": 1400,
+  "field_ready_members": 415,
+  "institution_rule": "direct membership is not equivalent to deployable military manpower; mobilization requires explicit reorganization and support loss",
+  "home_establishment_ref": "establishment.school_chu",
+  "formation_library_ref": "formation.school.mobilization",
+  "reconstitution_policy_ref": "reconstitution.school",
+  "doctrine": "doc.organization.school_instruction",
+  "training": "train.organization.school",
+  "combat_tendencies": {
+    "aggression": 30,
+    "initiative": 45,
+    "caution": 75,
+    "adaptability": 55,
+    "flank_bias": 25,
+    "counterattack_bias": 55,
+    "pursuit_bias": 10,
+    "reserve_bias": 70,
+    "withdrawal_willingness": 80,
+    "casualty_tolerance": 20,
+    "objective_focus": 90,
+    "ally_support": 90,
+    "formation_discipline": 65,
+    "commander_dependence": 65
+  },
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 35
+      },
+      "count": 35,
+      "fatigue_mean": 0.0,
+      "role": "school_instructor",
+      "pool_id": "school_chu:pool_school_instructor",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_instructor",
+      "accounting_scale": "tactical_25",
+      "capability_ref": "state/manpower-capability/school-chu-pool-school-instructor.json"
+    },
+    {
+      "condition": {
+        "fit": 90
+      },
+      "count": 90,
+      "fatigue_mean": 0.0,
+      "role": "school_senior",
+      "pool_id": "school_chu:pool_school_senior",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_senior",
+      "accounting_scale": "tactical_25",
+      "capability_ref": "state/manpower-capability/school-chu-pool-school-senior.json"
+    },
+    {
+      "condition": {
+        "fit": 290
+      },
+      "count": 290,
+      "fatigue_mean": 0.0,
+      "role": "school_general",
+      "pool_id": "school_chu:pool_school_general",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_general",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/school-chu-pool-school-general.json"
+    },
+    {
+      "condition": {
+        "fit": 330
+      },
+      "count": 330,
+      "fatigue_mean": 0.0,
+      "role": "school_junior",
+      "pool_id": "school_chu:pool_school_junior",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_junior",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/school-chu-pool-school-junior.json"
+    },
+    {
+      "condition": {
+        "fit": 155
+      },
+      "count": 155,
+      "fatigue_mean": 0.0,
+      "role": "school_support",
+      "pool_id": "school_chu:pool_school_support",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_support",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/school-chu-pool-school-support.json"
+    }
+  ],
+  "stat_order_ref": "data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true,
+  "institutional_track_record_index": 148
+}

@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Materialized homogeneous military unit",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "owner",
+    "troop_type",
+    "personnel",
+    "loadout_standard",
+    "doctrine",
+    "training",
+    "location"
+  ],
+  "properties": {
+    "schema": {
+      "const": "unit.v1"
+    },
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "home_establishment_ref": {
+      "type": "string"
+    },
+    "troop_type": {
+      "type": "string"
+    },
+    "personnel": {
+      "type": "object",
+      "required": [
+        "representation",
+        "count"
+      ],
+      "properties": {
+        "representation": {
+          "enum": [
+            "aggregate",
+            "named_members"
+          ]
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_claims": {
+          "type": "array"
+        },
+        "member_ids": {
+          "type": "array",
+          "uniqueItems": true
+        },
+        "condition": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    },
+    "loadout_standard": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doctrine": {
+      "type": "string"
+    },
+    "training": {
+      "type": "string"
+    },
+    "commander_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "capability_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "location": {
+      "type": "string"
+    },
+    "cohesion": {},
+    "morale": {},
+    "readiness": {},
+    "lineage": {
+      "type": "object"
+    },
+    "issue_state": {
+      "type": "object",
+      "description": "Exception-only actual issue/readiness state. Absence means no separately materialized issue exception. It may record shortages, damage, substitutes, ammunition, mount/equipment availability or repair state but never a second intended organizational standard.",
+      "properties": {
+        "status": {
+          "enum": [
+            "fully_issued",
+            "under_issued",
+            "damaged",
+            "substitute_issue",
+            "mixed_exceptions"
+          ]
+        },
+        "completeness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "missing": {
+          "type": "object"
+        },
+        "damaged": {
+          "type": "object"
+        },
+        "substitutes": {
+          "type": "object"
+        },
+        "ammunition_state": {
+          "type": "object"
+        },
+        "mount_issue_state": {
+          "type": "object"
+        },
+        "repair_backlog": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true,
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "alternate_loadout"
+            ]
+          },
+          {
+            "required": [
+              "secondary_standard"
+            ]
+          },
+          {
+            "required": [
+              "loadout_standard_distribution"
+            ]
+          }
+        ]
+      }
+    },
+    "refit_state": {
+      "type": "object",
+      "description": "Optional transition to a future standard. The current unit standard remains authoritative for organizational identity until refit completion; actual equipment during transition is resolved from issue/inventory state.",
+      "required": [
+        "status",
+        "target_loadout_standard",
+        "progress"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "planned",
+            "awaiting_stock",
+            "issuing",
+            "fitting",
+            "familiarizing",
+            "paused"
+          ]
+        },
+        "target_loadout_standard": {
+          "type": "string",
+          "minLength": 1
+        },
+        "progress": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "started_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reserved_inventory_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "familiarization_required": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "not": {
+        "required": [
+          "loadout_distribution"
+        ]
+      }
+    },
+    {
+      "not": {
+        "required": [
+          "troop_type_distribution"
+        ]
+      }
+    },
+    {
+      "not": {
+        "required": [
+          "doctrine_distribution"
+        ]
+      }
+    },
+    {
+      "not": {
+        "required": [
+          "training_distribution"
+        ]
+      }
+    },
+    {
+      "not": {
+        "required": [
+          "commander_distribution"
+        ]
+      }
+    },
+    {
+      "not": {
+        "required": [
+          "loadout_standard_distribution"
+        ]
+      }
+    },
+    {
+      "not": {
+        "required": [
+          "alternate_loadout_distribution"
+        ]
+      }
+    }
+  ]
+}

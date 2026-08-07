@@ -1,0 +1,48 @@
+{
+  "schema": "process-contract.v1",
+  "cadence": "exact event",
+  "constraints": [
+    "routine authority only",
+    "exceptions create blocker",
+    "no Tang Wei order"
+  ],
+  "contract_id": "contract_process_main_gate_arrival_001",
+  "domain": "logistics_event",
+  "goals": [
+    "receive the contracted caravan",
+    "inspect manifests and visible cargo",
+    "hold exceptions for authorized review"
+  ],
+  "owner_id": "process_main_gate_arrival_001",
+  "plan_lifecycle": [
+    "proposed",
+    "active",
+    "blocked",
+    "completed",
+    "failed",
+    "abandoned",
+    "superseded"
+  ],
+  "plan_revision": 1,
+  "reconstruction_policy": "Use saved state, standing orders, resources, opposition, exact events, stable seed, and prior receipts. Never award unsupported success or make Tang Wei choices.",
+  "replanning_policy": "After every settled interval, reassess goals, authority, knowledge, health, resources, dependencies, opposition, constraints, and risk. Continue, block, fail, complete, or supersede the current plan and create a supported successor when the owner remains autonomous.",
+  "result_requirement": [
+    "progress",
+    "maintenance",
+    "recovery",
+    "decline",
+    "loss",
+    "transformation",
+    "closure",
+    "blocked",
+    "no_material_change"
+  ],
+  "revision": 1,
+  "safe_compaction_policy": "A span receipt may cover multiple intervals only when each interval is internally processed in order and material interruptions split the span.",
+  "standing_orders": [
+    "gate staff perform routine inspection",
+    "do not spend Tang Wei funds or accept altered contract terms"
+  ],
+  "successor_plan_required": true,
+  "visibility": "known"
+}

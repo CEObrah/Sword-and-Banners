@@ -1,0 +1,80 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_zhao_role_siege_engineering",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        60,
+        54,
+        70,
+        66,
+        64,
+        64,
+        67,
+        66,
+        48
+      ],
+      "skill_values": [
+        42,
+        45,
+        40,
+        55,
+        60,
+        50,
+        40,
+        35,
+        45,
+        48,
+        52,
+        60,
+        44,
+        48,
+        45,
+        27,
+        48,
+        54,
+        30,
+        41,
+        45,
+        35,
+        72,
+        42,
+        38,
+        44,
+        38,
+        66,
+        32,
+        48,
+        30,
+        35,
+        42,
+        28,
+        38
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_zhao_role_siege_engineering",
+    "monthly_factor_inputs": "instruction 1.02; facility 0.98; equipment 0.98; recovery 0.98; administration 0.75",
+    "role": "siege_engineering",
+    "state": "ZHAO",
+    "identity_notes": "Cavalry and frontier warfare leader: superior riding, scouting, maneuver, field experience, and mobile command.",
+    "balance_adjustment": {
+      "state_identity": "ZHAO",
+      "role": "siege_engineering",
+      "attribute_modifiers": {
+        "Agility": 2,
+        "Awareness": 2,
+        "Composure": 1
+      },
+      "skill_modifiers": {
+        "Riding": 2,
+        "Scouting": 3,
+        "Survival": 2,
+        "Tactics": 2,
+        "Mass Combat": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

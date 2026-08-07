@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "units"
+  ],
+  "properties": {
+    "schema": {
+      "const": "unit-index.v1"
+    },
+    "units": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

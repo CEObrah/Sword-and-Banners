@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "when_to_offer",
+    "suggested_choice_count",
+    "free_form_option_required",
+    "duration_required_for_every_suggested_choice",
+    "duration_display",
+    "legality_gate",
+    "horizons",
+    "normal_scene_horizon_mix",
+    "crisis_rule",
+    "interrupt_rule",
+    "information_rule",
+    "menu_rule",
+    "storage_rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "choice-presentation.v1"
+    },
+    "when_to_offer": {
+      "type": "string"
+    },
+    "suggested_choice_count": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum",
+        "maximum"
+      ],
+      "properties": {
+        "minimum": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maximum": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "free_form_option_required": {
+      "type": "boolean"
+    },
+    "duration_required_for_every_suggested_choice": {
+      "type": "boolean"
+    },
+    "duration_display": {
+      "type": "string"
+    },
+    "legality_gate": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "horizons": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "short",
+        "medium",
+        "long"
+      ],
+      "properties": {
+        "short": {
+          "type": "string"
+        },
+        "medium": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        }
+      }
+    },
+    "normal_scene_horizon_mix": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "crisis_rule": {
+      "type": "string"
+    },
+    "interrupt_rule": {
+      "type": "string"
+    },
+    "information_rule": {
+      "type": "string"
+    },
+    "menu_rule": {
+      "type": "string"
+    },
+    "storage_rule": {
+      "type": "string"
+    }
+  }
+}

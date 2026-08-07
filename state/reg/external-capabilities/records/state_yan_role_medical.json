@@ -1,0 +1,74 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_yan_role_medical",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        50,
+        51,
+        59,
+        54,
+        58,
+        64,
+        66,
+        66,
+        50
+      ],
+      "skill_values": [
+        38,
+        35,
+        28,
+        30,
+        32,
+        42,
+        40,
+        37,
+        35,
+        42,
+        42,
+        50,
+        38,
+        40,
+        42,
+        32,
+        37,
+        53,
+        35,
+        45,
+        48,
+        58,
+        48,
+        42,
+        34,
+        36,
+        34,
+        35,
+        38,
+        48,
+        42,
+        38,
+        54,
+        36,
+        48
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_yan_role_medical",
+    "monthly_factor_inputs": "instruction 0.98; facility 0.96; equipment 0.97; recovery 0.96; administration 0.64",
+    "role": "medical",
+    "state": "YAN",
+    "identity_notes": "Frontier and mountain-oriented: cavalry, bows, scouts, survival, and terrain knowledge exceed its generic line quality.",
+    "balance_adjustment": {
+      "state_identity": "YAN",
+      "role": "medical",
+      "attribute_modifiers": {
+        "Agility": 1,
+        "Awareness": 2,
+        "Endurance": 1
+      },
+      "skill_modifiers": {},
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

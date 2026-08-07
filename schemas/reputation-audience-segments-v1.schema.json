@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "schema",
+    "game",
+    "audience_id_pattern",
+    "segments"
+  ],
+  "properties": {
+    "schema": {
+      "const": "reputation-audience-segments.v1"
+    },
+    "game": {
+      "enum": [
+        "shinobi",
+        "sword"
+      ]
+    },
+    "audience_id_pattern": {
+      "type": "string"
+    },
+    "segments": {
+      "type": "object",
+      "minProperties": 1
+    }
+  }
+}

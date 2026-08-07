@@ -1,0 +1,83 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.escort_han",
+    "owner_id": "escort_han",
+    "owner_type": "escort_bureau",
+    "source_force_ref": "state/inst/escort-han.json",
+    "formation_library_ref": "formation.escort.standard",
+    "reconstitution_policy_ref": "reconstitution.escort",
+    "reserve_rule": "Any source manpower not claimed by ordinal-matched units remains an accounting reserve and is not duplicated.",
+    "standing_procedure_ref": "procedure.escort.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.escort_captain"
+    },
+    "unit_series": [
+      {
+        "series_id": "est.escort_han.escort_guard",
+        "source_manpower_id": "escort_han:pool_escort_guard",
+        "role": "escort_guard",
+        "unit_count": 12,
+        "nominal_strength": 19,
+        "final_unit_strength": 18,
+        "stable_unit_id_pattern": "escort_han.escort_guard.{ordinal:02d}",
+        "doctrine": "doc.organization.escort_bureau",
+        "training": "train.organization.escort_bureau",
+        "loadout_standard": "loadout_escort_guard",
+        "troop_type": "guard_infantry",
+        "commander_profile_ref": "command_profile.escort_captain",
+        "specialty": "escort_guard"
+      },
+      {
+        "series_id": "est.escort_han.escort_scout",
+        "source_manpower_id": "escort_han:pool_escort_scout",
+        "role": "escort_scout",
+        "unit_count": 12,
+        "nominal_strength": 5,
+        "final_unit_strength": 4,
+        "stable_unit_id_pattern": "escort_han.escort_scout.{ordinal:02d}",
+        "doctrine": "doc.organization.escort_bureau",
+        "training": "train.organization.escort_bureau",
+        "loadout_standard": "loadout_escort_scout",
+        "troop_type": "scout",
+        "commander_profile_ref": "command_profile.escort_captain",
+        "specialty": "escort_scout"
+      },
+      {
+        "series_id": "est.escort_han.escort_support",
+        "source_manpower_id": "escort_han:pool_escort_support",
+        "role": "escort_support",
+        "unit_count": 12,
+        "nominal_strength": 14,
+        "final_unit_strength": 14,
+        "stable_unit_id_pattern": "escort_han.escort_support.{ordinal:02d}",
+        "doctrine": "doc.organization.escort_bureau",
+        "training": "train.organization.escort_bureau",
+        "loadout_standard": "loadout_escort_support",
+        "troop_type": "logistics",
+        "commander_profile_ref": "command_profile.escort_captain",
+        "specialty": "escort_support"
+      }
+    ],
+    "series_rule_ref": "establishment.rule.standard",
+    "command_group_series": {
+      "series_id": "est.escort_han.escort_group",
+      "group_count": 12,
+      "stable_group_id_pattern": "escort_han.group.{ordinal:02d}",
+      "commander_slot": {
+        "per_group": 1,
+        "source_manpower_id": "escort_han:pool_escort_captain",
+        "commander_profile_ref": "command_profile.escort_captain"
+      },
+      "ordinal_matched_unit_series": [
+        "est.escort_han.escort_guard",
+        "est.escort_han.escort_scout",
+        "est.escort_han.escort_support"
+      ],
+      "rule": "An escort group combines one guard unit, one scout unit and one support unit under a captain. The group is not a mixed unit and owns no duplicate manpower."
+    }
+  }
+}

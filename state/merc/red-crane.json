@@ -1,0 +1,120 @@
+{
+  "base_or_current_contract": "Tang Manor Artillery District",
+  "equipment_and_mounts": {
+    "assigned_mounts": 0,
+    "assigned_war_arrows": 0,
+    "assigned_war_bolts": 74880,
+    "issued_loadouts": [
+      {
+        "count": 1280,
+        "loadout_id": "loadout_mercenary_artillery"
+      },
+      {
+        "count": 2880,
+        "loadout_id": "loadout_mercenary_artillery"
+      }
+    ],
+    "reserve_mounts": 0,
+    "reserve_war_arrows": 0,
+    "reserve_war_bolts": 74880
+  },
+  "food_stock_kg": 399360,
+  "force_class": "mercenary_company",
+  "headcount": 4160,
+  "name": "Red Crane Artillery Company",
+  "owner_id": "merc_red_crane",
+  "owner_type": "mercenary_company",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company.v38",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state_alignment": "QIN",
+  "subprocess_id": "process_merc_red_crane",
+  "treasury_silver": 499200,
+  "doctrine": "doc.merc_red_crane.standard",
+  "training": "train.merc_red_crane.standard",
+  "combat_tendencies": {
+    "aggression": 55,
+    "initiative": 55,
+    "caution": 50,
+    "adaptability": 55,
+    "flank_bias": 50,
+    "counterattack_bias": 55,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45,
+    "casualty_tolerance": 55,
+    "objective_focus": 70,
+    "ally_support": 65,
+    "formation_discipline": 70,
+    "commander_dependence": 55
+  },
+  "doctrine_familiarity": 80,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 166,
+      "sd": 6.4
+    },
+    "weight_kg": {
+      "mean": 67,
+      "sd": 7.8
+    },
+    "individual_records_required": false
+  },
+  "home_establishment_ref": "establishment.merc_red_crane",
+  "formation_library_ref": "formation.mercenary.standard",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 1280
+      },
+      "count": 1280,
+      "display": "Bed Crossbow Corps",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_artillery",
+      "mount_type": null,
+      "role": "bed_crossbow_corps",
+      "doctrine": "doc.merc_red_crane.bed_crossbow_corps",
+      "training": "train.merc_red_crane.bed_crossbow_corps",
+      "pool_id": "merc_red_crane:pool_bed_crossbow_corps",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "siege_artillery",
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-red-crane-pool-bed-crossbow-corps.json",
+      "specialty": "bed_crossbow_corps"
+    },
+    {
+      "condition": {
+        "fit": 2880
+      },
+      "count": 2880,
+      "display": "Trebuchet Corps",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_artillery",
+      "mount_type": null,
+      "role": "trebuchet_corps",
+      "doctrine": "doc.merc_red_crane.trebuchet_corps",
+      "training": "train.merc_red_crane.trebuchet_corps",
+      "pool_id": "merc_red_crane:pool_trebuchet_corps",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "siege_artillery",
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-red-crane-pool-trebuchet-corps.json",
+      "specialty": "trebuchet_corps"
+    }
+  ],
+  "stat_order_ref": "data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true
+}

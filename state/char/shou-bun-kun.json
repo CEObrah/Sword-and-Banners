@@ -1,0 +1,138 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "attributes": {
+    "Agility": 108,
+    "Awareness": 138,
+    "Composure": 148,
+    "Coordination": 116,
+    "Endurance": 125,
+    "Intelligence": 139,
+    "Presence": 142,
+    "Strength": 117,
+    "Toughness": 119
+  },
+  "career_state": {
+    "career_changes": 0,
+    "office_or_command": "saved profile role",
+    "revision": 1
+  },
+  "development_state": {
+    "completed_months": 0,
+    "maintenance_credit": 0.0,
+    "training_credit": 0.0
+  },
+  "health_status": "healthy",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 49,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_qin_unresolved",
+  "name": "Shou Bun Kun",
+  "owner_id": "char_shou_bun_kun",
+  "owner_type": "character",
+  "role_archetype": "veteran_official",
+  "runtime_status": "active_shared_process_participant",
+  "schema": "sab_character_v38",
+  "skills": {
+    "Athletics": 49,
+    "Axe": 17,
+    "Bow": 17,
+    "Crossbow": 14,
+    "Dagger": 17,
+    "Defense": 137,
+    "Diplomacy": 121,
+    "Engineering": 15,
+    "Formation Command": 146,
+    "Formation Fighting": 13,
+    "Glaive": 13,
+    "Governance": 127,
+    "Grappling": 16,
+    "Intelligence Operations": 13,
+    "Intrigue": 17,
+    "Law": 19,
+    "Leadership": 159,
+    "Logistics": 17,
+    "Mace": 13,
+    "Mass Combat": 148,
+    "Medicine": 20,
+    "Navigation": 29,
+    "Riding": 17,
+    "Scouting": 14,
+    "Shield": 17,
+    "Spear": 146,
+    "Staff": 17,
+    "Stealth": 17,
+    "Strategy": 16,
+    "Survival": 40,
+    "Sword": 16,
+    "Tactics": 137,
+    "Trade": 25,
+    "Training": 26,
+    "Unarmed": 13
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_ba3cbe6cf80d51dd8df2",
+  "state": "Qin",
+  "birth_date": "294-BCE-10-20",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 168.0,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 62.4,
+    "frame": "lean",
+    "source": "simulation_assigned"
+  },
+  "appearance": 60,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 128,
+    "technical_learning": 109,
+    "tactical_learning": 152,
+    "academic_learning": 154,
+    "social_learning": 160,
+    "source": "simulation_seed_from_initial_capability"
+  },
+  "goal_state": {
+    "long_term_goals": [],
+    "current_goals": [
+      "protect Ei Sei, preserve the loyal network, and obtain enough force to reverse the coup"
+    ],
+    "current_orders": [],
+    "personal_desires": [],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ]
+  },
+  "background": {
+    "origin": "Qin"
+  },
+  "equipment_loadout_id": "loadout_named_spear",
+  "relationship_refs": [
+    "rel.char_shou_bun_kun.char_ei_sei.retainer"
+  ],
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "behavior": {
+    "decision_style": "combines veteran military judgment with court-network preservation; protects Ei Sei first, then preserves loyal people, information and enough force to reverse the coup",
+    "priority_order": [
+      "keep Ei Sei alive and free",
+      "preserve the loyal network and information channels",
+      "assemble lawful military leverage for the next decisive move"
+    ],
+    "pressure_behavior": "under pressure, favors survivable loyal networks, controlled information and force concentration over symbolic gestures",
+    "source": "current_campaign_role_goal_anchor",
+    "evidence_boundary": "This anchor is derived only from the saved current role, goal and opening-campaign obligations. Do not infer unrelated private traits, future development or later-series behavior from it."
+  }
+}

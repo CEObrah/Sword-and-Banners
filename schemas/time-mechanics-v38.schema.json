@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "calendar",
+    "formulas",
+    "rules",
+    "mode_distance_km_per_day"
+  ],
+  "properties": {
+    "schema": {
+      "const": "time-mechanics.v38"
+    },
+    "calendar": {},
+    "formulas": {},
+    "rules": {},
+    "mode_distance_km_per_day": {}
+  }
+}

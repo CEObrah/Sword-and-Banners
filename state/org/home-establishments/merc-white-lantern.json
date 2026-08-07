@@ -1,0 +1,91 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.merc_white_lantern",
+    "owner_id": "merc_white_lantern",
+    "owner_type": "mercenary_company",
+    "source_force_ref": "state/merc/white-lantern.json",
+    "formation_library_ref": "formation.mercenary.standard",
+    "reconstitution_policy_ref": "reconstitution.mercenary",
+    "unit_series": [
+      {
+        "series_id": "est.merc_white_lantern.stone_fire_corps",
+        "source_manpower_id": "merc_white_lantern:pool_stone_fire_corps",
+        "role": "stone_fire_corps",
+        "unit_count": 4,
+        "nominal_strength": 250,
+        "final_unit_strength": 146,
+        "stable_unit_id_pattern": "est.merc_white_lantern.stone_fire_corps.{ordinal:03d}",
+        "doctrine": "doc.merc_white_lantern.stone_fire_corps",
+        "training": "train.merc_white_lantern.stone_fire_corps",
+        "loadout_standard": "loadout_mercenary_artillery",
+        "troop_type": "siege_artillery",
+        "specialty": "stone_fire_corps"
+      },
+      {
+        "series_id": "est.merc_white_lantern.signals",
+        "source_manpower_id": "merc_white_lantern:pool_signals",
+        "role": "signals",
+        "unit_count": 1,
+        "nominal_strength": 250,
+        "final_unit_strength": 181,
+        "stable_unit_id_pattern": "est.merc_white_lantern.signals.{ordinal:03d}",
+        "doctrine": "doc.merc_white_lantern.signals",
+        "training": "train.merc_white_lantern.signals",
+        "loadout_standard": "loadout_mercenary_support",
+        "troop_type": "signal",
+        "specialty": "signals"
+      },
+      {
+        "series_id": "est.merc_white_lantern.medical",
+        "source_manpower_id": "merc_white_lantern:pool_medical",
+        "role": "medical",
+        "unit_count": 1,
+        "nominal_strength": 250,
+        "final_unit_strength": 181,
+        "stable_unit_id_pattern": "est.merc_white_lantern.medical.{ordinal:03d}",
+        "doctrine": "doc.merc_white_lantern.medical",
+        "training": "train.merc_white_lantern.medical",
+        "loadout_standard": "loadout_mercenary_support",
+        "troop_type": "medical"
+      },
+      {
+        "series_id": "est.merc_white_lantern.logistics",
+        "source_manpower_id": "merc_white_lantern:pool_logistics",
+        "role": "logistics",
+        "unit_count": 1,
+        "nominal_strength": 250,
+        "final_unit_strength": 182,
+        "stable_unit_id_pattern": "est.merc_white_lantern.logistics.{ordinal:03d}",
+        "doctrine": "doc.merc_white_lantern.logistics",
+        "training": "train.merc_white_lantern.logistics",
+        "loadout_standard": "loadout_mercenary_support",
+        "troop_type": "logistics"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mercenary.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.mercenary_captain"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 55,
+      "initiative": 50,
+      "caution": 50,
+      "adaptability": 50,
+      "flank_bias": 45,
+      "counterattack_bias": 55,
+      "pursuit_bias": 45,
+      "reserve_bias": 55,
+      "withdrawal_willingness": 45,
+      "casualty_tolerance": 60,
+      "objective_focus": 70,
+      "ally_support": 60,
+      "formation_discipline": 70,
+      "commander_dependence": 60
+    }
+  }
+}

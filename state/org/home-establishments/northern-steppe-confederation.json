@@ -1,0 +1,107 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.northern_steppe_confederation",
+    "owner_id": "northern_steppe_confederation",
+    "owner_type": "frontier_confederation",
+    "source_force_ref": "state/force/frontier-forces.json",
+    "formation_library_ref": "formation.steppe.standard",
+    "reconstitution_policy_ref": "reconstitution.steppe",
+    "standing_procedure_ref": "procedure.steppe.standard",
+    "unit_series": [
+      {
+        "series_id": "est.northern_steppe.mounted_archers",
+        "source_manpower_id": "steppe_mounted_archers",
+        "role": "mounted_archers",
+        "unit_count": 72,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.northern_steppe.mounted_archers.{ordinal:03d}",
+        "doctrine": "doc.organization.steppe_confederation",
+        "training": "train.organization.steppe_confederation",
+        "loadout_standard": "loadout_state_cavalry",
+        "troop_type": "mounted_archer",
+        "specialty": "mounted_archers"
+      },
+      {
+        "series_id": "est.northern_steppe.lance_cavalry",
+        "source_manpower_id": "steppe_lance_cavalry",
+        "role": "lance_cavalry",
+        "unit_count": 36,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.northern_steppe.lance_cavalry.{ordinal:03d}",
+        "doctrine": "doc.organization.steppe_confederation",
+        "training": "train.organization.steppe_confederation",
+        "loadout_standard": "loadout_state_cavalry",
+        "troop_type": "cavalry",
+        "specialty": "lance_cavalry"
+      },
+      {
+        "series_id": "est.northern_steppe.household_riders",
+        "source_manpower_id": "steppe_household_riders",
+        "role": "household_riders",
+        "unit_count": 30,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.northern_steppe.household_riders.{ordinal:03d}",
+        "doctrine": "doc.organization.steppe_confederation",
+        "training": "train.organization.steppe_confederation",
+        "loadout_standard": "loadout_state_cavalry",
+        "troop_type": "cavalry",
+        "specialty": "household_riders"
+      },
+      {
+        "series_id": "est.northern_steppe.hunters_scouts",
+        "source_manpower_id": "steppe_hunters_scouts",
+        "role": "hunters_scouts",
+        "unit_count": 50,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.northern_steppe.hunters_scouts.{ordinal:03d}",
+        "doctrine": "doc.organization.steppe_confederation",
+        "training": "train.organization.steppe_confederation",
+        "loadout_standard": "loadout_mercenary_scout",
+        "troop_type": "scout",
+        "specialty": "hunters_scouts"
+      },
+      {
+        "series_id": "est.northern_steppe.support_artisans",
+        "source_manpower_id": "steppe_support_artisans",
+        "role": "support_artisans",
+        "unit_count": 60,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.northern_steppe.support_artisans.{ordinal:03d}",
+        "doctrine": "doc.organization.steppe_confederation",
+        "training": "train.organization.steppe_confederation",
+        "loadout_standard": "loadout_mercenary_support",
+        "troop_type": "logistics",
+        "specialty": "support_artisans"
+      }
+    ],
+    "command_structure": {
+      "home_command": "confederation and household/tribal leadership",
+      "unit_command": "persistent warband/rider-unit leaders; exact names materialize when relevant",
+      "succession": "confederation/tribal authority",
+      "default_commander_profile_ref": "command_profile.irregular_leader"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 60,
+      "initiative": 80,
+      "caution": 60,
+      "adaptability": 85,
+      "flank_bias": 85,
+      "counterattack_bias": 75,
+      "pursuit_bias": 70,
+      "reserve_bias": 55,
+      "withdrawal_willingness": 85,
+      "casualty_tolerance": 45,
+      "objective_focus": 70,
+      "ally_support": 65,
+      "formation_discipline": 65,
+      "commander_dependence": 40
+    }
+  }
+}

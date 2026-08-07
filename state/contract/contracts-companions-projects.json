@@ -1,0 +1,41 @@
+{
+  "name": "Contracts, Companions, and Projects",
+  "owner_id": "contracts_companions_projects",
+  "owner_type": "contract_project_registry",
+  "records": [
+    {
+      "facts": {
+        "active external-right contracts": [
+          "protected road access from Kanyou to Main Gate",
+          "contracted caravan routes",
+          "monthly Tang food and fodder supply contracts -> owner:tang_supply_contracts",
+          "trader entry and inspection agreements",
+          "courier transit rights",
+          "Sword Manor escort contracts"
+        ],
+        "active personal lifetime vows": [
+          {
+            "Tang Wei personal retinue": "52 sworn combatants; Duan Jin, Shen Rui, and one 50-person House Guardian Cavalry unit"
+          }
+        ],
+        "prohibited contracts": [
+          "House Tang service to any state or faction",
+          "outside martial tuition",
+          "Tang equipment sale",
+          "protected doctrine sale"
+        ],
+        "protected attached family principal": [
+          "Tang Kai; member of House Tang and attached to Tang Wei's personal retinue for movement, protection, field exposure, and campaign accounting"
+        ]
+      },
+      "label": "Overview",
+      "record_id": "overview"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "contract-project-registry.v38",
+  "mission_creation_rule": "Mission templates generate opportunities only. A mission becomes canonical when issuer, objective, location, deadline, participants, known intelligence, hidden facts, opposition, reward/authority, and success/failure conditions are committed.",
+  "mission_archetype_catalog_ref": "data/content/mission-archetypes.json"
+}

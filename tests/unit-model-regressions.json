@@ -1,0 +1,50 @@
+{
+  "purpose": "Unit-boundary regression cases for human review/audit development; not gameplay authority.",
+  "cases": [
+    {
+      "id": "partial_loadout_requires_split",
+      "input": "5000 infantry, loadout A; change only 1000 to loadout B",
+      "valid_result": [
+        "4000 infantry / loadout A",
+        "1000 infantry / loadout B"
+      ],
+      "invalid_result": "one 5000-person unit containing two intended loadout standards"
+    },
+    {
+      "id": "mixed_troop_types_forbidden",
+      "input": "5000 infantry + 2000 archers split across two commanders",
+      "valid_result": "separate infantry units and archer units; commanders may each control several units",
+      "invalid_result": "a unit containing infantry and archers"
+    },
+    {
+      "id": "support_frontage",
+      "input": "medical/logistics/signal attached to battle force",
+      "valid_result": "support remains targetable/casualty-bearing but adds no default assault frontage",
+      "invalid_result": "support headcount automatically increases line combat power"
+    },
+    {
+      "id": "split_anti_exploit",
+      "input": "one unit split into five under same commander",
+      "valid_result": "same people and real frontage; greater direct command burden unless delegated",
+      "invalid_result": "free frontage, healing, equipment, experience, or command capacity"
+    },
+    {
+      "id": "neutral_split_preserves_distribution",
+      "input": "one 5000-person unit split neutrally to 4000 + 1000 with no selection criteria",
+      "valid_result": "both children initially inherit parent aggregate mean/spread; integer injuries/equipment categories allocate by deterministic largest remainder; no child is secretly elite",
+      "invalid_result": "AI rerolls child averages or concentrates veterans without an explicit selection action"
+    },
+    {
+      "id": "merge_uses_pooled_moments",
+      "input": "two compatible same-type units with different means/spreads merge",
+      "valid_result": "personnel-weighted mean and pooled population variance; categorical quantities sum; cohesion cannot improve for free",
+      "invalid_result": "simple average ignoring unit size, reset stats, or choose better source values"
+    },
+    {
+      "id": "hierarchical_shared_command_budget",
+      "input": "commander comfort 10000 personnel/8 slots; 15000 personnel in 10 units; delegate 5000 in 4 units to one subordinate",
+      "valid_result": "superior direct load 10000 personnel + 6 leaf units + 1 subordinate node = 7 slots; subordinate 5000/4; all ownership classes share these limits",
+      "invalid_result": "personal and assigned troops use separate budgets or subordinate descendants still count as superior direct personnel"
+    }
+  ]
+}

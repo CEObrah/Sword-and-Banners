@@ -1,0 +1,19 @@
+{
+  "schema": "support_mechanics.v1",
+  "authority": "Sword and Banners only",
+  "combat_classes": {
+    "line_combat": "Eligible for normal assault/contact according to position, formation and weapon reach.",
+    "combat_support": "Engineers, sappers, scouts and similar military specialists primarily contribute their specialist capacity. They do not add ordinary line frontage unless explicitly committed or physically caught in contact.",
+    "service_support": "Medical, logistics and signals are military service units. They are targetable and casualty-bearing but do not add default offensive frontage.",
+    "noncombat_support": "Students, civilian laborers, dependents and camp followers are noncombat populations unless lawfully mobilized into a real troop type with training/equipment/authority."
+  },
+  "capacities": {
+    "medical": "treatment_and_evacuation_capacity = fit medical personnel x Medicine/qualification x medical stores x treatment time x facility/camp quality; it can reduce preventable death/complications but cannot undo anatomy or elapsed time.",
+    "logistics": "throughput = fit logistics personnel x transport capacity x route quality x stores available x handling time x security.",
+    "signal": "order_relay_capacity and delay depend on fit signal personnel, relay equipment, visibility/range, terrain, disruption and command load.",
+    "engineering": "engineering throughput depends on fit engineers/sappers, Engineering skill, tools/materials, work time, site access and enemy interference."
+  },
+  "camp_followers": "Civilian camp followers/dependents/laborers are supply-consuming noncombat population owners, not military units. Armed train guards are separate homogeneous guard units.",
+  "lightweight_service_state": "A cold Sword service unit may store support capability plus minimal physical/self-defense state rather than a full line-combat skill array. If it is deliberately converted to a combat role or becomes materially involved in combat, materialize the required capability without granting free skill.",
+  "casualty_rule": "Support casualties reduce support capacity and remain conserved."
+}
