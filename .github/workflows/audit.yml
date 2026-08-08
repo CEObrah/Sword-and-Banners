@@ -1,15 +1,28 @@
 name: audit
-on: [push, pull_request]
+on: [push]
+permissions:
+  contents: write
 jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: maintenance/current-semantics-cleanup-r17
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install jsonschema
-      - name: Inventory current-semantics cleanup candidates
-        run: python tools/audit_current_semantics.py
+      - name: Assemble semantic cleanup candidate
+        run: python tools/migrate_current_semantics.py
       - name: Run full validator stack
         run: python tools/run_validators.py
+      - name: Check patch hygiene
+        run: git diff --check
+      - name: Commit validated migration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Consolidate canonical identities and current gameplay semantics"
+          git push origin HEAD:maintenance/current-semantics-cleanup-r17
