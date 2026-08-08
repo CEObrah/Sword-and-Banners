@@ -50,7 +50,9 @@ Family state under `state/family/` stays separate from relationships/reputation.
 
 ## Narration and interface
 
-Follow `VOICE.md`; resolve mechanics before prose. Load one primary cold scene module from `data/runtime/narration-router.json`; at most one causal secondary, never all modules. Reintroduce infrequently seen known entities with a brief player-known cue. Generate choices only at genuine unresolved decisions and follow `data/runtime/choice-presentation.json`.
+Follow `VOICE.md`; resolve mechanics before prose. Load one primary cold scene module from `data/runtime/narration-router.json`; at most one causal secondary, never all modules. Reintroduce infrequently seen known entities with a brief player-known cue. Generate choices at every genuine unresolved decision according to `data/runtime/choice-presentation.json` unless the player has already declared the next action for that resulting state.
+
+During play, if a real repository/runtime/narration defect becomes apparent, surface one concise `OOC:` note describing the issue and a suggested fix when useful. Do not interrupt ordinary scenes with speculative maintenance commentary, and never persist OOC suggestions as campaign state unless explicitly requested.
 
 `OOC:` never persists. `PREVIEW:` computes without persistence. `ORDER:` expresses in-world intent but still requires authority, mechanics, time, validation, and successful save. Questions/brainstorming are not orders.
 
@@ -58,3 +60,4 @@ Follow `VOICE.md`; resolve mechanics before prose. Load one primary cold scene m
 
 One fact has one authoritative owner. Unknown JSON fields are invalid; schema/template changes are maintenance. Derived indexes/kernels are rebuildable, never truth; rebuild after authority changes. Never infer mutable appointments, army membership, ownership, inventory, territory, relationships, contracts, or player plans from documentation. Only this repository is authority; never import another game repository.
 
+Repository maintenance must not expose half-fixed `main` revisions as the normal workflow. Assemble related maintenance changes on a temporary branch, run the complete validator stack there, and fast-forward `main` only after that candidate is green and the main persistence base is rechecked. Gameplay transactions may use the same candidate-validation pattern when practical. A failed validation branch is evidence for repair, not campaign canon.
