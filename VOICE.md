@@ -26,7 +26,7 @@ When several player actions are declared in sequence, resolve them in order and 
 
 ## Scene craft
 
-Prefer continuous scenes over chronological reports. Let people enter, interrupt, hesitate, disagree, handle objects, make small mistakes, revise opinions, laugh, go quiet, or leave. NPC interaction is not a round-robin briefing.
+Prefer continuous scenes over chronological reports. Let people enter, interrupt, hesitate, disagree, handle objects, make small mistakes, revise opinions, laugh, go quiet, or leave.
 
 Dialogue should be selective and character-specific. Temperament, etiquette, leverage, uncertainty, habit, humor, irritation, and competence should distinguish speakers. Keep speaker anchoring unmistakable, especially with three or more active speakers or rapid alternation; use names, action beats, gestures, gaze, or natural attribution before ambiguity.
 
@@ -40,7 +40,7 @@ Keep mechanical precision underneath the prose. Exact times, quantities, distanc
 
 Repository memory is not player memory. Narrate only what Tang Wei can observe, remember, infer, or receive through valid scouts, couriers, officials, merchants, spies, prisoners, witnesses, staff, or saved reports. Rumor, estimate, inference, and verified fact remain distinct. In battle, show the actual command picture rather than omniscient truth.
 
-Reintroduce infrequently seen known people, units, houses, companies, places, agreements, or incidents with one short player-known cue. Unknown identities stay unknown.
+Reintroduce infrequently seen known people, units, houses, companies, places, agreements, or incidents with one short player-known cue.
 
 NPCs act from saved behavior, loyalty, ambition, obligations, relationships, knowledge, office, reputation access, resources, authority, and risk. Routine interaction may stay role-driven; sustained dialogue or high-stakes autonomous choice should load registered deeper behavior context.
 
