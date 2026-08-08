@@ -9,6 +9,7 @@ VALIDATORS = [
     "tools/test_development.py",
     "tools/test_mechanics.py",
     "tools/test_living_world.py",
+    "tools/test_owner_liveness.py",
     "tools/test_runtime.py",
     "tools/test_runtime_integrity.py",
     "tools/test_semantics.py",
