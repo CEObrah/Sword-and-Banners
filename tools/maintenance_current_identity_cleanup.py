@@ -5,6 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 IDX = ROOT / 'data/runtime/template-index.json'
+SCHEMA_REGISTRY = ROOT / 'schemas/registry.json'
 RELEASE_RE = re.compile(r'\.v(?:38|39)$')
 PATH_RELEASE_RE = re.compile(r'([.-])v(?:38|39)(?=[.-])')
 TEXT_EXTS = {'.json','.md','.py','.yml','.yaml','.txt'}
@@ -40,8 +41,11 @@ def safe_rename(old_rel, new_rel):
 
 def main():
     idx = load_json(IDX)
+    schema_registry = load_json(SCHEMA_REGISTRY)
     sid_map = {}
     path_map = {}
+
+    # Mutable template registry is the authority for which release-suffixed IDs are current state identities.
     for _, rel in idx['shards'].items():
         doc = load_json(ROOT / rel)
         for sid, ent in list(doc.get('templates', {}).items()):
@@ -59,6 +63,17 @@ def main():
         print('No mutable v38/v39 schema identities remain.')
         return 0
 
+    # Formal schema registry may name a schema file even when the template's source_schema is null.
+    # Include those formal authorities in the same deterministic rename set.
+    for old_sid, new_sid in sid_map.items():
+        old_name = schema_registry.get(old_sid)
+        if not isinstance(old_name, str):
+            raise SystemExit(f'formal schema registry missing affected mutable schema: {old_sid}')
+        old_rel = 'schemas/' + old_name
+        new_rel = clean_path(old_rel)
+        if new_rel != old_rel:
+            path_map[old_rel] = new_rel
+
     for old_rel, new_rel in sorted(path_map.items(), key=lambda x: len(x[0]), reverse=True):
         safe_rename(old_rel, new_rel)
 
@@ -73,6 +88,7 @@ def main():
         if new != text:
             path.write_text(new, encoding='utf-8')
 
+    # Re-key mutable template index shards after exact substitutions.
     idx = load_json(IDX)
     for _, rel in idx['shards'].items():
         p = ROOT / rel
@@ -85,6 +101,21 @@ def main():
             out[new_sid] = ent
         doc['templates'] = dict(sorted(out.items()))
         dump_json(p, doc)
+
+    # Re-key formal schema registry explicitly and verify every target file exists.
+    schema_registry = load_json(SCHEMA_REGISTRY)
+    reg_out = {}
+    for sid, filename in schema_registry.items():
+        new_sid = sid_map.get(sid, sid)
+        new_filename = clean_path(filename) if sid in sid_map else filename
+        if new_sid in reg_out and reg_out[new_sid] != new_filename:
+            raise SystemExit(f'formal schema registry collision: {sid} -> {new_sid}')
+        reg_out[new_sid] = new_filename
+    dump_json(SCHEMA_REGISTRY, dict(sorted(reg_out.items())))
+    for sid in sid_map.values():
+        filename = reg_out.get(sid)
+        if not isinstance(filename, str) or not (ROOT / 'schemas' / filename).exists():
+            raise SystemExit(f'formal schema target missing after migration: {sid} -> {filename}')
 
     runtime = ROOT / 'RUNTIME.md'
     rt = runtime.read_text(encoding='utf-8')
@@ -138,7 +169,7 @@ def main():
     print(f'Migrated {len(sid_map)} mutable release-suffixed schema identities.')
     for old, new_sid in sorted(sid_map.items()):
         print(f'  {old} -> {new_sid}')
-    print(f'Renamed {len(path_map)} registered schema/template authority files.')
+    print(f'Renamed {len(path_map)} registered schema/template/formal-schema authority files.')
     return 0
 
 if __name__ == '__main__':
