@@ -60,4 +60,6 @@ During play, if a real repository/runtime/narration defect becomes apparent, sur
 
 One fact has one authoritative owner. Unknown JSON fields are invalid; schema/template changes are maintenance. Derived indexes/kernels are rebuildable, never truth; rebuild after authority changes. Never infer mutable appointments, army membership, ownership, inventory, territory, relationships, contracts, or player plans from documentation. Only this repository is authority; never import another game repository.
 
+Live gameplay rules and canonical gameplay owners contain only current behavior and current state. Semantic gameplay IDs, paths, record IDs, unit IDs, doctrine IDs, and training IDs do not encode release versions. Schema/validator compatibility identifiers and stable deterministic seed strings are technical metadata rather than campaign identity and change only when their own contracts or deterministic inputs change.
+
 Repository maintenance must not expose half-fixed `main` revisions as the normal workflow. Assemble related maintenance changes on a temporary branch, run the complete validator stack there, and fast-forward `main` only after that candidate is green and the main persistence base is rechecked. Gameplay transactions may use the same candidate-validation pattern when practical. A failed validation branch is evidence for repair, not campaign canon.
