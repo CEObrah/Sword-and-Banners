@@ -11,7 +11,7 @@ The external world is unit-first. Seven state macro ledgers own population, mili
 
 Ordinary state soldiers remain military accounting pools. A real campaign activates exact homogeneous role units only after authority, command, objective, route, supply, equipment, finance, time, and opposition exist. Participating forces fight through their actual homogeneous units; inactive force pools remain noncombat accounting owners. Named commanders do not conjure armies.
 
-State monthly processes settle finance, supply, recruitment, training, readiness, appointments, health exposure, routes, diplomacy, and active pressures. Weekly or daily reviews exist only for active operations, crises, movement, messages, or other exact clocks. Deferred-detail named identities do not create scheduler load.
+State monthly processes settle finance, supply, recruitment, training, readiness, appointments, health exposure, routes, diplomacy, and active pressures. Weekly or daily reviews exist only for active operations, crises, movement, messages, or other exact clocks. Static source-identity names create no scheduler load. Current anonymous role incumbents settle through their institution/state process rather than private character clocks.
 
 Current campaign date, player location, House legal status, property, contracts and territorial reach are mutable state and must be read from their current owners.
 
@@ -39,11 +39,11 @@ Equivalent units may share one calculation/receipt only while their activity, in
 
 ## Named identities inside units
 
-A deferred-detail routed named identity does not create an additional body merely because it has a roster record. When materialization maps that identity to an aggregate source unit/population slot, deduct exactly one source person at activation and import the source owner accumulated development and health history exactly once. If the identity already has an independently counted exact/lite body owner, never deduct another body.
+A static source-canon name creates no body. When current evidence binds that identity to an aggregate source unit, population or role slot, materialization conserves exactly one real source person and imports supported accumulated development and health history once. An already materialized exact/lite person is never deducted again.
 
 ## Required state unit composition
 
-Each state military owner stores mutually exclusive role, experience, age, and qualification distributions; officer depth; nonexclusive specialist counts; a unit-development composition profile; sparse mean EDU banks; and an exact monthly training program. Each state population owner stores mutually exclusive occupation and dependent counts plus exact occupational-development programs. A routed identity cannot materialize until one real source personnel claim is resolved.
+Each state military owner stores mutually exclusive role, experience, age, and qualification distributions; officer depth; nonexclusive specialist counts; a unit-development composition profile; sparse mean EDU banks; and an exact monthly training program. Each state population owner stores mutually exclusive occupation and dependent counts plus exact occupational-development programs. A source identity cannot materialize until one real current source-person claim is resolved.
 
 Monthly settlement records eligible people, planned and verified hours, duty and campaign losses, instructors, facilities, food, pay, equipment, health exposure, earned mean EDU, whole-person qualification flows, recruitment, casualties, demobilization, and successor keys. The state process may share a receipt across equivalent units, but any active army, shortage, epidemic, mutiny, command change, regional disruption, or different training program splits exact unit settlement.
 

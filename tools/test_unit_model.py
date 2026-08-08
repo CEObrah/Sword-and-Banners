@@ -140,25 +140,8 @@ else:
     if cidx.get('schema')!='command-personnel-index.v2':err('command_personnel_index')
     for pid,rel in cidx.get('record_index',{}).items():
         if not (R/rel).exists():err(f'command_person_missing:{pid}')
-    roster=rj('state/char-roster/index.json')
-    if roster.get('schema')!='character-roster-index.v1' or roster.get('authority') is not False:err('character_roster_index')
-    seen=set(); total=0
-    for initial,meta in roster.get('shards_by_initial',{}).items():
-        rel=meta.get('path'); sh=rj(rel) if rel else {}
-        ids=sh.get('identities',{})
-        if sh.get('schema')!='character-identity-shard.v1' or sh.get('authority') is not True or sh.get('initial')!=initial:err(f'character_roster_shard:{initial}')
-        if len(ids)!=meta.get('count') or len(ids)!=sh.get('count'):err(f'character_roster_shard_count:{initial}')
-        for cid,rec in ids.items():
-            if cid in seen:err(f'character_roster_duplicate:{cid}')
-            seen.add(cid); total+=1
-            if not rec.get('name') or not isinstance(rec.get('routing_hints'),dict):err(f'character_roster_identity_shape:{cid}')
-    if total!=roster.get('count'):err(f'character_roster_total:{total}:{roster.get("count")}')
-    if (R/'state/char-roster/active-canon').exists() or (R/'state/char-roster/lookup').exists():err('per_character_roster_files_present')
-    # No stale character representation terminology.
-    for rel in ['rules/characters.md','rules/world.md','state/life/identity-life-course.json','state/cap/internal-unit-combat-kernels.json','state/prog/sword-manor-progression.json']:
-        t=(R/rel).read_text(encoding='utf-8').lower()
-        for bad in ('dormant_and_latent_identities','unnamed character-lite','no personal name until full-sheet','latent canon identity'):
-            if bad in t:err(f'stale_character_model:{rel}:{bad}')
+    if (R/'state/char-roster').exists():err('mutable_character_roster_present')
+    if not (R/'data/people/latent-identities.json').exists():err('latent_identity_catalog_missing')
 if errs:
     print('UNIT MODEL TEST FAILED')
     for e in errs[:200]:print('-',e)

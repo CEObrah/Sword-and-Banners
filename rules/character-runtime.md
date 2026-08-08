@@ -30,6 +30,6 @@ Use relationship/knowledge authority for consequential social state. Shared affi
 
 Persist only changes caused by the event: health/fatigue to the body/condition owner; capability through registered development/training; relationship/knowledge/reputation to their authorities; role/office/assignment/command to institutional owners; goals only when causally revised; behavior only when repeated or decisive evidence makes it persistent. Do not write narration summaries or developer/audit commentary back as character facts.
 
-## Deferred-detail routed identities
+## Source identity catalog
 
-A deferred-detail canonical identity is a real named world identity without fabricated exact current body state. Load its one authoritative initial shard. When causal relevance requires an exact/lite actor, use `rules/characters.md` to resolve only state justified by current time, source organization, age, canon anchor, campaign history and conserved source population. Future achievements or later-series ranks are never back-projected.
+A static source identity is a canonical name/source hint, not a current actor. Do not load or simulate it during ordinary interaction. If the name becomes causally relevant and no current person owner exists, use `rules/characters.md` to prove current existence and materialize from one lawful source person/role without importing future achievements or later-series state.

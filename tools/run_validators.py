@@ -23,6 +23,7 @@ VALIDATORS = [
     "tools/test_tang_champions.py",
     "tools/test_recruitment_representation.py",
     "tools/test_population_sources.py",
+    "tools/test_offscreen_scaling.py",
 ]
 
 failed = []

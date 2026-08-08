@@ -44,7 +44,7 @@ World truth and player knowledge are separate. Information reaches Tang Wei only
 
 Structured mechanics own numerical outcomes. Model variation is not RNG. Registered randomness uses persisted seed/stream/draw rules. Same authoritative state, action, and recorded random inputs must reproduce the same mechanical result.
 
-Deferred-detail canonical identities are routed representations, not frozen people. Materialize exact/lite state only when causal from current-date/source evidence, settled history, and registered rules. Never back-project future achievements or create free bodies, gear, offices, relationships, information, or capability.
+Static identity-catalog entries are source names only and create no current body or personal clock. Current people develop through exact/lite owners, aggregate populations, units, institutions, or anonymous role slots. Materialize a named person only after current existence and one conserved source person/slot are proven; never back-project future achievements or create free bodies, gear, offices, relationships, information, or capability.
 
 ## Reputation, social perception, and family
 
@@ -56,7 +56,7 @@ Family state under `state/family/` stays separate from relationships/reputation.
 
 Follow `VOICE.md`; resolve mechanics before prose. Load one primary routed scene module from `data/runtime/narration-router.json`; at most one causal secondary, never all modules. Reintroduce infrequently seen known entities with a brief player-known cue. Generate choices at every genuine unresolved decision according to `data/runtime/choice-presentation.json` unless the player has already declared the next action for that resulting state.
 
-During play, if a real repository/runtime/narration defect becomes apparent, surface one concise `OOC:` note describing the issue and a suggested fix when useful. Do not interrupt ordinary scenes with speculative maintenance commentary, and never persist OOC suggestions as campaign state unless explicitly requested.
+During play, diagnose real repository/runtime/narration defects when they become apparent. A behavior-preserving, structurally safe repair covered by the player's standing maintenance authorization may be applied through the normal isolated-branch, validation, stale-base and readback workflow without separate confirmation; mention a concise `OOC:` note only when useful. Standing maintenance authority never permits changing campaign facts, player agency, balance, irreversible content design, or a materially ambiguous design choice. Those remain proposals until explicitly authorized. Maintenance does not advance world time or turn OOC discussion into campaign state.
 
 `OOC:` never persists. Ordinary in-world natural-language declarations are gameplay instructions and still require authority, mechanics, time, validation, and successful save. Questions, hypotheticals, comparisons, audits, and brainstorming are nonpersistent unless the player actually forms or communicates the intent in-world.
 

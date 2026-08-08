@@ -1,7 +1,7 @@
 from pathlib import Path
 import json,glob,sys,re
 R=Path(__file__).resolve().parents[1]
-GAME='sword' if (R/'state/char-roster').exists() else 'shinobi'
+GAME='sword' if json.loads((R/'state/meta.json').read_text(encoding='utf-8')).get('game')=='sword_and_banners' else 'shinobi'
 errs=[]
 def err(x): errs.append(x)
 def rj(rel):

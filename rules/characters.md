@@ -90,7 +90,7 @@ Every already-born persistent person stores one exact `birth_date`. `age` is a v
 
 ## compact-routed-maturation
 
-The human kernel supports compact settlement for deferred-detail routed identities and aggregate populations. Age changes only at crossed birthdays. Childhood and adolescence process health, nutrition, coordination, endurance, language, education capacity, and age-appropriate labor or practice without generating an adult capability sheet.
+The human kernel supports compact settlement for anonymous role-slot incumbents and aggregate populations. Age changes only at crossed birthdays. Childhood and adolescence process health, nutrition, coordination, endurance, language, education capacity, and age-appropriate labor or practice without generating an adult capability sheet.
 
 Poor nutrition, illness, injury, displacement, excessive labor, unsafe training, missing guardians, and lack of instruction reduce or block development. Household wealth, rank, or canon status never grants fixed capability. Life-stage ceilings prevent infants and children from receiving adult training, command, office, or combat competence.
 
@@ -106,19 +106,19 @@ A character owner may store universal domain aptitude and potential factors, but
 
 ## Compressed recurring exact profiles
 
-Before the ordinary omitted-skill-equals-zero rule is applied, a compressed exact profile expands its stored template, immutable seed, accumulated unit receipts, age stage, health state, and explicit overrides. The expanded array is exact. A deferred-detail profile is not expanded merely for storage or audit display.
+Before the ordinary omitted-skill-equals-zero rule is applied, a compressed exact profile expands its stored template, immutable seed, accumulated unit receipts, age stage, health state, and explicit overrides. The expanded array is exact. A static source-identity catalog entry has no capability profile to expand.
 
 
 
 ## Persistent-name rule
 
-Anonymous aggregate people have no personal identity record. When a generated ordinary person is lawfully materialized as a persistent individual-lite person, assign one stable personal name and ID immediately and preserve them through any later exact-character promotion. Canonical deferred-detail routed identities retain their canonical name at every representation depth. Never delay a persistent individual's name until full-sheet promotion.
+Anonymous aggregate people have no personal identity record. When a generated ordinary person is lawfully materialized as a persistent individual-lite person, assign one stable personal name and ID immediately and preserve them through any later exact-character promotion. A source-canon name is preserved once it is lawfully bound to a current person. Never delay a persistent individual's name until full-sheet promotion.
 
 ## Individual-lite combat sheet
 
 An individual-lite owner is a persistent named person used when unit resolution is insufficient but a full narrative character is not justified. It keeps one stable ID, canonical display name, birth date, body, appearance, exact capability, aptitude, health, fatigue, equipment state or role-profile reference, location, assignment, combat/service history, compact personality when supported, important relationship references when supported, and current duty/goal when supported. It does not require a large biography or fabricated social depth. Promotion to a full exact character preserves the same identity and all existing mechanical/history state.
 
-Anonymous ordinary people remain aggregate population/manpower state; armed organized personnel belong to units. Generated anonymous people receive a personal name only when lawful materialization creates a persistent individual; canonical routed identities retain their canonical name.
+Anonymous ordinary people remain aggregate population/manpower state; armed organized personnel belong to units. Generated anonymous people receive a personal name only when lawful materialization creates a persistent individual; a source-canon name may be bound only after current existence is proven.
 
 ## Named owner and unit-aggregate separation
 
@@ -131,32 +131,30 @@ A named full-sheet character is one separate body owner. If that person was mate
 
 - Full exact character: complete independently simulated narrative/mechanical actor with exact body, capability, knowledge, relationships, goals and activity when causally required.
 - Individual-lite person: persistent named individual with exact body/capability/equipment/service state and compact narrative state.
-- Deferred-detail routed identity: canonical named person represented through `state/char-roster/index.json` and its exact shard; it has a real world route/source but no fabricated exact capability/location/office until causally materialized.
+- Anonymous role-slot incumbent: one real current institutional occupant represented only by age/availability, coarse functional capability, service-development credit and succession state; it owns no secret name or private character sheet.
 - Aggregate person: ordinary population/manpower member represented only through a population, institution or unit owner.
+- Source identity catalog entry: static canonical name/source hint only; it is not a current person representation.
 
-Deferred-detail representation is retrieval compression only. It never means the person does not exist, receives free progression, or is exempt from offscreen life/development parity.
+## Separation of source names and runtime state
 
-## Separation of profile and runtime state
+A source identity catalog never asserts current location, health, inventory, office, travel, knowledge, capability or existence. Exact/lite runtime facts require a current person owner. Role slots own only institutional continuity and must materialize an incumbent before exact personal agency, combat, relationships, private inventory, or individual opposed checks are resolved.
 
-A full capability profile does not by itself assert a current location, health, inventory, office, travel, or personal review. Runtime facts must have an authoritative owner. Deferred-detail full profiles are not loaded or processed until a causal activation.
+## Identity activation
 
-## Routed identity activation
-
-A routed identity cannot act independently. Activation first resolves current existence, source unit, role template, age stage, location, health, authority, equipment, knowledge, and goal. `rules/characters.md` then constructs the exact profile and deducts one source owner slot. Missing inputs cause fail-closed nonactivation.
+A source-canon identity cannot act merely because its name exists in the catalog. Activation first proves current existence and resolves a lawful source population/unit/role, age or life stage when causal, location, health, authority, equipment, knowledge and current purpose. Materialization then creates one exact/lite owner and conserves the same real body exactly once. Missing inputs fail closed.
 
 ## Context routing
 
-Startup loads no external profile shard. A lookup loads the compact router, one profile or identity shard, and the relevant runtime/process owner. Large scenes use deterministic sector, formation, authority, or owner batches sized to available context. Batch size may change; semantic coverage may not. No final result commits until all required batches reconcile.
+Startup loads no source identity catalog or external profile collection. Known materialized IDs use direct owners. A source-name lookup loads only `data/people/latent-identities.json`, then the one causal source owner if activation is required. Large scenes use deterministic sector, formation, authority or owner batches sized to available context. Batch size may change; semantic coverage may not.
 
 ## Anti-bloat invariants
 
-- no alias arrays or duplicate normalized identity keys;
+- no complete name lists for anonymous populations or units;
 - no campaign-original exact quota filler;
-- no generic random state, age, role, office, location, health, equipment, knowledge, goal, or elite skill;
-- deferred-detail identities have no personal periodic clocks by default;
-- no full-array expansion for deferred-detail routed identities during save, time advance, or audit;
-- no repeated attribute or skill order inside each individual record when a shard-level order owns it;
-- no profile definition treated as a living runtime body without activation evidence.
+- no generic random state, age, role, office, location, health, equipment, knowledge, goal or elite skill;
+- static source identities have no personal periodic clocks or mutable profile seeds;
+- anonymous role slots carry no secret name, personality, biography, private inventory, relationship graph or exact personal skill sheet;
+- no profile definition is treated as a living runtime body without current-existence evidence.
 
 ## Ordinary-person naming
 Units do not carry complete name lists. Exact names are materialized only through the mandatory triggers in `rules/agency.md`. Compact casualty and memorial records do not become active character sheets.
@@ -164,19 +162,19 @@ Units do not carry complete name lists. Exact names are materialized only throug
 
 ## canonical-name narration
 
-Every full capability-profile identity, active exact external actor, and deferred-detail routed named identity retains one canonical display name. Whenever the identity is legitimately referenced, reported, encountered, or materialized, narration uses that canonical name. Deferred-detail representation suppresses irrelevant loading, not the name.
+Every materialized named person retains one canonical display name. A source-canon catalog name is used only after the identity is lawfully bound to a current person.
 
 
 ## Initial-date projection safety
 
-A deferred-detail full capability profile is a capability definition, not an automatic 245 BCE body state. On activation, reconstruct age-stage, affiliation, office, health, equipment, location, knowledge, relationships, and current capability through the source unit and explicit initial evidence. Future achievements, future ranks, and later-series peak values cannot be imported as initial facts.
+A source-canon catalog entry is not an automatic 245 BCE body state. On activation, reconstruct only state supported by the current source owner and explicit initial evidence. Future achievements, future ranks and later-series peak values cannot be imported as initial facts.
 
 
 
 
 ## Scope
 
-This module creates a recurring exact canonical actor or a full-sheet person from a real unit or routed identity. It never invents state affiliation, initial existence, age, role, location, office, equipment, knowledge, relationship, health, or authority from a random seed.
+This module creates a recurring exact canonical actor or a full-sheet person from a real unit, population, role incumbent, or source identity whose current existence has been proven. It never invents state affiliation, initial existence, age, role, location, office, equipment, knowledge, relationship, health, or authority from a random seed.
 
 ## Required inputs
 
@@ -210,7 +208,7 @@ Character materialization variation, hash input, delta ranges, and clamps are de
 7. Create health, location, equipment, authority, knowledge, goal, activity, and successor-clock owners.
 8. Validate no named/unit overlap and write the materialization receipt.
 
-Failure at any step leaves the identity deferred-detail/routed and produces no acting exact character.
+Failure at any step produces no acting exact character and leaves the source identity unbound or the anonymous source person unmaterialized.
 
 
 ## personal-unit promotion

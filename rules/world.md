@@ -228,36 +228,21 @@ When an important person dies or becomes unable to act, the vacancy procedure se
 Ordinary troops are not pre-named for narrative decoration. Exact identity follows `rules/agency.md`; a new name must correspond to one real person and one causal need.
 
 
-## Deferred-detail canonical identities
+## Source identities and current people
 
-The canonical named roster is current state under `state/char-roster/index.json` and its routed shards. Do not hard-code roster counts in rules; derive the current count from that index. Deferred-detail representation is a retrieval representation, not dormancy or nonexistence.
+`data/people/latent-identities.json` is a static source-name catalog. A catalog entry does not assert that the named person currently exists, occupies an office, has a location, owns equipment, knows anything, or receives development. It therefore has no personal clock.
 
-A deferred-detail canonical identity keeps one canonical display name and world route/source. It does not own fabricated exact statistics, inventory, office, location, knowledge or personal clock until causal evidence requires materialization. When materialized, resolve a lawful source institution/unit/population slot, conserve one real person, reconstruct supported life/development/history, and preserve the canonical identity.
+Current people are represented only when the world requires them: exact characters, individual-lite people, anonymous role-slot incumbents, or aggregate population/unit members. An anonymous role-slot incumbent ages, develops, becomes unavailable, retires, dies, or triggers succession only through the owning institution/process. The slot stores functional continuity, not a secret biography.
 
-Deferred-detail identities receive no free progression and do not freeze. Their ordinary aging, occupation, training, health exposure and career movement are covered through source owner/institution/unit aggregate processes. Direct command, office, travel, interaction, injury, capture, investigation or another exact dependency wakes the person into exact/lite process coverage.
-
-Unknown affiliation/office remains unknown rather than being invented to fill the roster.
-
-## Canonical identity resolution
-
-Current canonical identity coverage is derived only from `state/char-roster/index.json`; rules never own a hard-coded roster count.
-
-Representation tiers are:
-
-- **Full exact character:** complete independently simulated actor when exact agency/body/capability/knowledge/relationship state is causally required.
-- **Individual-lite person:** persistent named person with exact body/capability/equipment/service state and compact narrative state.
-- **Deferred-detail routed identity:** canonical named person with a current route/source and activation triggers, but no fabricated exact body/location/office/capability until causally materialized.
-- **Aggregate person:** ordinary population, soldier, official, worker, student or dependent represented through the appropriate unit/institution/population owner.
-
-A deferred-detail identity materializes only after a lawful source route and existing person/slot are resolved. It receives no free elite skills, state affiliation, age, office, equipment, knowledge, future accomplishment or personal history. Materialization conserves one real person exactly once.
+A source-canon name may bind to a current person only after current existence, source population/unit/role, age or life stage when needed, and one conserved body are established from live authority. Materialization imports only supported source history and creates no free capability, office, equipment, knowledge, relationship, achievement or survival.
 
 ## Development parity
 
-Every person develops through real activity. Exact/lite people use exact activity contracts. Deferred-detail identities receive only source-owner-supported aging, training, experience, health exposure and career movement through force/court/institution/unit/population processes. Materialization reconstructs that supported history without double-awarding time, credits, injury or equipment.
+Every current person develops through real activity. Exact/lite people use their registered activity/process coverage. Aggregate people inherit only the development, health exposure and career movement earned by their population, unit, institution or role process. Representation compression never grants an advantage.
 
 ## Scheduler rule
 
-Deferred-detail routed identities own no periodic personal clock by default. State, force, court, institution and unit processes cover ordinary offscreen time. A personal clock is created only by active command, office, travel, interaction, training, injury, capture, investigation or another exact dependency. This prevents hundreds of unsupported individual reviews during long horizons while keeping life-course fairness.
+Static identity-catalog names have no scheduler entries. Anonymous role-slot incumbents settle with their owning institution/process. Exact personal clocks exist only when exact personal causality requires them.
 
 ## Vacancy sequence
 
@@ -272,4 +257,4 @@ No successor receives free competence, history, equipment, loyalty, survival, or
 
 ## canonical-name narration
 
-Every full capability-profile identity, active exact external actor, and deferred-detail routed identity retains one canonical display name. Whenever the identity is legitimately referenced, reported, encountered, or materialized, narration uses that canonical name. Deferred-detail representation suppresses irrelevant loading, not the name.
+Every materialized named person retains one canonical display name. A static source-catalog name is used only after the identity is lawfully bound to a current person; catalog presence alone never creates that person.

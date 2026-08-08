@@ -100,3 +100,11 @@ Tang horse/equipment secrecy does not make captured material disappear. Battlefi
 ## River movement
 
 River crossings and transport require actual boats/rafts/ferries/bridges, capacity, loading/unloading time, current/weather, route security and receiving space. People, animals and cargo are conserved across the crossing.
+
+## Strategic-site materialization
+
+Every consequential fortified location uses `state/geo/strategic-fortifications.json`. A profile-only site establishes only its strategic class and controller scope. It grants no hidden wall dimensions, garrison strength, artillery, stores, ammunition, water, engineer capacity or repair stock.
+
+Before resolving an exact siege, assault, blockade, breach, starvation clock, artillery exchange or repair action, materialize the causal site's defense state from current geography plus conserved controller forces, inventories, supply sources and engineering capacity. If required state cannot be lawfully resolved, the exact siege outcome fails closed.
+
+Tang Manor, state capitals, passes, fortress cities and NPC strongholds use the same requirements. Representation compression may reduce detail only while no exact outcome depends on that detail; it never improves defense, supply, survival or repair.

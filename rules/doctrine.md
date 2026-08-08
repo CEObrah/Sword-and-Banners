@@ -12,7 +12,7 @@ Higher-numbered layers may override lower layers within lawful authority. Tempor
 
 ## Permanent doctrine and reform
 
-A doctrine record represents a current durable military standard under a stable semantic doctrine ID. Doctrine records carry doctrine facts, not release numbers. A materially different durable standard uses a meaningful semantic doctrine ID; never append a software-style version suffix merely because doctrine changed.
+A doctrine record represents one current durable military standard under a stable semantic doctrine ID. A materially different durable standard uses a distinct meaningful semantic doctrine ID.
 
 A unit's `doctrine` reference is the durable standard it can presently execute as doctrine. Doctrinal reform requires a real decision, dissemination, instructor preparation, drills, equipment where needed, time, and familiarization. A unit does not switch its doctrine reference until the required transition has actually completed under training/development mechanics. Partial preparation grants no automatic target-doctrine benefit; only effects independently supported by completed training, temporary orders, commander capability, equipment and current unit state may apply.
 

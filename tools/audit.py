@@ -681,22 +681,15 @@ for _pth in (ROOT/'state').rglob('*.json'):
   _cr=_pool.get('capability_ref')
   if _pool.get('pool_kind')!='command_personnel' and (not _cr or not (ROOT/_cr).exists()):err(f'source_pool_missing_capability_ref:{_pth.relative_to(ROOT)}:{_pool.get("id") or _pool.get("pool_id")}')
 
-# Canonical deferred-detail identity roster: authoritative shards, derived index, no per-character file forest.
-if (ROOT/'data/latent-identities').exists():err('obsolete_latent_identity_directory_present')
-_car=rj(ROOT/'state/char-roster/index.json') or {}
-if _car.get('schema')!='character-roster-index.v1' or _car.get('authority') is not False:err('character_roster_index_invalid')
-_seen_roster=set(); _roster_total=0
-for _initial,_e in _car.get('shards_by_initial',{}).items():
- _sh=rj(ROOT/_e.get('path','')) or {}; _ids=_sh.get('identities',{})
- if _sh.get('schema')!='character-identity-shard.v1' or _sh.get('authority') is not True or _sh.get('initial')!=_initial:err(f'character_roster_shard_header:{_initial}')
- if len(_ids)!=int(_e.get('count',-1)) or len(_ids)!=int(_sh.get('count',-2)):err(f'character_roster_shard_count:{_initial}')
- for _cid,_x in _ids.items():
-  if _cid in _seen_roster:err(f'character_roster_duplicate_id:{_cid}')
-  _seen_roster.add(_cid); _roster_total+=1
-  if not isinstance(_x.get('name'),str) or not _x.get('name'):err(f'character_roster_missing_name:{_cid}')
-  if not isinstance(_x.get('routing_hints'),dict):err(f'character_roster_missing_routing_hints:{_cid}')
-if _roster_total!=int(_car.get('count',-1)):err(f'character_roster_total:{_roster_total}:{_car.get("count")}')
-if (ROOT/'state/char-roster/active-canon').exists() or (ROOT/'state/char-roster/lookup').exists():err('per_character_roster_storage_reintroduced')
+# Static source-identity catalog owns names only and creates no current bodies.
+_cat=rj(ROOT/'data/people/latent-identities.json') or {}
+if _cat.get('schema')!='latent-identity-catalog':err('latent_identity_catalog_missing')
+_ids=_cat.get('identities',{})
+if len(_ids)!=int(_cat.get('count',-1)):err(f'latent_identity_catalog_count:{len(_ids)}:{_cat.get("count")}')
+for _cid,_x in _ids.items():
+ if not isinstance(_x,dict) or not _x.get('name'):err(f'latent_identity_name_missing:{_cid}')
+ if set(_x)-{'name','source_hint'}:err(f'latent_identity_runtime_bloat:{_cid}:{sorted(set(_x)-{"name","source_hint"})}')
+if (ROOT/'state/char-roster').exists():err('mutable_character_roster_reintroduced')
 
 # Troop pools are accounting objects but must declare the homogeneous troop type they can allocate.
 for _p in (ROOT/'state').rglob('*.json'):
@@ -752,11 +745,8 @@ _um=rj(ROOT/'data/organization/unit-model.json') or {}
 _part=rj(ROOT/'data/mechanics/unit-partition.json') or {}
 if _part.get('schema')!='unit_partition_mechanics.v1':err('unit_partition_mechanics_missing')
 if _um.get('schema')!='unit_model.v2':err('unit_model_v2_missing')
-# Canonical identity life-course route remains single-owner and shard-backed.
-_life=rj(ROOT/'state/life/identity-life-course.json') or {}; _roster=rj(ROOT/'state/char-roster/index.json') or {}
-if (_life.get('records') or [{}])[0].get('facts',{}).get('canon_roster_owner')!='state/char-roster/index.json':err('life_course_roster_route_missing')
-if _roster.get('count',0)<1:err('character_roster_empty')
-if _roster.get('schema')!='character-roster-index.v1':err('character_roster_schema_missing')
+# Source-name catalogs have no life-course owner; only current people/roles receive process coverage.
+if (ROOT/'state/life/identity-life-course.json').exists():err('obsolete_identity_life_course_owner_present')
 
 # Command-person direct records must all resolve to current people.
 _cidx=rj(ROOT/'state/cmd/command-personnel.json') or {}

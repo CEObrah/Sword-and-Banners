@@ -3,27 +3,213 @@
   "owner_id": "world_geography",
   "owner_type": "geography_registry",
   "records": [
-    {"label":"Overview","notes":["# World Geography and Routes"],"record_id":"overview"},
-    {"facts":{"name":"Kanyou","role":"capital","state":"Qin"},"label":"loc_kanyou","record_id":"loc_kanyou"},
-    {"facts":{"area_km2":64.0,"external_gate_count":1,"location_relation":"private fortified city within Kanyou administrative territory","name":"Tang Manor","outside_property_owned":null,"outside_rights":"road access, caravan routes, trader entry, courier transit, Sword Manor escort transit","owner":"institution_house_tang","shape":"square","side_length_m":8000},"label":"loc_tang_manor","record_id":"loc_tang_manor"},
-    {"facts":{"parent":"loc_tang_manor","role":"family, senior administration, protected archives, and final defensive center"},"label":"loc_tang_manor_inner_citadel","record_id":"loc_tang_manor_inner_citadel"},
-    {"facts":{"parent":"loc_tang_manor","role":"House Guardian Cavalry barracks, tack, mounts, and ready court"},"label":"loc_tang_manor_guardian_cavalry_barracks","record_id":"loc_tang_manor_guardian_cavalry_barracks"},
-    {"facts":{"parent":"loc_tang_manor","role":"gate command, traffic control, inspection, and alarm routing"},"label":"loc_tang_manor_main_gate_command_hall","record_id":"loc_tang_manor_main_gate_command_hall"},
-    {"facts":{"parent":"loc_tang_manor_inner_citadel","role":"House Tang administration and record routing"},"label":"loc_tang_manor_inner_citadel_administration_office","record_id":"loc_tang_manor_inner_citadel_administration_office"},
-    {"facts":{"parent":"loc_tang_manor","role":"Tang Forge production, repair, quality control, and armory custody"},"label":"loc_tang_manor_forge_and_armory","record_id":"loc_tang_manor_forge_and_armory"},
-    {"facts":{"parent":"loc_tang_manor","role":"mounts, remounts, draft animals, tack, wagons, and carriages"},"label":"loc_tang_manor_stable_remount_and_carriage_yard","record_id":"loc_tang_manor_stable_remount_and_carriage_yard"},
-    {"facts":{"parent":"loc_tang_manor","role":"central stock custody, rotation, sealed issue, and reserve accounting"},"label":"loc_tang_manor_central_warehouse_and_granary","record_id":"loc_tang_manor_central_warehouse_and_granary"},
-    {"facts":{"parent":"loc_tang_manor","role":"agricultural planning and Northern Grain Ward supervision"},"label":"loc_tang_manor_northern_grain_ward_office","record_id":"loc_tang_manor_northern_grain_ward_office"},
-    {"facts":{"parent":"loc_tang_manor","role":"treatment, recovery, isolation, medical stores, and casualty routing"},"label":"loc_tang_manor_central_infirmary","record_id":"loc_tang_manor_central_infirmary"},
-    {"facts":{"parent":"loc_tang_manor","role":"recruitment, training, escort operations, scouts, civilian couriers, and civilian medical support"},"label":"loc_sword_manor","record_id":"loc_sword_manor"},
-    {"facts":{"parent":"loc_sword_manor","role":"formation, bow, shield, and sword instruction"},"label":"loc_sword_manor_main_training_court","record_id":"loc_sword_manor_main_training_court"},
-    {"facts":{"parent":"loc_sword_manor","role":"escort planning, route intelligence, client records, and deployment preparation"},"label":"loc_sword_manor_operations_office","record_id":"loc_sword_manor_operations_office"},
-    {"facts":{"current_occupants":"Tang Wei, Tang Zhu, Tang Ling, Tang Kai","parent":"loc_tang_manor_inner_citadel"},"label":"loc_tang_manor_inner_citadel_family_hall","record_id":"loc_tang_manor_inner_citadel_family_hall"},
-    {"facts":{"base_light_party_days":0.0666666667,"house_tang_right":"protected right of access and contract transit","length_m":6400,"owner":"Qin public jurisdiction","surface":"maintained packed road"},"label":"road_kanyou_tang_main_gate","record_id":"road_kanyou_tang_main_gate"},
-    {"facts":{"Eastern Grain Ward":"8.00 km2","Horse and Fodder Ward":"6.00 km2","Inner Citadel":"2.25 km2","Internal Roads and Defensive Clear Zones":"1.75 km2","Managed Woodland and Fuel District":"8.00 km2","Northern Grain Ward":"8.00 km2","Provision Ward":"5.00 km2","Reservoirs Canals Orchards and Gardens":"2.00 km2","Residential Military and Industrial Districts":"7.00 km2","Southern Grain Ward":"7.00 km2","Strategic Reserve Ward":"6.00 km2","Total":"64.00 km2","Training and Muster District":"3.00 km2"},"label":"Tang Manor land allocation","record_id":"tang_manor_land_allocation"},
-    {"facts":{"parent":"loc_sword_manor","role":"residential trainee barracks, classrooms, basic drill courts, trainee armories, dining halls, baths, latrines, and infirmary annex","safe_capacity":6000,"current_occupancy":5000},"label":"loc_sword_manor_trainee_campus","record_id":"loc_sword_manor_trainee_campus"},
-    {"facts":{"access_rule":"no Inner Citadel, family, treasury, Tang breeding, or restricted forge access without exact escort and authority","parent":"loc_tang_manor","role":"outer-wall contracted defender barracks, company offices, separate armories, kitchens, sanitation, and muster courts","safe_capacity":8000,"current_occupancy":7501},"label":"loc_tang_manor_outer_contract_barracks","record_id":"loc_tang_manor_outer_contract_barracks"}
+    {
+      "label": "Overview",
+      "notes": [
+        "# World Geography and Routes"
+      ],
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "name": "Kanyou",
+        "role": "capital",
+        "state": "Qin"
+      },
+      "label": "loc_kanyou",
+      "record_id": "loc_kanyou"
+    },
+    {
+      "facts": {
+        "area_km2": 64.0,
+        "external_gate_count": 1,
+        "location_relation": "private fortified city within Kanyou administrative territory",
+        "name": "Tang Manor",
+        "outside_property_owned": null,
+        "outside_rights": "road access, caravan routes, trader entry, courier transit, Sword Manor escort transit",
+        "owner": "institution_house_tang",
+        "shape": "square",
+        "side_length_m": 8000
+      },
+      "label": "loc_tang_manor",
+      "record_id": "loc_tang_manor"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor",
+        "role": "family, senior administration, protected archives, and final defensive center"
+      },
+      "label": "loc_tang_manor_inner_citadel",
+      "record_id": "loc_tang_manor_inner_citadel"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor",
+        "role": "House Guardian Cavalry barracks, tack, mounts, and ready court"
+      },
+      "label": "loc_tang_manor_guardian_cavalry_barracks",
+      "record_id": "loc_tang_manor_guardian_cavalry_barracks"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor",
+        "role": "gate command, traffic control, inspection, and alarm routing"
+      },
+      "label": "loc_tang_manor_main_gate_command_hall",
+      "record_id": "loc_tang_manor_main_gate_command_hall"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor_inner_citadel",
+        "role": "House Tang administration and record routing"
+      },
+      "label": "loc_tang_manor_inner_citadel_administration_office",
+      "record_id": "loc_tang_manor_inner_citadel_administration_office"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor",
+        "role": "Tang Forge production, repair, quality control, and armory custody"
+      },
+      "label": "loc_tang_manor_forge_and_armory",
+      "record_id": "loc_tang_manor_forge_and_armory"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor",
+        "role": "mounts, remounts, draft animals, tack, wagons, and carriages"
+      },
+      "label": "loc_tang_manor_stable_remount_and_carriage_yard",
+      "record_id": "loc_tang_manor_stable_remount_and_carriage_yard"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor",
+        "role": "central stock custody, rotation, sealed issue, and reserve accounting"
+      },
+      "label": "loc_tang_manor_central_warehouse_and_granary",
+      "record_id": "loc_tang_manor_central_warehouse_and_granary"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor",
+        "role": "agricultural planning and Northern Grain Ward supervision"
+      },
+      "label": "loc_tang_manor_northern_grain_ward_office",
+      "record_id": "loc_tang_manor_northern_grain_ward_office"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor",
+        "role": "treatment, recovery, isolation, medical stores, and casualty routing"
+      },
+      "label": "loc_tang_manor_central_infirmary",
+      "record_id": "loc_tang_manor_central_infirmary"
+    },
+    {
+      "facts": {
+        "parent": "loc_tang_manor",
+        "role": "recruitment, training, escort operations, scouts, civilian couriers, and civilian medical support"
+      },
+      "label": "loc_sword_manor",
+      "record_id": "loc_sword_manor"
+    },
+    {
+      "facts": {
+        "parent": "loc_sword_manor",
+        "role": "formation, bow, shield, and sword instruction"
+      },
+      "label": "loc_sword_manor_main_training_court",
+      "record_id": "loc_sword_manor_main_training_court"
+    },
+    {
+      "facts": {
+        "parent": "loc_sword_manor",
+        "role": "escort planning, route intelligence, client records, and deployment preparation"
+      },
+      "label": "loc_sword_manor_operations_office",
+      "record_id": "loc_sword_manor_operations_office"
+    },
+    {
+      "facts": {
+        "current_occupants": "Tang Wei, Tang Zhu, Tang Ling, Tang Kai",
+        "parent": "loc_tang_manor_inner_citadel"
+      },
+      "label": "loc_tang_manor_inner_citadel_family_hall",
+      "record_id": "loc_tang_manor_inner_citadel_family_hall"
+    },
+    {
+      "facts": {
+        "base_light_party_days": 0.0666666667,
+        "house_tang_right": "protected right of access and contract transit",
+        "length_m": 6400,
+        "owner": "Qin public jurisdiction",
+        "surface": "maintained packed road"
+      },
+      "label": "road_kanyou_tang_main_gate",
+      "record_id": "road_kanyou_tang_main_gate"
+    },
+    {
+      "facts": {
+        "Eastern Grain Ward": "8.00 km2",
+        "Horse and Fodder Ward": "6.00 km2",
+        "Inner Citadel": "2.25 km2",
+        "Internal Roads and Defensive Clear Zones": "1.75 km2",
+        "Managed Woodland and Fuel District": "8.00 km2",
+        "Northern Grain Ward": "8.00 km2",
+        "Provision Ward": "5.00 km2",
+        "Reservoirs Canals Orchards and Gardens": "2.00 km2",
+        "Residential Military and Industrial Districts": "7.00 km2",
+        "Southern Grain Ward": "7.00 km2",
+        "Strategic Reserve Ward": "6.00 km2",
+        "Total": "64.00 km2",
+        "Training and Muster District": "3.00 km2"
+      },
+      "label": "Tang Manor land allocation",
+      "record_id": "tang_manor_land_allocation"
+    },
+    {
+      "facts": {
+        "parent": "loc_sword_manor",
+        "role": "residential trainee barracks, classrooms, basic drill courts, trainee armories, dining halls, baths, latrines, and infirmary annex",
+        "safe_capacity": 6000,
+        "current_occupancy": 5000
+      },
+      "label": "loc_sword_manor_trainee_campus",
+      "record_id": "loc_sword_manor_trainee_campus"
+    },
+    {
+      "facts": {
+        "access_rule": "no Inner Citadel, family, treasury, Tang breeding, or restricted forge access without exact escort and authority",
+        "parent": "loc_tang_manor",
+        "role": "outer-wall contracted defender barracks, company offices, separate armories, kitchens, sanitation, and muster courts",
+        "safe_capacity": 8000,
+        "current_occupancy": 7501
+      },
+      "label": "loc_tang_manor_outer_contract_barracks",
+      "record_id": "loc_tang_manor_outer_contract_barracks"
+    },
+    {
+      "facts": {
+        "name": "Kankoku Pass",
+        "role": "major fortified pass",
+        "state": "Qin"
+      },
+      "label": "loc_kankoku_pass",
+      "record_id": "loc_kankoku_pass"
+    },
+    {
+      "facts": {
+        "name": "Gyou",
+        "role": "major fortress city",
+        "state": "Zhao"
+      },
+      "label": "loc_gyou",
+      "record_id": "loc_gyou"
+    }
   ],
-  "runtime":{"last_settled_at":"245-BCE-12-02T06:00:00+08:00"},
-  "schema":"geography-registry"
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "geography-registry"
 }
