@@ -52,13 +52,20 @@ for base in ('state','data'):
         if hits:
             print(f'{path.relative_to(ROOT)}: {hits[:12]}')
 
-print('=== CHARACTER ROSTER FOOTPRINT ===')
+print('=== CHARACTER ROSTER FOOTPRINT / REDUNDANCY ===')
 root=ROOT/'state/char-roster'
 if root.exists():
     files=[p for p in root.rglob('*.json')]
     direct=[p for p in (root/'active-canon').glob('*.json')] if (root/'active-canon').exists() else []
     lookup=[p for p in (root/'lookup').glob('*.json')] if (root/'lookup').exists() else []
     print(f'json_files={len(files)} direct_identity_files={len(direct)} lookup_shards={len(lookup)}')
+    rows=[json.loads(p.read_text(encoding='utf-8')) for p in direct]
+    for key in ('schema','representation','activation_rule','life_course_ref','hints_are_authority'):
+        vals=sorted({json.dumps(r.get(key),sort_keys=True) for r in rows})
+        print(f'{key}: distinct={len(vals)} values={vals[:8]}')
+    keysets=sorted({tuple(sorted((r.get('routing_hints') or {}).keys())) for r in rows})
+    print(f'routing_hint_keysets: distinct={len(keysets)} values={keysets[:8]}')
+    print(f'unique_names={len({r.get("name") for r in rows})} unique_ids={len({r.get("id") for r in rows})} unique_profile_seeds={len({(r.get("routing_hints") or {}).get("profile_seed") for r in rows})}')
 
 print('=== CHARACTER/COLD REFERENCES ===')
 needle=re.compile(r'(state/char-roster|character-cold-active|cold canonical|cold identity|cold record|cold shard|cold scene|cold template)', re.I)
