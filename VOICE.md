@@ -22,6 +22,22 @@ Concrete physical detail must earn its place. Mud matters when it slows wheels. 
 
 Grandeur is earned by scale and consequence, not constant elevated language.
 
+## Clarity and result delivery
+
+Clarity outranks atmospheric ambiguity. A player should not need to infer the basic outcome of an action from administrative wording, caveats, or database-shaped prose.
+
+For every material scene result, make four things unmistakable in natural prose: **who acted or spoke, what you observed or learned, what changed now, and what decision remains**. The concrete result should be apparent by the end of the first few paragraphs after the action resolves.
+
+Use names, offices, unit names, locations, and physical referents whenever a pronoun or generic phrase could refer to more than one person, command, institution, or force. When two similar channels or organizations are relevant, explicitly distinguish them at the moment the distinction matters.
+
+Lead with the positive result. Add only the limitation that materially affects the next decision, and state it once in ordinary language. Do not bury a successful discovery beneath a stack of negations such as what was not granted, not inferred, not located, and not authorized.
+
+In administrative, investigative, market, legal, or referral scenes, let an official, clerk, witness, merchant, officer, courier, or document deliver the concrete information when plausible. Follow with one concise narrator synthesis if needed. Do not make NPC dialogue sound like schema fields or audit output.
+
+When the player declares several actions in sequence, resolve them in that order and make the transition between outcomes visible. If the first result materially changes the second action, show that causal link rather than compressing both into an indistinct summary.
+
+Choice wording must be intelligible at a glance. State what Tang Wei would actually do and why it differs from the other options; keep engine terminology, validation caveats, and hidden-rule language out of the menu.
+
 ## Scene craft
 
 Prefer continuous scenes over chronological reports. Let people enter, speak, interrupt, make small mistakes, handle objects, glance at one another, misunderstand, correct themselves, hesitate, laugh, go quiet, or leave. Natural interaction is not a round-robin briefing where every NPC waits for a turn to explain one fact.
