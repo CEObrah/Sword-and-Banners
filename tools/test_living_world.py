@@ -32,10 +32,19 @@ for f in load('state/reg/living-factions.json').get('factions',[]):
 for p in (ROOT/'state/person/staff').glob('*.json'):
     d=json.loads(p.read_text(encoding='utf-8'))
     if not d.get('history',{}).get('service') or len(d.get('relationships',[]))<2:fail('thin_staff:'+p.name)
-# No cached menu; narrator estimates time and provides multiple horizons outside crisis.
+
+# Narration and choice interface contract.
 if 'action_packages' in load('state/scene.json'):fail('cached_choices')
 voice=(ROOT/'VOICE.md').read_text(encoding='utf-8')
-for phrase in ('Repository memory is not player memory','estimated in-world','medium','long'):
+for phrase in ('Repository memory is not player memory','second-person present tense','Choice completion is mandatory','estimated in-world','medium','long'):
     if phrase not in voice:fail('voice:'+phrase)
+choice=load('data/runtime/choice-presentation.json')
+if not choice.get('completion_rule'):fail('choice_completion_rule_missing')
+if choice.get('suggested_choice_count',{}).get('minimum')!=3:fail('choice_minimum')
+if choice.get('suggested_choice_count',{}).get('maximum')!=5:fail('choice_maximum')
+if choice.get('numbering_required') is not True:fail('choice_numbering_required')
+if choice.get('free_form_option_required') is not True:fail('choice_free_form_required')
+if choice.get('duration_required_for_every_suggested_choice') is not True:fail('choice_duration_required')
+
 # Dormant event archetypes are causal wakeups.
 print('LIVING WORLD TESTS OK')
