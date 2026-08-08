@@ -563,7 +563,18 @@ for _r in _hrs:
   _n=int(_s.get('unit_count',0));_nom=int(_s.get('nominal_strength',0));_fin=int(_s.get('final_unit_strength',0))
   if _n<1 or _nom<1 or _fin<1 or _fin>_nom:err(f'bad_unit_series:{_r.get("id")}:{_s.get("series_id")}')
 _pf=rj(ROOT/'state/pforce/wei.json') or {}
-if _pf.get('permanent_units') not in ([],None):err('tang_wei_personal_force_predefined')
+_punit_index=(rj(ROOT/'state/index/units.json') or {}).get('units',{})
+_pmembers=set(_pf.get('members',[]) or [])
+_punassigned=set(_pf.get('unassigned_members',[]) or [])
+for _uid in _pf.get('permanent_units',[]) or []:
+ _urel=_punit_index.get(_uid)
+ if not _urel or not (ROOT/_urel).exists():err(f'personal_force_unit_missing:{_uid}')
+ else:
+  _ud=rj(ROOT/_urel) or {}
+  if _ud.get('owner')!='char_tang_wei':err(f'personal_force_unit_wrong_owner:{_uid}:{_ud.get("owner")}')
+  _umembers=set((_ud.get('personnel') or {}).get('member_ids',[]) or [])
+  if not _umembers.issubset(_pmembers):err(f'personal_force_unit_member_outside_retinue:{_uid}')
+  if _umembers.intersection(_punassigned):err(f'personal_force_unit_member_also_unassigned:{_uid}')
 _ca=rj(ROOT/'state/cmd/assignments.json') or {}
 if not _ca.get('return_rule'):err('assignment_return_rule_missing')
 
@@ -707,7 +718,7 @@ for _pth in (ROOT/'state/unit').glob('*.json'):
   if _target not in loads:err(f'unit_refit_unknown_loadout:{_pth.name}:{_target}')
   if _rf.get('progress')==1:err(f'unit_completed_refit_not_promoted:{_pth.name}')
 
-# Unit split/merge transaction receipts must conserve headcount and lineage evidence.
+# Unit transaction receipts must conserve headcount and lineage evidence.
 _tx=rj(ROOT/'state/org/unit-transactions.json') or {}
 if _tx.get('schema')!='unit-transaction-registry.v2':err('unit_transaction_registry_v2_missing')
 _seen_tx=set()
@@ -715,13 +726,16 @@ for _r in _tx.get('records',[]):
  _tid=_r.get('id')
  if not _tid or _tid in _seen_tx:err(f'unit_transaction_duplicate_or_missing_id:{_tid}')
  _seen_tx.add(_tid)
- _b=_r.get('before') or {}; _a=_r.get('after') or {}; _c=_r.get('conservation') or {}
- if _r.get('method') not in ('neutral_proportional','explicit_selection','merge_pooling','structural_reorganization'):err(f'unit_transaction_method_missing:{_tid}')
+ _b=_r.get('before') or {}; _a=_r.get('after') or {}; _c=_r.get('conservation') or {}; _method=_r.get('method')
+ if _method not in ('neutral_proportional','explicit_selection','merge_pooling','structural_reorganization'):err(f'unit_transaction_method_missing:{_tid}')
  _ev=_r.get('capability_evidence') or {}
  if _ev.get('partition_authority')!='data/mechanics/unit-partition.json':err(f'unit_transaction_partition_evidence_missing:{_tid}')
  if int(_b.get('personnel_total',-1))!=int(_a.get('personnel_total',-2)):err(f'unit_transaction_personnel_not_conserved:{_tid}')
  if _c.get('personnel_delta')!=0:err(f'unit_transaction_nonzero_personnel_delta:{_tid}:{_c.get("personnel_delta")}')
- if not _b.get('unit_ids') or not _a.get('unit_ids'):err(f'unit_transaction_missing_unit_lineage:{_tid}')
+ if not _a.get('unit_ids'):err(f'unit_transaction_missing_result_unit_lineage:{_tid}')
+ if _method=='structural_reorganization':
+  if not (_b.get('unit_ids') or _b.get('named_member_ids')):err(f'unit_transaction_missing_source_lineage:{_tid}')
+ elif not _b.get('unit_ids'):err(f'unit_transaction_missing_source_unit_lineage:{_tid}')
 
 
 # Command hierarchy v4: one ownership-agnostic two-axis direct budget.
@@ -756,4 +770,4 @@ for _pid,_rel in _cidx.get('record_index',{}).items():
 if errors:
  print('AUDIT FAILED');[print('-',e) for e in errors];sys.exit(1)
 print('AUDIT OK')
-print(f'people={len(people)} items={len(items)} loadouts={len(loads)} frontier_processes={len(front.get("processes",[]))}')
+print(f"people={len(people)} items={len(items)} loadouts={len(loads)} frontier_processes={len(front.get('processes',[]))}")
