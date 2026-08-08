@@ -1,0 +1,31 @@
+name: maintenance-character-identity
+on:
+  push:
+    branches: [validation]
+permissions:
+  contents: write
+jobs:
+  migrate:
+    if: ${{ !contains(github.event.head_commit.message, '[character-identity-cleanup]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: validation
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install jsonschema
+      - run: python tools/maintenance_character_identity.py
+      - run: python tools/run_validators.py
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No migration changes.'
+          else
+            git commit -m 'Clean character schema identity [character-identity-cleanup]'
+            git push origin HEAD:validation
+          fi
