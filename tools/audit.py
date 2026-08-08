@@ -683,22 +683,22 @@ for _pth in (ROOT/'state').rglob('*.json'):
   _cr=_pool.get('capability_ref')
   if _pool.get('pool_kind')!='command_personnel' and (not _cr or not (ROOT/_cr).exists()):err(f'source_pool_missing_capability_ref:{_pth.relative_to(ROOT)}:{_pool.get("id") or _pool.get("pool_id")}')
 
-# No latent identity directory after cold-active roster migration.
-if (ROOT/'data/latent-identities').exists():err('latent_identity_directory_still_present')
+# Canonical deferred-detail identity roster: authoritative shards, derived index, no per-character file forest.
+if (ROOT/'data/latent-identities').exists():err('obsolete_latent_identity_directory_present')
 _car=rj(ROOT/'state/char-roster/index.json') or {}
-if int(_car.get('count',0))!=len(list((ROOT/'state/char-roster/active-canon').glob('*.json'))):err('active_roster_count_mismatch')
-if int(_car.get('count',0))!=306:err(f'active_roster_expected_306:{_car.get("count")}')
-for _e in _car.get('entries',[]):
- _sh=rj(ROOT/_e.get('path','')) or {}
- if len(_sh.get('characters',[]))!=int(_e.get('count',-1)):err(f'active_roster_shard_count:{_e.get("shard")}')
-if 'lookup' in _car:err('active_roster_monolithic_lookup_reintroduced')
-_lbi=_car.get('lookup_by_initial',{})
-if sum(int(x.get('count',0)) for x in _lbi.values())!=int(_car.get('count',0)):err('active_roster_lookup_shard_count')
-for _initial,_e in _lbi.items():
- _sh=rj(ROOT/_e.get('path','')) or {}
- if len(_sh.get('lookup',{}))!=int(_e.get('count',-1)):err(f'active_lookup_shard_count:{_initial}')
- for _cid,_x in _sh.get('lookup',{}).items():
-  if not (ROOT/_x.get('path','')).exists():err(f'active_lookup_dangling:{_cid}:{_x.get("path")}')
+if _car.get('schema')!='character-roster-index.v1' or _car.get('authority') is not False:err('character_roster_index_invalid')
+_seen_roster=set(); _roster_total=0
+for _initial,_e in _car.get('shards_by_initial',{}).items():
+ _sh=rj(ROOT/_e.get('path','')) or {}; _ids=_sh.get('identities',{})
+ if _sh.get('schema')!='character-identity-shard.v1' or _sh.get('authority') is not True or _sh.get('initial')!=_initial:err(f'character_roster_shard_header:{_initial}')
+ if len(_ids)!=int(_e.get('count',-1)) or len(_ids)!=int(_sh.get('count',-2)):err(f'character_roster_shard_count:{_initial}')
+ for _cid,_x in _ids.items():
+  if _cid in _seen_roster:err(f'character_roster_duplicate_id:{_cid}')
+  _seen_roster.add(_cid); _roster_total+=1
+  if not isinstance(_x.get('name'),str) or not _x.get('name'):err(f'character_roster_missing_name:{_cid}')
+  if not isinstance(_x.get('routing_hints'),dict):err(f'character_roster_missing_routing_hints:{_cid}')
+if _roster_total!=int(_car.get('count',-1)):err(f'character_roster_total:{_roster_total}:{_car.get("count")}')
+if (ROOT/'state/char-roster/active-canon').exists() or (ROOT/'state/char-roster/lookup').exists():err('per_character_roster_storage_reintroduced')
 
 # Troop pools are accounting objects but must declare the homogeneous troop type they can allocate.
 for _p in (ROOT/'state').rglob('*.json'):
@@ -754,12 +754,12 @@ _um=rj(ROOT/'data/organization/unit-model.json') or {}
 _part=rj(ROOT/'data/mechanics/unit-partition.json') or {}
 if _part.get('schema')!='unit_partition_mechanics.v1':err('unit_partition_mechanics_missing')
 if _um.get('schema')!='unit_model.v2':err('unit_model_v2_missing')
-# Cold active roster, never obsolete latent authority.
+# Canonical identity life-course route remains single-owner and shard-backed.
 _life=rj(ROOT/'state/life/identity-life-course.json') or {}; _roster=rj(ROOT/'state/char-roster/index.json') or {}
-if (_life.get('records') or [{}])[0].get('facts',{}).get('canon_roster_owner')!='state/char-roster/index.json':err('life_course_cold_roster_route_missing')
-if _roster.get('count',0)<1:err('cold_active_roster_empty')
-if _roster.get('schema')!='active_character_roster_index.v4':err('cold_active_roster_index_v4_missing')
-if 'record_index' in _roster:err('cold_active_roster_redundant_record_index')
+if (_life.get('records') or [{}])[0].get('facts',{}).get('canon_roster_owner')!='state/char-roster/index.json':err('life_course_roster_route_missing')
+if _roster.get('count',0)<1:err('character_roster_empty')
+if _roster.get('schema')!='character-roster-index.v1':err('character_roster_schema_missing')
+
 # Command-person direct records must all resolve to current people.
 _cidx=rj(ROOT/'state/cmd/command-personnel.json') or {}
 if _cidx.get('schema')!='command-personnel-index.v2':err('command_personnel_index_v2_missing')

@@ -51,7 +51,7 @@ Age 16 is ordinary adult eligibility and the minimum ordinary state conscription
 Character height, wingspan, arm span, body radius, personal reach, and body-growth measurements are not game fields. Combat reach comes only from the current weapon or fixed combat-method pattern.
 
 ## Equipment condition, fit, and concrete craft
-Generic crude/common/military/superior/masterwork/exceptional combat tiers are retired. Equipment capability comes from its actual pattern fields, current condition, fit, carriage, and any explicitly named physical craft trait.
+Equipment capability comes from actual pattern fields, current condition, fit, carriage, and any explicitly named physical craft trait.
 
 A craft trait is not a prestige label. It must alter exactly recorded fields, such as reduced mass, improved balance/handling, increased structural capacity, better fit, lower maintenance, or altered material resistance. The changed catalog or exact-item values enter ordinary formulas once. Decorative workmanship, famous ownership, or price does not create combat power.
 
@@ -90,7 +90,7 @@ Every already-born persistent person stores one exact `birth_date`. `age` is a v
 
 ## compact-routed-maturation
 
-The human kernel supports compact settlement for cold-active routed identities and aggregate populations. Age changes only at crossed birthdays. Childhood and adolescence process health, nutrition, coordination, endurance, language, education capacity, and age-appropriate labor or practice without generating an adult capability sheet.
+The human kernel supports compact settlement for deferred-detail routed identities and aggregate populations. Age changes only at crossed birthdays. Childhood and adolescence process health, nutrition, coordination, endurance, language, education capacity, and age-appropriate labor or practice without generating an adult capability sheet.
 
 Poor nutrition, illness, injury, displacement, excessive labor, unsafe training, missing guardians, and lack of instruction reduce or block development. Household wealth, rank, or canon status never grants fixed capability. Life-stage ceilings prevent infants and children from receiving adult training, command, office, or combat competence.
 
@@ -106,13 +106,13 @@ A character owner may store universal domain aptitude and potential factors, but
 
 ## Compressed recurring exact profiles
 
-Before the ordinary omitted-skill-equals-zero rule is applied, a compressed exact profile expands its stored template, immutable seed, accumulated unit receipts, age stage, health state, and explicit overrides. The expanded array is exact. A cold profile is not expanded merely for storage or audit display.
+Before the ordinary omitted-skill-equals-zero rule is applied, a compressed exact profile expands its stored template, immutable seed, accumulated unit receipts, age stage, health state, and explicit overrides. The expanded array is exact. A deferred-detail profile is not expanded merely for storage or audit display.
 
 
 
 ## Persistent-name rule
 
-Anonymous aggregate people have no personal identity record. When a generated ordinary person is lawfully materialized as a persistent individual-lite person, assign one stable personal name and ID immediately and preserve them through any later exact-character promotion. Canonical cold-active routed identities retain their canonical name at every representation depth. Never delay a persistent individual's name until full-sheet promotion.
+Anonymous aggregate people have no personal identity record. When a generated ordinary person is lawfully materialized as a persistent individual-lite person, assign one stable personal name and ID immediately and preserve them through any later exact-character promotion. Canonical deferred-detail routed identities retain their canonical name at every representation depth. Never delay a persistent individual's name until full-sheet promotion.
 
 ## Individual-lite combat sheet
 
@@ -131,14 +131,14 @@ A named full-sheet character is one separate body owner. If that person was mate
 
 - Full exact character: complete independently simulated narrative/mechanical actor with exact body, capability, knowledge, relationships, goals and activity when causally required.
 - Individual-lite person: persistent named individual with exact body/capability/equipment/service state and compact narrative state.
-- Cold active routed identity: canonical named person represented through `state/char-roster/index.json` and its exact shard; it has a real world route/source but no fabricated exact capability/location/office until causally materialized.
+- Deferred-detail routed identity: canonical named person represented through `state/char-roster/index.json` and its exact shard; it has a real world route/source but no fabricated exact capability/location/office until causally materialized.
 - Aggregate person: ordinary population/manpower member represented only through a population, institution or unit owner.
 
-Cold status is retrieval compression only. It never means the person does not exist, receives free progression, or is exempt from offscreen life/development parity.
+Deferred-detail representation is retrieval compression only. It never means the person does not exist, receives free progression, or is exempt from offscreen life/development parity.
 
 ## Separation of profile and runtime state
 
-A full capability profile does not by itself assert a current location, health, inventory, office, travel, or personal review. Runtime facts must have an authoritative owner. Cold full profiles are not loaded or processed until a causal activation.
+A full capability profile does not by itself assert a current location, health, inventory, office, travel, or personal review. Runtime facts must have an authoritative owner. Deferred-detail full profiles are not loaded or processed until a causal activation.
 
 ## Routed identity activation
 
@@ -153,8 +153,8 @@ Startup loads no external profile shard. A lookup loads the compact router, one 
 - no alias arrays or duplicate normalized identity keys;
 - no campaign-original exact quota filler;
 - no generic random state, age, role, office, location, health, equipment, knowledge, goal, or elite skill;
-- no cold personal periodic clocks;
-- no full-array expansion for cold-active routed identities during save, time advance, or audit;
+- deferred-detail identities have no personal periodic clocks by default;
+- no full-array expansion for deferred-detail routed identities during save, time advance, or audit;
 - no repeated attribute or skill order inside each individual record when a shard-level order owns it;
 - no profile definition treated as a living runtime body without activation evidence.
 
@@ -164,12 +164,12 @@ Units do not carry complete name lists. Exact names are materialized only throug
 
 ## canonical-name narration
 
-Every full capability-profile identity, active exact external actor, and cold-active routed named identity retains one canonical display name. Whenever the identity is legitimately referenced, reported, encountered, or materialized, narration uses that canonical name. Cold status suppresses irrelevant loading, not the name.
+Every full capability-profile identity, active exact external actor, and deferred-detail routed named identity retains one canonical display name. Whenever the identity is legitimately referenced, reported, encountered, or materialized, narration uses that canonical name. Deferred-detail representation suppresses irrelevant loading, not the name.
 
 
 ## Initial-date projection safety
 
-A cold full capability profile is a capability definition, not an automatic 245 BCE body state. On activation, reconstruct age-stage, affiliation, office, health, equipment, location, knowledge, relationships, and current capability through the source unit and explicit initial evidence. Future achievements, future ranks, and later-series peak values cannot be imported as initial facts.
+A deferred-detail full capability profile is a capability definition, not an automatic 245 BCE body state. On activation, reconstruct age-stage, affiliation, office, health, equipment, location, knowledge, relationships, and current capability through the source unit and explicit initial evidence. Future achievements, future ranks, and later-series peak values cannot be imported as initial facts.
 
 
 
@@ -210,7 +210,7 @@ Character materialization variation, hash input, delta ranges, and clamps are de
 7. Create health, location, equipment, authority, knowledge, goal, activity, and successor-clock owners.
 8. Validate no named/unit overlap and write the materialization receipt.
 
-Failure at any step leaves the identity cold-active/routed and produces no acting exact character.
+Failure at any step leaves the identity deferred-detail/routed and produces no acting exact character.
 
 
 ## personal-unit promotion

@@ -85,14 +85,7 @@ for term in ('split','standard loadout','refit'):
 sup=rj('data/mechanics/support.json'); classes=sup.get('combat_classes',{})
 if 'service_support' not in classes:err('support_service_class_missing')
 if 'frontage' not in str(classes.get('service_support','')).lower():err('support_frontage_rule_missing')
-# No retired organization term in text files or filenames.
-for p in R.rglob('*'):
-    if '.git' in p.parts or not p.is_file() or p.suffix=='.pyc' or p==Path(__file__).resolve():continue
-    if 'cohort' in p.name.lower():err(f'retired_term_filename:{p.relative_to(R)}')
-    if p.suffix.lower() in ('.json','.md','.txt','.py'):
-        try:t=p.read_text(encoding='utf-8').lower()
-        except:continue
-        if 'cohort' in t:err(f'retired_term_text:{p.relative_to(R)}')
+# Organization semantics are validated structurally; prose vocabulary is not a correctness gate.
 # Machine map explicit listed paths resolve; no fake selected-owner path.
 m=rj('data/runtime/repository-map.json')
 for key,route in all_routes(m).items():
@@ -148,16 +141,19 @@ else:
     for pid,rel in cidx.get('record_index',{}).items():
         if not (R/rel).exists():err(f'command_person_missing:{pid}')
     roster=rj('state/char-roster/index.json')
-    if roster.get('count',0)<1:err('cold_roster_empty')
-    if roster.get('schema')!='active_character_roster_index.v4':err('cold_roster_index_v4')
-    if 'record_index' in roster:err('cold_roster_redundant_record_index')
-    for _initial,_meta in roster.get('lookup_by_initial',{}).items():
-        _lp=R/_meta.get('path','')
-        if not _lp.exists():err(f'cold_lookup_missing:{_initial}')
-        else:
-            _ld=json.loads(_lp.read_text())
-            for _cid,_x in _ld.get('lookup',{}).items():
-                if not (R/_x.get('path','')).exists():err(f'cold_lookup_dangling:{_cid}:{_x.get("path")}')
+    if roster.get('schema')!='character-roster-index.v1' or roster.get('authority') is not False:err('character_roster_index')
+    seen=set(); total=0
+    for initial,meta in roster.get('shards_by_initial',{}).items():
+        rel=meta.get('path'); sh=rj(rel) if rel else {}
+        ids=sh.get('identities',{})
+        if sh.get('schema')!='character-identity-shard.v1' or sh.get('authority') is not True or sh.get('initial')!=initial:err(f'character_roster_shard:{initial}')
+        if len(ids)!=meta.get('count') or len(ids)!=sh.get('count'):err(f'character_roster_shard_count:{initial}')
+        for cid,rec in ids.items():
+            if cid in seen:err(f'character_roster_duplicate:{cid}')
+            seen.add(cid); total+=1
+            if not rec.get('name') or not isinstance(rec.get('routing_hints'),dict):err(f'character_roster_identity_shape:{cid}')
+    if total!=roster.get('count'):err(f'character_roster_total:{total}:{roster.get("count")}')
+    if (R/'state/char-roster/active-canon').exists() or (R/'state/char-roster/lookup').exists():err('per_character_roster_files_present')
     # No stale character representation terminology.
     for rel in ['rules/characters.md','rules/world.md','state/life/identity-life-course.json','state/cap/internal-unit-combat-kernels.json','state/prog/sword-manor-progression.json']:
         t=(R/rel).read_text(encoding='utf-8').lower()

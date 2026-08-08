@@ -6,7 +6,7 @@
 
 Current truth lives in typed state owners, not in summaries. The scene contains only what is required to resume the current interaction and parse the next action. Memory records preserve supported past events and holder-specific interpretations. Generated summaries and indexes are disposable projections and may never override their source owners.
 
-Cold receipts, closed operations, old testimony, and detailed historical logs remain outside ordinary context unless a current dependency, investigation, audit, relationship, legal dispute, or explicit query requires them.
+Closed receipts, completed operations, old testimony, and detailed historical logs remain outside ordinary context unless a current dependency, investigation, audit, relationship, legal dispute, or explicit query requires them.
 
 ## Knowledge is holder-specific
 
@@ -23,7 +23,7 @@ At the start of a turn:
 3. use `state/index/owners.json` to retrieve only required exact owners;
 4. load only rules and structured mechanics required by the declared action;
 5. retrieve relevant relationship/knowledge/memory capsules only for active actors;
-6. keep closed receipts and unrelated world registries cold.
+6. keep closed receipts and unrelated world registries load-on-demand.
 
 A character, faction, army, institution, or project is not loaded merely because it exists.
 
@@ -59,7 +59,7 @@ Named people continue to develop only through their owned duties, training, trav
 
 A checkpoint may rebuild disposable indexes and summaries, compress routine closed history, and verify that current truth is represented by typed owners. It may not rewrite established facts for narrative convenience. If checkpoint settlement changes canonical state, it is a normal revision-locked transaction.
 
-Validation records and cold forensic history are not ordinary gameplay context.
+Validation records and load-on-demand forensic history are not ordinary gameplay context.
 
 ## Invariants
 
@@ -69,5 +69,5 @@ Validation records and cold forensic history are not ordinary gameplay context.
 - no character receives knowledge without a valid path;
 - no memory receives unsupported subjective interpretation;
 - relationship changes require evidence;
-- cold history stays cold unless causally relevant;
+- closed history stays load-on-demand unless causally relevant;
 - context size is controlled by dependency retrieval, not by deleting world state.

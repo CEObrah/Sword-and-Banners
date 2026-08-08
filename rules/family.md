@@ -1,10 +1,10 @@
 # Sword and Banners Family, Marriage, Household, and Succession
 
-Family status is sparse life-course/institutional state. Direct recognized kinship (for example a known sibling relation whose unknown parents should not be invented) may use a sparse kinship record; parent-child truth still belongs to parentage. It is **not** a romance score. Relationship state owns trust/affection/resentment; reputation owns audience belief; health owns pregnancy/childbirth/recovery; property/title/office/treasury remain in their existing authorities. `state/family/` owns only courtship records when persistent, proposals, recognized unions, households/dependents, parentage/guardianship, succession claims/order, and cold family-event provenance.
+Family status is sparse life-course/institutional state. Direct recognized kinship (for example a known sibling relation whose unknown parents should not be invented) may use a sparse kinship record; parent-child truth still belongs to parentage. It is **not** a romance score. Relationship state owns trust/affection/resentment; reputation owns audience belief; health owns pregnancy/childbirth/recovery; property/title/office/treasury remain in their existing authorities. `state/family/` owns only courtship records when persistent, proposals, recognized unions, households/dependents, parentage/guardianship, succession claims/order, and family-event provenance.
 
 ## Retrieval
 
-Known person -> `state/family/index.json#person_index` -> load only referenced records. Do not load every union/Household/kinship record. `kinship-index.json` is derived routing only. Historical events stay cold unless explaining provenance, settling an undelivered consequence, or auditing a transition.
+Known person -> `state/family/index.json#person_index` -> load only referenced records. Do not load every union/Household/kinship record. `kinship-index.json` is derived routing only. Historical events stay load-on-demand unless explaining provenance, settling an undelivered consequence, or auditing a transition.
 
 ## Courtship, proposals, betrothal, marriage
 
@@ -34,7 +34,7 @@ Kinship can create a **claim or eligibility input**, not an automatic transfer. 
 
 ## NPC autonomy and time
 
-NPCs can court, propose, marry, separate, adopt, become guardians, have children, become widowed and remarry offscreen when saved relationships/goals, law/custom, resources, health, location, opportunity, elapsed time and deterministic process rules support it. No marriage/child/succession event exists merely to make the world dramatic. Cold populations may batch only while equivalent; named/material threshold crossings wake exact state. Use existing life-course/House/institution clocks, never a duplicate family-only global clock.
+NPCs can court, propose, marry, separate, adopt, become guardians, have children, become widowed and remarry offscreen when saved relationships/goals, law/custom, resources, health, location, opportunity, elapsed time and deterministic process rules support it. No marriage/child/succession event exists merely to make the world dramatic. Aggregate populations may batch only while equivalent; named/material threshold crossings wake exact state. Use existing life-course/House/institution clocks, never a duplicate family-only global clock.
 
 ## Knowledge and reputation
 
@@ -50,4 +50,4 @@ Marriage may matter to Houses, courts, estates, patronage, titles, alliance expe
 
 ## Deterministic transaction order
 
-For any family transition: load participants + relevant family records + relationship/knowledge + only causally relevant House/clan/law/property/health/reputation owners; validate authority/eligibility; resolve exact elapsed time and any registered random draw; write the family transition and cold event provenance; update relationship/household/dependent/succession/property owners only where actually changed; route information/reputation consequences; settle due processes; rebuild family/kinship indexes; validate/read back; narrate only player-known consequences.
+For any family transition: load participants + relevant family records + relationship/knowledge + only causally relevant House/clan/law/property/health/reputation owners; validate authority/eligibility; resolve exact elapsed time and any registered random draw; write the family transition and event provenance; update relationship/household/dependent/succession/property owners only where actually changed; route information/reputation consequences; settle due processes; rebuild family/kinship indexes; validate/read back; narrate only player-known consequences.

@@ -1,20 +1,20 @@
 # Runtime Character Behavior
 
-Use this rule for ordinary interaction with an already-routed or materialized character. Load the full `rules/characters.md` only when creating/materializing a person, changing representation depth, or resolving a character-structure question.
+Use this rule for ordinary interaction with an already-routed or materialized character. Load `rules/characters.md` only when creating/materializing a person, changing representation depth, or resolving character structure.
 
 ## Authority order
 
-For an active character, behavior comes from the smallest relevant set of saved owners:
+For an active character, behavior comes from the smallest relevant saved set:
 
-1. explicit bespoke `behavior` / compact personality state;
-2. if inline behavior is absent, the one cold profile routed by `data/people/behavior-profile-index.json`;
+1. explicit bespoke `behavior` or compact personality state;
+2. when inline behavior is insufficient, the one load-on-demand support profile routed by `data/people/behavior-profile-index.json`;
 3. current goals, duties, appointments, relationships, knowledge and recent history;
-4. established role/career/canon characterization already saved in the character owner;
+4. established role/career/canon characterization already saved in the owner;
 5. general human constraints from this rule.
 
-Never manufacture a deep personality merely because a field is absent. Cold or behavior-light exact profiles may act conservatively from their current duty, knowledge, incentives and proven traits until distinctive behavior is supported by canon/source evidence or campaign events. Do not restore mass-generated trait filler.
+Missing personality detail is unknown, not permission to invent filler. A behavior-light exact character acts conservatively from current duty, knowledge, incentives and proven traits until distinctive behavior is supported by source/campaign evidence.
 
-Before a behavior-light exact/cold profile enters sustained direct interaction, independent high-stakes decision-making, recurring command, or a scene where personality materially changes the outcome, perform a behavior-depth check. If its owner ID appears in `data/people/behavior-profile-index.json`, load exactly that one profile first, then load only its routed source/canon hints, current office/duty, relationships, knowledge, goals and campaign history. Persist a compact behavior anchor only when those sources support it. If evidence is insufficient, keep the character role-driven and restrained rather than inventing quirks, fears, humor, ambitions or private opinions. A brief routine encounter does not require forced deepening.
+Before a behavior-light exact character enters sustained direct interaction, independent high-stakes decision-making, recurring command, or a scene where personality can materially change the result, perform a behavior-depth check. If the owner ID is routed by `data/people/behavior-profile-index.json`, load exactly that profile, then only causal source/canon hints, office/duty, relationships, knowledge, goals and campaign history. Persist a compact behavior anchor only when those sources support it. Insufficient evidence keeps the character role-driven and restrained. Brief routine contact does not require forced deepening.
 
 ## Runtime decision rule
 
@@ -24,21 +24,12 @@ Do not infer the player character's voluntary thoughts, dialogue, commitments or
 
 ## Knowledge and relationships
 
-Use the relationship/knowledge authority for consequential social state. Shared affiliation is not automatically a personal relationship. Knowledge must arrive through valid observation, records, reports, messengers, scouts, spies or other saved paths.
+Use relationship/knowledge authority for consequential social state. Shared affiliation is not automatically a personal relationship. Knowledge arrives only through valid observation, records, reports, messengers, scouts, spies or other saved paths.
 
 ## Updating an NPC
 
-After a material event, persist only changes actually caused by the event:
+Persist only changes caused by the event: health/fatigue to the body/condition owner; capability through registered development/training; relationship/knowledge/reputation to their authorities; role/office/assignment/command to institutional owners; goals only when causally revised; behavior only when repeated or decisive evidence makes it persistent. Do not write narration summaries or developer/audit commentary back as character facts.
 
-- injuries/health/fatigue to the body/condition owner;
-- capability development through the registered development/training process and receipts;
-- relationship/knowledge/reputation changes to their dedicated authority;
-- role, office, assignment and command changes to their institutional owners;
-- goal changes only when the character causally forms/revises them;
-- behavior traits only when repeated or decisive evidence makes the trait persistent.
+## Deferred-detail routed identities
 
-Do not write summaries of narration back as new facts. Do not create developer/audit/version commentary inside character state.
-
-## Cold-active routed identities
-
-A cold-active canon identity is a real named world identity but not a fabricated exact current body sheet. Load its one routing shard. If it becomes causally active, use `rules/characters.md` to reconstruct/materialize only the state justified by current time, source organization, age, known canon anchor, campaign history and conserved source population. Future achievements or later-series ranks are never back-projected.
+A deferred-detail canonical identity is a real named world identity without fabricated exact current body state. Load its one authoritative initial shard. When causal relevance requires an exact/lite actor, use `rules/characters.md` to resolve only state justified by current time, source organization, age, canon anchor, campaign history and conserved source population. Future achievements or later-series ranks are never back-projected.

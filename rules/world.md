@@ -198,7 +198,7 @@ Validation names the exact owner, event, field, and expected successor relations
 
 Every active arc, pressure, operation, recurring review, message, and movement registers its authoritative due/trigger timing in `state/time/frontier.json`. `state/reg/registry-processes.json` provides process discovery/visibility/event-type metadata, and `state/reg/registry-process-contracts.json` routes process semantics; each process contract lives at `state/reg/process-contracts/<owner_id>.json`. Neither duplicates frontier clock state.
 
-Monthly world-close events process registered cold domains and create their next close before resolving. An arc cannot progress merely because a monthly close exists; it still requires actors, means, action, target, blockers, and causal results.
+Monthly world-close events process registered offscreen aggregate domains and create their next close before resolving. An arc cannot progress merely because a monthly close exists; it still requires actors, means, action, target, blockers, and causal results.
 
 ## four-layer-player-facing-arc-projection
 
@@ -230,13 +230,13 @@ Ordinary troops are not pre-named for narrative decoration. Exact identity follo
 
 ## canonical-name narration
 
-## Cold-active canonical identities
+## Deferred-detail canonical identities
 
-The canonical named roster is current state under `state/char-roster/index.json` and its routed shards. Do not hard-code roster counts in rules; derive the current count from that index. Cold-active status is a retrieval representation, not dormancy or nonexistence.
+The canonical named roster is current state under `state/char-roster/index.json` and its routed shards. Do not hard-code roster counts in rules; derive the current count from that index. Deferred-detail representation is a retrieval representation, not dormancy or nonexistence.
 
 A cold-active canonical identity keeps one canonical display name and world route/source. It does not own fabricated exact statistics, inventory, office, location, knowledge or personal clock until causal evidence requires materialization. When materialized, resolve a lawful source institution/unit/population slot, conserve one real person, reconstruct supported life/development/history, and preserve the canonical identity.
 
-Cold-active identities receive no free progression and do not freeze. Their ordinary aging, occupation, training, health exposure and career movement are covered through source owner/institution/unit aggregate processes. Direct command, office, travel, interaction, injury, capture, investigation or another exact dependency wakes the person into exact/lite process coverage.
+Deferred-detail identities receive no free progression and do not freeze. Their ordinary aging, occupation, training, health exposure and career movement are covered through source owner/institution/unit aggregate processes. Direct command, office, travel, interaction, injury, capture, investigation or another exact dependency wakes the person into exact/lite process coverage.
 
 Unknown affiliation/office remains unknown rather than being invented to fill the roster.
 
@@ -248,10 +248,10 @@ Representation tiers are:
 
 - **Full exact character:** complete independently simulated actor when exact agency/body/capability/knowledge/relationship state is causally required.
 - **Individual-lite person:** persistent named person with exact body/capability/equipment/service state and compact narrative state.
-- **Cold active routed identity:** canonical named person with a current route/source and activation triggers, but no fabricated exact body/location/office/capability until causally materialized.
+- **Deferred-detail routed identity:** canonical named person with a current route/source and activation triggers, but no fabricated exact body/location/office/capability until causally materialized.
 - **Aggregate person:** ordinary population, soldier, official, worker, student or dependent represented through the appropriate unit/institution/population owner.
 
-A cold active identity materializes only after a lawful source route and existing person/slot are resolved. It receives no free elite skills, state affiliation, age, office, equipment, knowledge, future accomplishment or personal history. Materialization conserves one real person exactly once.
+A deferred-detail identity materializes only after a lawful source route and existing person/slot are resolved. It receives no free elite skills, state affiliation, age, office, equipment, knowledge, future accomplishment or personal history. Materialization conserves one real person exactly once.
 
 ## Development parity
 
@@ -259,7 +259,7 @@ Every person develops through real activity. Exact/lite people use exact activit
 
 ## Scheduler rule
 
-Cold active routed identities own no periodic personal clock by default. State, force, court, institution and unit processes cover ordinary offscreen time. A personal clock is created only by active command, office, travel, interaction, training, injury, capture, investigation or another exact dependency. This prevents hundreds of unsupported individual reviews during long horizons while keeping life-course fairness.
+Deferred-detail routed identities own no periodic personal clock by default. State, force, court, institution and unit processes cover ordinary offscreen time. A personal clock is created only by active command, office, travel, interaction, training, injury, capture, investigation or another exact dependency. This prevents hundreds of unsupported individual reviews during long horizons while keeping life-course fairness.
 
 ## Vacancy sequence
 
@@ -274,4 +274,4 @@ No successor receives free competence, history, equipment, loyalty, survival, or
 
 ## canonical-name narration
 
-Every full capability-profile identity, active exact external actor, routed named identity, and cold-active routed identity retains one canonical display name. Whenever the identity is legitimately referenced, reported, encountered, or materialized, narration uses that canonical name. Cold status suppresses irrelevant loading, not the name.
+Every full capability-profile identity, active exact external actor, routed named identity, and cold-active routed identity retains one canonical display name. Whenever the identity is legitimately referenced, reported, encountered, or materialized, narration uses that canonical name. Deferred-detail representation suppresses irrelevant loading, not the name.

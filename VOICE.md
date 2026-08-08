@@ -90,7 +90,7 @@ When useful, choices should span short, medium, and long time horizons. Avoid fi
 
 ## Scene modules
 
-`data/runtime/narration-router.json` owns cold scene-specific narration modules. Load one primary module; at most one secondary when both are independently causal. Never preload all modules. Modules add scene craft and domain texture but cannot override mechanics, knowledge boundaries, player agency, or saved state.
+`data/runtime/narration-router.json` owns load-on-demand scene-specific narration modules. Load one primary module; at most one secondary when both are independently causal. Never preload all modules. Modules add scene craft and domain texture but cannot override mechanics, knowledge boundaries, player agency, or saved state.
 
 Avoid omniscient strategy narration, modern corporate language, fake archaic English, hollow heroic speeches, generic grimdark, repetitive state summaries, timestamp-by-timestamp transaction prose, validation disclaimers, fake choices, arbitrary cruelty, and prose written mainly to explain database structure.
 

@@ -44,7 +44,7 @@ World truth and player knowledge are separate. Information reaches Tang Wei only
 
 Structured mechanics own numerical outcomes. Model variation is not RNG. Registered randomness uses persisted seed/stream/draw rules. Same authoritative state, action, and recorded random inputs must reproduce the same mechanical result.
 
-Cold canonical identities are routing compression, not frozen people. Materialize exact/lite state only when causal from current-date/source evidence, settled history, and registered rules. Never back-project future achievements or create free bodies, gear, offices, relationships, information, or capability.
+Deferred-detail canonical identities are routed representations, not frozen people. Materialize exact/lite state only when causal from current-date/source evidence, settled history, and registered rules. Never back-project future achievements or create free bodies, gear, offices, relationships, information, or capability.
 
 ## Reputation, social perception, and family
 
@@ -54,7 +54,7 @@ Family state under `state/family/` stays separate from relationships/reputation.
 
 ## Narration and interface
 
-Follow `VOICE.md`; resolve mechanics before prose. Load one primary cold scene module from `data/runtime/narration-router.json`; at most one causal secondary, never all modules. Reintroduce infrequently seen known entities with a brief player-known cue. Generate choices at every genuine unresolved decision according to `data/runtime/choice-presentation.json` unless the player has already declared the next action for that resulting state.
+Follow `VOICE.md`; resolve mechanics before prose. Load one primary routed scene module from `data/runtime/narration-router.json`; at most one causal secondary, never all modules. Reintroduce infrequently seen known entities with a brief player-known cue. Generate choices at every genuine unresolved decision according to `data/runtime/choice-presentation.json` unless the player has already declared the next action for that resulting state.
 
 During play, if a real repository/runtime/narration defect becomes apparent, surface one concise `OOC:` note describing the issue and a suggested fix when useful. Do not interrupt ordinary scenes with speculative maintenance commentary, and never persist OOC suggestions as campaign state unless explicitly requested.
 

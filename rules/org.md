@@ -40,7 +40,7 @@ Formation templates describe arrangements a force knows; active formations exist
 
 ## Player agency
 
-World-owned forces have their normal home establishment. Tang Wei's unorganized personal retinue remains `permanent_units: []` until the player creates units. OOC/preview discussion never creates organization or intent.
+World-owned forces retain their lawful home establishment. Tang Wei's personal-force owner records only units and named people actually created, assigned, attached, hired or otherwise placed under his authority. OOC/preview discussion never creates organization, assignment or intent.
 
 ## Command groups as direct elements
 

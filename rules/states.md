@@ -1,6 +1,6 @@
 # Warring States World and State Macro
 
-State macro values are campaign abstractions, not precise historical census claims. Monthly state reviews update only material strategic changes. Cold civil and military units do not receive exact individual awards until an identity or subformation materializes.
+State macro values are campaign abstractions, not precise historical census claims. Monthly state reviews update only material strategic changes. Offscreen aggregate civil and military units do not receive exact individual awards until an identity or subformation materializes.
 
 
 
@@ -11,7 +11,7 @@ The external world is unit-first. Seven state macro ledgers own population, mili
 
 Ordinary state soldiers remain military accounting pools. A real campaign activates exact homogeneous role units only after authority, command, objective, route, supply, equipment, finance, time, and opposition exist. Participating forces fight through their actual homogeneous units; inactive force pools remain noncombat accounting owners. Named commanders do not conjure armies.
 
-State monthly processes settle finance, supply, recruitment, training, readiness, appointments, health exposure, routes, diplomacy, and active pressures. Weekly or daily reviews exist only for active operations, crises, movement, messages, or other exact clocks. Cold named identities do not create scheduler load.
+State monthly processes settle finance, supply, recruitment, training, readiness, appointments, health exposure, routes, diplomacy, and active pressures. Weekly or daily reviews exist only for active operations, crises, movement, messages, or other exact clocks. Deferred-detail named identities do not create scheduler load.
 
 Current campaign date, player location, House legal status, property, contracts and territorial reach are mutable state and must be read from their current owners.
 
@@ -39,7 +39,7 @@ Equivalent units may share one calculation/receipt only while their activity, in
 
 ## Named identities inside units
 
-A cold-active routed named identity does not create an additional body merely because it has a roster record. When materialization maps that identity to an aggregate source unit/population slot, deduct exactly one source person at activation and import the source owner accumulated development and health history exactly once. If the identity already has an independently counted exact/lite body owner, never deduct another body.
+A deferred-detail routed named identity does not create an additional body merely because it has a roster record. When materialization maps that identity to an aggregate source unit/population slot, deduct exactly one source person at activation and import the source owner accumulated development and health history exactly once. If the identity already has an independently counted exact/lite body owner, never deduct another body.
 
 ## Required state unit composition
 

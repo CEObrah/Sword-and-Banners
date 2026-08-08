@@ -131,7 +131,7 @@ Demobilization is a transaction, not deletion. Settle survivors, dead, wounded, 
 
 ## Provincial military scaling
 
-Unmaterialized population contributes regional household arms, militia reserve, levy capacity, and follower capacity through compact province ledgers. This allows empire-scale rebellions and wars without creating thousands of unnecessary detailed unit owners. Permanent units materialize at the resolution required by causal importance. Active formations are created only for actual marches, battles, sieges, escorts, or other operations and dissolve or archive when that operational arrangement ends.
+Unmaterialized population contributes regional household arms, militia reserve, levy capacity, and follower capacity through compact province ledgers. This allows empire-scale rebellions and wars without creating thousands of unnecessary detailed unit owners. Permanent units materialize at the resolution required by causal importance. Active formations are created only for actual marches, battles, sieges, escorts, or other operations and dissolve when that operational arrangement ends; any required causal receipt remains load-on-demand rather than becoming a duplicate formation owner.
 
 Standard kit stock limits standardized formations, not the number of people who can appear. Household and improvised weapons create lower-quality groups with exact penalties. Workshops may convert agricultural tools and raw materials over time; this consumes tools, iron, wood, labor, and production capacity and cannot instantly equip a province.
 

@@ -1,6 +1,6 @@
 # Schools, Escorts, Mercenaries, and Independent Forces
 
-These institutions are normally cold aggregate owners reviewed quarterly or by event. Do not create mandatory monthly subreceipts for every school, escort agency, mercenary company, raider group, or independent clan. Material operations receive their own exact clocks.
+These institutions are normally offscreen aggregate owners reviewed quarterly or by event. Do not create mandatory monthly subreceipts for every school, escort agency, mercenary company, raider group, or independent clan. Material operations receive their own exact clocks.
 
 
 

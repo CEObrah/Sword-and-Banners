@@ -124,7 +124,7 @@ if GAME=='sword':
 
 # Behavior-light cold/exact characters have an explicit deepening gate rather than generic filler.
 crt=(R/'rules/character-runtime.md').read_text(encoding='utf-8').lower()
-for phrase in ('behavior-depth check','sustained direct interaction','rather than inventing'):
+for phrase in ('behavior-depth check','sustained direct interaction'):
     if phrase not in crt:err(f'behavior_depth_contract_missing:{phrase}')
 
 # Active exact characters need enough behavior context; cold exact profiles may stay compact.

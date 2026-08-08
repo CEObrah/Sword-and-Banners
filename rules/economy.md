@@ -3,7 +3,7 @@
 `data/mechanics/economy.json` is the structured numerical authority for fiscal, recruitment-cost, production, scarcity, price, payroll, and sustainable-force calculations.
 
 
-Flow seeds are forecasts and planning baselines, not automatic additions. Actual income, production, consumption, spoilage, issue, purchase, and delivery require causal conditions and conservation. Cold macro reviews may remain aggregate until a material threshold requires exact owners.
+Flow seeds are forecasts and planning baselines, not automatic additions. Actual income, production, consumption, spoilage, issue, purchase, and delivery require causal conditions and conservation. Offscreen macro reviews may remain aggregate until a material threshold requires exact owners.
 
 ## Runtime modules
 

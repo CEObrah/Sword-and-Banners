@@ -59,7 +59,7 @@ Reputation has exact-time decay classes. Routine/ephemeral attention fades faste
 
 ## Current-state storage
 
-`state/reputation/index.json` is derived routing only. Each current subject record lives in `state/reputation/subjects/<subject_id>.json` and points only to audience profiles that actually exist. Audience profiles are authoritative current perception state. Event files are cold causal history and should not be loaded for ordinary interaction unless provenance, propagation, or dispute matters.
+`state/reputation/index.json` is derived routing only. Each current subject record lives in `state/reputation/subjects/<subject_id>.json` and points only to audience profiles that actually exist. Audience profiles are authoritative current perception state. Event files are load-on-demand causal history and should not be loaded for ordinary interaction unless provenance, propagation, or dispute matters.
 
 When updating reputation: persist the underlying event first; establish witnesses/report origin; write the reputation event; propagate only along valid routes at the correct time; update delivered audience profile(s); update derived indexes; validate; then narrate reactions only for actors who can know.
 

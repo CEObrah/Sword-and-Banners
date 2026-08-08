@@ -126,6 +126,6 @@ At departure, dawn, major supply event, and after battle, reconcile mouths, anim
 
 ## persistent-force-logistics-clocks
 
-A force lifecycle cannot remain active without a supply source or explicit shortage state, payroll owner or lawful unpaid status, inventory owner, transport basis, and next logistics review. Stationary cold forces may batch stable consumption and maintenance at a monthly close; moving, campaigning, besieging, starving, damaged, or disease-exposed forces review at daily or material milestones.
+A force lifecycle cannot remain active without a supply source or explicit shortage state, payroll owner or lawful unpaid status, inventory owner, transport basis, and next logistics review. Stationary offscreen aggregate forces may batch stable consumption and maintenance at a monthly close; moving, campaigning, besieging, starving, damaged, or disease-exposed forces review at daily or material milestones.
 
 Every force lifecycle consumes only delivered food, fodder, water, ammunition, repair stock, transport, labor, and money. Failure propagates to condition, fatigue, readiness, morale, desertion, illness, movement, and operational choices rather than being ignored.

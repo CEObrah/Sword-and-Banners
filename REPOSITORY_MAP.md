@@ -22,7 +22,7 @@ Load only `RUNTIME.md`, `VOICE.md`, `data/runtime/repository-map.json`, `state/m
 |---|---|---|
 | Current campaign/scene | startup owners | causal action requires another owner |
 | Exact/lite person | owner index prefix -> exact owner | behavior, health, relationship, career, equipment, command matters |
-| Cold canon identity | direct `state/char-roster/active-canon/<id>.json` | materialize only when causally active |
+| Deferred-detail canon identity | `state/char-roster/index.json` -> one authoritative initial shard | materialize only when causally active |
 | Home army/institution | establishment index -> one owner shard | specific unit series becomes distinct or changes |
 | State/replacement pool | one `state/force-pool` owner | mobilization/allocation only; pools never fight |
 | Command person | direct command-person record | direct-reporting units/nodes and capacity evaluation matter |
