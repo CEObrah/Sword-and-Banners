@@ -2,17 +2,27 @@
 
 ## Core hierarchy
 
-`person / unorganized manpower -> homogeneous unit -> command group -> formation -> army / operation / institution`.
+`source population / unorganized manpower -> homogeneous unit -> command group -> formation -> army / operation / institution`.
 
-A **unit** is the only persistent aggregate mass-combat organization. A unit has one troop type and one intended organizational standard loadout. It owns headcount, aggregate capability, doctrine, training, tendencies, cohesion, morale, readiness, condition, experience/history, home chain, current assignment and equipment issue state. Large ordinary units resolve from aggregate statistics under `data/mechanics/unit-resolution.json`; never create one character sheet per ordinary soldier.
+A **unit** is the only persistent aggregate mass-combat organization. A unit has one troop type and one intended organizational standard loadout. It owns headcount, aggregate capability, population/development profile, doctrine, training, tendencies, cohesion, morale, readiness, condition, experience/history, home chain, current assignment and equipment issue state. Large ordinary units resolve from aggregate statistics under `data/mechanics/unit-resolution.json`; never create one character sheet per ordinary soldier.
 
-A **commander** is a separate person who may command multiple units or subordinate command nodes. A **formation** is a temporary operational/battle arrangement of units and owns no manpower. A force pool is accounting-only manpower and cannot fight until allocated to units.
+A **commander** is a separate person who may command multiple units or subordinate command nodes. A **formation** is a temporary operational/battle arrangement of units and owns no manpower. A force pool or civilian population is accounting-only people and cannot fight as a military unit until lawfully recruited/allocated and organized.
+
+## Recruitment provenance and population conservation
+
+Every ordinary recruit, replacement, transfer or newly organized soldier must come from an authoritative source population, manpower pool, existing unit, mercenary pool, institutional population or other registered owner. The transaction settles that source through the transfer time, deducts the exact conserved headcount once, records the source claim, and carries forward the selected source population's relevant capability, occupation/history, body/age, aptitude, experience and qualification state. Organization never rerolls the people into a generic troop template.
+
+Selection criteria are causal. Hunters/foresters, agricultural workers, craftsmen, professional soldiers, veterans, mercenaries, guards, riders, scouts and other source strata differ only where authoritative source state supports the distinction. A request to recruit a specific stratum fails closed when that stratum does not exist or cannot be lawfully identified in the source owner. Never substitute a convenient population and then grant the requested profile by narration.
+
+Training, doctrine, equipment and later service may change the organized unit after recruitment, but they do not rewrite its recruitment provenance. Replacements carry their own source claims and are pooled into the receiving unit by the same deterministic merge law. Returning or demobilized personnel return to a lawful destination population with their surviving history/condition; they do not recreate the source population's old state.
+
+Named commanders and exceptional persistent people remain separate characters. Ordinary soldiers become individual-lite/exact only when a real causal reason requires persistent individual identity: a named interaction, exceptional act, promotion/appointment, distinctive injury, relationship, contract, specialist assignment, prisoner status or another registered need. Materialization deducts that individual exactly once from the surviving aggregate population and inherits only capability/history supported by the selected stratum; becoming named grants no bonus.
 
 ## Hard unit boundary
 
 One unit means one troop type and one intended standard loadout. If only a subset should receive a different durable loadout, doctrine, training plan, commander, mount standard, assignment or other persistent standard, `SPLIT UNIT` first. Example: re-equipping 1,000 men inside a 5,000-infantry unit produces a 4,000-infantry unit retaining the old standard and a 1,000-infantry unit beginning the new refit. Infantry and archers never share a unit.
 
-Split/merge is a canonical transaction governed by `data/mechanics/unit-partition.json`. Neutral splits preserve the parent represented capability distribution; integer categories use deterministic largest-remainder allocation. Explicitly concentrating veterans, specialists, stronger members, better equipment, or other quality requires a real selection/reallocation action with criteria, authority, evidence and time. Conserve people, named-member claims, horses/animals, weapons, armor, ammunition, supplies, injuries, fatigue, experience, morale/cohesion inputs and history. Do not silently select superior soldiers into a child without an explicit lawful selection action. Compatible same-type units may merge only after standards are reconciled; continuous capabilities use personnel-weighted pooled moments, integer categories sum exactly, and integration can reduce cohesion/familiarity until real training/time restores it. Split/merge invalidates and rebuilds derived battle kernels.
+Split/merge is a canonical transaction governed by `data/mechanics/unit-partition.json`. Neutral splits preserve the parent represented capability and population/development distributions, including source provenance. Integer categories use deterministic largest-remainder allocation. Explicitly concentrating veterans, specialists, stronger members, better equipment, hunters, riders, or other quality requires a real selection/reallocation action with criteria, authority, evidence and time. Conserve people, source claims, named-member claims, horses/animals, weapons, armor, ammunition, supplies, injuries, fatigue, experience, morale/cohesion inputs and history. Do not silently select superior soldiers into a child without an explicit lawful selection action. Compatible same-type units may merge only after standards are reconciled; continuous capabilities use personnel-weighted pooled moments, integer categories sum exactly, source claims remain traceable, and integration can reduce cohesion/familiarity until real training/time restores it. Split/merge invalidates and rebuilds derived battle kernels.
 
 `SET LOADOUT` changes the target standard for the whole unit. It does not instantly create equipment. Refit consumes real stock, transport, fitting/maintenance, ammunition, mounts where relevant, familiarization and time. Temporary shortages/damage/substitutes are issue/readiness state, not a second standard. Named exact/individual-lite members may retain personal equipment exceptions.
 
@@ -26,9 +36,9 @@ Splitting never grants free power: additional directly controlled units increase
 
 ## Ownership, attachment, return
 
-Temporary command never changes ownership. Intact assigned units retain their source owner, home establishment, identity, history, doctrine identity and equipment custody unless lawfully transferred. Raw personnel entrusted for player organization may be formed into legal same-type units within granted authority.
+Temporary command never changes ownership. Intact assigned units retain their source owner, home establishment, identity, history, doctrine identity, recruitment provenance and equipment custody unless lawfully transferred. Raw personnel entrusted for player or NPC organization may be formed into legal same-type units only from the actually granted source claims.
 
-Returning troops restores the surviving force to its home organizational chain, not its old condition. Casualties, injuries, experience, lawful promotions, morale/cohesion changes, equipment/horse losses and history persist. The owner reconstitutes with real replacement manpower, officers, stock, horses, training and time.
+Returning troops restores the surviving force to its home organizational chain, not its old condition. Casualties, injuries, experience, lawful promotions, morale/cohesion changes, equipment/horse losses, source lineage and history persist. The owner reconstitutes with real replacement manpower, officers, stock, horses, training and time.
 
 ## Support and camp followers
 
@@ -40,7 +50,7 @@ Formation templates describe arrangements a force knows; active formations exist
 
 ## Player agency
 
-World-owned forces have their normal home establishment. Tang Wei's unorganized personal retinue remains `permanent_units: []` until the player creates units. OOC/preview discussion never creates organization or intent.
+Tang Wei's personal retinue is represented by its named persistent people plus its actual permanent aggregate units. Ordinary soldiers do not appear in `pforce.tang_wei.members`; the personal-force owner references their unit owners instead. The player controls consequential choices about permanent unit names, roles, doctrine, standard loadouts and commanders within lawful authority. OOC/preview discussion never creates organization, recruits, source claims or intent.
 
 ## Command groups as direct elements
 
