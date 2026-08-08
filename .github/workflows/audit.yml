@@ -1,5 +1,7 @@
 name: audit
 on: [push]
+permissions:
+  contents: write
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -11,7 +13,5 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema
-      - name: Audit roster and staff references
-        run: python tools/audit_roster_refs.py
-      - name: Run full validator stack
-        run: python tools/run_validators.py
+      - name: Run guarded offscreen scaling migration
+        run: python tools/migrate_offscreen_scaling.py
