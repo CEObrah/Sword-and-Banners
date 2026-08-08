@@ -48,22 +48,29 @@ if choice.get('numbering_required') is not True:fail('choice_numbering_required'
 if choice.get('free_form_option_required') is not True:fail('choice_free_form_required')
 if choice.get('duration_required_for_every_suggested_choice') is not True:fail('choice_duration_required')
 
-# Tang Wei Household Champions are one exact named-member personal unit.
-unit=load('state/unit/tang-wei-household-champions.json')
-if unit.get('id')!='unit_tang_wei_house_guardian_cavalry':fail('champion_unit_id')
-pers=unit.get('personnel',{})
-if pers.get('representation')!='named_members' or pers.get('count')!=50 or len(pers.get('member_ids',[]))!=50 or len(set(pers.get('member_ids',[])))!=50:fail('champion_unit_members')
-if unit.get('commander_id')!='char_duan_jin':fail('champion_unit_commander')
-if unit.get('loadout_standard')!='loadout_house_guardian_cavalry':fail('champion_unit_loadout')
-if unit.get('doctrine')!='doc.tang_wei.household_champions' or unit.get('training')!='train.tang_wei.household_champions':fail('champion_unit_program')
+# Tang Wei has two peer 50-person Tang Champion companies. Duan commands First; Shen commands Second.
+first=load('state/unit/tang-champions-first.json'); second=load('state/unit/tang-champions-second.json')
+for label,unit,uid,cmd in (
+    ('first',first,'unit_tang_wei_tang_champions_first','char_duan_jin'),
+    ('second',second,'unit_tang_wei_tang_champions_second','char_shen_rui'),
+):
+    if unit.get('id')!=uid:fail('champion_unit_id:'+label)
+    pers=unit.get('personnel',{})
+    if pers.get('representation')!='named_members' or pers.get('count')!=50 or len(pers.get('member_ids',[]))!=50 or len(set(pers.get('member_ids',[])))!=50:fail('champion_unit_members:'+label)
+    if unit.get('commander_id')!=cmd:fail('champion_unit_commander:'+label)
+    if unit.get('loadout_standard')!='loadout_house_guardian_cavalry':fail('champion_unit_loadout:'+label)
+    if unit.get('doctrine')!='doc.tang_wei.household_champions' or unit.get('training')!='train.tang_wei.household_champions':fail('champion_unit_program:'+label)
+if set(first.get('personnel',{}).get('member_ids',[])) & set(second.get('personnel',{}).get('member_ids',[])):fail('champion_unit_member_overlap')
 pf=load('state/pforce/wei.json')
-if pf.get('permanent_units')!=['unit_tang_wei_house_guardian_cavalry'] or pf.get('unassigned_members'):fail('champion_personal_force_assignment')
-cg=load('state/cmd/command-groups/cmdgrp.duan_jin.household_champions.json')
-if cg.get('deputy_ref')!='char_shen_rui' or cg.get('direct_unit_refs')!=['unit_tang_wei_house_guardian_cavalry']:fail('champion_command_group')
+if pf.get('permanent_units')!=['unit_tang_wei_tang_champions_first','unit_tang_wei_tang_champions_second'] or pf.get('unassigned_members'):fail('champion_personal_force_assignment')
+duan=load('state/cmd/command-groups/cmdgrp.duan_jin.tang_champions_first.json')
+shen=load('state/cmd/command-groups/cmdgrp.shen_rui.tang_champions_second.json')
+if duan.get('direct_unit_refs')!=['unit_tang_wei_tang_champions_first'] or duan.get('deputy_ref') is not None:fail('champion_duan_command_group')
+if shen.get('direct_unit_refs')!=['unit_tang_wei_tang_champions_second'] or shen.get('deputy_ref') is not None:fail('champion_shen_command_group')
 
 # Current House Tang and Sword Manor training plans use the sustainable deliberate-training ceiling.
 contracts=load('state/train/training-contracts.json')
-targets={'force_house_guardian_cavalry','force_house_guards','unit_tang_wei_house_guardian_cavalry','SM-O-01','SM-S','SM-G','SM-J','SM-C-01','support_sword_manor_medical_camp','SM-T'}
+targets={'force_house_guardian_cavalry','force_house_guards','unit_tang_wei_tang_champions_first','unit_tang_wei_tang_champions_second','SM-O-01','SM-S','SM-G','SM-J','SM-C-01','support_sword_manor_medical_camp','SM-T'}
 seen_targets=set()
 for rec in contracts.get('records',[]):
     facts=rec.get('facts',{})
@@ -78,5 +85,4 @@ for p in [ROOT/'data/mil/doctrine-records/doc.house_tang.core.json']+list((ROOT/
     d=json.loads(p.read_text(encoding='utf-8'))
     if 'version' in d.get('doctrine',{}):fail('doctrine_release_version:'+p.name)
 
-# Dormant event archetypes are causal wakeups.
 print('LIVING WORLD TESTS OK')
