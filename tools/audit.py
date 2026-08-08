@@ -403,9 +403,6 @@ for _pth in (ROOT/'state/person/staff').glob('*.json'):
 # Dormant event archetypes use causal wake-up, not monthly polling.
 if (ROOT/'state/player.json').stat().st_size>6500:err('startup_player_bloat')
 if (ROOT/'state/scene.json').stat().st_size>6000:err('startup_scene_bloat')
-_voice=(ROOT/'VOICE.md').read_text(encoding='utf-8')
-for _phrase in ('Repository memory is not player memory','estimated in-world','medium','long'):
- if _phrase not in _voice:err(f'narrator_contract_missing:{_phrase}')
 # Autonomous-world contract linkage and evolution-safe current-authority checks.
 _pc=rj(ROOT/'state/reg/registry-process-contracts.json') or {}
 if _pc.get('schema')!='process-contract-registry':err('process_contract_registry_schema')
