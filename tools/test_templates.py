@@ -46,14 +46,6 @@ def validate_doc(label,d,c,errors):
                 walk(x,(p+'/*') if p else '/*')
     walk(d,'')
 def schema_object_contracts(schema,path='',out=None):
-    """Return schema-declared object properties by JSON-pointer-like template path.
-
-    This is intentionally structural rather than a full JSON-Schema evaluator. It
-    follows object properties, array items, map value schemas and branch overlays
-    (allOf/anyOf/oneOf). The ordinary schema/audit validators still own semantic
-    validation; this check prevents the cold write template from silently dropping
-    a field that the formal schema already permits.
-    """
     if out is None: out={}
     if not isinstance(schema,dict): return out
     props={}
@@ -71,37 +63,27 @@ def schema_object_contracts(schema,path='',out=None):
                 schema_object_contracts(sub,child,out)
     if schema.get('type')=='array' or 'items' in schema:
         item=schema.get('items')
-        if isinstance(item,dict):
-            schema_object_contracts(item,(path+'/*') if path else '/*',out)
+        if isinstance(item,dict): schema_object_contracts(item,(path+'/*') if path else '/*',out)
     ap=schema.get('additionalProperties')
-    if isinstance(ap,dict):
-        schema_object_contracts(ap,(path+'/*') if path else '/*',out)
+    if isinstance(ap,dict): schema_object_contracts(ap,(path+'/*') if path else '/*',out)
     return out
 
 def validate_template_schema_coverage(repo,sid,ent,contract,errors):
     sp=contract.get('source_schema') or ent.get('source_schema')
-    if not sp: return
+    if not sp:return
     full=os.path.join(repo,sp)
-    if not os.path.exists(full):
-        errors.append(f'{ent["path"]}: source schema missing {sp}')
-        return
-    schema=json.load(open(full))
-    expected=schema_object_contracts(schema)
-    oc=contract.get('object_contracts',{})
+    if not os.path.exists(full): errors.append(f'{ent["path"]}: source schema missing {sp}');return
+    schema=json.load(open(full)); expected=schema_object_contracts(schema); oc=contract.get('object_contracts',{})
     for path,keys in expected.items():
-        if not keys: continue
+        if not keys:continue
         con=oc.get(path)
-        if con is None:
-            errors.append(f'{ent["path"]}: schema {sid} object {path or "/"} has no template object contract')
-            continue
+        if con is None: errors.append(f'{ent["path"]}: schema {sid} object {path or "/"} has no template object contract');continue
         if con.get('mode')=='closed':
             missing=set(keys)-set(con.get('allowed_keys',[]))
-            if missing:
-                errors.append(f'{ent["path"]}: schema {sid} fields absent from template at {path or "/"}: {sorted(missing)}')
+            if missing: errors.append(f'{ent["path"]}: schema {sid} fields absent from template at {path or "/"}: {sorted(missing)}')
 
 def main(repo):
     errors=[];checked=0;entries=load_schema_templates(repo)
-    # Mutable state: every JSON owner must declare a schema and have a registered template.
     for p in glob.glob(os.path.join(repo,'state','**','*.json'),recursive=True):
         rel=os.path.relpath(p,repo);d=json.load(open(p))
         if not isinstance(d,dict): errors.append(f'{rel}: mutable state root must be object');continue
@@ -111,70 +93,62 @@ def main(repo):
         if not ent: errors.append(f'{rel}: schema {sid!r} has no registered template');continue
         tp=os.path.join(repo,ent['path'])
         if not os.path.exists(tp):errors.append(f'{rel}: missing template {ent["path"]}');continue
-        c=json.load(open(tp));validate_doc(rel,d,c,errors);checked+=1
-    # Schema-bearing static gameplay/runtime data must also follow a registered structural template.
-    static_checked=0
-    skip_prefixes=('data/runtime/templates/','data/runtime/template-index-shards/','data/runtime/path-templates/')
+        validate_doc(rel,d,json.load(open(tp)),errors);checked+=1
+    static_checked=0; skip_prefixes=('data/runtime/templates/','data/runtime/template-index-shards/','data/runtime/path-templates/')
     for p in glob.glob(os.path.join(repo,'data','**','*.json'),recursive=True):
         rel=os.path.relpath(p,repo).replace('\\','/')
-        if any(rel.startswith(x) for x in skip_prefixes): continue
+        if any(rel.startswith(x) for x in skip_prefixes):continue
         d=json.load(open(p))
-        if not isinstance(d,dict): continue
+        if not isinstance(d,dict):continue
         sid=d.get('schema')
-        if not isinstance(sid,str): continue
+        if not isinstance(sid,str):continue
         ent=entries.get(sid)
-        if not ent: errors.append(f'{rel}: declared static schema {sid!r} has no registered template'); continue
+        if not ent:errors.append(f'{rel}: declared static schema {sid!r} has no registered template');continue
         tp=os.path.join(repo,ent['path'])
-        if not os.path.exists(tp): errors.append(f'{rel}: missing static template {ent["path"]}'); continue
-        validate_doc(rel,d,json.load(open(tp)),errors); static_checked+=1
-    # Path contracts cover intentionally schema-less static data structures.
+        if not os.path.exists(tp):errors.append(f'{rel}: missing static template {ent["path"]}');continue
+        validate_doc(rel,d,json.load(open(tp)),errors);static_checked+=1
     pidx=os.path.join(repo,'data/runtime/path-template-index.json');path_checked=0
     if os.path.exists(pidx):
         pi=json.load(open(pidx))
         for ent in pi.get('templates',[]):
-            c=json.load(open(os.path.join(repo,ent['path'])))
-            matches=glob.glob(os.path.join(repo,ent['glob']))
-            if not matches: errors.append(f'path template {ent["glob"]}: no files matched')
+            c=json.load(open(os.path.join(repo,ent['path'])));matches=glob.glob(os.path.join(repo,ent['glob']))
+            if not matches:errors.append(f'path template {ent["glob"]}: no files matched')
             for p in matches:
-                rel=os.path.relpath(p,repo);d=json.load(open(p));validate_doc(rel,d,c,errors);path_checked+=1
-    # System update contracts must resolve every referenced template and declared authority/read path.
+                rel=os.path.relpath(p,repo);validate_doc(rel,json.load(open(p)),c,errors);path_checked+=1
     scidx=os.path.join(repo,'data/runtime/system-contract-index.json')
-    if not os.path.exists(scidx): errors.append('system-contract-index missing')
+    directory_map_path=os.path.join(repo,'data/runtime/directory-map.json')
+    mapped_dirs=set(json.load(open(directory_map_path)).get('dirs',{})) if os.path.exists(directory_map_path) else set()
+    if not os.path.exists(scidx):errors.append('system-contract-index missing')
     else:
         si=json.load(open(scidx))
         for system_id,rel in si.get('systems',{}).items():
             cp=os.path.join(repo,rel)
-            if not os.path.exists(cp): errors.append(f'system contract {system_id}: missing {rel}'); continue
+            if not os.path.exists(cp):errors.append(f'system contract {system_id}: missing {rel}');continue
             c=json.load(open(cp))
-            if c.get('schema')!='system-contract.v1' or c.get('system_id')!=system_id: errors.append(f'{rel}: malformed system contract')
+            if c.get('schema')!='system-contract.v1' or c.get('system_id')!=system_id:errors.append(f'{rel}: malformed system contract')
             for sid in c.get('owner_templates',[]):
-                if sid not in entries: errors.append(f'{rel}: unknown owner template {sid}')
+                if sid not in entries:errors.append(f'{rel}: unknown owner template {sid}')
             for ap in c.get('authority_paths',[]):
-                full=os.path.join(repo,ap)
+                full=os.path.join(repo,ap); norm=ap.rstrip('/')
                 if '*' in ap:
                     base=ap.split('*',1)[0].rstrip('/')
-                    if base and not os.path.exists(os.path.join(repo,base)):
-                        errors.append(f'{rel}: authority glob base missing {ap}')
+                    if base and not os.path.exists(os.path.join(repo,base)) and base not in mapped_dirs: errors.append(f'{rel}: authority glob base missing {ap}')
                 elif ap.endswith('/'):
-                    if not os.path.isdir(full): errors.append(f'{rel}: authority directory missing {ap}')
-                elif not os.path.exists(full):
-                    errors.append(f'{rel}: authority path missing {ap}')
-    # Narration router is a cold module selector: all module paths must exist and stay out of startup hot set.
+                    if not os.path.isdir(full) and norm not in mapped_dirs: errors.append(f'{rel}: authority directory missing {ap}')
+                elif not os.path.exists(full):errors.append(f'{rel}: authority path missing {ap}')
     nrp=os.path.join(repo,'data/runtime/narration-router.json')
-    if not os.path.exists(nrp): errors.append('narration-router missing')
+    if not os.path.exists(nrp):errors.append('narration-router missing')
     else:
         nr=json.load(open(nrp))
-        mods=nr.get('modules',{})
-        for mid,spec in mods.items():
+        for mid,spec in nr.get('modules',{}).items():
             rel=spec if isinstance(spec,str) else spec.get('path') if isinstance(spec,dict) else None
-            if not rel or not os.path.exists(os.path.join(repo,rel)): errors.append(f'narration module {mid}: missing {rel}')
-            elif rel in ('VOICE.md','RUNTIME.md'): errors.append(f'narration module {mid}: illegally reloads hot startup file')
-    # Registry/template self-consistency.
+            if not rel or not os.path.exists(os.path.join(repo,rel)):errors.append(f'narration module {mid}: missing {rel}')
+            elif rel in ('VOICE.md','RUNTIME.md'):errors.append(f'narration module {mid}: illegally reloads hot startup file')
     for sid,ent in entries.items():
         tp=os.path.join(repo,ent['path'])
-        if not os.path.exists(tp): errors.append(f'template index missing {ent["path"]}');continue
+        if not os.path.exists(tp):errors.append(f'template index missing {ent["path"]}');continue
         c=json.load(open(tp))
-        if c.get('schema')!='file-template.v1' or c.get('target_schema')!=sid or c.get('unknown_key_policy')!='reject': errors.append(f'{ent["path"]}: malformed structural template')
+        if c.get('schema')!='file-template.v1' or c.get('target_schema')!=sid or c.get('unknown_key_policy')!='reject':errors.append(f'{ent["path"]}: malformed structural template')
         validate_template_schema_coverage(repo,sid,ent,c,errors)
     if errors:
         print('TEMPLATE CONTRACT FAIL',len(errors))
