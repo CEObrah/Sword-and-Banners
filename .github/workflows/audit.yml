@@ -1,28 +1,13 @@
 name: audit
-on: [push]
-permissions:
-  contents: write
+on: [push, pull_request]
 jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: maintenance/dead-technical-file-audit-r18
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install jsonschema
-      - name: Remove proven dead schemas
-        run: python tools/remove_proven_dead_technical_files.py
       - name: Run full validator stack
         run: python tools/run_validators.py
-      - name: Check patch hygiene
-        run: git diff --check
-      - name: Commit validated cleanup
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "Remove proven dead schema files"
-          git push origin HEAD:maintenance/dead-technical-file-audit-r18
