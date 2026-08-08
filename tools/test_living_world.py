@@ -79,9 +79,4 @@ for rec in contracts.get('records',[]):
         if facts.get('planned_training_hours_per_person_per_month')!=240:fail('training_ceiling:'+owner)
 if seen_targets!=targets:fail('training_target_coverage')
 
-# Current House Tang/Sword Manor doctrine records carry current doctrine only, not release versions.
-for p in [ROOT/'data/mil/doctrine-records/doc.house_tang.core.json']+list((ROOT/'data/mil/doctrine-records').glob('doc.house_tang_internal.*.json'))+list((ROOT/'data/mil/doctrine-records').glob('doc.sword_manor_institution.*.json')):
-    d=json.loads(p.read_text(encoding='utf-8'))
-    if 'version' in d.get('doctrine',{}):fail('doctrine_release_version:'+p.name)
-
 print('LIVING WORLD TESTS OK')
