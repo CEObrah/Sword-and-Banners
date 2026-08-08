@@ -13,6 +13,7 @@ VALIDATORS = [
     "tools/test_runtime_integrity.py",
     "tools/test_semantics.py",
     "tools/test_unit_model.py",
+    "tools/test_support_classification.py",
     "tools/test_reputation.py",
     "tools/test_family.py",
     "tools/test_templates.py",
