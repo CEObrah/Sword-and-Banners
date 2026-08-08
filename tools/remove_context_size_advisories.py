@@ -2,6 +2,7 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+SELF = Path(__file__).resolve()
 
 sem = ROOT / 'tools/test_semantics.py'
 text = sem.read_text(encoding='utf-8')
@@ -25,6 +26,8 @@ unit.write_text(text.replace(old, ''), encoding='utf-8')
 
 # Artificial byte ceilings/advisories for instruction/routing documents must not return.
 for path in (ROOT / 'tools').glob('*.py'):
+    if path.resolve() == SELF:
+        continue
     blob = path.read_text(encoding='utf-8', errors='ignore')
     if 'CONTEXT ADVISORY' in blob or 'soft target' in blob:
         raise SystemExit(f'context size advisory remains: {path.relative_to(ROOT)}')
