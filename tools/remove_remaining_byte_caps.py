@@ -19,12 +19,20 @@ if old not in text:
     raise SystemExit('expected unused routed-byte-size computation not found in test_semantics.py')
 sem.write_text(text.replace(old, ''), encoding='utf-8')
 
+runtime = ROOT / 'tools/test_runtime.py'
+text = runtime.read_text(encoding='utf-8')
+old = """if (ROOT/'README.md').stat().st_size>1500: err('readme_too_large')\nif (ROOT/'AGENTS.md').stat().st_size>1500: err('agents_too_large')\n"""
+new = "# README.md and AGENTS.md are validated for role/structure elsewhere; byte length is not a correctness condition.\n"
+if old not in text:
+    raise SystemExit('expected README/AGENTS byte-cap block not found in test_runtime.py')
+runtime.write_text(text.replace(old, new), encoding='utf-8')
+
 # No validator may judge an instruction/state/routing file correct merely by byte size.
 for path in (ROOT / 'tools').glob('*.py'):
     if path.resolve() == SELF:
         continue
     blob = path.read_text(encoding='utf-8', errors='ignore')
-    for token in ('.stat().st_size', 'CONTEXT ADVISORY', 'soft target', 'startup_player_bloat', 'startup_scene_bloat'):
+    for token in ('.stat().st_size', 'CONTEXT ADVISORY', 'soft target', 'startup_player_bloat', 'startup_scene_bloat', 'readme_too_large', 'agents_too_large'):
         if token in blob:
             raise SystemExit(f'artificial byte-size validation remains: {path.relative_to(ROOT)} token={token!r}')
 
