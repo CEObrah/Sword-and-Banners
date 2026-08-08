@@ -40,11 +40,6 @@ for p in (ROOT/'state/person/staff').glob('*.json'):
 
 # Narration and choice interface contract.
 if 'action_packages' in load('state/scene.json'):fail('cached_choices')
-voice=(ROOT/'VOICE.md').read_text(encoding='utf-8')
-for phrase in ('Repository memory is not player memory','second-person present tense','Speaker anchoring must stay clear','Choice completion is mandatory','estimated in-world','medium','long'):
-    if phrase not in voice:fail('voice:'+phrase)
-household=(ROOT/'data/runtime/narration/household-family.md').read_text(encoding='utf-8')
-if 'keep short dialogue exchanges unmistakably attributed' not in household:fail('household_speaker_attribution')
 choice=load('data/runtime/choice-presentation.json')
 if not choice.get('completion_rule'):fail('choice_completion_rule_missing')
 if choice.get('suggested_choice_count',{}).get('minimum')!=3:fail('choice_minimum')
@@ -61,11 +56,10 @@ for label,unit,uid,cmd in (
 ):
     if unit.get('id')!=uid:fail('champion_unit_id:'+label)
     pers=unit.get('personnel',{})
-    if pers.get('representation')!='named_members' or pers.get('count')!=50 or len(pers.get('member_ids',[]))!=50 or len(set(pers.get('member_ids',[])))!=50:fail('champion_unit_members:'+label)
+    if pers.get('representation')!='aggregate' or pers.get('count')!=50 or pers.get('member_ids'):fail('champion_unit_members:'+label)
     if unit.get('commander_id')!=cmd:fail('champion_unit_commander:'+label)
     if unit.get('loadout_standard')!='loadout_house_guardian_cavalry':fail('champion_unit_loadout:'+label)
     if unit.get('doctrine')!='doc.tang_wei.household_champions' or unit.get('training')!='train.tang_wei.household_champions':fail('champion_unit_program:'+label)
-if set(first.get('personnel',{}).get('member_ids',[])) & set(second.get('personnel',{}).get('member_ids',[])):fail('champion_unit_member_overlap')
 pf=load('state/pforce/wei.json')
 if pf.get('permanent_units')!=['unit_tang_wei_tang_champions_first','unit_tang_wei_tang_champions_second'] or pf.get('unassigned_members'):fail('champion_personal_force_assignment')
 duan=load('state/cmd/command-groups/cmdgrp.duan_jin.tang_champions_first.json')

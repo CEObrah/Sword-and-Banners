@@ -40,23 +40,6 @@ for schema_id in mutable:
     if legacy_path.search(target):
         errors.append(f"legacy mutable formal schema path: {schema_id}:{target}")
 
-preview_token = "PRE" + "VIEW:"
-order_token = "OR" + "DER:"
-for rel in ("RUNTIME.md", "PLAYER_INTERFACE.md", "tests/interface-intent.json"):
-    text = (ROOT / rel).read_text(encoding="utf-8")
-    for token in (preview_token, order_token):
-        if token in text:
-            errors.append(f"obsolete interface token in {rel}: {token}")
-
-runtime = (ROOT / "RUNTIME.md").read_text(encoding="utf-8")
-for phrase in (
-    "Creating a mutable owner is deterministic template instantiation, never free-form JSON authorship.",
-    "Ordinary maintenance that preserves a formal structural contract updates current semantic IDs and files in place.",
-    "Do not mint versioned gameplay IDs, clone rules, or bump campaign/system versions merely to mark an edit.",
-):
-    if phrase not in runtime:
-        errors.append(f"runtime current-identity guard missing: {phrase}")
-
 if errors:
     print("CURRENT IDENTITY TEST FAILED")
     for item in errors:

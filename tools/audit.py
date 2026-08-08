@@ -736,7 +736,7 @@ for _r in _tx.get('records',[]):
  if _c.get('personnel_delta')!=0:err(f'unit_transaction_nonzero_personnel_delta:{_tid}:{_c.get("personnel_delta")}')
  if not _a.get('unit_ids'):err(f'unit_transaction_missing_result_unit_lineage:{_tid}')
  if _method=='structural_reorganization':
-  if not (_b.get('unit_ids') or _b.get('named_member_ids')):err(f'unit_transaction_missing_source_lineage:{_tid}')
+  if not (_b.get('unit_ids') or _b.get('named_member_ids') or _ev.get('source_capability_refs')):err(f'unit_transaction_missing_source_lineage:{_tid}')
  elif not _b.get('unit_ids'):err(f'unit_transaction_missing_source_unit_lineage:{_tid}')
 
 

@@ -1,10 +1,5 @@
 name: audit
-on:
-  push:
-    branches:
-      - maintenance/personal-rosters-source-provenance
-permissions:
-  contents: write
+on: [push, pull_request]
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -14,18 +9,5 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema
-      - name: Apply guarded personnel consolidation
-        run: |
-          python tools/prepare_aggregate_personnel_receipt.py
-          python tools/emit_personal_roster_migration.py --apply
-      - name: Run full validator stack on generated state
+      - name: Run full validator stack
         run: python tools/run_validators.py
-      - name: Commit validated migration
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "Consolidate aggregate recruitment and personal troop state"
-            git push origin HEAD:maintenance/personal-rosters-source-provenance
-          fi

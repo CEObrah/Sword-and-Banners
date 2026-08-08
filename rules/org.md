@@ -49,3 +49,8 @@ A **command group** is a persistent/operational command-only node, not a troop u
 For span-of-command, a superior's direct elements are **direct troop units + direct subordinate command groups**. Example: `Archer Unit`, `Infantry Unit`, `Mercenary Unit`, and `Jang Command` consume four direct slots. The units nested under `Jang Command` do not also consume the superior's direct slots or personnel budget; they consume Jang's. The superior still retains recursive strategic authority where the appointment/order grants it.
 
 The commander of a command group remains a real combat-capable person. If present, that person can move, fight, use personal equipment/techniques, be wounded, killed, captured, isolated, exhausted, or routed. Personal combat never gets averaged into the unit's ordinary-soldier capability. Command loss triggers deputy/succession/standing-doctrine handling; directly absorbing orphaned child units increases the superior's direct load immediately.
+
+## Aggregate recruitment provenance
+
+Ordinary recruitment is a conserved aggregate transfer from an exact source owner stratum or manpower pool into an accounting pool or homogeneous unit. Recruitment never creates one person record per recruit. The destination inherits source capability and demographic inputs when causally relevant. A named standout, commander, specialist, prisoner, casualty, award recipient, or recurring NPC materializes only through a separate transaction that identifies one real surviving body exactly once.
+

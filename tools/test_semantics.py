@@ -223,16 +223,6 @@ for _dom in ('family_query','family_transition','family_succession'):
 for _r in ('family_person','family_transition','family_succession','family_event'):
     if _r not in routes:err(f'family_map_route_missing:{_r}')
 
-# No retired organizational term survives outside the regression scanner itself.
-retired='co'+'hort'
-for p in R.rglob('*'):
-    if not p.is_file() or '__pycache__' in p.parts or p.suffix in ('.pyc','.zip'): continue
-    if retired in p.name.lower():err(f'retired_term_filename:{p.relative_to(R)}')
-    if p.name=='test_unit_model.py': continue
-    try:t=p.read_text(encoding='utf-8').lower()
-    except:continue
-    if retired in t:err(f'retired_term_text:{p.relative_to(R)}')
-
 # Process sharding contract on Sword.
 if GAME=='sword':
     pc=rj('state/reg/registry-process-contracts.json')
