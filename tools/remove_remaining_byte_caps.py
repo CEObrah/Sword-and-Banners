@@ -12,6 +12,13 @@ if old not in text:
     raise SystemExit('expected player/scene byte-cap block not found in tools/audit.py')
 audit.write_text(text.replace(old, new), encoding='utf-8')
 
+sem = ROOT / 'tools/test_semantics.py'
+text = sem.read_text(encoding='utf-8')
+old = "    size=sum((R/x).stat().st_size for x in rels if (R/x).exists())\n"
+if old not in text:
+    raise SystemExit('expected unused routed-byte-size computation not found in test_semantics.py')
+sem.write_text(text.replace(old, ''), encoding='utf-8')
+
 # No validator may judge an instruction/state/routing file correct merely by byte size.
 for path in (ROOT / 'tools').glob('*.py'):
     if path.resolve() == SELF:
