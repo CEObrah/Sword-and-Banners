@@ -84,9 +84,10 @@ if not any('100-person Tang Champion personal force' in rec.get('facts',{}).get(
 kai=load('state/char/tang-kai.json')
 kcmd=load('state/cmd/command-personnel/char_tang_kai.json')
 if kcmd.get('person_id')!='char_tang_kai': err('kai_command_person')
+if kcmd.get('command',{}).get('command_scope')!='army_or_unit_command_personnel': err('kai_command_scope')
 if kcmd.get('command',{}).get('current_unit_ids')!=[]: err('kai_has_assigned_troops')
 if kcmd.get('command',{}).get('current_army_id') is not None: err('kai_has_independent_army')
-if 'zero assigned troops' not in kcmd.get('command',{}).get('command_scope','').lower(): err('kai_zero_troop_scope_missing')
+if 'zero assigned troops' not in kcmd.get('command',{}).get('specialty_hint','').lower(): err('kai_zero_troop_status_missing')
 if 'no independent' not in kai.get('authority','').lower(): err('kai_independent_authority_not_blocked')
 
 shen_char=load('state/char/shen-rui.json')
@@ -103,7 +104,6 @@ if 'assigned protected principal' not in combined: err('shared_protected_princip
 idx=load('state/index/units.json').get('units',{})
 if idx!={'unit_tang_wei_tang_champions_first':'state/unit/tang-champions-first.json','unit_tang_wei_tang_champions_second':'state/unit/tang-champions-second.json'}: err('unit_index')
 
-# No current authoritative gameplay state may retain the old personal unit semantic ID.
 old='unit_tang_wei_house_guardian_cavalry'
 for base in ('state','data'):
     for p in (ROOT/base).rglob('*.json'):
