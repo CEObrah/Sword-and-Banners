@@ -1,13 +1,17 @@
 name: audit
-on: [push, pull_request]
+on: [push]
 jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install jsonschema
+      - name: Audit offscreen scaling and repository hygiene
+        run: python tools/audit_offscreen_scaling.py
       - name: Run full validator stack
         run: python tools/run_validators.py
