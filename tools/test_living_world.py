@@ -36,8 +36,10 @@ for p in (ROOT/'state/person/staff').glob('*.json'):
 # Narration and choice interface contract.
 if 'action_packages' in load('state/scene.json'):fail('cached_choices')
 voice=(ROOT/'VOICE.md').read_text(encoding='utf-8')
-for phrase in ('Repository memory is not player memory','second-person present tense','Choice completion is mandatory','estimated in-world','medium','long'):
+for phrase in ('Repository memory is not player memory','second-person present tense','Speaker anchoring must stay clear','Choice completion is mandatory','estimated in-world','medium','long'):
     if phrase not in voice:fail('voice:'+phrase)
+household=(ROOT/'data/runtime/narration/household-family.md').read_text(encoding='utf-8')
+if 'keep short dialogue exchanges unmistakably attributed' not in household:fail('household_speaker_attribution')
 choice=load('data/runtime/choice-presentation.json')
 if not choice.get('completion_rule'):fail('choice_completion_rule_missing')
 if choice.get('suggested_choice_count',{}).get('minimum')!=3:fail('choice_minimum')
