@@ -1,78 +1,52 @@
 {
   "known_clock_boundaries": [
-    {
-      "due_at": "245-BCE-12-02T07:30:00+08:00",
-      "event_id": "event_main_gate_arrival_001",
-      "visibility": "known"
-    },
-    {
-      "due_at": "245-BCE-12-02T08:00:00+08:00",
-      "event_id": "event_sword_manor_opening_council_001",
-      "visibility": "known"
-    },
-    {
-      "due_at": "245-BCE-12-05T06:00:00+08:00",
-      "event_id": "event_tang_kai_birthday_001",
-      "visibility": "known"
-    }
+    {"due_at":"245-BCE-12-02T08:00:00+08:00","event_id":"event_sword_manor_opening_council_001","visibility":"known"},
+    {"due_at":"245-BCE-12-05T06:00:00+08:00","event_id":"event_tang_kai_birthday_001","visibility":"known"}
   ],
   "location": "Tang Manor, Inner Citadel Family Hall",
   "location_id": "loc_tang_manor_inner_citadel_family_hall",
   "narrative": {
-    "active_questions": [
-      "What priority will Tang Wei choose on his sixteenth-birthday morning?"
-    ],
-    "available_reports": [],
+    "active_questions": ["How will Tang Wei respond to the opened Kanyou intelligence, the caravan now under inspection, and the 08:00 Sword Manor council?"],
+    "available_reports": ["Kanyou political intelligence case: opened; contents known to Tang Wei and Tang Ling"],
     "current_scene": "scene_tang_wei_sixteenth_birthday_dawn_001",
-    "last_scene_summary": "Winter dawn in the Tang family hall. Tang Wei has made no voluntary commitment.",
+    "last_scene_summary": "Tang Wei shared the birthday breakfast with his family, opened the Kanyou intelligence case with Tang Ling, heard Duan Jin and Shen Rui, and waited until the contracted caravan reached the Main Gate at 07:30.",
     "pending_information_paths": [],
-    "recent_reveals": [],
-    "schema": "narrative_state.v38",
-    "unresolved_hooks": [
-      "sealed Kanyou intelligence report",
-      "contracted caravan arrival",
-      "Sword Manor opening council"
+    "recent_reveals": [
+      "The opened Kanyou slips support the outer warning that unusual movement in the capital is tied to an active struggle over royal authority; they do not establish an outcome or precise balance of control.",
+      "Duan Jin reports the retinue and inner approaches ready with no alarm; Shen Rui has no independent confirmation of the Kanyou report and sees no immediate household-security breach.",
+      "The contracted caravan reached the Main Gate inspection complex at 07:30 and routine inspection began under delegated authority; no exception has yet been escalated."
     ],
+    "schema": "narrative_state.v38",
+    "unresolved_hooks": ["contracted caravan inspection underway","Sword Manor opening council at 08:00"],
     "voice_profiles_required": true
   },
   "observable_pressures": [
-    "sealed Kanyou political intelligence is available now through Tang Ling",
-    "first contracted caravan reaches Main Gate inspection at 07:30",
+    "opened Kanyou intelligence indicates a live struggle over royal authority but does not confirm its outcome",
+    "first contracted caravan is now undergoing routine Main Gate inspection",
     "Sword Manor command council begins at 08:00",
-    "waiting reduces investigation and preparation time but creates no automatic commitment"
+    "Tang Wei has made no political commitment, report-sharing decision, caravan exception ruling, or council commitment"
   ],
   "physical_scene": {
-    "adjacent": "Duan Jin and Shen Rui in the family-hall antechamber",
-    "elsewhere_relevant": "Wei Jian at the Sword Manor command hall",
-    "mood": "private family warmth under controlled political pressure",
+    "adjacent": "Duan Jin and Shen Rui have resumed protective posts near the family-hall approaches after briefing Tang Wei",
+    "elsewhere_relevant": "Wei Jian at the Sword Manor command hall preparing the 08:00 council; Main Gate staff have begun routine caravan inspection",
+    "mood": "family warmth has given way to controlled morning pressure without an alarm",
     "present": "Tang Wei, Tang Zhu, Tang Ling, Tang Kai",
-    "setting": "cold grey dawn, two braziers, oil lamps, untouched breakfast trays, Tang Kai's carved wooden horse, sealed bamboo-slip intelligence case on the table"
+    "setting": "grey winter morning; breakfast has been eaten; the bamboo-slip intelligence case is open and its inner clay seal broken; the 08:00 council is thirty minutes away"
   },
   "player_observable_state": {
     "authority": "House Tang heir and commander of Tang Wei Personal Retinue; no state office",
     "equipment": "explicit player manifest; ceremonial clothing worn; standard mounted field equipment stored and mount available",
     "fatigue": 0,
-    "forbidden_inference": "no Tang Wei dialogue, thought, feeling, order, travel, promise, payment, appointment, report opening, or commitment has occurred",
+    "forbidden_inference": "no Tang Wei dialogue, thought, feeling, political commitment, report sharing, caravan exception ruling, travel, promise, payment, appointment, or equipment change occurred beyond the declared breakfast, report opening, retainer briefings, and wait to 07:30",
     "health": "healthy",
     "location": "family hall",
-    "unresolved_decision": "choose the first priority of the morning or declare another free-form action"
+    "unresolved_decision": "choose what to do with the Kanyou intelligence, the ongoing caravan inspection, and the 08:00 council"
   },
-  "relevant_owner_ids": [
-    "char_tang_wei",
-    "char_tang_zhu",
-    "char_tang_ling",
-    "char_tang_kai",
-    "char_duan_jin",
-    "char_shen_rui",
-    "char_wei_jian",
-    "relationships_knowledge",
-    "events_messages_and_movement",
-    "standing_orders"
-  ],
+  "relevant_owner_ids": ["char_tang_wei","char_tang_zhu","char_tang_ling","char_tang_kai","char_duan_jin","char_shen_rui","char_wei_jian","relationships_knowledge","events_messages_and_movement","standing_orders"],
   "scene_id": "scene_tang_wei_sixteenth_birthday_dawn_001",
   "schema": "scene.v38",
-  "unresolved_decision": "Tang Wei has not chosen his first priority of the morning",
-  "world_time": "245-BCE-12-02T06:00:00+08:00",
+  "unresolved_decision": "Tang Wei has not chosen his next response after the 07:30 caravan arrival",
+  "world_time": "245-BCE-12-02T07:30:00+08:00",
   "choice_generation": "derive fresh from current state, authority, known information, travel/time mechanics, staff availability, and known clock boundaries; do not cache menus in scene state",
-  "scene_summary": "Tang Wei begins his sixteenth birthday at winter dawn with Tang Zhu, Tang Ling, and Tang Kai in the family hall. Duan Jin and Shen Rui wait in the antechamber. Three pressures compete without committing him: a sealed Kanyou intelligence report available now, the first contracted caravan arriving for inspection at 07:30, and an 08:00 Sword Manor command council. Tang Kai turns five on 245-BCE-12-05."
+  "scene_summary": "At 07:30 on his sixteenth birthday, Tang Wei remains in the Inner Citadel family hall after breakfast with his family, opening Tang Ling's Kanyou intelligence case, and hearing Duan Jin and Shen Rui. The report supports a live struggle over royal authority but does not establish the outcome. The contracted caravan has reached the Main Gate and routine inspection has begun with no escalated exception. The Sword Manor command council begins at 08:00."
 }

@@ -1,32 +1,9 @@
 {
-  "domain": "logistics_event",
-  "history": [],
-  "information_visibility": "known",
-  "last_result": "caravan approaching Tang Manor main gate",
-  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
-  "last_settled_key": 28965600,
-  "metrics": {
-    "caravan_progress": 95,
-    "exception_count": 0,
-    "gate_readiness": 82,
-    "inspection_completion": 0
-  },
-  "owner_id": "process_main_gate_arrival_001",
-  "plan_state": {
-    "blocked_intervals": 0,
-    "current_plan": "receive the contracted caravan",
-    "cycle": 1,
-    "failed_intervals": 0,
-    "history": [],
-    "progress_points": 0.0,
-    "revision": 1,
-    "started_at": "245-BCE-12-02T06:00:00+08:00",
-    "status": "active",
-    "target_points": 4
-  },
-  "stable_seed": "seed_e5601f92c10e33902b8a4aa0",
-  "stage": 0,
-  "status": "pending",
-  "schema": "process-state.v1",
-  "process_id": "process_main_gate_arrival_001"
+  "domain":"logistics_event","history":[],"information_visibility":"known",
+  "last_result":"caravan reached the Tang Manor Main Gate inspection complex on schedule; the one-shot arrival closed and routine inspection passed to existing House Tang gate and household-operation authority; no exception had been escalated at the arrival boundary",
+  "last_settled_at":"245-BCE-12-02T07:30:00+08:00","last_settled_key":28971000,
+  "metrics":{"caravan_progress":100,"exception_count":0,"gate_readiness":82,"inspection_completion":0},
+  "owner_id":"process_main_gate_arrival_001",
+  "plan_state":{"blocked_intervals":0,"current_plan":"arrival complete; routine inspection continues under existing delegated gate and household-operation authority","cycle":1,"failed_intervals":0,"history":[],"progress_points":1.0,"revision":2,"started_at":"245-BCE-12-02T06:00:00+08:00","status":"completed","target_points":4},
+  "stable_seed":"seed_e5601f92c10e33902b8a4aa0","stage":1,"status":"completed","schema":"process-state.v1","process_id":"process_main_gate_arrival_001"
 }

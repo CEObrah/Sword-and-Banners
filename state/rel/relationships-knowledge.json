@@ -3,23 +3,16 @@
   "owner_id": "relationships_knowledge",
   "owner_type": "relationship_knowledge_registry",
   "records": [
+    {"label":"Overview","record_id":"overview"},
     {
-      "label": "Overview",
-      "record_id": "overview"
-    },
-    {
-      "facts": {
-        "mutual_relationship": "maximum love, trust, loyalty, protection, and support; permanently non-hostile",
-        "relationship_rule": "love and loyalty do not erase disagreement, fear, secrecy required by duty, or different judgments about risk"
-      },
+      "facts": {"mutual_relationship":"maximum love, trust, loyalty, protection, and support; permanently non-hostile","relationship_rule":"love and loyalty do not erase disagreement, fear, secrecy required by duty, or different judgments about risk"},
       "items": [
         "Tang Zhu to Tang Wei: proud and protective; tests practical judgment; will challenge weak reasoning without withdrawing support.",
         "Tang Ling to Tang Wei: affectionate and candid; protects his agency by giving material facts and consequences rather than choosing for him.",
         "Tang Kai to Tang Wei: adoring younger brother; complete trust; seeks inclusion and attention.",
         "Tang Wei's feelings and chosen responses remain player-owned and are not inferred from these relationships."
       ],
-      "label": "House Tang family",
-      "record_id": "house_tang_family"
+      "label":"House Tang family","record_id":"house_tang_family"
     },
     {
       "items": [
@@ -29,31 +22,23 @@
         "Named House Tang commanders and staff: permanent covenant loyalty within lawful authority; professional disagreement remains valid.",
         "Mu Zhen: contracted professional loyalty only within exact terms, authority, and support."
       ],
-      "label": "Sworn and covenant relationships",
-      "record_id": "sworn_and_covenant_relationships"
+      "label":"Sworn and covenant relationships","record_id":"sworn_and_covenant_relationships"
     },
     {
       "items": [
-        "Tang Wei: House Tang and Sword Manor internal state, the existence and outer description of three morning reports, ordinary public conditions; no future Kingdom knowledge and no sealed inner contents.",
-        "Tang Zhu: House Tang readiness and Tang Ling's outer summary; no sealed inner contents.",
-        "Tang Ling: courier chain, outer intelligence summary, House Tang administration and political exposure; inner slips remain unopened in Tang Wei's presence.",
+        "Tang Wei: House Tang and Sword Manor internal state, ordinary public conditions, and the opened Kanyou report. He now knows the report supports an active struggle over royal authority but does not confirm the outcome, exact armed balance, or current palace control.",
+        "Tang Zhu: House Tang readiness and Tang Ling's outer summary; he has not been given the opened report's full inner contents.",
+        "Tang Ling: courier chain, outer intelligence summary, House Tang political exposure, and the opened inner slips shared with Tang Wei; she has not shared the inner contents with others in this scene.",
         "Tang Kai: family routines, familiar people, visible moods, and concrete objects only.",
-        "Duan Jin and Shen Rui: inner security, retinue readiness, and report metadata only.",
-        "Wei Jian: Sword Manor obligations, personnel, training, and reported city conditions; no House Tang sealed report.",
+        "Duan Jin and Shen Rui: inner security, retinue readiness, and report metadata only; they have not been given the opened Kanyou report's inner contents.",
+        "Wei Jian: Sword Manor obligations, personnel, training, and reported city conditions; no House Tang sealed-report contents.",
         "Other staff: their professional domains and information lawfully delivered to them."
       ],
-      "label": "Current knowledge boundaries",
-      "record_id": "current_knowledge_boundaries"
+      "label":"Current knowledge boundaries","record_id":"current_knowledge_boundaries"
     }
   ],
-  "runtime": {
-    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
-  },
-  "schema": "relationship-registry.v38",
-  "relationship_edge_count": 20,
-  "relationship_storage": {
-    "source_shard_template": "state/rel/relationship-edges/<source_id>.json",
-    "derived_index": "state/rel/relationship-edge-index.json",
-    "authority_rule": "Each relationship edge exists exactly once in the source-owner shard. The index stores paths only."
-  }
+  "runtime": {"last_settled_at":"245-BCE-12-02T07:30:00+08:00"},
+  "schema":"relationship-registry.v38",
+  "relationship_edge_count":20,
+  "relationship_storage":{"source_shard_template":"state/rel/relationship-edges/<source_id>.json","derived_index":"state/rel/relationship-edge-index.json","authority_rule":"Each relationship edge exists exactly once in the source-owner shard. The index stores paths only."}
 }
