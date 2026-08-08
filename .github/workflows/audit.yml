@@ -13,6 +13,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema
+      - name: Make prose migration idempotent
+        run: python tools/patch_semantic_migration_guard.py
       - name: Assemble semantic cleanup candidate
         run: python tools/migrate_current_semantics.py
       - name: Run full validator stack
