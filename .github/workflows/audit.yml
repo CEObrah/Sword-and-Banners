@@ -11,7 +11,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema
-      - name: Audit offscreen scaling and repository hygiene
-        run: python tools/audit_offscreen_scaling.py
+      - name: Audit roster and staff references
+        run: python tools/audit_roster_refs.py
       - name: Run full validator stack
         run: python tools/run_validators.py
