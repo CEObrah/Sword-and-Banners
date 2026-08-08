@@ -1,76 +1,20 @@
 {
-  "schema": "logistics-mechanics.v38",
-  "formulas": {
-    "person_days": "edible_ration_stock/current_ration_per_person_per_day",
-    "horse_days": "usable_fodder_stock/current_fodder_per_horse_per_day",
-    "forage_yield": "min(accessible_surplus,collection_capacity*access_factor*security_factor*local_knowledge_factor)",
-    "travel_time": "base_route_time*party_size_factor*movement_mode_factor*load_factor*terrain_season_factor*weather_factor*caution_security_factor*injury_fatigue_factor",
-    "route_throughput": "min(road_or_water_capacity,loading_capacity,transport_payload_per_cycle,driver_animal_capacity,security_escort_capacity,receiving_capacity)",
-    "unit_sale_price": "baseline_value*condition_factor*local_scarcity_factor*legality_factor*bulk_factor*bargaining_tax_factor",
-    "delivered_quantity": "min(source_stock_released,purchased_quantity,loading_capacity,route_throughput,destination_receiving_capacity)-spoilage-theft-seizure-combat_loss"
+  "schema":"logistics-mechanics.v38",
+  "formulas":{
+    "person_days":"edible_ration_stock/current_ration_per_person_per_day",
+    "horse_days":"usable_fodder_stock/current_fodder_per_horse_per_day",
+    "forage_yield":"min(accessible_surplus,collection_capacity*access_factor*security_factor*local_knowledge_factor)",
+    "ready_party_departure_minutes":"base_minutes + minutes_per_step*ceil(party_size/party_step_people) when the ready-party eligibility rule is satisfied; otherwise resolve the actual preparation, loading, issue, or rendezvous tasks before departure",
+    "travel_time":"base_route_time*party_size_factor*movement_mode_factor*load_factor*terrain_season_factor*weather_factor*caution_security_factor*injury_fatigue_factor",
+    "route_throughput":"min(road_or_water_capacity,loading_capacity,transport_payload_per_cycle,driver_animal_capacity,security_escort_capacity,receiving_capacity)",
+    "unit_sale_price":"baseline_value*condition_factor*local_scarcity_factor*legality_factor*bulk_factor*bargaining_tax_factor",
+    "delivered_quantity":"min(source_stock_released,purchased_quantity,loading_capacity,route_throughput,destination_receiving_capacity)-spoilage-theft-seizure-combat_loss"
   },
-  "rules": {
-    "negative_delivered_quantity_clamps_to_zero": true,
-    "travel_factors_must_be_saved_before_departure_or_split_when_they_change": true,
-    "group_speed": "slowest essential element controls unless force splits"
-  },
-  "planning_water_liters_per_day": {
-    "adult": 3.0,
-    "horse": 28.0
-  },
-  "party_size_factor": [
-    {
-      "min": 1,
-      "max": 20,
-      "factor": 1.0
-    },
-    {
-      "min": 21,
-      "max": 100,
-      "factor": 1.05
-    },
-    {
-      "min": 101,
-      "max": 500,
-      "factor": 1.15
-    },
-    {
-      "min": 501,
-      "max": 2000,
-      "factor": 1.35
-    },
-    {
-      "min": 2001,
-      "max": 10000,
-      "factor": 1.65
-    },
-    {
-      "min": 10001,
-      "max": null,
-      "factor": 2.0
-    }
-  ],
-  "movement_mode_factor": {
-    "fit_courier_with_remount_support": 0.55,
-    "fit_mounted_party": 0.7,
-    "mixed_light_party": 1.0,
-    "disciplined_foot_formation": 1.2,
-    "caravan_with_wagons": 1.35,
-    "army_with_baggage": 1.55,
-    "heavy_siege_train": 2.0
-  },
-  "load_factor": {
-    "below_0.90": 1.0,
-    "0.90_to_1.00": 1.1,
-    "1.00_to_1.10": 1.25,
-    "above_1.10": "illegal",
-    "temporary_overload_requires_physical_capability": true
-  },
-  "condition_factor_levels": {
-    "none": 1.0,
-    "minor": 1.1,
-    "clear": 1.25,
-    "major": 1.5,
-    "impassable": "illegal"
-  }
+  "rules":{"negative_delivered_quantity_clamps_to_zero":true,"travel_factors_must_be_saved_before_departure_or_split_when_they_change":true,"group_speed":"slowest essential element controls unless force splits"},
+  "planning_water_liters_per_day":{"adult":3.0,"horse":28.0},
+  "party_size_factor":[{"min":1,"max":20,"factor":1.0},{"min":21,"max":100,"factor":1.05},{"min":101,"max":500,"factor":1.15},{"min":501,"max":2000,"factor":1.35},{"min":2001,"max":10000,"factor":1.65},{"min":10001,"max":null,"factor":2.0}],
+  "movement_mode_factor":{"fit_courier_with_remount_support":0.55,"fit_mounted_party":0.7,"mixed_light_party":1.0,"disciplined_foot_formation":1.2,"caravan_with_wagons":1.35,"army_with_baggage":1.55,"heavy_siege_train":2.0},
+  "load_factor":{"below_0.90":1.0,"0.90_to_1.00":1.1,"1.00_to_1.10":1.25,"above_1.10":"illegal","temporary_overload_requires_physical_capability":true},
+  "condition_factor_levels":{"none":1.0,"minor":1.1,"clear":1.25,"major":1.5,"impassable":"illegal"},
+  "ready_party_departure_overhead":{"base_minutes":10,"party_step_people":25,"minutes_per_step":5,"eligibility":"All essential travelers are already present within the same parent location, healthy enough to move, required unit issue is already complete, no new equipment choice or cargo loading is required, and the action is ordinary assembly plus egress to the registered departure route. Any failed condition replaces this shortcut with the actual preparation tasks and elapsed time."}
 }
