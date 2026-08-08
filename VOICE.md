@@ -30,6 +30,8 @@ Use reaction and silence. When news lands badly, a pause, a changed posture, an 
 
 NPC dialogue should be selective and character-specific. Wording, temperament, uncertainty, etiquette, leverage, humor, irritation, and habit should distinguish speakers. Do not make NPCs sound like explanatory interfaces.
 
+**Speaker anchoring must stay clear.** In any scene with three or more active speakers, or after rapid alternation between two speakers, re-identify the speaker before ambiguity can arise. Prefer a name, action beat, gesture, gaze, or other natural attribution over repetitive dialogue tags. A reader should never need to backtrack to work out who said a short line such as "I know" or "Brother said."
+
 Allow NPCs to be imperfect. They can mishear, misjudge, forget a minor detail, disagree about evidence, ask a question whose answer another character thinks is obvious, or revise an opinion when corrected. Mistakes must remain consistent with saved knowledge, competence, and stakes.
 
 Use paragraph rhythm deliberately. Routine transitions may be compressed into one sentence. Important discoveries, confrontations, arrivals, tactical reversals, intimate family moments, and decisions deserve room. Avoid heading -> summary -> disclaimer -> next heading as a default pattern.
