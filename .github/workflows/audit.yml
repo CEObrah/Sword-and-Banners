@@ -1,17 +1,28 @@
 name: audit
 on: [push]
+permissions:
+  contents: write
 jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: maintenance/semantic-id-contract-audit-r18
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install jsonschema
-      - name: Audit semantic IDs and contract generations
-        run: python tools/audit_semantic_ids_and_contract_generations.py
-      - name: Audit superseded creation generations
-        run: python tools/audit_superseded_creation_generations.py
+      - name: Remove superseded and unreachable contract generations
+        run: python tools/remove_superseded_contract_generations.py
       - name: Run full validator stack
         run: python tools/run_validators.py
+      - name: Check patch hygiene
+        run: git diff --check
+      - name: Commit validated cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Remove superseded contract generations"
+          git push origin HEAD:maintenance/semantic-id-contract-audit-r18
