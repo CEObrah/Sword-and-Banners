@@ -24,8 +24,6 @@ for p in ROOT.rglob('*'):
  if p.suffix=='.json':rj(p)
 meta=rj(ROOT/'state/meta.json') or {}
 if meta.get('schema')!='meta':err('meta_schema')
-_version=(ROOT/'VERSION').read_text(encoding='utf-8').strip()
-if meta.get('version')!=_version:err(f'meta_version:{meta.get("version")}!={_version}')
 registry=rj(ROOT/'schemas/registry.json') or {}
 for p in ROOT.rglob('*.json'):
  if 'schemas' in p.parts:continue

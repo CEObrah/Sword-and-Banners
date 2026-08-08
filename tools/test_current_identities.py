@@ -47,4 +47,4 @@ if errors:
     sys.exit(1)
 
 print("CURRENT IDENTITY TEST OK")
-print(f"mutable_schemas={len(mutable)}; legacy release-line mutable IDs and obsolete command-prefix machinery absent")
+print(f"mutable_schemas={len(mutable)}; semantic mutable IDs and command routing are current")
