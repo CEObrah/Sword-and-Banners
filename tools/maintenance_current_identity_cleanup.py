@@ -44,38 +44,62 @@ def main():
     schema_registry = load_json(SCHEMA_REGISTRY)
     sid_map = {}
     path_map = {}
+    preferred_formal = {}
+    affected_entries = {}
 
-    # Mutable template registry is the authority for which release-suffixed IDs are current state identities.
+    # Mutable template registry is authority for which release-suffixed IDs are current state identities.
     for _, rel in idx['shards'].items():
         doc = load_json(ROOT / rel)
         for sid, ent in list(doc.get('templates', {}).items()):
             if ent.get('scope') == 'mutable_state' and RELEASE_RE.search(sid):
                 new_sid = RELEASE_RE.sub('', sid)
                 sid_map[sid] = new_sid
+                affected_entries[sid] = ent
                 for key in ('path','source_schema'):
                     old_path = ent.get(key)
                     if isinstance(old_path, str):
                         new_path = clean_path(old_path)
                         if new_path != old_path:
                             path_map[old_path] = new_path
+                if isinstance(ent.get('source_schema'), str):
+                    preferred_formal[sid] = clean_path(ent['source_schema'])
 
     if not sid_map:
         print('No mutable v38/v39 schema identities remain.')
         return 0
 
-    # Formal schema registry may name a schema file even when the template's source_schema is null.
-    # Include those formal authorities in the same deterministic rename set.
-    for old_sid, new_sid in sid_map.items():
+    # If a mutable template has a registered source_schema, that formal schema is authoritative.
+    # A conflicting legacy registry file is stale and may be removed if no other schema ID uses it.
+    registry_reverse = {}
+    for sid, filename in schema_registry.items():
+        registry_reverse.setdefault(filename, set()).add(sid)
+    stale_registry_files = set()
+    for old_sid in sid_map:
         old_name = schema_registry.get(old_sid)
         if not isinstance(old_name, str):
             raise SystemExit(f'formal schema registry missing affected mutable schema: {old_sid}')
         old_rel = 'schemas/' + old_name
-        new_rel = clean_path(old_rel)
-        if new_rel != old_rel:
-            path_map[old_rel] = new_rel
+        if old_sid in preferred_formal:
+            target_rel = preferred_formal[old_sid]
+            source_rel = affected_entries[old_sid]['source_schema']
+            path_map[source_rel] = target_rel
+            if clean_path(old_rel) != target_rel:
+                users = registry_reverse.get(old_name, set())
+                if users == {old_sid}:
+                    stale_registry_files.add(old_rel)
+        else:
+            target_rel = clean_path(old_rel)
+            if target_rel != old_rel:
+                path_map[old_rel] = target_rel
+            preferred_formal[old_sid] = target_rel
 
+    # Rename registered structural/formal authorities first. Stale duplicate registry files are not renamed.
     for old_rel, new_rel in sorted(path_map.items(), key=lambda x: len(x[0]), reverse=True):
         safe_rename(old_rel, new_rel)
+    for old_rel in sorted(stale_registry_files):
+        p = ROOT / old_rel
+        if p.exists():
+            p.unlink()
 
     replacements = {**sid_map, **path_map}
     for path in ROOT.rglob('*'):
@@ -102,12 +126,15 @@ def main():
         doc['templates'] = dict(sorted(out.items()))
         dump_json(p, doc)
 
-    # Re-key formal schema registry explicitly and verify every target file exists.
+    # Re-key formal schema registry explicitly. Affected mutable IDs point at their template-authorized formal schema.
     schema_registry = load_json(SCHEMA_REGISTRY)
     reg_out = {}
     for sid, filename in schema_registry.items():
         new_sid = sid_map.get(sid, sid)
-        new_filename = clean_path(filename) if sid in sid_map else filename
+        if sid in sid_map:
+            new_filename = preferred_formal[sid].removeprefix('schemas/')
+        else:
+            new_filename = filename
         if new_sid in reg_out and reg_out[new_sid] != new_filename:
             raise SystemExit(f'formal schema registry collision: {sid} -> {new_sid}')
         reg_out[new_sid] = new_filename
@@ -169,7 +196,7 @@ def main():
     print(f'Migrated {len(sid_map)} mutable release-suffixed schema identities.')
     for old, new_sid in sorted(sid_map.items()):
         print(f'  {old} -> {new_sid}')
-    print(f'Renamed {len(path_map)} registered schema/template/formal-schema authority files.')
+    print(f'Renamed {len(path_map)} registered schema/template/formal-schema authority files; removed {len(stale_registry_files)} stale duplicate formal schemas.')
     return 0
 
 if __name__ == '__main__':
