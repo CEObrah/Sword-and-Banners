@@ -1,69 +1,67 @@
 # Runtime Authority
 
-This repository is campaign authority: mutable truth in `state/`, reusable mechanics/content in `data/`, semantic law in `rules/`, narration in `VOICE.md`. Documentation, tests/tools/caches, chat memory, and model recall never override current state.
+This repository is campaign authority: mutable truth is in `state/`, reusable mechanics/content in `data/`, semantic law in `rules/`, and narration in `VOICE.md`. Documentation, tests, caches, chat memory, and model recall never override canonical state.
 
-## Startup and causal retrieval
+## Startup and routing
 
-Startup loads only `RUNTIME.md`, `VOICE.md`, `data/runtime/repository-map.json`, `state/meta.json`, `state/player.json`, and `state/scene.json`; then load the smallest causal owner/shard. Known IDs use direct refs; indexes are discovery only. Do not preload catalogs or social graphs. `REPOSITORY_MAP.md` is the read/write cookbook; `PLAYER_INTERFACE.md` is load-on-demand. Stop when enough authority is loaded. Structural writes use one exact cold file template plus the relevant system update contract.
+At startup read only `RUNTIME.md`, `VOICE.md`, `data/runtime/repository-map.json`, `state/meta.json`, `state/player.json`, and `state/scene.json`. Then load the smallest causal neighborhood. Known IDs use direct refs; indexes are discovery only. Do not preload catalogs, rosters, social graphs, armies, institutions, or narration modules. `REPOSITORY_MAP.md` is the load-on-demand read/write cookbook; `PLAYER_INTERFACE.md` is load-on-demand.
 
-## Player agency and intent boundary
+Structural writes use the registered schema, exact structural template, and relevant system update contract. If required structure or causal state is missing, fail closed rather than infer it from neighboring files, examples, prose, or chat context.
 
-Never invent Tang Wei's consequential voluntary dialogue, private thoughts, allegiance, surrender, spending, marriage choice, contract acceptance, mercy/execution choice, irreversible equipment choice, permanent doctrine, or strategic/political commitment. Saved delegation and standing orders may resolve only inside their stored authority.
+## Agency and state changes
 
-OOC discussion, previews, hypothetical rosters/acquisitions/appointments/wars/contracts/alliances/territorial goals, and wishlists are not campaign state. Persist intent only after Tang Wei actually forms/communicates it in-world, issues an order, begins preparation, makes a commitment, or the user explicitly requests a separate noncanonical note.
+Never invent Tang Wei's consequential voluntary dialogue, private thoughts, allegiance, surrender, spending commitment, contract acceptance, mercy/execution choice, irreversible equipment choice, permanent doctrine, marriage/family decision, appointment choice, territorial goal, or strategic/political commitment. Saved delegation and standing orders resolve only inside their stored authority.
 
-## Canonical transaction contract
+`OOC:` discussion, audits, previews, comparisons, hypotheticals, and wishlists never persist. In-world declarations are gameplay instructions and still require lawful authority, mechanics, elapsed time, validation, and successful persistence.
 
-State change: capture persistence base/world revision; load causal owners/mechanics; resolve the whole instruction and exact reached time; settle every due/triggered/continuous process including causal wake-ups/successors; prepare one patch; validate schemas, references, conservation, information, fairness, deterministic receipts and frontier closure; re-check base; atomically persist; read back; then narrate. Reject stale-base writes; narration is not canonical before persistence.
+For every state change: capture the main persistence base and world revision; load causal owners/mechanics; resolve the full instruction and exact reached time; settle every due, triggered, continuous, awakened, or successor process; prepare one patch; validate schema, references, conservation, information, agency, fairness, determinism, and frontier closure; re-check the base; atomically persist; read back; only then narrate. Reject stale-base writes.
 
-## Time and autonomous world
+## Time and world fairness
 
-A time skip closes the entire requested interval. Stable distant descendants may use declared parent army/state/faction/institution clocks when chronologically equivalent; split batching on material change and wake exact owners on direct causal effects. End with no overdue work.
+A time skip closes the entire requested interval. Offscreen does not mean frozen: people, units, armies, factions, institutions, mercenaries, projects, training/recovery, politics, economy, logistics, military operations, family/life-course, contracts, and successor plans remain subject to their registered clocks or lawful aggregate processes.
 
-Offscreen does not mean frozen. People, units, formations, armies/forces, factions, courts/institutions, mercenaries, missions/projects, training/recovery, political plans, economies, and military operations require direct or lawful aggregate process coverage. Compression changes storage/computation only and may never improve survival, training, promotion, logistics, resources, horse/equipment/instructor access, or combat results.
+Compression may reduce storage or computation only. It may never improve survival, training, promotion, logistics, resources, equipment, horses, instructor access, or combat outcomes. Split batching whenever material state changes; wake exact owners on direct causal effects. End with no overdue work.
 
-Autonomous owners act only from saved goals, knowledge, authority, treasury, manpower, supply, location, relationships, opposition, orders, routes, contracts, and risk. Instantiate material operations before resolving them. Persist casualties, injuries, prisoners, movement, equipment/horse/supply loss, territorial/control change, financial consequences, and successor actions.
+Autonomous owners act only from saved goals, knowledge, authority, resources, location, relationships, opposition, orders, routes, contracts, and risk. Material operations must exist before their consequences are settled. Persist casualties, injuries, prisoners, movement, losses, territorial/control changes, financial effects, and successor actions.
 
-## Unit, command, and large-battle invariants
+## Units, personnel, and command
 
-A unit is the persistent aggregate organization/combat actor for one homogeneous troop type and one intended standard loadout/doctrine/training state. Ordinary large units remain aggregate statistical actors; never materialize one sheet per soldier. Full capability remains multidimensional. Broad mass combat may use validated compact kernels and transient vectorization, then wake full capability whenever specialists, named actors, unusual equipment/terrain, injury detail, variance/tails, or close thresholds can change the result.
+A unit is one persistent aggregate organization/combat actor for one homogeneous troop type and one intended standard loadout, doctrine, and training state. Ordinary troops remain aggregate; never create one person owner per soldier. Full unit capability stays multidimensional. Aggregate battle kernels and vectorization are derived acceleration only; wake full capability when variance, specialists, named actors, unusual terrain/equipment, injuries, or close thresholds can change the result.
 
-Durable subset changes require a deterministic split first. Split/merge/refit rules and conservation live in `data/mechanics/unit-partition.json` and `rules/org.md`. A different target standard does not instantly issue gear; inventory, transport, shortages, fitting, ammunition, mounts, maintenance, familiarization, and elapsed time remain real. Force/replacement pools are accounting only and cannot fight until organized into units.
+Durable subset differences require deterministic split/merge/refit transactions under `data/mechanics/unit-partition.json` and `rules/org.md`. People, equipment, mounts, ammunition, injuries, experience, and history remain conserved. A target loadout never creates instant issue. Force/replacement pools are accounting only and cannot fight until organized into lawful units.
 
-Command capacity is ownership-agnostic. Personal, state-issued, assigned, attached, hired, and allied-under-command units use one direct command budget. Direct personnel and direct command slots are separate simultaneous limits defined by `data/mechanics/command.json`. A subordinate command node costs one superior direct slot while its delegated units/personnel move to that subordinate's direct load. The superior retains recursive strategic authority. Commanders and staff are people, never one-person units. Command-group state lives under `state/cmd/command-groups/`; direct units/groups are peer elements; commanders remain combat-capable people.
+Recruitment is a conserved aggregate transfer from a real source owner stratum or manpower pool. The destination inherits source capability and demographic inputs when relevant. Recruitment does not create ordinary person owners. A standout, specialist, commander, prisoner, casualty, award recipient, or recurring NPC materializes only through a separate transaction that identifies one real body exactly once.
 
-Formations are temporary and own no manpower. Scouts, engineers, sappers, logistics, signals, and other explicitly military specialists may be units according to their registered troop type and support class. Scouts are reconnaissance troops, not couriers. Medical personnel, stretcher crews, healers, physicians, couriers, administrative runners, dependents, and ordinary camp followers are civilian/camp-support populations, never military units and never military unit command slots. If a civilian support person is lawfully mobilized into combat service, transfer that real person into a registered non-medical, non-courier troop type and stop counting that person in the civilian support source for the same interval. Armed train guards are separate homogeneous guard units.
+Command capacity is ownership-agnostic. Personal, state-issued, attached, hired, and allied-under-command forces share the registered direct-personnel and direct-command-slot limits in `data/mechanics/command.json`. Delegation moves direct load to subordinate command groups while preserving superior strategic authority. Commanders and staff are people, never one-person troop units. Formations own no manpower.
+
+Military specialists may be units only under registered troop/support classes. Civilian medical personnel, couriers, dependents, and ordinary camp followers are not military units or command slots. Lawful transfer into combat service must remove the same real people from their civilian source for the same interval.
 
 ## Information and determinism
 
-World truth and player knowledge are separate. Information reaches Tang Wei only through valid observation, reports, scouts, couriers, officials, merchants, spies, witnesses, prisoners, or other persisted channels. Distinguish rumor, inference, and verified fact.
+World truth and Tang Wei's knowledge are separate. Information reaches him only through valid observation, reports, scouts, couriers, officials, merchants, spies, prisoners, witnesses, staff, or other persisted channels. Keep rumor, inference, estimate, and verified fact distinct.
 
-Structured mechanics own numerical outcomes. Model variation is not RNG. Registered randomness uses persisted seed/stream/draw rules. Same authoritative state, action, and recorded random inputs must reproduce the same mechanical result.
+Structured mechanics own numerical outcomes. Model variation is not RNG. Registered randomness uses persisted seed/stream/draw rules, and the same authoritative state, action, and recorded random inputs must reproduce the same result.
 
-Cold canonical identities are routing compression, not frozen people. Materialize exact/lite state only when causal from current-date/source evidence, settled history, and registered rules. Never back-project future achievements or create free bodies, gear, offices, relationships, or capability.
+Materialize exact/lite people only from current causal evidence, settled history, and registered rules. Never back-project future achievements or create free bodies, gear, offices, relationships, information, or capability.
 
-## Reputation and social perception
+## Social and family boundaries
 
-Reputation under `state/reputation/` is sparse, audience-specific, and knowledge-gated; renown, fame, prestige, notoriety, and infamy are not universal stats. An audience changes only after direct observation or a valid report path reaches it. Relationship state and direct knowledge remain separate. Reputation never grants free knowledge/authority or directly modifies body, weapon, personal combat, or raw unit combat stats; it conditions social/morale/contract/security behavior only through the relevant domain mechanic.
+Reputation is sparse, audience-specific, and knowledge-gated. Relationships, direct knowledge, reputation, family, property/economy, appointments/command, contracts, and political standing are separate authorities. None automatically grants another.
 
-Family state under `state/family/` stays separate from relationships/reputation. NPC family life requires saved motives/relationships, law/custom, opportunity, health and time. Never choose the player character's courtship, spouse, proposal response, parenthood, adoption, divorce or inheritance commitment. Birth/adoption conserves one real person/claim; kinship never auto-transfers property, office, command, allegiance or secrets.
+NPC family/life state resolves from saved motives, relationships, law/custom, opportunity, health, and time. Never choose Tang Wei's courtship, spouse, proposal response, parenthood, adoption, divorce, inheritance commitment, or other family decision. Kinship never automatically transfers property, office, command, allegiance, or secrets.
 
 ## Narration and interface
 
-Follow `VOICE.md`; resolve mechanics before prose. Load one primary cold scene module from `data/runtime/narration-router.json`; at most one causal secondary, never all modules. Reintroduce infrequently seen known entities with a brief player-known cue. Generate choices at every genuine unresolved decision according to `data/runtime/choice-presentation.json` unless the player has already declared the next action for that resulting state.
+Resolve mechanics before prose and follow `VOICE.md`. Load one primary narration module through `data/runtime/narration-router.json`, with at most one independently causal secondary. Repository memory is not player memory.
 
-During play, if a real repository/runtime/narration defect becomes apparent, surface one concise `OOC:` note describing the issue and a suggested fix when useful. Do not interrupt ordinary scenes with speculative maintenance commentary, and never persist OOC suggestions as campaign state unless explicitly requested.
-
-`OOC:` never persists. Ordinary in-world natural-language declarations are gameplay instructions and still require authority, mechanics, time, validation, and successful save. Questions, hypotheticals, comparisons, audits, and brainstorming are nonpersistent unless the player actually forms or communicates the intent in-world.
+At a genuine unresolved player decision, use `data/runtime/choice-presentation.json` unless the player already supplied the next action. Reintroduce infrequently seen known entities with a short player-known cue. Surface a concise `OOC:` note only when an actual runtime/repository/narration defect matters.
 
 ## Maintenance boundary
 
-One fact has one authoritative owner. Unknown JSON fields are invalid; schema/template changes are maintenance. Derived indexes/kernels are rebuildable, never truth; rebuild after authority changes. Never infer mutable appointments, army membership, ownership, inventory, territory, relationships, contracts, or player plans from documentation. Only this repository is authority; never import another game repository.
+One fact has one authoritative owner. Unknown JSON fields are invalid. Derived indexes, summaries, and kernels are rebuildable caches, never competing truth. Never infer mutable appointments, ownership, inventory, territory, relationships, contracts, or plans from documentation.
 
-Creating a mutable owner is deterministic template instantiation, never free-form JSON authorship. Resolve the exact target schema through `data/runtime/template-index.json`, load its registered structural template, and render its registered blank creation skeleton before filling facts. The blank skeleton is derived only from the target structural contract and contains no guessed gameplay values. Structure must never be copied from a neighboring owner, example record, prose description, chat/model memory, or semantic similarity. Optional allowed fields are not permission to invent them. If a required gameplay fact cannot be lawfully resolved, or if a needed field is absent from the target template, abort the gameplay write and perform schema/template/system maintenance first. CI must prove that every mutable target schema can render a deterministic blank creation skeleton.
+Creating or structurally changing a mutable owner requires its registered schema/template/system contract and deterministic blank creation skeleton. Optional fields are not permission to invent facts. Schema, field-shape, type, nesting, or cardinality changes are maintenance and must update the registered authorities and validators before gameplay uses them.
 
-Live gameplay rules and canonical gameplay owners contain only current behavior and current state. Semantic gameplay IDs, paths, record IDs, unit IDs, doctrine IDs, and training IDs do not encode release versions. Schema/validator compatibility identifiers and stable deterministic seed strings are technical metadata rather than campaign identity and change only when their own contracts or deterministic inputs change.
+Active gameplay rules and owners state current behavior only; migration history and deprecated behavior belong in maintenance infrastructure, not live gameplay law. Stable gameplay IDs do not encode release history.
 
-Ordinary maintenance that preserves a formal structural contract updates current semantic IDs and files in place. Do not mint versioned gameplay IDs, clone rules, or bump campaign/system versions merely to mark an edit. Schema or validator compatibility versions change only when the formal structural contract actually requires a compatibility boundary. Validation remains mandatory after repository maintenance whether or not any version identifier changes.
-
-Repository maintenance must not expose half-fixed `main` revisions as the normal workflow. Assemble related maintenance changes on a temporary branch, run the complete validator stack there, and fast-forward `main` only after that candidate is green and the main persistence base is rechecked. Gameplay transactions may use the same candidate-validation pattern when practical. A failed validation branch is evidence for repair, not campaign canon.
+Repository maintenance is assembled on a temporary branch, validated with the complete stack, stale-base checked against `main`, then fast-forwarded and read back. Never expose a half-fixed `main`, and never claim a save/commit/push that did not succeed.
