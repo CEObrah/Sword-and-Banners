@@ -45,24 +45,6 @@ for path in contract_dir.glob("*.json"):
 if contract_registry.get("record_count") != len(direct_contracts):
     fail(f"process_contract_registry_count:{contract_registry.get('record_count')}:{len(direct_contracts)}")
 
-frontier_ids = set()
-for process in frontier.get("processes", []):
-    pid = process.get("id")
-    if not pid:
-        fail("frontier_process_missing_id")
-        continue
-    if pid in frontier_ids:
-        fail(f"duplicate_frontier_process:{pid}")
-    frontier_ids.add(pid)
-    if pid not in process_registry and pid not in direct_contracts:
-        fail(f"frontier_process_without_contract:{pid}")
-    recurrence = process.get("recurrence", {})
-    if process.get("status") == "active" and recurrence.get("accrual_mode") == "continuous":
-        if process.get("settled_through") != world_time:
-            fail(f"continuous_process_not_closed:{pid}:{process.get('settled_through')}:{world_time}")
-    if process.get("status") == "completed" and process.get("next_due") is not None:
-        fail(f"completed_process_has_next_due:{pid}:{process.get('next_due')}")
-
 indexed_process_states = set()
 for entry in process_index.get("entries", []):
     pid = entry.get("process_id")
@@ -83,14 +65,33 @@ for entry in process_index.get("entries", []):
     if pid not in process_registry and pid not in direct_contracts:
         fail(f"process_state_without_registered_or_direct_contract:{pid}")
 
-# Future successor/event processes may lawfully exist with frontier + direct contract only.
-# A process-state owner is required only once mutable metrics/plan state have actually been materialized.
+frontier_ids = set()
+for process in frontier.get("processes", []):
+    pid = process.get("id")
+    if not pid:
+        fail("frontier_process_missing_id")
+        continue
+    if pid in frontier_ids:
+        fail(f"duplicate_frontier_process:{pid}")
+    frontier_ids.add(pid)
+    recurrence = process.get("recurrence", {})
+    if process.get("status") == "active" and recurrence.get("accrual_mode") == "continuous":
+        if process.get("settled_through") != world_time:
+            fail(f"continuous_process_not_closed:{pid}:{process.get('settled_through')}:{world_time}")
+    if process.get("status") == "completed" and process.get("next_due") is not None:
+        fail(f"completed_process_has_next_due:{pid}:{process.get('next_due')}")
+    # Coverage-only clocks need not own mutable process-state or a direct contract.
+    # Runtime-created successors do: they must be registered and directly contracted before activation.
+    if str(process.get("source", "")).startswith("successor:"):
+        if pid not in process_registry:
+            fail(f"successor_not_registered:{pid}")
+        if pid not in direct_contracts:
+            fail(f"successor_without_direct_contract:{pid}")
+
 for pid in direct_contracts:
     if pid not in frontier_ids and pid not in process_registry:
         fail(f"orphan_direct_process_contract:{pid}")
 
-# Git cannot retain an empty directory. A mapped storage target is therefore valid even
-# when no current owner has materialized there yet; an unmapped missing target is not.
 for name, rel in autonomous.get("storage_targets", {}).items():
     norm = rel.rstrip("/")
     if (ROOT / rel).exists():
