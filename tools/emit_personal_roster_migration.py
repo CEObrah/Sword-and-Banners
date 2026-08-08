@@ -365,6 +365,9 @@ coverage = load("data/runtime/coverage-requirements.json")
 if isinstance(coverage.get("required_owner_ids"), list):
     coverage["required_owner_ids"] = [x for x in coverage["required_owner_ids"] if not (isinstance(x,str) and x.startswith("tw.m"))]
 write_json("data/runtime/coverage-requirements.json", coverage)
+pf_coverage = load("state/time/coverage/process_personal_force_life_weekly.json")
+pf_coverage["owner_ids"] = [x for x in pf_coverage.get("owner_ids", []) if not (isinstance(x, str) and x.startswith("tw.m"))]
+write_json("state/time/coverage/process_personal_force_life_weekly.json", pf_coverage)
 
 # Permanent regression tests for the new representation contract.
 recruitment_test = r'''#!/usr/bin/env python3
