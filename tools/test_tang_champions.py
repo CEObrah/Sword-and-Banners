@@ -90,10 +90,16 @@ if kcmd.get('command',{}).get('current_army_id') is not None: err('kai_has_indep
 if 'zero assigned troops' not in kcmd.get('command',{}).get('specialty_hint','').lower(): err('kai_zero_troop_status_missing')
 if 'no independent' not in kai.get('authority','').lower(): err('kai_independent_authority_not_blocked')
 
+duan_char=load('state/char/duan-jin.json')
+duan_orders=' '.join(duan_char.get('goal_state',{}).get('current_orders',[])).lower()
+if 'tang wei' not in duan_orders or 'first tang champions' not in duan_orders: err('duan_wei_protection_mission')
+
 shen_char=load('state/char/shen-rui.json')
-shen_text=' '.join(shen_char.get('goal_state',{}).get('current_goals',[])+shen_char.get('goal_state',{}).get('current_orders',[])).lower()
-if 'tang kai' not in shen_text or 'second tang champions' not in shen_text: err('shen_kai_protection_mission')
-if 'deputy' in shen_text: err('shen_still_duan_deputy')
+shen_orders=' '.join(shen_char.get('goal_state',{}).get('current_orders',[])).lower()
+if 'second tang champions' not in shen_orders or 'protected principal is tang wei' not in shen_orders: err('shen_wei_protection_mission')
+if 'protected principal is tang kai' in shen_orders: err('shen_still_assigned_to_kai')
+if 'no troop protection assignment to tang kai' not in shen_orders: err('kai_zero_champion_assignment_missing')
+if 'deputy' in shen_orders: err('shen_still_duan_deputy')
 
 doc=load('data/mil/doctrine-records/doc.tang_wei.household_champions.json')
 train=load('data/mil/training-records/train.tang_wei.household_champions.json')
@@ -115,4 +121,4 @@ if errors:
     for e in errors: print('-',e)
     sys.exit(1)
 print('TANG CHAMPIONS TEST OK')
-print('two peer 50-person Tang Champion companies under Tang Wei; Duan protects Wei; Shen protects Kai; Kai owns zero troops')
+print('two peer 50-person Tang Champion companies under Tang Wei; both protect Wei; Kai owns zero troops')
