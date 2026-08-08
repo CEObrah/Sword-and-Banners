@@ -63,32 +63,18 @@
         "troop_type": "trainee"
       },
       {
-        "series_id": "est.institution_sword_manor.scout_couriers",
+        "series_id": "est.institution_sword_manor.mounted_scouts",
         "source_manpower_id": "sword_manor_scouts",
-        "role": "scout_couriers",
+        "role": "mounted_scouts",
         "unit_count": 1,
         "nominal_strength": 100,
         "final_unit_strength": 50,
-        "stable_unit_id_pattern": "est.institution_sword_manor.scout_couriers.{ordinal:03d}",
-        "doctrine": "doc.sword_manor_institution.scout_couriers",
-        "training": "train.sword_manor_institution.scout_couriers",
-        "loadout_standard": "loadout_sword_manor_scout_couriers",
-        "troop_type": "scout",
-        "specialty": "scout_couriers"
-      },
-      {
-        "series_id": "est.institution_sword_manor.medical_support",
-        "source_manpower_id": "support_sword_manor_medical_camp",
-        "role": "medical_support",
-        "unit_count": 1,
-        "nominal_strength": 100,
-        "final_unit_strength": 50,
-        "stable_unit_id_pattern": "est.institution_sword_manor.medical_support.{ordinal:03d}",
-        "doctrine": "doc.sword_manor_institution.medical_support",
-        "training": "train.sword_manor_institution.medical_support",
-        "loadout_standard": "loadout_sword_manor_camp_medical",
-        "troop_type": "medical",
-        "specialty": "medical_support"
+        "stable_unit_id_pattern": "est.institution_sword_manor.mounted_scouts.{ordinal:03d}",
+        "doctrine": "doc.sword_manor_institution.mounted_scouts",
+        "training": "train.sword_manor_institution.mounted_scouts",
+        "loadout_standard": "loadout_sword_manor_mounted_scouts",
+        "troop_type": "mounted_scout",
+        "specialty": "reconnaissance"
       }
     ],
     "player_exception": "Tang Wei Personal Retinue in state/pforce/wei.json remains player-organized.",
