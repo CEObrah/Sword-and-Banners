@@ -2,259 +2,144 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Materialized homogeneous military unit",
   "type": "object",
-  "required": [
-    "schema",
-    "id",
-    "name",
-    "owner",
-    "troop_type",
-    "personnel",
-    "loadout_standard",
-    "doctrine",
-    "training",
-    "location"
-  ],
+  "required": ["schema","id","name","owner","troop_type","personnel","loadout_standard","doctrine","training","location"],
   "properties": {
-    "schema": {
-      "const": "unit.v1"
-    },
-    "id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "owner": {
-      "type": "string"
-    },
-    "home_establishment_ref": {
-      "type": "string"
-    },
-    "troop_type": {
-      "type": "string"
-    },
+    "schema": {"const": "unit.v1"},
+    "id": {"type": "string"},
+    "name": {"type": "string"},
+    "owner": {"type": "string"},
+    "home_establishment_ref": {"type": "string"},
+    "troop_type": {"type": "string"},
     "personnel": {
       "type": "object",
-      "required": [
-        "representation",
-        "count"
-      ],
+      "required": ["representation","count"],
       "properties": {
-        "representation": {
-          "enum": [
-            "aggregate",
-            "named_members"
-          ]
-        },
-        "count": {
-          "type": "integer",
-          "minimum": 1
-        },
+        "representation": {"enum": ["aggregate","named_members"]},
+        "count": {"type": "integer","minimum": 1},
         "source_claims": {
-          "type": "array"
-        },
-        "member_ids": {
           "type": "array",
-          "uniqueItems": true
+          "items": {
+            "type": "object",
+            "required": ["source_owner","source_class","count","selection_basis","transaction_id"],
+            "properties": {
+              "source_owner": {"type": "string"},
+              "source_class": {"type": "string"},
+              "source_subpopulation": {"type": "string"},
+              "source_capability_ref": {"type": "string"},
+              "count": {"type": "integer","minimum": 1},
+              "selection_basis": {"type": "string"},
+              "settled_through": {"type": "string"},
+              "transaction_id": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
         },
-        "condition": {
-          "type": "object"
+        "member_ids": {"type": "array","uniqueItems": true},
+        "condition": {"type": "object"},
+        "population_profile": {
+          "type": "object",
+          "required": ["stat_order_ref","capability","age_distribution_mode","age_distribution","body_distribution","aptitude_distribution","experience_distribution","qualification_distribution"],
+          "properties": {
+            "stat_order_ref": {"type": "string"},
+            "capability": {
+              "type": "object",
+              "required": ["attribute_mean","attribute_spread","skill_mean","skill_spread"],
+              "properties": {
+                "attribute_mean": {"type":"array","minItems":9,"maxItems":9,"items":{"type":"number"}},
+                "attribute_spread": {"type":"array","minItems":9,"maxItems":9,"items":{"type":"number","minimum":0}},
+                "skill_mean": {"type":"array","minItems":35,"maxItems":35,"items":{"type":"number"}},
+                "skill_spread": {"type":"array","minItems":35,"maxItems":35,"items":{"type":"number","minimum":0}}
+              },
+              "additionalProperties": false
+            },
+            "age_distribution_mode": {"enum":["exact_years","bands"]},
+            "age_distribution": {"type":"object","additionalProperties":{"type":"integer","minimum":0}},
+            "body_distribution": {
+              "type":"object",
+              "required":["height_cm","weight_kg","individual_records_required"],
+              "properties": {
+                "height_cm":{"type":"object","required":["mean","sd"],"properties":{"mean":{"type":"number"},"sd":{"type":"number","minimum":0}},"additionalProperties":false},
+                "weight_kg":{"type":"object","required":["mean","sd"],"properties":{"mean":{"type":"number"},"sd":{"type":"number","minimum":0}},"additionalProperties":false},
+                "individual_records_required":{"type":"boolean"}
+              },
+              "additionalProperties":false
+            },
+            "aptitude_distribution": {
+              "type":"object",
+              "required":["dimensions","mean","sd","source"],
+              "properties": {
+                "dimensions":{"type":"array","minItems":1,"items":{"type":"string"}},
+                "mean":{"type":"array","minItems":1,"items":{"type":"number"}},
+                "sd":{"type":"array","minItems":1,"items":{"type":"number","minimum":0}},
+                "bands":{"type":"object","additionalProperties":{"type":"integer","minimum":0}},
+                "source":{"type":"string"}
+              },
+              "additionalProperties":false
+            },
+            "experience_distribution":{"type":"object","additionalProperties":{"type":"integer","minimum":0}},
+            "qualification_distribution":{"type":"object","additionalProperties":{"type":"integer","minimum":0}}
+          },
+          "additionalProperties": false
         }
       },
-      "additionalProperties": true
-    },
-    "loadout_standard": {
-      "type": "string",
-      "minLength": 1
-    },
-    "doctrine": {
-      "type": "string"
-    },
-    "training": {
-      "type": "string"
-    },
-    "commander_id": {
-      "type": [
-        "string",
-        "null"
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {"properties":{"representation":{"const":"aggregate"}},"required":["representation"]},
+          "then": {"required":["source_claims","population_profile"],"not":{"required":["member_ids"]}}
+        }
       ]
     },
-    "capability_ref": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "location": {
-      "type": "string"
-    },
+    "loadout_standard": {"type": "string","minLength": 1},
+    "doctrine": {"type": "string"},
+    "training": {"type": "string"},
+    "commander_id": {"type": ["string","null"]},
+    "location": {"type": "string"},
     "cohesion": {},
     "morale": {},
     "readiness": {},
-    "lineage": {
-      "type": "object"
-    },
+    "lineage": {"type": "object"},
     "issue_state": {
       "type": "object",
       "description": "Exception-only actual issue/readiness state. Absence means no separately materialized issue exception. It may record shortages, damage, substitutes, ammunition, mount/equipment availability or repair state but never a second intended organizational standard.",
       "properties": {
-        "status": {
-          "enum": [
-            "fully_issued",
-            "under_issued",
-            "damaged",
-            "substitute_issue",
-            "mixed_exceptions"
-          ]
-        },
-        "completeness": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "missing": {
-          "type": "object"
-        },
-        "damaged": {
-          "type": "object"
-        },
-        "substitutes": {
-          "type": "object"
-        },
-        "ammunition_state": {
-          "type": "object"
-        },
-        "mount_issue_state": {
-          "type": "object"
-        },
-        "repair_backlog": {
-          "type": "object"
-        }
+        "status": {"enum": ["fully_issued","under_issued","damaged","substitute_issue","mixed_exceptions"]},
+        "completeness": {"type": "number","minimum": 0,"maximum": 1},
+        "missing": {"type": "object"},
+        "damaged": {"type": "object"},
+        "substitutes": {"type": "object"},
+        "ammunition_state": {"type": "object"},
+        "mount_issue_state": {"type": "object"},
+        "repair_backlog": {"type": "object"}
       },
       "additionalProperties": true,
-      "not": {
-        "anyOf": [
-          {
-            "required": [
-              "alternate_loadout"
-            ]
-          },
-          {
-            "required": [
-              "secondary_standard"
-            ]
-          },
-          {
-            "required": [
-              "loadout_standard_distribution"
-            ]
-          }
-        ]
-      }
+      "not": {"anyOf": [{"required":["alternate_loadout"]},{"required":["secondary_standard"]},{"required":["loadout_standard_distribution"]}]}
     },
     "refit_state": {
       "type": "object",
       "description": "Optional transition to a future standard. The current unit standard remains authoritative for organizational identity until refit completion; actual equipment during transition is resolved from issue/inventory state.",
-      "required": [
-        "status",
-        "target_loadout_standard",
-        "progress"
-      ],
+      "required": ["status","target_loadout_standard","progress"],
       "properties": {
-        "status": {
-          "enum": [
-            "planned",
-            "awaiting_stock",
-            "issuing",
-            "fitting",
-            "familiarizing",
-            "paused"
-          ]
-        },
-        "target_loadout_standard": {
-          "type": "string",
-          "minLength": 1
-        },
-        "progress": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "started_at": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "reserved_inventory_ref": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "familiarization_required": {
-          "type": "boolean"
-        },
-        "notes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
+        "status": {"enum":["planned","awaiting_stock","issuing","fitting","familiarizing","paused"]},
+        "target_loadout_standard":{"type":"string","minLength":1},
+        "progress":{"type":"number","minimum":0,"maximum":1},
+        "started_at":{"type":["string","null"]},
+        "reserved_inventory_ref":{"type":["string","null"]},
+        "familiarization_required":{"type":"boolean"},
+        "notes":{"type":"array","items":{"type":"string"}}
       },
       "additionalProperties": true
     }
   },
   "additionalProperties": true,
   "allOf": [
-    {
-      "not": {
-        "required": [
-          "loadout_distribution"
-        ]
-      }
-    },
-    {
-      "not": {
-        "required": [
-          "troop_type_distribution"
-        ]
-      }
-    },
-    {
-      "not": {
-        "required": [
-          "doctrine_distribution"
-        ]
-      }
-    },
-    {
-      "not": {
-        "required": [
-          "training_distribution"
-        ]
-      }
-    },
-    {
-      "not": {
-        "required": [
-          "commander_distribution"
-        ]
-      }
-    },
-    {
-      "not": {
-        "required": [
-          "loadout_standard_distribution"
-        ]
-      }
-    },
-    {
-      "not": {
-        "required": [
-          "alternate_loadout_distribution"
-        ]
-      }
-    }
+    {"not":{"required":["loadout_distribution"]}},
+    {"not":{"required":["troop_type_distribution"]}},
+    {"not":{"required":["doctrine_distribution"]}},
+    {"not":{"required":["training_distribution"]}},
+    {"not":{"required":["commander_distribution"]}},
+    {"not":{"required":["loadout_standard_distribution"]}},
+    {"not":{"required":["alternate_loadout_distribution"]}},
+    {"not":{"required":["capability_ref"]}}
   ]
 }
