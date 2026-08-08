@@ -9,5 +9,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema
+      - name: Inventory current-semantics cleanup candidates
+        run: python tools/audit_current_semantics.py
       - name: Run full validator stack
         run: python tools/run_validators.py
