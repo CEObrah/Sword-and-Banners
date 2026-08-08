@@ -1,0 +1,34 @@
+name: maintenance-tang-champions
+on:
+  push:
+    branches: [validation]
+permissions:
+  contents: write
+jobs:
+  correct:
+    if: ${{ !contains(github.event.head_commit.message, '[tang-champions-correction]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: validation
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install jsonschema
+      - name: Apply champion correction
+        run: python tools/maintenance_tang_champions.py
+      - name: Validate corrected tree
+        run: python tools/run_validators.py
+      - name: Commit corrected tree
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No correction changes.'
+          else
+            git commit -m 'Correct two-company Tang Champions [tang-champions-correction]'
+            git push origin HEAD:validation
+          fi
