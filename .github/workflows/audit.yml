@@ -13,5 +13,16 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema
+      - name: Correct generated game-detection expression
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('tools/migrate_offscreen_scaling.py')
+          t = p.read_text(encoding='utf-8')
+          old = "GAME='sword' if (json.loads((R/'state/meta.json').read_text(encoding='utf-8')).get('game')=='sword_and_banners' else 'shinobi'"
+          new = "GAME='sword' if json.loads((R/'state/meta.json').read_text(encoding='utf-8')).get('game')=='sword_and_banners' else 'shinobi'"
+          assert t.count(old) == 1
+          p.write_text(t.replace(old, new), encoding='utf-8')
+          PY
       - name: Run guarded offscreen scaling migration
         run: python tools/migrate_offscreen_scaling.py
