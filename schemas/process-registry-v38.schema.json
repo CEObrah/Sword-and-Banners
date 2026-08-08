@@ -1,27 +1,13 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Current canonical schema: process registry v38",
-  "type": "object",
-  "required": [
-    "owner_id",
-    "owner_type",
-    "processes",
-    "schema"
-  ],
-  "properties": {
-    "owner_id": {
-      "type": "string"
-    },
-    "owner_type": {
-      "type": "string"
-    },
-    "processes": {
-      "type": "object"
-    },
-    "schema": {
-      "type": "string"
-    }
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"Current canonical schema: process registry v38",
+  "type":"object",
+  "required":["owner_id","owner_type","processes","schema"],
+  "properties":{
+    "owner_id":{"type":"string"},
+    "owner_type":{"type":"string"},
+    "processes":{"type":"object","additionalProperties":{"type":"object","required":["process_id","event_types","scope","visibility"],"properties":{"contract_id":{"type":"string"},"contract_registry_owner_id":{"type":"string"},"event_types":{"type":"array","items":{"type":"string"}},"process_id":{"type":"string"},"scope":{"type":["string","null"]},"visibility":{"type":"string"}},"additionalProperties":false}},
+    "schema":{"const":"process-registry.v38"}
   },
-  "additionalProperties": true,
-  "description": "Current canonical schema contract."
+  "additionalProperties":false
 }
