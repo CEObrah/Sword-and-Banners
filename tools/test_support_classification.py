@@ -38,19 +38,19 @@ for rel in ('state/unit','state/force','state/force-pool','state/merc'):
         d=load(p)
         if d is not None: inspect(d,str(p.relative_to(ROOT)),CLASS_KEYS)
 
-# Home establishments are unit generators, so also ban medical/courier semantics in generator IDs/sources.
+# Home establishments are unit generators, so medical/courier semantics cannot appear in military generator IDs/sources.
 base=ROOT/'state/org/home-establishments'
 if base.exists():
     for p in base.glob('*.json'):
         d=load(p)
         if d is not None: inspect(d,str(p.relative_to(ROOT)),GENERATOR_KEYS)
 
-# Current troop-type registry itself must not define medical/courier troop classes.
+# The troop registry itself cannot define medical/courier military classes.
 types=load(ROOT/'data/organization/troop-types.json') or {}
 for tid in types.get('types',{}):
     if bad(tid): errors.append(f'forbidden_troop_type_registry:{tid}')
 
-# Courier is not a military specialization and must not survive as a discoverable military catalog ID.
+# Courier is not a military specialization or military catalog identity.
 training=load(ROOT/'data/mil/training.json') or {}
 for tid in training.get('record_index',{}):
     if bad(tid,COURIER_FORBIDDEN): errors.append(f'forbidden_courier_training_id:{tid}')
@@ -61,6 +61,7 @@ loadouts=load(ROOT/'data/loadouts.json') or {}
 for lid in loadouts.get('ids',[]):
     if bad(lid,COURIER_FORBIDDEN): errors.append(f'forbidden_courier_loadout_id:{lid}')
 
+# Support semantics are owned by the support mechanic; do not duplicate them as exact prose requirements in RUNTIME.md.
 support=load(ROOT/'data/mechanics/support.json') or {}
 blob=json.dumps(support,ensure_ascii=False).lower()
 required=(
@@ -71,14 +72,6 @@ required=(
 )
 for phrase in required:
     if phrase not in blob: errors.append(f'support_contract_missing:{phrase}')
-
-runtime=(ROOT/'RUNTIME.md').read_text(encoding='utf-8').lower()
-for phrase in (
-    'scouts are reconnaissance troops, not couriers',
-    'never military units and never military unit command slots',
-    'creating a mutable owner is deterministic template instantiation, never free-form json authorship',
-):
-    if phrase not in runtime: errors.append(f'runtime_contract_missing:{phrase}')
 
 if errors:
     print('SUPPORT CLASSIFICATION TEST FAILED')
