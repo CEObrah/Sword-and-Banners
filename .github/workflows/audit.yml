@@ -26,7 +26,11 @@ jobs:
           anchor = 'dump("data/runtime/repository-map.json", repo_map)\n\npeople_route = load("data/runtime/repository-routes/people.json")'
           replacement = 'dump("data/runtime/repository-map.json", repo_map)\n\nrule_router = load("data/runtime/rule-router.json")\nrule_router["domains"]["character_materialization"] = ["rules/characters.md", "rules/memory.md", "data/people/latent-identities.json"]\ndump("data/runtime/rule-router.json", rule_router)\n\npeople_route = load("data/runtime/repository-routes/people.json")'
           assert t.count(anchor) == 1
-          p.write_text(t.replace(anchor, replacement), encoding='utf-8')
+          t = t.replace(anchor, replacement)
+          old_guard = 'status = subprocess.check_output(["git", "status", "--short"], cwd=ROOT, text=True)\ncheck("audit_offscreen_scaling.py" not in status and "audit_roster_refs.py" not in status and "migrate_offscreen_scaling.py" not in status, "temporary helper survived net diff")'
+          new_guard = 'for rel in ["tools/audit_offscreen_scaling.py", "tools/audit_roster_refs.py", "tools/migrate_offscreen_scaling.py"]:\n    check(not (ROOT / rel).exists(), "temporary helper still exists: " + rel)'
+          assert t.count(old_guard) == 1
+          p.write_text(t.replace(old_guard, new_guard), encoding='utf-8')
           PY
       - name: Run guarded offscreen scaling migration
         run: python tools/migrate_offscreen_scaling.py
