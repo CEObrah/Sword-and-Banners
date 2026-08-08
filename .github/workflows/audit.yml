@@ -15,7 +15,9 @@ jobs:
           python-version: '3.12'
       - run: pip install jsonschema
       - name: Apply guarded personnel consolidation
-        run: python tools/emit_personal_roster_migration.py --apply
+        run: |
+          python tools/prepare_aggregate_personnel_receipt.py
+          python tools/emit_personal_roster_migration.py --apply
       - name: Run full validator stack on generated state
         run: python tools/run_validators.py
       - name: Commit validated migration
