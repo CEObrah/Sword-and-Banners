@@ -106,7 +106,6 @@ def main():
     pt = pt.replace('ORDER:', '')
     pi.write_text(pt, encoding='utf-8')
 
-    # Intent regression fixture now tests OOC versus ordinary natural-language action.
     intent_path = ROOT / 'tests/interface-intent.json'
     intent = load_json(intent_path)
     intent['cases'] = [
@@ -119,7 +118,7 @@ def main():
     audit = ROOT / 'tools/audit.py'
     at = audit.read_text(encoding='utf-8')
     old_audit = "for _phrase in ('OOC:','PREVIEW:','ORDER:','FORM UNIT','FORMATION SETUP','CHECKPOINT'):\n if _phrase not in _iface:err(f'player_interface_missing:{_phrase}')"
-    new_audit = "for _phrase in ('OOC:','No special gameplay command prefix is required.','FORM UNIT','FORMATION SETUP','CHECKPOINT'):\n if _phrase not in _iface:err(f'player_interface_missing:{_phrase}')\nfor _phrase in ('PREVIEW:','ORDER:'):\n if _phrase in _iface:err(f'player_interface_obsolete_token:{_phrase}')"
+    new_audit = "for _phrase in ('OOC:','No special gameplay command prefix is required.','FORM UNIT','FORMATION SETUP','CHECKPOINT'):\n if _phrase not in _iface:err(f'player_interface_missing:{_phrase}')\nfor _phrase in ('PRE'+'VIEW:','OR'+'DER:'):\n if _phrase in _iface:err(f'player_interface_obsolete_token:{_phrase}')"
     if old_audit not in at:
         raise SystemExit('audit interface-token contract not found')
     audit.write_text(at.replace(old_audit, new_audit), encoding='utf-8')
