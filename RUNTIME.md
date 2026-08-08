@@ -54,7 +54,7 @@ Follow `VOICE.md`; resolve mechanics before prose. Load one primary cold scene m
 
 During play, if a real repository/runtime/narration defect becomes apparent, surface one concise `OOC:` note describing the issue and a suggested fix when useful. Do not interrupt ordinary scenes with speculative maintenance commentary, and never persist OOC suggestions as campaign state unless explicitly requested.
 
-`OOC:` never persists. `PREVIEW:` computes without persistence. `ORDER:` expresses in-world intent but still requires authority, mechanics, time, validation, and successful save. Questions/brainstorming are not orders.
+`OOC:` never persists. Ordinary in-world natural-language declarations are gameplay instructions and still require authority, mechanics, time, validation, and successful save. Questions, hypotheticals, comparisons, audits, and brainstorming are nonpersistent unless the player actually forms or communicates the intent in-world.
 
 ## Maintenance boundary
 

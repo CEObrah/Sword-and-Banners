@@ -236,7 +236,7 @@ for p in R.rglob('*'):
 # Process sharding contract on Sword.
 if GAME=='sword':
     pc=rj('state/reg/registry-process-contracts.json')
-    if pc.get('schema')!='process-contract-registry.v39':err('process_contract_index_schema')
+    if pc.get('schema')!='process-contract-registry':err('process_contract_index_schema')
     recs=list((R/'state/reg/process-contracts').glob('*.json'))
     if len(recs)!=pc.get('record_count'):err('process_contract_record_count')
     if not (R/'rules/character-runtime.md').exists():err('character_runtime_rule_missing')

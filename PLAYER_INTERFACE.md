@@ -2,13 +2,13 @@
 
 This file defines optional control grammar for ChatGPT. It is interface documentation, never fictional campaign state.
 
-## Intent prefixes
+## Intent boundary
 
 - `OOC:` discussion/design only. Never persist a roster, appointment, relationship, acquisition, war plan, doctrine change, or other campaign fact.
-- `PREVIEW:` calculate organization, authority, costs, time, logistics, requirements, blockers, and likely consequences without persistence.
-- `ORDER:` explicit in-world player order. Validate authority, resources, time, information, legality, and persistence before narrating success.
+- Ordinary in-world natural-language declarations are gameplay instructions. Validate authority, resources, time, information, legality, and persistence before narrating success.
+- Questions, comparisons, audits, hypotheticals, wishlists, and brainstorming are nonpersistent unless the player actually forms or communicates the intent in-world.
 
-Natural language remains valid. Questions, comparisons, and brainstorming are not orders.
+No special gameplay command prefix is required.
 
 ## Project/runtime controls
 
@@ -16,7 +16,7 @@ Natural language remains valid. Questions, comparisons, and brainstorming are no
 
 ## Military and personal-force management
 
-Recognize structured natural-language commands: `FORM UNIT`, `SPLIT UNIT`, `MERGE UNIT`, `REFIT UNIT`, `FORM FORMATION`, `FORMATION SETUP`, `SET COMMAND`, `DELEGATE COMMAND`, `SHOW COMMAND CAPACITY`, `SET DOCTRINE`, `SET TENDENCIES`, `SET LOADOUT`, `SET TRAINING`, `SET STANDING ORDERS`, `ATTACH UNIT`, `DETACH UNIT`, `SHOW UNIT`, `SHOW FORMATION`, `SHOW COMMAND`, and `PREVIEW REORGANIZATION`.
+Recognize structured natural-language commands: `FORM UNIT`, `SPLIT UNIT`, `MERGE UNIT`, `REFIT UNIT`, `FORM FORMATION`, `FORMATION SETUP`, `SET COMMAND`, `DELEGATE COMMAND`, `SHOW COMMAND CAPACITY`, `SET DOCTRINE`, `SET TENDENCIES`, `SET LOADOUT`, `SET TRAINING`, `SET STANDING ORDERS`, `ATTACH UNIT`, `DETACH UNIT`, `SHOW UNIT`, `SHOW FORMATION`, `SHOW COMMAND`, and `REORGANIZATION REVIEW`.
 
 A unit is persistent. A formation groups units for an operation. A command assignment changes authority, never ownership. State-issued or institution-issued troops retain source ownership, source representation, equipment ownership, and return conditions unless a separate lawful transfer occurs.
 
@@ -114,7 +114,7 @@ Raw unorganized manpower may exist temporarily as a troop pool/allocation for ac
 
 `SHOW RENOWN <subject>` summarizes player-known professional/public recognition without inventing a universal fame score. `SHOW PRESTIGE <subject> [audience]` and `SHOW NOTORIETY <subject> [audience]` follow the same knowledge gate.
 
-There is no `SET REPUTATION` command. Reputation changes only through causal events, witnesses, reports, propaganda/counter-propaganda, appointments/honors, contracts, battles, scandals, and other world actions resolved by the reputation mechanics. `PREVIEW:` may estimate possible audiences/risks but changes nothing.
+There is no `SET REPUTATION` command. Reputation changes only through causal events, witnesses, reports, propaganda/counter-propaganda, appointments/honors, contracts, battles, scandals, and other world actions resolved by the reputation mechanics. `OOC:` may estimate possible audiences/risks but changes nothing.
 
 ### Command-tree display
 
@@ -140,9 +140,9 @@ Natural language remains primary. Structured aliases are optional:
 
 - `SHOW FAMILY <person>` — read-only unions, household/dependent/parentage/succession refs known to the player.
 - `SHOW SUCCESSION <House/clan/title>` — read-only current succession state/known claims.
-- `PREVIEW: MARRIAGE <person>` — OOC/read-only implications, blockers and likely required authorities; creates no intent.
-- `ORDER: PROPOSE MARRIAGE TO <person>` — explicit in-world proposal attempt; does not force acceptance.
-- `ORDER: ACCEPT PROPOSAL <id>` / `ORDER: DECLINE PROPOSAL <id>` — explicit player response after loading the real pending proposal.
-- `ORDER: END/RENEGOTIATE BETROTHAL <id>` and family/household orders use the same authority/time/persistence contract.
+- `OOC: MARRIAGE <person>` — OOC/read-only implications, blockers and likely required authorities; creates no intent.
+- ` PROPOSE MARRIAGE TO <person>` — explicit in-world proposal attempt; does not force acceptance.
+- ` ACCEPT PROPOSAL <id>` / ` DECLINE PROPOSAL <id>` — explicit player response after loading the real pending proposal.
+- ` END/RENEGOTIATE BETROTHAL <id>` and family/household orders use the same authority/time/persistence contract.
 
 A proposal *to* the player can exist as world state without becoming player intent. OOC discussion never creates courtship, betrothal, marriage, parenthood, adoption or divorce state.

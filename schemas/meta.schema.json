@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "schema",
+    "campaign_id",
+    "game",
+    "time",
+    "revision",
+    "player_id",
+    "version",
+    "temporal_frontier"
+  ],
+  "properties": {
+    "schema": {
+      "const": "meta"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": true,
+  "title": ""
+}

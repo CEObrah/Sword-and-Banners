@@ -23,7 +23,7 @@ for p in ROOT.rglob('*'):
  if len(p.name)>64:err(f'filename_too_long:{rel}')
  if p.suffix=='.json':rj(p)
 meta=rj(ROOT/'state/meta.json') or {}
-if meta.get('schema')!='meta.v38':err('meta_schema')
+if meta.get('schema')!='meta':err('meta_schema')
 _version=(ROOT/'VERSION').read_text(encoding='utf-8').strip()
 if meta.get('version')!=_version:err(f'meta_version:{meta.get("version")}!={_version}')
 registry=rj(ROOT/'schemas/registry.json') or {}
@@ -168,7 +168,7 @@ if not (ROOT/'data/mechanics/reputation.json').exists():err('reputation_mechanic
 
 # owner index
 ind=rj(ROOT/'state/index/owners.json') or {}
-if ind.get('schema')!='owner_index.v39':err('owner_index_schema')
+if ind.get('schema')!='owner_index':err('owner_index_schema')
 if ind.get('authority') is not False:err('index_must_be_non_authoritative')
 _owner_total=0
 for _prefix,_shrel in ind.get('prefix_index',{}).items():
@@ -408,7 +408,7 @@ for _phrase in ('Repository memory is not player memory','estimated in-world','m
  if _phrase not in _voice:err(f'narrator_contract_missing:{_phrase}')
 # Autonomous-world contract linkage and evolution-safe current-authority checks.
 _pc=rj(ROOT/'state/reg/registry-process-contracts.json') or {}
-if _pc.get('schema')!='process-contract-registry.v39':err('process_contract_registry_schema')
+if _pc.get('schema')!='process-contract-registry':err('process_contract_registry_schema')
 _pcrecs=list((ROOT/'state/reg/process-contracts').glob('*.json'))
 if len(_pcrecs)!=_pc.get('record_count'):err(f'process_contract_count:{len(_pcrecs)}:{_pc.get("record_count")}')
 for _pcr in _pcrecs:
@@ -492,8 +492,10 @@ for _pth in (ROOT/'state').rglob('*.json'):
   for _r in _o.get('relationships',[]) if isinstance(_o.get('relationships'),list) else []:
    if isinstance(_r,dict) and _r.get('source')=='simulation_fill_noncanonical_acquaintance':err(f'synthetic_acquaintance_in_state:{_pth.relative_to(ROOT)}')
 _iface=(ROOT/'PLAYER_INTERFACE.md').read_text(encoding='utf-8') if (ROOT/'PLAYER_INTERFACE.md').exists() else ''
-for _phrase in ('OOC:','PREVIEW:','ORDER:','FORM UNIT','FORMATION SETUP','CHECKPOINT'):
+for _phrase in ('OOC:','No special gameplay command prefix is required.','FORM UNIT','FORMATION SETUP','CHECKPOINT'):
  if _phrase not in _iface:err(f'player_interface_missing:{_phrase}')
+for _phrase in ('PRE'+'VIEW:','OR'+'DER:'):
+ if _phrase in _iface:err(f'player_interface_obsolete_token:{_phrase}')
 _so_text=(ROOT/'state/order/standing-orders.json').read_text(encoding='utf-8')
 for _phrase in ('Project commands:','CONTINUE GAME','CHECKPOINT','Generated status cards'):
  if _phrase in _so_text:err(f'project_control_in_standing_orders:{_phrase}')
