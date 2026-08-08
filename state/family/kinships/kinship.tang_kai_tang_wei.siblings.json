@@ -14,13 +14,15 @@
   "status": "active",
   "recognition": {
     "recognized": true,
-    "basis": "preexisting saved Tang Kai relationship posture explicitly identified him as Tang Wei younger brother; unknown parents are not inferred"
+    "basis": "Tang Kai is Tang Wei's younger brother; their shared parentage by Tang Zhu and Tang Ling is now explicitly recorded"
   },
   "source_refs": [
     "state/char/tang-kai.json",
-    "state/rel/relationship-edges/char_tang_kai.json"
+    "state/rel/relationship-edges/char_tang_kai.json",
+    "state/family/parentage/parentage.tang_wei.birth_parents.json",
+    "state/family/parentage/parentage.tang_kai.birth_parents.json"
   ],
   "notes": [
-    "Migration preserves an already-saved sibling fact without inventing parent identities, birth order beyond younger/older, property rights, or succession consequences."
+    "The sibling relation is directly recognized and corroborated by explicit shared parentage; it creates no automatic property, office, command, or succession transfer."
   ]
 }
