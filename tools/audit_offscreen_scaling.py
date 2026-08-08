@@ -27,7 +27,6 @@ def text_files():
         yield p, rel
 
 
-# --- exact character owners ---
 char_files = sorted((ROOT / 'state/char').glob('*.json'))
 chars = []
 for p in char_files:
@@ -43,7 +42,6 @@ for p in char_files:
 player = load_json(ROOT / 'state/player.json') or {}
 player_id = player.get('id') or player.get('owner_id') or 'char_tang_wei'
 
-# Build repository reference map once.
 all_text = {}
 for p, rel in text_files():
     try:
@@ -59,9 +57,8 @@ IGNORE_REF_PREFIXES = (
     'schemas/',
     'data/runtime/templates/',
 )
-IGNORE_REF_FILES = {
-    'state/life/identity-life-course.json',
-}
+IGNORE_REF_FILES = {'state/life/identity-life-course.json'}
+
 
 def refs_for(cid: str | None, own_path: str | None = None):
     if not cid:
@@ -78,20 +75,17 @@ def refs_for(cid: str | None, own_path: str | None = None):
                 strong.append(rel)
     return sorted(refs), sorted(strong)
 
+
 exact_zero_strong = []
 exact_strong = []
 status_counts = Counter()
 for c in chars:
-    status_counts[c['runtime_status']] += 1
+    status_counts[str(c['runtime_status'] or '<none>')] += 1
     refs, strong = refs_for(c['id'], c['path'])
     c['refs'] = refs
     c['strong'] = strong
-    if strong:
-        exact_strong.append(c)
-    else:
-        exact_zero_strong.append(c)
+    (exact_strong if strong else exact_zero_strong).append(c)
 
-# --- deferred named identities ---
 roster_index = load_json(ROOT / 'state/char-roster/index.json') or {}
 roster_entries = []
 for p in sorted((ROOT / 'state/char-roster/shards').glob('*.json')):
@@ -114,17 +108,14 @@ roster_strong = [r for r in roster_entries if r['strong']]
 roster_zero_refs = [r for r in roster_entries if not r['refs']]
 roster_no_strong = [r for r in roster_entries if not r['strong']]
 
-# --- person-lite leftovers ---
 person_files = sorted((ROOT / 'state/person').rglob('*.json')) if (ROOT / 'state/person').exists() else []
 
-# --- current office/role structures ---
 office_key_hits = []
 role_key_hits = []
 for rel, text in all_text.items():
     if not rel.endswith('.json'):
         continue
-    d = load_json(ROOT / rel)
-    if d is None:
+    if load_json(ROOT / rel) is None:
         continue
     raw = text.lower()
     if any(k in raw for k in ('"office"', '"offices"', '"incumbent"', '"office_holder"', '"holder_id"')):
@@ -132,7 +123,6 @@ for rel, text in all_text.items():
     if any(k in raw for k in ('"role_slot"', '"role_slots"', '"vacancy"', '"succession"')):
         role_key_hits.append(rel)
 
-# --- fortification/state parity ---
 fort_keys = ['wall_height', 'artillery', 'ammunition', 'water', 'repair_stock', 'garrison', 'food_stock']
 fort_hits = defaultdict(list)
 for rel, text in all_text.items():
@@ -145,7 +135,6 @@ for rel, text in all_text.items():
 
 geo_files = sorted(p.relative_to(ROOT).as_posix() for p in (ROOT / 'state/geo').rglob('*.json')) if (ROOT / 'state/geo').exists() else []
 
-# --- rule history/version prose candidates ---
 rule_history = []
 release_terms = re.compile(r'\b(migration|deprecated|release|previous version|old version|legacy behavior|patch notes?)\b', re.I)
 for p in sorted((ROOT / 'rules').glob('*.md')):
@@ -153,7 +142,6 @@ for p in sorted((ROOT / 'rules').glob('*.md')):
         if release_terms.search(line):
             rule_history.append((p.relative_to(ROOT).as_posix(), i, line.strip()))
 
-# --- branches ---
 branch_rows = []
 try:
     subprocess.run(['git', 'fetch', 'origin', '+refs/heads/*:refs/remotes/origin/*', '--prune'], cwd=ROOT, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -164,14 +152,14 @@ try:
             continue
         counts = subprocess.check_output(['git', 'rev-list', '--left-right', '--count', f'origin/main...{ref}'], cwd=ROOT, text=True).strip().split()
         behind, ahead = map(int, counts)
-        anc = subprocess.run(['git', 'merge-base', '--is-ancestor', ref, 'origin/main'], cwd=ROOT).returncode == 0
+        anc = subprocess.run(['git', 'merge-base', '--is-ancestor', ref, 'origin/main']).returncode == 0
         branch_rows.append((name, behind, ahead, anc))
 except Exception as e:
     print('BRANCH_AUDIT_ERROR', repr(e))
 
 print('=== NAMED PEOPLE ===')
 print(f'exact_character_files={len(chars)} player_owner={player_id} deferred_named_identities={len(roster_entries)} person_lite_files={len(person_files)}')
-print('exact_runtime_status_counts=' + json.dumps(status_counts, sort_keys=True))
+print('exact_runtime_status_counts=' + json.dumps(dict(status_counts), sort_keys=True))
 print(f'exact_with_strong_state_refs={len(exact_strong)} exact_without_strong_state_refs={len(exact_zero_strong)}')
 print('EXACT_STRONG')
 for c in exact_strong:
@@ -186,7 +174,8 @@ print('ROSTER_STRONG')
 for r in roster_strong:
     print(f"  {r['id']} | {r['name']} | strong={','.join(r['strong'])}")
 print('ROSTER_ROUTING_COUNTS')
-print(json.dumps(Counter(r['activity_owner'] for r in roster_entries), sort_keys=True))
+routing_counts = Counter(str(r['activity_owner'] or '<none>') for r in roster_entries)
+print(json.dumps(dict(routing_counts), sort_keys=True))
 
 print('=== ROLE/OFFICE STRUCTURE ===')
 print(f'office_key_files={len(office_key_hits)} role_slot_or_succession_files={len(role_key_hits)}')
