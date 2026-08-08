@@ -18,6 +18,7 @@ VALIDATORS = [
     "tools/test_family.py",
     "tools/test_templates.py",
     "tools/test_routing.py",
+    "tools/test_current_identities.py",
 ]
 
 failed = []
