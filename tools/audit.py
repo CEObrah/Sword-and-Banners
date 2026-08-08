@@ -206,20 +206,20 @@ champ=list((ROOT/'state/person/wei').glob('*.json'))
 _role_profiles=(rj(ROOT/'data/people/role-profiles.json') or {}).get('profiles',{})
 for pth in champ:
  d=rj(pth) or {}
- if d.get('rank')!='household_champion':continue
+ if d.get('rank')!='tang_champion':continue
  _prof=_role_profiles.get(d.get('role_profile_ref'),{})
  _role=d.get('role',_prof.get('role'))
  _load=d.get('equipment_standard',_prof.get('equipment_standard'))
  _mount=d.get('mount',_prof.get('mount'))
  _loyal=d.get('loyalty',_prof.get('loyalty'))
- if _role!='guardian_cavalry':err(f'household_champion_role:{pth.name}')
- if _load!='loadout_house_guardian_cavalry':err(f'household_champion_loadout:{pth.name}')
- if _mount!='horse_tang_heavy_war':err(f'household_champion_mount:{pth.name}')
- if _loyal!='lifetime_vow':err(f'household_champion_loyalty:{pth.name}')
- if d.get('role_profile_ref')!='role.household_champion.guardian_cavalry':err(f'household_champion_role_profile:{pth.name}')
+ if _role!='tang_champion':err(f'tang_champion_role:{pth.name}')
+ if _load!='loadout_house_guardian_cavalry':err(f'tang_champion_loadout:{pth.name}')
+ if _mount!='horse_tang_heavy_war':err(f'tang_champion_mount:{pth.name}')
+ if _loyal!='lifetime_vow':err(f'tang_champion_loyalty:{pth.name}')
+ if d.get('role_profile_ref')!='role.tang_champion':err(f'tang_champion_role_profile:{pth.name}')
  s=d.get('stats',{}).get('skills',{})
  for k,v in {'Sword':150,'Spear':155,'Bow':150,'Shield':150,'Defense':160,'Riding':160,'Formation Fighting':155}.items():
-  if s.get(k,0)<v:err(f'household_champion_skill:{pth.name}:{k}')
+  if s.get(k,0)<v:err(f'tang_champion_skill:{pth.name}:{k}')
 # Institutions and independent forces validate their CURRENT internal conservation, never release-opening totals.
 for pth in (ROOT/'state/inst').glob('school-*.json'):
  d=rj(pth) or {}
