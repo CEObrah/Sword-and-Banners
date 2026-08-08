@@ -18,7 +18,9 @@ jobs:
           python-version: '3.12'
       - run: pip install jsonschema
       - name: Apply champion correction
-        run: python tools/maintenance_tang_champions.py
+        run: |
+          python tools/maintenance_tang_champions.py
+          python tools/maintenance_tang_champions_fixup.py
       - name: Validate corrected tree
         run: python tools/run_validators.py
       - name: Commit corrected tree
