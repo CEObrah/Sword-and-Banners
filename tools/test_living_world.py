@@ -27,8 +27,13 @@ if len(wa)<15:fail('event_archetype_count')
 if 'mission_templates' in load('state/contract/contracts-companions-projects.json'):fail('mission_templates_in_state')
 if load('state/event/living-world-events.json').get('events'):fail('event_templates_in_state')
 # Factions/staff are distinct enough to play.
-for f in load('state/reg/living-factions.json').get('factions',[]):
-    if not f.get('goals') or not f.get('resources') or not f.get('constraints'):fail('thin_faction:'+f.get('id',''))
+fidx=load('state/reg/living-factions.json')
+factions=[]
+for rel in fidx.get('record_index',{}).values():
+    factions.append(load(rel).get('faction',{}))
+if len(factions)<12:fail('living_faction_count')
+for f in factions:
+    if not f.get('goals') or not f.get('resources') or not f.get('constraints') or not f.get('current_plan'):fail('thin_faction:'+f.get('id',''))
 for p in (ROOT/'state/person/staff').glob('*.json'):
     d=json.loads(p.read_text(encoding='utf-8'))
     if not d.get('history',{}).get('service') or len(d.get('relationships',[]))<2:fail('thin_staff:'+p.name)
