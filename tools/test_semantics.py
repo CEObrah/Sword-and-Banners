@@ -143,7 +143,6 @@ if router.get('schema')!='runtime-rule-router.v2':err('rule_router_v2')
 for name,rels in router.get('domains',{}).items():
     if 'RUNTIME.md' in rels or 'VOICE.md' in rels:err(f'router_reloads_startup:{name}')
     size=sum((R/x).stat().st_size for x in rels if (R/x).exists())
-    if size>40000:print(f'CONTEXT ADVISORY: router domain {name} is {size} bytes; split only if retrieval can be narrowed without losing required mechanics')
 # Loadouts use direct one-record routing so known IDs never require a full catalog shard.
 li=rj('data/loadouts.json')
 if li.get('schema')!='loadouts-index.v3' or li.get('path_template')!='data/loadout-records/{loadout_id}.json':err('loadout_direct_routing')
@@ -209,8 +208,6 @@ if _rng.get('model_sampling_forbidden') is not True:err('rng_model_sampling_forb
 mapd=rj('data/runtime/repository-map.json'); routes=all_routes(mapd)
 for k in ('command_capacity','unit_partition','mass_battle','npc_development','unit_development','equipment'):
     if k not in routes:err(f'map_route_missing:{k}')
-if (R/'data/runtime/repository-map.json').stat().st_size>14000:print(f"CONTEXT ADVISORY: repository-map.json is {(R/'data/runtime/repository-map.json').stat().st_size} bytes")
-if (R/'RUNTIME.md').stat().st_size>8000:print(f"CONTEXT ADVISORY: RUNTIME.md is {(R/'RUNTIME.md').stat().st_size} bytes")
 
 
 # Sparse family/life-course authority must be routed and separate from relationships/reputation.

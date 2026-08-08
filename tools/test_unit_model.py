@@ -93,10 +93,6 @@ for p in R.rglob('*'):
         try:t=p.read_text(encoding='utf-8').lower()
         except:continue
         if 'cohort' in t:err(f'retired_term_text:{p.relative_to(R)}')
-# Context-size advisory only. Correctness and sufficient instructions take priority over a fixed byte ceiling.
-for rel,advisory in [('RUNTIME.md',8000),('data/runtime/repository-map.json',12000),('VOICE.md',8000)]:
-    size=(R/rel).stat().st_size
-    if size>advisory:print(f'CONTEXT ADVISORY: {rel} is {size} bytes (soft target {advisory}); review only if duplication can be removed safely')
 # Machine map explicit listed paths resolve; no fake selected-owner path.
 m=rj('data/runtime/repository-map.json')
 for key,route in all_routes(m).items():
