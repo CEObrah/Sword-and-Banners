@@ -68,7 +68,7 @@ Routine maintenance reserve is calculated by `data/mechanics/economy.json`.
 Operating-mode maintenance factors are defined only in `data/mechanics/economy.json`. Maintenance is realized only when labor, tools, materials, access, and time are committed.
 ## Canonical position modifiers
 
-`rules/combat.md`, `rules/combat.md`, `rules/combat.md`, and `rules/battle.md` own combat resolution. Catalog circumstances map only to the fixed positional levels in `data/mechanics/combat.json`; physically impossible reach, clearance, footing, perception, or method makes the action illegal rather than creating an unbounded modifier.
+`rules/combat.md` and `rules/battle.md` own combat resolution. Catalog circumstances map only to the fixed positional levels in `data/mechanics/combat.json`; physically impossible reach, clearance, footing, perception, or method makes the action illegal rather than creating an unbounded modifier.
 
 Examples: a small reach edge is minor; a stable flank is major; a genuinely undetected rear attack is decisive until detection; a prepared spear line is clear or major according to completed formation state; awkward but legal clearance is minor/clear; impossible minimum range is illegal. Fatigue and injuries normally act through usable values, not a second duplicate flat penalty.
 

@@ -228,13 +228,11 @@ When an important person dies or becomes unable to act, the vacancy procedure se
 Ordinary troops are not pre-named for narrative decoration. Exact identity follows `rules/agency.md`; a new name must correspond to one real person and one causal need.
 
 
-## canonical-name narration
-
 ## Deferred-detail canonical identities
 
 The canonical named roster is current state under `state/char-roster/index.json` and its routed shards. Do not hard-code roster counts in rules; derive the current count from that index. Deferred-detail representation is a retrieval representation, not dormancy or nonexistence.
 
-A cold-active canonical identity keeps one canonical display name and world route/source. It does not own fabricated exact statistics, inventory, office, location, knowledge or personal clock until causal evidence requires materialization. When materialized, resolve a lawful source institution/unit/population slot, conserve one real person, reconstruct supported life/development/history, and preserve the canonical identity.
+A deferred-detail canonical identity keeps one canonical display name and world route/source. It does not own fabricated exact statistics, inventory, office, location, knowledge or personal clock until causal evidence requires materialization. When materialized, resolve a lawful source institution/unit/population slot, conserve one real person, reconstruct supported life/development/history, and preserve the canonical identity.
 
 Deferred-detail identities receive no free progression and do not freeze. Their ordinary aging, occupation, training, health exposure and career movement are covered through source owner/institution/unit aggregate processes. Direct command, office, travel, interaction, injury, capture, investigation or another exact dependency wakes the person into exact/lite process coverage.
 
@@ -255,7 +253,7 @@ A deferred-detail identity materializes only after a lawful source route and exi
 
 ## Development parity
 
-Every person develops through real activity. Exact/lite people use exact activity contracts. Cold active identities receive only source-owner-supported aging, training, experience, health exposure and career movement through force/court/institution/unit/population processes. Materialization reconstructs that supported history without double-awarding time, credits, injury or equipment.
+Every person develops through real activity. Exact/lite people use exact activity contracts. Deferred-detail identities receive only source-owner-supported aging, training, experience, health exposure and career movement through force/court/institution/unit/population processes. Materialization reconstructs that supported history without double-awarding time, credits, injury or equipment.
 
 ## Scheduler rule
 
@@ -274,4 +272,4 @@ No successor receives free competence, history, equipment, loyalty, survival, or
 
 ## canonical-name narration
 
-Every full capability-profile identity, active exact external actor, routed named identity, and cold-active routed identity retains one canonical display name. Whenever the identity is legitimately referenced, reported, encountered, or materialized, narration uses that canonical name. Deferred-detail representation suppresses irrelevant loading, not the name.
+Every full capability-profile identity, active exact external actor, and deferred-detail routed identity retains one canonical display name. Whenever the identity is legitimately referenced, reported, encountered, or materialized, narration uses that canonical name. Deferred-detail representation suppresses irrelevant loading, not the name.
