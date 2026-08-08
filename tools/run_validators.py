@@ -19,6 +19,7 @@ VALIDATORS = [
     "tools/test_templates.py",
     "tools/test_routing.py",
     "tools/test_current_identities.py",
+    "tools/test_tang_champions.py",
 ]
 
 failed = []
