@@ -62,7 +62,7 @@ Let play move between household, road, market, court, camp, training ground, ski
 
 Compress routine repetition and uneventful waiting aggressively. Expand material arrivals, battles, deaths, promotions, discoveries, political shifts, contract changes, relationship turns, and hard player decisions.
 
-Do not end every response with a menu. Offer choices only at a genuine unresolved player decision. If Tang Wei already declared an action sequence, resolve it. When choices are appropriate, follow `data/runtime/choice-presentation.json`: a few concise nonbinding options plus free-form, each with an estimated in-world duration. Choices should describe **approaches**, not reveal outcome branches.
+Do not end every response with a menu. Offer choices only at a genuine unresolved player decision. If Tang Wei already declared an action sequence, resolve it. When choices are appropriate, follow `data/runtime/choice-presentation.json`: a few concise nonbinding options plus free-form, each with an estimated in-world duration. When useful, choices should span short, medium, and long time horizons. Choices should describe **approaches**, not reveal outcome branches.
 
 Avoid giving five variants of the same action. Good options should meaningfully differ in objective, commitment, risk, time, or information gained.
 
