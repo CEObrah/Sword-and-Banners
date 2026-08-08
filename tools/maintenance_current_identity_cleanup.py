@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import json
-import os
 import re
 from pathlib import Path
 
@@ -41,19 +40,13 @@ def safe_rename(old_rel, new_rel):
 
 def main():
     idx = load_json(IDX)
-    shard_docs = {}
     sid_map = {}
     path_map = {}
-
     for _, rel in idx['shards'].items():
-        p = ROOT / rel
-        doc = load_json(p)
-        shard_docs[rel] = doc
+        doc = load_json(ROOT / rel)
         for sid, ent in list(doc.get('templates', {}).items()):
             if ent.get('scope') == 'mutable_state' and RELEASE_RE.search(sid):
                 new_sid = RELEASE_RE.sub('', sid)
-                if new_sid == sid:
-                    continue
                 sid_map[sid] = new_sid
                 for key in ('path','source_schema'):
                     old_path = ent.get(key)
@@ -66,14 +59,10 @@ def main():
         print('No mutable v38/v39 schema identities remain.')
         return 0
 
-    # Rename only files registered as the structural/formal authorities for affected mutable schemas.
     for old_rel, new_rel in sorted(path_map.items(), key=lambda x: len(x[0]), reverse=True):
         safe_rename(old_rel, new_rel)
 
-    # Rewrite exact schema identities and registered authority paths across current text authorities/state.
-    replacements = {}
-    replacements.update(sid_map)
-    replacements.update(path_map)
+    replacements = {**sid_map, **path_map}
     for path in ROOT.rglob('*'):
         if not path.is_file() or '.git' in path.parts or path.suffix.lower() not in TEXT_EXTS:
             continue
@@ -84,14 +73,12 @@ def main():
         if new != text:
             path.write_text(new, encoding='utf-8')
 
-    # Re-key the template shards deterministically after text replacement.
     idx = load_json(IDX)
     for _, rel in idx['shards'].items():
         p = ROOT / rel
         doc = load_json(p)
-        templates = doc.get('templates', {})
         out = {}
-        for sid, ent in templates.items():
+        for sid, ent in doc.get('templates', {}).items():
             new_sid = sid_map.get(sid, sid)
             if new_sid in out and out[new_sid] != ent:
                 raise SystemExit(f'template key collision: {sid} -> {new_sid}')
@@ -99,8 +86,6 @@ def main():
         doc['templates'] = dict(sorted(out.items()))
         dump_json(p, doc)
 
-    # Remove obsolete PREVIEW:/ORDER: interface tokens. OOC remains the explicit nonpersistent marker;
-    # ordinary in-world natural-language declarations are gameplay instructions.
     runtime = ROOT / 'RUNTIME.md'
     rt = runtime.read_text(encoding='utf-8')
     old = '`OOC:` never persists. `PREVIEW:` computes without persistence. `ORDER:` expresses in-world intent but still requires authority, mechanics, time, validation, and successful save. Questions/brainstorming are not orders.'
@@ -116,12 +101,29 @@ def main():
     if old_block not in pt:
         raise SystemExit('PLAYER_INTERFACE intent block not found')
     pt = pt.replace(old_block, new_block)
-    pt = pt.replace('`PREVIEW REORGANIZATION`', '`REORGANIZATION REVIEW`')
-    pt = pt.replace('`PREVIEW:`', '`OOC:`')
-    pt = pt.replace('`ORDER: ', '`')
+    pt = pt.replace('PREVIEW REORGANIZATION', 'REORGANIZATION REVIEW')
+    pt = pt.replace('PREVIEW:', 'OOC:')
+    pt = pt.replace('ORDER:', '')
     pi.write_text(pt, encoding='utf-8')
 
-    # Current docs/tests must not depend on the removed interface tokens.
+    # Intent regression fixture now tests OOC versus ordinary natural-language action.
+    intent_path = ROOT / 'tests/interface-intent.json'
+    intent = load_json(intent_path)
+    intent['cases'] = [
+        {'input':'OOC: Would this officer be a good future commander?','expected_persistence':False},
+        {'input':'OOC: Calculate a formation from my currently assigned troops.','expected_persistence':False},
+        {'input':'Adopt the reviewed formation using only troops lawfully assigned to me.','expected_persistence':'normal_transaction_required'}
+    ]
+    dump_json(intent_path, intent)
+
+    audit = ROOT / 'tools/audit.py'
+    at = audit.read_text(encoding='utf-8')
+    old_audit = "for _phrase in ('OOC:','PREVIEW:','ORDER:','FORM UNIT','FORMATION SETUP','CHECKPOINT'):\n if _phrase not in _iface:err(f'player_interface_missing:{_phrase}')"
+    new_audit = "for _phrase in ('OOC:','No special gameplay command prefix is required.','FORM UNIT','FORMATION SETUP','CHECKPOINT'):\n if _phrase not in _iface:err(f'player_interface_missing:{_phrase}')\nfor _phrase in ('PREVIEW:','ORDER:'):\n if _phrase in _iface:err(f'player_interface_obsolete_token:{_phrase}')"
+    if old_audit not in at:
+        raise SystemExit('audit interface-token contract not found')
+    audit.write_text(at.replace(old_audit, new_audit), encoding='utf-8')
+
     leftovers = []
     for path in ROOT.rglob('*'):
         if not path.is_file() or '.git' in path.parts or path.suffix.lower() not in TEXT_EXTS:
