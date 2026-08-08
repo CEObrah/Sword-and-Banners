@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json,os,glob,sys
+from blank_owner_template import build_blank_creation_plan
 
 def jtype(v):
     if v is None:return 'null'
@@ -82,6 +83,34 @@ def validate_template_schema_coverage(repo,sid,ent,contract,errors):
             missing=set(keys)-set(con.get('allowed_keys',[]))
             if missing: errors.append(f'{ent["path"]}: schema {sid} fields absent from template at {path or "/"}: {sorted(missing)}')
 
+def validate_blank_creation_plan(sid,contract,errors):
+    try:
+        a=build_blank_creation_plan(contract); b=build_blank_creation_plan(contract)
+    except Exception as exc:
+        errors.append(f'{sid}: blank creation plan failed: {exc}'); return
+    if a!=b: errors.append(f'{sid}: blank creation plan is nondeterministic')
+    if a.get('target_schema')!=sid: errors.append(f'{sid}: blank target mismatch')
+    doc=a.get('document')
+    if not isinstance(doc,dict): errors.append(f'{sid}: blank document is not object'); return
+    if doc.get('schema')!=sid: errors.append(f'{sid}: blank document missing exact schema discriminator')
+    root=contract.get('object_contracts',{}).get('',{})
+    if root.get('mode')=='closed':
+        extra=set(doc)-set(root.get('allowed_keys',[]))
+        if extra: errors.append(f'{sid}: blank document has unregistered keys {sorted(extra)}')
+    unresolved={x.get('path'):x for x in a.get('required_inputs',[]) if isinstance(x,dict)}
+    tc=contract.get('type_contracts',{})
+    for key in contract.get('required_top_level_keys',[]):
+        if key=='schema': continue
+        path='/'+key; types=tc.get(path,[])
+        if 'object' in types or 'array' in types:
+            if key not in doc: errors.append(f'{sid}: blank missing required container {path}')
+        elif path not in unresolved:
+            errors.append(f'{sid}: blank missing unresolved required scalar {path}')
+    for key,value in doc.items():
+        if key=='schema': continue
+        if not isinstance(value,(dict,list)):
+            errors.append(f'{sid}: blank guessed scalar value at /{key}')
+
 def main(repo):
     errors=[];checked=0;entries=load_schema_templates(repo)
     for p in glob.glob(os.path.join(repo,'state','**','*.json'),recursive=True):
@@ -91,6 +120,7 @@ def main(repo):
         if not isinstance(sid,str): errors.append(f'{rel}: mutable state missing schema');continue
         ent=entries.get(sid)
         if not ent: errors.append(f'{rel}: schema {sid!r} has no registered template');continue
+        if ent.get('scope')!='mutable_state': errors.append(f'{rel}: schema {sid!r} is not registered mutable_state')
         tp=os.path.join(repo,ent['path'])
         if not os.path.exists(tp):errors.append(f'{rel}: missing template {ent["path"]}');continue
         validate_doc(rel,d,json.load(open(tp)),errors);checked+=1
@@ -144,17 +174,21 @@ def main(repo):
             rel=spec if isinstance(spec,str) else spec.get('path') if isinstance(spec,dict) else None
             if not rel or not os.path.exists(os.path.join(repo,rel)):errors.append(f'narration module {mid}: missing {rel}')
             elif rel in ('VOICE.md','RUNTIME.md'):errors.append(f'narration module {mid}: illegally reloads hot startup file')
+    blank_checked=0
     for sid,ent in entries.items():
         tp=os.path.join(repo,ent['path'])
         if not os.path.exists(tp):errors.append(f'template index missing {ent["path"]}');continue
         c=json.load(open(tp))
         if c.get('schema')!='file-template.v1' or c.get('target_schema')!=sid or c.get('unknown_key_policy')!='reject':errors.append(f'{ent["path"]}: malformed structural template')
         validate_template_schema_coverage(repo,sid,ent,c,errors)
+        if ent.get('scope')=='mutable_state' or c.get('scope')=='mutable_state':
+            if ent.get('scope')!='mutable_state' or c.get('scope')!='mutable_state': errors.append(f'{sid}: mutable scope mismatch between index and template')
+            validate_blank_creation_plan(sid,c,errors);blank_checked+=1
     if errors:
         print('TEMPLATE CONTRACT FAIL',len(errors))
         for e in errors[:250]:print('-',e)
         if len(errors)>250:print('...',len(errors)-250,'more')
         return 1
-    print(f'TEMPLATE CONTRACT OK: {checked} mutable owners; {static_checked} schema-bearing static files; {path_checked} schema-less path-contracted files; {len(entries)} registered structure templates')
+    print(f'TEMPLATE CONTRACT OK: {checked} mutable owners; {static_checked} schema-bearing static files; {path_checked} schema-less path-contracted files; {len(entries)} registered structure templates; {blank_checked} deterministic mutable blank creation plans')
     return 0
 if __name__=='__main__':raise SystemExit(main(sys.argv[1] if len(sys.argv)>1 else '.'))
