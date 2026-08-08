@@ -142,7 +142,6 @@ router=rj('data/runtime/rule-router.json')
 if router.get('schema')!='runtime-rule-router.v2':err('rule_router_v2')
 for name,rels in router.get('domains',{}).items():
     if 'RUNTIME.md' in rels or 'VOICE.md' in rels:err(f'router_reloads_startup:{name}')
-    size=sum((R/x).stat().st_size for x in rels if (R/x).exists())
 # Loadouts use direct one-record routing so known IDs never require a full catalog shard.
 li=rj('data/loadouts.json')
 if li.get('schema')!='loadouts-index.v3' or li.get('path_template')!='data/loadout-records/{loadout_id}.json':err('loadout_direct_routing')

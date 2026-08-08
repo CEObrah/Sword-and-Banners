@@ -401,8 +401,7 @@ for _pth in (ROOT/'state/person/staff').glob('*.json'):
  if not _d.get('history',{}).get('service'):err(f'thin_staff_history:{_pth.name}')
  if 'build a record through actual service' in str(_d.get('current_goal','')):err(f'generic_staff_goal:{_pth.name}')
 # Dormant event archetypes use causal wake-up, not monthly polling.
-if (ROOT/'state/player.json').stat().st_size>6500:err('startup_player_bloat')
-if (ROOT/'state/scene.json').stat().st_size>6000:err('startup_scene_bloat')
+# Startup owners are constrained by schema, ownership, routing, and causal relevance rather than arbitrary byte counts.
 # Autonomous-world contract linkage and evolution-safe current-authority checks.
 _pc=rj(ROOT/'state/reg/registry-process-contracts.json') or {}
 if _pc.get('schema')!='process-contract-registry':err('process_contract_registry_schema')

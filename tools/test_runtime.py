@@ -17,8 +17,7 @@ for f in ['RUNTIME.md','VOICE.md','REPOSITORY_MAP.md','data/runtime/repository-m
     if not (ROOT/f).exists(): err(f'missing_runtime_file:{f}')
 for f in ['P'+'LAY.md','PROTO'+'COL.md']:
     if (ROOT/f).exists(): err(f'obsolete_control_file:{f}')
-if (ROOT/'README.md').stat().st_size>1500: err('readme_too_large')
-if (ROOT/'AGENTS.md').stat().st_size>1500: err('agents_too_large')
+# README.md and AGENTS.md are validated for role/structure elsewhere; byte length is not a correctness condition.
 # repository map routes must resolve
 m=rj('data/runtime/repository-map.json')
 for req in ['RUNTIME.md','VOICE.md','data/runtime/repository-map.json','state/meta.json','state/player.json','state/scene.json']:

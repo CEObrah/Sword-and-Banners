@@ -1,10 +1,5 @@
 name: audit
-on:
-  push:
-    branches:
-      - maintenance/remove-artificial-byte-caps-r17
-permissions:
-  contents: write
+on: [push, pull_request]
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -14,16 +9,5 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema
-      - name: Remove remaining artificial byte caps
-        run: python tools/remove_remaining_byte_caps.py
       - name: Run full validator stack
         run: python tools/run_validators.py
-      - name: Commit validated byte-cap removal
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "Remove remaining artificial byte-size correctness gates"
-            git push origin HEAD:maintenance/remove-artificial-byte-caps-r17
-          fi
