@@ -1,99 +1,15 @@
 {
   "schema": "independent-force.v38",
   "raiders": {
-    "Black Ravine": {
-      "armed": 700,
-      "composition": {
-        "raiders": 470,
-        "skirmisher_archers": 130,
-        "veteran_enforcers": 80,
-        "command_personnel": 20
-      },
-      "home_establishment_ref": "establishment.local.raider.black_ravine",
-      "formation_library_ref": "formation.raider.standard",
-      "reconstitution_policy_ref": "reconstitution.raider",
-      "standing_procedure_ref": "procedure.raider.standard"
-    },
-    "Red Marsh": {
-      "armed": 500,
-      "composition": {
-        "raiders": 320,
-        "river_scouts": 100,
-        "veterans": 65,
-        "command_personnel": 15
-      },
-      "home_establishment_ref": "establishment.local.raider.red_marsh",
-      "formation_library_ref": "formation.raider.standard",
-      "reconstitution_policy_ref": "reconstitution.raider",
-      "standing_procedure_ref": "procedure.raider.standard"
-    },
-    "Broken Cart": {
-      "armed": 350,
-      "composition": {
-        "raiders": 230,
-        "scouts": 70,
-        "veterans": 40,
-        "command_personnel": 10
-      },
-      "home_establishment_ref": "establishment.local.raider.broken_cart",
-      "formation_library_ref": "formation.raider.standard",
-      "reconstitution_policy_ref": "reconstitution.raider",
-      "standing_procedure_ref": "procedure.raider.standard"
-    },
-    "White Fang": {
-      "armed": 800,
-      "composition": {
-        "raiders": 500,
-        "mounted_raiders": 130,
-        "scouts": 120,
-        "command_personnel": 50
-      },
-      "home_establishment_ref": "establishment.local.raider.white_fang",
-      "formation_library_ref": "formation.raider.standard",
-      "reconstitution_policy_ref": "reconstitution.raider",
-      "standing_procedure_ref": "procedure.raider.standard"
-    }
+    "Black Ravine": {"armed":700,"composition":{"raiders":470,"skirmisher_archers":130,"veteran_enforcers":80,"command_personnel":20},"home_establishment_ref":"establishment.local.raider.black_ravine","formation_library_ref":"formation.raider.standard","reconstitution_policy_ref":"reconstitution.raider","standing_procedure_ref":"procedure.raider.standard"},
+    "Red Marsh": {"armed":500,"composition":{"raiders":320,"river_scouts":100,"veterans":65,"command_personnel":15},"home_establishment_ref":"establishment.local.raider.red_marsh","formation_library_ref":"formation.raider.standard","reconstitution_policy_ref":"reconstitution.raider","standing_procedure_ref":"procedure.raider.standard"},
+    "Broken Cart": {"armed":350,"composition":{"raiders":230,"scouts":70,"veterans":40,"command_personnel":10},"home_establishment_ref":"establishment.local.raider.broken_cart","formation_library_ref":"formation.raider.standard","reconstitution_policy_ref":"reconstitution.raider","standing_procedure_ref":"procedure.raider.standard"},
+    "White Fang": {"armed":800,"composition":{"raiders":500,"mounted_raiders":130,"scouts":120,"command_personnel":50},"home_establishment_ref":"establishment.local.raider.white_fang","formation_library_ref":"formation.raider.standard","reconstitution_policy_ref":"reconstitution.raider","standing_procedure_ref":"procedure.raider.standard"}
   },
   "communities": {
-    "Three Passes": {
-      "armed": 2200,
-      "composition": {
-        "fortification_infantry": 1050,
-        "crossbowmen": 600,
-        "engineers": 250,
-        "pass_scouts": 300
-      },
-      "home_establishment_ref": "establishment.local.community.three_passes",
-      "formation_library_ref": "formation.local_defense.standard",
-      "reconstitution_policy_ref": "reconstitution.local_defense",
-      "standing_procedure_ref": "procedure.local_defense.standard"
-    },
-    "Silver Ford": {
-      "armed": 1800,
-      "composition": {
-        "merchant_watch": 700,
-        "river_guards": 500,
-        "crossbows": 350,
-        "mounted_couriers": 250
-      },
-      "home_establishment_ref": "establishment.local.community.silver_ford",
-      "formation_library_ref": "formation.local_defense.standard",
-      "reconstitution_policy_ref": "reconstitution.local_defense",
-      "standing_procedure_ref": "procedure.local_defense.standard"
-    },
-    "Pine Border": {
-      "armed": 1600,
-      "composition": {
-        "clan_infantry": 750,
-        "archers": 350,
-        "scouts": 300,
-        "riders": 200
-      },
-      "home_establishment_ref": "establishment.local.community.pine_border",
-      "formation_library_ref": "formation.local_defense.standard",
-      "reconstitution_policy_ref": "reconstitution.local_defense",
-      "standing_procedure_ref": "procedure.local_defense.standard"
-    }
+    "Three Passes": {"armed":2200,"composition":{"fortification_infantry":1050,"crossbowmen":600,"engineers":250,"pass_scouts":300},"home_establishment_ref":"establishment.local.community.three_passes","formation_library_ref":"formation.local_defense.standard","reconstitution_policy_ref":"reconstitution.local_defense","standing_procedure_ref":"procedure.local_defense.standard"},
+    "Silver Ford": {"armed":1550,"composition":{"merchant_watch":700,"river_guards":500,"crossbows":350},"home_establishment_ref":"establishment.local.community.silver_ford","formation_library_ref":"formation.local_defense.standard","reconstitution_policy_ref":"reconstitution.local_defense","standing_procedure_ref":"procedure.local_defense.standard"},
+    "Pine Border": {"armed":1600,"composition":{"clan_infantry":750,"archers":350,"scouts":300,"riders":200},"home_establishment_ref":"establishment.local.community.pine_border","formation_library_ref":"formation.local_defense.standard","reconstitution_policy_ref":"reconstitution.local_defense","standing_procedure_ref":"procedure.local_defense.standard"}
   },
   "balance_rule": "terrain, fortification, surprise, and local information modify effectiveness; raw troop stats are not inflated to encode location advantage"
 }
