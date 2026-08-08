@@ -11,5 +11,7 @@ jobs:
       - run: pip install jsonschema
       - name: Audit semantic IDs and contract generations
         run: python tools/audit_semantic_ids_and_contract_generations.py
+      - name: Audit superseded creation generations
+        run: python tools/audit_superseded_creation_generations.py
       - name: Run full validator stack
         run: python tools/run_validators.py
