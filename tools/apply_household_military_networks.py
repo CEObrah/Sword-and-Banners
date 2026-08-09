@@ -30,9 +30,10 @@ template_shard.setdefault("templates", {})["household-military-network-registry"
 save("data/runtime/template-index-shards/h.json", template_shard)
 
 # System contract owns the new registry and its invariants.
-forces = load("data/runtime/system-contracts/forces_institutions.json")n=forces["owner_templates"]
-if "household-military-network-registry" not in n:
-    n.append("household-military-network-registry")
+forces = load("data/runtime/system-contracts/forces_institutions.json")
+owner_templates = forces["owner_templates"]
+if "household-military-network-registry" not in owner_templates:
+    owner_templates.append("household-military-network-registry")
 new_invariants = [
     "State-issued command and state manpower remain separate from private household or personal-retainer ownership.",
     "Profile-only household military networks own no exact manpower, equipment or combat capability and cannot fight.",
@@ -67,7 +68,6 @@ actual_count = 0
 for rel in owners["prefix_index"].values():
     shard = load(rel)
     actual_count += len(shard.get("owners", {}))
-# The force shard on disk now includes the new owner.
 owners["owner_count"] = actual_count
 save("state/index/owners.json", owners)
 
