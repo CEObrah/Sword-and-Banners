@@ -35,6 +35,16 @@ for loc in ("loc_kanyou","loc_kankoku_pass","loc_gyou"):
     if not s or s.get("materialization_state")!="profile_only": fail("fort_profile:"+loc)
     if "defense_state" in (s or {}): fail("invented_fort_detail:"+loc)
 if "materialize" not in (R/"rules/siege.md").read_text(encoding="utf-8").lower(): fail("siege_materialization_rule")
+cov=rj("data/runtime/coverage-requirements.json")
+if "roster.canon_active_world" in cov.get("required_owner_ids",[]): fail("dead_roster_coverage_requirement")
+if "institution_role_slots" not in cov.get("required_owner_ids",[]): fail("role_slots_not_required_live")
+frontier=rj("state/time/frontier.json")
+fp={p.get("id"):p for p in frontier.get("processes",[])}
+if "process_active_canon_roster_monthly" in fp: fail("dead_roster_process_in_frontier")
+ops=fp.get("process_house_tang_operations_aggregate") or {}
+if "institution_role_slots" not in ops.get("coverage",[]): fail("role_slots_not_covered")
+for rel in ("state/process-state/process-active-canon-roster-monthly.json","state/reg/process-contracts/process_active_canon_roster_monthly.json"):
+    if (R/rel).exists(): fail("dead_roster_process_file:"+rel)
 if errs:
     print("OFFSCREEN SCALING TEST FAILED")
     for e in errs: print("-",e)
