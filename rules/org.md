@@ -54,3 +54,10 @@ The commander of a command group remains a real combat-capable person. If presen
 
 Ordinary recruitment is a conserved aggregate transfer from an exact source owner stratum or manpower pool into an accounting pool or homogeneous unit. Recruitment never creates one person record per recruit. The destination inherits source capability and demographic inputs when causally relevant. A named standout, commander, specialist, prisoner, casualty, award recipient, or recurring NPC materializes only through a separate transaction that identifies one real surviving body exactly once.
 
+## Household and personal military networks
+
+State command, household ownership, and personal-retainer loyalty are separate authorities. A general may command state troops while also belonging to or maintaining a smaller enduring household or personal-retainer network; commanding state manpower never converts it into private property.
+
+`state/force/household-military-networks.json` owns recognized household/personal-network profiles and references to any exact materialized private forces. A `profile_only` network records existence/classification only: it has no exact headcount, composition, training, equipment, horses, supplies or combat capability and cannot fight. Exact forces materialize only through lawful population/manpower sources, wealth or treasury support, equipment/horse/supply sources, political/legal authority, elapsed organization/training where required, and normal conservation transactions. Missing source evidence fails closed.
+
+Household military quality is derived from real source population, selection, training, equipment, resources and history. No noble house receives House Tang capability by analogy. Royal households must resolve crown/palace state manpower separately from genuinely dynastic/private retainers before ownership is persisted. Personal troops, house troops, state troops, mercenaries and allies remain distinct ownership classes even when temporarily combined under one command tree.
