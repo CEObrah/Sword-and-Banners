@@ -25,6 +25,7 @@ VALIDATORS = [
     "tools/test_population_sources.py",
     "tools/test_offscreen_scaling.py",
     "tools/test_household_military_networks.py",
+    "tools/test_command_staff_roles.py",
 ]
 
 failed = []

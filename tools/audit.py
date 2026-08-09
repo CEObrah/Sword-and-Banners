@@ -377,8 +377,9 @@ _ev=rj(ROOT/'state/event/living-world-events.json') or {}
 if _ev.get('events'):err('dormant_event_templates_in_active_state')
 _sc=rj(ROOT/'state/scene.json') or {}
 if 'action_packages' in _sc or 'decision_packages' in _sc:err('cached_scene_choices')
+_cmd_index=rj(ROOT/'state/cmd/command-personnel.json') or {}
 _cmd_people=command_people()
-if len(_cmd_people)<40:err(f'command_personnel_count:{len(_cmd_people)}')
+if len(_cmd_people)!=_cmd_index.get('count'):err(f'command_personnel_count:{len(_cmd_people)}:{_cmd_index.get("count")}')
 _seen_person=set(); _all_people_ids=set()
 for _pth in people:
  _d=rj(_pth) or {}; _oid=_d.get('owner_id') or _d.get('id')

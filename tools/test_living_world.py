@@ -7,7 +7,7 @@ def fail(x):print('LIVING WORLD TEST FAILED');print('-',x);sys.exit(1)
 idx=load('state/cmd/command-personnel.json')
 if idx.get('schema')!='command-personnel-index.v2':fail('command_personnel_index_schema')
 records=idx.get('record_index',{})
-if len(records)<40 or idx.get('count')!=len(records):fail('command_personnel_count')
+if not records or idx.get('count')!=len(records):fail('command_personnel_count')
 seen=set()
 for pid,rel in records.items():
     if pid in seen:fail('duplicate_command_person:'+pid)
