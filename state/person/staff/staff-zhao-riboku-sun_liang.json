@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite",
+  "id": "staff.zhao.riboku.sun_liang",
+  "name": "Sun Liang",
+  "resolution": "individual_lite",
+  "owner": "army.riboku_command",
+  "family_id": "fam.sun_liang",
+  "origin": "Zhao",
+  "rank": "named_staff_officer",
+  "role": "cavalry staff officer",
+  "stats": {
+    "attributes": {
+      "Strength": 86,
+      "Agility": 84,
+      "Endurance": 89,
+      "Toughness": 89,
+      "Coordination": 94,
+      "Awareness": 80,
+      "Composure": 86,
+      "Intelligence": 85,
+      "Presence": 90
+    },
+    "skills": {
+      "Sword": 78,
+      "Spear": 84,
+      "Glaive": 80,
+      "Axe": 102,
+      "Mace": 103,
+      "Staff": 80,
+      "Dagger": 100,
+      "Bow": 88,
+      "Crossbow": 81,
+      "Shield": 79,
+      "Defense": 95,
+      "Athletics": 85,
+      "Mass Combat": 96,
+      "Grappling": 97,
+      "Unarmed": 76,
+      "Riding": 91,
+      "Formation Fighting": 105,
+      "Survival": 80,
+      "Stealth": 93,
+      "Scouting": 75,
+      "Navigation": 75,
+      "Medicine": 84,
+      "Engineering": 75,
+      "Leadership": 103,
+      "Formation Command": 130,
+      "Tactics": 130,
+      "Strategy": 96,
+      "Logistics": 92,
+      "Intelligence Operations": 67,
+      "Training": 93,
+      "Diplomacy": 96,
+      "Law": 102,
+      "Trade": 96,
+      "Intrigue": 77,
+      "Governance": 80
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Zhao",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in cavalry staff officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "273-BCE-08-27",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 176.0,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 66.8,
+    "frame": "average",
+    "source": "simulation_assigned"
+  },
+  "appearance": 43,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 134,
+    "technical_learning": 155,
+    "tactical_learning": 119,
+    "academic_learning": 111,
+    "social_learning": 88,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "energetic",
+      "terrain-aware",
+      "protective of horses"
+    ],
+    "preferences": [
+      "fresh remounts",
+      "open maneuver space"
+    ],
+    "dislikes": [
+      "wasted pursuit",
+      "poor fodder planning"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.riboku_command",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_riboku",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "keep cavalry useful for reconnaissance, concentration, pursuit, and screening without exhausting mounts",
+  "background": "Persistent named cavalry staff officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.zhao.riboku.sun_liang.json"
+}

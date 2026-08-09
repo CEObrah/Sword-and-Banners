@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite",
+  "id": "staff.qin.tou.guo_zhen",
+  "name": "Guo Zhen",
+  "resolution": "individual_lite",
+  "owner": "army.tou_army",
+  "family_id": "fam.guo_zhen",
+  "origin": "Qin",
+  "rank": "named_staff_officer",
+  "role": "supply officer",
+  "stats": {
+    "attributes": {
+      "Strength": 77,
+      "Agility": 98,
+      "Endurance": 92,
+      "Toughness": 82,
+      "Coordination": 77,
+      "Awareness": 91,
+      "Composure": 91,
+      "Intelligence": 103,
+      "Presence": 99
+    },
+    "skills": {
+      "Sword": 101,
+      "Spear": 71,
+      "Glaive": 72,
+      "Axe": 70,
+      "Mace": 86,
+      "Staff": 101,
+      "Dagger": 89,
+      "Bow": 70,
+      "Crossbow": 84,
+      "Shield": 76,
+      "Defense": 79,
+      "Athletics": 90,
+      "Mass Combat": 99,
+      "Grappling": 75,
+      "Unarmed": 95,
+      "Riding": 92,
+      "Formation Fighting": 108,
+      "Survival": 89,
+      "Stealth": 72,
+      "Scouting": 82,
+      "Navigation": 72,
+      "Medicine": 73,
+      "Engineering": 99,
+      "Leadership": 104,
+      "Formation Command": 115,
+      "Tactics": 124,
+      "Strategy": 67,
+      "Logistics": 111,
+      "Intelligence Operations": 99,
+      "Training": 100,
+      "Diplomacy": 96,
+      "Law": 79,
+      "Trade": 99,
+      "Intrigue": 69,
+      "Governance": 94
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Qin",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in supply officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "286-BCE-12-01",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 172.3,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 76.7,
+    "frame": "average",
+    "source": "simulation_assigned"
+  },
+  "appearance": 43,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 80,
+    "technical_learning": 140,
+    "tactical_learning": 123,
+    "academic_learning": 129,
+    "social_learning": 135,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "practical",
+      "unromantic",
+      "reliable"
+    ],
+    "preferences": [
+      "full depots",
+      "honest consumption reports"
+    ],
+    "dislikes": [
+      "last-minute requisitions",
+      "wasted animals"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.tou_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_tou",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "keep food, ammunition, remount, and equipment flow matched to real marching demand",
+  "background": "Persistent named supply officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.qin.tou.guo_zhen.json"
+}

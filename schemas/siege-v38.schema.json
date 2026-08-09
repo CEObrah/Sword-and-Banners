@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "stable_scatter",
+    "bed_crossbow",
+    "trebuchet",
+    "rule",
+    "crew_training_factor",
+    "access_factor",
+    "structure_states",
+    "stone_drop",
+    "firepot"
+  ],
+  "properties": {
+    "schema": {
+      "const": "siege-mechanics.v38"
+    },
+    "formulas": {},
+    "stable_scatter": {},
+    "bed_crossbow": {},
+    "trebuchet": {},
+    "rule": {},
+    "crew_training_factor": {},
+    "access_factor": {},
+    "structure_states": {},
+    "stone_drop": {},
+    "firepot": {}
+  }
+}

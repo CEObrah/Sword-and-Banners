@@ -1,0 +1,135 @@
+{
+  "base_region": "Shintei region",
+  "finance_equipment_and_mounts": {
+    "armed_personnel": 800,
+    "assigned_mounts": 90,
+    "assigned_war_arrows": 28800,
+    "facility_factor": 1.016,
+    "fodder_stock_kg": 54000,
+    "food_stock_kg": 86400,
+    "issued_combat_loadouts": 800,
+    "loadout_id": "loadout_school_martial",
+    "monthly_normal_expense_silver": 9000,
+    "monthly_realized_revenue_silver": 10800,
+    "mount_type": "horse_riding_common",
+    "reserve_combat_loadouts": 80,
+    "reserve_war_arrows": 28800,
+    "support_personnel": 100,
+    "treasury_silver": 72000
+  },
+  "institution_class": "martial_school",
+  "leader_status": "unresolved named full sheet only when encountered",
+  "name": "Stone Rampart Crossbow School",
+  "owner_id": "school_han",
+  "owner_type": "institution",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "independent-institution",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state": "HAN",
+  "subprocess_id": "process_school_han",
+  "total_people": 300,
+  "direct_members": 300,
+  "affiliate_network_members": 400,
+  "field_ready_members": 138,
+  "institution_rule": "direct membership is not equivalent to deployable military manpower; mobilization requires explicit reorganization and support loss",
+  "home_establishment_ref": "establishment.school_han",
+  "formation_library_ref": "formation.school.mobilization",
+  "reconstitution_policy_ref": "reconstitution.school",
+  "doctrine": "doc.organization.school_instruction",
+  "training": "train.organization.school",
+  "combat_tendencies": {
+    "aggression": 30,
+    "initiative": 45,
+    "caution": 75,
+    "adaptability": 55,
+    "flank_bias": 25,
+    "counterattack_bias": 55,
+    "pursuit_bias": 10,
+    "reserve_bias": 70,
+    "withdrawal_willingness": 80,
+    "casualty_tolerance": 20,
+    "objective_focus": 90,
+    "ally_support": 90,
+    "formation_discipline": 65,
+    "commander_dependence": 65
+  },
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 12
+      },
+      "count": 12,
+      "fatigue_mean": 0.0,
+      "role": "school_instructor",
+      "pool_id": "school_han:pool_school_instructor",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_instructor",
+      "accounting_scale": "small_1_24",
+      "capability_ref": "state/manpower-capability/school-han-pool-school-instructor.json"
+    },
+    {
+      "condition": {
+        "fit": 30
+      },
+      "count": 30,
+      "fatigue_mean": 0.0,
+      "role": "school_senior",
+      "pool_id": "school_han:pool_school_senior",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_senior",
+      "accounting_scale": "tactical_25",
+      "capability_ref": "state/manpower-capability/school-han-pool-school-senior.json"
+    },
+    {
+      "condition": {
+        "fit": 96
+      },
+      "count": 96,
+      "fatigue_mean": 0.0,
+      "role": "school_general",
+      "pool_id": "school_han:pool_school_general",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_general",
+      "accounting_scale": "tactical_25",
+      "capability_ref": "state/manpower-capability/school-han-pool-school-general.json"
+    },
+    {
+      "condition": {
+        "fit": 110
+      },
+      "count": 110,
+      "fatigue_mean": 0.0,
+      "role": "school_junior",
+      "pool_id": "school_han:pool_school_junior",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_junior",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/school-han-pool-school-junior.json"
+    },
+    {
+      "condition": {
+        "fit": 52
+      },
+      "count": 52,
+      "fatigue_mean": 0.0,
+      "role": "school_support",
+      "pool_id": "school_han:pool_school_support",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "school_support",
+      "accounting_scale": "tactical_25",
+      "capability_ref": "state/manpower-capability/school-han-pool-school-support.json"
+    }
+  ],
+  "stat_order_ref": "data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true,
+  "institutional_track_record_index": 138
+}

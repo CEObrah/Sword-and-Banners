@@ -1,0 +1,82 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_chu_role_line_infantry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        71,
+        58,
+        77,
+        75,
+        60,
+        58,
+        62,
+        48,
+        48
+      ],
+      "skill_values": [
+        55,
+        71,
+        53,
+        50,
+        50,
+        52,
+        45,
+        40,
+        38,
+        62,
+        64,
+        67,
+        50,
+        50,
+        48,
+        28,
+        66,
+        55,
+        42,
+        45,
+        44,
+        28,
+        32,
+        38,
+        31,
+        36,
+        28,
+        34,
+        30,
+        35,
+        30,
+        28,
+        30,
+        28,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_chu_role_line_infantry",
+    "monthly_factor_inputs": "instruction 0.96; facility 0.96; equipment 0.97; recovery 0.97; administration 0.67",
+    "role": "line_infantry",
+    "state": "CHU",
+    "identity_notes": "Massive, physically powerful and regionally varied: stronger heavy fighting base but less uniformly centralized administration.",
+    "balance_adjustment": {
+      "state_identity": "CHU",
+      "role": "line_infantry",
+      "attribute_modifiers": {
+        "Strength": 6,
+        "Endurance": 6,
+        "Toughness": 6
+      },
+      "skill_modifiers": {
+        "Athletics": 5,
+        "Mass Combat": 2,
+        "Glaive": 5,
+        "Spear": 3,
+        "Logistics": -2,
+        "Formation Command": -1,
+        "Defense": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

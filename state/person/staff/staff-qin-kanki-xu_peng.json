@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite",
+  "id": "staff.qin.kanki.xu_peng",
+  "name": "Xu Peng",
+  "resolution": "individual_lite",
+  "owner": "army.kanki_army",
+  "family_id": "fam.xu_peng",
+  "origin": "Qin",
+  "rank": "named_staff_officer",
+  "role": "scout officer",
+  "stats": {
+    "attributes": {
+      "Strength": 90,
+      "Agility": 95,
+      "Endurance": 91,
+      "Toughness": 78,
+      "Coordination": 87,
+      "Awareness": 103,
+      "Composure": 80,
+      "Intelligence": 99,
+      "Presence": 80
+    },
+    "skills": {
+      "Sword": 91,
+      "Spear": 82,
+      "Glaive": 102,
+      "Axe": 102,
+      "Mace": 79,
+      "Staff": 95,
+      "Dagger": 103,
+      "Bow": 97,
+      "Crossbow": 67,
+      "Shield": 95,
+      "Defense": 80,
+      "Athletics": 101,
+      "Mass Combat": 119,
+      "Grappling": 87,
+      "Unarmed": 97,
+      "Riding": 114,
+      "Formation Fighting": 107,
+      "Survival": 94,
+      "Stealth": 71,
+      "Scouting": 120,
+      "Navigation": 70,
+      "Medicine": 99,
+      "Engineering": 87,
+      "Leadership": 112,
+      "Formation Command": 98,
+      "Tactics": 128,
+      "Strategy": 77,
+      "Logistics": 70,
+      "Intelligence Operations": 67,
+      "Training": 80,
+      "Diplomacy": 102,
+      "Law": 76,
+      "Trade": 102,
+      "Intrigue": 81,
+      "Governance": 87
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Qin",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in scout officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "283-BCE-01-28",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 172.8,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 74.6,
+    "frame": "athletic",
+    "source": "simulation_assigned"
+  },
+  "appearance": 64,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 140,
+    "technical_learning": 129,
+    "tactical_learning": 123,
+    "academic_learning": 119,
+    "social_learning": 96,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "restless",
+      "observant",
+      "independent"
+    ],
+    "preferences": [
+      "multiple sources",
+      "fast horses"
+    ],
+    "dislikes": [
+      "camp gossip",
+      "predictable patrol routes"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.kanki_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_kanki",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "keep scouts moving and surface threats before they become surprises",
+  "background": "Persistent named scout officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.qin.kanki.xu_peng.json"
+}

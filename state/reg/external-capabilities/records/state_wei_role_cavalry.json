@@ -1,0 +1,78 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_wei_role_cavalry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        68,
+        66,
+        72,
+        68,
+        69,
+        64,
+        64,
+        54,
+        52
+      ],
+      "skill_values": [
+        58,
+        72,
+        52,
+        45,
+        45,
+        48,
+        50,
+        58,
+        44,
+        58,
+        62,
+        64,
+        52,
+        50,
+        48,
+        76,
+        66,
+        58,
+        45,
+        56,
+        54,
+        28,
+        34,
+        42,
+        38,
+        44,
+        32,
+        40,
+        34,
+        38,
+        32,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_wei_role_cavalry",
+    "monthly_factor_inputs": "instruction 1.00; facility 1.02; equipment 1.00; recovery 0.98; administration 0.72",
+    "role": "cavalry",
+    "state": "WEI",
+    "identity_notes": "Technical warfare specialist: crossbows, siege engineering, chariots, fortifications, and deliberate tactical systems.",
+    "balance_adjustment": {
+      "state_identity": "WEI",
+      "role": "cavalry",
+      "attribute_modifiers": {
+        "Intelligence": 2,
+        "Coordination": 1
+      },
+      "skill_modifiers": {
+        "Crossbow": 2,
+        "Engineering": 4,
+        "Logistics": 2,
+        "Tactics": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

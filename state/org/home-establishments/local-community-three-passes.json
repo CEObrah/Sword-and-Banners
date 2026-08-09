@@ -1,0 +1,93 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.local.community.three_passes",
+    "owner_id": "local.community.three_passes",
+    "owner_type": "local_armed_community",
+    "source_force_ref": "state/force/local-autonomous-composition.json#communities/Three Passes",
+    "formation_library_ref": "formation.local_defense.standard",
+    "reconstitution_policy_ref": "reconstitution.local_defense",
+    "standing_procedure_ref": "procedure.local_defense.standard",
+    "unit_series": [
+      {
+        "series_id": "est.local.community.three_passes.fortification_infantry",
+        "source_manpower_id": "local:Three Passes:fortification_infantry",
+        "role": "fortification_infantry",
+        "unit_count": 5,
+        "nominal_strength": 250,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.local.community.three_passes.fortification_infantry.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_state_line_infantry",
+        "troop_type": "line_infantry",
+        "specialty": "fortification_infantry"
+      },
+      {
+        "series_id": "est.local.community.three_passes.crossbowmen",
+        "source_manpower_id": "local:Three Passes:crossbowmen",
+        "role": "crossbowmen",
+        "unit_count": 3,
+        "nominal_strength": 250,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.local.community.three_passes.crossbowmen.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_state_missile_crossbow",
+        "troop_type": "crossbow_infantry",
+        "specialty": "crossbowmen"
+      },
+      {
+        "series_id": "est.local.community.three_passes.engineers",
+        "source_manpower_id": "local:Three Passes:engineers",
+        "role": "engineers",
+        "unit_count": 3,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.local.community.three_passes.engineers.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_state_siege_engineering",
+        "troop_type": "engineer",
+        "specialty": "engineers"
+      },
+      {
+        "series_id": "est.local.community.three_passes.pass_scouts",
+        "source_manpower_id": "local:Three Passes:pass_scouts",
+        "role": "pass_scouts",
+        "unit_count": 3,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.local.community.three_passes.pass_scouts.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_mercenary_scout",
+        "troop_type": "scout",
+        "specialty": "pass_scouts"
+      }
+    ],
+    "command_structure": {
+      "home_command": "local civic/clan authority",
+      "unit_command": "local captains/leaders",
+      "succession": "local authority",
+      "default_commander_profile_ref": "command_profile.irregular_leader"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 40,
+      "initiative": 55,
+      "caution": 75,
+      "adaptability": 65,
+      "flank_bias": 40,
+      "counterattack_bias": 65,
+      "pursuit_bias": 20,
+      "reserve_bias": 65,
+      "withdrawal_willingness": 60,
+      "casualty_tolerance": 35,
+      "objective_focus": 90,
+      "ally_support": 85,
+      "formation_discipline": 70,
+      "commander_dependence": 55
+    }
+  }
+}

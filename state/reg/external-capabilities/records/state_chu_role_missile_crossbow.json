@@ -1,0 +1,81 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_chu_role_missile_crossbow",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        58,
+        58,
+        65,
+        61,
+        66,
+        64,
+        60,
+        50,
+        45
+      ],
+      "skill_values": [
+        45,
+        43,
+        37,
+        35,
+        35,
+        40,
+        42,
+        62,
+        70,
+        48,
+        55,
+        58,
+        46,
+        45,
+        42,
+        30,
+        56,
+        52,
+        48,
+        55,
+        50,
+        28,
+        35,
+        34,
+        29,
+        38,
+        30,
+        32,
+        38,
+        36,
+        30,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_chu_role_missile_crossbow",
+    "monthly_factor_inputs": "instruction 0.96; facility 0.96; equipment 0.97; recovery 0.97; administration 0.67",
+    "role": "missile_crossbow",
+    "state": "CHU",
+    "identity_notes": "Massive, physically powerful and regionally varied: stronger heavy fighting base but less uniformly centralized administration.",
+    "balance_adjustment": {
+      "state_identity": "CHU",
+      "role": "missile_crossbow",
+      "attribute_modifiers": {
+        "Strength": 3,
+        "Endurance": 3,
+        "Toughness": 3
+      },
+      "skill_modifiers": {
+        "Athletics": 2,
+        "Mass Combat": 2,
+        "Glaive": 2,
+        "Spear": 1,
+        "Logistics": -2,
+        "Formation Command": -1
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

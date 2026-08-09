@@ -1,0 +1,80 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_zhao_role_missile_crossbow",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        55,
+        60,
+        62,
+        58,
+        66,
+        66,
+        61,
+        50,
+        45
+      ],
+      "skill_values": [
+        45,
+        42,
+        35,
+        35,
+        35,
+        40,
+        42,
+        62,
+        70,
+        48,
+        55,
+        56,
+        46,
+        45,
+        42,
+        32,
+        56,
+        54,
+        48,
+        58,
+        50,
+        28,
+        35,
+        34,
+        30,
+        40,
+        30,
+        34,
+        38,
+        36,
+        30,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_zhao_role_missile_crossbow",
+    "monthly_factor_inputs": "instruction 1.02; facility 0.98; equipment 0.98; recovery 0.98; administration 0.75",
+    "role": "missile_crossbow",
+    "state": "ZHAO",
+    "identity_notes": "Cavalry and frontier warfare leader: superior riding, scouting, maneuver, field experience, and mobile command.",
+    "balance_adjustment": {
+      "state_identity": "ZHAO",
+      "role": "missile_crossbow",
+      "attribute_modifiers": {
+        "Agility": 2,
+        "Awareness": 2,
+        "Composure": 1
+      },
+      "skill_modifiers": {
+        "Riding": 2,
+        "Scouting": 3,
+        "Survival": 2,
+        "Tactics": 2,
+        "Mass Combat": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

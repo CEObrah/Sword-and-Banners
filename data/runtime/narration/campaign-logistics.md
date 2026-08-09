@@ -1,0 +1,2 @@
+# Campaign, travel, and logistics narration
+Use road capacity, forage, grain, water, carts, bridges, remounts, weather, disease, ammunition, baggage, river crossings, distance, and labor when they constrain the operation. Do not recite ledgers every march. Show consequences: slower columns, animals failing, delayed siege gear, hungry troops, narrowed choices, abandoned loads, or expensive rerouting. Victory never erases logistics.

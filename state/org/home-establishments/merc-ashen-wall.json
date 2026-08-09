@@ -1,0 +1,79 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.merc_ashen_wall",
+    "owner_id": "merc_ashen_wall",
+    "owner_type": "mercenary_company",
+    "source_force_ref": "state/merc/ashen-wall.json",
+    "formation_library_ref": "formation.mercenary.standard",
+    "reconstitution_policy_ref": "reconstitution.mercenary",
+    "unit_series": [
+      {
+        "series_id": "est.merc_ashen_wall.veteran",
+        "source_manpower_id": "merc_ashen_wall:pool_veteran",
+        "role": "veteran",
+        "unit_count": 8,
+        "nominal_strength": 250,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.merc_ashen_wall.veteran.{ordinal:03d}",
+        "doctrine": "doc.merc_ashen_wall.veteran",
+        "training": "train.merc_ashen_wall.veteran",
+        "loadout_standard": "loadout_mercenary_heavy_infantry",
+        "troop_type": "heavy_infantry",
+        "specialty": "veteran"
+      },
+      {
+        "series_id": "est.merc_ashen_wall.crossbow",
+        "source_manpower_id": "merc_ashen_wall:pool_crossbow",
+        "role": "crossbow",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.merc_ashen_wall.crossbow.{ordinal:03d}",
+        "doctrine": "doc.merc_ashen_wall.crossbow",
+        "training": "train.merc_ashen_wall.crossbow",
+        "loadout_standard": "loadout_mercenary_crossbow",
+        "troop_type": "crossbow_infantry",
+        "specialty": "crossbow"
+      },
+      {
+        "series_id": "est.merc_ashen_wall.support",
+        "source_manpower_id": "merc_ashen_wall:pool_support",
+        "role": "support",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.merc_ashen_wall.support.{ordinal:03d}",
+        "doctrine": "doc.merc_ashen_wall.support",
+        "training": "train.merc_ashen_wall.support",
+        "loadout_standard": "loadout_mercenary_support",
+        "troop_type": "support_staff",
+        "specialty": "support"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mercenary.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.mercenary_captain"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 55,
+      "initiative": 50,
+      "caution": 50,
+      "adaptability": 50,
+      "flank_bias": 45,
+      "counterattack_bias": 55,
+      "pursuit_bias": 45,
+      "reserve_bias": 55,
+      "withdrawal_willingness": 45,
+      "casualty_tolerance": 60,
+      "objective_focus": 70,
+      "ally_support": 60,
+      "formation_discipline": 70,
+      "commander_dependence": 60
+    }
+  }
+}

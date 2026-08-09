@@ -1,0 +1,46 @@
+{
+  "schema": "process-contract.v1",
+  "cadence": "exact event",
+  "constraints": [
+    "no Tang Wei appointment, payment, or commitment"
+  ],
+  "contract_id": "contract_process_sword_manor_opening_council_001",
+  "domain": "institutional_event",
+  "goals": [
+    "review escort obligations",
+    "review trainee allocation",
+    "preserve institution readiness"
+  ],
+  "owner_id": "process_sword_manor_opening_council_001",
+  "plan_lifecycle": [
+    "proposed",
+    "active",
+    "blocked",
+    "completed",
+    "failed",
+    "abandoned",
+    "superseded"
+  ],
+  "plan_revision": 1,
+  "reconstruction_policy": "Use saved state, standing orders, resources, opposition, exact events, stable seed, and prior receipts. Never award unsupported success or make Tang Wei choices.",
+  "replanning_policy": "After every settled interval, reassess goals, authority, knowledge, health, resources, dependencies, opposition, constraints, and risk. Continue, block, fail, complete, or supersede the current plan and create a supported successor when the owner remains autonomous.",
+  "result_requirement": [
+    "progress",
+    "maintenance",
+    "recovery",
+    "decline",
+    "loss",
+    "transformation",
+    "closure",
+    "blocked",
+    "no_material_change"
+  ],
+  "revision": 1,
+  "safe_compaction_policy": "A span receipt may cover multiple intervals only when each interval is internally processed in order and material interruptions split the span.",
+  "standing_orders": [
+    "Wei Jian may convene and record provisional recommendations",
+    "do not bind Tang Wei or House Tang to new commitments"
+  ],
+  "successor_plan_required": true,
+  "visibility": "known"
+}

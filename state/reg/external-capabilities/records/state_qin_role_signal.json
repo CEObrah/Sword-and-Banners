@@ -1,0 +1,78 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qin_role_signal",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        58,
+        56,
+        64,
+        60,
+        62,
+        68,
+        74,
+        75,
+        68
+      ],
+      "skill_values": [
+        58,
+        52,
+        40,
+        38,
+        38,
+        45,
+        50,
+        52,
+        48,
+        55,
+        60,
+        58,
+        59,
+        48,
+        45,
+        58,
+        78,
+        55,
+        45,
+        58,
+        58,
+        38,
+        48,
+        40,
+        35,
+        39,
+        30,
+        60,
+        54,
+        62,
+        52,
+        48,
+        45,
+        50,
+        50
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qin_role_signal",
+    "monthly_factor_inputs": "instruction 1.03; facility 1.03; equipment 1.00; recovery 0.98; administration 0.82",
+    "role": "signal",
+    "state": "QIN",
+    "identity_notes": "Best-balanced institutional army: disciplined line infantry, command, training, logistics, and combined-arms coordination. Signal personnel are communications specialists; commander authority is modeled separately as people/command assignments.",
+    "balance_adjustment": {
+      "state_identity": "QIN",
+      "role": "signal",
+      "attribute_modifiers": {
+        "Composure": 2,
+        "Intelligence": 5,
+        "Presence": 2
+      },
+      "skill_modifiers": {
+        "Mass Combat": 3,
+        "Formation Fighting": 3,
+        "Training": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

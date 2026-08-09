@@ -1,0 +1,76 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_zhao_role_signal",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        58,
+        58,
+        64,
+        60,
+        62,
+        72,
+        73,
+        70,
+        66
+      ],
+      "skill_values": [
+        58,
+        52,
+        40,
+        38,
+        38,
+        45,
+        50,
+        52,
+        48,
+        55,
+        60,
+        58,
+        56,
+        48,
+        45,
+        60,
+        68,
+        57,
+        45,
+        64,
+        58,
+        38,
+        48,
+        40,
+        35,
+        39,
+        30,
+        52,
+        54,
+        60,
+        52,
+        48,
+        45,
+        50,
+        50
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_zhao_role_signal",
+    "monthly_factor_inputs": "instruction 1.02; facility 0.98; equipment 0.98; recovery 0.98; administration 0.75",
+    "role": "signal",
+    "state": "ZHAO",
+    "identity_notes": "Cavalry and frontier warfare leader: superior riding, scouting, maneuver, field experience, and mobile command. Signal personnel are communications specialists; commander authority is modeled separately as people/command assignments.",
+    "balance_adjustment": {
+      "state_identity": "ZHAO",
+      "role": "signal",
+      "attribute_modifiers": {
+        "Agility": 2,
+        "Awareness": 4,
+        "Composure": 1
+      },
+      "skill_modifiers": {
+        "Mass Combat": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.merc_golden_axle",
+    "owner_id": "merc_golden_axle",
+    "owner_type": "mercenary_company",
+    "source_force_ref": "state/merc/golden-axle.json",
+    "formation_library_ref": "formation.mercenary.standard",
+    "reconstitution_policy_ref": "reconstitution.mercenary",
+    "unit_series": [
+      {
+        "series_id": "est.merc_golden_axle.wagon_guard",
+        "source_manpower_id": "merc_golden_axle:pool_wagon_guard",
+        "role": "wagon_guard",
+        "unit_count": 4,
+        "nominal_strength": 250,
+        "final_unit_strength": 150,
+        "stable_unit_id_pattern": "est.merc_golden_axle.wagon_guard.{ordinal:03d}",
+        "doctrine": "doc.merc_golden_axle.wagon_guard",
+        "training": "train.merc_golden_axle.wagon_guard",
+        "loadout_standard": "loadout_mercenary_line",
+        "troop_type": "guard_infantry",
+        "specialty": "wagon_guard"
+      },
+      {
+        "series_id": "est.merc_golden_axle.engineer_drivers",
+        "source_manpower_id": "merc_golden_axle:pool_engineer_drivers",
+        "role": "engineer_drivers",
+        "unit_count": 4,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.merc_golden_axle.engineer_drivers.{ordinal:03d}",
+        "doctrine": "doc.merc_golden_axle.engineer_drivers",
+        "training": "train.merc_golden_axle.engineer_drivers",
+        "loadout_standard": "loadout_mercenary_engineer",
+        "troop_type": "engineer",
+        "specialty": "engineer_drivers"
+      },
+      {
+        "series_id": "est.merc_golden_axle.scout",
+        "source_manpower_id": "merc_golden_axle:pool_scout",
+        "role": "scout",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.merc_golden_axle.scout.{ordinal:03d}",
+        "doctrine": "doc.merc_golden_axle.scout",
+        "training": "train.merc_golden_axle.scout",
+        "loadout_standard": "loadout_mercenary_scout",
+        "troop_type": "scout"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mercenary.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.mercenary_captain"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 55,
+      "initiative": 50,
+      "caution": 50,
+      "adaptability": 50,
+      "flank_bias": 45,
+      "counterattack_bias": 55,
+      "pursuit_bias": 45,
+      "reserve_bias": 55,
+      "withdrawal_willingness": 45,
+      "casualty_tolerance": 60,
+      "objective_focus": 70,
+      "ally_support": 60,
+      "formation_discipline": 70,
+      "commander_dependence": 60
+    }
+  }
+}

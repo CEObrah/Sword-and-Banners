@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "capacity",
+    "mass_empty_kg"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ammunition_container_v1"
+    },
+    "id": {
+      "type": "string"
+    },
+    "capacity": {},
+    "mass_empty_kg": {}
+  },
+  "additionalProperties": true
+}

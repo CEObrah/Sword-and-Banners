@@ -1,0 +1,47 @@
+{
+  "schema": "process-contract.v1",
+  "cadence": "weekly event chain",
+  "constraints": [
+    "no forced canon victory",
+    "logistics and political risk apply"
+  ],
+  "contract_id": "contract_arc_ryo_fui_northern_wei_campaign",
+  "domain": "military_political_arc",
+  "goals": [
+    "prepare northern Wei operations",
+    "secure political cover",
+    "protect operational secrecy"
+  ],
+  "owner_id": "arc_ryo_fui_northern_wei_campaign",
+  "plan_lifecycle": [
+    "proposed",
+    "active",
+    "blocked",
+    "completed",
+    "failed",
+    "abandoned",
+    "superseded"
+  ],
+  "plan_revision": 1,
+  "reconstruction_policy": "Use saved state, standing orders, resources, opposition, exact events, stable seed, and prior receipts. Never award unsupported success or make Tang Wei choices.",
+  "replanning_policy": "After every settled interval, reassess goals, authority, knowledge, health, resources, dependencies, opposition, constraints, and risk. Continue, block, fail, complete, or supersede the current plan and create a supported successor when the owner remains autonomous.",
+  "result_requirement": [
+    "progress",
+    "maintenance",
+    "recovery",
+    "decline",
+    "loss",
+    "transformation",
+    "closure",
+    "blocked",
+    "no_material_change"
+  ],
+  "revision": 1,
+  "safe_compaction_policy": "A span receipt may cover multiple intervals only when each interval is internally processed in order and material interruptions split the span.",
+  "standing_orders": [
+    "advance only through saved resources, routes, and opposition",
+    "material developments create information paths"
+  ],
+  "successor_plan_required": true,
+  "visibility": "hidden_until_information_path"
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "family-union.v1",
+  "union_id": "union.tang_zhu_tang_ling",
+  "participants": [
+    "char_tang_zhu",
+    "char_tang_ling"
+  ],
+  "status": "married",
+  "authority": true,
+  "formed_at": null,
+  "date_precision": "unknown_preexisting_before_current_save",
+  "recognition": {
+    "recognized": true,
+    "basis": "preexisting bilateral spouse relationship state; exact marriage date/terms are not presently stored"
+  },
+  "relationship_refs": [
+    "rel.char_tang_zhu.char_tang_ling.spouse",
+    "rel.char_tang_ling.char_tang_zhu.spouse"
+  ],
+  "household_ref": "state/family/households/household.tang_zhu_tang_ling.json",
+  "source_refs": [
+    "state/rel/relationship-edges/char_tang_zhu.json",
+    "state/rel/relationship-edges/char_tang_ling.json"
+  ],
+  "notes": [
+    "Migration records an already-established marriage; it does not create a new marriage event or infer unknown historical terms/date."
+  ]
+}

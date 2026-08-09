@@ -1,0 +1,81 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_han_role_chariot",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        60,
+        60,
+        64,
+        61,
+        70,
+        66,
+        64,
+        54,
+        50
+      ],
+      "skill_values": [
+        52,
+        62,
+        45,
+        40,
+        40,
+        45,
+        45,
+        64,
+        52,
+        55,
+        59,
+        55,
+        48,
+        45,
+        42,
+        65,
+        56,
+        50,
+        35,
+        48,
+        50,
+        28,
+        41,
+        40,
+        38,
+        42,
+        34,
+        42,
+        34,
+        36,
+        32,
+        28,
+        34,
+        30,
+        30
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_han_role_chariot",
+    "monthly_factor_inputs": "instruction 0.99; facility 1.00; equipment 0.98; recovery 0.97; administration 0.70",
+    "role": "chariot",
+    "state": "HAN",
+    "identity_notes": "Smallest state: weaker broad manpower quality offset by unusually strong crossbow, engineering, and fortified-defense specialization.",
+    "balance_adjustment": {
+      "state_identity": "HAN",
+      "role": "chariot",
+      "attribute_modifiers": {
+        "Strength": -2,
+        "Endurance": -2,
+        "Toughness": -1
+      },
+      "skill_modifiers": {
+        "Crossbow": 4,
+        "Engineering": 3,
+        "Defense": 1,
+        "Formation Fighting": -2,
+        "Riding": -3,
+        "Mass Combat": -2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

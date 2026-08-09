@@ -1,0 +1,93 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.local.community.pine_border",
+    "owner_id": "local.community.pine_border",
+    "owner_type": "local_armed_community",
+    "source_force_ref": "state/force/local-autonomous-composition.json#communities/Pine Border",
+    "formation_library_ref": "formation.local_defense.standard",
+    "reconstitution_policy_ref": "reconstitution.local_defense",
+    "standing_procedure_ref": "procedure.local_defense.standard",
+    "unit_series": [
+      {
+        "series_id": "est.local.community.pine_border.clan_infantry",
+        "source_manpower_id": "local:Pine Border:clan_infantry",
+        "role": "clan_infantry",
+        "unit_count": 3,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.local.community.pine_border.clan_infantry.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_state_line_infantry",
+        "troop_type": "line_infantry",
+        "specialty": "clan_infantry"
+      },
+      {
+        "series_id": "est.local.community.pine_border.archers",
+        "source_manpower_id": "local:Pine Border:archers",
+        "role": "archers",
+        "unit_count": 4,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.local.community.pine_border.archers.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_state_line_infantry",
+        "troop_type": "archer",
+        "specialty": "archers"
+      },
+      {
+        "series_id": "est.local.community.pine_border.scouts",
+        "source_manpower_id": "local:Pine Border:scouts",
+        "role": "scouts",
+        "unit_count": 3,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.local.community.pine_border.scouts.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_mercenary_scout",
+        "troop_type": "scout",
+        "specialty": "scouts"
+      },
+      {
+        "series_id": "est.local.community.pine_border.riders",
+        "source_manpower_id": "local:Pine Border:riders",
+        "role": "riders",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 100,
+        "stable_unit_id_pattern": "est.local.community.pine_border.riders.{ordinal:03d}",
+        "doctrine": "doc.organization.local_defense",
+        "training": "train.organization.local_defense",
+        "loadout_standard": "loadout_state_line_infantry",
+        "troop_type": "line_infantry",
+        "specialty": "riders"
+      }
+    ],
+    "command_structure": {
+      "home_command": "local civic/clan authority",
+      "unit_command": "local captains/leaders",
+      "succession": "local authority",
+      "default_commander_profile_ref": "command_profile.irregular_leader"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 40,
+      "initiative": 55,
+      "caution": 75,
+      "adaptability": 65,
+      "flank_bias": 40,
+      "counterattack_bias": 65,
+      "pursuit_bias": 20,
+      "reserve_bias": 65,
+      "withdrawal_willingness": 60,
+      "casualty_tolerance": 35,
+      "objective_focus": 90,
+      "ally_support": 85,
+      "formation_discipline": 70,
+      "commander_dependence": 55
+    }
+  }
+}

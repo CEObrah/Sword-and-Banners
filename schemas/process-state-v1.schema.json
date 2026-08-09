@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "process_id"
+  ],
+  "properties": {
+    "schema": {
+      "const": "process-state.v1"
+    },
+    "process_id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

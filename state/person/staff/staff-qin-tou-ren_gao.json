@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite",
+  "id": "staff.qin.tou.ren_gao",
+  "name": "Ren Gao",
+  "resolution": "individual_lite",
+  "owner": "army.tou_army",
+  "family_id": "fam.ren_gao",
+  "origin": "Qin",
+  "rank": "named_staff_officer",
+  "role": "formation officer",
+  "stats": {
+    "attributes": {
+      "Strength": 83,
+      "Agility": 98,
+      "Endurance": 85,
+      "Toughness": 99,
+      "Coordination": 83,
+      "Awareness": 91,
+      "Composure": 102,
+      "Intelligence": 100,
+      "Presence": 92
+    },
+    "skills": {
+      "Sword": 67,
+      "Spear": 92,
+      "Glaive": 100,
+      "Axe": 92,
+      "Mace": 70,
+      "Staff": 99,
+      "Dagger": 99,
+      "Bow": 78,
+      "Crossbow": 86,
+      "Shield": 98,
+      "Defense": 74,
+      "Athletics": 86,
+      "Mass Combat": 130,
+      "Grappling": 84,
+      "Unarmed": 78,
+      "Riding": 86,
+      "Formation Fighting": 126,
+      "Survival": 97,
+      "Stealth": 98,
+      "Scouting": 84,
+      "Navigation": 95,
+      "Medicine": 69,
+      "Engineering": 84,
+      "Leadership": 109,
+      "Formation Command": 112,
+      "Tactics": 104,
+      "Strategy": 97,
+      "Logistics": 97,
+      "Intelligence Operations": 97,
+      "Training": 94,
+      "Diplomacy": 99,
+      "Law": 82,
+      "Trade": 77,
+      "Intrigue": 81,
+      "Governance": 79
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Qin",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in formation officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "270-BCE-12-14",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 162.6,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 61.4,
+    "frame": "lean",
+    "source": "simulation_assigned"
+  },
+  "appearance": 57,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 94,
+    "technical_learning": 100,
+    "tactical_learning": 110,
+    "academic_learning": 159,
+    "social_learning": 137,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "disciplined",
+      "clear-spoken",
+      "conservative under uncertainty"
+    ],
+    "preferences": [
+      "well-drilled units",
+      "visible signals"
+    ],
+    "dislikes": [
+      "premature pursuit",
+      "mixed commands"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.tou_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_tou",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "keep formations coherent through deployment, contact, and withdrawal",
+  "background": "Persistent named formation officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.qin.tou.ren_gao.json"
+}

@@ -1,0 +1,120 @@
+{
+  "base_or_current_contract": "northern frontier routes",
+  "equipment_and_mounts": {
+    "assigned_mounts": 1000,
+    "assigned_war_arrows": 36000,
+    "assigned_war_bolts": 0,
+    "issued_loadouts": [
+      {
+        "count": 1000,
+        "loadout_id": "loadout_mercenary_cavalry"
+      },
+      {
+        "count": 200,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 100,
+    "reserve_war_arrows": 36000,
+    "reserve_war_bolts": 0
+  },
+  "food_stock_kg": 115200,
+  "force_class": "mercenary_company",
+  "headcount": 1200,
+  "name": "Copper Falcon Riders",
+  "owner_id": "merc_copper_falcon",
+  "owner_type": "mercenary_company",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state_alignment": "Independent",
+  "subprocess_id": "process_merc_copper_falcon",
+  "treasury_silver": 96000,
+  "doctrine": "doc.merc_copper_falcon.standard",
+  "training": "train.merc_copper_falcon.standard",
+  "combat_tendencies": {
+    "aggression": 55,
+    "initiative": 55,
+    "caution": 50,
+    "adaptability": 55,
+    "flank_bias": 50,
+    "counterattack_bias": 55,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45,
+    "casualty_tolerance": 55,
+    "objective_focus": 70,
+    "ally_support": 65,
+    "formation_discipline": 70,
+    "commander_dependence": 55
+  },
+  "doctrine_familiarity": 80,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 166,
+      "sd": 6.7
+    },
+    "weight_kg": {
+      "mean": 61,
+      "sd": 7.5
+    },
+    "individual_records_required": false
+  },
+  "home_establishment_ref": "establishment.merc_copper_falcon",
+  "formation_library_ref": "formation.mercenary.standard",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 1000
+      },
+      "count": 1000,
+      "display": "Mounted Riders",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_cavalry",
+      "mount_type": "horse_war_military",
+      "role": "riders",
+      "doctrine": "doc.merc_copper_falcon.riders",
+      "training": "train.merc_copper_falcon.riders",
+      "pool_id": "merc_copper_falcon:pool_riders",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "cavalry",
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-copper-falcon-pool-riders.json",
+      "specialty": "riders"
+    },
+    {
+      "condition": {
+        "fit": 200
+      },
+      "count": 200,
+      "display": "Support",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_support",
+      "mount_type": null,
+      "role": "support",
+      "doctrine": "doc.merc_copper_falcon.support",
+      "training": "train.merc_copper_falcon.support",
+      "pool_id": "merc_copper_falcon:pool_support",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "line_infantry",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-copper-falcon-pool-support.json",
+      "specialty": "support"
+    }
+  ],
+  "stat_order_ref": "data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true
+}

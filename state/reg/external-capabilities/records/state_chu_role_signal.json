@@ -1,0 +1,77 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_chu_role_signal",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        61,
+        56,
+        67,
+        63,
+        62,
+        68,
+        72,
+        68,
+        66
+      ],
+      "skill_values": [
+        58,
+        53,
+        42,
+        38,
+        38,
+        45,
+        50,
+        52,
+        48,
+        55,
+        60,
+        60,
+        56,
+        48,
+        45,
+        58,
+        66,
+        55,
+        45,
+        58,
+        58,
+        38,
+        48,
+        40,
+        35,
+        38,
+        30,
+        50,
+        54,
+        60,
+        52,
+        48,
+        45,
+        50,
+        50
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_chu_role_signal",
+    "monthly_factor_inputs": "instruction 0.96; facility 0.96; equipment 0.97; recovery 0.97; administration 0.67",
+    "role": "signal",
+    "state": "CHU",
+    "identity_notes": "Massive, physically powerful and regionally varied: stronger heavy fighting base but less uniformly centralized administration. Signal personnel are communications specialists; commander authority is modeled separately as people/command assignments.",
+    "balance_adjustment": {
+      "state_identity": "CHU",
+      "role": "signal",
+      "attribute_modifiers": {
+        "Strength": 3,
+        "Endurance": 3,
+        "Toughness": 3,
+        "Intelligence": -2
+      },
+      "skill_modifiers": {
+        "Mass Combat": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

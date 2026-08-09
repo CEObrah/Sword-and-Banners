@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Current canonical schema: unit and institutional training registry v39",
+  "type": "object",
+  "required": [
+    "name",
+    "owner_id",
+    "owner_type",
+    "records",
+    "runtime",
+    "schema"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "records": {
+      "type": "array"
+    },
+    "runtime": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Persistent training/development contracts for units, personal-force owners, institutions, and other lawful training owners. Formations are temporary arrangements and are not the owner of long-term training state."
+}

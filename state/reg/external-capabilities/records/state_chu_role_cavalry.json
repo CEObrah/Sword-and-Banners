@@ -1,0 +1,81 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_chu_role_cavalry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        73,
+        66,
+        77,
+        71,
+        68,
+        64,
+        64,
+        52,
+        52
+      ],
+      "skill_values": [
+        58,
+        75,
+        54,
+        45,
+        45,
+        48,
+        50,
+        58,
+        42,
+        58,
+        62,
+        68,
+        54,
+        50,
+        48,
+        76,
+        66,
+        58,
+        45,
+        56,
+        54,
+        28,
+        30,
+        42,
+        37,
+        42,
+        32,
+        36,
+        34,
+        38,
+        32,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_chu_role_cavalry",
+    "monthly_factor_inputs": "instruction 0.96; facility 0.96; equipment 0.97; recovery 0.97; administration 0.67",
+    "role": "cavalry",
+    "state": "CHU",
+    "identity_notes": "Massive, physically powerful and regionally varied: stronger heavy fighting base but less uniformly centralized administration.",
+    "balance_adjustment": {
+      "state_identity": "CHU",
+      "role": "cavalry",
+      "attribute_modifiers": {
+        "Strength": 5,
+        "Endurance": 5,
+        "Toughness": 3
+      },
+      "skill_modifiers": {
+        "Athletics": 4,
+        "Mass Combat": 2,
+        "Glaive": 2,
+        "Spear": 3,
+        "Logistics": -2,
+        "Formation Command": -1
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

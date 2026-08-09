@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "authority", "combat_tendencies", "player_ref"],
+  "properties": {
+    "schema": {"const": "player-combat-tendencies.v1"},
+    "authority": {"const": "player_combat_tendencies"},
+    "combat_tendencies": {"type": "object"},
+    "player_ref": {"type": "string"}
+  },
+  "additionalProperties": false
+}

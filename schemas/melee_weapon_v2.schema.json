@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "mass_kg",
+    "reach_m",
+    "minimum_range_m",
+    "base_force_cut",
+    "base_force_thrust",
+    "base_force_blunt",
+    "handling",
+    "structural_capacity"
+  ],
+  "properties": {
+    "schema": {
+      "const": "melee_weapon_v2"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mass_kg": {},
+    "reach_m": {},
+    "minimum_range_m": {},
+    "base_force_cut": {},
+    "base_force_thrust": {},
+    "base_force_blunt": {},
+    "handling": {},
+    "structural_capacity": {}
+  },
+  "additionalProperties": true
+}

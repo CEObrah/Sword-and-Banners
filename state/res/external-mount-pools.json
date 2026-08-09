@@ -1,0 +1,99 @@
+{
+  "name": "External State Mount Pools",
+  "owner_id": "external_mount_pools",
+  "owner_type": "mount_pool_registry",
+  "records": [
+    {
+      "facts": {
+        "unit_rule": "mount herds remain accounting pools while inactive; combat mount allocation follows the actual rider unit and conserves animals",
+        "combat_assignment_rule": "every active mounted or chariot unit deducts exact horses from one state pool, stores type and health distribution, and returns, loses, captures, transfers, or kills those exact horses through receipts"
+      },
+      "label": "Overview",
+      "notes": [
+        "Counts are deterministic game-balance allocations inside the existing state horse totals. Tang Heavy Warhorses, Tang Swift Warhorses, Tang Tack, Tang Horse Armor, Tang breeding stock, and Tang stud service are prohibited outside House Tang, Tang Wei personal forces, and Sword Manor."
+      ],
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "Tang_breed_count": 0,
+        "health_distribution": "fit 80750; limited 2550; recovering 1700; unfit 0",
+        "monthly_owner": "process_state_qin",
+        "total_serviceable_mounts": 85000,
+        "type_distribution": "horse_riding_common 20000; horse_frontier_trained 15000; horse_war_military 25000; horse_war_heavy 10000; horse_chariot_trained 15000"
+      },
+      "label": "mount_pool_qin",
+      "record_id": "mount_pool_qin"
+    },
+    {
+      "facts": {
+        "Tang_breed_count": 0,
+        "health_distribution": "fit 66500; limited 2100; recovering 1400; unfit 0",
+        "monthly_owner": "process_state_zhao",
+        "total_serviceable_mounts": 70000,
+        "type_distribution": "horse_riding_common 10000; horse_frontier_trained 25000; horse_war_military 20000; horse_war_heavy 5000; horse_chariot_trained 10000"
+      },
+      "label": "mount_pool_zhao",
+      "record_id": "mount_pool_zhao"
+    },
+    {
+      "facts": {
+        "Tang_breed_count": 0,
+        "health_distribution": "fit 52250; limited 1650; recovering 1100; unfit 0",
+        "monthly_owner": "process_state_chu",
+        "total_serviceable_mounts": 55000,
+        "type_distribution": "horse_riding_common 20000; horse_frontier_trained 8000; horse_war_military 15000; horse_war_heavy 5000; horse_chariot_trained 7000"
+      },
+      "label": "mount_pool_chu",
+      "record_id": "mount_pool_chu"
+    },
+    {
+      "facts": {
+        "Tang_breed_count": 0,
+        "health_distribution": "fit 39900; limited 1260; recovering 840; unfit 0",
+        "monthly_owner": "process_state_wei",
+        "total_serviceable_mounts": 42000,
+        "type_distribution": "horse_riding_common 12000; horse_frontier_trained 6000; horse_war_military 12000; horse_war_heavy 4000; horse_chariot_trained 8000"
+      },
+      "label": "mount_pool_wei",
+      "record_id": "mount_pool_wei"
+    },
+    {
+      "facts": {
+        "Tang_breed_count": 0,
+        "health_distribution": "fit 17100; limited 540; recovering 360; unfit 0",
+        "monthly_owner": "process_state_han",
+        "total_serviceable_mounts": 18000,
+        "type_distribution": "horse_riding_common 6000; horse_frontier_trained 2000; horse_war_military 5000; horse_war_heavy 2000; horse_chariot_trained 3000"
+      },
+      "label": "mount_pool_han",
+      "record_id": "mount_pool_han"
+    },
+    {
+      "facts": {
+        "Tang_breed_count": 0,
+        "health_distribution": "fit 36100; limited 1140; recovering 760; unfit 0",
+        "monthly_owner": "process_state_yan",
+        "total_serviceable_mounts": 38000,
+        "type_distribution": "horse_riding_common 8000; horse_frontier_trained 15000; horse_war_military 9000; horse_war_heavy 2000; horse_chariot_trained 4000"
+      },
+      "label": "mount_pool_yan",
+      "record_id": "mount_pool_yan"
+    },
+    {
+      "facts": {
+        "Tang_breed_count": 0,
+        "health_distribution": "fit 22800; limited 720; recovering 480; unfit 0",
+        "monthly_owner": "process_state_qi",
+        "total_serviceable_mounts": 24000,
+        "type_distribution": "horse_riding_common 10000; horse_frontier_trained 3000; horse_war_military 6000; horse_war_heavy 2000; horse_chariot_trained 3000"
+      },
+      "label": "mount_pool_qi",
+      "record_id": "mount_pool_qi"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "mount-pool-registry"
+}

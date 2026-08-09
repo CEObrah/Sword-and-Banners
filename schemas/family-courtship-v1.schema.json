@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "courtship_id",
+    "participants",
+    "status",
+    "authority",
+    "started_at",
+    "intent_basis"
+  ],
+  "properties": {
+    "schema": {
+      "const": "family-courtship.v1"
+    },
+    "courtship_id": {
+      "type": "string"
+    },
+    "participants": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "active",
+        "paused",
+        "ended",
+        "superseded"
+      ]
+    },
+    "authority": {
+      "const": true
+    },
+    "started_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "intent_basis": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

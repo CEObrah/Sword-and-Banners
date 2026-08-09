@@ -1,0 +1,116 @@
+{
+  "name": "External State Macro Ledger",
+  "owner_id": "external_state_macros",
+  "owner_type": "state_macro_registry",
+  "records": [
+    {
+      "facts": {
+        "exact_mount_pool_owner": "owner:external_mount_pools",
+        "treasury_unit": "100000 silver",
+        "resource_authority": "current grain/fodder/ammunition stocks: state/market/regional-depots.json; current serviceable mounts: state/res/external-mount-pools.json",
+        "force_authority": "current military personnel accounting: state/force-pool/<state>.json; permanent home-unit topology: state/org/home-establishments/<owner>.json; active formations exist only for real operations/battles",
+        "unit_resolution": "Combat resolves directly from homogeneous units; state force pools are accounting-only and cannot fight."
+      },
+      "label": "Overview",
+      "notes": [
+        "These are deterministic campaign simulation values, not claims of exact historical census totals."
+      ],
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "administrative_capacity": 82,
+        "internal_stability": 68,
+        "mobilization_readiness": 55,
+        "monthly_process": "process_state_qin",
+        "population": 9000000,
+        "treasury_units": 260,
+        "force_pool_ref": "state/force-pool/qin.json"
+      },
+      "label": "state_qin_macro",
+      "record_id": "state_qin_macro"
+    },
+    {
+      "facts": {
+        "administrative_capacity": 75,
+        "internal_stability": 62,
+        "mobilization_readiness": 58,
+        "monthly_process": "process_state_zhao",
+        "population": 7200000,
+        "treasury_units": 190,
+        "force_pool_ref": "state/force-pool/zhao.json"
+      },
+      "label": "state_zhao_macro",
+      "record_id": "state_zhao_macro"
+    },
+    {
+      "facts": {
+        "administrative_capacity": 67,
+        "internal_stability": 64,
+        "mobilization_readiness": 50,
+        "monthly_process": "process_state_chu",
+        "population": 12000000,
+        "treasury_units": 240,
+        "force_pool_ref": "state/force-pool/chu.json"
+      },
+      "label": "state_chu_macro",
+      "record_id": "state_chu_macro"
+    },
+    {
+      "facts": {
+        "administrative_capacity": 72,
+        "internal_stability": 61,
+        "mobilization_readiness": 52,
+        "monthly_process": "process_state_wei",
+        "population": 4800000,
+        "treasury_units": 135,
+        "force_pool_ref": "state/force-pool/wei.json"
+      },
+      "label": "state_wei_macro",
+      "record_id": "state_wei_macro"
+    },
+    {
+      "facts": {
+        "administrative_capacity": 70,
+        "internal_stability": 57,
+        "mobilization_readiness": 43,
+        "monthly_process": "process_state_han",
+        "population": 2400000,
+        "treasury_units": 75,
+        "force_pool_ref": "state/force-pool/han.json"
+      },
+      "label": "state_han_macro",
+      "record_id": "state_han_macro"
+    },
+    {
+      "facts": {
+        "administrative_capacity": 64,
+        "internal_stability": 59,
+        "mobilization_readiness": 47,
+        "monthly_process": "process_state_yan",
+        "population": 4200000,
+        "treasury_units": 110,
+        "force_pool_ref": "state/force-pool/yan.json"
+      },
+      "label": "state_yan_macro",
+      "record_id": "state_yan_macro"
+    },
+    {
+      "facts": {
+        "administrative_capacity": 78,
+        "internal_stability": 72,
+        "mobilization_readiness": 40,
+        "monthly_process": "process_state_qi",
+        "population": 5500000,
+        "treasury_units": 180,
+        "force_pool_ref": "state/force-pool/qi.json"
+      },
+      "label": "state_qi_macro",
+      "record_id": "state_qi_macro"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "state-macro-registry"
+}

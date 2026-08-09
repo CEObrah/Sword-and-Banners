@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite",
+  "id": "staff.qin.moubu.cao_jian",
+  "name": "Cao Jian",
+  "resolution": "individual_lite",
+  "owner": "army.moubu_army",
+  "family_id": "fam.cao_jian",
+  "origin": "Qin",
+  "rank": "named_staff_officer",
+  "role": "signals officer",
+  "stats": {
+    "attributes": {
+      "Strength": 84,
+      "Agility": 101,
+      "Endurance": 76,
+      "Toughness": 78,
+      "Coordination": 101,
+      "Awareness": 93,
+      "Composure": 76,
+      "Intelligence": 99,
+      "Presence": 77
+    },
+    "skills": {
+      "Sword": 98,
+      "Spear": 93,
+      "Glaive": 68,
+      "Axe": 103,
+      "Mace": 73,
+      "Staff": 78,
+      "Dagger": 83,
+      "Bow": 96,
+      "Crossbow": 99,
+      "Shield": 77,
+      "Defense": 103,
+      "Athletics": 70,
+      "Mass Combat": 128,
+      "Grappling": 91,
+      "Unarmed": 77,
+      "Riding": 100,
+      "Formation Fighting": 118,
+      "Survival": 96,
+      "Stealth": 79,
+      "Scouting": 90,
+      "Navigation": 99,
+      "Medicine": 75,
+      "Engineering": 102,
+      "Leadership": 101,
+      "Formation Command": 98,
+      "Tactics": 113,
+      "Strategy": 103,
+      "Logistics": 77,
+      "Intelligence Operations": 76,
+      "Training": 96,
+      "Diplomacy": 68,
+      "Law": 75,
+      "Trade": 67,
+      "Intrigue": 73,
+      "Governance": 81
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Qin",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in signals officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "287-BCE-12-06",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 174.2,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 77.4,
+    "frame": "broad",
+    "source": "simulation_assigned"
+  },
+  "appearance": 58,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 137,
+    "technical_learning": 119,
+    "tactical_learning": 142,
+    "academic_learning": 155,
+    "social_learning": 84,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "alert",
+      "precise",
+      "low-ego"
+    ],
+    "preferences": [
+      "visible standards",
+      "redundant messengers"
+    ],
+    "dislikes": [
+      "ambiguous signals",
+      "commanders moving without notice"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.moubu_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_mou_bu",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "keep orders and battlefield signals moving despite noise, distance, and casualties",
+  "background": "Persistent named signals officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.qin.moubu.cao_jian.json"
+}

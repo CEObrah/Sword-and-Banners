@@ -1,0 +1,143 @@
+{
+  "base_or_current_contract": "central caravan roads",
+  "equipment_and_mounts": {
+    "assigned_mounts": 200,
+    "assigned_war_arrows": 39600,
+    "assigned_war_bolts": 7200,
+    "issued_loadouts": [
+      {
+        "count": 900,
+        "loadout_id": "loadout_mercenary_line"
+      },
+      {
+        "count": 400,
+        "loadout_id": "loadout_mercenary_engineer"
+      },
+      {
+        "count": 200,
+        "loadout_id": "loadout_mercenary_scout"
+      }
+    ],
+    "reserve_mounts": 20,
+    "reserve_war_arrows": 39600,
+    "reserve_war_bolts": 7200
+  },
+  "food_stock_kg": 144000,
+  "force_class": "mercenary_company",
+  "headcount": 1500,
+  "name": "Golden Axle Company",
+  "owner_id": "merc_golden_axle",
+  "owner_type": "mercenary_company",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state_alignment": "Independent",
+  "subprocess_id": "process_merc_golden_axle",
+  "treasury_silver": 120000,
+  "doctrine": "doc.merc_golden_axle.standard",
+  "training": "train.merc_golden_axle.standard",
+  "combat_tendencies": {
+    "aggression": 55,
+    "initiative": 55,
+    "caution": 50,
+    "adaptability": 55,
+    "flank_bias": 50,
+    "counterattack_bias": 55,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45,
+    "casualty_tolerance": 55,
+    "objective_focus": 70,
+    "ally_support": 65,
+    "formation_discipline": 70,
+    "commander_dependence": 55
+  },
+  "doctrine_familiarity": 80,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 174,
+      "sd": 5.8
+    },
+    "weight_kg": {
+      "mean": 59,
+      "sd": 7.4
+    },
+    "individual_records_required": false
+  },
+  "home_establishment_ref": "establishment.merc_golden_axle",
+  "formation_library_ref": "formation.mercenary.standard",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 900
+      },
+      "count": 900,
+      "display": "Wagon Guards",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_line",
+      "mount_type": null,
+      "role": "wagon_guard",
+      "doctrine": "doc.merc_golden_axle.wagon_guard",
+      "training": "train.merc_golden_axle.wagon_guard",
+      "pool_id": "merc_golden_axle:pool_wagon_guard",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "guard_infantry",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-golden-axle-pool-wagon-guard.json",
+      "specialty": "wagon_guard"
+    },
+    {
+      "condition": {
+        "fit": 400
+      },
+      "count": 400,
+      "display": "Drivers and Engineers",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_engineer",
+      "mount_type": null,
+      "role": "engineer_drivers",
+      "doctrine": "doc.merc_golden_axle.engineer_drivers",
+      "training": "train.merc_golden_axle.engineer_drivers",
+      "pool_id": "merc_golden_axle:pool_engineer_drivers",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "engineer",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-golden-axle-pool-engineer-drivers.json",
+      "specialty": "engineer_drivers"
+    },
+    {
+      "condition": {
+        "fit": 200
+      },
+      "count": 200,
+      "display": "Scouts",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_scout",
+      "mount_type": "horse_riding_common",
+      "role": "scout",
+      "doctrine": "doc.merc_golden_axle.scout",
+      "training": "train.merc_golden_axle.scout",
+      "pool_id": "merc_golden_axle:pool_scout",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "scout",
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-golden-axle-pool-scout.json"
+    }
+  ],
+  "stat_order_ref": "data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true
+}

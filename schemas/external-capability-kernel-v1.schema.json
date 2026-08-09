@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "kernel_id",
+    "kernel"
+  ],
+  "properties": {
+    "schema": {
+      "const": "external-capability-kernel.v1"
+    },
+    "kernel_id": {
+      "type": "string"
+    },
+    "kernel": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

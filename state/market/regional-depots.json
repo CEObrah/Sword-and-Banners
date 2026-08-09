@@ -1,0 +1,137 @@
+{
+  "name": "Regional Markets, State Depots, and Army Procurement Stocks",
+  "owner_id": "regional_depots",
+  "owner_type": "depot_registry",
+  "records": [
+    {
+      "label": "Overview",
+      "notes": [
+        "This registry owns current exact regional depot stocks. Stocks change only through realized production/import delivery, civilian/military issue, sale/export, spoilage, seizure, destruction, transfer, or other conserved transactions. Forecast flows live separately and never count as stock until realized."
+      ],
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "fodder_reorder_point_kg": 13000000,
+        "fodder_target_stock_kg": 17280000,
+        "food_reorder_point_kg": 36000000,
+        "food_target_stock_kg": 45619200,
+        "purchase_authority": "Tang Ling through Gu Wen and Lu Zhen; emergency authority Tang Zhu or Tang Wei within saved jurisdiction",
+        "war_arrow_reorder_point": 2800000,
+        "war_arrow_target_stock": 3904164
+      },
+      "label": "Tang Manor procurement thresholds",
+      "record_id": "tang_manor_procurement_thresholds"
+    },
+    {
+      "record_id": "state_depot_qin",
+      "label": "QIN regional depot",
+      "facts": {
+        "grain_kg": 450000000,
+        "fodder_kg": 120000000,
+        "war_arrows": 30000000,
+        "crossbow_bolts": 18000000,
+        "timber_tonnes": 320000,
+        "iron_tonnes": 85000,
+        "medicine_lots": 80000,
+        "carts": 42000
+      }
+    },
+    {
+      "record_id": "state_depot_zhao",
+      "label": "ZHAO regional depot",
+      "facts": {
+        "grain_kg": 330000000,
+        "fodder_kg": 105000000,
+        "war_arrows": 24000000,
+        "crossbow_bolts": 9000000,
+        "timber_tonnes": 210000,
+        "iron_tonnes": 52000,
+        "medicine_lots": 52000,
+        "carts": 30000
+      }
+    },
+    {
+      "record_id": "state_depot_chu",
+      "label": "CHU regional depot",
+      "facts": {
+        "grain_kg": 590000000,
+        "fodder_kg": 95000000,
+        "war_arrows": 32000000,
+        "crossbow_bolts": 10000000,
+        "timber_tonnes": 420000,
+        "iron_tonnes": 70000,
+        "medicine_lots": 68000,
+        "carts": 48000
+      }
+    },
+    {
+      "record_id": "state_depot_wei",
+      "label": "WEI regional depot",
+      "facts": {
+        "grain_kg": 220000000,
+        "fodder_kg": 62000000,
+        "war_arrows": 14000000,
+        "crossbow_bolts": 15000000,
+        "timber_tonnes": 190000,
+        "iron_tonnes": 62000,
+        "medicine_lots": 35000,
+        "carts": 22000
+      }
+    },
+    {
+      "record_id": "state_depot_han",
+      "label": "HAN regional depot",
+      "facts": {
+        "grain_kg": 105000000,
+        "fodder_kg": 27000000,
+        "war_arrows": 8000000,
+        "crossbow_bolts": 12000000,
+        "timber_tonnes": 90000,
+        "iron_tonnes": 30000,
+        "medicine_lots": 18000,
+        "carts": 12000
+      }
+    },
+    {
+      "record_id": "state_depot_yan",
+      "label": "YAN regional depot",
+      "facts": {
+        "grain_kg": 185000000,
+        "fodder_kg": 68000000,
+        "war_arrows": 16000000,
+        "crossbow_bolts": 7000000,
+        "timber_tonnes": 160000,
+        "iron_tonnes": 35000,
+        "medicine_lots": 30000,
+        "carts": 18000
+      }
+    },
+    {
+      "record_id": "state_depot_qi",
+      "label": "QI regional depot",
+      "facts": {
+        "grain_kg": 300000000,
+        "fodder_kg": 48000000,
+        "war_arrows": 13000000,
+        "crossbow_bolts": 8000000,
+        "timber_tonnes": 200000,
+        "iron_tonnes": 50000,
+        "medicine_lots": 46000,
+        "carts": 26000
+      }
+    },
+    {
+      "label": "Market transaction rule",
+      "notes": [
+        "An army can buy food, fodder, ammunition, medicine, tools, animals, carts, and other lawful goods only through an exact transaction with buyer funds, seller stock, quantity, price, authority, loading, transport, route, escort, delivery time, receiving capacity, and custody. Payment without stock creates no goods. Stock without transport does not enter the army.",
+        "State armies receive money only through exact state appropriation, office revenue, contracts, lawful taxes, tribute, sale, ransom, loan, or realized loot. A formation does not gain money merely because a month passed. Mercenary companies receive exact contract payments and other realized revenue into their company treasury."
+      ],
+      "record_id": "market_transaction_rule"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "depot-registry"
+}

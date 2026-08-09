@@ -1,0 +1,82 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qin_role_siege_engineering",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        60,
+        52,
+        70,
+        66,
+        64,
+        62,
+        68,
+        68,
+        48
+      ],
+      "skill_values": [
+        42,
+        45,
+        40,
+        55,
+        60,
+        50,
+        40,
+        35,
+        45,
+        48,
+        52,
+        60,
+        45,
+        48,
+        45,
+        25,
+        51,
+        52,
+        30,
+        38,
+        45,
+        35,
+        75,
+        44,
+        41,
+        45,
+        40,
+        69,
+        32,
+        50,
+        30,
+        35,
+        42,
+        28,
+        38
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qin_role_siege_engineering",
+    "monthly_factor_inputs": "instruction 1.03; facility 1.03; equipment 1.00; recovery 0.98; administration 0.82",
+    "role": "siege_engineering",
+    "state": "QIN",
+    "identity_notes": "Best-balanced institutional army: disciplined line infantry, command, training, logistics, and combined-arms coordination.",
+    "balance_adjustment": {
+      "state_identity": "QIN",
+      "role": "siege_engineering",
+      "attribute_modifiers": {
+        "Composure": 2,
+        "Intelligence": 2
+      },
+      "skill_modifiers": {
+        "Mass Combat": 3,
+        "Formation Fighting": 3,
+        "Leadership": 2,
+        "Formation Command": 3,
+        "Tactics": 3,
+        "Strategy": 2,
+        "Logistics": 3,
+        "Training": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

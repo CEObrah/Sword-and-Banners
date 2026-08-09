@@ -1,0 +1,113 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.school_qin",
+    "owner_id": "school_qin",
+    "owner_type": "martial_school",
+    "source_force_ref": "state/inst/school-qin.json",
+    "formation_library_ref": "formation.school.mobilization",
+    "reconstitution_policy_ref": "reconstitution.school",
+    "organizational_unit_series": [
+      {
+        "series_id": "est.school_qin.school_instructor",
+        "source_manpower_id": "school_qin:unit_school_instructor",
+        "role": "school_instructor",
+        "unit_count": 2,
+        "nominal_strength": 25,
+        "final_unit_strength": 5,
+        "stable_unit_id_pattern": "est.school_qin.school_instructor.{ordinal:03d}",
+        "doctrine": "doc.organization.school_instruction",
+        "training": "train.organization.school",
+        "mobilization": "not a field combat unit by default; combat deployment requires lawful mobilization",
+        "troop_type": "school_instructor",
+        "loadout_standard": "loadout_school_martial"
+      },
+      {
+        "series_id": "est.school_qin.school_senior",
+        "source_manpower_id": "school_qin:unit_school_senior",
+        "role": "school_senior",
+        "unit_count": 3,
+        "nominal_strength": 25,
+        "final_unit_strength": 25,
+        "stable_unit_id_pattern": "est.school_qin.school_senior.{ordinal:03d}",
+        "doctrine": "doc.organization.school_instruction",
+        "training": "train.organization.school",
+        "mobilization": "not a field combat unit by default; combat deployment requires lawful mobilization",
+        "troop_type": "school_senior",
+        "loadout_standard": "loadout_school_martial"
+      },
+      {
+        "series_id": "est.school_qin.school_general",
+        "source_manpower_id": "school_qin:unit_school_general",
+        "role": "school_general",
+        "unit_count": 5,
+        "nominal_strength": 50,
+        "final_unit_strength": 40,
+        "stable_unit_id_pattern": "est.school_qin.school_general.{ordinal:03d}",
+        "doctrine": "doc.organization.school_instruction",
+        "training": "train.organization.school",
+        "mobilization": "not a field combat unit by default; combat deployment requires lawful mobilization",
+        "troop_type": "school_general",
+        "loadout_standard": "loadout_school_martial"
+      },
+      {
+        "series_id": "est.school_qin.school_junior",
+        "source_manpower_id": "school_qin:unit_school_junior",
+        "role": "school_junior",
+        "unit_count": 6,
+        "nominal_strength": 50,
+        "final_unit_strength": 25,
+        "stable_unit_id_pattern": "est.school_qin.school_junior.{ordinal:03d}",
+        "doctrine": "doc.organization.school_instruction",
+        "training": "train.organization.school",
+        "mobilization": "not a field combat unit by default; combat deployment requires lawful mobilization",
+        "troop_type": "school_junior",
+        "loadout_standard": "loadout_school_martial"
+      },
+      {
+        "series_id": "est.school_qin.school_support",
+        "source_manpower_id": "school_qin:unit_school_support",
+        "role": "school_support",
+        "unit_count": 3,
+        "nominal_strength": 50,
+        "final_unit_strength": 30,
+        "stable_unit_id_pattern": "est.school_qin.school_support.{ordinal:03d}",
+        "doctrine": "doc.organization.school_instruction",
+        "training": "train.organization.school",
+        "mobilization": "not a field combat unit by default; combat deployment requires lawful mobilization",
+        "troop_type": "school_support",
+        "loadout_standard": "loadout_state_logistics"
+      }
+    ],
+    "mobilization_sources": [
+      {
+        "source_series_id": "est.school_qin.school_instructor",
+        "eligible_for": "emergency_school_defense_or_lawful_mobilization",
+        "formation_library_ref": "formation.school.mobilization",
+        "readiness_requires": "actual muster, equipment, command, and preparation time"
+      },
+      {
+        "source_series_id": "est.school_qin.school_senior",
+        "eligible_for": "emergency_school_defense_or_lawful_mobilization",
+        "formation_library_ref": "formation.school.mobilization",
+        "readiness_requires": "actual muster, equipment, command, and preparation time"
+      },
+      {
+        "source_series_id": "est.school_qin.school_general",
+        "eligible_for": "emergency_school_defense_or_lawful_mobilization",
+        "formation_library_ref": "formation.school.mobilization",
+        "readiness_requires": "actual muster, equipment, command, and preparation time"
+      }
+    ],
+    "nonmilitary_rule": "Students remain students. Organizational membership does not equal deployable manpower.",
+    "standing_procedure_ref": "procedure.school.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.school_instructor"
+    },
+    "unit_series": [],
+    "series_rule_ref": "establishment.rule.standard"
+  }
+}

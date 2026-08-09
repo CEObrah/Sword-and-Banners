@@ -1,0 +1,22 @@
+{
+  "schema": "reputation-audience-segments.v1",
+  "game": "sword",
+  "audience_id_pattern": "audience:<specific_owner_or_network>:<segment>",
+  "segments": {
+    "court": "a specific state/house court and senior officials",
+    "military_officers": "officer corps of a specific state/army",
+    "rank_and_file": "ordinary soldiers inside a specific military network",
+    "nobility": "a specific noble/aristocratic network",
+    "commoners": "public population of a specific settlement/region/state",
+    "merchant_network": "a specific merchant/caravan/warehouse trade network",
+    "mercenary_market": "mercenary employers, brokers, captains, and companies sharing contract information",
+    "household_internal": "members/dependents of a specific household/institution",
+    "border_local": "population/officials along a specific frontier or route",
+    "enemy_intelligence": "a specific hostile intelligence/command network, never a generic omniscient enemy"
+  },
+  "rules": [
+    "Audience membership/knowledge is resolved from current institution, role, location, information access, and saved social links.",
+    "Do not create a world-public audience that automatically knows all public events.",
+    "One person may participate in multiple audiences; use only audiences they can actually access."
+  ]
+}

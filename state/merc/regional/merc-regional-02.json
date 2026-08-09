@@ -1,0 +1,30 @@
+{
+  "id": "merc.regional.02",
+  "name": "White Road Guards",
+  "count": 350,
+  "quality": "regional_professional",
+  "doctrine": "doc.merc.regional.02",
+  "training": "train.merc.regional",
+  "tendencies": {
+    "aggression": 53,
+    "initiative": 49,
+    "caution": 51,
+    "adaptability": 58
+  },
+  "specialty": "escort",
+  "composition": "deterministic template from specialty, registered before contract or combat",
+  "aptitude_distribution": {
+    "mean": 102,
+    "sd": 16,
+    "low_pct": 12,
+    "normal_pct": 62,
+    "high_pct": 22,
+    "exceptional_pct": 4,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "schema": "regional-mercenary-company.v1",
+  "owner_id": "merc.regional.02",
+  "owner_type": "regional_mercenary_company",
+  "accounting_only": true,
+  "accounting_scale": "operational_100"
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qi_role_siege_engineering",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        60,
+        52,
+        70,
+        66,
+        64,
+        63,
+        68,
+        69,
+        48
+      ],
+      "skill_values": [
+        42,
+        45,
+        40,
+        55,
+        60,
+        50,
+        40,
+        35,
+        47,
+        48,
+        53,
+        60,
+        42,
+        48,
+        45,
+        25,
+        48,
+        52,
+        30,
+        38,
+        45,
+        35,
+        72,
+        43,
+        38,
+        44,
+        38,
+        70,
+        32,
+        51,
+        30,
+        35,
+        42,
+        28,
+        38
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qi_role_siege_engineering",
+    "monthly_factor_inputs": "instruction 1.01; facility 1.01; equipment 0.99; recovery 1.00; administration 0.78",
+    "role": "siege_engineering",
+    "state": "QI",
+    "identity_notes": "Wealthy, organized defensive state: logistics, training, administration, missile support, and strategic patience.",
+    "balance_adjustment": {
+      "state_identity": "QI",
+      "role": "siege_engineering",
+      "attribute_modifiers": {
+        "Intelligence": 3,
+        "Composure": 2,
+        "Awareness": 1
+      },
+      "skill_modifiers": {
+        "Logistics": 4,
+        "Training": 3,
+        "Crossbow": 2,
+        "Leadership": 1,
+        "Tactics": 2,
+        "Defense": 1
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

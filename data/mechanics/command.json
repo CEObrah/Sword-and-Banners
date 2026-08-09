@@ -1,0 +1,262 @@
+{
+  "schema": "hierarchical_command_mechanics.v4",
+  "principle": "Every commander has one ownership-agnostic direct command budget with two simultaneous axes: direct personnel and direct command slots. Personal, assigned, attached, mercenary, institutional, or state troops consume the same budget when they report directly.",
+  "comfortable_direct_personnel_anchors": [
+    [
+      0,
+      50
+    ],
+    [
+      20,
+      100
+    ],
+    [
+      40,
+      250
+    ],
+    [
+      60,
+      1000
+    ],
+    [
+      80,
+      2500
+    ],
+    [
+      100,
+      5000
+    ],
+    [
+      120,
+      10000
+    ],
+    [
+      140,
+      25000
+    ],
+    [
+      160,
+      50000
+    ],
+    [
+      180,
+      100000
+    ],
+    [
+      200,
+      200000
+    ]
+  ],
+  "comfortable_direct_command_slots_anchors": [
+    [
+      0,
+      1
+    ],
+    [
+      20,
+      1
+    ],
+    [
+      40,
+      2
+    ],
+    [
+      60,
+      3
+    ],
+    [
+      80,
+      4
+    ],
+    [
+      100,
+      6
+    ],
+    [
+      120,
+      8
+    ],
+    [
+      140,
+      10
+    ],
+    [
+      160,
+      12
+    ],
+    [
+      180,
+      14
+    ],
+    [
+      200,
+      16
+    ]
+  ],
+  "interpolation": "Piecewise linear between anchors. Round personnel and slots down to whole numbers. Minimum one direct command slot.",
+  "direct_load": {
+    "personnel": "Sum personnel in leaf units that report directly to this commander, plus directly controlled named personnel not already inside those units. Ownership does not matter.",
+    "leaf_unit_slots": "One slot for each leaf unit reporting directly.",
+    "subordinate_command_slots": "One slot for each subordinate command node reporting directly, regardless of how many descendant units that subordinate controls.",
+    "direct_command_slots": "leaf_unit_slots + subordinate_command_slots",
+    "delegation": "Whole units delegated to a subordinate cease counting against the superior direct-personnel and leaf-unit loads. The subordinate bears those loads. The superior instead bears one subordinate-command slot for that command node.",
+    "strategic_authority": "Recursive force size under authority is tracked separately and does not equal direct command load. A superior may command a force larger than personal direct capacity through lawful subordinate command nodes."
+  },
+  "capacity_modifiers": {
+    "formula": "Use effective_capacity.factor_tables and combined_modifier exactly; no free-form percentage guessing.",
+    "neutral": 1.0,
+    "health_fatigue": "Current health, fatigue, strain and cognitive condition of commander/staff.",
+    "staff_and_signals": "Qualified staff, messengers/signals/communications, command posts, maps and relay quality.",
+    "doctrine_familiarity": "Commander/subordinates familiarity with the current organization and doctrine.",
+    "terrain_dispersion": "Distance, frontage, visibility, terrain and unit dispersion burden.",
+    "information_quality": "How current and reliable reports are; sensors/scouts/observers may improve it where the game permits.",
+    "no_stat_buff": "Command modifiers alter order latency, synchronization, reserve use, formation execution, morale/control and reaction quality. They never multiply soldiers permanent Strength, Endurance, weapon skill or other body capability."
+  },
+  "bands": {
+    "comfortable": "both axes <= effective comfortable capacity",
+    "strained": "either axis > 1.00x and <= 1.25x comfortable while neither exceeds 1.25x",
+    "overloaded": "either axis > 1.25x and <= 1.50x comfortable while neither exceeds 1.50x",
+    "breakdown": "either axis > 1.50x comfortable",
+    "effects": {
+      "comfortable": "normal deterministic command execution from saved doctrine, communications and commander skill",
+      "strained": "moderate order delay, reduced simultaneous maneuver quality and slower reserve response",
+      "overloaded": "large order delay, synchronization loss, more units fall back to standing doctrine/current orders, complex maneuvers become unreliable",
+      "breakdown": "commander cannot reliably issue new synchronized control to the excess direct span; excess branches act from last valid orders/standing doctrine until delegation, reorganization or load reduction restores control"
+    }
+  },
+  "anti_fragmentation": {
+    "rule": "Splitting creates organizational flexibility only. It never creates people, equipment, frontage, action economy, morale, experience or combat power.",
+    "cost": "Each additional directly controlled child unit consumes a direct command slot. Delegation can reduce superior direct load but requires a real qualified subordinate and valid communication chain.",
+    "tiny_unit_rule": "Tiny units do not gain free independent actions merely by existing; physical frontage, timing, communication and actual personnel still constrain what they can accomplish."
+  },
+  "ownership_agnostic": "Personal and assigned troops never receive separate command-capacity ledgers. If they report directly to the same commander, they share the same personnel and command-slot limits.",
+  "worked_example": {
+    "commander_comfort": "10000 direct personnel and 8 direct command slots",
+    "force": "15000 personnel in 10 leaf units",
+    "before": "15000 direct personnel and 10 direct command slots: above comfort",
+    "delegation": "delegate 5000 personnel in 4 whole units to one qualified subordinate",
+    "superior_after": "10000 direct personnel; 6 direct leaf units + 1 subordinate command node = 7 direct command slots; strategic authority still covers all 15000",
+    "subordinate_after": "5000 direct personnel and 4 direct leaf units",
+    "validity": "Both commanders must independently satisfy their effective capacities and the communication/authority chain must be valid."
+  },
+  "authority": "data/mechanics/command.json",
+  "game_scope": "This repository only.",
+  "rating": {
+    "formula": "0.30*Leadership + 0.20*Tactics + 0.20*Strategy + 0.15*Formation_Command + 0.10*Mass_Combat + 0.05*Logistics",
+    "source_paths": {
+      "Leadership": "skills.Leadership",
+      "Tactics": "skills.Tactics",
+      "Strategy": "skills.Strategy",
+      "Formation_Command": "skills.Formation Command",
+      "Mass_Combat": "skills.Mass Combat",
+      "Logistics": "skills.Logistics"
+    },
+    "cold_profile_fields": [
+      "leadership",
+      "tactics",
+      "strategy",
+      "formation_command",
+      "mass_combat",
+      "logistics"
+    ],
+    "clamp": [
+      0,
+      200
+    ]
+  },
+  "setting_modifiers": {
+    "communications": "staff, runners, flags, drums, horns, signal towers, maps, roads and prepared command posts where actually available",
+    "army_note": "Large armies are expected to require nested command. A commander may hold strategic authority over very large forces while directly controlling only a manageable set of units and subordinate command nodes."
+  },
+  "effective_capacity": {
+    "base": "Piecewise-linear interpolation of the rating anchors, rounded down.",
+    "factor_product": "health_fatigue * staff_and_signals * doctrine_familiarity * terrain_dispersion * information_quality",
+    "combined_modifier": "clamp(0.45,1.35,factor_product)",
+    "effective_direct_personnel": "floor(base_direct_personnel * combined_modifier)",
+    "effective_direct_command_slots": "max(1,floor(base_direct_command_slots * combined_modifier))",
+    "factor_tables": {
+      "health_fatigue": {
+        "severely_impaired": 0.6,
+        "impaired": 0.8,
+        "normal": 1.0,
+        "fresh_and_unstrained": 1.05
+      },
+      "staff_and_signals": {
+        "absent_or_broken": 0.65,
+        "poor": 0.8,
+        "adequate": 1.0,
+        "strong": 1.1,
+        "exceptional": 1.2
+      },
+      "doctrine_familiarity": {
+        "unfamiliar": 0.75,
+        "partial": 0.9,
+        "familiar": 1.0,
+        "rehearsed": 1.1
+      },
+      "terrain_dispersion": {
+        "severely_fragmented": 0.7,
+        "difficult": 0.85,
+        "normal": 1.0,
+        "compact_prepared": 1.1
+      },
+      "information_quality": {
+        "blind_or_stale": 0.7,
+        "delayed_or_patchy": 0.85,
+        "adequate": 1.0,
+        "strong": 1.1,
+        "exceptional": 1.2
+      }
+    },
+    "selection_rule": "Choose each factor only from current saved evidence. If evidence does not support a better category, use normal/adequate/familiar. Do not grant a bonus because a commander is important or named."
+  },
+  "load_evaluation": {
+    "personnel_ratio": "direct_personnel / max(1,effective_direct_personnel)",
+    "slot_ratio": "direct_command_slots / max(1,effective_direct_command_slots)",
+    "load_ratio": "max(personnel_ratio, slot_ratio)",
+    "band": "comfortable if <=1.00; strained if >1.00 and <=1.25; overloaded if >1.25 and <=1.50; breakdown if >1.50",
+    "order_latency_multiplier": "min(3.0, 1.0 + 2.0*max(0,load_ratio-1.0))",
+    "synchronization_multiplier": "max(0.40, 1.0 - 1.20*max(0,load_ratio-1.0))",
+    "reserve_response_multiplier": "max(0.35, 1.0 - 1.30*max(0,load_ratio-1.0))",
+    "complex_order_capacity_fraction": "max(0.25, 1.0 - 1.50*max(0,load_ratio-1.0))",
+    "application": "These multipliers modify command/control execution only: order delay, synchronized maneuver reliability, reserve response and how much of the direct span can accept a new complex order at once. They never multiply soldier body/weapon capability.",
+    "breakdown": "At load_ratio>1.50, new synchronized control is limited to a lawful subset within effective span. Excess direct branches continue the last valid order/standing doctrine until delegation, reorganization, rally/recovery or communication improvement restores control."
+  },
+  "hierarchy": {
+    "recursive_rule": "Every command node is evaluated independently with the same two-axis rules.",
+    "superior_load": "A subordinate command node consumes exactly one direct command slot in its parent and none of the subordinate descendant personnel count as parent direct personnel.",
+    "subordinate_load": "The subordinate commander bears all directly reporting units/personnel and subordinate nodes under that node.",
+    "strategic_total": "Track recursive personnel and unit totals for reporting/logistics/authority, but never substitute them for direct-load capacity.",
+    "ownership": "Ownership is irrelevant to command load. Personal, assigned, attached, allied-under-command and hired units all count identically when directly reporting.",
+    "depth": "Each hierarchy edge may add real communication latency from the setting communication mechanics. Delegation reduces span load but never makes information travel instantly."
+  },
+  "command_group_state": {
+    "authority_path": "state/cmd/command-groups/{command_group_id}.json",
+    "index": "state/cmd/command-groups/index.json",
+    "manpower_rule": "A command group owns no people and cannot be attacked as a substitute troop unit. It references real troop units, named direct people, subordinate command groups, and one commander person.",
+    "parent_slot_rule": "One direct subordinate command group consumes exactly one parent direct command slot, regardless of descendant unit count.",
+    "presentation_rule": "SHOW COMMAND lists direct troop units and direct subordinate command groups as peer command elements. A subordinate command group may be displayed as <Commander Name> Command, with its child units nested underneath.",
+    "creation_rule": "Create/update a command group only from a real appointment, delegation, operational assignment, or explicit lawful player order. OOC/previews never create one."
+  },
+  "commander_personal_combat": {
+    "person_rule": "A commander/officer is always a person, never a one-person troop unit. If physically present in an engagement, resolve personal movement, equipment, combat, wounds, fatigue, capture, death and retreat from that person owner.",
+    "headcount_rule": "The commander does not add +1 to a troop unit headcount unless the character is explicitly a member of that unit under the unit membership model.",
+    "stat_rule": "Personal body/weapon/stamina/combat stats resolve only the commander personal actions. Command skills affect subordinate command/control through this mechanic and never get averaged into soldier body stats.",
+    "succession_rule": "If a commander is incapacitated, killed, captured, cut off, or unable to communicate, resolve deputy/successor/standing-doctrine behavior. If the superior directly absorbs orphaned child units, those units immediately count against the superior direct personnel and slot loads."
+  },
+  "display_example": {
+    "superior": "Wei",
+    "direct_elements": [
+      "Archer Unit",
+      "Infantry Unit",
+      "Mercenary Unit",
+      "Jang Command"
+    ],
+    "Jang Command": [
+      "Infantry Unit II",
+      "Spear Unit",
+      "Archer Unit II"
+    ],
+    "slot_count": "Wei uses 4 direct command slots in this display: 3 direct troop units + 1 subordinate command group. Jang separately bears the personnel and slot load of the units nested under Jang Command."
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite",
+  "id": "staff.wei.gohoumei.wei_rong",
+  "name": "Wei Rong",
+  "resolution": "individual_lite",
+  "owner": "army.go_hou_mei_army",
+  "family_id": "fam.wei_rong",
+  "origin": "Wei",
+  "rank": "named_staff_officer",
+  "role": "siege engineer officer",
+  "stats": {
+    "attributes": {
+      "Strength": 79,
+      "Agility": 97,
+      "Endurance": 78,
+      "Toughness": 90,
+      "Coordination": 91,
+      "Awareness": 78,
+      "Composure": 79,
+      "Intelligence": 95,
+      "Presence": 96
+    },
+    "skills": {
+      "Sword": 79,
+      "Spear": 77,
+      "Glaive": 90,
+      "Axe": 103,
+      "Mace": 101,
+      "Staff": 86,
+      "Dagger": 67,
+      "Bow": 70,
+      "Crossbow": 96,
+      "Shield": 82,
+      "Defense": 73,
+      "Athletics": 77,
+      "Mass Combat": 108,
+      "Grappling": 93,
+      "Unarmed": 100,
+      "Riding": 73,
+      "Formation Fighting": 120,
+      "Survival": 87,
+      "Stealth": 71,
+      "Scouting": 94,
+      "Navigation": 74,
+      "Medicine": 84,
+      "Engineering": 136,
+      "Leadership": 101,
+      "Formation Command": 117,
+      "Tactics": 99,
+      "Strategy": 91,
+      "Logistics": 93,
+      "Intelligence Operations": 84,
+      "Training": 78,
+      "Diplomacy": 83,
+      "Law": 83,
+      "Trade": 91,
+      "Intrigue": 76,
+      "Governance": 103
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Wei",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in siege engineer officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "289-BCE-07-12",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 183.9,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 74.0,
+    "frame": "average",
+    "source": "simulation_assigned"
+  },
+  "appearance": 54,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 104,
+    "technical_learning": 125,
+    "tactical_learning": 158,
+    "academic_learning": 107,
+    "social_learning": 94,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "inventive",
+      "patient",
+      "material-minded"
+    ],
+    "preferences": [
+      "time to survey",
+      "reliable craftsmen"
+    ],
+    "dislikes": [
+      "political deadlines that ignore physics",
+      "unprotected equipment"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.go_hou_mei_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_go_hou_mei",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "convert engineering capacity into workable siege plans rather than theatrical machines",
+  "background": "Persistent named siege engineer officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.wei.gohoumei.wei_rong.json"
+}

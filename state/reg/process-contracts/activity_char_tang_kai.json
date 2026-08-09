@@ -1,0 +1,47 @@
+{
+  "schema": "process-contract.v1",
+  "cadence": "annual birthday",
+  "constraints": [
+    "no adult authority",
+    "no independent command",
+    "no player choice"
+  ],
+  "contract_id": "contract_activity_char_tang_kai",
+  "domain": "life_course",
+  "goals": [
+    "advance age and age-appropriate eligibility",
+    "preserve health and household care"
+  ],
+  "owner_id": "activity_char_tang_kai",
+  "plan_lifecycle": [
+    "proposed",
+    "active",
+    "blocked",
+    "completed",
+    "failed",
+    "abandoned",
+    "superseded"
+  ],
+  "plan_revision": 1,
+  "reconstruction_policy": "Use saved state, standing orders, resources, opposition, exact events, stable seed, and prior receipts. Never award unsupported success or make Tang Wei choices.",
+  "replanning_policy": "After every settled interval, reassess goals, authority, knowledge, health, resources, dependencies, opposition, constraints, and risk. Continue, block, fail, complete, or supersede the current plan and create a supported successor when the owner remains autonomous.",
+  "result_requirement": [
+    "progress",
+    "maintenance",
+    "recovery",
+    "decline",
+    "loss",
+    "transformation",
+    "closure",
+    "blocked",
+    "no_material_change"
+  ],
+  "revision": 1,
+  "safe_compaction_policy": "A span receipt may cover multiple intervals only when each interval is internally processed in order and material interruptions split the span.",
+  "standing_orders": [
+    "apply birthday transition",
+    "create next annual review"
+  ],
+  "successor_plan_required": true,
+  "visibility": "known"
+}

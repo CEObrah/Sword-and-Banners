@@ -1,0 +1,61 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.yotanwa_confederation",
+    "name": "Yotanwa Mountain Confederation",
+    "leadership_ids": [
+      "char_yotanwa",
+      "char_bajio",
+      "char_tajifu",
+      "char_shunmen"
+    ],
+    "status": "active",
+    "goal": "hold the mountain confederation together and pursue its strategic interests",
+    "current_plan": "Balance tribal obligations and readiness without full-confederation mobilization unless a real political or military cause requires it.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "preserve confederation unity",
+      "protect mountain peoples while expanding advantageous alliances"
+    ],
+    "resources": [
+      "armed confederation force referenced from current force state",
+      "tribal chiefs",
+      "mountain routes",
+      "specialist cadres"
+    ],
+    "constraints": [
+      "tribal consensus",
+      "supply in lowlands",
+      "distance"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Mountain confederation territories, tribes, routes, warbands, and royal command",
+    "leadership_model": "confederated_tribal_monarchy",
+    "relationships": [
+      {
+        "target_id": "faction.quanrong_polity",
+        "relationship_type": "mountain_power_rivalry",
+        "stance": "hostile",
+        "intensity": 78
+      },
+      {
+        "target_id": "faction.yan_frontier_command",
+        "relationship_type": "mountain_frontier_awareness",
+        "stance": "wary",
+        "intensity": 36
+      },
+      {
+        "target_id": "faction.tang_household",
+        "relationship_type": "potential_independent_contact",
+        "stance": "neutral",
+        "intensity": 24
+      }
+    ]
+  }
+}

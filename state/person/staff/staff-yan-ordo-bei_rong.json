@@ -1,0 +1,133 @@
+{
+  "schema": "person-lite",
+  "id": "staff.yan.ordo.bei_rong",
+  "name": "Bei Rong",
+  "resolution": "individual_lite",
+  "owner": "army.ordo_army",
+  "family_id": "fam.bei_rong",
+  "origin": "Yan",
+  "rank": "named_staff_officer",
+  "role": "frontier liaison officer",
+  "stats": {
+    "attributes": {
+      "Strength": 93,
+      "Agility": 78,
+      "Endurance": 80,
+      "Toughness": 92,
+      "Coordination": 78,
+      "Awareness": 99,
+      "Composure": 103,
+      "Intelligence": 86,
+      "Presence": 92
+    },
+    "skills": {
+      "Sword": 97,
+      "Spear": 76,
+      "Glaive": 88,
+      "Axe": 81,
+      "Mace": 93,
+      "Staff": 99,
+      "Dagger": 96,
+      "Bow": 81,
+      "Crossbow": 83,
+      "Shield": 88,
+      "Defense": 102,
+      "Athletics": 102,
+      "Mass Combat": 128,
+      "Grappling": 82,
+      "Unarmed": 95,
+      "Riding": 92,
+      "Formation Fighting": 99,
+      "Survival": 68,
+      "Stealth": 67,
+      "Scouting": 78,
+      "Navigation": 86,
+      "Medicine": 100,
+      "Engineering": 99,
+      "Leadership": 115,
+      "Formation Command": 113,
+      "Tactics": 127,
+      "Strategy": 96,
+      "Logistics": 80,
+      "Intelligence Operations": 97,
+      "Training": 81,
+      "Diplomacy": 75,
+      "Law": 96,
+      "Trade": 88,
+      "Intrigue": 102,
+      "Governance": 77
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Yan",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in frontier liaison officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "270-BCE-07-09",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 162.2,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 53.9,
+    "frame": "average",
+    "source": "simulation_assigned"
+  },
+  "appearance": 50,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 105,
+    "technical_learning": 98,
+    "tactical_learning": 138,
+    "academic_learning": 154,
+    "social_learning": 96,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "diplomatic",
+      "practical",
+      "watchful"
+    ],
+    "preferences": [
+      "reliable local chiefs",
+      "clear obligations"
+    ],
+    "dislikes": [
+      "insults disguised as orders",
+      "promises without payment"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.ordo_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_ordo",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "keep frontier auxiliaries, local communities, and Yan command cooperating under explicit obligations",
+  "background": "Persistent named frontier liaison officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.yan.ordo.bei_rong.json"
+}
