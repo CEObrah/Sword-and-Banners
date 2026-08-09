@@ -13,14 +13,14 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jsonschema
-      - name: Correct liveness migration index cleanup
+      - name: Correct liveness migration registry cleanup
         run: |
           python - <<'PY'
           from pathlib import Path
           p = Path('tools/migrate_role_slot_liveness.py')
           t = p.read_text(encoding='utf-8')
           anchor = '''    p.unlink()\n\n# Strengthen the regression test so this stale clock cannot return and role slots cannot silently freeze.\n'''
-          replacement = '''    p.unlink()\n\nprocess_index = load("state/process-state/index.json")\nold_entries = [e for e in process_index.get("entries", []) if e.get("process_id") == DEAD_PROCESS]\ncheck(len(old_entries) == 1, f"expected one obsolete process-state index entry, found {len(old_entries)}")\nprocess_index["entries"] = [e for e in process_index.get("entries", []) if e.get("process_id") != DEAD_PROCESS]\ndump("state/process-state/index.json", process_index)\n\n# Strengthen the regression test so this stale clock cannot return and role slots cannot silently freeze.\n'''
+          replacement = '''    p.unlink()\n\nprocess_index = load("state/process-state/index.json")\nold_entries = [e for e in process_index.get("entries", []) if e.get("process_id") == DEAD_PROCESS]\ncheck(len(old_entries) == 1, f"expected one obsolete process-state index entry, found {len(old_entries)}")\nprocess_index["entries"] = [e for e in process_index.get("entries", []) if e.get("process_id") != DEAD_PROCESS]\ndump("state/process-state/index.json", process_index)\n\nprocess_registry = load("state/reg/registry-processes.json")\ncheck(DEAD_PROCESS in process_registry.get("processes", {}), "obsolete process missing from process registry")\nprocess_registry["processes"].pop(DEAD_PROCESS)\ndump("state/reg/registry-processes.json", process_registry)\n\ncontract_registry = load("state/reg/registry-process-contracts.json")\ncontract_registry["record_count"] = len(list((ROOT / "state/reg/process-contracts").glob("*.json")))\ndump("state/reg/registry-process-contracts.json", contract_registry)\n\n# Strengthen the regression test so this stale clock cannot return and role slots cannot silently freeze.\n'''
           assert t.count(anchor) == 1
           p.write_text(t.replace(anchor, replacement), encoding='utf-8')
           PY
