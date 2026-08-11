@@ -3,9 +3,16 @@
   "game_authority": "game",
   "campaign_authority": "state",
   "transaction_entrypoint": "runtime/sword_runtime/engine.py",
+  "production_runtime": "runtime/sword_runtime/service_runtime.py",
+  "living_world_intelligence": "runtime/sword_runtime/living_world.py",
+  "causal_living_world": "runtime/sword_runtime/causal_living_world.py",
+  "production_living_world": "runtime/sword_runtime/production_living_world.py",
+  "stable_player_operations": "runtime/sword_runtime/api/stable_operations.py",
   "scheduler_owner": "state/runtime.json",
+  "operational_memory_projection": "state/world/operational-memory.json",
   "owner_index": "state/index/owner-index-gold.json",
   "player_interface": "plugins/sword-and-banners/skills/sword-and-banners-game-master/references/player-interface.md",
+  "gm_skill": "plugins/sword-and-banners/skills/sword-and-banners-game-master/SKILL.md",
   "ordinary_gameplay_mutation": "semantic_command_only",
   "legacy_execution_authority": null
 }
