@@ -1414,66 +1414,7 @@ class RepositoryCommandPlanner:
                 refs=[f"formation_{state}_{bp['key']}" for bp in blueprints[:2] if self.read("state/index/owner-index-gold.json").get("owners",{}).get(f"formation_{state}_{bp['key']}")]
                 op={"schema":"sword-operation","owner_id":op_ref,"operation_ref":op_ref,"objective":"respond to known border threat","status":"active","formation_refs":refs,"location_ref":self.read(f"state/depots/{state}.json").get("location_ref"),"created_at":at,"autonomous":True}
                 self.put(op_path,op); op_idx.setdefault("operations",{})[op_ref]=op_path; self.put("state/operations/index.json",op_idx); self._register_owner(op_ref,op_path)
-        self._autonomy_state_border_campaign(state,state_doc,blueprints,occurrences,at)
         self.put(sp,state_doc)
-
-    def _autonomy_state_border_campaign(self, state: str, state_doc: Dict[str, Any], blueprints: list[Mapping[str, Any]], occurrences: int, at: str) -> None:
-        if occurrences<=0: return
-        self_ref=f"state_{state}"; territory_path="state/territory/control.json"; territory=_deepcopy(self.read(territory_path)); sites=territory.get("sites",{}); routes=self.read("game/data/world/routes.json").get("routes",[]); diplomacy=state_doc.setdefault("diplomacy",{}); now=CampaignTime.parse(at)
-        border_candidates: Dict[str,list[tuple[str,str,str]]] = {}
-        for route in routes:
-            if "formation" not in route.get("modes",[]): continue
-            a=str(route.get("a")); b=str(route.get("b")); sa=sites.get(a); sb=sites.get(b)
-            if not isinstance(sa,dict) or not isinstance(sb,dict): continue
-            ca=str(sa.get("controller","")); cb=str(sb.get("controller",""))
-            if ca==self_ref and cb.startswith("state_") and cb!=self_ref and not bool(sb.get("fortified",False)) and not b.startswith("loc_tang_manor"):
-                border_candidates.setdefault(cb,[]).append((a,b,str(route.get("ref",""))))
-            if cb==self_ref and ca.startswith("state_") and ca!=self_ref and not bool(sa.get("fortified",False)) and not a.startswith("loc_tang_manor"):
-                border_candidates.setdefault(ca,[]).append((b,a,str(route.get("ref",""))))
-        if not border_candidates: return
-        viable=[]
-        for rival,candidates in sorted(border_candidates.items()):
-            relation=diplomacy.setdefault(rival,{})
-            truce=relation.get("truce_until")
-            if truce and now<CampaignTime.parse(str(truce)): continue
-            tension=_clamp(int(relation.get("tension",0))+min(100,max(1,int(occurrences))*2)); relation["tension"]=tension; relation["last_reviewed_at"]=at
-            if tension>=60: viable.append((tension,rival,candidates))
-        if not viable: return
-        viable.sort(key=lambda x:(-x[0],x[1])); _,rival,candidates=viable[0]; candidates=sorted(candidates,key=lambda x:(hashlib.sha256((state+"|"+rival+"|"+x[1]).encode()).hexdigest(),x[1])); source,target,route_ref=candidates[0]
-        owners=self.read("state/index/owner-index-gold.json").get("owners",{}); formation_ref=None; formation_path=None; formation=None
-        for bp in blueprints:
-            ref=f"formation_{state}_{bp['key']}"; path=owners.get(ref)
-            if not path: continue
-            candidate=_deepcopy(self.read(path))
-            if int(candidate.get("personnel",0))<=0: continue
-            formation_ref=ref; formation_path=str(path); formation=candidate; break
-        if formation is None or formation_path is None or formation_ref is None: return
-        # Unopposed occupation is lawful only when the derived exact-location index
-        # proves there is no surviving hostile formation already at the target.
-        for other_ref in self._formations_at(target):
-            if other_ref==formation_ref: continue
-            try: _,other=self._load_formation(other_ref)
-            except ValueError: continue
-            if int(other.get("personnel",0))>0 and str(other.get("administrative_owner",""))!=self_ref: return
-        origin=str(formation.get("location_ref",""))
-        try: hours=self._route_travel_hours(origin,target,modes=("formation",))
-        except ValueError: return
-        personnel=max(1,int(formation.get("personnel",0))); food=max(1,int(math.ceil(personnel*0.8*max(1,hours)/24.0))); logistics=formation.setdefault("logistics",{})
-        if int(logistics.get("food_kg",0))<food: return
-        logistics["food_kg"]-=food; self._index_formation_location(formation_ref,origin,target); formation["mobilized"]=True; formation["status"]="occupying"; formation["fatigue"]=_clamp(int(formation.get("fatigue",0))+max(1,hours//12)); formation["location_ref"]=target; formation["last_autonomous_campaign_at"]=at
-        commander_ref=formation.get("commander_ref")
-        if commander_ref:
-            try:
-                cp,commander=self._exact_person(str(commander_ref)); self._set_person_location(commander,target); self.put(cp,commander)
-            except ValueError:
-                formation["commander_ref"]=None
-        self.put(formation_path,formation)
-        op_ref="operation_auto_occupation_"+hashlib.sha256((state+"|"+rival+"|"+target+"|"+at).encode()).hexdigest()[:16]; op_path=f"state/operations/{op_ref}.json"; op={"schema":"sword-operation","owner_id":op_ref,"operation_ref":op_ref,"objective":"occupy exposed rival border territory","status":"completed","location_ref":target,"formation_refs":[formation_ref],"created_at":at,"completed_at":at,"autonomous":True,"phase_history":[{"phase":"political_objective","at":at},{"phase":"mobilization","at":at},{"phase":"movement","route_ref":route_ref,"from":origin,"to":target,"travel_hours":hours,"food_consumed_kg":food},{"phase":"occupation","at":at,"basis":"no saved hostile formation or fortification blocked entry"}]}
-        op_idx=_deepcopy(self.read("state/operations/index.json")); self.put(op_path,op); op_idx.setdefault("operations",{})[op_ref]=op_path; self.put("state/operations/index.json",op_idx); self._register_owner(op_ref,op_path)
-        old=str(sites[target].get("controller")); sites[target]["controller"]=self_ref; sites[target]["previous_controller"]=old; sites[target]["changed_at"]=at; sites[target]["change_basis"]="autonomous_occupation_operation"; sites[target]["change_evidence_ref"]=op_ref; self.put(territory_path,territory)
-        hist=_deepcopy(self.read("state/history/events/index.json")); eid="territory_auto_"+hashlib.sha256((op_ref+"|"+target).encode()).hexdigest()[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"territorial_control_change","at":at,"location_ref":target,"from":old,"to":self_ref,"evidence_ref":op_ref,"basis":"autonomous occupation"}); self.put("state/history/events/index.json",hist)
-        truce_until=str(now.add_days(180)); diplomacy.setdefault(rival,{})["tension"]=20; diplomacy[rival]["truce_until"]=truce_until; diplomacy[rival]["last_conflict_ref"]=op_ref; state_doc.setdefault("autonomous_actions",[]).append({"at":at,"posture":"border_occupation","rival":rival,"location_ref":target,"operation_ref":op_ref,"basis":"saved border tension, route, formation, supply and exposed territory"})
-        rival_key=self._state_key(rival); rsp=f"state/states/{rival_key}.json"; rival_doc=_deepcopy(self.read(rsp)); rival_doc.setdefault("known_threats",{})[state]={"severity":80,"observed_at":at,"provenance":op_ref}; rd=rival_doc.setdefault("diplomacy",{}).setdefault(self_ref,{}); rd["tension"]=20; rd["truce_until"]=truce_until; rd["last_conflict_ref"]=op_ref; self.put(rsp,rival_doc)
 
     def _autonomy_interstate(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
         """Advance bounded exact interstate theaters through objective -> war -> occupation -> peace.
