@@ -20,6 +20,7 @@ MODULES = [
     'tests/runtime/test_rules_parity_adversarial.py',
     'tests/runtime/test_hostile_command_matrix.py',
     'tests/runtime/test_warfare.py',
+    'tests/runtime/test_living_world_intelligence.py',
 ]
 
 
