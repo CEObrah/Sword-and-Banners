@@ -85,6 +85,14 @@ Named exact people and aggregate cohorts must not receive the same elapsed devel
 
 When exact House members receive development from House institutions, preserve their individual state and do not also award an independent aggregate copy of the same training. If ownership is ambiguous, fail closed and flag the overlap OOC rather than compounding progression.
 
+## Exact identity and aggregate conservation
+
+An exact materialized person may also represent one slot inside a larger conserved personnel or population pool. Those are two views of one person, not two people.
+
+When materialization, recruitment, graduation, promotion, transfer, demobilization, casualty settlement, or another pipeline changes that shared representation, synchronize the exact identity and aggregate counts inside the same causal settlement. Reclassify or consume an existing anonymous slot rather than creating extra headcount. If an exact person leaves one cohort for another, the aggregate representation must move with the same conserved identity rather than leaving a duplicate anonymous copy behind.
+
+Do not infer that every aggregate transfer must materialize named people. Exact/aggregate synchronization applies only when a materialized identity is already represented inside the affected conserved flow or when the runtime explicitly materializes one from it.
+
 ## Economy and logistics
 
 Wealth is not infinite. Armies consume supply. Horses require forage. Institutions use capacity. Projects take labor and material. Markets respond through the runtime's economic systems.
