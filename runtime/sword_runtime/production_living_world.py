@@ -7,9 +7,14 @@ constraints.
 """
 from __future__ import annotations
 
+import copy
 from typing import Any, Mapping
 
 from sword_runtime.causal_living_world import CausalLivingWorldSwordPlanner
+from sword_runtime.living_world import OPERATIONAL_MEMORY_PATH
+
+
+_ACTIVE_OPERATION_STATES = frozenset({"planned", "mobilizing", "active", "engaged", "occupied"})
 
 
 class ProductionLivingWorldSwordPlanner(CausalLivingWorldSwordPlanner):
@@ -35,6 +40,75 @@ class ProductionLivingWorldSwordPlanner(CausalLivingWorldSwordPlanner):
             memory,
             reserved,
         )
+
+    def _autonomy_state(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
+        super()._autonomy_state(host, occurrences, at)
+        state = self._state_key(str(host["owner_ref"]))
+        operation_index_path = "state/operations/index.json"
+        operation_index = self.read(operation_index_path)
+        operations = operation_index.get("operations") if isinstance(operation_index, Mapping) else None
+        if not isinstance(operations, Mapping):
+            raise ValueError("operation index is invalid")
+
+        own_prefix = f"operation_auto_{state}_"
+        own_legacy = f"operation_auto_{state}_border_response"
+        used: set[str] = set()
+        own_active: list[tuple[str, str]] = []
+
+        # Manual commitments and other states' autonomous operations win the
+        # custody conflict. They are existing exact commitments, not soft
+        # preferences available for this state's reassignment.
+        for operation_ref, path in sorted(operations.items()):
+            if not isinstance(operation_ref, str) or not isinstance(path, str):
+                raise ValueError("operation index is invalid")
+            operation = self.read(path)
+            if str(operation.get("status", "")) not in _ACTIVE_OPERATION_STATES:
+                continue
+            refs = operation.get("formation_refs")
+            if not isinstance(refs, list):
+                raise ValueError("active operation has invalid formation_refs")
+            if operation_ref == own_legacy or operation_ref.startswith(own_prefix):
+                own_active.append((operation_ref, path))
+                continue
+            used.update(str(ref) for ref in refs if isinstance(ref, str) and ref)
+
+        cancelled: list[str] = []
+        for operation_ref, path in own_active:
+            operation = copy.deepcopy(self.read(path))
+            refs = [str(ref) for ref in operation.get("formation_refs", []) if isinstance(ref, str) and ref]
+            keep: list[str] = []
+            for formation_ref in refs:
+                if formation_ref in used:
+                    continue
+                keep.append(formation_ref)
+                used.add(formation_ref)
+            if keep == refs:
+                continue
+            if keep:
+                operation["formation_refs"] = keep
+            else:
+                operation["formation_refs"] = []
+                operation["status"] = "cancelled"
+                cancelled.append(operation_ref)
+            self.put(path, operation)
+
+        if cancelled:
+            memory = self.read_optional(OPERATIONAL_MEMORY_PATH)
+            if isinstance(memory, Mapping):
+                memory_copy = copy.deepcopy(dict(memory))
+                state_memory = memory_copy.get("state_memory", {}).get(state)
+                if isinstance(state_memory, dict):
+                    state_memory["active_operation_refs"] = [
+                        ref
+                        for ref in state_memory.get("active_operation_refs", [])
+                        if ref not in cancelled
+                    ]
+                    completed = state_memory.setdefault("completed_operation_refs", [])
+                    if not isinstance(completed, list):
+                        raise ValueError("state operational memory is invalid")
+                    for ref in cancelled:
+                        self._bounded_append(completed, ref, 32)
+                    self.put(OPERATIONAL_MEMORY_PATH, memory_copy)
 
     def _record_interstate_battle_memory(self, event: Mapping[str, Any], at: str) -> None:
         injected_legacy_field = False
