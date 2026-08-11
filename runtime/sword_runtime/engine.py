@@ -992,11 +992,15 @@ class RepositoryCommandPlanner:
         stocks["fodder_kg"] = int(stocks.get("fodder_kg", 0)) - fodder
         stocks["war_arrows"] = int(stocks.get("war_arrows", 0)) - arrows
         self.put(depot_path, depot)
-        arrival = str(review.add_seconds(max(1, convoy_hours * 3600)))
+        # Even a same-site depot handoff consumes a bounded handling interval;
+        # remote convoys consume the exact saved route time.  This keeps every
+        # logistics custody transfer temporally causal and observable.
+        effective_convoy_hours = max(1, int(convoy_hours))
+        arrival = str(review.add_seconds(effective_convoy_hours * 3600))
         theater_record[convoy_key] = {
             "status": "in_transit", "formation_ref": formation_ref,
             "source_location_ref": depot_loc, "destination_location_ref": origin,
-            "dispatched_at": at, "arrives_at": arrival, "travel_hours": convoy_hours,
+            "dispatched_at": at, "arrives_at": arrival, "travel_hours": effective_convoy_hours,
             "food_kg": food, "fodder_kg": fodder, "war_arrows": arrows,
         }
         return {"status": "convoy_dispatched", "location_ref": origin, "arrives_at": arrival, "food_kg": food, "fodder_kg": fodder, "war_arrows": arrows}
