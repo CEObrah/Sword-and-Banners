@@ -23,6 +23,8 @@ MODULES = [
     'tests/runtime/test_living_world_intelligence.py',
     'tests/runtime/test_production_living_world.py',
     'tests/runtime/test_stable_operations.py',
+    'tests/runtime/test_exact_aggregate_conservation.py',
+    'tests/runtime/test_character_progression_schema.py',
 ]
 
 
