@@ -26,8 +26,6 @@ def test_world_density_and_cold_hosts():
     runtime=json.load(open(root/'state/runtime.json'))
     assert len(houses['houses']) >= 40
     assert len(locations['locations']) >= 70
-    # Host count grows when exact named-person/interstate actors become causal.
-    # Assert required actor coverage rather than freezing an obsolete total.
     assert sum(1 for h in runtime['hosts'].values() if h.get('kind')=='mercenary') == 60
     assert sum(1 for h in runtime['hosts'].values() if h.get('kind')=='person') >= 70
     assert sum(1 for h in runtime['hosts'].values() if h.get('kind')=='interstate') == 1
@@ -64,8 +62,11 @@ def test_api_auth_and_player_safe_information(campaign):
         assert client.get('/v1/play/context').status_code==401
         r=client.get('/v1/play/context',headers={'Authorization':f'Bearer {token}'})
         assert r.status_code==200
-        data=r.json(); assert data['policy'].startswith('hidden state omitted')
+        data=r.json()
+        assert data['limits']['ooc_is_read_only'] is True
+        assert data['object_read_policy'].startswith('Use only exact IDs')
         assert all(x['information_ref']!='secret_api_test' for x in data['known_information'])
+        assert data['campaign']['player_id']=='char_tang_wei'
 
 def test_player_api_forbids_internal_actor(campaign):
     from sword_runtime.api.app import create_app
@@ -75,16 +76,42 @@ def test_player_api_forbids_internal_actor(campaign):
         r=client.post('/v1/commands/execute',headers={'Authorization':f'Bearer {token}'},json=body)
         assert r.status_code==403
 
+def test_api_uses_one_runtime_instance_and_explicit_runtime_root(campaign,tmp_path):
+    from sword_runtime.api.app import create_app
+    token='z'*48
+    runtime_root=tmp_path/'service-runtime'
+    app=create_app(campaign,token,runtime_root)
+    assert app.state.campaign_operations.runtime is app.state.sword_runtime
+    assert app.state.sword_runtime.runtime_dir == runtime_root.resolve()
+    assert app.state.sword_runtime.replicator is None
+
+def test_mcp_attestation_is_exact_short_lived_and_tamper_evident():
+    from sword_runtime.api.mcp import McpOAuthSettings, _preview_attestation, _verify_preview_attestation
+    from sword_runtime.commands import CommandEnvelope
+    oauth=McpOAuthSettings(
+        public_url='https://example.test/mcp',issuer_url='https://issuer.test/',jwks_url='https://issuer.test/.well-known/jwks.json',audience='https://example.test/mcp',algorithms=('RS256',),read_scope='sword:read',write_scope='sword:write',allowed_subjects=('auth0|player',),allowed_client_ids=(),preview_secret='A'*43,allowed_origins=('https://chatgpt.com',)
+    )
+    command=CommandEnvelope(campaign_id='campaign',request_id='request-1',actor_id='char_tang_wei',command_type='scene_consequence',expected_revision=1,submitted_at='245-BCE-01-01T00:00:00+08:00',payload={'summary':'test'})
+    proof=_preview_attestation(command,oauth,now=1000)
+    assert _verify_preview_attestation(command,proof,oauth,now=1001)
+    assert not _verify_preview_attestation(command,proof+'x',oauth,now=1001)
+    changed=CommandEnvelope(campaign_id='campaign',request_id='request-1',actor_id='char_tang_wei',command_type='scene_consequence',expected_revision=1,submitted_at='245-BCE-01-01T00:00:00+08:00',payload={'summary':'different'})
+    assert not _verify_preview_attestation(changed,proof,oauth,now=1001)
+    assert not _verify_preview_attestation(command,proof,oauth,now=1301)
+
 def test_railway_and_mcp_files_present():
     root=Path(__file__).resolve().parents[2]
-    assert (root/'railway.json').is_file()
+    assert (root/'railway.toml').is_file()
     assert (root/'runtime/sword_runtime/bootstrap.py').is_file()
     assert (root/'runtime/sword_runtime/api/mcp.py').is_file()
+    assert (root/'runtime/sword_runtime/service_runtime.py').is_file()
     py=(root/'pyproject.toml').read_text()
-    assert 'mcp==2.0.0' in py
+    assert 'mcp==2.0.0' in py and 'PyJWT[crypto]==2.13.0' in py
     mcp_source=(root/'runtime/sword_runtime/api/mcp.py').read_text()
-    assert 'from mcp.server import MCPServer' in mcp_source
-    assert 'mcp.server.fastmcp' not in mcp_source
+    assert 'from mcp.server.mcpserver import MCPServer' in mcp_source
+    assert 'get_play_context' in mcp_source
+    assert 'preview_attestation' in mcp_source
+    assert 'sword:read' in mcp_source and 'sword:write' in mcp_source
 
 def test_gameplay_router_has_no_version_ids():
     root=Path(__file__).resolve().parents[2]
