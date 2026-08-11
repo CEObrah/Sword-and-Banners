@@ -66,7 +66,10 @@ def move_formation_internal(root, formation_ref, destination):
 def prepare_field_formation(root, formation_ref, destination='loc_kankoku_pass', *, food_per_person=7):
     idx=json.load(open(Path(root)/'state/index/owner-index-gold.json'))['owners']; formation=json.load(open(Path(root)/idx[formation_ref])); n=int(formation['personnel'])
     mounts=sum(int(v) for v in formation.get('mounts',{}).values())
-    execute_internal(root,'resupply',{'formation_ref':formation_ref,'food_kg':int(round(n*food_per_person)),'fodder_kg':int(mounts*30),'war_arrows':int(n*4)})
+    logistics=formation.get('logistics',{})
+    desired={'food_kg':int(round(n*food_per_person)),'fodder_kg':int(mounts*30),'war_arrows':int(n*4)}
+    request={key:max(0,target-int(logistics.get(key,0))) for key,target in desired.items()}
+    execute_internal(root,'resupply',{'formation_ref':formation_ref,**request})
     execute_internal(root,'formation_mobilize',{'formation_ref':formation_ref})
     move_formation_internal(root,formation_ref,destination)
 

@@ -5,8 +5,8 @@ def test_personal_gameplay_and_exact_retail(campaign):
     start_wallet=json.load(open(campaign/'state/economy/player-wallet.json'))['silver']
     execute(campaign,'scene_consequence',{'summary':'Wei accepts a Qin officer briefing.'})
     execute(campaign,'individual_training',{'focus':'Formation Command','hours':4})
-    execute(campaign,'health_injury',{'injury':'training bruise','fatigue':5})
-    execute(campaign,'health_recovery',{'health':'healthy','fatigue_recovery':6,'hours':24})
+    execute(campaign,'health_injury',{'injury':'training bruise','severity':'minor'})
+    execute(campaign,'health_recovery',{'hours':24})
     execute(campaign,'relationship_change',{'target_ref':'char_shen_rui','kind':'trust','delta':2})
     execute(campaign,'travel',{'destination_ref':'loc_kanyou'})
     execute(campaign,'market_purchase',{'item_key':'common_sword','quantity':1})
@@ -89,7 +89,7 @@ def test_state_replacement_recruiting_is_bounded_and_conserved(campaign):
     qpop0=json.load(open(campaign/'state/population/qin.json'))
     qstate0=json.load(open(campaign/'state/states/qin.json'))
     execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':'formation_repl_qin','role':'line_infantry','personnel':4000,'commander_ref':'char_heki'})
-    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':'formation_repl_zhao','role':'line_infantry','personnel':4000,'commander_ref':'char_riboku'})
+    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':'formation_repl_zhao','role':'line_infantry','personnel':4000,'commander_ref':'char_bananji'})
     prepare_field_formation(campaign,'formation_repl_qin'); prepare_field_formation(campaign,'formation_repl_zhao'); op=activate_operation(campaign,'operation_replacement_accept',['formation_repl_qin','formation_repl_zhao'])
     execute_internal(campaign,'battle_resolve',{'attacker_formation_refs':['formation_repl_qin'],'defender_formation_refs':['formation_repl_zhao'],'operation_ref':op,'objective':'replacement acceptance battle'})
     qforce1=json.load(open(campaign/'state/forces/state-qin.json'))
@@ -112,7 +112,7 @@ def test_state_replacement_recruiting_is_bounded_and_conserved(campaign):
 def test_private_household_battle_losses_reconcile_population(campaign):
     before=json.load(open(campaign/'state/population/qin.json'))
     house_force_before=json.load(open(campaign/'state/forces/house-tang.json'))
-    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':'formation_house_opponent','role':'line_infantry','personnel':5000,'commander_ref':'char_riboku'})
+    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':'formation_house_opponent','role':'line_infantry','personnel':5000,'commander_ref':'char_bananji'})
     prepare_field_formation(campaign,'formation_tang_champions_first'); prepare_field_formation(campaign,'formation_house_opponent'); op=activate_operation(campaign,'operation_house_opponent',['formation_tang_champions_first','formation_house_opponent'])
     execute_internal(campaign,'battle_resolve',{'attacker_formation_refs':['formation_tang_champions_first'],'defender_formation_refs':['formation_house_opponent'],'operation_ref':op,'objective':'principal extraction under attack'})
     after=json.load(open(campaign/'state/population/qin.json'))
