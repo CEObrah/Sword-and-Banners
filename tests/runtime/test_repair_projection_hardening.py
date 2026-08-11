@@ -24,9 +24,7 @@ def _command_and_receipt(root):
         {'summary': 'transaction used only for repair-integrity regression coverage'},
         mode='gameplay',
     )
-    transaction_id = 'sword-' + hashlib.sha256(
-        (command.digest + ':' + str(current['revision'])).encode('utf-8')
-    ).hexdigest()[:24]
+    transaction_id = 'sword-' + hashlib.sha256((command.digest + ':' + str(current['revision'])).encode('utf-8')).hexdigest()[:24]
     receipt = IdempotencyReceipt.for_command(
         command,
         transaction_id=transaction_id,
@@ -55,6 +53,20 @@ def test_scene_projection_requires_revision_as_well_as_world_time(campaign):
     assert stale['observable_pressures'] == []
 
 
+def test_command_input_guidance_exposes_exact_player_safe_values(campaign, tmp_path):
+    from sword_runtime.api.operations import CampaignOperations
+    from sword_runtime.service_runtime import ProductionSwordRuntime
+
+    context = CampaignOperations(ProductionSwordRuntime(campaign, tmp_path/'runtime')).play_context()
+    commands = context['commands']['command_types']
+    assert commands['travel']['input_guidance']['mode']['allowed_values'] == ['foot', 'horse']
+    assert commands['operation_transition']['input_guidance']['status']['allowed_values'] == ['planned', 'mobilizing', 'active', 'engaged', 'occupied', 'completed', 'cancelled']
+    assert commands['siege_action']['input_guidance']['action']['allowed_values'] == ['blockade', 'repair', 'assault', 'withdraw', 'settle', 'relief']
+    assert commands['family_event']['input_guidance']['player_authored_kinds'] == ['proposal', 'engagement', 'marriage']
+    assert commands['relationship_change']['input_guidance']['delta'] == {'type': 'integer', 'minimum': -5, 'maximum': 5, 'forbidden_values': [0]}
+    assert 'never guess hidden IDs' in context['commands']['input_guidance_policy']
+
+
 def test_empty_transaction_invalidation_registry_is_valid(campaign):
     from sword_runtime.store.repository import RepositoryStore
     from sword_runtime.tx.invalidations import load_transaction_invalidations
@@ -78,25 +90,21 @@ def test_exact_repair_invalidation_allows_recovery_and_reserves_request_id(campa
     from sword_runtime.tx.errors import IdempotencyConflictError
 
     current, command, receipt = _command_and_receipt(campaign)
-    head = subprocess.check_output(
-        ['git','-C',str(campaign),'rev-parse','HEAD'], text=True
-    ).strip()
+    head = subprocess.check_output(['git','-C',str(campaign),'rev-parse','HEAD'], text=True).strip()
     registry = {
         'schema': 'sword.transaction-invalidations',
         'version': 1,
-        'records': [
-            {
-                'campaign_id': current['campaign_id'],
-                'transaction_id': receipt.transaction_id,
-                'request_id': receipt.request_id,
-                'request_digest': receipt.request_digest,
-                'invalidated_revision': receipt.committed_revision,
-                'restored_revision': current['revision'],
-                'bad_commit': '0' * 40,
-                'repair_commit': head,
-                'reason': 'Disposable regression fixture simulates an explicitly reviewed rollback repair.',
-            }
-        ],
+        'records': [{
+            'campaign_id': current['campaign_id'],
+            'transaction_id': receipt.transaction_id,
+            'request_id': receipt.request_id,
+            'request_digest': receipt.request_digest,
+            'invalidated_revision': receipt.committed_revision,
+            'restored_revision': current['revision'],
+            'bad_commit': '0' * 40,
+            'repair_commit': head,
+            'reason': 'Disposable regression fixture simulates an explicitly reviewed rollback repair.',
+        }],
     }
     path = campaign/'runtime/contracts/transaction-invalidations.json'
     path.write_text(json.dumps(registry, indent=2) + '\n')

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from typing import Any, Mapping, Optional
 
+from sword_runtime.api.input_guidance import COMMAND_INPUT_GUIDANCE, INPUT_GUIDANCE_POLICY
 from sword_runtime.command_contracts import COMMAND_PAYLOAD_KEYS
 from sword_runtime.commands import CommandEnvelope
 from sword_runtime.engine import COMMAND_TYPES
@@ -45,14 +46,12 @@ class CampaignOperations:
             claim = self.store.read_json(path)
             if player_id not in claim.get("knowers", []):
                 continue
-            known.append(
-                {
-                    "information_ref": claim.get("information_ref"),
-                    "claim": claim.get("claim"),
-                    "confidence": claim.get("confidence"),
-                    "provenance": claim.get("provenance"),
-                }
-            )
+            known.append({
+                "information_ref": claim.get("information_ref"),
+                "claim": claim.get("claim"),
+                "confidence": claim.get("confidence"),
+                "provenance": claim.get("provenance"),
+            })
         return known
 
     def _controlled_formations(self, player_id: str) -> list[dict[str, Any]]:
@@ -62,45 +61,37 @@ class CampaignOperations:
             if not str(ref).startswith("formation_"):
                 continue
             formation = self.store.read_json(path)
-            if formation.get("command_authority") != player_id and formation.get(
-                "administrative_owner"
-            ) not in {player_id, "house_tang"}:
+            if formation.get("command_authority") != player_id and formation.get("administrative_owner") not in {player_id, "house_tang"}:
                 continue
-            formations.append(
-                {
-                    "formation_ref": ref,
-                    "name": formation.get("name"),
-                    "personnel": formation.get("personnel"),
-                    "location_ref": formation.get("location_ref"),
-                    "status": formation.get("status"),
-                    "mobilized": formation.get("mobilized"),
-                    "commander_ref": formation.get("commander_ref"),
-                    "command_authority": formation.get("command_authority"),
-                    "readiness": formation.get("readiness"),
-                    "morale": formation.get("morale"),
-                    "cohesion": formation.get("cohesion"),
-                    "training_progress": formation.get("training_progress"),
-                    "fatigue": formation.get("fatigue"),
-                    "experience": formation.get("experience"),
-                    "logistics": formation.get("logistics", {}),
-                }
-            )
+            formations.append({
+                "formation_ref": ref,
+                "name": formation.get("name"),
+                "personnel": formation.get("personnel"),
+                "location_ref": formation.get("location_ref"),
+                "status": formation.get("status"),
+                "mobilized": formation.get("mobilized"),
+                "commander_ref": formation.get("commander_ref"),
+                "command_authority": formation.get("command_authority"),
+                "readiness": formation.get("readiness"),
+                "morale": formation.get("morale"),
+                "cohesion": formation.get("cohesion"),
+                "training_progress": formation.get("training_progress"),
+                "fatigue": formation.get("fatigue"),
+                "experience": formation.get("experience"),
+                "logistics": formation.get("logistics", {}),
+            })
         return formations
 
     @staticmethod
     def _safe_scene(meta: Mapping[str, Any], player: Mapping[str, Any], scene: Mapping[str, Any]) -> dict[str, Any]:
-        """Return only a revision- and time-valid player-facing scene projection."""
-
         scene_time = scene.get("world_time")
-        current_time = meta.get("time")
         scene_revision = scene.get("projection_revision")
-        current_revision = meta.get("revision")
         fresh = (
             isinstance(scene_time, str)
-            and scene_time == current_time
+            and scene_time == meta.get("time")
             and isinstance(scene_revision, int)
             and not isinstance(scene_revision, bool)
-            and scene_revision == current_revision
+            and scene_revision == meta.get("revision")
         )
         narrative = scene.get("narrative", {}) if isinstance(scene.get("narrative"), dict) else {}
         if fresh:
@@ -133,11 +124,7 @@ class CampaignOperations:
             "location_id": player.get("location"),
             "physical_scene": {},
             "observable_pressures": [],
-            "player_observable_state": {
-                "location": player.get("location"),
-                "health": player.get("health"),
-                "fatigue": player.get("fatigue"),
-            },
+            "player_observable_state": {"location": player.get("location"), "health": player.get("health"), "fatigue": player.get("fatigue")},
             "unresolved_decision": None,
             "known_clock_boundaries": [],
             "active_questions": [],
@@ -156,24 +143,13 @@ class CampaignOperations:
         formations = self._controlled_formations(player_id)
         safe_scene = self._safe_scene(meta, player, scene)
 
-        # Scene-derived read permissions are projections too. Once the scene is
-        # stale, retain only campaign-intrinsic player/controlled-formation reads
-        # until a fresh scene projection establishes new contextual visibility.
         relevant: set[str] = set()
         if safe_scene["projection_status"] == "fresh":
-            relevant.update(
-                str(value)
-                for value in scene.get("relevant_owner_ids", [])
-                if isinstance(value, str) and value
-            )
+            relevant.update(str(value) for value in scene.get("relevant_owner_ids", []) if isinstance(value, str) and value)
         relevant.add(player_id)
         permitted_people = sorted(ref for ref in relevant if ref.startswith("char_"))
         permitted_objects = set(ref for ref in relevant if not ref.startswith("char_"))
-        permitted_objects.update(
-            str(item["formation_ref"])
-            for item in formations
-            if item.get("formation_ref")
-        )
+        permitted_objects.update(str(item["formation_ref"]) for item in formations if item.get("formation_ref"))
         for formation in formations:
             commander = formation.get("commander_ref")
             if isinstance(commander, str) and commander.startswith("char_"):
@@ -183,22 +159,14 @@ class CampaignOperations:
         command_types = {
             command_type: {
                 "accepted_payload_keys": sorted(COMMAND_PAYLOAD_KEYS.get(command_type, ())),
-                "contested_preview_policy": (
-                    "outcome_hidden_until_execute"
-                    if command_type in {"battle_resolve", "personal_combat", "siege_action"}
-                    else "deterministic_preview"
-                ),
+                "input_guidance": dict(COMMAND_INPUT_GUIDANCE.get(command_type, {})),
+                "contested_preview_policy": "outcome_hidden_until_execute" if command_type in {"battle_resolve", "personal_combat", "siege_action"} else "deterministic_preview",
             }
             for command_type in sorted(COMMAND_TYPES)
             if command_type != "repair"
         }
         return {
-            "campaign": {
-                "campaign_id": meta["campaign_id"],
-                "revision": meta["revision"],
-                "world_time": meta["time"],
-                "player_id": player_id,
-            },
+            "campaign": {"campaign_id": meta["campaign_id"], "revision": meta["revision"], "world_time": meta["time"], "player_id": player_id},
             "player": {
                 "player_id": player_id,
                 "name": player.get("name"),
@@ -209,9 +177,7 @@ class CampaignOperations:
                 "fatigue": player.get("fatigue"),
                 "equipment_state": player.get("current_equipment_state", {}),
                 "agency_constraints": player.get("narrative_constraints", []),
-                "combat_agency_constraints": player.get("behavior", {}).get(
-                    "combat_agency_constraints", []
-                ),
+                "combat_agency_constraints": player.get("behavior", {}).get("combat_agency_constraints", []),
             },
             "scene": safe_scene,
             "wallet": {"silver": wallet.get("silver")},
@@ -219,13 +185,11 @@ class CampaignOperations:
             "controlled_formations": formations,
             "permitted_person_ids": permitted_people,
             "permitted_object_refs": sorted(permitted_objects),
-            "object_read_policy": (
-                "Use only exact IDs returned here. Hidden or guessed IDs fail closed. "
-                "Non-player person reads return bounded player-visible identity data."
-            ),
+            "object_read_policy": "Use only exact IDs returned here. Hidden or guessed IDs fail closed. Non-player person reads return bounded player-visible identity data.",
             "commands": {
                 "supported_command_types": sorted(command_types),
                 "command_types": command_types,
+                "input_guidance_policy": INPUT_GUIDANCE_POLICY,
             },
             "limits": {
                 "one_semantic_command_per_write": True,
@@ -254,56 +218,29 @@ class CampaignOperations:
         if person_id not in set(context["permitted_person_ids"]):
             raise OperationError(404, "person_not_player_visible")
         if person_id == context["campaign"]["player_id"]:
-            return {
-                "visibility": "player_full_sheet",
-                "person": self.store.read_json("state/player.json"),
-            }
+            return {"visibility": "player_full_sheet", "person": self.store.read_json("state/player.json")}
         owners = self.store.read_json("state/index/owner-index-gold.json").get("owners", {})
         path = owners.get(person_id)
         if not isinstance(path, str):
             raise OperationError(404, "person_not_available")
         person = self.store.read_json(path)
-        return {
-            "visibility": "player_visible_identity",
-            "person": {
-                "person_id": person_id,
-                "name": person.get("name"),
-                "life_status": person.get("life_status", "active"),
-            },
-        }
+        return {"visibility": "player_visible_identity", "person": {"person_id": person_id, "name": person.get("name"), "life_status": person.get("life_status", "active")}}
 
     def inspect_game_object(self, object_ref: str) -> dict[str, Any]:
         context = self.play_context()
         if object_ref not in set(context["permitted_object_refs"]):
             raise OperationError(404, "object_not_player_visible")
-        controlled = {
-            str(item.get("formation_ref")): item
-            for item in context["controlled_formations"]
-        }
+        controlled = {str(item.get("formation_ref")): item for item in context["controlled_formations"]}
         owners = self.store.read_json("state/index/owner-index-gold.json").get("owners", {})
         path = owners.get(object_ref)
         if not isinstance(path, str):
             raise OperationError(404, "object_not_inspectable")
         obj = self.store.read_json(path)
         if object_ref in controlled:
-            fields = (
-                "owner_id", "formation_ref", "name", "role", "personnel",
-                "location_ref", "status", "mobilized", "commander_ref",
-                "command_authority", "administrative_owner", "doctrine_ref",
-                "training_ref", "supply", "logistics", "morale", "cohesion",
-                "readiness", "training_progress", "fatigue", "experience",
-            )
+            fields = ("owner_id", "formation_ref", "name", "role", "personnel", "location_ref", "status", "mobilized", "commander_ref", "command_authority", "administrative_owner", "doctrine_ref", "training_ref", "supply", "logistics", "morale", "cohesion", "readiness", "training_progress", "fatigue", "experience")
         else:
-            fields = (
-                "owner_id", "name", "status", "role", "authority", "state",
-                "location", "location_ref", "personnel", "commander_ref",
-                "objective", "public_status",
-            )
-        return {
-            "object_ref": object_ref,
-            "visibility": "bounded_player_visible",
-            "object": {key: obj.get(key) for key in fields if key in obj},
-        }
+            fields = ("owner_id", "name", "status", "role", "authority", "state", "location", "location_ref", "personnel", "commander_ref", "objective", "public_status")
+        return {"object_ref": object_ref, "visibility": "bounded_player_visible", "object": {key: obj.get(key) for key in fields if key in obj}}
 
     def _player_actor(self) -> str:
         player_id = self.store.read_json("state/meta.json").get("player_id")
@@ -330,15 +267,7 @@ class CampaignOperations:
             receipt = None
         if receipt is None:
             return None
-        return {
-            "status": "duplicate",
-            "request_id": receipt.request_id,
-            "transaction_id": receipt.transaction_id,
-            "campaign_id": receipt.campaign_id,
-            "committed_revision": receipt.committed_revision,
-            "committed_at": receipt.committed_at,
-            "result": dict(receipt.result),
-        }
+        return {"status": "duplicate", "request_id": receipt.request_id, "transaction_id": receipt.transaction_id, "campaign_id": receipt.campaign_id, "committed_revision": receipt.committed_revision, "committed_at": receipt.committed_at, "result": dict(receipt.result)}
 
     def execute_command(self, command: CommandEnvelope) -> dict[str, Any]:
         if command.actor_id != self._player_actor() or command.mode != "gameplay":
@@ -354,11 +283,7 @@ class CampaignOperations:
         except Exception as exc:
             raise OperationError(503, "campaign_runtime_unavailable") from exc
 
-    def ooc_audit(
-        self,
-        focus: Optional[str] = None,
-        observations: Optional[list[str]] = None,
-    ) -> dict[str, Any]:
+    def ooc_audit(self, focus: Optional[str] = None, observations: Optional[list[str]] = None) -> dict[str, Any]:
         meta = self.store.read_json("state/meta.json")
         runtime = self.store.read_json("state/runtime.json")
         try:
