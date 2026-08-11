@@ -7,7 +7,21 @@ from sword_runtime.engine import SwordRuntime
 from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.store.root_hash import content_root
 
-SLOTS=16
+SOAK_TYPES = [
+    "scene_consequence",
+    "individual_training",
+    "health_recovery",
+    "relationship_change",
+    "cohort_training",
+    "formation_train",
+    "house_action",
+    "state_action",
+    "enlisted_service_pay",
+    "information_create",
+    "information_deliver",
+    "advance_time",
+]
+SLOTS=len(SOAK_TYPES)
 
 def readj(p): return json.loads(Path(p).read_text())
 def meta(root): return readj(Path(root)/'state/meta.json')
@@ -19,21 +33,17 @@ def command_for(root:Path,index:int,baseline_revision:int):
     if slot==0: t,p='scene_consequence',{'summary':f'Gold soak routine scene {cycle}'}
     elif slot==1: t,p='individual_training',{'focus':'Formation Command','hours':1}
     elif slot==2: t,p='health_recovery',{'hours':8}
-    elif slot==3: t,p='relationship_change',{'target_ref':'char_ouki','kind':'trust','delta':1 if cycle%2==0 else -1}
+    elif slot==3: t,p='relationship_change',{'target_ref':'char_shen_rui','kind':'trust','delta':1 if cycle%2==0 else -1}
     elif slot==4: t,p='cohort_training',{'cohort_ref':'junior_disciple','hours':1}
     elif slot==5: t,p='formation_train',{'formation_ref':'formation_tang_champions_first','hours':1}
     elif slot==6: t,p='house_action',{'house_ref':'house_tang','action':'assign_duty','subject_ref':'char_tang_kai'}
     elif slot==7: t,p='state_action',{'state':'qin','action':'strategic_goal','goal':f'maintain readiness soak {cycle}'}
     elif slot==8: t,p='enlisted_service_pay',{'state':'qin','amount_silver':7}
     elif slot==9: t,p='information_create',{'information_ref':f'info_gold_soak_{cycle:04d}','claim':f'Routine logistics report {cycle}','confidence':'0.8','knowers':['char_tang_wei']}
-    elif slot==10: t,p='information_deliver',{'information_ref':f'info_gold_soak_{cycle:04d}','target_ref':'char_ouki'}
-    elif slot==11: t,p='operation_create',{'operation_ref':f'operation_gold_soak_{cycle:04d}','objective':'routine logistics review','formation_refs':[],'location_ref':'loc_kanyou'}
-    elif slot==12: t,p='operation_transition',{'operation_ref':f'operation_gold_soak_{cycle:04d}','status':'succeeded'}
-    elif slot==13: t,p='institution_project',{'institution_ref':'inst_qin_granary_depot_office','project_ref':f'gold_soak_project_{cycle:04d}','kind':'inventory_review'}
-    elif slot==14: t,p='personal_combat',{'opponent_ref':'char_shen_rui','objective':'controlled spar','duration_minutes':30}
+    elif slot==10: t,p='information_deliver',{'information_ref':f'info_gold_soak_{cycle:04d}','target_ref':'char_shen_rui'}
     else:
         t='advance_time'; p={'target_time':str(CampaignTime.parse(now).add_days(3))}
-    internal=t in {'state_action','enlisted_service_pay','institution_project'}
+    internal=t in {'state_action','enlisted_service_pay'}
     actor='internal:sword-autonomy' if internal else 'char_tang_wei'
     mode='autonomous' if internal else 'gameplay'
     return CommandEnvelope(m['campaign_id'],f'gold-soak-{index:04d}',actor,t,expected,now,p,mode=mode)
@@ -56,8 +66,7 @@ def run(root:Path, metrics:Path, count:int):
         index=len(rows); receipt=rt.coordinator.receipts.get(f'gold-soak-{index:04d}')
         if receipt is None: raise RuntimeError(f'missing durable receipt for committed soak request {index}')
         result=dict(receipt.result); slot=index%SLOTS
-        types=['scene_consequence','individual_training','health_recovery','relationship_change','cohort_training','formation_train','house_action','state_action','enlisted_service_pay','information_create','information_deliver','operation_create','operation_transition','institution_project','personal_combat','advance_time']
-        row={'index':index,'request_id':receipt.request_id,'command_type':types[slot],'revision':receipt.committed_revision,'planning_reads':int(result.get('planning_reads',0)),'writes':int(result.get('writes',0)),'hosts_woken':int(result.get('hosts_woken',0)),'events_processed':int(result.get('events_processed',0)),'duration_seconds':None,'commit_hash':None,'backfilled_from_receipt':True}
+        row={'index':index,'request_id':receipt.request_id,'command_type':SOAK_TYPES[slot],'revision':receipt.committed_revision,'planning_reads':int(result.get('planning_reads',0)),'writes':int(result.get('writes',0)),'hosts_woken':int(result.get('hosts_woken',0)),'events_processed':int(result.get('events_processed',0)),'duration_seconds':None,'commit_hash':None,'backfilled_from_receipt':True}
         append_row(metrics,row); rows.append(row)
     start=len(rows)
     for index in range(start,min(1000,start+count)):
