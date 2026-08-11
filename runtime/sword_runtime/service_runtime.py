@@ -7,8 +7,8 @@ exact transaction commit is pushed and verified remotely.
 from __future__ import annotations
 from typing import Any
 
-from sword_runtime.causal_living_world import CausalLivingWorldSwordPlanner
 from sword_runtime.engine import SwordRuntime
+from sword_runtime.production_living_world import ProductionLivingWorldSwordPlanner
 from sword_runtime.tx.canonical import thaw_json
 from sword_runtime.tx.campaign_coordinator import TransactionCoordinator
 from sword_runtime.tx.git import GitStager
@@ -36,7 +36,7 @@ class ProductionSwordRuntime(SwordRuntime):
         # a second campaign authority while allowing the hosted service to use
         # learned operational memory, causal provenance, and high-salience wake
         # protection.
-        self.planner = CausalLivingWorldSwordPlanner(self.root)
+        self.planner = ProductionLivingWorldSwordPlanner(self.root)
         self.planner.PLAYER_ACTOR = player_id
 
         git = GitStager(self.root)
