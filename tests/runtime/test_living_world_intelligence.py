@@ -15,6 +15,7 @@ from sword_runtime.living_world import (
     LivingWorldSwordPlanner,
     OPERATIONAL_MEMORY_PATH,
 )
+from sword_runtime.production_living_world import ProductionLivingWorldSwordPlanner
 from sword_runtime.service_runtime import ProductionSwordRuntime
 from sword_runtime.sim.calendar import CampaignTime
 
@@ -62,24 +63,46 @@ def _state_digest(root: Path) -> str:
 
 
 def _advance_horizon(root: Path, runtime_root: Path, days: int) -> str:
+    """Advance a disposable real-campaign clone through one fixed horizon.
+
+    A future campaign snapshot may lawfully encounter player-agency wake
+    boundaries. The stability replay deterministically acknowledges those wakes
+    on the disposable clone and continues toward the same absolute target. Live
+    campaign policy remains unchanged.
+    """
+
     runtime = ProductionSwordRuntime(root, runtime_root=runtime_root)
-    meta = runtime.store.read_json("state/meta.json")
-    command = CommandEnvelope(
-        campaign_id=str(meta["campaign_id"]),
-        request_id=f"stability.horizon.{days}d",
-        actor_id=str(meta["player_id"]),
-        command_type="advance_time",
-        expected_revision=int(meta["revision"]),
-        submitted_at=str(meta["time"]),
-        payload={"hours": days * 24},
-        mode="gameplay",
-    )
-    runtime.execute(command)
-    return _state_digest(root)
+    initial = runtime.store.read_json("state/meta.json")
+    target = CampaignTime.parse(str(initial["time"])).add_seconds(days * 86400)
+    previous_time = CampaignTime.parse(str(initial["time"]))
+
+    for step in range(256):
+        meta = runtime.store.read_json("state/meta.json")
+        current = CampaignTime.parse(str(meta["time"]))
+        if current >= target:
+            return _state_digest(root)
+        command = CommandEnvelope(
+            campaign_id=str(meta["campaign_id"]),
+            request_id=f"stability.horizon.{days}d.step.{step:03d}",
+            actor_id=str(meta["player_id"]),
+            command_type="advance_time",
+            expected_revision=int(meta["revision"]),
+            submitted_at=str(meta["time"]),
+            payload={"target_time": str(target)},
+            mode="gameplay",
+        )
+        runtime.execute(command)
+        advanced = CampaignTime.parse(str(runtime.store.read_json("state/meta.json")["time"]))
+        if advanced <= previous_time:
+            raise AssertionError("stability replay made no causal time progress")
+        previous_time = advanced
+
+    raise AssertionError("stability replay exceeded bounded wake-resume iterations")
 
 
 def test_production_runtime_uses_living_world_planner(campaign: Path) -> None:
     runtime = ProductionSwordRuntime(campaign, runtime_root=campaign.parent / "runtime-production")
+    assert isinstance(runtime.planner, ProductionLivingWorldSwordPlanner)
     assert isinstance(runtime.planner, CausalLivingWorldSwordPlanner)
     assert isinstance(runtime.planner, LivingWorldSwordPlanner)
     assert runtime.planner.PLAYER_ACTOR == runtime.store.read_json("state/meta.json")["player_id"]
