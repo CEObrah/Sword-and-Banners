@@ -7,7 +7,7 @@ def test_personal_gameplay_and_exact_retail(campaign):
     execute(campaign,'individual_training',{'focus':'Formation Command','hours':4})
     execute(campaign,'health_injury',{'injury':'training bruise','fatigue':5})
     execute(campaign,'health_recovery',{'health':'healthy','fatigue_recovery':6,'hours':24})
-    execute(campaign,'relationship_change',{'target_ref':'char_ouki','kind':'trust','delta':2})
+    execute(campaign,'relationship_change',{'target_ref':'char_shen_rui','kind':'trust','delta':2})
     execute(campaign,'travel',{'destination_ref':'loc_kanyou'})
     execute(campaign,'market_purchase',{'item_key':'common_sword','quantity':1})
     wallet=json.load(open(campaign/'state/economy/player-wallet.json')); market=json.load(open(campaign/'state/markets/kanyou.json')); private=json.load(open(campaign/'state/economy/private/qin.json'))
@@ -18,9 +18,9 @@ def test_personal_gameplay_and_exact_retail(campaign):
     assert json.load(open(campaign/'state/player.json'))['location']=='loc_kankoku_pass'
 
 def test_hidden_information_boundary(campaign):
-    execute_internal(campaign,'information_create',{'information_ref':'info_secret_accept','claim':'Zhao covert agent observed','confidence':'0.8','knowers':['char_riboku']})
+    execute_internal(campaign,'information_create',{'information_ref':'info_secret_accept','claim':'Zhao covert agent observed','confidence':'0.8','knowers':['char_shen_rui']})
     claim=json.load(open(campaign/'state/information/info_secret_accept.json')); assert 'char_tang_wei' not in claim['knowers']
-    execute_internal(campaign,'information_deliver',{'information_ref':'info_secret_accept','source_ref':'char_riboku','target_ref':'char_tang_wei'})
+    execute_internal(campaign,'information_deliver',{'information_ref':'info_secret_accept','source_ref':'char_shen_rui','target_ref':'char_tang_wei'})
     claim=json.load(open(campaign/'state/information/info_secret_accept.json')); assert 'char_tang_wei' in claim['knowers']
 
 def test_sword_manor_and_champions(campaign):
@@ -38,12 +38,13 @@ def test_army_lifecycle_and_population_conservation(campaign):
     execute_internal(campaign,'recruitment',{'state':'qin','personnel':500,'source_stratum':'agricultural','role':'line_infantry'})
     execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':'formation_accept_qin','role':'line_infantry','personnel':2000,'location_ref':'loc_qin_eastern_depot','commander_ref':'char_heki'})
     execute_internal(campaign,'formation_train',{'formation_ref':'formation_accept_qin','hours':8})
+    # Reconstitution must draw replacements while the formation is physically at its reserve source.
+    execute_internal(campaign,'formation_reconstitute',{'formation_ref':'formation_accept_qin','target_personnel':2100})
     execute_internal(campaign,'resupply',{'formation_ref':'formation_accept_qin','food_kg':30000,'war_arrows':10000})
     execute_internal(campaign,'formation_mobilize',{'formation_ref':'formation_accept_qin'})
     execute_internal(campaign,'formation_move',{'formation_ref':'formation_accept_qin','destination_ref':'loc_kanyou'})
     execute_internal(campaign,'formation_split',{'formation_ref':'formation_accept_qin','new_formation_ref':'formation_accept_qin_b','personnel':400})
     execute_internal(campaign,'formation_merge',{'formation_refs':['formation_accept_qin','formation_accept_qin_b']})
-    execute_internal(campaign,'formation_reconstitute',{'formation_ref':'formation_accept_qin','target_personnel':2100})
     execute_internal(campaign,'formation_demobilize',{'formation_ref':'formation_accept_qin'})
     pop=json.load(open(campaign/'state/population/qin.json')); force=json.load(open(campaign/'state/forces/state-qin.json'))
     assert pop['population_total']==sum(pop['strata'].values())
@@ -56,14 +57,19 @@ def test_state_house_institution_autonomy(campaign):
     idx=json.load(open(campaign/'state/index/owner-index-gold.json'))['owners']; assert 'formation_qin_border_line' in idx
     qin=json.load(open(campaign/'state/states/qin.json')); assert qin['last_review']==target
     inst=json.load(open(campaign/'state/institutions/inst_qin_recruitment_office.json')); assert inst['last_review']==target
-    house=json.load(open(campaign/'state/houses/house_tang.json')); assert house['last_review']==target; assert house['projects']
+    house=json.load(open(campaign/'state/houses/house_tang.json')); assert house['last_review']==target; assert house.get('autonomous_reviews')
     treasury=json.load(open(campaign/'state/treasury/treasury-house-tang.json')); assert treasury['runtime']['completed_monthly_closes']>0
 
 def test_operation_family_pay_and_internal_repair(campaign):
     from sword_runtime.engine import RepositoryCommandPlanner
-    execute(campaign,'operation_create',{'operation_ref':'operation_accept','objective':'logistics_review','formation_refs':[],'location_ref':'loc_kanyou'})
-    execute(campaign,'operation_transition',{'operation_ref':'operation_accept','status':'succeeded'})
-    execute(campaign,'family_event',{'house_ref':'house_tang','kind':'marriage','person_ref':'char_tang_kai'})
+    execute(campaign,'formation_mobilize',{'formation_ref':'formation_tang_champions_first'})
+    execute(campaign,'operation_create',{'operation_ref':'operation_accept','objective':'manor readiness review','formation_refs':['formation_tang_champions_first'],'location_ref':'loc_tang_manor_inner_citadel_family_hall'})
+    execute(campaign,'operation_transition',{'operation_ref':'operation_accept','status':'mobilizing'})
+    execute(campaign,'operation_transition',{'operation_ref':'operation_accept','status':'active'})
+    execute(campaign,'operation_transition',{'operation_ref':'operation_accept','status':'completed'})
+    proposal=execute_internal(campaign,'family_event',{'house_ref':'house_tang','kind':'proposal','person_ref':'char_shen_rui','partner_ref':'char_tang_wei'}).receipt.result['proposal_ref']
+    execute(campaign,'family_event',{'house_ref':'house_tang','kind':'engagement','proposal_ref':proposal})
+    execute(campaign,'family_event',{'house_ref':'house_tang','kind':'marriage','person_ref':'char_tang_wei','partner_ref':'char_shen_rui'})
     before=json.load(open(campaign/'state/economy/player-wallet.json'))['silver']; execute_internal(campaign,'enlisted_service_pay',{'state':'qin','amount_silver':7}); after=json.load(open(campaign/'state/economy/player-wallet.json'))['silver']; assert after==before+7
     execute(campaign,'repair',{'path':'state/houses/house_tang.json','changes':{'threat_level':'0.2'},'reason':'confirmed test repair'},actor=RepositoryCommandPlanner.INTERNAL_ACTOR,mode='maintenance')
     history=json.load(open(campaign/'state/history/events/index.json')); assert any(x['kind']=='explicit_repair' for x in history['events'])
