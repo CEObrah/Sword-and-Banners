@@ -5,9 +5,12 @@ part of transaction durability: a gameplay receipt is not published until the
 exact transaction commit is pushed and verified remotely.
 """
 from __future__ import annotations
+from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.causal_living_world import _WAKE_RESPONSE_COMMANDS
 from sword_runtime.engine import SwordRuntime
+from sword_runtime.living_world import HighSalienceWakeRequired
 from sword_runtime.production_living_world import ProductionLivingWorldSwordPlanner
 from sword_runtime.tx.canonical import thaw_json
 from sword_runtime.tx.campaign_coordinator import TransactionCoordinator
@@ -91,6 +94,12 @@ class ProductionSwordRuntime(SwordRuntime):
                     "House Tang duty assignment requires a person already within House Tang or Tang Wei's personal-retinue authority"
                 )
 
+    def _require_pending_wake_response(self, command_type: str) -> None:
+        runtime_state = self.store.read_json("state/runtime.json")
+        wake = runtime_state.get("pending_wake") if isinstance(runtime_state, Mapping) else None
+        if isinstance(wake, Mapping) and command_type not in _WAKE_RESPONSE_COMMANDS:
+            raise HighSalienceWakeRequired("pending_autonomous_contact_requires_player_resolution")
+
     @staticmethod
     def _is_contested(command_type: str, payload: dict[str, Any]) -> bool:
         return command_type in _CONTESTED_COMMANDS or (
@@ -101,6 +110,7 @@ class ProductionSwordRuntime(SwordRuntime):
         """Preview intent without leaking a stochastic or hidden-future outcome."""
 
         self._validate_player_authored_agency(command)
+        self._require_pending_wake_response(command.command_type)
         payload = thaw_json(command.payload)
         if not self._is_contested(command.command_type, payload):
             plan = self.preview(command)
@@ -131,6 +141,7 @@ class ProductionSwordRuntime(SwordRuntime):
 
     def execute(self, command, *args, **kwargs):
         self._validate_player_authored_agency(command)
+        self._require_pending_wake_response(command.command_type)
         return super().execute(command, *args, **kwargs)
 
 
