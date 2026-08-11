@@ -887,25 +887,17 @@ class RepositoryCommandPlanner:
         if origin==destination: return {"status":"arrived","location_ref":origin,"hours":0}
         nxt,hours=self._formation_route_next(origin,destination); logistics=formation.setdefault("logistics",{}); mounts=sum(max(0,int(v)) for v in formation.get("mounts",{}).values()); food_need=max(1,int(math.ceil(n*1.5*hours/24.0))); fodder_need=max(0,int(math.ceil(mounts*4.0*hours/24.0)))
         if int(logistics.get("food_kg",0))<food_need or int(logistics.get("fodder_kg",0))<fodder_need:
-            # A state field formation does not conjure supplies, but it may receive a
-            # bounded convoy from its exact state depot. One theater review is consumed
-            # by the resupply action; movement resumes on a later review.
-            admin=str(formation.get("administrative_owner", "")); force_ref=str(formation.get("owner_force_ref", "")); state=None
-            if admin.startswith("state_"): state=admin.replace("state_", "")
-            elif force_ref.startswith("force_state_"): state=force_ref.replace("force_state_", "")
-            convoy=None
-            if state in {"qin","zhao","chu","wei","han","yan","qi"}:
-                depot_path=f"state/depots/{state}.json"; depot=_deepcopy(self.read(depot_path)); depot_loc=str(depot.get("location_ref", ""))
-                try: convoy_hours=self._route_travel_hours(depot_loc, origin, modes=("formation","horse","foot"))
-                except ValueError: convoy_hours=None
-                if convoy_hours is not None:
-                    missing_food=max(0, food_need-int(logistics.get("food_kg",0))); missing_fodder=max(0, fodder_need-int(logistics.get("fodder_kg",0))); grain=min(missing_food,int(depot.get("stocks",{}).get("grain_kg",0))); fodder=min(missing_fodder,int(depot.get("stocks",{}).get("fodder_kg",0)))
-                    if grain: depot["stocks"]["grain_kg"]-=grain; logistics["food_kg"]=int(logistics.get("food_kg",0))+grain
-                    if fodder: depot["stocks"]["fodder_kg"]-=fodder; logistics["fodder_kg"]=int(logistics.get("fodder_kg",0))+fodder
-                    if grain or fodder: self.put(depot_path,depot); convoy={"depot_ref":depot.get("owner_id",f"depot_{state}"),"from":depot_loc,"to":origin,"hours":int(convoy_hours),"food_kg":grain,"fodder_kg":fodder}
-            if int(logistics.get("food_kg",0))>=food_need and int(logistics.get("fodder_kg",0))>=fodder_need and convoy is not None:
-                formation["status"]="resupplied_for_march"; formation.setdefault("march_history",[]).append({"at":at,"from":origin,"toward":destination,"status":"resupplied_by_convoy",**convoy}); formation["march_history"]=formation["march_history"][-24:]; self.put(path,formation); return {"status":"resupplied","location_ref":origin,"food_need":food_need,"fodder_need":fodder_need,"convoy":convoy}
-            formation["status"]="supply_blocked"; formation["readiness"]=_clamp(int(formation.get("readiness",50))-4); formation["morale"]=_clamp(int(formation.get("morale",50))-2); formation.setdefault("march_history",[]).append({"at":at,"from":origin,"toward":destination,"status":"blocked_by_supply","food_need":food_need,"fodder_need":fodder_need,"convoy_attempt":convoy}); formation["march_history"]=formation["march_history"][-24:]; self.put(path,formation); return {"status":"supply_blocked","location_ref":origin,"food_need":food_need,"fodder_need":fodder_need,"convoy":convoy}
+            # Movement itself never pulls remote stock. Autonomous war logistics is
+            # handled by _autonomy_sustain_march, which creates an explicit convoy
+            # with dispatch and arrival timestamps. Other callers simply remain
+            # supply-blocked until a lawful resupply reaches this exact location.
+            formation["status"]="supply_blocked"
+            formation["readiness"]=_clamp(int(formation.get("readiness",50))-4)
+            formation["morale"]=_clamp(int(formation.get("morale",50))-2)
+            formation.setdefault("march_history",[]).append({"at":at,"from":origin,"toward":destination,"status":"blocked_by_supply","food_need":food_need,"fodder_need":fodder_need})
+            formation["march_history"]=formation["march_history"][-24:]
+            self.put(path,formation)
+            return {"status":"supply_blocked","location_ref":origin,"food_need":food_need,"fodder_need":fodder_need}
         logistics["food_kg"]=int(logistics.get("food_kg",0))-food_need; logistics["fodder_kg"]=int(logistics.get("fodder_kg",0))-fodder_need; formation["mobilized"]=True; formation["status"]="marching" if nxt!=destination else "deployed"; formation["location_ref"]=nxt; formation["fatigue"]=_clamp(int(formation.get("fatigue",0))+max(1,int(math.ceil(hours/8.0)))); formation["readiness"]=_clamp(int(formation.get("readiness",50))-max(0,int(hours//36))); formation.setdefault("march_history",[]).append({"at":at,"from":origin,"to":nxt,"toward":destination,"hours":hours,"food_kg":food_need,"fodder_kg":fodder_need}); formation["march_history"]=formation["march_history"][-24:]
         commander_ref=formation.get("commander_ref")
         if commander_ref:

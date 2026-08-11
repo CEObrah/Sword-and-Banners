@@ -26,8 +26,11 @@ def test_world_density_and_cold_hosts():
     runtime=json.load(open(root/'state/runtime.json'))
     assert len(houses['houses']) >= 40
     assert len(locations['locations']) >= 70
-    assert len(runtime['hosts']) == 142
+    # Host count grows when exact named-person/interstate actors become causal.
+    # Assert required actor coverage rather than freezing an obsolete total.
     assert sum(1 for h in runtime['hosts'].values() if h.get('kind')=='mercenary') == 60
+    assert sum(1 for h in runtime['hosts'].values() if h.get('kind')=='person') >= 70
+    assert sum(1 for h in runtime['hosts'].values() if h.get('kind')=='interstate') == 1
     assert all(runtime['metrics'][k]==0 for k in ('global_person_scans','global_faction_scans','global_force_scans','global_house_scans'))
 
 def test_champions_doctrine_is_principal_survival():
