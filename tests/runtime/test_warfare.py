@@ -1,11 +1,11 @@
 import json,time
 from conftest import execute, execute_internal, prepare_field_formation, activate_operation
 
-def create_pair(campaign,tag,n,battlefield='loc_kankoku_pass',food_per_person=7):
+def create_pair(campaign,tag,n,battlefield='loc_kankoku_pass'):
     execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':f'formation_qin_{tag}','role':'line_infantry','personnel':n,'commander_ref':'char_ouki'})
     execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':f'formation_zhao_{tag}','role':'line_infantry','personnel':n,'commander_ref':'char_riboku'})
     a,d=f'formation_qin_{tag}',f'formation_zhao_{tag}'
-    prepare_field_formation(campaign,a,battlefield,food_per_person=food_per_person); prepare_field_formation(campaign,d,battlefield,food_per_person=food_per_person)
+    prepare_field_formation(campaign,a,battlefield); prepare_field_formation(campaign,d,battlefield)
     op=activate_operation(campaign,f'operation_{tag}',[a,d],battlefield)
     return a,d,op
 
@@ -41,10 +41,10 @@ def test_200k_battle_is_bounded(campaign):
     assert not any((campaign/'state').rglob('soldier-*.json'))
 
 def test_full_siege_lifecycle(campaign):
-    q,z,_=create_pair(campaign,'siege',4000,food_per_person=20)
+    q,z,_=create_pair(campaign,'siege',4000)
     execute_internal(campaign,'fortification_materialize',{'fortification_ref':'fort_kankoku_accept','location_ref':'loc_kankoku_pass','garrison_formation_refs':[q],'food_kg':20000,'state':'qin','commander_ref':'char_ouki'})
     execute_internal(campaign,'siege_start',{'siege_ref':'siege_kankoku_accept','fortification_ref':'fort_kankoku_accept','attacker_formation_refs':[z]})
-    execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'blockade','days':1})
+    execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'blockade','days':5})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'repair','points':3})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'assault'})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'withdraw'})
