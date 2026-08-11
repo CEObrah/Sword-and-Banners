@@ -371,6 +371,8 @@ class RepositoryCommandPlanner:
 
         if t in {"house_action", "family_event"}:
             self._require_house_authority(actor, str(payload.get("house_ref", "house_tang")), "house_administration")
+            if t == "family_event" and str(payload.get("kind")) in {"pregnancy","birth","death","widowhood","succession_review"}:
+                raise PermissionError("involuntary family life-course outcomes are runtime/internal consequences, not player-authored commands")
         elif t == "cohort_training":
             self._require_house_authority(actor, "house_tang", "house_training")
 
@@ -662,6 +664,112 @@ class RepositoryCommandPlanner:
             raise ValueError(f"{person_ref} is not an active living person")
         return path, person
 
+    def _item_record(self, item_id: str) -> Dict[str, Any]:
+        index = self.read("game/data/items.json")
+        shard_path = index.get("record_index", {}).get(str(item_id))
+        if not isinstance(shard_path, str):
+            raise ValueError(f"unknown exact item: {item_id}")
+        shard = self.read(shard_path)
+        record = shard.get("items", {}).get(str(item_id))
+        if not isinstance(record, dict):
+            raise ValueError(f"item index is inconsistent for {item_id}")
+        return _deepcopy(record)
+
+    @staticmethod
+    def _market_item_id(item_key: str) -> str:
+        aliases = {
+            "common_sword": "weapon_sword_one_hand",
+            "military_sword": "weapon_sword_one_hand_long",
+            "military_spear": "weapon_spear_long",
+            "military_bow": "weapon_bow_composite",
+            "helmet": "helmet_iron",
+            "lamellar_cuirass": "armor_lamellar_military",
+            "padded_coat": "armor_padded",
+            "shield": "shield_medium",
+            "arrows_20": "ammo_arrow_war",
+        }
+        item_id = aliases.get(str(item_key))
+        if item_id is None:
+            raise ValueError(f"market item has no exact equipment identity: {item_key}")
+        return item_id
+
+    def _player_inventory(self) -> tuple[str, Dict[str, Any]]:
+        path = "state/economy/player-inventory.json"
+        inv = _deepcopy(self.read_optional(path) or {"schema":"sword-player-inventory","owner_id":"inventory_char_tang_wei","items":{}})
+        inv.setdefault("items", {})
+        return path, inv
+
+    def _player_manifest(self) -> tuple[str, Dict[str, Any]]:
+        path = "state/player-detail/equipment-manifest.json"
+        manifest = _deepcopy(self.read(path))
+        manifest.setdefault("equipment_manifest", [])
+        return path, manifest
+
+    @staticmethod
+    def _manifest_quantity(manifest: Mapping[str, Any], item_id: str, *, equipped_only: bool = False) -> int:
+        total = 0
+        for entry in manifest.get("equipment_manifest", []):
+            if str(entry.get("item_id")) != item_id:
+                continue
+            state = str(entry.get("current_state", "")).lower()
+            if equipped_only and not any(word in state for word in ("equipped", "worn", "readied", "quivered", "mounted")):
+                continue
+            total += max(0, int(entry.get("quantity", 0)))
+        return total
+
+    @staticmethod
+    def _take_manifest_items(manifest: Dict[str, Any], item_id: str, quantity: int, *, require_equipped: bool = False) -> None:
+        remaining = int(quantity)
+        entries = manifest.setdefault("equipment_manifest", [])
+        for entry in list(entries):
+            if str(entry.get("item_id")) != item_id:
+                continue
+            state = str(entry.get("current_state", "")).lower()
+            if require_equipped and not any(word in state for word in ("equipped", "worn", "readied", "quivered", "mounted")):
+                continue
+            take = min(remaining, max(0, int(entry.get("quantity", 0))))
+            entry["quantity"] = int(entry.get("quantity", 0)) - take
+            remaining -= take
+            if int(entry.get("quantity", 0)) <= 0:
+                entries.remove(entry)
+            if remaining <= 0:
+                break
+        if remaining:
+            raise ValueError("insufficient exact equipment custody")
+
+    def _advance_seconds(self, seconds: int) -> tuple[str, Dict[str, int]]:
+        if seconds < 0:
+            raise ValueError("elapsed simulation time cannot be negative")
+        current = self._world_time()
+        target = str(current.add_seconds(max(1, int(seconds))))
+        return target, self._advance_runtime(target)
+
+    def _route_travel_hours(self, origin: str, destination: str, *, modes: tuple[str, ...] = ("horse", "foot")) -> int:
+        if origin == destination:
+            return 0
+        import heapq
+        graph: Dict[str, list[tuple[int, str]]] = {}
+        for route in self.read("game/data/world/routes.json").get("routes", []):
+            allowed = {str(x) for x in route.get("modes", [])}
+            if not any(mode in allowed for mode in modes):
+                continue
+            a, b = str(route.get("a", route.get("from"))), str(route.get("b", route.get("to")))
+            hours = max(1, int(route.get("duration_hours", route.get("hours", 24))))
+            graph.setdefault(a, []).append((hours, b)); graph.setdefault(b, []).append((hours, a))
+        if origin.startswith("loc_tang_manor_"):
+            graph.setdefault(origin, []).append((1, "loc_kanyou")); graph.setdefault("loc_kanyou", []).append((1, origin))
+        if destination.startswith("loc_tang_manor_"):
+            graph.setdefault(destination, []).append((1, "loc_kanyou")); graph.setdefault("loc_kanyou", []).append((1, destination))
+        queue=[(0,origin)]; best={origin:0}
+        while queue:
+            cost,node=heapq.heappop(queue)
+            if node==destination: return int(cost)
+            if cost!=best.get(node): continue
+            for edge,nxt in graph.get(node,[]):
+                nc=cost+edge
+                if nc<best.get(nxt,10**18): best[nxt]=nc; heapq.heappush(queue,(nc,nxt))
+        raise ValueError(f"no lawful messenger route between {origin} and {destination}")
+
     def _validate_person_location_for_formation(self, person_ref: str, formation: Mapping[str, Any]) -> tuple[str, Dict[str, Any]]:
         path, person = self._exact_person(person_ref)
         floc = str(formation.get("location_ref", ""))
@@ -682,128 +790,143 @@ class RepositoryCommandPlanner:
         raise ValueError("formation commander must be physically co-located with the formation")
 
     def _validate_command_semantics(self, command: CommandEnvelope, payload: Mapping[str, Any]) -> None:
-        # The client never owns chronology. A request is admitted only against
-        # the exact authoritative world instant represented by its revision.
+        # Chronology is server-owned. Requests bind to the exact world instant
+        # represented by expected_revision; callers cannot forge future/past events.
         now = self._world_time()
-        submitted = CampaignTime.parse(command.submitted_at)
-        if submitted != now:
+        if CampaignTime.parse(command.submitted_at) != now:
             raise ValueError("submitted_at must equal authoritative campaign world time")
         t = command.command_type
         if t not in COMMAND_TYPES:
             raise ValueError("unsupported Sword semantic command: %s" % t)
 
-        positive_personnel = {"recruitment", "population_transfer", "formation_create"}
-        if t in positive_personnel:
+        if t == "scene_consequence":
+            require_text(payload, "summary", max_length=4000)
+        if t == "travel":
+            self._location_record(require_text(payload, "destination_ref"))
+            require_text(payload, "mode", allowed={"foot","horse"}, default="foot")
+        if t == "health_injury":
+            require_text(payload, "severity", allowed={"minor","moderate","severe","critical"}, default="minor")
+        if t in {"recruitment", "population_transfer", "formation_create"}:
             require_int(payload, "personnel", minimum=1, maximum=1_000_000)
+            state = self._state_key(require_text(payload, "state"))
+            pop = self.read(f"state/population/{state}.json")
+            if t in {"recruitment","population_transfer"}:
+                source = require_text(payload, "source_stratum", default="agricultural")
+                if source not in pop.get("strata", {}): raise ValueError("unknown population source stratum")
+            if t == "population_transfer":
+                dest = require_text(payload, "destination_stratum", default="active_military")
+                if dest not in pop.get("strata", {}): raise ValueError("unknown population destination stratum")
+            if t in {"recruitment","formation_create"}:
+                force = self.read(f"state/forces/state-{state}.json")
+                role = require_text(payload, "role", default="line_infantry")
+                if role not in force.get("available_by_role", {}): raise ValueError("unknown force role")
+        if t == "person_materialize":
+            self._state_key(require_text(payload, "state", default="qin")); require_text(payload, "person_ref")
+            if self.read("state/index/owner-index-gold.json").get("owners",{}).get(str(payload["person_ref"])):
+                raise ValueError("person_ref already exists")
         if t == "formation_split":
-            require_int(payload, "personnel", minimum=1, maximum=1_000_000)
+            require_int(payload, "personnel", minimum=1, maximum=1_000_000); require_text(payload, "new_formation_ref")
         if t == "formation_reconstitute":
             require_int(payload, "target_personnel", minimum=1, maximum=1_000_000)
-            if "equipment_units" in payload:
-                require_int(payload, "equipment_units", minimum=0, maximum=1_000_000)
+            if "equipment_units" in payload: require_int(payload, "equipment_units", minimum=0, maximum=1_000_000)
         if t in {"individual_training", "formation_train", "cohort_training"}:
             require_int(payload, "hours", minimum=1, maximum=12)
         if t == "health_recovery":
             require_int(payload, "hours", minimum=1, maximum=168)
         if t == "advance_time":
-            if "hours" in payload:
-                require_int(payload, "hours", minimum=1, maximum=876_000)
+            if ("hours" in payload) == ("target_time" in payload):
+                raise ValueError("advance_time requires exactly one of hours or target_time")
+            if "hours" in payload: require_int(payload, "hours", minimum=1, maximum=876_000)
             if "target_time" in payload:
-                target = CampaignTime.parse(require_text(payload, "target_time", max_length=64))
-                seconds = now.seconds_until(target)
-                if seconds < 0 or seconds > 100 * 366 * 86400:
-                    raise ValueError("advance_time target must be within the next 100 years")
+                target = CampaignTime.parse(require_text(payload, "target_time", max_length=64)); seconds = now.seconds_until(target)
+                if seconds < 0 or seconds > 100 * 366 * 86400: raise ValueError("advance_time target must be within the next 100 years")
         if t == "relationship_change":
-            require_text(payload, "target_ref")
-            delta = require_int(payload, "delta", minimum=-20, maximum=20)
-            if delta == 0:
-                raise ValueError("relationship delta must be non-zero")
-            self._exact_person(str(payload.get("source_ref", command.actor_id)))
-            self._exact_person(str(payload["target_ref"]))
-        if t == "market_purchase":
-            require_int(payload, "quantity", minimum=1, maximum=10_000)
-            require_text(payload, "item_key")
-        if t == "market_sell":
-            require_int(payload, "quantity", minimum=1, maximum=10_000)
-            require_text(payload, "item_key")
+            require_text(payload, "target_ref"); delta = require_int(payload, "delta", minimum=-20, maximum=20)
+            if delta == 0: raise ValueError("relationship delta must be non-zero")
+            self._exact_person(str(payload.get("source_ref", command.actor_id))); self._exact_person(str(payload["target_ref"]))
+            require_text(payload, "kind", allowed={"trust","affection","respect","fear","resentment","loyalty"}, default="trust")
+        if t in {"market_purchase","market_sell"}:
+            require_int(payload, "quantity", minimum=1, maximum=10_000); require_text(payload, "item_key")
         if t in {"economy_transfer", "enlisted_service_pay"}:
             require_int(payload, "amount_silver", minimum=1, maximum=1_000_000_000, default=7 if t == "enlisted_service_pay" else None)
-            if t == "economy_transfer":
-                require_text(payload, "direction", allowed={"player_to_state", "state_to_player"})
+            if t == "economy_transfer": require_text(payload, "direction", allowed={"player_to_state", "state_to_player"})
         if t == "resupply":
-            values = []
-            for key in ("food_kg", "fodder_kg", "war_arrows"):
-                if key in payload:
-                    values.append(require_int(payload, key, minimum=0, maximum=1_000_000_000))
-            if values and not any(values):
-                raise ValueError("resupply must request a positive quantity")
+            values=[]
+            for key in ("food_kg","fodder_kg","war_arrows"):
+                if key in payload: values.append(require_int(payload,key,minimum=0,maximum=1_000_000_000))
+            if not values or not any(values): raise ValueError("resupply must request at least one positive material quantity")
         if t == "formation_move":
-            require_text(payload, "destination_ref")
-            self._location_record(str(payload["destination_ref"]))
-        if t in {"command_assign", "command_transfer", "formation_assign", "force_assignment"}:
-            commander_ref = payload.get("commander_ref")
-            if commander_ref is not None:
-                self._exact_person(str(commander_ref))
+            self._location_record(require_text(payload,"destination_ref"))
+        if t in {"command_assign","command_transfer","formation_assign","force_assignment"}:
+            if payload.get("commander_ref") is not None: self._exact_person(str(payload["commander_ref"]))
+        if t == "formation_doctrine_set":
+            behavior=payload.get("doctrine_behavior",{})
+            if not isinstance(behavior,dict): raise ValueError("doctrine_behavior must be an object")
+            if "reserve_commitment" in behavior: require_int(behavior,"reserve_commitment",minimum=0,maximum=100)
+            if "withdrawal_threshold" in behavior: require_int(behavior,"withdrawal_threshold",minimum=0,maximum=100)
+            if "casualty_tolerance" in behavior: require_text(behavior,"casualty_tolerance",allowed={"low","moderate","high","extreme"})
         if t == "battle_resolve":
-            require_list(payload, "attacker_formation_refs", minimum=1, maximum=128)
-            require_list(payload, "defender_formation_refs", minimum=1, maximum=128)
+            attackers=require_list(payload,"attacker_formation_refs",minimum=1,maximum=128); defenders=require_list(payload,"defender_formation_refs",minimum=1,maximum=128)
+            if set(map(str,attackers)) & set(map(str,defenders)): raise ValueError("a formation cannot fight on both sides")
         if t == "personal_combat":
-            self._exact_person(require_text(payload, "opponent_ref"))
-            require_int(payload, "duration_minutes", minimum=5, maximum=240, default=60)
+            self._exact_person(require_text(payload,"opponent_ref")); require_int(payload,"duration_minutes",minimum=5,maximum=240,default=60)
+        if t == "operation_create":
+            require_text(payload,"operation_ref"); require_list(payload,"formation_refs",minimum=1,maximum=128); self._location_record(require_text(payload,"location_ref"))
+        if t == "operation_transition":
+            require_text(payload,"operation_ref"); require_text(payload,"status",allowed={"planned","mobilizing","active","engaged","occupied","completed","cancelled"})
+        if t == "information_create":
+            require_text(payload,"information_ref"); require_text(payload,"claim",default=str(payload.get("fact","")),max_length=4000); require_list(payload,"knowers",minimum=1,maximum=128)
+            for ref in payload.get("knowers",[]): self._exact_person(str(ref))
         if t == "information_deliver":
-            self._exact_person(require_text(payload, "target_ref", default=self.PLAYER_ACTOR))
-        if t == "state_action" and str(payload.get("action", "strategic_goal")) == "appointment":
-            self._exact_person(require_text(payload, "person_ref"))
+            self._exact_person(require_text(payload,"target_ref",default=self.PLAYER_ACTOR)); require_text(payload,"information_ref")
+        if t == "state_action":
+            action=require_text(payload,"action",allowed={"strategic_goal","appointment","enemy_action","record_threat"},default="strategic_goal")
+            self._state_key(require_text(payload,"state",default="qin"))
+            if action=="appointment": self._exact_person(require_text(payload,"person_ref")); require_text(payload,"office")
+            if action in {"enemy_action","record_threat"}: require_int(payload,"severity",minimum=0,maximum=100,default=50); self._state_key(require_text(payload,"source_state",default="zhao"))
         if t == "fortification_materialize":
-            require_int(payload, "integrity", minimum=1, maximum=100, default=100)
-            require_int(payload, "food_kg", minimum=0, maximum=1_000_000_000, default=100000)
-            require_int(payload, "fodder_kg", minimum=0, maximum=1_000_000_000, default=0)
-            if payload.get("commander_ref"):
-                self._exact_person(str(payload["commander_ref"]))
+            require_int(payload,"integrity",minimum=1,maximum=100,default=100); require_int(payload,"food_kg",minimum=0,maximum=1_000_000_000,default=100000); require_int(payload,"fodder_kg",minimum=0,maximum=1_000_000_000,default=0)
+            self._location_record(require_text(payload,"location_ref")); require_list(payload,"garrison_formation_refs",minimum=1,maximum=64)
+            if payload.get("commander_ref"): self._exact_person(str(payload["commander_ref"]))
+        if t == "siege_start":
+            require_text(payload,"siege_ref"); require_text(payload,"fortification_ref"); require_list(payload,"attacker_formation_refs",minimum=1,maximum=128)
         if t == "siege_action":
-            action = require_text(payload, "action", allowed={"blockade", "repair", "assault", "withdraw", "settle", "relief"})
-            if action == "blockade": require_int(payload, "days", minimum=1, maximum=30, default=7)
-            if action == "repair": require_int(payload, "points", minimum=1, maximum=20, default=5)
-            if "damage" in payload:
-                raise ValueError("siege assault damage is runtime-derived and may not be caller supplied")
+            require_text(payload,"siege_ref"); action=require_text(payload,"action",allowed={"blockade","repair","assault","withdraw","settle","relief"})
+            if action=="blockade": require_int(payload,"days",minimum=1,maximum=30,default=7)
+            if action=="repair": require_int(payload,"points",minimum=1,maximum=20,default=5)
+            if "damage" in payload: raise ValueError("siege assault damage is runtime-derived and may not be caller supplied")
         if t == "territorial_consequence":
-            controller = require_text(payload, "controller")
-            if not controller.startswith("state_"):
-                raise ValueError("territorial controller must be a recognized state authority")
+            self._location_record(require_text(payload,"location_ref")); controller=require_text(payload,"controller")
+            if not controller.startswith("state_"): raise ValueError("territorial controller must be a recognized state authority")
             self._state_key(controller)
         if t == "family_event":
-            kind = require_text(payload, "kind", allowed={"proposal", "engagement", "marriage", "birth", "death", "widowhood", "succession_review"})
-            if kind in {"proposal", "engagement", "marriage"}:
-                self._exact_person(require_text(payload, "person_ref"))
-                self._exact_person(require_text(payload, "partner_ref"))
-            elif kind == "birth":
-                self._exact_person(require_text(payload, "mother_ref"))
-                self._exact_person(require_text(payload, "father_ref"))
-                require_text(payload, "child_ref")
-            elif kind in {"death", "widowhood"}:
-                self._exact_person(require_text(payload, "person_ref"), active=(kind == "death"))
-        if t in {"equipment_equip", "equipment_unequip", "equipment_transfer", "equipment_drop", "equipment_consume"}:
-            require_text(payload, "item_key")
-            require_int(payload, "quantity", minimum=1, maximum=10_000, default=1)
-            if t == "equipment_transfer":
-                self._exact_person(require_text(payload, "target_ref"))
+            kind=require_text(payload,"kind",allowed={"proposal","engagement","marriage","pregnancy","birth","death","widowhood","succession_review"})
+            if kind in {"proposal","marriage"}: self._exact_person(require_text(payload,"person_ref")); self._exact_person(require_text(payload,"partner_ref"))
+            elif kind=="engagement": require_text(payload,"proposal_ref")
+            elif kind in {"pregnancy","birth"}:
+                self._exact_person(require_text(payload,"mother_ref")); self._exact_person(require_text(payload,"father_ref"))
+                if kind=="birth": require_text(payload,"child_ref")
+            elif kind in {"death","widowhood"}: self._exact_person(require_text(payload,"person_ref"),active=(kind=="death"))
+        if t in {"equipment_equip","equipment_unequip","equipment_transfer","equipment_drop","equipment_consume"}:
+            item_id=require_text(payload,"item_key"); self._item_record(item_id); require_int(payload,"quantity",minimum=1,maximum=10_000,default=1)
+            if t=="equipment_transfer": self._exact_person(require_text(payload,"target_ref"))
         if t == "reputation_event":
-            self._exact_person(require_text(payload, "subject_ref"))
-            require_int(payload, "delta", minimum=-20, maximum=20)
-            require_text(payload, "audience_ref")
+            self._exact_person(require_text(payload,"subject_ref")); delta=require_int(payload,"delta",minimum=-20,maximum=20)
+            if delta==0: raise ValueError("reputation delta must be non-zero")
+            require_text(payload,"audience_ref")
         if t == "career_event":
-            self._exact_person(require_text(payload, "person_ref"))
-            require_text(payload, "kind", allowed={"qualification", "promotion", "appointment", "merit"})
+            self._exact_person(require_text(payload,"person_ref")); require_text(payload,"kind",allowed={"qualification","promotion","appointment","merit"})
+            if str(payload.get("kind")) in {"merit","promotion"}: require_int(payload,"merit",minimum=1,maximum=1000,default=1)
         if t == "mercenary_contract":
-            require_text(payload, "mercenary_ref")
-            require_text(payload, "action", allowed={"offer", "accept", "pay", "deploy", "breach", "renew", "complete"})
-            if "amount_silver" in payload:
-                require_int(payload, "amount_silver", minimum=1, maximum=100_000_000)
+            merc_ref=require_text(payload,"mercenary_ref"); _,merc=self.owner(merc_ref)
+            if "mercenary" not in str(merc.get("schema","")): raise ValueError("mercenary_ref is not a mercenary company")
+            action=require_text(payload,"action",allowed={"offer","accept","pay","deploy","breach","renew","complete"})
+            if action in {"offer","accept","pay","renew"}: require_int(payload,"amount_silver",minimum=1,maximum=100_000_000)
         if t == "institution_project":
-            require_int(payload, "duration_hours", minimum=1, maximum=8760, default=168)
+            require_text(payload,"institution_ref"); require_int(payload,"duration_hours",minimum=1,maximum=8760,default=168); require_text(payload,"project_ref",default="project_"+command.digest[:8])
         if t == "project_resolve":
-            require_text(payload, "institution_ref")
-            require_text(payload, "project_ref")
+            require_text(payload,"institution_ref"); require_text(payload,"project_ref")
+
 
     def _find_route(self, origin: str, destination: str, *, mode: Optional[str] = None) -> Mapping[str, Any]:
         routes = self.read("game/data/world/routes.json").get("routes", [])
@@ -1447,8 +1570,10 @@ class RepositoryCommandPlanner:
             if int(pop["strata"].get(source,0))<n: raise ValueError("insufficient population source")
             pop["strata"][source]-=n; pop["strata"][dest]=int(pop["strata"].get(dest,0))+n; self.put(pp,pop)
             if t=="recruitment":
-                fp=f"state/forces/state-{state}.json"; force=_deepcopy(self.read(fp)); role=str(payload.get("role","line_infantry")); force["headcount"]+=n; force["available_by_role"][role]=int(force["available_by_role"].get(role,0))+n; self.put(fp,force)
-            self._write_meta(command); return self._result(state=state,personnel=n)
+                fp=f"state/forces/state-{state}.json"; force=_deepcopy(self.read(fp)); role=str(payload.get("role","line_infantry")); source_loc=str(force.get("source_location_ref") or self.read(f"state/depots/{state}.json").get("location_ref")); force["headcount"]+=n; force["available_by_role"][role]=int(force["available_by_role"].get(role,0))+n; local=self._force_location_pool(force,source_loc); local[role]=int(local.get(role,0))+n; force.setdefault("recruitment_history",[]).append({"at":str(self._world_time()),"personnel":n,"role":role,"source_location_ref":source_loc}); force["recruitment_history"]=force["recruitment_history"][-24:]; self.put(fp,force); duration_hours=max(8,int(math.ceil(n/250.0))*8)
+            else:
+                duration_hours=max(4,int(math.ceil(n/1000.0))*4)
+            target,metrics=self._advance_seconds(duration_hours*3600); self._write_meta(command,target); return self._result(state=state,personnel=n,duration_hours=duration_hours,world_time=target,**metrics)
         if t=="person_materialize":
             state=self._state_key(payload.get("state","qin")); person_ref=str(payload["person_ref"]); if_path=f"state/char/{person_ref.replace('char_','').replace('_','-')}.json"; existing=self.read_optional(if_path)
             if existing is None:
@@ -1487,10 +1612,16 @@ class RepositoryCommandPlanner:
                 force["allocated_to_formations"][ref]={"personnel":new_n,"role":role}; self.put(fp,force); hours=max(1,min(72,int(math.ceil(take/250.0)))); current=self._world_time(); world_time=str(current.add_seconds(hours*3600)); time_metrics=self._advance_runtime(world_time); f["last_reconstituted_at"]=world_time
             elif t=="formation_train":
                 hours=int(payload.get("hours",1)); current=self._world_time(); world_time=str(current.add_seconds(hours*3600)); time_metrics=self._advance_runtime(world_time); f["training_progress"]=_clamp(int(f.get("training_progress",0))+max(1,hours//3)); f["cohesion"]=_clamp(int(f.get("cohesion",50))+max(1,hours//4)); f["readiness"]=_clamp(int(f.get("readiness",50))+max(0,hours//6)); f["fatigue"]=_clamp(int(f.get("fatigue",0))+max(1,hours//5)); f["verified_training_hours"]=int(f.get("verified_training_hours",0))+hours; f["last_training_at"]=world_time
-            elif t=="formation_mobilize": f["mobilized"]=True; f["status"]="mobilized"
-            elif t=="formation_demobilize": f["mobilized"]=False; f["status"]="ready"
-            elif t=="formation_doctrine_set": f["doctrine_ref"]=payload.get("doctrine_ref"); f["doctrine_behavior"]=dict(payload.get("doctrine_behavior",f.get("doctrine_behavior",{})))
-            elif t=="formation_training_set": f["training_ref"]=payload.get("training_ref")
+            elif t=="formation_mobilize":
+                if bool(f.get("mobilized",False)): raise ValueError("formation is already mobilized")
+                world_time,time_metrics=self._advance_seconds(4*3600); f["mobilized"]=True; f["status"]="mobilized"; f["mobilized_at"]=world_time
+            elif t=="formation_demobilize":
+                if not bool(f.get("mobilized",False)): raise ValueError("formation is already demobilized")
+                world_time,time_metrics=self._advance_seconds(2*3600); f["mobilized"]=False; f["status"]="ready"; f["demobilized_at"]=world_time
+            elif t=="formation_doctrine_set":
+                world_time,time_metrics=self._advance_seconds(8*3600); f["doctrine_ref"]=payload.get("doctrine_ref"); f["doctrine_behavior"]=dict(payload.get("doctrine_behavior",f.get("doctrine_behavior",{}))); f["doctrine_last_reformed_at"]=world_time
+            elif t=="formation_training_set":
+                world_time,time_metrics=self._advance_seconds(4*3600); f["training_ref"]=payload.get("training_ref"); f["training_program_last_changed_at"]=world_time
             elif t in {"formation_assign","force_assignment","command_assign","command_transfer"}:
                 commander_ref=payload.get("commander_ref",f.get("commander_ref")); command_authority=str(payload.get("command_authority",f.get("command_authority")))
                 if command.actor_id!=self.INTERNAL_ACTOR and command_authority not in {command.actor_id,str(f.get("administrative_owner"))}: raise PermissionError("player may not forge a new command authority")
@@ -1498,7 +1629,7 @@ class RepositoryCommandPlanner:
                 if commander_ref:
                     cp,commander=self._validate_person_location_for_formation(str(commander_ref),f); self.put(cp,commander); self._assign_commander_index(str(commander_ref),ref)
                 if old_commander and old_commander!=commander_ref: self._release_commander_index(str(old_commander),ref)
-                f["command_authority"]=command_authority; f["commander_ref"]=commander_ref
+                f["command_authority"]=command_authority; f["commander_ref"]=commander_ref; world_time,time_metrics=self._advance_seconds(3600); f["command_last_changed_at"]=world_time
             elif t=="formation_move":
                 if not bool(f.get("mobilized",False)): raise ValueError("formation movement requires mobilization")
                 dest=str(payload["destination_ref"]); origin=str(f["location_ref"]); route=self._find_route(origin,dest,mode="formation"); hours=int(route.get("duration_hours",route.get("hours",24))); food=max(0,int(math.ceil(int(f["personnel"])*0.8*hours/24))); fod=max(0,int(math.ceil(sum(int(v) for v in f.get("mounts",{}).values())*4*hours/24)));
@@ -1512,9 +1643,11 @@ class RepositoryCommandPlanner:
                 dp,depot=self._material_depot(f)
                 if depot.get("location_ref") and depot.get("location_ref")!=f.get("location_ref"): raise ValueError("resupply requires physical depot access")
                 requests={"food_kg":int(payload.get("food_kg",int(f["personnel"])*5)),"fodder_kg":int(payload.get("fodder_kg",0)),"war_arrows":int(payload.get("war_arrows",0))}; mapkey={"food_kg":"grain_kg","fodder_kg":"fodder_kg","war_arrows":"war_arrows"}
+                transferred=0
                 for k,n in requests.items():
-                    take=min(n,int(depot["stocks"].get(mapkey[k],0))); depot["stocks"][mapkey[k]]-=take; f["logistics"][k]=int(f["logistics"].get(k,0))+take
-                self.put(dp,depot)
+                    take=min(n,int(depot["stocks"].get(mapkey[k],0))); depot["stocks"][mapkey[k]]-=take; f["logistics"][k]=int(f["logistics"].get(k,0))+take; transferred+=take
+                if transferred<=0: raise ValueError("no requested resupply material is physically available")
+                world_time,time_metrics=self._advance_seconds(max(3600,min(12*3600,int(math.ceil(transferred/5000.0))*3600))); f["last_resupplied_at"]=world_time; self.put(dp,depot)
             self.put(p,f); self._write_meta(command,world_time); result=self._result(formation_ref=ref,status=f.get("status"),world_time=world_time or str(self._world_time())); result.update(time_metrics); return result
         if t in {"formation_split","formation_merge","formation_dissolve"}:
             if t=="formation_split":
@@ -1522,24 +1655,29 @@ class RepositoryCommandPlanner:
                 if n<=0 or n>=int(f["personnel"]): raise ValueError("invalid split personnel")
                 total=int(original["personnel"]); f["personnel"]=total-n; parent_comp,child_comp=self._partition_counts(original.get("composition",{}),n,total); f["composition"]=parent_comp; new=_deepcopy(original); new["formation_ref"]=new_ref; new["name"]=str(payload.get("name",new_ref)); new["personnel"]=n; new["composition"]=child_comp; new["commander_ref"]=None; new["status"]="detached_pending_commander"
                 f["logistics"],new["logistics"]=self._partition_material(original.get("logistics",{}),n,total); f["mounts"],new["mounts"]=self._partition_material(original.get("mounts",{}),n,total); parent_eq,child_eq=self._partition_material(self._equipment_units(original),n,total); self._set_equipment_units(f,parent_eq); self._set_equipment_units(new,child_eq)
-                np=f"state/formations/{new_ref.replace('formation_','').replace('_','-')}.json"; fp=self.owner_path(f["owner_force_ref"]); force=_deepcopy(self.read(fp)); role=next(iter(f["composition"])); force["allocated_to_formations"][ref]={"personnel":f["personnel"],"role":role}; force["allocated_to_formations"][new_ref]={"personnel":n,"role":next(iter(new["composition"]))}; self.put(fp,force); self.put(p,f); self.put(np,new); self._register_owner(new_ref,np); self._write_meta(command); return self._result(formation_ref=ref,new_formation_ref=new_ref)
+                np=f"state/formations/{new_ref.replace('formation_','').replace('_','-')}.json"; fp=self.owner_path(f["owner_force_ref"]); force=_deepcopy(self.read(fp)); role=next(iter(f["composition"])); force["allocated_to_formations"][ref]={"personnel":f["personnel"],"role":role}; force["allocated_to_formations"][new_ref]={"personnel":n,"role":next(iter(new["composition"]))}; self.put(fp,force); self.put(p,f); self.put(np,new); self._register_owner(new_ref,np); world_time,metrics=self._advance_seconds(max(3600,int(math.ceil(n/1000.0))*3600)); self._write_meta(command,world_time); return self._result(formation_ref=ref,new_formation_ref=new_ref,world_time=world_time,**metrics)
             refs=list(payload.get("formation_refs",[]));
             if t=="formation_merge":
                 if len(refs)<2: raise ValueError("merge requires at least two formations")
-                primary=refs[0]; pp,pf0=self._load_formation(primary); pf=_deepcopy(pf0); fp=self.owner_path(pf["owner_force_ref"]); force=_deepcopy(self.read(fp)); members=[pf]
+                primary=refs[0]; pp,pf0=self._load_formation(primary); pf=_deepcopy(pf0); fp=self.owner_path(pf["owner_force_ref"]); force=_deepcopy(self.read(fp)); members=[pf]; adopted_commander=pf.get("commander_ref")
                 for ref in refs[1:]:
                     p,f=self._load_formation(ref)
                     if f.get("owner_force_ref")!=pf.get("owner_force_ref"): raise ValueError("merge requires one conserved owner force")
                     if f.get("location_ref")!=pf.get("location_ref"): raise ValueError("merge requires co-located formations")
+                    secondary_commander=f.get("commander_ref")
+                    if adopted_commander is None and secondary_commander:
+                        adopted_commander=secondary_commander; pf["commander_ref"]=secondary_commander; self._release_commander_index(str(secondary_commander),ref); self._assign_commander_index(str(secondary_commander),primary)
+                    elif secondary_commander:
+                        self._release_commander_index(str(secondary_commander),ref)
                     members.append(_deepcopy(f)); self.delete(p); self._unregister_owner(ref); force["allocated_to_formations"].pop(ref,None)
                 total=sum(int(x["personnel"]) for x in members); pf["personnel"]=total; pf["composition"]=self._merge_material(*(x.get("composition",{}) for x in members)); pf["logistics"]=self._merge_material(*(x.get("logistics",{}) for x in members)); pf["mounts"]=self._merge_material(*(x.get("mounts",{}) for x in members)); self._set_equipment_units(pf,self._merge_material(*(self._equipment_units(x) for x in members)))
                 for field in ("readiness","morale","cohesion","fatigue","training_progress"):
                     pf[field]=_clamp(int(round(sum(int(x.get(field,0))*int(x["personnel"]) for x in members)/max(1,total))))
-                role=next(iter(pf["composition"])); force["allocated_to_formations"][primary]={"personnel":total,"role":role}; self.put(pp,pf); self.put(fp,force); self._write_meta(command); return self._result(formation_ref=primary,personnel=total)
+                role=next(iter(pf["composition"])); force["allocated_to_formations"][primary]={"personnel":total,"role":role}; self.put(pp,pf); self.put(fp,force); world_time,metrics=self._advance_seconds(max(3600,int(math.ceil(total/2000.0))*3600)); self._write_meta(command,world_time); return self._result(formation_ref=primary,personnel=total,world_time=world_time,**metrics)
             ref=str(payload.get("formation_ref",refs[0] if refs else "")); p,f=self._load_formation(ref); fp=self.owner_path(f["owner_force_ref"]); force=_deepcopy(self.read(fp)); location=str(f.get("location_ref"))
             for role,count in f.get("composition",{}).items(): self._return_force_personnel(force,str(role),int(count),location)
             for role,count in self._equipment_units(f).items(): self._return_force_equipment(force,str(role),int(count),location)
-            force["allocated_to_formations"].pop(ref,None); self.put(fp,force); self._return_formation_materials(f); self._release_commander_index(f.get("commander_ref"),ref); self.delete(p); self._unregister_owner(ref); self._write_meta(command); return self._result(dissolved=ref,location_ref=location)
+            force["allocated_to_formations"].pop(ref,None); self.put(fp,force); self._return_formation_materials(f); self._release_commander_index(f.get("commander_ref"),ref); self.delete(p); self._unregister_owner(ref); world_time,metrics=self._advance_seconds(max(3600,int(math.ceil(int(f.get("personnel",0))/1000.0))*3600)); self._write_meta(command,world_time); return self._result(dissolved=ref,location_ref=location,world_time=world_time,**metrics)
         if t=="battle_resolve":
             result=self._battle(command,payload); self._write_meta(command,str(result["world_time"])); return self._result(**result)
         if t=="personal_combat":
@@ -1555,13 +1693,37 @@ class RepositoryCommandPlanner:
             minutes=int(payload.get("duration_minutes",60));
             if minutes<5 or minutes>240: raise ValueError("personal combat duration must be between 5 and 240 minutes")
             objective=str(payload.get("objective","combat")); spar="spar" in objective.lower() or "controlled" in objective.lower()
-            def combat_score(person:Mapping[str,Any])->float:
-                skills=person.get("skills",{}); attrs=person.get("attributes",{}); weapon=max((_fixed(skills.get(k,0)) for k in ("Sword","Spear","Grappling","Unarmed","Defense","Bow")),default=0.0); support=sum(_fixed(attrs.get(k,0)) for k in ("Agility","Awareness","Coordination","Composure","Endurance"))/5.0; fatigue=max(0,int(person.get("fatigue",0))); return max(1.0,weapon*0.65+support*0.35-fatigue*0.6)
-            pscore=combat_score(player); oscore=combat_score(opponent); seed=int(command.digest[:12],16); jitter=((seed%2001)-1000)/100.0; margin=(pscore-oscore)+jitter*0.08; outcome="win" if margin>4 else ("loss" if margin<-4 else "draw")
+            def equipment_profile(person_ref: str, person: Mapping[str,Any]) -> Dict[str,Any]:
+                manifest=None
+                if person_ref==self.PLAYER_ACTOR:
+                    manifest=self.read("state/player-detail/equipment-manifest.json")
+                else:
+                    manifest_ref=person.get("equipment_manifest_ref")
+                    if isinstance(manifest_ref,str): manifest=self.read_optional(manifest_ref)
+                equipped=[] if not isinstance(manifest,dict) else [e for e in manifest.get("equipment_manifest",[]) if any(w in str(e.get("current_state","")).lower() for w in ("equipped","worn","readied","quivered","mounted"))]
+                best_weapon=None; weapon_bonus=0.0; armor_bonus=0.0; skill_name="Grappling" if _fixed(person.get("skills",{}).get("Grappling",0))>=_fixed(person.get("skills",{}).get("Unarmed",0)) else "Unarmed"
+                family_skill={"sword":"Sword","spear":"Spear","glaive":"Glaive","axe":"Axe","mace":"Mace","staff":"Staff","dagger":"Dagger","bow":"Bow","crossbow":"Crossbow"}
+                for entry in equipped:
+                    item_id=str(entry.get("item_id",""))
+                    try: item=self._item_record(item_id)
+                    except ValueError: continue
+                    schema=str(item.get("schema","")); family=str(item.get("family",item.get("combat_profile",""))).lower()
+                    if "weapon" in schema or schema in {"melee_weapon_v2","bow_v2","crossbow_v2"}:
+                        force=max(_fixed(item.get("base_force_cut")),_fixed(item.get("base_force_thrust")),_fixed(item.get("base_force_blunt")),_fixed(item.get("projectile_profile")))
+                        bonus=force*8.0+_fixed(item.get("handling"))*5.0+min(4.0,_fixed(item.get("reach_m")))*1.5
+                        if bonus>weapon_bonus: weapon_bonus=bonus; best_weapon=item_id; skill_name=family_skill.get(family,skill_name)
+                    if "armor" in schema or schema=="human_armor_v2":
+                        armor_bonus=max(armor_bonus,(_fixed(item.get("cut_resistance"))+_fixed(item.get("thrust_resistance"))+_fixed(item.get("blunt_resistance")))/30.0)
+                    if str(item.get("family","")).lower()=="shield" or "shield" in item_id:
+                        armor_bonus+=4.0
+                return {"best_weapon":best_weapon,"weapon_bonus":round(weapon_bonus,3),"armor_bonus":round(armor_bonus,3),"skill_name":skill_name,"equipped_item_ids":[str(e.get("item_id")) for e in equipped]}
+            def combat_score(person_ref:str,person:Mapping[str,Any])->tuple[float,Dict[str,Any]]:
+                skills=person.get("skills",{}); attrs=person.get("attributes",{}); eq=equipment_profile(person_ref,person); weapon=_fixed(skills.get(eq["skill_name"],0)); defense=_fixed(skills.get("Defense",0)); support=sum(_fixed(attrs.get(k,0)) for k in ("Agility","Awareness","Coordination","Composure","Endurance"))/5.0; fatigue=max(0,int(person.get("fatigue",0))); score=max(1.0,weapon*0.50+defense*0.10+support*0.30+eq["weapon_bonus"]+eq["armor_bonus"]-fatigue*0.6); eq["score"]=round(score,3); return score,eq
+            pscore,player_equipment=combat_score(self.PLAYER_ACTOR,player); oscore,opponent_equipment=combat_score(opponent_ref,opponent); seed=self._causal_seed(command,payload,"personal_combat"); jitter=((seed%2001)-1000)/100.0; margin=(pscore-oscore)+jitter*0.08; outcome="win" if margin>4 else ("loss" if margin<-4 else "draw")
             fatigue_gain=max(2,int(math.ceil(minutes/10))); player["fatigue"]=_clamp(int(player.get("fatigue",0))+fatigue_gain); opponent["fatigue"]=_clamp(int(opponent.get("fatigue",0))+fatigue_gain)
             if not spar and outcome in {"win","loss"}:
                 loser=opponent if outcome=="win" else player; self._set_person_health(loser,"injured"); loser["injury_state"]={"label":"personal combat injury","severity":"moderate","inflicted_at":self.read("state/runtime.json")["world_time"],"minimum_recovery_hours":24,"recovered_hours":0,"active":True}
-            current=CampaignTime.parse(self.read("state/runtime.json")["world_time"]); target=current.add_seconds(minutes*60).__str__(); metrics=self._advance_runtime(target); self.put("state/player.json",player); self.put(opponent_path,opponent); hist=_deepcopy(self.read("state/history/events/index.json")); eid="personal_combat_"+command.digest[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"personal_combat","at":str(current),"completed_at":target,"actor_ref":self.PLAYER_ACTOR,"opponent_ref":opponent_ref,"location_ref":player_loc,"objective":objective,"spar":spar,"outcome":outcome}); self.put("state/history/events/index.json",hist); self._write_meta(command,target); return self._result(outcome=outcome,scale="exact_personal",opponent_ref=opponent_ref,location_ref=player_loc,duration_minutes=minutes,world_time=target,score_scale=100,player_score=int(round(pscore*100)),opponent_score=int(round(oscore*100)),**metrics)
+            current=CampaignTime.parse(self.read("state/runtime.json")["world_time"]); target=current.add_seconds(minutes*60).__str__(); metrics=self._advance_runtime(target); self.put("state/player.json",player); self.put(opponent_path,opponent); hist=_deepcopy(self.read("state/history/events/index.json")); eid="personal_combat_"+hashlib.sha256((str(current)+":"+self.PLAYER_ACTOR+":"+opponent_ref+":"+objective).encode()).hexdigest()[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"personal_combat","at":str(current),"completed_at":target,"actor_ref":self.PLAYER_ACTOR,"opponent_ref":opponent_ref,"location_ref":player_loc,"objective":objective,"spar":spar,"outcome":outcome,"player_equipment":player_equipment,"opponent_equipment":opponent_equipment}); self.put("state/history/events/index.json",hist); self._write_meta(command,target); return self._result(outcome=outcome,scale="exact_personal",opponent_ref=opponent_ref,location_ref=player_loc,duration_minutes=minutes,world_time=target,score_scale=100,player_score=int(round(pscore*100)),opponent_score=int(round(oscore*100)),player_equipment=player_equipment,opponent_equipment=opponent_equipment,**metrics)
         if t in {"operation_create","operation_transition"}:
             idxp="state/operations/index.json"; idx=_deepcopy(self.read(idxp));
             if t=="operation_create":
@@ -1577,14 +1739,36 @@ class RepositoryCommandPlanner:
                 if any(not bool(x.get("mobilized",False)) for x in forms): raise ValueError("active operation requires mobilized formations")
             doc["status"]=status; doc["updated_at"]=command.submitted_at; self.put(path,doc); self._write_meta(command); return self._result(operation_ref=ref,status=doc["status"])
         if t in {"information_create","information_deliver"}:
-            idxp="state/information/index.json"; idx=_deepcopy(self.read(idxp));
+            idxp="state/information/index.json"; idx=_deepcopy(self.read(idxp))
             if t=="information_create":
-                ref=str(payload["information_ref"]); path=f"state/information/{ref}.json"; doc={"schema":"sword-information","owner_id":ref,"information_ref":ref,"fact":str(payload.get("claim",payload.get("fact",""))),"claim":str(payload.get("claim",payload.get("fact",""))),"confidence":str(payload.get("confidence","1.0")),"provenance":str(payload.get("provenance","direct")),"knowers":list(payload.get("knowers",[])),"created_at":command.submitted_at}; self.put(path,doc); idx.setdefault("claims",{})[ref]=path; self.put(idxp,idx); self._register_owner(ref,path); self._write_meta(command); return self._result(information_ref=ref)
-            ref=str(payload["information_ref"]); path=idx.get("claims",{}).get(ref); doc=_deepcopy(self.read(path)); target=str(payload.get("target_ref",self.PLAYER_ACTOR)); knowers=doc.setdefault("knowers",[]); 
+                ref=str(payload["information_ref"]); path=f"state/information/{ref}.json"
+                if self.read_optional(path) is not None: raise ValueError("information_ref already exists")
+                claim=str(payload.get("claim",payload.get("fact",""))); knowers=[str(x) for x in payload.get("knowers",[])]; doc={"schema":"sword-information","owner_id":ref,"information_ref":ref,"fact":claim,"claim":claim,"confidence":str(payload.get("confidence","1.0")),"provenance":str(payload.get("provenance","direct")),"knowers":knowers,"deliveries":[],"created_at":str(self._world_time())}; self.put(path,doc); idx.setdefault("claims",{})[ref]=path; self.put(idxp,idx); self._register_owner(ref,path); world_time,metrics=self._advance_seconds(300); self._write_meta(command,world_time); return self._result(information_ref=ref,world_time=world_time,**metrics)
+            ref=str(payload["information_ref"]); path=idx.get("claims",{}).get(ref)
+            if not path: raise ValueError("unknown information claim")
+            doc=_deepcopy(self.read(path)); target=str(payload.get("target_ref",self.PLAYER_ACTOR)); _,target_person=self._exact_person(target); sender_ref=command.actor_id if command.actor_id!=self.INTERNAL_ACTOR else str(payload.get("source_ref",doc.get("knowers",[self.PLAYER_ACTOR])[0] if doc.get("knowers") else self.PLAYER_ACTOR)); _,sender=self._exact_person(sender_ref); sender_loc=self._person_location(sender); target_loc=self._person_location(target_person)
+            if sender_ref not in doc.get("knowers",[]): raise PermissionError("information may travel only from an exact saved knower")
+            if not sender_loc or not target_loc: raise ValueError("information delivery requires exact sender and recipient locations")
+            hours=self._route_travel_hours(sender_loc,target_loc); seconds=300 if hours==0 else hours*3600; departed=str(self._world_time()); world_time,metrics=self._advance_seconds(seconds); knowers=doc.setdefault("knowers",[])
             if target not in knowers: knowers.append(target)
-            self.put(path,doc); self._write_meta(command); return self._result(information_ref=ref,delivered_to=target)
-        if t=="institution_project":
-            ref=str(payload["institution_ref"]); p=self.owner_path(ref); doc=_deepcopy(self.read(p)); doc.setdefault("projects",[]).append({"project_ref":str(payload.get("project_ref","project_"+command.digest[:8])),"kind":str(payload.get("kind","capacity")),"status":"active","started_at":command.submitted_at}); self.put(p,doc); self._write_meta(command); return self._result(institution_ref=ref)
+            delivery={"source_ref":sender_ref,"target_ref":target,"departed_at":departed,"arrived_at":world_time,"source_location_ref":sender_loc,"target_location_ref":target_loc,"channel":"courier","travel_hours":hours}; doc.setdefault("deliveries",[]).append(delivery); doc["deliveries"]=doc["deliveries"][-64:]; self.put(path,doc); self._write_meta(command,world_time); return self._result(information_ref=ref,delivered_to=target,world_time=world_time,travel_hours=hours,**metrics)
+        if t in {"institution_project","project_resolve"}:
+            ref=str(payload["institution_ref"]); p=self.owner_path(ref); doc=_deepcopy(self.read(p)); projects=doc.setdefault("projects",[])
+            if t=="institution_project":
+                project_ref=str(payload.get("project_ref","project_"+command.digest[:8]));
+                if any(str(x.get("project_ref"))==project_ref and str(x.get("status")) not in {"completed","cancelled"} for x in projects): raise ValueError("active project_ref already exists")
+                duration=int(payload.get("duration_hours",168)); kind=str(payload.get("kind","capacity")); magnitude=int(payload.get("magnitude",1)); current=self._world_time(); completes=str(current.add_seconds(duration*3600)); project={"project_ref":project_ref,"kind":kind,"magnitude":magnitude,"status":"active","started_at":str(current),"completes_at":completes,"effect":dict(payload.get("effect",{}))}; projects.append(project); self.put(p,doc); world_time,metrics=self._advance_seconds(3600); self._write_meta(command,world_time); return self._result(institution_ref=ref,project_ref=project_ref,completes_at=completes,world_time=world_time,**metrics)
+            project_ref=str(payload["project_ref"]); project=next((x for x in projects if str(x.get("project_ref"))==project_ref),None)
+            if not project: raise ValueError("unknown institution project")
+            if project.get("status")!="active": raise ValueError("institution project is not active")
+            if self._world_time()<CampaignTime.parse(str(project["completes_at"])): raise ValueError("institution project is not complete yet")
+            kind=str(project.get("kind","capacity")); magnitude=max(1,int(project.get("magnitude",1))); effect=project.get("effect",{}) if isinstance(project.get("effect"),dict) else {}
+            if kind in {"capacity","construction","expansion"}: doc["capacity"]=max(0,int(doc.get("capacity",0))+magnitude)
+            elif kind in {"backlog","process"}: doc["backlog"]=max(0,int(doc.get("backlog",0))-magnitude)
+            elif kind in {"stock","resource","logistics"}:
+                key=str(effect.get("resource","generic_stock")); doc.setdefault("resources",{})[key]=int(doc.get("resources",{}).get(key,0))+magnitude
+            else: doc.setdefault("resolved_effects",{})[kind]=int(doc.get("resolved_effects",{}).get(kind,0))+magnitude
+            project["status"]="completed"; project["resolved_at"]=str(self._world_time()); self.put(p,doc); world_time,metrics=self._advance_seconds(3600); self._write_meta(command,world_time); return self._result(institution_ref=ref,project_ref=project_ref,status="completed",world_time=world_time,**metrics)
         if t=="house_action":
             ref=str(payload.get("house_ref","house_tang")); p=self.owner_path(ref); doc=_deepcopy(self.read(p)); action=str(payload.get("action","assign_duty")); doc.setdefault("projects",[]).append({"kind":action,"subject_ref":payload.get("subject_ref"),"at":command.submitted_at}); self.put(p,doc); self._write_meta(command); return self._result(house_ref=ref,action=action)
         if t=="state_action":
@@ -1597,30 +1781,71 @@ class RepositoryCommandPlanner:
                 doc.setdefault("known_threats",{})[source]={"severity":severity,"observed_at":command.submitted_at,"provenance":str(payload.get("provenance","lawful report"))}
                 doc.setdefault("diplomacy",{})[source]={"tension":severity}
             self.put(p,doc); self._write_meta(command); return self._result(state=state,action=action)
-        if t in {"market_purchase","economy_transfer","enlisted_service_pay"}:
+        if t in {"market_purchase","market_sell","economy_transfer","enlisted_service_pay"}:
             walletp="state/economy/player-wallet.json"; wallet=_deepcopy(self.read(walletp))
-            if t=="market_purchase":
-                marketp="state/markets/kanyou.json"; market=_deepcopy(self.read(marketp)); item=str(payload["item_key"]); qty=int(payload.get("quantity",1)); econ=self.read("game/data/mechanics/economy-gold.json"); prices=econ.get("prices_silver",econ.get("prices",{})); price=_fixed(prices.get(item)); total=int(round(price*qty));
-                player_location=self.read("state/player.json").get("location")
-                if player_location != market.get("location_ref"):
-                    raise ValueError("market purchase requires lawful physical market access")
-                if int(market["stock"].get(item,0))<qty: raise ValueError("insufficient market stock")
-                if int(wallet.get("silver",0))<total: raise ValueError("insufficient player funds")
-                wallet["silver"]-=total; market["stock"][item]-=qty; ep="state/economy/private/qin.json"; eco=_deepcopy(self.read(ep)); eco["cash_silver"]=int(eco.get("cash_silver",0))+total; self.put(ep,eco); self.put(marketp,market); invp="state/economy/player-inventory.json"; inv=_deepcopy(self.read_optional(invp) or {"schema":"sword-player-inventory","owner_id":"inventory_char_tang_wei","items":{}}); inv["items"][item]=int(inv["items"].get(item,0))+qty; self.put(invp,inv); self._register_owner("inventory_char_tang_wei",invp); result={"item":item,"quantity":qty,"spent_silver":total}
-            else:
-                state=self._state_key(payload.get("state","qin")); sp=f"state/states/{state}.json"; sd=_deepcopy(self.read(sp)); amount=int(payload.get("amount_silver",7 if t=="enlisted_service_pay" else 0));
-                if t=="economy_transfer" and payload.get("direction")=="player_to_state":
-                    if int(wallet["silver"]) < amount:
-                        raise ValueError("insufficient funds")
-                    wallet["silver"] -= amount
-                    sd["treasury_silver"] += amount
+            if t in {"market_purchase","market_sell"}:
+                marketp="state/markets/kanyou.json"; market=_deepcopy(self.read(marketp)); market_key=str(payload["item_key"]); qty=int(payload.get("quantity",1)); econ=self.read("game/data/mechanics/economy-gold.json"); prices=econ.get("prices_silver",econ.get("prices",{}))
+                if market_key not in market.get("stock",{}) or market_key not in prices: raise ValueError("unknown or unpriced market item")
+                item_id=self._market_item_id(market_key); self._item_record(item_id); pack_size=20 if market_key=="arrows_20" else 1; exact_qty=qty*pack_size; unit_price=_fixed(prices[market_key]); total=int(round(unit_price*qty)); player_location=self.read("state/player.json").get("location")
+                if player_location != market.get("location_ref"): raise ValueError("market transaction requires lawful physical market access")
+                invp,inv=self._player_inventory()
+                ep="state/economy/private/qin.json"; eco=_deepcopy(self.read(ep))
+                if t=="market_purchase":
+                    if int(market["stock"].get(market_key,0))<qty: raise ValueError("insufficient market stock")
+                    if int(wallet.get("silver",0))<total: raise ValueError("insufficient player funds")
+                    wallet["silver"]-=total; market["stock"][market_key]-=qty; eco["cash_silver"]=int(eco.get("cash_silver",0))+total; inv["items"][item_id]=int(inv["items"].get(item_id,0))+exact_qty; result={"item_key":market_key,"item_id":item_id,"quantity":qty,"exact_quantity":exact_qty,"spent_silver":total}
                 else:
-                    if int(sd["treasury_silver"]) < amount:
-                        raise ValueError("state treasury insufficient")
-                    sd["treasury_silver"] -= amount
-                    wallet["silver"] += amount
-                self.put(sp,sd); result={"amount_silver":amount,"state":state}
-            self.put(walletp,wallet); self._write_meta(command); return self._result(**result)
+                    if int(inv["items"].get(item_id,0))<exact_qty: raise ValueError("insufficient unequipped player inventory to sell")
+                    proceeds=max(1,int(math.floor(total*0.70))); if_cash=int(eco.get("cash_silver",0))
+                    if if_cash<proceeds: raise ValueError("local private economy cannot fund this purchase")
+                    inv["items"][item_id]-=exact_qty; wallet["silver"]+=proceeds; market["stock"][market_key]=int(market["stock"].get(market_key,0))+qty; eco["cash_silver"]-=proceeds; result={"item_key":market_key,"item_id":item_id,"quantity":qty,"exact_quantity":exact_qty,"received_silver":proceeds}
+                self.put(invp,inv); self._register_owner("inventory_char_tang_wei",invp); self.put(ep,eco); self.put(marketp,market); self.put(walletp,wallet); world_time,metrics=self._advance_seconds(max(300,qty*60)); self._write_meta(command,world_time); return self._result(world_time=world_time,**result,**metrics)
+            state=self._state_key(payload.get("state","qin")); sp=f"state/states/{state}.json"; sd=_deepcopy(self.read(sp)); amount=int(payload.get("amount_silver",7 if t=="enlisted_service_pay" else 0));
+            if t=="economy_transfer" and payload.get("direction")=="player_to_state":
+                if int(wallet["silver"]) < amount: raise ValueError("insufficient funds")
+                wallet["silver"] -= amount; sd["treasury_silver"] += amount
+            else:
+                if int(sd["treasury_silver"]) < amount: raise ValueError("state treasury insufficient")
+                sd["treasury_silver"] -= amount; wallet["silver"] += amount
+            self.put(sp,sd); self.put(walletp,wallet); self._write_meta(command); return self._result(amount_silver=amount,state=state)
+        if t in {"equipment_equip","equipment_unequip","equipment_transfer","equipment_drop","equipment_consume"}:
+            item_id=str(payload["item_key"]); qty=int(payload.get("quantity",1)); self._item_record(item_id); player=_deepcopy(self.read("state/player.json")); player_loc=self._person_location(player); invp,inv=self._player_inventory(); mp,manifest=self._player_manifest(); entries=manifest.setdefault("equipment_manifest",[])
+            def find_entry(states: tuple[str,...]=()) -> Optional[Dict[str,Any]]:
+                for entry in entries:
+                    if str(entry.get("item_id"))!=item_id: continue
+                    state=str(entry.get("current_state","")).lower()
+                    if not states or any(token in state for token in states): return entry
+                return None
+            if t=="equipment_equip":
+                equipped=self._manifest_quantity(manifest,item_id,equipped_only=True)
+                if equipped>=qty: raise ValueError("requested item quantity is already equipped")
+                need=qty-equipped; stored=find_entry(("stored","ready room","stables","sheathed"))
+                while need>0 and stored is not None and int(stored.get("quantity",0))>0:
+                    take=min(need,int(stored["quantity"])); stored["quantity"]-=take; entries.append({"item_id":item_id,"quantity":take,"custody":"Tang Wei player equipment","current_state":"equipped/readied on person"}); need-=take
+                    if stored["quantity"]<=0: entries.remove(stored)
+                    stored=find_entry(("stored","ready room","stables","sheathed"))
+                if need:
+                    if int(inv["items"].get(item_id,0))<need: raise ValueError("player does not own enough of the exact item to equip")
+                    inv["items"][item_id]-=need; entries.append({"item_id":item_id,"quantity":need,"custody":"Tang Wei player equipment","current_state":"equipped/readied on person"})
+                action="equipped"
+            elif t=="equipment_unequip":
+                if self._manifest_quantity(manifest,item_id,equipped_only=True)<qty: raise ValueError("insufficient equipped quantity")
+                self._take_manifest_items(manifest,item_id,qty,require_equipped=True); entries.append({"item_id":item_id,"quantity":qty,"custody":"Tang Wei player equipment","current_state":"stored with player at "+str(player_loc)}); action="unequipped"
+            elif t=="equipment_transfer":
+                target_ref=str(payload["target_ref"]); tp,target=self._exact_person(target_ref); target_loc=self._person_location(target)
+                if not player_loc or player_loc!=target_loc: raise ValueError("equipment transfer requires exact co-location")
+                available=int(inv["items"].get(item_id,0)); take_inv=min(qty,available); inv["items"][item_id]=available-take_inv; remaining=qty-take_inv
+                if remaining: self._take_manifest_items(manifest,item_id,remaining,require_equipped=False)
+                target.setdefault("personal_inventory",{})[item_id]=int(target.get("personal_inventory",{}).get(item_id,0))+qty; self.put(tp,target); action="transferred"
+            elif t=="equipment_drop":
+                available=int(inv["items"].get(item_id,0)); take_inv=min(qty,available); inv["items"][item_id]=available-take_inv; remaining=qty-take_inv
+                if remaining: self._take_manifest_items(manifest,item_id,remaining,require_equipped=False)
+                hist=_deepcopy(self.read("state/history/events/index.json")); eid="equipment_drop_"+command.digest[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"equipment_drop","at":str(self._world_time()),"person_ref":self.PLAYER_ACTOR,"location_ref":player_loc,"item_id":item_id,"quantity":qty}); self.put("state/history/events/index.json",hist); action="dropped"
+            else:
+                available=int(inv["items"].get(item_id,0)); take_inv=min(qty,available); inv["items"][item_id]=available-take_inv; remaining=qty-take_inv
+                if remaining: self._take_manifest_items(manifest,item_id,remaining,require_equipped=True)
+                action="consumed"
+            entries[:]=[e for e in entries if int(e.get("quantity",0))>0]; inv["items"]={k:int(v) for k,v in inv["items"].items() if int(v)>0}; self.put(invp,inv); self._register_owner("inventory_char_tang_wei",invp); self.put(mp,manifest); world_time,metrics=self._advance_seconds(300 if t in {"equipment_equip","equipment_unequip","equipment_consume"} else 600); self._write_meta(command,world_time); return self._result(action=action,item_id=item_id,quantity=qty,world_time=world_time,**metrics)
         if t=="fortification_materialize":
             ref=str(payload["fortification_ref"]); loc=str(payload["location_ref"]); profiles=self.read("game/data/world/fortification-profiles.json"); profile=next((p for p in profiles.get("profiles",[]) if p.get("site_ref",p.get("location_ref"))==loc),None)
             if not profile: raise ValueError("location has no fortification profile")
@@ -1660,11 +1885,95 @@ class RepositoryCommandPlanner:
                 if sg.get("status") not in {"settled","captured"}: raise ValueError("siege is not settled")
             site["controller"]=controller; self.put("state/territory/control.json",terr); self._write_meta(command); return self._result(location_ref=loc,controller=controller)
         if t=="family_event":
-            house_ref=str(payload.get("house_ref","house_tang")); p=self.owner_path(house_ref); house=_deepcopy(self.read(p)); kind=str(payload["kind"]); cohort=house.setdefault("lineage_cohort",{})
-            if kind=="birth": cohort["children"]=int(cohort.get("children",0))+1
-            elif kind=="marriage": cohort["marriages"]=int(cohort.get("marriages",0))+1
-            elif kind=="death": cohort["adults"]=max(0,int(cohort.get("adults",0))-1)
-            house.setdefault("family_events",[]).append({"kind":kind,"at":command.submitted_at,"person_ref":payload.get("person_ref")}); self.put(p,house); self._write_meta(command); return self._result(house_ref=house_ref,kind=kind)
+            house_ref=str(payload.get("house_ref","house_tang")); hp=self.owner_path(house_ref); house=_deepcopy(self.read(hp)); kind=str(payload["kind"]); idxp="state/family/index.json"; idx=_deepcopy(self.read(idxp)); now=self._world_time(); world_time=str(now); subjects: list[str]=[]; source_refs: list[str]=[]; result: Dict[str,Any]={"house_ref":house_ref,"kind":kind}
+            def person_age(ref: str) -> int:
+                return age_years(self._exact_person(ref)[1], now)
+            def active_union(a: str, b: Optional[str]=None) -> tuple[Optional[str],Optional[str],Optional[Dict[str,Any]]]:
+                for uid,path in idx.get("unions",{}).items():
+                    u=self.read(path); participants={str(x) for x in u.get("participants",[])}
+                    if a in participants and (b is None or b in participants) and str(u.get("status")) in {"betrothed","married"}: return str(uid),str(path),_deepcopy(u)
+                return None,None,None
+            def add_person_index(ref: str, bucket: str, record_id: str) -> None:
+                pi=idx.setdefault("person_index",{}).setdefault(ref,{}); values=pi.setdefault(bucket,[]);
+                if record_id not in values: values.append(record_id)
+            def write_family_event(event_type: str, refs: list[str], refs_sources: list[str]) -> str:
+                eid="family."+event_type+"."+hashlib.sha256((str(now)+":"+":".join(sorted(refs))+":"+str(command.expected_revision)).encode()).hexdigest()[:12]; path=f"state/family/events/{eid}.json"; event={"schema":"family-event.v1","event_id":eid,"event_type":event_type,"occurred_at":str(now),"authority":True,"subject_refs":refs,"source_refs":refs_sources}; self.put(path,event); idx.setdefault("events",{})[eid]=path; idx.setdefault("counts",{})["events"]=len(idx["events"]);
+                for ref in refs: add_person_index(ref,"events",eid)
+                return eid
+            if kind=="proposal":
+                a=str(payload["person_ref"]); b=str(payload["partner_ref"]);
+                if a==b: raise ValueError("a family proposal requires two distinct people")
+                if person_age(a)<16 or person_age(b)<16: raise ValueError("marriage proposal participants must be at least 16")
+                pa,aa=self._exact_person(a); pb,bb=self._exact_person(b);
+                if self._person_location(aa)!=self._person_location(bb) or self._person_location(aa) is None: raise ValueError("family proposal requires exact co-location")
+                if active_union(a)[2] or active_union(b)[2]: raise ValueError("participant already has an active union")
+                if command.actor_id!=self.INTERNAL_ACTOR and a!=command.actor_id: raise PermissionError("player may author only their own proposal")
+                pid=str(payload.get("proposal_ref",f"proposal.{a}.{b}.{command.expected_revision}")); path=f"state/family/proposals/{pid}.json";
+                if self.read_optional(path) is not None: raise ValueError("proposal_ref already exists")
+                proposal={"schema":"family-proposal.v1","proposal_id":pid,"kind":"marriage_proposal","proposer_id":a,"target_id":b,"status":"pending","authority":True,"proposed_at":str(now),"player_choice_required":b==self.PLAYER_ACTOR}; self.put(path,proposal); idx.setdefault("proposals",{})[pid]=path; idx.setdefault("counts",{})["proposals"]=len(idx["proposals"]); add_person_index(a,"proposals",pid); add_person_index(b,"proposals",pid); subjects=[a,b]; source_refs=[path]; result["proposal_ref"]=pid; result["family_event"]=write_family_event("proposal_made",subjects,source_refs)
+            elif kind=="engagement":
+                pid=str(payload.get("proposal_ref","")); path=idx.get("proposals",{}).get(pid);
+                if not path: raise ValueError("engagement requires an exact saved proposal")
+                proposal=_deepcopy(self.read(path));
+                if proposal.get("status")!="pending": raise ValueError("proposal is not pending")
+                a=str(proposal["proposer_id"]); b=str(proposal["target_id"]);
+                if command.actor_id!=self.INTERNAL_ACTOR and command.actor_id!=b: raise PermissionError("player may accept only a proposal made to the player")
+                pa,aa=self._exact_person(a); pb,bb=self._exact_person(b);
+                if self._person_location(aa)!=self._person_location(bb) or self._person_location(aa) is None: raise ValueError("engagement requires exact co-location")
+                proposal["status"]="accepted"; proposal["accepted_at"]=str(now); self.put(path,proposal); uid="union."+"_".join(sorted([a.replace("char_",""),b.replace("char_","")])) ; up=f"state/family/unions/{uid}.json"; union={"schema":"family-union.v1","union_id":uid,"participants":[a,b],"status":"betrothed","authority":True,"formed_at":str(now),"date_precision":"exact_runtime","recognition":{"recognized":True,"basis":"accepted saved proposal"},"relationship_refs":[],"proposal_ref":pid}; self.put(up,union); idx.setdefault("unions",{})[uid]=up; idx.setdefault("counts",{})["unions"]=len(idx["unions"]); add_person_index(a,"unions",uid); add_person_index(b,"unions",uid); subjects=[a,b]; source_refs=[path,up]; result["union_ref"]=uid; result["family_event"]=write_family_event("betrothal_formed",subjects,source_refs)
+            elif kind=="marriage":
+                a=str(payload["person_ref"]); b=str(payload["partner_ref"]); uid,up,union=active_union(a,b)
+                if union is None or union.get("status")!="betrothed": raise ValueError("marriage requires a saved accepted betrothal")
+                pa,aa=self._exact_person(a); pb,bb=self._exact_person(b); loc=self._person_location(aa)
+                if not loc or loc!=self._person_location(bb): raise ValueError("marriage requires exact co-location")
+                union["status"]="married"; union["married_at"]=str(now); self.put(str(up),union); hid="household."+"_".join(sorted([a.replace("char_",""),b.replace("char_","")])) ; hpath=f"state/family/households/{hid}.json"; household={"schema":"family-household.v1","household_id":hid,"authority":True,"status":"active","member_refs":[a,b],"dependent_refs":[],"property_refs":[],"institution_refs":[],"residence_ref":loc,"union_refs":[uid]}; self.put(hpath,household); union["household_ref"]=hpath; self.put(str(up),union); idx.setdefault("households",{})[hid]=hpath; idx.setdefault("counts",{})["households"]=len(idx["households"]); add_person_index(a,"households",hid); add_person_index(b,"households",hid); house.setdefault("lineage_cohort",{})["marriages"]=int(house.get("lineage_cohort",{}).get("marriages",0))+1; subjects=[a,b]; source_refs=[str(up),hpath]; result.update({"union_ref":uid,"household_ref":hid}); result["family_event"]=write_family_event("marriage_formed",subjects,source_refs)
+            elif kind=="pregnancy":
+                mother_ref=str(payload["mother_ref"]); father_ref=str(payload["father_ref"]); uid,up,union=active_union(mother_ref,father_ref)
+                if union is None or union.get("status")!="married": raise ValueError("pregnancy requires a recognized active married union")
+                mp,mother=self._exact_person(mother_ref); self._exact_person(father_ref)
+                if isinstance(mother.get("pregnancy_state"),dict) and mother["pregnancy_state"].get("active"): raise ValueError("pregnancy already active")
+                due=now.add_days(270); mother["pregnancy_state"]={"active":True,"father_ref":father_ref,"union_ref":uid,"recognized_at":str(now),"due_at":str(due)}; self.put(mp,mother); subjects=[mother_ref,father_ref]; source_refs=[str(up)]; result["due_at"]=str(due)
+            elif kind=="birth":
+                mother_ref=str(payload["mother_ref"]); father_ref=str(payload["father_ref"]); child_ref=str(payload["child_ref"]); mp,mother=self._exact_person(mother_ref); fp,father=self._exact_person(father_ref); preg=mother.get("pregnancy_state")
+                if not isinstance(preg,dict) or not preg.get("active") or preg.get("father_ref")!=father_ref: raise ValueError("birth requires a matching active saved pregnancy")
+                due=CampaignTime.parse(str(preg["due_at"]));
+                if now<due: raise ValueError("birth cannot occur before the saved due time")
+                if self.read("state/index/owner-index-gold.json").get("owners",{}).get(child_ref): raise ValueError("child_ref already exists")
+                loc=self._person_location(mother); birth_date=f"{now.bce_year}-BCE-{now.month:02d}-{now.day:02d}"; seed=self._causal_seed(command,payload,"birth:"+child_ref); child_path=f"state/char/{child_ref.replace('char_','').replace('_','-')}.json"; child={"schema":"sab_character","owner_id":child_ref,"owner_type":"character","name":str(payload.get("name",child_ref.replace('char_','').replace('_',' ').title())),"birth_date":birth_date,"body":{"adult_height_cm":float(160+(seed%1800)/100.0),"growth_end_age":18,"current_weight_kg":3.2+((seed//100)%8)/10.0,"frame":"infant","growth_profile_id":"human_height_to_18"},"appearance":int(40+(seed%61)),"attributes":{},"skills":{},"aptitude":{"physical_learning":100,"technical_learning":100,"tactical_learning":100,"academic_learning":100,"social_learning":100},"development_state":{"completed_reviews":0,"maintenance_credit":0.0,"training_credit":0.0},"health_status":"healthy","life_status":"active","current_location":loc,"family":house_ref}; self.put(child_path,child); self._register_owner(child_ref,child_path); parentage_id=f"parentage.{child_ref.replace('char_','')}.birth_parents"; parpath=f"state/family/parentage/{parentage_id}.json"; parentage={"schema":"family-parentage.v1","parentage_id":parentage_id,"child_id":child_ref,"authority":True,"parent_links":[{"parent_id":mother_ref,"kind":"biological"},{"parent_id":father_ref,"kind":"biological"}],"guardian_links":[]}; self.put(parpath,parentage); idx.setdefault("parentage",{})[parentage_id]=parpath; idx.setdefault("counts",{})["parentage"]=len(idx["parentage"]); add_person_index(child_ref,"parentage",parentage_id); add_person_index(mother_ref,"parentage",parentage_id); add_person_index(father_ref,"parentage",parentage_id); uid=str(preg.get("union_ref")); up=idx.get("unions",{}).get(uid); union=self.read(up) if up else {}; hpath=union.get("household_ref") if isinstance(union,dict) else None
+                if isinstance(hpath,str): household=_deepcopy(self.read(hpath)); deps=household.setdefault("dependent_refs",[]);
+                if isinstance(hpath,str) and child_ref not in deps: deps.append(child_ref); self.put(hpath,household); add_person_index(child_ref,"households",str(household.get("household_id")))
+                preg["active"]=False; preg["resolved_at"]=str(now); preg["child_ref"]=child_ref; mother["pregnancy_state"]=preg; self.put(mp,mother); house.setdefault("lineage_cohort",{})["children"]=int(house.get("lineage_cohort",{}).get("children",0))+1; subjects=[mother_ref,father_ref,child_ref]; source_refs=[parpath]+([str(hpath)] if hpath else []); result.update({"child_ref":child_ref,"parentage_ref":parentage_id}); result["family_event"]=write_family_event("birth",subjects,source_refs)
+            elif kind=="death":
+                person_ref=str(payload["person_ref"]); pp,person=self._exact_person(person_ref); self._set_person_life_status(person,"dead"); self._set_person_health(person,"dead"); person["died_at"]=str(now); self.put(pp,person); subjects=[person_ref]
+                for uid,up in list(idx.get("unions",{}).items()):
+                    union=_deepcopy(self.read(up));
+                    if person_ref in union.get("participants",[]) and union.get("status")=="married": union["status"]="widowed"; union["widowed_at"]=str(now); self.put(up,union); source_refs.append(up)
+                cohort=house.setdefault("lineage_cohort",{}); cohort["adults"]=max(0,int(cohort.get("adults",0))-1); result["family_event"]=write_family_event("death_family_settlement",subjects,source_refs)
+            elif kind=="widowhood":
+                person_ref=str(payload["person_ref"]); changed=[]
+                for uid,up in list(idx.get("unions",{}).items()):
+                    union=_deepcopy(self.read(up));
+                    if person_ref in union.get("participants",[]) and union.get("status")=="married": union["status"]="widowed"; union["widowed_at"]=str(now); self.put(up,union); changed.append(up)
+                if not changed: raise ValueError("no active marriage exists for widowhood settlement")
+                subjects=[person_ref]; source_refs=changed; result["family_event"]=write_family_event("widowhood",subjects,source_refs)
+            elif kind=="succession_review":
+                sid=str(payload.get("succession_ref","succession.house_tang")); sp=idx.get("successions",{}).get(sid);
+                if not sp: raise ValueError("unknown succession record")
+                succession=_deepcopy(self.read(sp)); holder=str(succession.get("current_holder_id","")); holder_dead=False
+                if holder:
+                    try: holder_dead=str(self._exact_person(holder,active=False)[1].get("life_status","active")) in {"dead","deceased"}
+                    except ValueError: holder_dead=True
+                if holder_dead:
+                    replacement=None
+                    for c in succession.get("candidate_order",[]):
+                        ref=str(c.get("person_id",""));
+                        try:
+                            self._exact_person(ref); replacement=ref; break
+                        except ValueError: continue
+                    if replacement is None: raise ValueError("succession has no living eligible candidate")
+                    succession["current_holder_id"]=replacement; succession["last_changed_at"]=str(now); self.put(sp,succession); result["new_holder_ref"]=replacement; subjects=[holder,replacement]; source_refs=[sp]; result["family_event"]=write_family_event("succession_change",subjects,source_refs)
+                else: result["new_holder_ref"]=holder
+            idx.setdefault("counts",{})["unions"]=len(idx.get("unions",{})); idx["counts"]["households"]=len(idx.get("households",{})); idx["counts"]["parentage"]=len(idx.get("parentage",{})); self.put(idxp,idx); house.setdefault("family_events",[]).append({"kind":kind,"at":str(now),"subjects":subjects}); house["family_events"]=house["family_events"][-32:]; self.put(hp,house); self._write_meta(command,world_time); return self._result(**result)
         if t=="repair":
             if command.actor_id!=self.INTERNAL_ACTOR or command.mode!="maintenance": raise PermissionError("repair requires trusted internal maintenance actor")
             path=str(payload["path"]); before=self.read(path); after=_deepcopy(before); changes=dict(payload.get("changes",{})); after.update(changes); self.put(path,after); hist=_deepcopy(self.read("state/history/events/index.json")); eid="repair_"+command.digest[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"explicit_repair","at":command.submitted_at,"path":path,"reason":str(payload.get("reason","confirmed campaign-state repair"))}); self.put("state/history/events/index.json",hist); self._write_meta(command); return self._result(repair_event=eid,path=path)
