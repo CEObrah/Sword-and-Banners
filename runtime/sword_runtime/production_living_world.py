@@ -82,11 +82,18 @@ class ProductionLivingWorldSwordPlanner(CausalLivingWorldSwordPlanner):
                 continue
             used.update(str(ref) for ref in refs if isinstance(ref, str) and ref)
 
+        memory_view = self.read_optional(OPERATIONAL_MEMORY_PATH)
+        scoring_memory = (
+            memory_view
+            if isinstance(memory_view, dict)
+            else {"state_memory": {}, "formation_memory": {}}
+        )
         cancelled: list[str] = []
         for operation_ref, path in own_active:
             operation = copy.deepcopy(self.read(path))
             refs = [str(ref) for ref in operation.get("formation_refs", []) if isinstance(ref, str) and ref]
             keep: list[str] = []
+            kept_formations: list[Mapping[str, Any]] = []
             for formation_ref in refs:
                 if formation_ref in used:
                     continue
@@ -98,22 +105,42 @@ class ProductionLivingWorldSwordPlanner(CausalLivingWorldSwordPlanner):
                     formation_ref,
                     formation,
                     str(operation.get("objective", "operation")),
-                    self.read_optional(OPERATIONAL_MEMORY_PATH)
-                    if isinstance(self.read_optional(OPERATIONAL_MEMORY_PATH), dict)
-                    else {"state_memory": {}, "formation_memory": {}},
+                    scoring_memory,
                     used,
                 ) <= -(10**8):
                     continue
                 keep.append(formation_ref)
+                kept_formations.append(formation)
                 used.add(formation_ref)
-            if keep == refs:
-                continue
-            if keep:
-                operation["formation_refs"] = keep
-            else:
+
+            old_status = str(operation.get("status", "planned"))
+            if not keep:
                 operation["formation_refs"] = []
                 operation["status"] = "cancelled"
                 cancelled.append(operation_ref)
+            else:
+                operation["formation_refs"] = keep
+                locations = {str(formation.get("location_ref", "")) for formation in kept_formations}
+                exact_location = str(operation.get("location_ref", ""))
+                physically_active = (
+                    len(locations) == 1
+                    and exact_location in locations
+                    and all(bool(formation.get("mobilized", False)) for formation in kept_formations)
+                )
+                if old_status in {"planned", "mobilizing", "active"}:
+                    operation["status"] = "active" if physically_active else "mobilizing"
+                elif not physically_active:
+                    # Engaged/occupied state has stronger semantics than a
+                    # background readiness review may lawfully rewrite. Fail
+                    # closed rather than silently regressing a live operation.
+                    raise ValueError("autonomous operation lost exact active-state prerequisites")
+
+            if operation.get("status") != old_status:
+                history = operation.setdefault("status_history", [])
+                if not isinstance(history, list):
+                    raise ValueError("operation status history is invalid")
+                history.append({"from": old_status, "status": operation["status"], "at": at})
+                del history[:-32]
             self.put(path, operation)
 
         if cancelled:
