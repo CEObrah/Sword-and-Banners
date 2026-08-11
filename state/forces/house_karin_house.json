@@ -4,8 +4,18 @@
     "formation_house_karin_house_guard": 820
   },
   "authorized_strength": 820,
+  "available_by_location": {
+    "loc_chu_regional_01": {
+      "household_retainer": 0
+    }
+  },
   "available_by_role": {
     "household_retainer": 0
+  },
+  "available_equipment_by_location": {
+    "loc_chu_regional_01": {
+      "household_retainer": 0
+    }
   },
   "available_equipment_units_by_role": {
     "household_retainer": 0
@@ -15,5 +25,6 @@
   "materialized_people": {},
   "owner_id": "force_house_karin_house",
   "owner_type": "force",
-  "schema": "sword-force"
+  "schema": "sword-force",
+  "source_location_ref": "loc_chu_regional_01"
 }

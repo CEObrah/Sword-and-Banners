@@ -2,12 +2,30 @@
   "administrative_owner": "house_tang",
   "allocated_to_formations": {},
   "authorized_strength": 1600,
+  "available_by_location": {
+    "loc_tang_manor_training_ground": {
+      "general_disciple": 350,
+      "junior_disciple": 450,
+      "officer": 50,
+      "senior_disciple": 150,
+      "trainee": 600
+    }
+  },
   "available_by_role": {
     "general_disciple": 350,
     "junior_disciple": 450,
     "officer": 50,
     "senior_disciple": 150,
     "trainee": 600
+  },
+  "available_equipment_by_location": {
+    "loc_tang_manor_training_ground": {
+      "general_disciple": 245,
+      "junior_disciple": 315,
+      "officer": 35,
+      "senior_disciple": 105,
+      "trainee": 420
+    }
   },
   "available_equipment_units_by_role": {
     "general_disciple": 245,
@@ -21,5 +39,6 @@
   "materialized_people": {},
   "owner_id": "institution_sword_manor",
   "owner_type": "force",
-  "schema": "sword-force"
+  "schema": "sword-force",
+  "source_location_ref": "loc_tang_manor_training_ground"
 }
