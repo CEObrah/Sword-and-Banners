@@ -10,7 +10,6 @@ import re
 import time
 from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from typing import Any, Mapping, Optional, Sequence
 from urllib.parse import urlparse
 
@@ -565,7 +564,7 @@ def create_mcp_server(
                 actor_id=campaign["player_id"],
                 command_type=command_type,
                 expected_revision=expected_revision,
-                submitted_at=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                submitted_at=str(campaign["world_time"]),
                 payload=payload,
                 mode="gameplay",
             )
