@@ -1351,11 +1351,18 @@ class RepositoryCommandPlanner:
         if t in {"command_assign","command_transfer","formation_assign","force_assignment"}:
             if payload.get("commander_ref") is not None: self._exact_person(str(payload["commander_ref"]))
         if t == "formation_doctrine_set":
+            doctrine_ref=require_text(payload,"doctrine_ref")
+            doctrine_index=self.read("game/data/mil/doctrines.json").get("record_index",{})
+            if doctrine_ref not in doctrine_index: raise ValueError("unknown formation doctrine_ref")
             behavior=payload.get("doctrine_behavior",{})
             if not isinstance(behavior,dict): raise ValueError("doctrine_behavior must be an object")
             if "reserve_commitment" in behavior: require_int(behavior,"reserve_commitment",minimum=0,maximum=100)
             if "withdrawal_threshold" in behavior: require_int(behavior,"withdrawal_threshold",minimum=0,maximum=100)
             if "casualty_tolerance" in behavior: require_text(behavior,"casualty_tolerance",allowed={"low","moderate","high","extreme"})
+        if t == "formation_training_set":
+            training_ref=require_text(payload,"training_ref")
+            training_index=self.read("game/data/mil/training.json").get("record_index",{})
+            if training_ref not in training_index: raise ValueError("unknown formation training_ref")
         if t == "battle_resolve":
             attackers=require_list(payload,"attacker_formation_refs",minimum=1,maximum=128); defenders=require_list(payload,"defender_formation_refs",minimum=1,maximum=128)
             if set(map(str,attackers)) & set(map(str,defenders)): raise ValueError("a formation cannot fight on both sides")
@@ -1428,6 +1435,13 @@ class RepositoryCommandPlanner:
             require_text(payload,"institution_ref"); require_int(payload,"duration_hours",minimum=1,maximum=8760,default=168); require_text(payload,"project_ref",default="project_"+command.digest[:8]); require_int(payload,"magnitude",minimum=1,maximum=1_000_000,default=1)
         if t == "project_resolve":
             require_text(payload,"institution_ref"); require_text(payload,"project_ref")
+        if t == "house_action":
+            require_text(payload,"house_ref",default="house_tang")
+            action=require_text(payload,"action",allowed={"assign_duty","set_policy"},default="assign_duty")
+            if action=="assign_duty":
+                self._exact_person(require_text(payload,"subject_ref")); require_text(payload,"duty",max_length=160)
+            else:
+                require_text(payload,"policy_key",max_length=120); require_text(payload,"policy_value",max_length=400)
 
 
     def _find_route(self, origin: str, destination: str, *, mode: Optional[str] = None) -> Mapping[str, Any]:
@@ -2503,7 +2517,12 @@ class RepositoryCommandPlanner:
             else: doc.setdefault("resolved_effects",{})[kind]=int(doc.get("resolved_effects",{}).get(kind,0))+magnitude
             project["status"]="completed"; project["resolved_at"]=str(self._world_time()); self.put(p,doc); world_time,metrics=self._advance_seconds(3600); self._write_meta(command,world_time); return self._result(institution_ref=ref,project_ref=project_ref,status="completed",world_time=world_time,**metrics)
         if t=="house_action":
-            ref=str(payload.get("house_ref","house_tang")); p=self.owner_path(ref); doc=_deepcopy(self.read(p)); action=str(payload.get("action","assign_duty")); now=str(self._world_time()); doc.setdefault("projects",[]).append({"kind":action,"subject_ref":payload.get("subject_ref"),"at":now}); self.put(p,doc); world_time,metrics=self._advance_seconds(2*3600); self._write_meta(command,world_time); return self._result(house_ref=ref,action=action,world_time=world_time,**metrics)
+            ref=str(payload.get("house_ref","house_tang")); p=self.owner_path(ref); doc=_deepcopy(self.read(p)); action=str(payload.get("action","assign_duty")); now=str(self._world_time()); result={"house_ref":ref,"action":action}
+            if action=="assign_duty":
+                subject_ref=str(payload["subject_ref"]); duty=str(payload["duty"]); pp,person0=self._exact_person(subject_ref); person=_deepcopy(person0); assignment={"duty":duty,"house_ref":ref,"assigned_at":now,"grantor_ref":command.actor_id}; person.setdefault("career_state",{}).setdefault("appointments",[]).append(assignment); person["career_state"]["appointments"]=person["career_state"]["appointments"][-32:]; self.put(pp,person); doc.setdefault("duty_assignments",{})[subject_ref]=assignment; result.update({"subject_ref":subject_ref,"duty":duty})
+            else:
+                key=str(payload["policy_key"]); value=str(payload["policy_value"]); doc.setdefault("policies",{})[key]={"value":value,"set_at":now,"set_by":command.actor_id}; result.update({"policy_key":key,"policy_value":value})
+            doc.setdefault("action_history",[]).append({"kind":action,"at":now,**{k:v for k,v in result.items() if k not in {"house_ref","action"}}}); doc["action_history"]=doc["action_history"][-64:]; self.put(p,doc); world_time,metrics=self._advance_seconds(2*3600); self._write_meta(command,world_time); return self._result(world_time=world_time,**result,**metrics)
         if t=="state_action":
             state=self._state_key(payload.get("state","qin")); p=f"state/states/{state}.json"; doc=_deepcopy(self.read(p)); action=str(payload.get("action","strategic_goal"));
             if action=="strategic_goal": doc.setdefault("strategic_goals",[]).append(str(payload.get("goal","maintain readiness")))

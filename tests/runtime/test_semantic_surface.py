@@ -12,7 +12,7 @@ def test_remaining_semantic_command_surface(campaign):
     execute_internal(campaign,'formation_assign',{'formation_ref':'formation_surface','commander_ref':'char_tou','command_authority':'state_qin'})
     execute_internal(campaign,'institution_project',{'institution_ref':'inst_qin_fortification_bureau','project_ref':'surface_project','kind':'repair'})
     execute_internal(campaign,'state_action',{'state':'qin','action':'appointment','office':'field_inspector','person_ref':'char_heki','capabilities':['information_review']})
-    execute(campaign,'house_action',{'house_ref':'house_tang','action':'promotion','subject_ref':'char_tang_kai'})
+    execute(campaign,'house_action',{'house_ref':'house_tang','action':'assign_duty','subject_ref':'char_tang_kai','duty':'manor_training_assistant'})
     execute_internal(campaign,'economy_transfer',{'state':'qin','amount_silver':3,'direction':'state_to_player'})
     execute_internal(campaign,'formation_dissolve',{'formation_ref':'formation_surface'})
 
