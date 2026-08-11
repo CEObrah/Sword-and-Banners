@@ -4,6 +4,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 
 from sword_runtime.api.operations import CampaignOperations, OperationError, _receipt_record
+from sword_runtime.causal_living_world import _WAKE_RESPONSE_COMMANDS
 from sword_runtime.living_world import HighSalienceWakeRequired
 from sword_runtime.tx.errors import (
     CommitVerificationError,
@@ -65,6 +66,8 @@ class StableCampaignOperations(CampaignOperations):
                 for key in _WAKE_VISIBLE_FIELDS
                 if key in wake
             }
+            context["pending_wake"]["response_command_types"] = sorted(_WAKE_RESPONSE_COMMANDS)
+            context["pending_wake"]["continue_contact_command"] = "advance_time"
             context["decision_required"] = True
             context["decision_reason"] = "high_salience_autonomous_contact"
         return context
