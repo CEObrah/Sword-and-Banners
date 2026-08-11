@@ -40,6 +40,12 @@ def transaction_failure_code(exc: TransactionError) -> str:
 class StableCampaignOperations(CampaignOperations):
     """Player surface that fails closed without leaking server/Git internals."""
 
+    def play_context(self):
+        context = super().play_context()
+        context.setdefault("limits", {})["high_salience_wake_boundary"] = True
+        context["limits"]["operational_memory_is_non_authoritative"] = True
+        return context
+
     def preview_command(self, command):
         if command.actor_id != self._player_actor() or command.mode != "gameplay":
             raise OperationError(403, "player_surface_forbids_internal_mode")
