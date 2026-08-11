@@ -18,9 +18,24 @@ Their decisions should arise from saved state such as:
 - intelligence and misinformation;
 - logistics and travel time;
 - family and succession concerns;
-- current threats and obligations.
+- current threats and obligations;
+- bounded operational history and learned performance evidence.
 
 Do not bend organizational behavior to make the player's next scene convenient.
+
+## Operational memory and learned choice
+
+Autonomous organizations may retain bounded operational memory when the runtime provides it. Treat that memory as evidence, not a second authority. Exact formations, commanders, operations, battle records, treasuries, relationships, reputation profiles, locations, and casualties remain authoritative in their normal owners.
+
+When an organization has several lawful assets available, prefer runtime-grounded assignment that considers objective fit, readiness, fatigue, logistics, commander capability, prior performance, current commitments, and complementary roles rather than arbitrary list order.
+
+A formation that repeatedly succeeds, fails, suffers replacement, accumulates training, or develops relevant experience may influence later assignments only through saved runtime evidence. Never invent institutional learning merely because it would make the story more dramatic.
+
+## Concurrent autonomous work
+
+A living state or House may have several simultaneous concerns. When the runtime exposes bounded operational capacity, allow multiple concurrent operations rather than forcing every institution through a single global activity slot.
+
+Concurrency is constrained by exact resources. The same formation, commander, treasury, institution slot, courier, or material reserve cannot satisfy several commitments at once unless the runtime explicitly permits it. Capacity limits are simulation rules, not narrative suggestions.
 
 ## Offscreen time matters
 
@@ -52,13 +67,23 @@ Differentiate:
 
 These can overlap but are not interchangeable.
 
-## Armies and formations
+## Armies, formations, and lifecycle
 
 Military organizations can recruit, replace losses, train, mobilize, change commander, receive assignment, move, resupply, fortify, raid, besiege, defend, and fight when current runtime capabilities allow it.
 
 Do not assume a formation remains static merely because Wei is elsewhere.
 
 Command custody is exact. A formation belonging to a state or House does not automatically obey every member of that organization.
+
+Where the runtime records lifecycle or operational-memory data, distinguish standing formations from temporary operational groupings. Replacement policy, target strength, current personnel, training history, prior deployments, casualties, and current assignments should matter to future decisions. A persistent formation should not be silently dissolved merely because one operation ends.
+
+NPC military development should obey the same material principles as player-controlled development. Training requires elapsed time and lawful opportunity. Doctrine should arise from saved composition, command, training, equipment, history, and explicit doctrine authority rather than free competence granted because an NPC is offscreen.
+
+## Exact people and aggregate development
+
+Named exact people and aggregate cohorts must not receive the same elapsed development twice. If House, institutional, formation, cohort, or personal activity systems overlap, one authoritative progression cursor or settlement path must own each eligible period.
+
+When exact House members receive development from House institutions, preserve their individual state and do not also award an independent aggregate copy of the same training. If ownership is ambiguous, fail closed and flag the overlap OOC rather than compounding progression.
 
 ## Economy and logistics
 
@@ -73,6 +98,20 @@ World truth moves through scouts, couriers, officials, merchants, captives, witn
 Distance creates delay. Political access affects who receives what. Reputation knowledge can be local to the communities that plausibly know it.
 
 Do not grant instant global awareness after a battle or appointment unless the runtime establishes that propagation.
+
+## Social consequences from world events
+
+A meaningful world event may become evidence for reputation or relationships without a player manually issuing a social command. Shared service, public success, failure, rescue, betrayal, command performance, appointments, contracts, marriage, political conflict, witnessed violence, and reported battlefield conduct may propagate socially when the runtime establishes the witnesses, reports, audience, or relationship pathway.
+
+Do not manufacture universal fame. Social effects require an audience or evidence route, and different audiences may learn different things at different times.
+
+## High-salience wake boundaries
+
+Compressed autonomous resolution must not silently carry Wei through an irreversible consequential decision that belongs to the player.
+
+If the runtime reports a high-salience wake requirement, stop the broad time skip or autonomous continuation and hand the situation back to the player. Examples include an imminent autonomous battle while Wei is the exact commander, a protected surrender or allegiance decision, or another runtime-defined irreversible player-facing consequence.
+
+Do not treat a wake as a failed simulation. It is a causal boundary: the world has progressed far enough that player agency is now required before settlement can continue.
 
 ## Historical pressure without predetermined history
 
@@ -107,3 +146,7 @@ Protect the player from autonomous control because the player is marked as playe
 ## Deferred settlement
 
 A causal host's `resolved_through` cursor is evidence that eligible work through that point has actually been settled, not a mirror of global campaign time. A `safe_through` horizon may permit bounded lazy settlement, but it must never erase training, recovery, economic, social, institutional, family, or other elapsed work that was actually eligible. Before a capability-dependent resolution, the relevant deferred progression must be settled or proven to have produced zero eligible activity.
+
+## Progression bounds
+
+Soft ceilings and diminishing returns are not numerical bounds. When the runtime exposes an absolute progression limit, treat it as a hard invariant for player and NPC development alike. Long time skips, high aptitude, aggregate settlement, residual banks, or repeated autonomous reviews must never push an exact stat beyond the registered scale.
