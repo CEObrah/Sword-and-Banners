@@ -1,11 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "additionalProperties": true,
-  "properties": {
-    "schema": {
-      "const": "sword-materialized-person"
-    }
-  },
+  "type": "object",
   "required": [
     "schema",
     "id",
@@ -13,5 +8,83 @@
     "birth_date",
     "status"
   ],
-  "type": "object"
+  "properties": {
+    "schema": {
+      "const": "sword-materialized-person"
+    },
+    "owner_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "birth_date": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state": {
+      "type": "string"
+    },
+    "life_status": {
+      "type": "string"
+    },
+    "health_status": {
+      "type": "string"
+    },
+    "current_location": {
+      "type": "string"
+    },
+    "attributes": {
+      "type": "object"
+    },
+    "skills": {
+      "type": "object"
+    },
+    "aptitude": {
+      "type": "object"
+    },
+    "development_state": {
+      "type": "object",
+      "properties": {
+        "skill_edu_banks": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "settled_training_hours": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "training_credit": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maintenance_credit": {
+          "type": "number",
+          "minimum": 0
+        },
+        "completed_reviews": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
 }
