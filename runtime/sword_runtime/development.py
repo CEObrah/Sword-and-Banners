@@ -8,6 +8,12 @@ from sword_runtime.sim.calendar import CampaignTime
 
 _BIRTH = re.compile(r"^(?P<year>[0-9]{1,4})-BCE-(?P<month>[0-9]{2})-(?P<day>[0-9]{2})$")
 
+# Sword's authored current-performance tables top out at 200. Soft potential
+# ceilings control how difficult exceptional development becomes; they are not
+# themselves a numerical bound. This absolute scale guard prevents arbitrarily
+# long time horizons from increasing an exact skill forever.
+ABSOLUTE_SKILL_HARD_CAP = 200
+
 PHYSICAL_SKILLS = {
     "Athletics","Axe","Bow","Crossbow","Dagger","Defense","Glaive","Grappling","Mace","Riding",
     "Shield","Spear","Staff","Stealth","Survival","Sword","Unarmed","Formation Fighting"
@@ -73,6 +79,8 @@ def settle_skill_training(person: dict[str, Any], skill: str, hours: int, at: Ca
     if skill not in skills:
         raise ValueError(f"unknown trainable skill: {skill}")
     score = int(skills[skill])
+    if score > ABSOLUTE_SKILL_HARD_CAP:
+        raise ValueError("saved skill exceeds the absolute Sword progression scale")
     aptitude = float(person.get("aptitude", {}).get(aptitude_key(skill), 100))
     potential_name, potential_factor = _potential(aptitude)
     age = age_years(person, at)
@@ -95,12 +103,12 @@ def settle_skill_training(person: dict[str, Any], skill: str, hours: int, at: Ca
         diminishing = 0.45 - (score - ceiling) * (0.35 / 20.0)
     else:
         diminishing = 0.05
-    effective = max(0.0, raw * max(0.05, diminishing))
+    effective = 0.0 if score >= ABSOLUTE_SKILL_HARD_CAP else max(0.0, raw * max(0.05, diminishing))
     ds = person.setdefault("development_state", {})
     banks = ds.setdefault("skill_edu_banks", {})
     bank = float(banks.get(skill, 0.0)) + effective
     gained = 0
-    while gained < 25:
+    while gained < 25 and score < ABSOLUTE_SKILL_HARD_CAP:
         cost = 18.0 * ((1.0 + score / 50.0) ** 1.75)
         if bank + 1e-9 < cost:
             break
@@ -120,5 +128,9 @@ def settle_skill_training(person: dict[str, Any], skill: str, hours: int, at: Ca
         "effective_edu_milli": int(round(effective * 1000)),
         "skill_points_gained": gained,
         "skill_score": score,
+        "skill_hard_cap": ABSOLUTE_SKILL_HARD_CAP,
         "edu_bank_milli": int(round(bank * 1000)),
     }
+
+
+__all__ = ["ABSOLUTE_SKILL_HARD_CAP", "age_years", "settle_skill_training"]
