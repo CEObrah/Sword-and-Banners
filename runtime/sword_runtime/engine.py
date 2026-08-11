@@ -917,6 +917,94 @@ class RepositoryCommandPlanner:
                 formation["commander_ref"]=None; formation["status"]="commander_vacant"; self._release_commander_index(str(commander_ref),formation_ref)
         self.put(path,formation); self._index_formation_location(formation_ref,origin,nxt); return {"status":"arrived" if nxt==destination else "marching","location_ref":nxt,"hours":hours,"food_kg":food_need,"fodder_kg":fodder_need}
 
+    def _autonomy_sustain_march(self, formation_ref: str, destination: str, at: str, theater_record: Dict[str, Any], key: str) -> Dict[str, Any]:
+        """Dispatch/settle an exact state supply convoy for an autonomous march.
+
+        Supplies are removed from the owning state's saved depot when dispatched and
+        remain in explicit in-transit escrow until the convoy can physically reach
+        the formation. This prevents both teleporting logistics and permanent war
+        stalls caused by formations starting with only tactical carried stores.
+        """
+        path, formation0 = self._load_formation(formation_ref)
+        formation = _deepcopy(formation0)
+        origin = str(formation.get("location_ref"))
+        n = max(0, int(formation.get("personnel", 0)))
+        if n <= 0 or origin == destination:
+            return {"status": "not_needed", "location_ref": origin}
+        owner = str(formation.get("administrative_owner", ""))
+        if not owner.startswith("state_"):
+            return {"status": "no_state_logistics_authority", "location_ref": origin}
+        state = owner.replace("state_", "", 1)
+        convoy_key = f"{key}_supply_convoy"
+        convoy = theater_record.get(convoy_key)
+        review = CampaignTime.parse(at)
+        if isinstance(convoy, dict):
+            arrival = CampaignTime.parse(str(convoy["arrives_at"]))
+            if arrival <= review:
+                # The formation is intentionally supply-blocked while a convoy is in
+                # transit, so its exact location should still match dispatch target.
+                if str(formation.get("location_ref")) != str(convoy.get("destination_location_ref")):
+                    convoy["status"] = "missed_destination"
+                    return {"status": "convoy_missed", "location_ref": origin}
+                log = formation.setdefault("logistics", {})
+                log["food_kg"] = int(log.get("food_kg", 0)) + int(convoy.get("food_kg", 0))
+                log["fodder_kg"] = int(log.get("fodder_kg", 0)) + int(convoy.get("fodder_kg", 0))
+                log["war_arrows"] = int(log.get("war_arrows", 0)) + int(convoy.get("war_arrows", 0))
+                formation["status"] = "mobilized"
+                formation.setdefault("supply_history", []).append({
+                    "at": at, "kind": "autonomous_convoy_received",
+                    "source_location_ref": convoy.get("source_location_ref"),
+                    "food_kg": int(convoy.get("food_kg", 0)),
+                    "fodder_kg": int(convoy.get("fodder_kg", 0)),
+                    "war_arrows": int(convoy.get("war_arrows", 0)),
+                })
+                formation["supply_history"] = formation["supply_history"][-24:]
+                self.put(path, formation)
+                theater_record.pop(convoy_key, None)
+                return {"status": "convoy_received", "location_ref": origin}
+            return {"status": "convoy_in_transit", "location_ref": origin, "arrives_at": str(convoy["arrives_at"])}
+
+        try:
+            march_hours = self._route_travel_hours(origin, destination, modes=("formation",))
+        except ValueError:
+            return {"status": "no_march_route", "location_ref": origin}
+        mounts = sum(max(0, int(v)) for v in formation.get("mounts", {}).values())
+        log = formation.setdefault("logistics", {})
+        # Full-route requirement plus a small battle reserve. This remains bounded
+        # and is sourced from exact depot stock, never minted.
+        target_food = max(1, int(math.ceil(n * 1.5 * march_hours / 24.0)) + n * 3)
+        target_fodder = max(0, int(math.ceil(mounts * 4.0 * march_hours / 24.0)) + mounts * 8)
+        food_short = max(0, target_food - int(log.get("food_kg", 0)))
+        fodder_short = max(0, target_fodder - int(log.get("fodder_kg", 0)))
+        arrow_short = max(0, n * 20 - int(log.get("war_arrows", 0)))
+        if food_short == 0 and fodder_short == 0 and arrow_short == 0:
+            return {"status": "sufficient", "location_ref": origin}
+        depot_path = f"state/depots/{state}.json"
+        depot = _deepcopy(self.read(depot_path))
+        depot_loc = str(depot.get("location_ref"))
+        try:
+            convoy_hours = self._route_travel_hours(depot_loc, origin, modes=("formation",))
+        except ValueError:
+            return {"status": "no_supply_route", "location_ref": origin, "source_location_ref": depot_loc}
+        stocks = depot.setdefault("stocks", {})
+        food = min(food_short, max(0, int(stocks.get("grain_kg", 0))))
+        fodder = min(fodder_short, max(0, int(stocks.get("fodder_kg", 0))))
+        arrows = min(arrow_short, max(0, int(stocks.get("war_arrows", 0))))
+        if food <= 0 and fodder <= 0 and arrows <= 0:
+            return {"status": "depot_empty", "location_ref": origin, "source_location_ref": depot_loc}
+        stocks["grain_kg"] = int(stocks.get("grain_kg", 0)) - food
+        stocks["fodder_kg"] = int(stocks.get("fodder_kg", 0)) - fodder
+        stocks["war_arrows"] = int(stocks.get("war_arrows", 0)) - arrows
+        self.put(depot_path, depot)
+        arrival = str(review.add_seconds(max(1, convoy_hours * 3600)))
+        theater_record[convoy_key] = {
+            "status": "in_transit", "formation_ref": formation_ref,
+            "source_location_ref": depot_loc, "destination_location_ref": origin,
+            "dispatched_at": at, "arrives_at": arrival, "travel_hours": convoy_hours,
+            "food_kg": food, "fodder_kg": fodder, "war_arrows": arrows,
+        }
+        return {"status": "convoy_dispatched", "location_ref": origin, "arrives_at": arrival, "food_kg": food, "fodder_kg": fodder, "war_arrows": arrows}
+
     def _autonomy_apply_battle_losses(self, formation_ref: str, loss: int, at: str, *, losing_side: bool, opponent_state: str, seed_material: str) -> Dict[str, Any]:
         path,formation0=self._load_formation(formation_ref); formation=_deepcopy(formation0); before=max(0,int(formation.get("personnel",0))); loss=max(0,min(before,int(loss))); survivor_comp,dead_comp=self._partition_counts(formation.get("composition",{}),loss,before if before else 1); survivor_eq,lost_eq=self._partition_material(self._equipment_units(formation),loss,before if before else 1); survivor_mounts,lost_mounts=self._partition_material(formation.get("mounts",{}),loss,before if before else 1); formation["personnel"]=before-loss; formation["composition"]=survivor_comp; formation["mounts"]=survivor_mounts; self._set_equipment_units(formation,survivor_eq); formation["fatigue"]=_clamp(int(formation.get("fatigue",0))+18); formation["morale"]=_clamp(int(formation.get("morale",50))-(12 if losing_side else 5)); formation["cohesion"]=_clamp(int(formation.get("cohesion",50))-(8 if losing_side else 3)); formation["status"]="destroyed" if formation["personnel"]<=0 else ("routed" if losing_side else "combat_effective")
         commander_outcome=None; commander_ref=formation.get("commander_ref")
@@ -1488,7 +1576,13 @@ class RepositoryCommandPlanner:
                         f["mobilized"]=True; f["status"]="mobilized"; f["mobilized_at"]=review_text; self.put(fp,f)
                     record["phase"]="advancing"; record["history"].append({"at":review_text,"event":"mobilization","attacker_formation":af,"defender_formation":df}); continue
                 if phase=="advancing":
-                    am=self._autonomy_move_formation_step(af,target,review_text); dm=self._autonomy_move_formation_step(df,target,review_text); record["last_attacker_march"]=am; record["last_defender_march"]=dm
+                    asupply=self._autonomy_sustain_march(af,target,review_text,record,"attacker"); dsupply=self._autonomy_sustain_march(df,target,review_text,record,"defender")
+                    record["last_attacker_supply"]=asupply; record["last_defender_supply"]=dsupply
+                    a_ready=asupply.get("status") in {"not_needed","sufficient","convoy_received"}
+                    d_ready=dsupply.get("status") in {"not_needed","sufficient","convoy_received"}
+                    am=self._autonomy_move_formation_step(af,target,review_text) if a_ready else {"status":asupply.get("status"),"location_ref":asupply.get("location_ref")}
+                    dm=self._autonomy_move_formation_step(df,target,review_text) if d_ready else {"status":dsupply.get("status"),"location_ref":dsupply.get("location_ref")}
+                    record["last_attacker_march"]=am; record["last_defender_march"]=dm
                     if am.get("location_ref")==target and dm.get("location_ref")==target: record["phase"]="engaged"; record["contact_at"]=review_text; record["history"].append({"at":review_text,"event":"contact","location_ref":target})
                     continue
                 if phase=="engaged":
