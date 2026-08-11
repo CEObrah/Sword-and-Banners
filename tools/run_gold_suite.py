@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MODULES = [
     'tests/runtime/test_architecture_service.py',
+    'tests/runtime/test_repair_projection_hardening.py',
     'tests/runtime/test_transactions.py',
     'tests/runtime/test_long_horizon.py',
     'tests/runtime/test_real_campaign_acceptance.py',
@@ -61,8 +62,8 @@ def main() -> None:
             shutil.rmtree(base, ignore_errors=True)
 
     # Persistence performance/determinism is a release property, not an
-    # optional benchmark.  The gate performs two independent 1,000-command
-    # replays and fails on hash divergence or campaign-history latency growth.
+    # optional benchmark. The gate performs two independent 1,000-command
+    # replays and fails on deterministic divergence or paired history growth.
     run([sys.executable, 'tools/run_gold_soak_gate.py'], env=env)
     print(
         f'GOLD TEST SUITE PASS: {len(tests)}/{len(tests)} functional tests + '

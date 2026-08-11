@@ -52,6 +52,8 @@ That bounded response should be enough to establish:
 
 Additional reads use exact IDs returned by fresh context. No repository browsing by guessed identifier is part of the player surface.
 
+`state/scene.json` is a player-facing projection, not mechanical authority. A scene projection is fresh only when both its `world_time` and `projection_revision` match `state/meta.json`. If either differs, the service strips transient scene claims, unresolved decisions, pressures, and scene-derived read permissions rather than carrying false context forward.
+
 ## Write path
 
 A normal persistent action follows:
@@ -104,12 +106,15 @@ Production uses `GitRemoteDurability` inside the transaction coordinator. A writ
 
 The production sequence verifies the configured remote branch before publication of the receipt. Push failures remain recoverable transaction failures rather than silent best-effort replication after success.
 
-This makes GitHub useful for:
-- durable campaign history;
-- OOC audits;
-- recovery;
-- provenance;
-- diagnosis of state changes.
+This makes GitHub useful for durable campaign history, OOC audits, recovery, provenance, and diagnosis of state changes.
+
+## Explicit repair and receipt invalidation
+
+Runtime receipts are immutable external evidence. If OOC DEV deliberately repairs campaign history by restoring state behind a previously receipted transaction, the old receipt does not disappear.
+
+The exact removed transaction must be tombstoned in `runtime/contracts/transaction-invalidations.json`. Production startup recovery scans for receipts claiming revisions ahead of current campaign state and accepts only exact registered invalidations. An unexplained future receipt fails closed. An invalidated request ID is permanently reserved and cannot be replayed.
+
+This protects against a repaired campaign silently resurrecting a removed transaction through idempotent retry.
 
 ## Persistent-volume recovery
 
@@ -144,8 +149,7 @@ Read tools require the read scope. Execute requires write scope as well.
 
 Access tokens are verified for issuer, audience, signature, expiry, allowed subject, scopes, and optional client allowlist.
 
-The MCP endpoint exposes protected-resource metadata at:
-`/.well-known/oauth-protected-resource/mcp`
+The MCP endpoint exposes protected-resource metadata at `/.well-known/oauth-protected-resource/mcp`.
 
 Production MCP is stateless Streamable HTTP at `/mcp` with bounded request bodies and transport-security restrictions.
 
@@ -153,10 +157,12 @@ Production MCP is stateless Streamable HTTP at `/mcp` with bounded request bodie
 
 Fail closed on:
 - stale revision;
+- stale scene projection;
 - unsupported command type;
 - unauthorized actor or authority;
 - malformed payload;
 - invalid/expired preview attestation;
+- unexplained future receipt after a repair;
 - transaction or remote durability failure;
 - ambiguous protected player decision;
 - unavailable runtime during live consequential play.

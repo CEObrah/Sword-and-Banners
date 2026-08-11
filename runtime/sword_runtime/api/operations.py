@@ -8,6 +8,7 @@ from sword_runtime.commands import CommandEnvelope
 from sword_runtime.engine import COMMAND_TYPES
 from sword_runtime.service_runtime import ProductionSwordRuntime
 from sword_runtime.tx.errors import StaleRevisionError
+from sword_runtime.tx.invalidations import load_transaction_invalidations
 
 
 class OperationError(RuntimeError):
@@ -88,22 +89,25 @@ class CampaignOperations:
 
     @staticmethod
     def _safe_scene(meta: Mapping[str, Any], player: Mapping[str, Any], scene: Mapping[str, Any]) -> dict[str, Any]:
-        """Return only a temporally valid player-facing scene projection.
-
-        Scene prose is a projection, not authority. If a state-changing command
-        advances campaign time without refreshing state/scene.json, carrying the
-        old unresolved decision or pressure forward would create false player
-        truth. Preserve the stale marker for diagnosis but strip transient claims.
-        """
+        """Return only a revision- and time-valid player-facing scene projection."""
 
         scene_time = scene.get("world_time")
         current_time = meta.get("time")
-        fresh = isinstance(scene_time, str) and scene_time == current_time
+        scene_revision = scene.get("projection_revision")
+        current_revision = meta.get("revision")
+        fresh = (
+            isinstance(scene_time, str)
+            and scene_time == current_time
+            and isinstance(scene_revision, int)
+            and not isinstance(scene_revision, bool)
+            and scene_revision == current_revision
+        )
         narrative = scene.get("narrative", {}) if isinstance(scene.get("narrative"), dict) else {}
         if fresh:
             return {
                 "projection_status": "fresh",
                 "projected_at": scene_time,
+                "projected_revision": scene_revision,
                 "scene_id": scene.get("scene_id"),
                 "summary": scene.get("scene_summary"),
                 "location": scene.get("location"),
@@ -122,6 +126,7 @@ class CampaignOperations:
         return {
             "projection_status": "stale_after_state_change",
             "projected_at": scene_time,
+            "projected_revision": scene_revision,
             "scene_id": None,
             "summary": None,
             "location": player.get("location"),
@@ -234,7 +239,7 @@ class CampaignOperations:
                 "person": "second_person_present",
                 "knowledge_boundary": "player_visible_only",
                 "decision_scaffolding": "narrate_first_then_scene_relevant_choices",
-                "stale_scene_policy": "strip_transient_scene_claims_and_scene_derived_read_permissions",
+                "stale_scene_policy": "require_matching_time_and_projection_revision; strip_transient_scene_claims_and_scene_derived_read_permissions",
             },
         }
 
@@ -356,6 +361,10 @@ class CampaignOperations:
     ) -> dict[str, Any]:
         meta = self.store.read_json("state/meta.json")
         runtime = self.store.read_json("state/runtime.json")
+        try:
+            invalidation_count = len(load_transaction_invalidations(self.store))
+        except (TypeError, ValueError):
+            invalidation_count = None
         return {
             "mode": "read_only",
             "campaign_id": meta["campaign_id"],
@@ -363,6 +372,7 @@ class CampaignOperations:
             "world_time": meta["time"],
             "metrics": runtime.get("metrics", {}),
             "remote_durability_configured": self.runtime.coordinator.remote_durability is not None,
+            "transaction_invalidations_registered": invalidation_count,
             "focus": focus,
             "observations": [] if observations is None else list(observations),
         }

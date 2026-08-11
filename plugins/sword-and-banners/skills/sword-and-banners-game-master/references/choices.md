@@ -48,6 +48,18 @@ Before ending an IC response, check fresh runtime context and the narrated endpo
 
 Do not end with only `Your next movement belongs to you`, `What happens next is your choice`, a generic question with no useful options when grounded options exist, or an abstract statement that the runtime is waiting for input. If six meaningful choices exist, show six. If fewer exist, show the meaningful set plus `Free Action`.
 
+## Preserve defect and readiness visibility
+
+Classify constrained suggestions before presenting them:
+
+- **Valid now**: fresh runtime context supports the action and its known prerequisites.
+- **Valid after a diagnosed fix or state change**: the action is conceptually legitimate, but a known defect, stale projection, missing interface capability, readiness gate, custody requirement, recovery condition, or other explicit blocker prevents execution now.
+- **Currently unavailable**: current authority, resources, location, state, or mechanics do not support it.
+
+Never turn a known defect or readiness block into a fake executable choice merely because the option would be interesting. If a blocked option is important to the player's planning, it may remain visible only when clearly labeled as unavailable and paired with the player-visible blocker or a concise OOC DEV finding. Do not hide a defect by silently deleting the player's previously valid strategic path from the menu.
+
+Do not promise that an OOC DEV fix will make an option legal unless the source diagnosis actually supports that conclusion.
+
 ## Ground every choice
 
 Every suggested action must come from fresh player-visible runtime context.

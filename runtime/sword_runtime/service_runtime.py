@@ -8,7 +8,7 @@ from __future__ import annotations
 from typing import Any
 from sword_runtime.engine import SwordRuntime
 from sword_runtime.tx.canonical import thaw_json
-from sword_runtime.tx.coordinator import TransactionCoordinator
+from sword_runtime.tx.campaign_coordinator import TransactionCoordinator
 from sword_runtime.tx.git import GitStager
 from sword_runtime.tx.receipts import ReceiptStore
 from sword_runtime.tx.remote import GitRemoteDurability

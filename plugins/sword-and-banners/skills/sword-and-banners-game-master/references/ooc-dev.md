@@ -31,6 +31,8 @@ Never hide a campaign repair inside a source refactor. Never patch `state/` casu
 
 Confirmed bad campaign state should use an explicit repair or migration mechanism with provenance, validation, and a narrow scope.
 
+If a deliberate repair restores campaign state to a revision earlier than an already-issued runtime receipt, register that exact removed transaction in `runtime/contracts/transaction-invalidations.json`. The tombstone must bind campaign ID, request ID/digest, transaction ID, removed committed revision, restored revision, bad commit, repair commit, and reason. Never delete or reuse the old request ID. Production recovery fails closed on unexplained future receipts.
+
 ## Preserve deterministic and security invariants
 
 When changing the runtime, protect:
@@ -47,7 +49,8 @@ When changing the runtime, protect:
 - fail-closed remote durability;
 - bounded player-visible reads;
 - knowledge separation;
-- state-only commits not causing deployment loops.
+- state-only commits not causing deployment loops;
+- repaired transaction tombstones and permanent invalidated-request reservation.
 
 Do not weaken an invariant merely to make an integration test easier.
 
@@ -60,6 +63,7 @@ Gold should verify, as applicable:
 - syntax/import health;
 - architecture/service behavior;
 - transactions and recovery;
+- repair/receipt integrity;
 - hostile command inputs;
 - semantic surface;
 - long-horizon behavior;
