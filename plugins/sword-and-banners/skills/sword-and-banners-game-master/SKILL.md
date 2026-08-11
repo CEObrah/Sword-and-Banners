@@ -132,6 +132,7 @@ For multi-step intent, preview one command, execute it, refresh context, then re
 5. If execution fails, never narrate the intended mutation as completed.
 6. On stale revision or another refresh-required failure, call `get_play_context` again and re-evaluate intent.
 7. After a committed or duplicate receipt, call `get_play_context` again before narrating persistent aftermath.
+8. If preview or execution returns `high_salience_wake_required`, treat it as a causal player-agency boundary rather than a generic failure. Do not retry the same broad time skip or autonomous continuation. Refresh with `get_play_context`, narrate only the player-visible situation that has now become consequential, and hand the genuine decision back to the player using `references/choices.md` when decision scaffolding is useful.
 
 Never invent runtime-owned outcomes such as success, failure, injury, death, capture, casualties, morale loss, equipment loss, expenditure, training gain, relationship change, reputation, office, recruitment, formation movement, battle result, siege progress, territorial transfer, or elapsed time.
 
@@ -171,7 +172,7 @@ Treat `OOC DEV:` as software, game-rule, deployment, Skill, MCP, or repository w
 - Do not use gameplay write tools to make source changes.
 - Do not silently alter campaign truth while changing code or rules.
 - Never patch `state/` casually. Repair confirmed bad facts through an explicit migration or campaign-repair mechanism with provenance.
-- After meaningful runtime/game changes, run the Gold production gate before relying on them in live play.
+- After meaningful runtime/game changes, run the Gold production gate before relying on them in live play. For systemic autonomy, progression, formation lifecycle, social propagation, economy, family, or institutional changes, include a deterministic replay on independent disposable copies of the current campaign when relevant.
 - Preserve Git history as development and campaign provenance.
 
 ## Core invariant
