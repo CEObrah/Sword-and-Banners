@@ -103,12 +103,20 @@ def test_battle_time_named_people_and_no_same_timestamp_rerolls(campaign):
     t1=CampaignTime.parse(meta(campaign)['time'])
     assert t0.seconds_until(t1)>=3600
     assert {'char_heki','char_riboku'}.issubset(set(r1['named_person_outcomes']))
-    # Same operation may continue only at the new authoritative time, never as an instant reroll.
-    if owner_doc(campaign,q)[1]['personnel']>0 and owner_doc(campaign,z)[1]['personnel']>0:
-        r2=execute_internal(campaign,'battle_resolve',{'attacker_formation_refs':[q],'defender_formation_refs':[z],'operation_ref':op}).receipt.result
-        t2=CampaignTime.parse(meta(campaign)['time'])
-        assert t1.seconds_until(t2)>=3600
-        assert r2['battle_event']!=r1['battle_event']
+    # A caller cannot replay the battle at its old timestamp. Whether another
+    # battle is otherwise lawful depends on who survived and still commands.
+    from sword_runtime.engine import SwordRuntime, RepositoryCommandPlanner
+    from sword_runtime.commands import CommandEnvelope
+    current=meta(campaign)
+    stale=CommandEnvelope(
+        current['campaign_id'], 'stale-battle-replay', RepositoryCommandPlanner.INTERNAL_ACTOR,
+        'battle_resolve', current['revision'], str(t0),
+        {'attacker_formation_refs':[q],'defender_formation_refs':[z],'operation_ref':op},
+        mode='autonomous',
+    )
+    with pytest.raises(ValueError):
+        SwordRuntime(campaign).execute(stale)
+
 
 
 def test_information_delivery_and_equipment_are_causal(campaign):
