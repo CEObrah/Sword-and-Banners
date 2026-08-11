@@ -13,7 +13,7 @@ def test_remaining_semantic_command_surface(campaign):
     execute_internal(campaign,'institution_project',{'institution_ref':'inst_qin_fortification_bureau','project_ref':'surface_project','kind':'repair'})
     execute_internal(campaign,'state_action',{'state':'qin','action':'appointment','office':'field_inspector','person_ref':'char_heki','capabilities':['information_review']})
     execute(campaign,'house_action',{'house_ref':'house_tang','action':'promotion','subject_ref':'char_tang_kai'})
-    execute_internal(campaign,'economy_transfer',{'state':'qin','amount_silver':3})
+    execute_internal(campaign,'economy_transfer',{'state':'qin','amount_silver':3,'direction':'state_to_player'})
     execute_internal(campaign,'formation_dissolve',{'formation_ref':'formation_surface'})
 
 def test_player_cannot_run_maintenance_repair(campaign):
