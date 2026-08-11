@@ -19,7 +19,24 @@ Watch for:
 - a semantic command accepting caller-controlled outcomes it should own;
 - autonomous actors failing to progress, acting outside authority, or receiving player-favoring exemptions;
 - elapsed-time cursors advancing without settling eligible deferred work;
+- aggregate and exact development both crediting the same elapsed training or service period;
+- a soft progression ceiling being treated as though it were an actual hard bound;
 - a test, preview, or diagnostic accidentally mutating live campaign truth.
+
+### Living-world intelligence
+
+Watch for:
+- autonomous states repeatedly choosing assets by list order instead of objective fit;
+- formations being assigned while already committed elsewhere without lawful capacity;
+- one institutional activity slot artificially serializing several independent concerns;
+- operational history being recorded but never influencing later assignment;
+- learned memory overriding current exact facts instead of serving as bounded evidence;
+- formations forgetting prior casualties, replacement burden, deployments, or performance when those facts should matter;
+- temporary assignments silently destroying standing formations;
+- NPC formations receiving free training, doctrine, recovery, or competence merely because they are offscreen;
+- an autonomous time skip carrying Wei through an irreversible high-salience consequence instead of waking the player;
+- a high-salience wake firing for trivial background noise and making time advancement unusable;
+- concurrent autonomy growing without a bounded capacity or without resource contention.
 
 ### Warfare quality
 
@@ -30,7 +47,8 @@ Watch for:
 - sieges resolving as generic battles without siege causality;
 - casualty or recovery behavior that makes warfare consequence-free or impossibly punishing;
 - formations failing to integrate replacements;
-- unclear distinction among force ownership, command authority, assignment, and custody.
+- unclear distinction among force ownership, command authority, assignment, and custody;
+- autonomous force selection ignoring role complement, readiness, commander quality, supply, or prior performance.
 
 ### Politics and House simulation
 
@@ -41,7 +59,8 @@ Watch for:
 - NPCs becoming passive until Wei interacts with them;
 - Houses or states lacking credible responses to threats and opportunities;
 - political, relationship, and reputation consequences propagating instantly, not at all, or without evidence;
-- family and succession systems behaving like detached ledgers rather than causal institutions.
+- family and succession systems behaving like detached ledgers rather than causal institutions;
+- exact House members failing to receive lawful institutional development, or receiving it twice through overlapping systems.
 
 ### Economy and logistics
 
@@ -62,7 +81,8 @@ Watch for:
 - enemy information becoming exact without observation;
 - important known facts failing to appear in play context;
 - stale or contradictory player-facing projections;
-- recognition occurring without a lawful basis.
+- recognition occurring without a lawful basis;
+- operational memory becoming player knowledge merely because the runtime can read it.
 
 ### Narration and UX
 
@@ -90,7 +110,8 @@ Flag an issue immediately when it:
 - exposes hidden knowledge;
 - makes a consequential decision materially misleading;
 - creates a serious exploit, especially stochastic preview probing or ownership bypass;
-- threatens transaction durability.
+- threatens transaction durability;
+- allows an autonomous irreversible consequence to bypass a required player handoff.
 
 For smaller presentation or design issues, preserve IC flow. Surface the strongest finding at a natural stopping point rather than interrupting every scene.
 
@@ -103,6 +124,8 @@ Classify the likely owner:
 **Runtime interface**: command descriptions, payload discoverability, bounded reads, play-context projection, confusing failure responses.
 
 **Runtime/rules mechanics**: resolution, timing, costs, combat, battle, siege, conservation, progression, recruitment, autonomy, economy, balance.
+
+**Living-world intelligence**: operational memory, assignment quality, concurrent capacity, formation lifecycle, high-salience wakes, autonomous social propagation.
 
 **Game data/rules**: world definitions, locations, Houses, equipment, prices, doctrine, historical background.
 
@@ -133,6 +156,10 @@ Do not propose a sweeping rebuild when a narrow reusable fix solves the actual p
 When relevant, explicitly consider:
 - commander custody;
 - formation assignment and lifecycle;
+- operational memory and whether it actually affects later choices;
+- objective-fit autonomous force selection;
+- concurrent autonomous operation capacity and resource contention;
+- high-salience wake boundaries;
 - force and population conservation;
 - battle legality;
 - personal combat legality;
@@ -147,16 +174,25 @@ When relevant, explicitly consider:
 - mercenary contracts and initiative;
 - institution capacity;
 - family and dynasty causality;
+- exact-versus-aggregate development ownership;
+- hard progression bounds;
 - relationship and reputation propagation from witnessed/reported events;
 - information delivery and delay;
 - market/economic balance;
 - travel and route timing;
 - deferred settlement and cursor safety;
 - snapshot-relative tests that remain valid as the live campaign evolves;
+- deterministic current-campaign replay after systemic autonomy changes;
 - command UX;
 - NPC dialogue;
 - choice quality;
 - warfare narration.
+
+## Stability gate after systemic changes
+
+Synthetic tests and soak replays are necessary but not sufficient for a persistent evolving campaign. After changes that touch autonomous scheduling, progression, social propagation, formation lifecycle, economy, family, institutions, or cross-system settlement, require a deterministic replay on a disposable copy of the current real campaign snapshot for a meaningful horizon.
+
+The replay must never run against live campaign truth. Compare independent replays for exact deterministic state equality and investigate any divergence, exception, cursor anomaly, unowned event, or unexpected progression before promoting the change.
 
 ## Development boundary
 
