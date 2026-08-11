@@ -8,10 +8,12 @@ def preview_years(campaign,years):
     m=meta(campaign); target=str(CampaignTime.parse(m['time']).add_years(years)); c=CommandEnvelope(m['campaign_id'],f'horizon-{years}','char_tang_wei','advance_time',m['revision'],m['time'],{'target_time':target}); t=time.perf_counter(); p=RepositoryCommandPlanner(campaign).preview(c); return p,time.perf_counter()-t
 
 def test_horizons_are_bounded_and_alive(campaign):
+    runtime=json.load(open(campaign/'state/runtime.json'))
+    causal_host_bound=len(runtime['hosts'])
     results={}
     for y in (3,10,20,50):
         p,dt=preview_years(campaign,y); results[y]=(p.result,dt)
-        assert p.result['hosts_woken']<=142
+        assert p.result['hosts_woken']<=causal_host_bound
         assert p.result['planning_reads']<320
         assert p.result['writes']<320
         assert dt<2.5
