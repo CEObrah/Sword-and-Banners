@@ -40,15 +40,49 @@ def test_reserved_formation_is_absolutely_ineligible(campaign: Path) -> None:
     assert score <= -(10**8)
 
 
+def test_commanderless_formation_is_not_autonomous_deployment_ready(campaign: Path) -> None:
+    planner = ProductionLivingWorldSwordPlanner(campaign)
+    score = planner._formation_score(
+        "formation_vacant",
+        {
+            "personnel": 10000,
+            "status": "commander_vacant",
+            "commander_ref": None,
+            "readiness": 100,
+            "morale": 100,
+            "cohesion": 100,
+            "training_progress": 100,
+            "fatigue": 0,
+            "composition": {"line_infantry": 10000},
+            "logistics": {"food_kg": 1_000_000},
+        },
+        "defend a threatened border",
+        {"state_memory": {}, "formation_memory": {}},
+        set(),
+    )
+    assert score <= -(10**8)
+
+
 def test_legacy_state_operation_cannot_double_assign_manual_formation(campaign: Path) -> None:
     planner = ProductionLivingWorldSwordPlanner(campaign)
     planner.PLAYER_ACTOR = planner.read("state/meta.json")["player_id"]
     planner._reset()
+    host = _state_host(planner, "qin")
+    at = str(planner.read("state/runtime.json")["world_time"])
 
+    # Current campaign state begins with conserved pools and may have no exact
+    # state formations yet. One lawful autonomous state review materializes the
+    # registered baseline formations before this reservation regression.
+    planner._autonomy_state(host, 1, at)
     force = planner.read("state/forces/state-qin.json")
     allocated = force.get("allocated_to_formations", {})
+    assert allocated
     reserved_ref = next(iter(sorted(allocated)))
-    formation = planner.read(planner._formation_path(reserved_ref))
+    formation_path = planner._formation_path(reserved_ref)
+    formation = copy.deepcopy(planner.read(formation_path))
+    formation["mobilized"] = True
+    formation["status"] = "mobilized"
+    planner.put(formation_path, formation)
 
     manual_ref = "operation_test_manual_reservation"
     manual_path = f"state/operations/{manual_ref}.json"
@@ -77,16 +111,25 @@ def test_legacy_state_operation_cannot_double_assign_manual_formation(campaign: 
     }
     planner.put(state_path, qin)
 
-    at = str(planner.read("state/runtime.json")["world_time"])
-    planner._autonomy_state(_state_host(planner, "qin"), 1, at)
+    planner._autonomy_state(host, 1, at)
 
     final_index = planner.read("state/operations/index.json")
     for operation_ref, path in final_index.get("operations", {}).items():
         operation = planner.read(path)
-        if operation_ref == manual_ref or str(operation.get("status", "")) not in _ACTIVE:
+        status = str(operation.get("status", ""))
+        if operation_ref == manual_ref or status not in _ACTIVE:
             continue
-        if operation.get("autonomous") is True:
-            assert reserved_ref not in operation.get("formation_refs", [])
+        if operation.get("autonomous") is not True:
+            continue
+        refs = [str(ref) for ref in operation.get("formation_refs", [])]
+        assert reserved_ref not in refs
+        if status == "active":
+            assert refs
+            formations = [planner._load_formation(ref)[1] for ref in refs]
+            assert all(bool(item.get("mobilized", False)) for item in formations)
+            assert {str(item.get("location_ref")) for item in formations} == {
+                str(operation.get("location_ref"))
+            }
 
 
 def test_interstate_provenance_uses_exact_location_ref(campaign: Path) -> None:
