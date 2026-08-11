@@ -946,6 +946,10 @@ class RepositoryCommandPlanner:
                 formation.setdefault("supply_history", []).append({
                     "at": at, "kind": "autonomous_convoy_received",
                     "source_location_ref": convoy.get("source_location_ref"),
+                    "destination_location_ref": convoy.get("destination_location_ref"),
+                    "dispatched_at": convoy.get("dispatched_at"),
+                    "arrives_at": convoy.get("arrives_at"),
+                    "travel_hours": int(convoy.get("travel_hours", 0)),
                     "food_kg": int(convoy.get("food_kg", 0)),
                     "fodder_kg": int(convoy.get("fodder_kg", 0)),
                     "war_arrows": int(convoy.get("war_arrows", 0)),

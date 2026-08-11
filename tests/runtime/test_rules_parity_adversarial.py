@@ -155,3 +155,24 @@ def test_fifty_year_world_produces_exact_human_and_interstate_history(campaign):
     territory=json.load(open(campaign/'state/territory/control.json'))['sites']
     # At least one site must record a causal control transition, not just aggregate war counters.
     assert any(site.get('change_evidence_ref') for site in territory.values())
+
+    # Autonomous logistics must be real in-transit custody, not a remote depot
+    # deduction followed by same-tick material teleportation.  A received convoy
+    # records a positive physical travel interval and distinct dispatch/arrival times.
+    idx=json.load(open(campaign/'state/index/owner-index-gold.json'))['owners']
+    convoy_receipts=[]
+    for ref,path in idx.items():
+        if not str(ref).startswith('formation_'):
+            continue
+        formation=json.load(open(campaign/path))
+        convoy_receipts.extend(
+            e for e in formation.get('supply_history',[])
+            if e.get('kind')=='autonomous_convoy_received'
+        )
+    assert convoy_receipts
+    from sword_runtime.sim.calendar import CampaignTime
+    remote=[e for e in convoy_receipts if e.get('source_location_ref')!=e.get('destination_location_ref')]
+    assert remote
+    assert all(int(e.get('travel_hours',0))>0 for e in remote)
+    assert all(str(e.get('dispatched_at'))!=str(e.get('at')) for e in convoy_receipts)
+    assert all(CampaignTime.parse(str(e['arrives_at'])) <= CampaignTime.parse(str(e['at'])) for e in convoy_receipts)
