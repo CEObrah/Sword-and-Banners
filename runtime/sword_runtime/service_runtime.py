@@ -16,7 +16,10 @@ from sword_runtime.tx.receipts import ReceiptStore
 from sword_runtime.tx.remote import GitRemoteDurability
 from sword_runtime.tx.wal import WriteAheadLog
 
-_CONTESTED_COMMANDS = frozenset({"battle_resolve", "personal_combat"})
+# Broad time advancement can cross hidden autonomous causal events. Treat its
+# preview like other contested resolution so the model cannot probe future
+# contacts by repeatedly previewing different horizons.
+_CONTESTED_COMMANDS = frozenset({"advance_time", "battle_resolve", "personal_combat"})
 
 
 class ProductionSwordRuntime(SwordRuntime):
@@ -95,7 +98,7 @@ class ProductionSwordRuntime(SwordRuntime):
         )
 
     def preview_for_execution(self, command):
-        """Preview intent without leaking a stochastic or contested outcome."""
+        """Preview intent without leaking a stochastic or hidden-future outcome."""
 
         self._validate_player_authored_agency(command)
         payload = thaw_json(command.payload)
