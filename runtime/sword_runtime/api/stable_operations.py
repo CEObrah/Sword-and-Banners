@@ -1,6 +1,8 @@
 """Production operations with stable low-information failure classification."""
 from __future__ import annotations
 
+from collections.abc import Mapping
+
 from sword_runtime.api.operations import CampaignOperations, OperationError, _receipt_record
 from sword_runtime.living_world import HighSalienceWakeRequired
 from sword_runtime.tx.errors import (
@@ -29,6 +31,17 @@ _TRANSACTION_CODES = {
     ConcurrentModificationError: "transaction_concurrent_modification",
 }
 
+_WAKE_VISIBLE_FIELDS = (
+    "wake_ref",
+    "kind",
+    "at",
+    "theater_ref",
+    "formation_ref",
+    "location_ref",
+    "opponent_state",
+    "reason",
+)
+
 
 def transaction_failure_code(exc: TransactionError) -> str:
     for exc_type, code in _TRANSACTION_CODES.items():
@@ -44,6 +57,16 @@ class StableCampaignOperations(CampaignOperations):
         context = super().play_context()
         context.setdefault("limits", {})["high_salience_wake_boundary"] = True
         context["limits"]["operational_memory_is_non_authoritative"] = True
+        runtime = self.runtime.store.read_json("state/runtime.json")
+        wake = runtime.get("pending_wake") if isinstance(runtime, Mapping) else None
+        if isinstance(wake, Mapping):
+            context["pending_wake"] = {
+                key: wake[key]
+                for key in _WAKE_VISIBLE_FIELDS
+                if key in wake
+            }
+            context["decision_required"] = True
+            context["decision_reason"] = "high_salience_autonomous_contact"
         return context
 
     def preview_command(self, command):
