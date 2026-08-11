@@ -18,6 +18,7 @@ import anyio
 import jwt
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from mcp.server import MCPServer as _LegacyGoldMCPServer
 from mcp.server.auth.middleware.auth_context import get_access_token
 from mcp.server.auth.provider import AccessToken, TokenVerifier
 from mcp.server.auth.settings import AuthSettings
