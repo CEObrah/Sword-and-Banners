@@ -35,6 +35,60 @@
       "type": "number",
       "minimum": 0,
       "maximum": 100
+    },
+    "development_state": {
+      "type": "object",
+      "properties": {
+        "skill_edu_banks": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "settled_training_hours": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "training_credit": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maintenance_credit": {
+          "type": "number",
+          "minimum": 0
+        },
+        "completed_reviews": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "training_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "started_at": {
+            "type": "string"
+          },
+          "completed_at": {
+            "type": "string"
+          },
+          "focus": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "development": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      }
     }
   },
   "additionalProperties": true
