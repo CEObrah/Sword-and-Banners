@@ -44,7 +44,7 @@ def test_full_siege_lifecycle(campaign):
     q,z,_=create_pair(campaign,'siege',4000)
     execute_internal(campaign,'fortification_materialize',{'fortification_ref':'fort_kankoku_accept','location_ref':'loc_kankoku_pass','garrison_formation_refs':[q],'food_kg':20000,'state':'qin','commander_ref':'char_ouki'})
     execute_internal(campaign,'siege_start',{'siege_ref':'siege_kankoku_accept','fortification_ref':'fort_kankoku_accept','attacker_formation_refs':[z]})
-    execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'blockade','days':5})
+    execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'blockade','days':1})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'repair','points':3})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'assault'})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'withdraw'})
