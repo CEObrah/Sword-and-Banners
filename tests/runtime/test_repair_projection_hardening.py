@@ -67,6 +67,39 @@ def test_command_input_guidance_exposes_exact_player_safe_values(campaign, tmp_p
     assert 'never guess hidden IDs' in context['commands']['input_guidance_policy']
 
 
+def test_production_player_surface_preserves_npc_family_and_house_agency(campaign, tmp_path):
+    from sword_runtime.commands import CommandEnvelope
+    from sword_runtime.service_runtime import ProductionSwordRuntime
+
+    current = meta(campaign)
+    runtime = ProductionSwordRuntime(campaign, tmp_path/'runtime')
+    npc_marriage = CommandEnvelope(
+        current['campaign_id'],
+        'npc-marriage-agency-regression',
+        current['player_id'],
+        'family_event',
+        current['revision'],
+        current['time'],
+        {'house_ref':'house_tang','kind':'marriage','person_ref':'char_tang_ling','partner_ref':'char_tang_zhu'},
+        mode='gameplay',
+    )
+    with pytest.raises(PermissionError, match='player actor'):
+        runtime.preview_for_execution(npc_marriage)
+
+    external_duty = CommandEnvelope(
+        current['campaign_id'],
+        'external-house-duty-regression',
+        current['player_id'],
+        'house_action',
+        current['revision'],
+        current['time'],
+        {'house_ref':'house_tang','action':'assign_duty','subject_ref':'char_ouki','duty':'Obey House Tang'},
+        mode='gameplay',
+    )
+    with pytest.raises(PermissionError, match='House Tang duty assignment'):
+        runtime.preview_for_execution(external_duty)
+
+
 def test_empty_transaction_invalidation_registry_is_valid(campaign):
     from sword_runtime.store.repository import RepositoryStore
     from sword_runtime.tx.invalidations import load_transaction_invalidations
