@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sword-rules-runtime-parity",
+  "type": "object",
+  "required": [
+    "schema",
+    "policy",
+    "statuses",
+    "entries"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-rules-runtime-parity"
+    },
+    "policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "statuses": {
+      "type": "object"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule_ref",
+          "implementation_status",
+          "production_commands",
+          "runtime_hooks",
+          "causal_host_kinds"
+        ],
+        "properties": {
+          "rule_ref": {
+            "type": "string",
+            "pattern": "^game/rules/.+\\.md$"
+          },
+          "implementation_status": {
+            "enum": [
+              "live",
+              "mixed",
+              "descriptive",
+              "deferred"
+            ]
+          },
+          "production_commands": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "runtime_hooks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "causal_host_kinds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "deferred_scope": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

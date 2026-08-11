@@ -40,7 +40,7 @@ def safe_horizon():
 check('scheduler_safe_horizons',safe_horizon)
 check('zero_global_polling',lambda: ok(all(j('state/runtime.json')['metrics'][k]==0 for k in ('global_person_scans','global_faction_scans','global_force_scans','global_house_scans'))))
 check('autonomous_actor_coverage',lambda: (lambda rt: ok(sum(1 for h in rt['hosts'].values() if h['kind']=='state')==7 and sum(1 for h in rt['hosts'].values() if h['kind']=='house')>=10 and sum(1 for h in rt['hosts'].values() if h['kind']=='institution')>=42 and sum(1 for h in rt['hosts'].values() if h['kind']=='faction')>=15))(j('state/runtime.json')))
-check('mercenary_causal_hosts',lambda: (lambda rt: ok(sum(1 for h in rt['hosts'].values() if h.get('kind')=='mercenary')==60 and len(rt['hosts'])==142))(j('state/runtime.json')))
+check('mercenary_causal_hosts',lambda: (lambda rt: ok(sum(1 for h in rt['hosts'].values() if h.get('kind')=='mercenary')==60 and sum(1 for h in rt['hosts'].values() if h.get('kind')=='person')>=70 and sum(1 for h in rt['hosts'].values() if h.get('kind')=='interstate')==1))(j('state/runtime.json')))
 def active_mercenary_schema_integrity():
     registry=j('game/schemas/registry.json')
     compiled={}
@@ -51,6 +51,45 @@ def active_mercenary_schema_integrity():
             schema=j('game/schemas/'+registry[schema_id]); cls=jsonschema_validators.validator_for(schema); cls.check_schema(schema); compiled[schema_id]=cls(schema)
         errors=list(compiled[schema_id].iter_errors(d)); ok(not errors,f'{p.relative_to(ROOT)}: {errors[0].message if errors else "invalid"}')
 check('active_mercenary_schema_integrity',active_mercenary_schema_integrity)
+def rules_runtime_parity():
+    parity=j('game/data/mechanics/rules-runtime-parity.json')
+    entries=parity.get('entries',[])
+    refs=[str(e.get('rule_ref')) for e in entries]
+    actual={p.relative_to(ROOT).as_posix() for p in (ROOT/'game/rules').rglob('*.md')}
+    ok(set(refs)==actual, f'parity coverage mismatch missing={sorted(actual-set(refs))} extra={sorted(set(refs)-actual)}')
+    ok(len(refs)==len(set(refs)),'duplicate rule parity entries')
+    engine=(ROOT/'runtime/sword_runtime/engine.py').read_text()
+    development=(ROOT/'runtime/sword_runtime/development.py').read_text()
+    host_kinds={str(h.get('kind')) for h in j('state/runtime.json')['hosts'].values()}
+    for e in entries:
+        status=str(e.get('implementation_status'))
+        commands={str(x) for x in e.get('production_commands',[])}
+        hooks=[str(x) for x in e.get('runtime_hooks',[])]
+        hosts={str(x) for x in e.get('causal_host_kinds',[])}
+        ok(commands<=set(COMMAND_TYPES),f"{e['rule_ref']} lists nonproduction commands {sorted(commands-set(COMMAND_TYPES))}")
+        ok(hosts<=host_kinds,f"{e['rule_ref']} lists missing host kinds {sorted(hosts-host_kinds)}")
+        for hook in hooks:
+            token=hook.split('.')[-1]
+            ok(token in engine or token in development,f"{e['rule_ref']} lists missing runtime hook {hook}")
+        if status in {'live','mixed'}:
+            ok(bool(commands or hooks or hosts),f"{e['rule_ref']} claims {status} without executable production hook")
+        if status in {'mixed','descriptive','deferred'}:
+            ok(bool(str(e.get('deferred_scope','')).strip()),f"{e['rule_ref']} {status} entry must state nonimplemented/descriptive scope")
+check('rules_to_runtime_parity',rules_runtime_parity)
+
+def exact_person_causal_hosts():
+    owners=j('state/index/owner-index-gold.json')['owners']
+    chars={ref for ref in owners if str(ref).startswith('char_')}
+    hosted={str(h.get('owner_ref')) for h in j('state/runtime.json')['hosts'].values() if h.get('kind')=='person'}
+    ok(chars<=hosted,f'exact people without person hosts: {sorted(chars-hosted)[:8]}')
+check('exact_person_causal_hosts',exact_person_causal_hosts)
+
+check('autonomous_interstate_history_loop',lambda: (lambda rt,cfg,idx: ok(sum(1 for h in rt['hosts'].values() if h.get('kind')=='interstate')==1 and bool(cfg.get('theaters')) and idx.get('interstate_warring_states')=='state/politics/interstate-history.json'))(j('state/runtime.json'),j('game/data/world/autonomous-theaters.json'),j('state/index/owner-index-gold.json')['owners']))
+
+check('hostile_rules_parity_suite_mandatory',lambda: (lambda suite: ok('tests/runtime/test_rules_parity_adversarial.py' in suite))((ROOT/'tools/run_gold_suite.py').read_text()))
+
+check('server_owned_chronology_and_preview_security',lambda: (lambda src: ok('submitted_at must equal authoritative campaign world time' in src and 'contested outcomes are execute-only' in src.lower() and 'command.command_type' in src))((ROOT/'runtime/sword_runtime/engine.py').read_text()))
+
 check('player_authority_is_capability_scoped',lambda: (lambda a: ok(a['actor_ref']=='char_tang_wei' and a.get('state_offices')==[] and all(r.get('authority_ref') not in {'state_qin','state_zhao','state_chu','state_wei','state_han','state_yan','state_qi'} for r in a.get('roles',[]))))(j('state/authority/char-tang-wei.json')))
 def populations():
     for s in ('qin','zhao','chu','wei','han','yan','qi'):
