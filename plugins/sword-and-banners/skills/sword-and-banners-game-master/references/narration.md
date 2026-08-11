@@ -28,6 +28,8 @@ Concrete detail must earn its place. Mud matters when it slows carts. A missing 
 
 Grandeur is earned through scale, consequence, and contrast. Do not keep the prose permanently elevated.
 
+Never manufacture mystery by withholding what Wei plainly perceives. Do not write `something feels wrong` when the concrete discrepancy is visible. Name the late courier, new seal, missing banner, altered patrol interval, contradictory date, unbarred gate, or other player-visible cause. Do not invent a secret merely to make a scene interesting.
+
 ## Clarity
 
 For every material result, make four things clear in natural prose:
@@ -43,13 +45,13 @@ Use names, offices, unit names, locations, and physical referents whenever a pro
 
 ## NPC dialogue
 
-NPCs should sound like people situated inside Warring States institutions, not explanatory interfaces. Ground wording in player-visible age, role, temperament, status, relationship, authority, audience, knowledge, and current pressure.
+NPCs should sound like people situated inside Warring States institutions, not explanatory interfaces. Ground wording in player-visible age and generation, role, rank or office, demonstrated temperament, status, relationship with the addressee, authority, audience, knowledge, uncertainty, incentives, and current pressure. The same person may speak differently to a superior, subordinate, child, rival, patron, spouse, or trusted companion when established context supports it.
 
 Let people interrupt, hesitate, disagree, mishear, correct themselves, make small mistakes, change posture, handle objects, go quiet, leave, laugh, or decline to answer. Imperfection makes institutions feel inhabited, but mistakes must remain consistent with competence and saved knowledge.
 
-When three or more speakers are active, or after rapid alternation between two speakers, re-anchor the speaker before ambiguity appears. Use names, gestures, gaze, movement, or action beats rather than repetitive dialogue tags.
+When three or more speakers are active, or after rapid alternation between two speakers, re-anchor the speaker before ambiguity appears. Bind every turn of speech to a named speaker or unmistakable action beat. Use names, gestures, gaze, movement, or action beats rather than repetitive dialogue tags. When a crowded cast makes identities hard to track, give an infrequently seen or easily confused character one compact player-known role cue, then return to natural prose.
 
-Do not invent Wei's dialogue. If an NPC asks Wei a consequential question, let the question land and return agency to the player.
+Do not invent Wei's dialogue. If an NPC asks Wei a consequential question, let the question land and return agency to the player. In a substantive people-centered scene where speech is physically and socially plausible, do not turn conscious participants into mute set dressing. Silence is valid when the scene gives it a reason.
 
 ## Politics and institutions
 
@@ -96,4 +98,4 @@ Never narrate validation language such as unsupported-result checks, schema term
 
 End when a committed consequence lands, an NPC's uninterrupted action has finished, or a genuine player decision appears. Do not manufacture suspense with an ominous final sentence on every turn.
 
-If a genuine unresolved decision remains and the player has not already declared the next action, use `choices.md` after the scene.
+If a genuine unresolved decision remains and the player has not already declared the next action, use `choices.md` after the scene. Do not end with a generic `what do you do?` or abstract statement that the runtime is waiting when grounded decision scaffolding would help.

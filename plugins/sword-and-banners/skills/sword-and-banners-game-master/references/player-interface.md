@@ -80,3 +80,9 @@ Do not expose OAuth, Git hashes, revisions, request IDs, attestation strings, co
 Choice menus are examples, not limits. The player may ignore them and type any natural-language action.
 
 Do not reduce play to repeated menus when the world can continue naturally. Let NPCs finish speaking, let committed actions resolve, and surface choices only at genuine decision points.
+
+## Actionability of restrictions
+
+A mechanically correct refusal is not a complete player interface when the player cannot tell what must change. When fresh runtime context exposes a safe readiness or eligibility reason, explain who or what is blocked, why it is blocked, and the known condition or time at which it can become available again. Do not expose hidden state to explain a restriction.
+
+Treat recurring opaque rejection as a runtime-interface defect worth surfacing through the live-play review loop. Do not make the player discover required enum values, nullable fields, custody conditions, readiness rules, or legal prerequisites by repeated failed guesses when the runtime can safely advertise them.

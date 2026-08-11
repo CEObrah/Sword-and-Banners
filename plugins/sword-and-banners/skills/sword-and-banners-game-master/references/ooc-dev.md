@@ -13,7 +13,7 @@ Before changing the repository:
 4. distinguish current production code from archived/retired execution paths;
 5. preserve existing strong invariants unless the task explicitly requires changing them.
 
-Do not design from stale chat memory when GitHub can answer the question.
+Do not design from stale chat memory when GitHub can answer the question. When a sister game such as Shinobi has already encountered the same architectural or live-play failure class, inspect the current source/commit that fixed it and port the reusable invariant rather than rediscovering the defect. Do not copy genre-specific mechanics blindly.
 
 ## Separate code, game data, and campaign repair
 
@@ -66,7 +66,9 @@ Gold should verify, as applicable:
 - warfare and siege rules;
 - mandatory soak.
 
-Treat a failing gate as evidence to diagnose, not a nuisance to bypass. If a gate itself is stale, modernize it or maintain deliberate compatibility without changing the production invariant being tested.
+Treat a failing gate as evidence to diagnose, not a nuisance to bypass. If a gate itself is stale, modernize it rather than preserving obsolete duplicate documentation or deployment authorities merely to satisfy a path assertion.
+
+Run mutating tests, acceptance scenarios, soak tests, migration rehearsals, and destructive diagnostics only on disposable repository/campaign copies. Never point them at the authoritative live campaign root. Tests against an evolving real-campaign snapshot should derive mutable facts from that snapshot rather than hard-coding one revision, timestamp, readiness value, roster, or other naturally changing fact unless that value is an intentional immutable campaign premise.
 
 ## Skill changes
 
@@ -76,9 +78,10 @@ When this Skill changes:
 3. ensure every referenced file actually exists;
 4. package the complete Skill directory, not just `SKILL.md`;
 5. run skill validation;
-6. give the player the new package so the installed Skill can be replaced.
+6. when the current environment exposes a supported direct Skill update mechanism, prefer it to a manual download/re-upload workflow; otherwise give the player the new package;
+7. verify the installed Skill is actually synchronized before claiming that it contains the change.
 
-Do not embed secrets or deployment credentials in Skill files.
+A GitHub commit updates the canonical Skill source, not automatically the ChatGPT-installed copy. Never claim installation success without verification. Do not embed secrets or deployment credentials in Skill files.
 
 ## Deployment changes
 
@@ -89,6 +92,8 @@ Production Railway uses a persistent campaign checkout and separate runtime root
 - bootstrap handles fast-forward, local-ahead recovery, dirty checkout, and safe history replacement correctly;
 - production uses one runtime instance;
 - remote Git durability is wired inside the transaction coordinator.
+
+Canonical production deployment procedure lives at `docs/RUNTIME_SERVICE_DEPLOYMENT.md`. Do not recreate a second root deployment manual.
 
 For OAuth/MCP, verify:
 - protected-resource metadata;
@@ -103,7 +108,7 @@ For OAuth/MCP, verify:
 
 Preserve Git history as development and campaign provenance.
 
-For broad risky changes, an isolated branch is appropriate until Gold is green. Before moving `main`, re-read the current main head. If main advanced independently, integrate deliberately rather than force-resetting it.
+Default requested implementation work in this repository to direct commits on `main`. Use an isolated branch when the change is broad/risky, the player explicitly requests review, repository policy requires it, direct writes are blocked, or temporary isolation materially reduces release risk. Before moving `main` from an isolated branch, re-read the current main head. If main advanced independently, integrate deliberately rather than force-resetting it.
 
 Never force-push campaign history as a routine release strategy.
 

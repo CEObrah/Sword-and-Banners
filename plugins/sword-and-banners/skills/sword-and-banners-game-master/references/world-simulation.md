@@ -93,3 +93,17 @@ A believable world includes consequential events that occur without Wei and some
 Time is physical. Couriers travel. Armies march. Bureaucracies process documents. Sieges take labor. Recovery takes time. Recruits require integration. Roads and crossings constrain movement.
 
 Never compress these away merely because a strategic choice is phrased broadly. Let runtime time advancement and hard causal boundaries decide what completes before interruption.
+
+## Consequences must propagate across systems
+
+Do not let an autonomous battle, appointment, mission-like operation, contract, death, marriage, public dispute, or major report remain isolated inside the subsystem that resolved it when the runtime has causal pathways for wider consequences. Witnessed or reported events may affect reputation, relationships, information, logistics, command availability, House memory, institutional priorities, succession, or later autonomous decisions only when the required evidence and authority exist.
+
+Compact operational history or memory may summarize evidence for later autonomous choices, but it must never replace the authoritative battle, person, relationship, reputation, treasury, formation, information, or family state it references.
+
+## Player-neutral autonomy
+
+Protect the player from autonomous control because the player is marked as player-controlled campaign authority, not because one hard-coded character name receives special immunity. Apply the same autonomous eligibility, resource, knowledge, and timing laws to comparable NPCs and organizations unless saved authority or state creates a real difference.
+
+## Deferred settlement
+
+A causal host's `resolved_through` cursor is evidence that eligible work through that point has actually been settled, not a mirror of global campaign time. A `safe_through` horizon may permit bounded lazy settlement, but it must never erase training, recovery, economic, social, institutional, family, or other elapsed work that was actually eligible. Before a capability-dependent resolution, the relevant deferred progression must be settled or proven to have produced zero eligible activity.

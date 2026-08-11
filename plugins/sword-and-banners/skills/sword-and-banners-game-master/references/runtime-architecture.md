@@ -130,7 +130,7 @@ Never force-push campaign history as an automatic recovery strategy.
 
 Source/rule/config changes should redeploy Railway.
 
-Gameplay changes under `state/**` must not trigger a deployment loop. Railway watch patterns therefore include runtime/game/config source paths but exclude state-only campaign commits.
+Gameplay changes under `state/**` must not trigger a deployment loop. Railway watch patterns therefore include every repository change by default and exclude only `state/**` campaign commits. This keeps the persistent checkout synchronized with `main` after Skill, docs, tests, tools, or source changes while avoiding gameplay redeploy loops.
 
 The running service already owns the state mutation that produced those commits.
 

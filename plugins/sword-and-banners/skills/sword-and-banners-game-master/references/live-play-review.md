@@ -1,6 +1,6 @@
 # Live Play Review
 
-Treat real campaign play as the strongest integration test for Sword & Banners. Watch continuously for correctness, clarity, depth, balance, and player experience without turning every scene into a QA report.
+Treat real campaign play as continuous integration, playtesting, narrative review, and feature discovery for Sword & Banners. Judge correctness and quality continuously without turning every scene into a QA report.
 
 ## What to watch
 
@@ -14,10 +14,12 @@ Watch for:
 - impossible chronology;
 - territorial changes without causal support;
 - population or recruitment inconsistencies;
-- stale readiness projections;
+- stale readiness projections or blockers that do not say who, why, or until when;
 - duplicate or contradictory ownership;
 - a semantic command accepting caller-controlled outcomes it should own;
-- autonomous actors failing to progress or acting outside authority.
+- autonomous actors failing to progress, acting outside authority, or receiving player-favoring exemptions;
+- elapsed-time cursors advancing without settling eligible deferred work;
+- a test, preview, or diagnostic accidentally mutating live campaign truth.
 
 ### Warfare quality
 
@@ -38,7 +40,7 @@ Watch for:
 - institutions acting without authority or resources;
 - NPCs becoming passive until Wei interacts with them;
 - Houses or states lacking credible responses to threats and opportunities;
-- political consequences propagating instantly or not at all;
+- political, relationship, and reputation consequences propagating instantly, not at all, or without evidence;
 - family and succession systems behaving like detached ledgers rather than causal institutions.
 
 ### Economy and logistics
@@ -49,7 +51,8 @@ Watch for:
 - armies moving or fighting without material support the rules say they need;
 - duplicate treasury authority;
 - logistics existing in data but never affecting play;
-- economic systems blocking play through opaque requirements the interface does not explain.
+- economic systems blocking play through opaque requirements the interface does not explain;
+- a rejection that is mechanically correct but hides the actionable readiness condition from the player.
 
 ### Information and knowledge
 
@@ -71,6 +74,7 @@ Watch for:
 - menus before the player-declared action is resolved;
 - fake or redundant choices;
 - failure to provide decision scaffolding at a real unresolved decision;
+- a declared action being handed back to the player instead of carried through obvious prerequisite logistics;
 - combat narration that hides geometry or causal result;
 - battle narration that becomes an omniscient history-book summary;
 - excessive backend terminology;
@@ -110,6 +114,8 @@ Classify the likely owner:
 
 ## Evidence standard
 
+For a meaningful finding, record the observed symptom and player impact, identify the likely authoritative owner, state confidence, distinguish defect from tuning or feature opportunity, propose the smallest reusable correction, and identify a regression check.
+
 Base recommendations on one or more of:
 - observed live play;
 - current runtime output;
@@ -118,7 +124,7 @@ Base recommendations on one or more of:
 - reproducible tests;
 - repeated player friction.
 
-Repeated symptoms carry more weight than one unusual outcome.
+Repeated symptoms carry more weight than one unusual outcome. Do not rebalance combat because of one lucky exchange, rewrite narration doctrine because of one awkward sentence, or add a major system because of one hypothetical edge case.
 
 Do not propose a sweeping rebuild when a narrow reusable fix solves the actual problem.
 
@@ -141,10 +147,12 @@ When relevant, explicitly consider:
 - mercenary contracts and initiative;
 - institution capacity;
 - family and dynasty causality;
-- relationship and reputation propagation;
+- relationship and reputation propagation from witnessed/reported events;
 - information delivery and delay;
 - market/economic balance;
 - travel and route timing;
+- deferred settlement and cursor safety;
+- snapshot-relative tests that remain valid as the live campaign evolves;
 - command UX;
 - NPC dialogue;
 - choice quality;

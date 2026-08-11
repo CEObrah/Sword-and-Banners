@@ -42,6 +42,12 @@ Urgent danger may support only immediate choices plus Free Action. A planning co
 
 Quality outranks count. Never create filler merely to satisfy the format.
 
+## Never strand an unresolved decision
+
+Before ending an IC response, check fresh runtime context and the narrated endpoint. If the runtime says a decision is required, or the prose has landed on a genuine unresolved player-facing choice, and the current player message has not already supplied that next action, provide decision scaffolding before ending.
+
+Do not end with only `Your next movement belongs to you`, `What happens next is your choice`, a generic question with no useful options when grounded options exist, or an abstract statement that the runtime is waiting for input. If six meaningful choices exist, show six. If fewer exist, show the meaningful set plus `Free Action`.
+
 ## Ground every choice
 
 Every suggested action must come from fresh player-visible runtime context.
@@ -96,9 +102,9 @@ If Wei chooses a campaign objective, do not silently resolve mobilization, march
 
 ## No menu after a declared action
 
-If the player already supplied a clear action, resolve it. Do not answer with a list of alternatives before attempting the action.
+If the player already supplied a clear action, resolve it. Do not answer with a list of alternatives before attempting the action. Carry that intent through obvious non-decision logistics such as preparation, departure, routine lawful travel, arrival, reporting, or taking the already-selected seat or post when those steps are implied and no material tradeoff appears.
 
-After the action commits and the resulting scene creates a new unresolved decision, choices may then appear.
+If a new consequential choice arises during that sequence, stop at that new decision. After the action commits and the resulting scene creates a new unresolved decision, choices may then appear.
 
 ## Choice language
 

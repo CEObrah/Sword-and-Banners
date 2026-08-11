@@ -25,8 +25,11 @@ Use this reference for OOC DEV source location and authority questions.
 `.github/workflows/audit.yml`
 : Mandatory Gold CI release gate.
 
-`railway.toml` and compatibility `railway.json`
-: Production Railway build/deploy/watch configuration.
+`railway.toml`
+: Sole production Railway build/deploy/watch configuration.
+
+`docs/RUNTIME_SERVICE_DEPLOYMENT.md`
+: Canonical Railway/Auth0/ChatGPT deployment procedure.
 
 ## Machine repository map
 
@@ -111,6 +114,6 @@ Do not infer that every state file is player-visible. MCP bounded reads enforce 
 
 The Gold suite includes architecture/service, transaction, long-horizon, acceptance, semantic surface, hardening, adversarial parity, hostile-command matrix, and warfare tests.
 
-## Legacy root manuals
+## Canonical documentation rule
 
-Root files such as `VOICE.md`, `PLAYER_INTERFACE.md`, `RUNTIME.md`, `REPOSITORY_MAP.md`, and `AGENTS.md` may remain as compatibility/on-ramp documentation, but the installed Game Master Skill is the current ChatGPT operating reference. Root documentation must not point back to retired `game/data/runtime` execution authority.
+The Game Master Skill is the canonical ChatGPT-facing operating and development manual. Do not recreate root `VOICE.md`, `PLAYER_INTERFACE.md`, `RUNTIME.md`, `REPOSITORY_MAP.md`, `AGENTS.md`, or `DEPLOYMENT.md` copies. Keep root `README.md` as orientation only and keep deployment procedure under `docs/`.

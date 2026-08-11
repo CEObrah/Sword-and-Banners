@@ -1,11 +1,14 @@
 """Bounded player-facing operations shared by REST and MCP surfaces."""
 from __future__ import annotations
+
 from typing import Any, Mapping, Optional
+
 from sword_runtime.command_contracts import COMMAND_PAYLOAD_KEYS
 from sword_runtime.commands import CommandEnvelope
-from sword_runtime.engine import COMMAND_TYPES, RepositoryCommandPlanner
+from sword_runtime.engine import COMMAND_TYPES
 from sword_runtime.service_runtime import ProductionSwordRuntime
 from sword_runtime.tx.errors import StaleRevisionError
+
 
 class OperationError(RuntimeError):
     def __init__(self, status_code: int, code: str) -> None:
@@ -72,9 +75,72 @@ class CampaignOperations:
                     "mobilized": formation.get("mobilized"),
                     "commander_ref": formation.get("commander_ref"),
                     "command_authority": formation.get("command_authority"),
+                    "readiness": formation.get("readiness"),
+                    "morale": formation.get("morale"),
+                    "cohesion": formation.get("cohesion"),
+                    "training_progress": formation.get("training_progress"),
+                    "fatigue": formation.get("fatigue"),
+                    "experience": formation.get("experience"),
+                    "logistics": formation.get("logistics", {}),
                 }
             )
         return formations
+
+    @staticmethod
+    def _safe_scene(meta: Mapping[str, Any], player: Mapping[str, Any], scene: Mapping[str, Any]) -> dict[str, Any]:
+        """Return only a temporally valid player-facing scene projection.
+
+        Scene prose is a projection, not authority. If a state-changing command
+        advances campaign time without refreshing state/scene.json, carrying the
+        old unresolved decision or pressure forward would create false player
+        truth. Preserve the stale marker for diagnosis but strip transient claims.
+        """
+
+        scene_time = scene.get("world_time")
+        current_time = meta.get("time")
+        fresh = isinstance(scene_time, str) and scene_time == current_time
+        narrative = scene.get("narrative", {}) if isinstance(scene.get("narrative"), dict) else {}
+        if fresh:
+            return {
+                "projection_status": "fresh",
+                "projected_at": scene_time,
+                "scene_id": scene.get("scene_id"),
+                "summary": scene.get("scene_summary"),
+                "location": scene.get("location"),
+                "location_id": scene.get("location_id"),
+                "physical_scene": scene.get("physical_scene", {}),
+                "observable_pressures": scene.get("observable_pressures", []),
+                "player_observable_state": scene.get("player_observable_state", {}),
+                "unresolved_decision": scene.get("unresolved_decision"),
+                "known_clock_boundaries": scene.get("known_clock_boundaries", []),
+                "active_questions": narrative.get("active_questions", []),
+                "available_reports": narrative.get("available_reports", []),
+                "pending_information_paths": narrative.get("pending_information_paths", []),
+                "recent_reveals": narrative.get("recent_reveals", []),
+                "unresolved_hooks": narrative.get("unresolved_hooks", []),
+            }
+        return {
+            "projection_status": "stale_after_state_change",
+            "projected_at": scene_time,
+            "scene_id": None,
+            "summary": None,
+            "location": player.get("location"),
+            "location_id": player.get("location"),
+            "physical_scene": {},
+            "observable_pressures": [],
+            "player_observable_state": {
+                "location": player.get("location"),
+                "health": player.get("health"),
+                "fatigue": player.get("fatigue"),
+            },
+            "unresolved_decision": None,
+            "known_clock_boundaries": [],
+            "active_questions": [],
+            "available_reports": [],
+            "pending_information_paths": [],
+            "recent_reveals": [],
+            "unresolved_hooks": [],
+        }
 
     def play_context(self) -> dict[str, Any]:
         meta = self.store.read_json("state/meta.json")
@@ -103,23 +169,7 @@ class CampaignOperations:
                 permitted_people.append(commander)
         permitted_people = sorted(set(permitted_people))
 
-        narrative = scene.get("narrative", {}) if isinstance(scene.get("narrative"), dict) else {}
-        safe_scene = {
-            "scene_id": scene.get("scene_id"),
-            "summary": scene.get("scene_summary"),
-            "location": scene.get("location"),
-            "location_id": scene.get("location_id"),
-            "physical_scene": scene.get("physical_scene", {}),
-            "observable_pressures": scene.get("observable_pressures", []),
-            "player_observable_state": scene.get("player_observable_state", {}),
-            "unresolved_decision": scene.get("unresolved_decision"),
-            "known_clock_boundaries": scene.get("known_clock_boundaries", []),
-            "active_questions": narrative.get("active_questions", []),
-            "available_reports": narrative.get("available_reports", []),
-            "pending_information_paths": narrative.get("pending_information_paths", []),
-            "recent_reveals": narrative.get("recent_reveals", []),
-            "unresolved_hooks": narrative.get("unresolved_hooks", []),
-        }
+        safe_scene = self._safe_scene(meta, player, scene)
         command_types = {
             command_type: {
                 "accepted_payload_keys": sorted(COMMAND_PAYLOAD_KEYS.get(command_type, ())),
@@ -179,6 +229,7 @@ class CampaignOperations:
                 "person": "second_person_present",
                 "knowledge_boundary": "player_visible_only",
                 "decision_scaffolding": "narrate_first_then_scene_relevant_choices",
+                "stale_scene_policy": "strip_transient_scene_claims_and_surface_projection_status",
             },
         }
 
@@ -222,8 +273,6 @@ class CampaignOperations:
         owners = self.store.read_json("state/index/owner-index-gold.json").get("owners", {})
         path = owners.get(object_ref)
         if not isinstance(path, str):
-            # Some scene routing/process refs are useful context identifiers but
-            # are intentionally not dereferenceable campaign owners.
             raise OperationError(404, "object_not_inspectable")
         obj = self.store.read_json(path)
         if object_ref in controlled:
@@ -231,7 +280,8 @@ class CampaignOperations:
                 "owner_id", "formation_ref", "name", "role", "personnel",
                 "location_ref", "status", "mobilized", "commander_ref",
                 "command_authority", "administrative_owner", "doctrine_ref",
-                "training_ref", "supply", "morale", "cohesion",
+                "training_ref", "supply", "logistics", "morale", "cohesion",
+                "readiness", "training_progress", "fatigue", "experience",
             )
         else:
             fields = (
@@ -245,8 +295,14 @@ class CampaignOperations:
             "object": {key: obj.get(key) for key in fields if key in obj},
         }
 
+    def _player_actor(self) -> str:
+        player_id = self.store.read_json("state/meta.json").get("player_id")
+        if not isinstance(player_id, str) or not player_id:
+            raise OperationError(503, "campaign_runtime_unavailable")
+        return player_id
+
     def preview_command(self, command: CommandEnvelope) -> dict[str, Any]:
-        if command.actor_id != RepositoryCommandPlanner.PLAYER_ACTOR or command.mode != "gameplay":
+        if command.actor_id != self._player_actor() or command.mode != "gameplay":
             raise OperationError(403, "player_surface_forbids_internal_mode")
         try:
             return self.runtime.preview_for_execution(command)
@@ -275,7 +331,7 @@ class CampaignOperations:
         }
 
     def execute_command(self, command: CommandEnvelope) -> dict[str, Any]:
-        if command.actor_id != RepositoryCommandPlanner.PLAYER_ACTOR or command.mode != "gameplay":
+        if command.actor_id != self._player_actor() or command.mode != "gameplay":
             raise OperationError(403, "player_surface_forbids_internal_mode")
         try:
             return _receipt_record(self.runtime.execute(command))
@@ -286,8 +342,6 @@ class CampaignOperations:
         except (TypeError, ValueError, FileNotFoundError) as exc:
             raise OperationError(422, "command_rejected") from exc
         except Exception as exc:
-            # Hosted transaction, recovery, lock, and remote durability failures
-            # are service failures. Do not leak exception text or Git output.
             raise OperationError(503, "campaign_runtime_unavailable") from exc
 
     def ooc_audit(
@@ -307,5 +361,6 @@ class CampaignOperations:
             "focus": focus,
             "observations": [] if observations is None else list(observations),
         }
+
 
 __all__ = ["CampaignOperations", "OperationError"]

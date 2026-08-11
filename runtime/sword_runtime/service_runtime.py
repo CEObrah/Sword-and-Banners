@@ -16,10 +16,20 @@ from sword_runtime.tx.wal import WriteAheadLog
 
 _CONTESTED_COMMANDS = frozenset({"battle_resolve", "personal_combat"})
 
+
 class ProductionSwordRuntime(SwordRuntime):
     """Sword runtime with fail-closed remote durability when Git is configured."""
+
     def __init__(self, root: object, runtime_root: object | None = None) -> None:
         super().__init__(root, runtime_root)
+        # Player protection belongs to campaign authority, not a hard-coded
+        # production identity. Shadow the planner's historical class default
+        # with the exact player ID stored in this campaign snapshot.
+        player_id = self.store.read_json("state/meta.json").get("player_id")
+        if not isinstance(player_id, str) or not player_id:
+            raise RuntimeError("campaign meta must define a player_id")
+        self.planner.PLAYER_ACTOR = player_id
+
         git = GitStager(self.root)
         remote_durability = GitRemoteDurability.from_env(git)
         self.coordinator = TransactionCoordinator(
@@ -76,5 +86,6 @@ class ProductionSwordRuntime(SwordRuntime):
             "result": None,
             "contested_outcome_hidden": True,
         }
+
 
 __all__ = ["ProductionSwordRuntime"]

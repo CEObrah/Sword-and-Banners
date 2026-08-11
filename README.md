@@ -2,22 +2,31 @@
 
 Persistent deterministic Warring States RPG operated through ChatGPT and the Sword runtime.
 
-## Current architecture
+The canonical ChatGPT game-master operating package lives under:
 
-- Game Master Skill: `plugins/sword-and-banners/skills/sword-and-banners-game-master/`
-- Runtime procedure: `RUNTIME.md`
-- Player-interface compatibility guide: `PLAYER_INTERFACE.md`
-- Narration compatibility guide: `VOICE.md`
-- Human repository guide: `REPOSITORY_MAP.md`
-- Machine retrieval map: `runtime/contracts/repository-map.json`
-- Current mutable campaign truth: `state/`
-- Structured mechanics/content: `game/data/`
-- Current gameplay rules: `game/rules/`
-- Runtime and service code: `runtime/sword_runtime/`
-- Gold release gate: `.github/workflows/audit.yml`
+`plugins/sword-and-banners/skills/sword-and-banners-game-master/`
 
-The installed Sword & Banners Game Master Skill is the current ChatGPT operating and presentation reference. The runtime and committed `state/` remain mechanical/campaign authority.
+Use these Skill sources for ChatGPT-facing behavior:
 
-`README.md` is orientation only and is not gameplay authority.
+- `SKILL.md` for live-turn procedure, runtime use, agency, decision handoff, and GM orchestration;
+- `references/narration.md` for voice and prose;
+- `references/combat-and-warfare.md` for personal combat, formations, battles, and sieges;
+- `references/player-interface.md` for natural-language controls and player-facing runtime use;
+- `references/world-simulation.md` for living-world/autonomy principles;
+- `references/live-play-review.md` for continuous playtest and improvement review;
+- `references/runtime-architecture.md` for engine/service architecture;
+- `references/repository-map.md` for source navigation and authority;
+- `references/ooc-dev.md` for maintenance, testing, repair, Skill, and release procedure.
 
-The world includes sparse family lifecycle, courtship/proposals, betrothal/marriage, households, parentage/adoption/guardianship, widowhood/divorce/remarriage, inheritance/succession, all knowledge-gated and player-agency-safe, alongside Houses, states, armies, formations, sieges, institutions, markets, mercenaries, relationships, reputation, information, and autonomous world progression.
+Repository authority remains separate:
+
+- `runtime/` contains executable engine/service code;
+- `game/` contains static mechanics, schemas, rules, and world data;
+- `state/` contains mutable committed campaign truth;
+- `runtime/contracts/repository-map.json` is the machine retrieval map;
+- `.github/workflows/audit.yml` is the Gold release gate;
+- `railway.toml` is the sole Railway config-as-code file.
+
+Production Railway/Auth0/ChatGPT MCP setup lives in `docs/RUNTIME_SERVICE_DEPLOYMENT.md`.
+
+`README.md`, Skill prose, tests, examples, and chat history are never mutable campaign truth.

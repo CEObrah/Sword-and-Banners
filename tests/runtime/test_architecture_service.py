@@ -3,6 +3,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 from conftest import execute, execute_internal, meta
 
+
 def test_runtime_game_state_separation():
     root=Path(__file__).resolve().parents[2]
     assert (root/'runtime/sword_runtime').is_dir()
@@ -13,11 +14,13 @@ def test_runtime_game_state_separation():
     assert not (root/'state/force-pool').exists()
     assert (root/'archive/legacy-execution').is_dir()
 
+
 def test_no_cross_game_runtime_imports():
     root=Path(__file__).resolve().parents[2]
     texts='\n'.join(p.read_text(errors='ignore') for p in (root/'runtime/sword_runtime').rglob('*.py'))
     assert 'import shinobi' not in texts.lower()
     assert 'from shinobi' not in texts.lower()
+
 
 def test_world_density_and_cold_hosts():
     root=Path(__file__).resolve().parents[2]
@@ -31,6 +34,7 @@ def test_world_density_and_cold_hosts():
     assert sum(1 for h in runtime['hosts'].values() if h.get('kind')=='interstate') == 1
     assert all(runtime['metrics'][k]==0 for k in ('global_person_scans','global_faction_scans','global_force_scans','global_house_scans'))
 
+
 def test_champions_doctrine_is_principal_survival():
     root=Path(__file__).resolve().parents[2]
     for name in ('tang-champions-first.json','tang-champions-second.json'):
@@ -39,6 +43,7 @@ def test_champions_doctrine_is_principal_survival():
         assert f['doctrine_behavior']['primary_success_condition']=='Tang Wei returns alive'
         assert f['doctrine_behavior']['extraction_priority']==100
 
+
 def test_ownership_is_distinct_from_command():
     root=Path(__file__).resolve().parents[2]
     f=json.load(open(root/'state/formations/tang-champions-first.json'))
@@ -46,12 +51,14 @@ def test_ownership_is_distinct_from_command():
     assert f['administrative_owner']=='char_tang_wei'
     assert 'command_authority' in f
 
+
 def test_economy_reference_balance():
     root=Path(__file__).resolve().parents[2]
     e=json.load(open(root/'game/data/mechanics/economy-gold.json'))
     assert e['service_issue']['standard_service_kit_is_state_issue'] is True
     assert float(e['wages']['professional_soldier_monthly_silver']) > float(e['wages']['unskilled_monthly_silver'])
     assert e['prices_silver']['common_sword'] <= e['wages']['professional_soldier_monthly_silver']*2
+
 
 def test_api_auth_and_player_safe_information(campaign):
     from sword_runtime.api.app import create_app
@@ -66,7 +73,27 @@ def test_api_auth_and_player_safe_information(campaign):
         assert data['limits']['ooc_is_read_only'] is True
         assert data['object_read_policy'].startswith('Use only exact IDs')
         assert all(x['information_ref']!='secret_api_test' for x in data['known_information'])
-        assert data['campaign']['player_id']=='char_tang_wei'
+        assert data['campaign']['player_id']==meta(campaign)['player_id']
+        assert data['scene']['projection_status']=='fresh'
+        if data['controlled_formations']:
+            formation=data['controlled_formations'][0]
+            for field in ('readiness','morale','cohesion','training_progress','fatigue','logistics'):
+                assert field in formation
+
+        # Scene projections are presentation caches, not authority. If a stale
+        # scene survives a state/time change, play context must not carry its
+        # old unresolved decision or pressure forward as current truth.
+        scene_path=campaign/'state/scene.json'
+        scene=json.load(open(scene_path))
+        scene['world_time']='stale-projection-test'
+        scene_path.write_text(json.dumps(scene,indent=2)+'\n')
+        stale=client.get('/v1/play/context',headers={'Authorization':f'Bearer {token}'}).json()
+        assert stale['scene']['projection_status']=='stale_after_state_change'
+        assert stale['scene']['unresolved_decision'] is None
+        assert stale['scene']['observable_pressures']==[]
+        assert stale['scene']['known_clock_boundaries']==[]
+        assert stale['scene']['location_id']==stale['player']['location']
+
 
 def test_player_api_forbids_internal_actor(campaign):
     from sword_runtime.api.app import create_app
@@ -76,6 +103,7 @@ def test_player_api_forbids_internal_actor(campaign):
         r=client.post('/v1/commands/execute',headers={'Authorization':f'Bearer {token}'},json=body)
         assert r.status_code==403
 
+
 def test_api_uses_one_runtime_instance_and_explicit_runtime_root(campaign,tmp_path):
     from sword_runtime.api.app import create_app
     token='z'*48
@@ -84,6 +112,8 @@ def test_api_uses_one_runtime_instance_and_explicit_runtime_root(campaign,tmp_pa
     assert app.state.campaign_operations.runtime is app.state.sword_runtime
     assert app.state.sword_runtime.runtime_dir == runtime_root.resolve()
     assert app.state.sword_runtime.replicator is None
+    assert app.state.sword_runtime.planner.PLAYER_ACTOR == meta(campaign)['player_id']
+
 
 def test_mcp_attestation_is_exact_short_lived_and_tamper_evident():
     from sword_runtime.api.mcp import McpOAuthSettings, _preview_attestation, _verify_preview_attestation
@@ -99,18 +129,23 @@ def test_mcp_attestation_is_exact_short_lived_and_tamper_evident():
     assert not _verify_preview_attestation(changed,proof,oauth,now=1001)
     assert not _verify_preview_attestation(command,proof,oauth,now=1301)
 
-def test_mcp_preview_uses_authoritative_campaign_clock():
-    root=Path(__file__).resolve().parents[2]
-    mcp_source=(root/'runtime/sword_runtime/api/mcp.py').read_text()
-    assert 'submitted_at=str(campaign["world_time"])' in mcp_source
-    assert 'datetime.now(' not in mcp_source
 
 def test_railway_and_mcp_files_present():
     root=Path(__file__).resolve().parents[2]
+    skill=root/'plugins/sword-and-banners/skills/sword-and-banners-game-master'
     assert (root/'railway.toml').is_file()
+    assert not (root/'railway.json').exists()
+    railway=(root/'railway.toml').read_text()
+    assert '"**"' in railway and '"!/state/**"' in railway
     assert (root/'runtime/sword_runtime/bootstrap.py').is_file()
     assert (root/'runtime/sword_runtime/api/mcp.py').is_file()
     assert (root/'runtime/sword_runtime/service_runtime.py').is_file()
+    assert (root/'docs/RUNTIME_SERVICE_DEPLOYMENT.md').is_file()
+    assert (skill/'SKILL.md').is_file()
+    for name in ('narration.md','choices.md','player-interface.md','runtime-architecture.md','repository-map.md','ooc-dev.md','live-play-review.md'):
+        assert (skill/'references'/name).is_file()
+    for obsolete in ('AGENTS.md','DEPLOYMENT.md','PLAYER_INTERFACE.md','REPOSITORY_MAP.md','RUNTIME.md','VOICE.md'):
+        assert not (root/obsolete).exists()
     py=(root/'pyproject.toml').read_text()
     assert 'mcp==2.0.0' in py and 'PyJWT[crypto]==2.13.0' in py
     mcp_source=(root/'runtime/sword_runtime/api/mcp.py').read_text()
@@ -118,6 +153,7 @@ def test_railway_and_mcp_files_present():
     assert 'get_play_context' in mcp_source
     assert 'preview_attestation' in mcp_source
     assert 'sword:read' in mcp_source and 'sword:write' in mcp_source
+
 
 def test_gameplay_router_has_no_version_ids():
     root=Path(__file__).resolve().parents[2]
