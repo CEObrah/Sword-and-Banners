@@ -138,3 +138,20 @@ def test_information_delivery_and_equipment_are_causal(campaign):
     result=execute(campaign,'personal_combat',{'opponent_ref':'char_shen_rui','objective':'controlled spar','duration_minutes':30}).receipt.result
     assert exact_item_id in result['player_equipment']['equipped_item_ids']
     assert result['player_equipment']['best_weapon'] is not None
+
+
+def test_fifty_year_world_produces_exact_human_and_interstate_history(campaign):
+    from collections import Counter
+    execute(campaign,'advance_time',{'hours':50*365*24})
+    history=json.load(open(campaign/'state/history/events/index.json'))['events']
+    kinds=Counter(str(e.get('kind')) for e in history)
+    assert kinds['named_person_death'] >= 1
+    assert kinds['interstate_battle'] >= 1
+    assert kinds['territorial_control_change'] >= 1
+    family=json.load(open(campaign/'state/family/index.json'))
+    assert int(family.get('counts',{}).get('events',0)) >= 1
+    runtime=json.load(open(campaign/'state/runtime.json'))
+    assert all(int(runtime['metrics'].get(k,0))==0 for k in ('global_person_scans','global_faction_scans','global_force_scans','global_house_scans'))
+    territory=json.load(open(campaign/'state/territory/control.json'))['sites']
+    # At least one site must record a causal control transition, not just aggregate war counters.
+    assert any(site.get('change_evidence_ref') for site in territory.values())
