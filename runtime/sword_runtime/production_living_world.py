@@ -33,6 +33,16 @@ class ProductionLivingWorldSwordPlanner(CausalLivingWorldSwordPlanner):
         # its way through a penalty and become double-assigned.
         if formation_ref in reserved:
             return -(10**9)
+        # Standing troops without an exact available commander are real assets,
+        # but they are not autonomous deployment-ready formations. Do not invent
+        # a replacement general or let raw troop quality erase command custody.
+        commander_ref = formation.get("commander_ref")
+        if not isinstance(commander_ref, str) or not commander_ref:
+            return -(10**9)
+        try:
+            self._validate_person_location_for_formation(commander_ref, formation)
+        except (KeyError, ValueError):
+            return -(10**9)
         return super()._formation_score(
             formation_ref,
             formation,
@@ -79,6 +89,20 @@ class ProductionLivingWorldSwordPlanner(CausalLivingWorldSwordPlanner):
             keep: list[str] = []
             for formation_ref in refs:
                 if formation_ref in used:
+                    continue
+                try:
+                    _formation_path, formation = self._load_formation(formation_ref)
+                except ValueError:
+                    continue
+                if self._formation_score(
+                    formation_ref,
+                    formation,
+                    str(operation.get("objective", "operation")),
+                    self.read_optional(OPERATIONAL_MEMORY_PATH)
+                    if isinstance(self.read_optional(OPERATIONAL_MEMORY_PATH), dict)
+                    else {"state_memory": {}, "formation_memory": {}},
+                    used,
+                ) <= -(10**8):
                     continue
                 keep.append(formation_ref)
                 used.add(formation_ref)
