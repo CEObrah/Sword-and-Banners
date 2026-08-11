@@ -71,10 +71,13 @@ def test_pending_wake_context_and_preview_share_one_response_contract(campaign: 
     )
     operations = StableCampaignOperations(runtime)
     context = operations.play_context()
+    response_types = sorted(_WAKE_RESPONSE_COMMANDS)
     assert context["decision_required"] is True
     assert context["decision_reason"] == "high_salience_autonomous_contact"
-    assert context["pending_wake"]["response_command_types"] == sorted(_WAKE_RESPONSE_COMMANDS)
+    assert context["pending_wake"]["response_command_types"] == response_types
     assert context["pending_wake"]["continue_contact_command"] == "advance_time"
+    assert context["commands"]["availability_scope"] == "pending_wake_response"
+    assert context["commands"]["temporarily_available_command_types"] == response_types
     assert "target_host" not in context["pending_wake"]
     assert "event_id" not in context["pending_wake"]
 
