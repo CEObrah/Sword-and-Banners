@@ -99,6 +99,12 @@ def test_mcp_attestation_is_exact_short_lived_and_tamper_evident():
     assert not _verify_preview_attestation(changed,proof,oauth,now=1001)
     assert not _verify_preview_attestation(command,proof,oauth,now=1301)
 
+def test_mcp_preview_uses_authoritative_campaign_clock():
+    root=Path(__file__).resolve().parents[2]
+    mcp_source=(root/'runtime/sword_runtime/api/mcp.py').read_text()
+    assert 'submitted_at=str(campaign["world_time"])' in mcp_source
+    assert 'datetime.now(' not in mcp_source
+
 def test_railway_and_mcp_files_present():
     root=Path(__file__).resolve().parents[2]
     assert (root/'railway.toml').is_file()
