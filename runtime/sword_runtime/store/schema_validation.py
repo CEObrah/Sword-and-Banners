@@ -26,7 +26,7 @@ class RegisteredSchemaValidator:
     """Validate every schema-bearing staged JSON object against the registry.
 
     Domain validators still own causal, reference, information, and
-    conservation rules.  This layer makes it impossible for a production
+    conservation rules. This layer makes it impossible for a production
     transaction to rely on those callbacks while silently skipping the formal
     JSON shape registered by the repository.
     """
@@ -40,9 +40,20 @@ class RegisteredSchemaValidator:
         registry = repository.read_json(registry_path)
         if not isinstance(registry, Mapping) or not registry:
             raise ValueError("schema registry is missing or invalid")
+        merged_registry: Dict[str, Any] = dict(registry)
+        extension_path = "game/schemas/runtime-registry.json"
+        if repository.read_optional_bytes(extension_path) is not None:
+            extension = repository.read_json(extension_path)
+            if not isinstance(extension, Mapping):
+                raise ValueError("runtime schema registry is invalid")
+            for schema_id, filename in extension.items():
+                if schema_id in merged_registry and merged_registry[schema_id] != filename:
+                    raise ValueError("runtime schema registry conflicts with canonical registry")
+                merged_registry[schema_id] = filename
+
         normalized: Dict[str, str] = {}
         validators: Dict[str, jsonschema.protocols.Validator] = {}
-        for schema_id, filename in registry.items():
+        for schema_id, filename in merged_registry.items():
             if (
                 not isinstance(schema_id, str)
                 or not schema_id
