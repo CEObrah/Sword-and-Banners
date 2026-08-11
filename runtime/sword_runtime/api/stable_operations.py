@@ -61,15 +61,19 @@ class StableCampaignOperations(CampaignOperations):
         runtime = self.runtime.store.read_json("state/runtime.json")
         wake = runtime.get("pending_wake") if isinstance(runtime, Mapping) else None
         if isinstance(wake, Mapping):
+            response_types = sorted(_WAKE_RESPONSE_COMMANDS)
             context["pending_wake"] = {
                 key: wake[key]
                 for key in _WAKE_VISIBLE_FIELDS
                 if key in wake
             }
-            context["pending_wake"]["response_command_types"] = sorted(_WAKE_RESPONSE_COMMANDS)
+            context["pending_wake"]["response_command_types"] = response_types
             context["pending_wake"]["continue_contact_command"] = "advance_time"
             context["decision_required"] = True
             context["decision_reason"] = "high_salience_autonomous_contact"
+            commands = context.setdefault("commands", {})
+            commands["availability_scope"] = "pending_wake_response"
+            commands["temporarily_available_command_types"] = response_types
         return context
 
     def preview_command(self, command):
