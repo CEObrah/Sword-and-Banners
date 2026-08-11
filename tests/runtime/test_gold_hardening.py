@@ -51,7 +51,7 @@ def test_split_merge_dissolve_conserve_people_equipment_supplies_mounts_and_ammo
 def test_battle_requires_location_mobilization_and_active_operation_contact(campaign):
     q='formation_causal_qin'; z='formation_causal_zhao'
     execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':q,'role':'line_infantry','personnel':1000,'commander_ref':'char_heki'})
-    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':z,'role':'line_infantry','personnel':1000,'commander_ref':'char_riboku'})
+    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':z,'role':'line_infantry','personnel':1000,'commander_ref':'char_bananji'})
     with pytest.raises(ValueError):
         execute_internal(campaign,'battle_resolve',{'attacker_formation_refs':[q],'defender_formation_refs':[z]})
     prepare_field_formation(campaign,q); prepare_field_formation(campaign,z)
@@ -80,10 +80,10 @@ def test_personal_combat_training_and_recovery_use_exact_people_and_elapsed_time
 
 def test_doctrine_supply_terrain_and_command_drive_battle_score(campaign):
     q='formation_score_qin'; z='formation_score_zhao'
-    execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':q,'role':'line_infantry','personnel':2000,'commander_ref':'char_ouki'})
+    execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':q,'role':'line_infantry','personnel':2000,'commander_ref':'char_heki'})
     execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':z,'role':'line_infantry','personnel':2000,'commander_ref':'char_kaine'})
-    execute_internal(campaign,'formation_doctrine_set',{'formation_ref':q,'doctrine_ref':'doc.score.qin','doctrine_behavior':{'reserve_commitment':100,'casualty_tolerance':'high'}})
-    execute_internal(campaign,'formation_doctrine_set',{'formation_ref':z,'doctrine_ref':'doc.score.zhao','doctrine_behavior':{'reserve_commitment':10,'casualty_tolerance':'low'}})
+    execute_internal(campaign,'formation_doctrine_set',{'formation_ref':q,'doctrine_ref':'doc.external_state_force.standard','doctrine_behavior':{'reserve_commitment':100,'casualty_tolerance':'high'}})
+    execute_internal(campaign,'formation_doctrine_set',{'formation_ref':z,'doctrine_ref':'doc.external_state_force.standard','doctrine_behavior':{'reserve_commitment':10,'casualty_tolerance':'low'}})
     # Zhao's six-leg 150h route consumes 10,002 kg for 2,000 soldiers because
     # each saved leg rounds consumption upward. 5.6 kg/person leaves lawful
     # battle food while still producing a materially worse supply factor.
