@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from sword_runtime.causal_living_world import CausalLivingWorldSwordPlanner
 from sword_runtime.commands import CommandEnvelope
 from sword_runtime.development import ABSOLUTE_SKILL_HARD_CAP, settle_skill_training
 from sword_runtime.living_world import (
@@ -56,6 +57,7 @@ def _advance_days(root: Path, runtime_root: Path, days: int) -> str:
 
 def test_production_runtime_uses_living_world_planner(repo_copy: Path) -> None:
     runtime = ProductionSwordRuntime(repo_copy, runtime_root=repo_copy.parent / "runtime-production")
+    assert isinstance(runtime.planner, CausalLivingWorldSwordPlanner)
     assert isinstance(runtime.planner, LivingWorldSwordPlanner)
     assert runtime.planner.PLAYER_ACTOR == runtime.store.read_json("state/meta.json")["player_id"]
 
@@ -114,6 +116,53 @@ def test_player_commanded_autonomous_battle_requires_handoff(repo_copy: Path) ->
             opponent_state="zhao",
             seed_material="test-high-salience",
         )
+
+
+def test_autonomous_battle_provenance_is_bounded_and_explicit(repo_copy: Path) -> None:
+    planner = CausalLivingWorldSwordPlanner(repo_copy)
+    planner.PLAYER_ACTOR = planner.read("state/meta.json")["player_id"]
+    planner._reset()
+    at = str(planner.read("state/runtime.json")["world_time"])
+    event = {
+        "event_id": "event.test.provenance",
+        "kind": "interstate_battle",
+        "at": at,
+        "theater_ref": "theater_test",
+        "battlefield_ref": "loc_test_field",
+        "attacker_state": "qin",
+        "defender_state": "zhao",
+        "attacker_formation_ref": "formation_qin_test",
+        "defender_formation_ref": "formation_zhao_test",
+        "winner_state": "qin",
+        "losses": {},
+    }
+    planner._record_interstate_battle_memory(event, at)
+    assert event["place_refs"] == ["loc_test_field"]
+    assert event["causal_refs"] == ["theater_test"]
+    assert event["affected_owner_refs"] == [
+        "formation_qin_test",
+        "formation_zhao_test",
+        "state_qin",
+        "state_zhao",
+    ]
+    assert event["actor_refs"] == []
+    assert event["material_consequence_refs"] == []
+    assert event["provenance"]["kind"] == "autonomous_runtime_resolution"
+
+
+def test_house_review_does_not_invent_unverified_exact_training(repo_copy: Path) -> None:
+    planner = CausalLivingWorldSwordPlanner(repo_copy)
+    planner.PLAYER_ACTOR = planner.read("state/meta.json")["player_id"]
+    planner._reset()
+    at = str(planner.read("state/runtime.json")["world_time"])
+    planner._autonomy_house({"owner_ref": "house_tang"}, 1, at)
+    # Tang family activity contracts explicitly say planned opportunity is not
+    # automatic progress. Until Sword has a verified House activity ledger and
+    # one owned progression cursor, a House review must not award exact skills.
+    assert "state/char/tang-zhu.json" not in planner._writes
+    assert "state/char/tang-ling.json" not in planner._writes
+    assert "state/char/tang-kai.json" not in planner._writes
+    assert "state/player.json" not in planner._writes
 
 
 def test_skill_training_has_absolute_progression_bound(repo_copy: Path) -> None:
