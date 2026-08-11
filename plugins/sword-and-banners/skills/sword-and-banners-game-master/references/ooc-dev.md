@@ -43,9 +43,11 @@ When changing the runtime, protect:
 - server-owned contested outcomes;
 - player authority validation;
 - ownership and conservation;
+- one writable progression cursor or settlement owner for each elapsed development period;
+- exact/aggregate identity conservation when materialized people are represented inside aggregate personnel or population pools;
 - WAL/receipt idempotency;
 - exact preview attestation for new writes;
-- no stochastic preview probing;
+- no stochastic or hidden-future preview probing;
 - fail-closed remote durability;
 - bounded player-visible reads;
 - knowledge separation;
@@ -54,11 +56,27 @@ When changing the runtime, protect:
 - high-salience wake boundaries before autonomous resolution crosses protected player decisions;
 - bounded non-authoritative operational memory that never replaces exact campaign owners.
 
+A materialized person who originates from an aggregate pool must consume or reclassify an existing conserved slot. A later cohort transfer, graduation, recruitment, promotion, casualty, or demobilization must not count the exact identity and the anonymous slot as two different people. If an exact and aggregate representation overlap, synchronize them within the same causal settlement rather than granting duplicate headcount, progression, or consequences.
+
 Do not weaken an invariant merely to make an integration test easier.
 
-## Testing and release gate
+## Testing strategy
 
-After meaningful runtime/game/service changes, run the repository's Gold production gate rather than a cherry-picked happy-path test.
+Separate fast regression feedback from expensive release verification.
+
+### Automatic smoke CI
+
+`.github/workflows/audit.yml` intentionally runs only a small path-filtered smoke gate on routine pushes to `main` and pull requests that change runtime, game, tools, tests, dependency/config, or workflow files.
+
+The automatic smoke gate should stay fast and high-signal. It checks structural production integrity and a focused set of runtime/service/living-world regressions. Skill-only, documentation-only, archive-only, and gameplay `state/**` commits do not need to burn a full CI run.
+
+Do not expand routine CI back into the complete Gold suite merely because another test exists. Add a test to automatic smoke only when failure of that invariant should block ordinary source integration quickly and the test is cheap enough to run routinely.
+
+### Full Gold release gate
+
+The complete production gate remains `python tools/run_gold_suite.py` and is available deliberately through `workflow_dispatch` or a suitable local/release environment.
+
+Run full Gold for major runtime/game releases, substantial causal or transaction changes, pre-deployment hardening, explicit Gold certification, or when a failure class requires broad regression confidence. Do not run the 1,000-transaction soaks and every long-horizon test automatically on every commit.
 
 Gold should verify, as applicable:
 - production audit;
@@ -71,15 +89,28 @@ Gold should verify, as applicable:
 - long-horizon behavior;
 - warfare and siege rules;
 - living-world intelligence and wake boundaries;
-- mandatory soak.
+- current-campaign deterministic replay;
+- mandatory persistence soak.
 
 Treat a failing gate as evidence to diagnose, not a nuisance to bypass. If a gate itself is stale, modernize it rather than preserving obsolete duplicate documentation or deployment authorities merely to satisfy a path assertion.
 
-Run mutating tests, acceptance scenarios, soak tests, migration rehearsals, and destructive diagnostics only on disposable repository/campaign copies. Never point them at the authoritative live campaign root. Tests against an evolving real-campaign snapshot should derive mutable facts from that snapshot rather than hard-coding one revision, timestamp, readiness value, roster, or other naturally changing fact unless that value is an intentional immutable campaign premise.
+## Regression design
+
+Prefer state-independent unit/regression fixtures for invariant logic. A regression for cursor ownership, event attribution, payload legality, schema shape, scoring, or conservation should not normally depend on today's campaign revision, current date, a particular current roster member, or a formation that may later move or disappear.
+
+Keep current-campaign integration tests separately when the evolving snapshot itself is what must be tested. Those tests should derive mutable facts from the snapshot rather than hard-code one revision, timestamp, readiness value, roster, or other naturally changing fact unless that value is an intentional immutable campaign premise.
+
+Run mutating tests, acceptance scenarios, soak tests, migration rehearsals, and destructive diagnostics only on disposable repository/campaign copies. Never point them at the authoritative live campaign root.
 
 For changes that alter autonomous scheduling, progression, formations, House or institution settlement, social propagation, economy, family, or another cross-system causal path, synthetic fixtures are not sufficient by themselves. Add or run a deterministic replay on at least two independent disposable copies of the current real campaign snapshot for a meaningful horizon. Require exact equality of the resulting authoritative state, equal revision/time advancement, no unexplained cursor jumps, no unowned terminal consequences, and no mutation of the source campaign. Use a longer replay when the changed hosts wake less frequently than the default horizon.
 
-A CI failure caused by runner infrastructure, billing, quota, or another condition that prevents tests from starting is not a passing gate and is not evidence that source failed. Diagnose it separately, preserve the exact candidate head, and do not promote that head as Gold until the required suite actually runs successfully.
+A CI failure caused by runner infrastructure, billing, quota, or another condition that prevents tests from starting is not a source failure and is not a passing test. Record it separately. Routine development may continue under the repository's smoke/manual-Gold policy, but never describe an unexecuted full Gold suite as passed.
+
+## Schema and reducer parity
+
+When a reducer starts writing a new persistent structure, register and test that structure in the appropriate canonical schema/template authority in the same change whenever practical.
+
+Do not rely on permissive `additionalProperties` as a substitute for documenting important durable structures forever. Promote fields to explicit schema contracts when their type or shape becomes mechanically meaningful, especially histories, cursors, exact/aggregate representation metadata, wake records, operational memory, and transaction provenance.
 
 ## Skill changes
 
@@ -128,7 +159,8 @@ Never force-push campaign history as a routine release strategy.
 Do not call OOC DEV work complete until the relevant parts are done:
 - source implementation committed;
 - references/docs aligned;
-- tests/gates green;
+- targeted regressions and automatic smoke green when available;
+- full Gold green when claiming a Gold/release-certified build;
 - Skill packaged and validated if modified;
 - deployment configuration prepared;
 - remaining user-only secret/UI steps stated explicitly;
