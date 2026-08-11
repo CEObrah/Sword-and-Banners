@@ -34,6 +34,8 @@ Kinship can create a **claim or eligibility input**, not an automatic transfer. 
 
 ## NPC autonomy and time
 
+**Runtime parity note:** Exact saved life-stage transitions, due pregnancies/births, death, widowhood, and succession settlement are live. Autonomous generation of new NPC courtship/proposals/marriages is currently descriptive/deferred and must not be narrated as executed state unless a real `family_event` transaction created it.
+
 NPCs can court, propose, marry, separate, adopt, become guardians, have children, become widowed and remarry offscreen when saved relationships/goals, law/custom, resources, health, location, opportunity, elapsed time and deterministic process rules support it. No marriage/child/succession event exists merely to make the world dramatic. Aggregate populations may batch only while equivalent; named/material threshold crossings wake exact state. Use existing life-course/House/institution clocks, never a duplicate family-only global clock.
 
 ## Knowledge and reputation

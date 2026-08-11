@@ -1066,11 +1066,18 @@ class RepositoryCommandPlanner:
             self._release_commander_index(person_ref,str(formation_ref))
         # Family records are exact authority: death causes widowhood and succession review.
         family_index_path="state/family/index.json"; fidx=_deepcopy(self.read(family_index_path)); source_refs=[]
-        for uid,up in list(fidx.get("unions",{}).items()):
+        # Family retrieval is routed through the exact person's derived index.
+        # Death never scans every union or succession in the world.
+        person_family=fidx.get("person_index",{}).get(person_ref,{})
+        for uid in list(person_family.get("unions",[])):
+            up=fidx.get("unions",{}).get(str(uid))
+            if not up: continue
             union=_deepcopy(self.read(up))
             if person_ref in union.get("participants",[]) and union.get("status")=="married":
                 union["status"]="widowed"; union["widowed_at"]=at; self.put(up,union); source_refs.append(up)
-        for sid,sp in list(fidx.get("successions",{}).items()):
+        for sid in list(person_family.get("successions",[])):
+            sp=fidx.get("successions",{}).get(str(sid))
+            if not sp: continue
             succession=_deepcopy(self.read(sp))
             if str(succession.get("current_holder_id",""))!=person_ref:
                 continue
@@ -1119,7 +1126,7 @@ class RepositoryCommandPlanner:
         if child_ref in owners:
             preg["active"]=False; preg["resolved_at"]=at; preg["child_ref"]=child_ref; mother["pregnancy_state"]=preg; self.put(mother_path,mother); return child_ref
         loc=self._person_location(mother); child_path=f"state/char/{child_ref.replace('char_','').replace('_','-')}.json"; birth_date=f"{due.bce_year}-BCE-{due.month:02d}-{due.day:02d}"
-        child={"schema":"sab_character","owner_id":child_ref,"owner_type":"character","name":"Child "+seed[:6].upper(),"birth_date":birth_date,"body":{"adult_height_cm":160+int(seed[16:20],16)%18,"growth_end_age":18,"current_weight_grams":3000+int(seed[20:24],16)%900,"frame":"infant","growth_profile_id":"human_height_to_18"},"appearance":40+int(seed[24:28],16)%61,"attributes":{},"skills":{},"aptitude":{"physical_learning":100,"technical_learning":100,"tactical_learning":100,"academic_learning":100,"social_learning":100},"development_state":{"completed_reviews":0,"maintenance_credit":0,"training_credit":0},"health_status":"healthy","life_status":"active","current_location":loc,"family":mother.get("family")}; self.put(child_path,child); self._register_owner(child_ref,child_path); self._ensure_person_life_host(child_ref,due)
+        child={"schema":"sab_character","owner_id":child_ref,"owner_type":"character","name":"Child "+seed[:6].upper(),"birth_date":birth_date,"body":{"adult_height_cm":160+int(seed[16:20],16)%18,"growth_end_age":18,"current_weight_kg":3.0+(int(seed[20:24],16)%9)/10.0,"frame":"infant","growth_profile_id":"human_height_to_18"},"appearance":40+int(seed[24:28],16)%61,"attributes":{},"skills":{},"aptitude":{"physical_learning":100,"technical_learning":100,"tactical_learning":100,"academic_learning":100,"social_learning":100},"development_state":{"completed_reviews":0,"maintenance_credit":0,"training_credit":0},"health_status":"healthy","life_status":"active","current_location":loc,"family":mother.get("family")}; self.put(child_path,child); self._register_owner(child_ref,child_path); self._ensure_person_life_host(child_ref,due)
         parentage_id=f"parentage.{child_ref.replace('char_','')}.birth_parents"; parpath=f"state/family/parentage/{parentage_id}.json"; parentage={"schema":"family-parentage.v1","parentage_id":parentage_id,"child_id":child_ref,"authority":True,"parent_links":[{"parent_id":mother_ref,"kind":"biological"},{"parent_id":father_ref,"kind":"biological"}],"guardian_links":[]}; self.put(parpath,parentage); idx.setdefault("parentage",{})[parentage_id]=parpath
         def add_pi(ref: str,bucket: str,value: str) -> None:
             values=idx.setdefault("person_index",{}).setdefault(ref,{}).setdefault(bucket,[])
@@ -1138,6 +1145,140 @@ class RepositoryCommandPlanner:
                 hp=self.owner_path(house_ref); house=_deepcopy(self.read(hp)); cohort=house.setdefault("lineage_cohort",{}); cohort["children"]=int(cohort.get("children",0))+1; house.setdefault("family_events",[]).append({"kind":"birth","at":str(due),"subjects":[mother_ref,father_ref,child_ref]}); house["family_events"]=house["family_events"][-32:]; self.put(hp,house)
             except (KeyError,ValueError): pass
         hist=_deepcopy(self.read("state/history/events/index.json")); hist.setdefault("events",[]).append({"event_id":"birth_"+seed[:16],"kind":"named_person_birth","at":str(due),"settled_at":at,"person_ref":child_ref,"mother_ref":mother_ref,"father_ref":father_ref}); self.put("state/history/events/index.json",hist); return child_ref
+
+    def _settle_person_family_life_stage(self, person_ref: str, person: Dict[str, Any], review: CampaignTime) -> None:
+        """Settle exact household dependency/majority from routed family authority only.
+
+        This deliberately does not invent courtship, marriage, or parenthood intent.
+        It closes life-stage transitions that are already implied by exact parentage,
+        household residence, and elapsed time.
+        """
+        idxp = "state/family/index.json"
+        idx = _deepcopy(self.read(idxp))
+        pi = idx.setdefault("person_index", {}).setdefault(person_ref, {})
+        age = age_years(person, review)
+        previous = str(person.get("family_life_stage", ""))
+        location = self._person_location(person)
+        changed_index = False
+        touched_households: list[str] = []
+
+        def add_pi(bucket: str, value: str) -> None:
+            nonlocal changed_index
+            values = pi.setdefault(bucket, [])
+            if value not in values:
+                values.append(value)
+                changed_index = True
+
+        def emit(event_type: str, sources: list[str], *, history_kind: str | None = None) -> None:
+            nonlocal changed_index
+            eid = "family.life." + hashlib.sha256((person_ref + "|" + event_type + "|" + str(review)).encode()).hexdigest()[:16]
+            if eid not in idx.setdefault("events", {}):
+                ep = f"state/family/events/{eid}.json"
+                self.put(ep, {
+                    "schema": "family-event.v1",
+                    "event_id": eid,
+                    "event_type": event_type,
+                    "occurred_at": str(review),
+                    "authority": True,
+                    "subject_refs": [person_ref],
+                    "source_refs": sources,
+                })
+                idx["events"][eid] = ep
+                idx.setdefault("counts", {})["events"] = len(idx["events"])
+                add_pi("events", eid)
+                changed_index = True
+                if history_kind:
+                    hist = _deepcopy(self.read("state/history/events/index.json"))
+                    hist.setdefault("events", []).append({
+                        "event_id": "history_" + eid.replace("family.life.", ""),
+                        "kind": history_kind,
+                        "at": str(review),
+                        "person_ref": person_ref,
+                        "age": age,
+                        "family_event_ref": ep,
+                    })
+                    self.put("state/history/events/index.json", hist)
+
+        # A minor with exact biological parentage may be attached only to a
+        # household already shared by the saved parents and only when residence
+        # is physically compatible. This repairs sparse migrated family routing
+        # without inventing parentage or a new household.
+        if age < 18:
+            household_ids = [str(x) for x in pi.get("households", [])]
+            if not household_ids:
+                parent_refs: list[str] = []
+                for par_id in pi.get("parentage", []):
+                    par_path = idx.get("parentage", {}).get(str(par_id))
+                    if not par_path:
+                        continue
+                    par = self.read(par_path)
+                    if str(par.get("child_id", "")) != person_ref:
+                        continue
+                    parent_refs.extend(str(x.get("parent_id")) for x in par.get("parent_links", []) if x.get("parent_id"))
+                parent_households: list[set[str]] = []
+                for pref in sorted(set(parent_refs)):
+                    vals = {str(x) for x in idx.get("person_index", {}).get(pref, {}).get("households", [])}
+                    if vals:
+                        parent_households.append(vals)
+                shared = set.intersection(*parent_households) if parent_households else set()
+                for hid in sorted(shared):
+                    hpath = idx.get("households", {}).get(hid)
+                    if not hpath:
+                        continue
+                    household = _deepcopy(self.read(hpath))
+                    residence = household.get("residence_ref")
+                    if location and residence and str(location) != str(residence):
+                        continue
+                    deps = household.setdefault("dependent_refs", [])
+                    if person_ref not in deps:
+                        deps.append(person_ref)
+                        self.put(hpath, household)
+                        touched_households.append(hpath)
+                    add_pi("households", hid)
+                    household_ids.append(hid)
+                    break
+            else:
+                for hid in household_ids:
+                    hpath = idx.get("households", {}).get(hid)
+                    if not hpath:
+                        continue
+                    household = _deepcopy(self.read(hpath))
+                    if person_ref not in household.setdefault("dependent_refs", []):
+                        residence = household.get("residence_ref")
+                        if not location or not residence or str(location) == str(residence):
+                            household["dependent_refs"].append(person_ref)
+                            self.put(hpath, household)
+                            touched_households.append(hpath)
+            person["family_life_stage"] = "child"
+            if touched_households and previous != "child":
+                emit("dependent_household_registered", touched_households)
+        else:
+            transitioned = previous == "child" or not previous
+            for hid in list(pi.get("households", [])):
+                hpath = idx.get("households", {}).get(str(hid))
+                if not hpath:
+                    continue
+                household = _deepcopy(self.read(hpath))
+                deps = household.setdefault("dependent_refs", [])
+                members = household.setdefault("member_refs", [])
+                changed = False
+                if person_ref in deps:
+                    deps[:] = [x for x in deps if str(x) != person_ref]
+                    changed = True
+                residence = household.get("residence_ref")
+                if person_ref not in members and (not location or not residence or str(location) == str(residence)):
+                    members.append(person_ref)
+                    changed = True
+                if changed:
+                    self.put(hpath, household)
+                    touched_households.append(hpath)
+            person["family_life_stage"] = "elder" if age >= 60 else "adult"
+            if transitioned:
+                emit("dependent_came_of_age", touched_households, history_kind="named_person_majority")
+
+        if changed_index:
+            idx.setdefault("counts", {})["events"] = len(idx.get("events", {}))
+            self.put(idxp, idx)
 
     def _validate_command_semantics(self, command: CommandEnvelope, payload: Mapping[str, Any]) -> None:
         # Chronology is server-owned. Requests bind to the exact world instant
@@ -1385,6 +1526,7 @@ class RepositoryCommandPlanner:
             if review>CampaignTime.parse(at): break
             age=age_years(person,review); person["life_course_age_index"]=age; person.setdefault("runtime",{})["last_life_course_review_at"]=str(review); person["runtime"]["completed_life_course_reviews"]=int(person["runtime"].get("completed_life_course_reviews",0))+1; reviews+=1
             self._settle_due_pregnancy(person_ref,person_path,person,str(review))
+            self._settle_person_family_life_stage(person_ref, person, review)
             # Standing activity contracts are evidence of opportunity, but explicit
             # "not automatic progress" clauses remain binding. The player never
             # receives autonomous training from a time skip.

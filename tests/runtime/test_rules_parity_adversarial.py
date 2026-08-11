@@ -146,6 +146,7 @@ def test_fifty_year_world_produces_exact_human_and_interstate_history(campaign):
     history=json.load(open(campaign/'state/history/events/index.json'))['events']
     kinds=Counter(str(e.get('kind')) for e in history)
     assert kinds['named_person_death'] >= 1
+    assert kinds['named_person_majority'] >= 1
     assert kinds['interstate_battle'] >= 1
     assert kinds['territorial_control_change'] >= 1
     family=json.load(open(campaign/'state/family/index.json'))
