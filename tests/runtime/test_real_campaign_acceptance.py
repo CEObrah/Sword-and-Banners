@@ -6,7 +6,7 @@ def test_personal_gameplay_and_exact_retail(campaign):
     execute(campaign,'scene_consequence',{'summary':'Wei accepts a Qin officer briefing.'})
     execute(campaign,'individual_training',{'focus':'Formation Command','hours':4})
     execute(campaign,'health_injury',{'injury':'training bruise','fatigue':5})
-    execute(campaign,'health_recovery',{'health':'healthy','fatigue_recovery':6})
+    execute(campaign,'health_recovery',{'health':'healthy','fatigue_recovery':6,'hours':24})
     execute(campaign,'relationship_change',{'target_ref':'char_ouki','kind':'trust','delta':2})
     execute(campaign,'travel',{'destination_ref':'loc_kanyou'})
     execute(campaign,'market_purchase',{'item_key':'common_sword','quantity':1})
@@ -20,7 +20,7 @@ def test_personal_gameplay_and_exact_retail(campaign):
 def test_hidden_information_boundary(campaign):
     execute_internal(campaign,'information_create',{'information_ref':'info_secret_accept','claim':'Zhao covert agent observed','confidence':'0.8','knowers':['char_riboku']})
     claim=json.load(open(campaign/'state/information/info_secret_accept.json')); assert 'char_tang_wei' not in claim['knowers']
-    execute_internal(campaign,'information_deliver',{'information_ref':'info_secret_accept','target_ref':'char_tang_wei'})
+    execute_internal(campaign,'information_deliver',{'information_ref':'info_secret_accept','source_ref':'char_riboku','target_ref':'char_tang_wei'})
     claim=json.load(open(campaign/'state/information/info_secret_accept.json')); assert 'char_tang_wei' in claim['knowers']
 
 def test_sword_manor_and_champions(campaign):
