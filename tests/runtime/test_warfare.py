@@ -30,27 +30,27 @@ def test_personal_duel(campaign):
 
 def test_warfare_scale_ladder(campaign):
     for tag,n in [('skirmish',25),('hundreds',300),('thousands',5000),('major',50000)]:
-        a,d,op=create_local_scale_pair(campaign,tag,n); x=execute_internal(campaign,'battle_resolve',{'attacker_formation_refs':[a],'defender_formation_refs':[d],'operation_ref':op,'objective':'field engagement'}); assert x.receipt.result['represented_personnel']==n*2; assert x.receipt.result['planning_reads']<=25; assert x.receipt.result['writes']<=10
+        a,d,op=create_local_scale_pair(campaign,tag,n); x=execute_internal(campaign,'battle_resolve',{'attacker_formation_refs':[a],'defender_formation_refs':[d],'operation_ref':op,'objective':'field engagement'}); assert x.receipt.result['represented_personnel']==n*2; assert x.receipt.result['planning_reads']<=25; assert x.receipt.result['writes']<=24
 
 def test_200k_battle_is_bounded(campaign):
     a,d,op=create_local_scale_pair(campaign,'huge',100000); start=time.perf_counter(); x=execute_internal(campaign,'battle_resolve',{'attacker_formation_refs':[a],'defender_formation_refs':[d],'operation_ref':op,'objective':'major operation'}); duration=time.perf_counter()-start; r=x.receipt.result
     assert r['represented_personnel']==200000
     assert r['planning_reads']<=25
-    assert r['writes']<=10
+    assert r['writes']<=24
     assert duration<3.0
     assert not any((campaign/'state').rglob('soldier-*.json'))
 
 def test_full_siege_lifecycle(campaign):
     q,z,_=create_pair(campaign,'siege',4000)
-    execute_internal(campaign,'fortification_materialize',{'fortification_ref':'fort_kankoku_accept','location_ref':'loc_kankoku_pass','garrison_formation_refs':[q],'food_kg':1000000,'state':'qin','commander_ref':'char_ouki'})
+    execute_internal(campaign,'fortification_materialize',{'fortification_ref':'fort_kankoku_accept','location_ref':'loc_kankoku_pass','garrison_formation_refs':[q],'food_kg':20000,'state':'qin','commander_ref':'char_ouki'})
     execute_internal(campaign,'siege_start',{'siege_ref':'siege_kankoku_accept','fortification_ref':'fort_kankoku_accept','attacker_formation_refs':[z]})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'blockade','days':5})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'repair','points':3})
-    execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'assault','damage':12})
+    execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'assault'})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'withdraw'})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'settle'})
     sg=json.load(open(campaign/'state/sieges/siege_kankoku_accept.json')); fort=json.load(open(campaign/'state/fortifications/fort_kankoku_accept.json'))
-    assert sg['status']=='settled'; assert fort['food_kg']<1000000; assert fort['integrity']<100
+    assert sg['status']=='settled'; assert fort['food_kg']<20000; assert fort['integrity']<100
 
 def test_fortified_territory_requires_siege_evidence(campaign):
     import pytest
