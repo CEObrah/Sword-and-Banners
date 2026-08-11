@@ -1451,6 +1451,13 @@
       "kind": "population_review",
       "priority": 100,
       "target_host": "host_population_zhao"
+    },
+    {
+      "due_at": "244-BCE-03-03T07:22:48+08:00",
+      "event_id": "event_host_interstate_wars_review",
+      "kind": "interstate_review",
+      "priority": 130,
+      "target_host": "host_interstate_wars"
     }
   ],
   "hosts": {
@@ -2056,6 +2063,15 @@
       "recurrence_seconds": 5184000,
       "resolved_through": "245-BCE-12-04T07:22:48+08:00",
       "safe_through": "245-BCE-12-04T07:22:48+08:00"
+    },
+    "host_interstate_wars": {
+      "kind": "interstate",
+      "next_due": "244-BCE-03-03T07:22:48+08:00",
+      "owner_ref": "interstate_warring_states",
+      "quiet_run_count": 0,
+      "recurrence_seconds": 7776000,
+      "resolved_through": "245-BCE-12-04T07:22:48+08:00",
+      "safe_through": "244-BCE-03-03T07:22:47+08:00"
     },
     "host_merc_merc_ashen_wall": {
       "kind": "mercenary",

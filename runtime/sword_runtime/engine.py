@@ -72,7 +72,7 @@ COMMAND_TYPES = frozenset({
     "operation_transition","information_create","information_deliver","institution_project","house_action",
     "state_action","market_purchase","economy_transfer","enlisted_service_pay","fortification_materialize",
     "siege_start","siege_action","territorial_consequence","family_event","repair",
-    "equipment_equip","equipment_unequip","equipment_transfer","equipment_drop","equipment_consume","market_sell",
+    "equipment_equip","equipment_unequip","equipment_transfer","equipment_issue","equipment_return","equipment_drop","equipment_loot","equipment_consume","market_sell",
     "reputation_event","career_event","mercenary_contract","project_resolve"
 })
 
@@ -252,6 +252,54 @@ class RepositoryCommandPlanner:
         idx = _deepcopy(self.read("state/index/owner-index-gold.json"))
         idx.get("owners", {}).pop(owner_id, None)
         self.put("state/index/owner-index-gold.json", idx)
+
+    def _formation_location_index(self) -> Dict[str, Any]:
+        path="state/index/location-formation-index.json"
+        return _deepcopy(self.read_optional(path) or {"schema":"sword-location-formation-index","authority":False,"locations":{},"rule":"Derived routing only. Exact formation documents remain authority."})
+
+    def _index_formation_location(self, formation_ref: str, old_location: Optional[str], new_location: Optional[str]) -> None:
+        idx=self._formation_location_index(); locations=idx.setdefault("locations",{})
+        if old_location:
+            refs=locations.setdefault(str(old_location),[])
+            locations[str(old_location)]=[x for x in refs if str(x)!=str(formation_ref)]
+            if not locations[str(old_location)]: locations.pop(str(old_location),None)
+        if new_location:
+            refs=locations.setdefault(str(new_location),[])
+            if str(formation_ref) not in refs: refs.append(str(formation_ref)); refs.sort()
+        self.put("state/index/location-formation-index.json",idx)
+
+    def _formations_at(self, location_ref: str) -> list[str]:
+        return [str(x) for x in self._formation_location_index().get("locations",{}).get(str(location_ref),[])]
+
+    def _ensure_person_life_host(self, person_ref: str, born_at: Optional[CampaignTime] = None) -> None:
+        """Register one bounded annual causal host for an exact person.
+
+        Births/materializations must enter the same causal scheduler as baseline named
+        people.  This is a direct keyed runtime mutation, never a scan of state/char.
+        """
+        rt = _deepcopy(self.read("state/runtime.json"))
+        host_id = "host_person_" + str(person_ref).replace("char_", "").replace(".", "_").replace("-", "_")
+        if host_id in rt.setdefault("hosts", {}):
+            return
+        current = born_at or CampaignTime.parse(str(rt["world_time"]))
+        due = current.add_seconds(31536000)
+        rt["hosts"][host_id] = {
+            "kind": "person",
+            "owner_ref": str(person_ref),
+            "recurrence_seconds": 31536000,
+            "next_due": str(due),
+            "resolved_through": str(current),
+            "safe_through": str(due.add_seconds(-1)),
+            "quiet_run_count": 0,
+        }
+        rt.setdefault("events", []).append({
+            "event_id": f"event_{host_id}_review",
+            "kind": "person_life_review",
+            "priority": 95,
+            "target_host": host_id,
+            "due_at": str(due),
+        })
+        self.put("state/runtime.json", rt)
 
     def _actor_authority(self, actor_ref: str) -> Mapping[str, Any]:
         ref = f"authority_{actor_ref}"
@@ -779,6 +827,72 @@ class RepositoryCommandPlanner:
                 if nc<best.get(nxt,10**18): best[nxt]=nc; heapq.heappush(queue,(nc,nxt))
         raise ValueError(f"no lawful messenger route between {origin} and {destination}")
 
+    def _formation_route_next(self, origin: str, destination: str) -> tuple[str, int]:
+        """Return the next formation-capable route hop and its travel hours."""
+        if origin==destination: return destination,0
+        import heapq
+        graph: Dict[str,list[tuple[int,str]]]={}
+        for route in self.read("game/data/world/routes.json").get("routes",[]):
+            if "formation" not in {str(x) for x in route.get("modes",[])}: continue
+            a,b=str(route.get("a")),str(route.get("b")); hours=max(1,int(route.get("duration_hours",route.get("hours",24)))); graph.setdefault(a,[]).append((hours,b)); graph.setdefault(b,[]).append((hours,a))
+        queue=[(0,origin)]; best={origin:0}; previous: Dict[str,tuple[str,int]]={}
+        while queue:
+            cost,node=heapq.heappop(queue)
+            if cost!=best.get(node): continue
+            if node==destination: break
+            for hours,nxt in graph.get(node,[]):
+                nc=cost+hours
+                if nc<best.get(nxt,10**18): best[nxt]=nc; previous[nxt]=(node,hours); heapq.heappush(queue,(nc,nxt))
+        if destination not in best: raise ValueError(f"no formation-capable strategic route between {origin} and {destination}")
+        node=destination; chain=[]
+        while node!=origin:
+            prev,hours=previous[node]; chain.append((node,hours)); node=prev
+        chain.reverse(); return chain[0]
+
+    def _autonomy_move_formation_step(self, formation_ref: str, destination: str, at: str) -> Dict[str, Any]:
+        path,formation0=self._load_formation(formation_ref); formation=_deepcopy(formation0); origin=str(formation.get("location_ref")); n=int(formation.get("personnel",0))
+        if n<=0: return {"status":"destroyed","location_ref":origin}
+        if origin==destination: return {"status":"arrived","location_ref":origin,"hours":0}
+        nxt,hours=self._formation_route_next(origin,destination); logistics=formation.setdefault("logistics",{}); mounts=sum(max(0,int(v)) for v in formation.get("mounts",{}).values()); food_need=max(1,int(math.ceil(n*1.5*hours/24.0))); fodder_need=max(0,int(math.ceil(mounts*4.0*hours/24.0)))
+        if int(logistics.get("food_kg",0))<food_need or int(logistics.get("fodder_kg",0))<fodder_need:
+            formation["status"]="supply_blocked"; formation["readiness"]=_clamp(int(formation.get("readiness",50))-4); formation["morale"]=_clamp(int(formation.get("morale",50))-2); formation.setdefault("march_history",[]).append({"at":at,"from":origin,"toward":destination,"status":"blocked_by_supply","food_need":food_need,"fodder_need":fodder_need}); formation["march_history"]=formation["march_history"][-24:]; self.put(path,formation); return {"status":"supply_blocked","location_ref":origin,"food_need":food_need,"fodder_need":fodder_need}
+        logistics["food_kg"]=int(logistics.get("food_kg",0))-food_need; logistics["fodder_kg"]=int(logistics.get("fodder_kg",0))-fodder_need; formation["mobilized"]=True; formation["status"]="marching" if nxt!=destination else "deployed"; formation["location_ref"]=nxt; formation["fatigue"]=_clamp(int(formation.get("fatigue",0))+max(1,int(math.ceil(hours/8.0)))); formation["readiness"]=_clamp(int(formation.get("readiness",50))-max(0,int(hours//36))); formation.setdefault("march_history",[]).append({"at":at,"from":origin,"to":nxt,"toward":destination,"hours":hours,"food_kg":food_need,"fodder_kg":fodder_need}); formation["march_history"]=formation["march_history"][-24:]
+        commander_ref=formation.get("commander_ref")
+        if commander_ref:
+            try:
+                cp,commander=self._exact_person(str(commander_ref)); ploc=self._person_location(commander)
+                if ploc==origin: self._set_person_location(commander,nxt); self.put(cp,commander)
+                else: formation["commander_ref"]=None; formation["status"]="commander_vacant"; self._release_commander_index(str(commander_ref),formation_ref)
+            except ValueError:
+                formation["commander_ref"]=None; formation["status"]="commander_vacant"; self._release_commander_index(str(commander_ref),formation_ref)
+        self.put(path,formation); self._index_formation_location(formation_ref,origin,nxt); return {"status":"arrived" if nxt==destination else "marching","location_ref":nxt,"hours":hours,"food_kg":food_need,"fodder_kg":fodder_need}
+
+    def _autonomy_apply_battle_losses(self, formation_ref: str, loss: int, at: str, *, losing_side: bool, opponent_state: str, seed_material: str) -> Dict[str, Any]:
+        path,formation0=self._load_formation(formation_ref); formation=_deepcopy(formation0); before=max(0,int(formation.get("personnel",0))); loss=max(0,min(before,int(loss))); survivor_comp,dead_comp=self._partition_counts(formation.get("composition",{}),loss,before if before else 1); survivor_eq,lost_eq=self._partition_material(self._equipment_units(formation),loss,before if before else 1); survivor_mounts,lost_mounts=self._partition_material(formation.get("mounts",{}),loss,before if before else 1); formation["personnel"]=before-loss; formation["composition"]=survivor_comp; formation["mounts"]=survivor_mounts; self._set_equipment_units(formation,survivor_eq); formation["fatigue"]=_clamp(int(formation.get("fatigue",0))+18); formation["morale"]=_clamp(int(formation.get("morale",50))-(12 if losing_side else 5)); formation["cohesion"]=_clamp(int(formation.get("cohesion",50))-(8 if losing_side else 3)); formation["status"]="destroyed" if formation["personnel"]<=0 else ("routed" if losing_side else "combat_effective")
+        commander_outcome=None; commander_ref=formation.get("commander_ref")
+        if commander_ref and before>0:
+            try:
+                cp,commander=self._exact_person(str(commander_ref)); frac=loss/max(1,before); roll=int(hashlib.sha256((seed_material+"|commander|"+str(commander_ref)).encode()).hexdigest()[:8],16)%10000/10000.0; death_p=min(.30,frac*(.30 if losing_side else .16)); capture_p=min(.40,frac*.50) if losing_side else 0.0; wound_p=min(.75,.02+frac*1.4)
+                if roll<death_p:
+                    commander_outcome="killed"; self._settle_person_death(str(commander_ref),cp,commander,at,"autonomous interstate battle casualty"); formation["commander_ref"]=None; self._release_commander_index(str(commander_ref),formation_ref)
+                elif roll<death_p+capture_p:
+                    commander_outcome="captured"; commander["custody_state"]={"status":"captured","captured_at":at,"captured_by":f"state_{opponent_state}","cause":"autonomous interstate battle"}; self.put(cp,commander); formation["commander_ref"]=None; self._release_commander_index(str(commander_ref),formation_ref)
+                elif roll<death_p+capture_p+wound_p:
+                    commander_outcome="wounded"; self._set_person_health(commander,"injured"); commander["injury_state"]={"label":"interstate battle wound","severity":"severe" if frac>=.20 else "moderate","inflicted_at":at,"minimum_recovery_hours":72 if frac>=.20 else 24,"recovered_hours":0,"active":True}; self.put(cp,commander); formation["commander_ref"]=None; self._release_commander_index(str(commander_ref),formation_ref)
+                else:
+                    commander_outcome="unharmed"; career=commander.setdefault("career_state",{}); career["merit_total"]=int(career.get("merit_total",0))+(2 if losing_side else 6); commander.setdefault("service_history",[]).append({"at":at,"kind":"interstate_battle","formation_ref":formation_ref,"outcome":"defeat" if losing_side else "victory"}); commander["service_history"]=commander["service_history"][-24:]; self.put(cp,commander)
+            except ValueError:
+                formation["commander_ref"]=None; self._release_commander_index(str(commander_ref),formation_ref)
+        self.put(path,formation); force_ref=str(formation.get("owner_force_ref",""))
+        if force_ref:
+            fp=self.owner_path(force_ref); force=_deepcopy(self.read(fp)); alloc=force.get("allocated_to_formations",{}).get(formation_ref);
+            if isinstance(alloc,dict): alloc["personnel"]=formation["personnel"]
+            elif alloc is not None: force.setdefault("allocated_to_formations",{})[formation_ref]=formation["personnel"]
+            force["headcount"]=max(0,int(force.get("headcount",0))-loss); self.put(fp,force)
+            if force_ref.startswith("force_state_"):
+                state=force_ref.replace("force_state_",""); pp=f"state/population/{state}.json"; pop=_deepcopy(self.read(pp)); pop["strata"]["active_military"]=max(0,int(pop["strata"].get("active_military",0))-loss); pop["population_total"]=max(0,int(pop.get("population_total",0))-loss); self.put(pp,pop)
+        return {"loss":loss,"equipment_units":lost_eq,"mounts":lost_mounts,"composition":dead_comp,"commander_ref":commander_ref,"commander_outcome":commander_outcome}
+
     def _validate_person_location_for_formation(self, person_ref: str, formation: Mapping[str, Any]) -> tuple[str, Dict[str, Any]]:
         path, person = self._exact_person(person_ref)
         floc = str(formation.get("location_ref", ""))
@@ -834,6 +948,59 @@ class RepositoryCommandPlanner:
             eid="family.death."+hashlib.sha256((person_ref+":"+at).encode()).hexdigest()[:12]; ep=f"state/family/events/{eid}.json"; event={"schema":"family-event.v1","event_id":eid,"event_type":"death_family_settlement","occurred_at":at,"authority":True,"subject_refs":[person_ref],"source_refs":source_refs}; self.put(ep,event); fidx.setdefault("events",{})[eid]=ep; fidx.setdefault("counts",{})["events"]=len(fidx["events"]); pi=fidx.setdefault("person_index",{}).setdefault(person_ref,{}); pi.setdefault("events",[]).append(eid); self.put(family_index_path,fidx)
         hist=_deepcopy(self.read("state/history/events/index.json")); event_id="death_"+hashlib.sha256((person_ref+":"+at+":"+reason).encode()).hexdigest()[:16]; hist.setdefault("events",[]).append({"event_id":event_id,"kind":"named_person_death","at":at,"person_ref":person_ref,"reason":reason}); self.put("state/history/events/index.json",hist)
 
+    def _record_reputation_signal(self, subject_ref: str, audience_ref: str, delta: int, dimension: str, source_event_ref: str, at: str, basis: str) -> str:
+        if delta==0: raise ValueError("reputation signal cannot be zero")
+        idxp="state/reputation/index.json"; idx=_deepcopy(self.read(idxp)); slug=lambda x: x.replace(".","-").replace("_","-").replace(":","-"); subject_path=idx.get("subjects",{}).get(subject_ref)
+        if not subject_path:
+            subject_path=f"state/reputation/subjects/{slug(subject_ref)}.json"; subject={"schema":"reputation-subject.v1","subject_id":subject_ref,"subject_type":"person" if subject_ref.startswith("char_") else "organization","as_of":at,"authority":True,"audience_profiles":{},"institutional_status_sources":[],"notes":[]}; self.put(subject_path,subject); idx.setdefault("subjects",{})[subject_ref]=subject_path
+        else: subject=_deepcopy(self.read(subject_path))
+        existing_profile=subject.get("audience_profiles",{}).get(audience_ref); profile_path=existing_profile or f"state/reputation/audiences/{slug(subject_ref)}--{slug(audience_ref)}.json"; profile=_deepcopy(self.read_optional(profile_path) or {"schema":"reputation-audience-profile.v1","subject_id":subject_ref,"audience_id":audience_ref,"as_of":at,"authority":True,"standing":{"overall":0},"dimensions":{},"evidence_count":0,"last_event_refs":[],"memory_class":"normal"}); eid="reputation."+hashlib.sha256((subject_ref+"|"+audience_ref+"|"+source_event_ref+"|"+dimension).encode()).hexdigest()[:16]; ep=f"state/reputation/events/{eid}.json"; new_event=self.read_optional(ep) is None
+        if new_event:
+            profile.setdefault("standing",{})["overall"]=_clamp(int(profile.get("standing",{}).get("overall",0))+delta,-100,100); profile.setdefault("dimensions",{})[dimension]=_clamp(int(profile.get("dimensions",{}).get(dimension,0))+delta,-100,100); self.put(ep,{"schema":"reputation-event.v1","event_id":eid,"subject_id":subject_ref,"event_type":"material_conduct","occurred_at":at,"source_event_ref":source_event_ref,"authority":True,"signals":{dimension:delta},"standing_signals":{"overall":delta},"visibility":{"audience_ref":audience_ref,"basis":basis},"witnesses":[audience_ref],"report_routes":[],"deliveries":{},"status":"settled"}); profile["evidence_count"]=int(profile.get("evidence_count",0))+1; profile.setdefault("last_event_refs",[]).append(eid); profile["last_event_refs"]=profile["last_event_refs"][-16:]; idx["event_count"]=int(idx.get("event_count",0))+1
+        profile["as_of"]=at; self.put(profile_path,profile); subject.setdefault("audience_profiles",{})[audience_ref]=profile_path; subject["as_of"]=at; self.put(subject_path,subject); idx["subject_count"]=len(idx.get("subjects",{})); idx["audience_profile_count"]=int(idx.get("audience_profile_count",0))+(1 if existing_profile is None else 0); self.put(idxp,idx); return eid
+
+    def _award_career_merit(self, person_ref: str, merit: int, evidence_ref: str, at: str) -> Optional[str]:
+        if merit<=0: return None
+        pp,person0=self._exact_person(person_ref,active=False); person=_deepcopy(person0)
+        if str(person.get("life_status",person.get("status","active"))).lower() in {"dead","deceased"}: return None
+        career=person.setdefault("career_state",{"merit_total":0,"qualifications":[],"grade":None,"appointments":[]}); career["merit_total"]=int(career.get("merit_total",0))+int(merit); rid="career."+hashlib.sha256((person_ref+"|"+evidence_ref+"|merit").encode()).hexdigest()[:14]; registry_path="state/career/merit-and-career-history.json"; registry=_deepcopy(self.read(registry_path)); records=registry.setdefault("records",[])
+        if not any(str(r.get("record_id"))==rid for r in records): records.append({"record_id":rid,"person_ref":person_ref,"kind":"merit","at":at,"authority":True,"merit":int(merit),"evidence_ref":evidence_ref})
+        registry.setdefault("runtime",{})["last_settled_at"]=at; self.put(registry_path,registry); self.put(pp,person); return rid
+
+    def _settle_due_pregnancy(self, mother_ref: str, mother_path: str, mother: Dict[str, Any], at: str) -> Optional[str]:
+        preg=mother.get("pregnancy_state")
+        if not isinstance(preg,dict) or not preg.get("active") or not preg.get("due_at"): return None
+        due=CampaignTime.parse(str(preg["due_at"])); review=CampaignTime.parse(at)
+        if review<due: return None
+        father_ref=str(preg.get("father_ref","")); self._exact_person(father_ref)
+        idxp="state/family/index.json"; idx=_deepcopy(self.read(idxp)); union_ref=str(preg.get("union_ref","")); union_path=idx.get("unions",{}).get(union_ref)
+        if not union_path: raise ValueError("saved pregnancy lost its exact union authority")
+        union=_deepcopy(self.read(union_path))
+        if union.get("status")!="married" or mother_ref not in union.get("participants",[]) or father_ref not in union.get("participants",[]): raise ValueError("saved pregnancy no longer has an active parental union")
+        seed=hashlib.sha256((mother_ref+"|"+father_ref+"|"+str(due)).encode()).hexdigest(); child_ref=str(preg.get("child_ref") or ("char_child_"+seed[:16])); owners=self.read("state/index/owner-index-gold.json").get("owners",{})
+        if child_ref in owners:
+            preg["active"]=False; preg["resolved_at"]=at; preg["child_ref"]=child_ref; mother["pregnancy_state"]=preg; self.put(mother_path,mother); return child_ref
+        loc=self._person_location(mother); child_path=f"state/char/{child_ref.replace('char_','').replace('_','-')}.json"; birth_date=f"{due.bce_year}-BCE-{due.month:02d}-{due.day:02d}"
+        child={"schema":"sab_character","owner_id":child_ref,"owner_type":"character","name":"Child "+seed[:6].upper(),"birth_date":birth_date,"body":{"adult_height_cm":160+int(seed[16:20],16)%18,"growth_end_age":18,"current_weight_grams":3000+int(seed[20:24],16)%900,"frame":"infant","growth_profile_id":"human_height_to_18"},"appearance":40+int(seed[24:28],16)%61,"attributes":{},"skills":{},"aptitude":{"physical_learning":100,"technical_learning":100,"tactical_learning":100,"academic_learning":100,"social_learning":100},"development_state":{"completed_reviews":0,"maintenance_credit":0,"training_credit":0},"health_status":"healthy","life_status":"active","current_location":loc,"family":mother.get("family")}; self.put(child_path,child); self._register_owner(child_ref,child_path); self._ensure_person_life_host(child_ref,due)
+        parentage_id=f"parentage.{child_ref.replace('char_','')}.birth_parents"; parpath=f"state/family/parentage/{parentage_id}.json"; parentage={"schema":"family-parentage.v1","parentage_id":parentage_id,"child_id":child_ref,"authority":True,"parent_links":[{"parent_id":mother_ref,"kind":"biological"},{"parent_id":father_ref,"kind":"biological"}],"guardian_links":[]}; self.put(parpath,parentage); idx.setdefault("parentage",{})[parentage_id]=parpath
+        def add_pi(ref: str,bucket: str,value: str) -> None:
+            values=idx.setdefault("person_index",{}).setdefault(ref,{}).setdefault(bucket,[])
+            if value not in values: values.append(value)
+        add_pi(child_ref,"parentage",parentage_id); add_pi(mother_ref,"parentage",parentage_id); add_pi(father_ref,"parentage",parentage_id)
+        hpath=union.get("household_ref")
+        if isinstance(hpath,str):
+            household=_deepcopy(self.read(hpath)); deps=household.setdefault("dependent_refs",[])
+            if child_ref not in deps: deps.append(child_ref)
+            self.put(hpath,household); add_pi(child_ref,"households",str(household.get("household_id")))
+        eid="family.autobirth."+seed[:16]; ep=f"state/family/events/{eid}.json"; event={"schema":"family-event.v1","event_id":eid,"event_type":"birth","occurred_at":str(due),"authority":True,"subject_refs":[mother_ref,father_ref,child_ref],"source_refs":[union_path,parpath]+([hpath] if isinstance(hpath,str) else []),"settled_at":at}; self.put(ep,event); idx.setdefault("events",{})[eid]=ep; idx.setdefault("counts",{})["events"]=len(idx["events"]); idx["counts"]["parentage"]=len(idx.get("parentage",{})); add_pi(mother_ref,"events",eid); add_pi(father_ref,"events",eid); add_pi(child_ref,"events",eid); self.put(idxp,idx)
+        preg["active"]=False; preg["resolved_at"]=at; preg["child_ref"]=child_ref; mother["pregnancy_state"]=preg; self.put(mother_path,mother)
+        house_ref=mother.get("family");
+        if isinstance(house_ref,str):
+            try:
+                hp=self.owner_path(house_ref); house=_deepcopy(self.read(hp)); cohort=house.setdefault("lineage_cohort",{}); cohort["children"]=int(cohort.get("children",0))+1; house.setdefault("family_events",[]).append({"kind":"birth","at":str(due),"subjects":[mother_ref,father_ref,child_ref]}); house["family_events"]=house["family_events"][-32:]; self.put(hp,house)
+            except (KeyError,ValueError): pass
+        hist=_deepcopy(self.read("state/history/events/index.json")); hist.setdefault("events",[]).append({"event_id":"birth_"+seed[:16],"kind":"named_person_birth","at":str(due),"settled_at":at,"person_ref":child_ref,"mother_ref":mother_ref,"father_ref":father_ref}); self.put("state/history/events/index.json",hist); return child_ref
+
     def _validate_command_semantics(self, command: CommandEnvelope, payload: Mapping[str, Any]) -> None:
         # Chronology is server-owned. Requests bind to the exact world instant
         # represented by expected_revision; callers cannot forge future/past events.
@@ -886,7 +1053,7 @@ class RepositoryCommandPlanner:
                 target = CampaignTime.parse(require_text(payload, "target_time", max_length=64)); seconds = now.seconds_until(target)
                 if seconds < 0 or seconds > 100 * 366 * 86400: raise ValueError("advance_time target must be within the next 100 years")
         if t == "relationship_change":
-            require_text(payload, "target_ref"); delta = require_int(payload, "delta", minimum=-20, maximum=20)
+            require_text(payload, "target_ref"); delta = require_int(payload, "delta", minimum=-5, maximum=5)
             if delta == 0: raise ValueError("relationship delta must be non-zero")
             self._exact_person(str(payload.get("source_ref", command.actor_id))); self._exact_person(str(payload["target_ref"]))
             require_text(payload, "kind", allowed={"trust","affection","respect","fear","resentment","loyalty"}, default="trust")
@@ -924,13 +1091,14 @@ class RepositoryCommandPlanner:
             for ref in payload.get("knowers",[]): self._exact_person(str(ref))
         if t == "information_deliver":
             self._exact_person(require_text(payload,"target_ref",default=self.PLAYER_ACTOR)); require_text(payload,"information_ref")
+            if command.actor_id==self.INTERNAL_ACTOR: self._exact_person(require_text(payload,"source_ref"))
         if t == "state_action":
             action=require_text(payload,"action",allowed={"strategic_goal","appointment","enemy_action","record_threat"},default="strategic_goal")
             self._state_key(require_text(payload,"state",default="qin"))
             if action=="appointment": self._exact_person(require_text(payload,"person_ref")); require_text(payload,"office")
             if action in {"enemy_action","record_threat"}: require_int(payload,"severity",minimum=0,maximum=100,default=50); self._state_key(require_text(payload,"source_state",default="zhao"))
         if t == "fortification_materialize":
-            require_int(payload,"integrity",minimum=1,maximum=100,default=100); require_int(payload,"food_kg",minimum=0,maximum=1_000_000_000,default=100000); require_int(payload,"fodder_kg",minimum=0,maximum=1_000_000_000,default=0)
+            require_int(payload,"integrity",minimum=1,maximum=100,default=100); require_int(payload,"food_kg",minimum=0,maximum=1_000_000_000,default=0); require_int(payload,"fodder_kg",minimum=0,maximum=1_000_000_000,default=0)
             self._location_record(require_text(payload,"location_ref")); require_list(payload,"garrison_formation_refs",minimum=1,maximum=64)
             if payload.get("commander_ref"): self._exact_person(str(payload["commander_ref"]))
         if t == "siege_start":
@@ -952,9 +1120,10 @@ class RepositoryCommandPlanner:
                 self._exact_person(require_text(payload,"mother_ref")); self._exact_person(require_text(payload,"father_ref"))
                 if kind=="birth": require_text(payload,"child_ref")
             elif kind in {"death","widowhood"}: self._exact_person(require_text(payload,"person_ref"),active=(kind=="death"))
-        if t in {"equipment_equip","equipment_unequip","equipment_transfer","equipment_drop","equipment_consume"}:
-            item_id=require_text(payload,"item_key"); self._item_record(item_id); require_int(payload,"quantity",minimum=1,maximum=10_000,default=1)
-            if t=="equipment_transfer": self._exact_person(require_text(payload,"target_ref"))
+        if t in {"equipment_equip","equipment_unequip","equipment_transfer","equipment_issue","equipment_return","equipment_drop","equipment_loot","equipment_consume"}:
+            item_id=require_text(payload,"item_key"); item=self._item_record(item_id); require_int(payload,"quantity",minimum=1,maximum=10_000,default=1)
+            if t in {"equipment_transfer","equipment_issue","equipment_return"}: self._exact_person(require_text(payload,"target_ref"))
+            if t=="equipment_consume" and str(item.get("economic_lifecycle","")) not in {"consumable_or_none","consumable"}: raise ValueError("equipment_consume requires an actual consumable item")
         if t == "reputation_event":
             self._exact_person(require_text(payload,"subject_ref")); delta=require_int(payload,"delta",minimum=-20,maximum=20)
             if delta==0: raise ValueError("reputation delta must be non-zero")
@@ -972,7 +1141,7 @@ class RepositoryCommandPlanner:
             merc_ref=require_text(payload,"mercenary_ref"); _,merc=self.owner(merc_ref)
             if "mercenary" not in str(merc.get("schema","")): raise ValueError("mercenary_ref is not a mercenary company")
             action=require_text(payload,"action",allowed={"offer","accept","pay","deploy","breach","renew","complete"})
-            if action in {"offer","accept","pay","renew"}: require_int(payload,"amount_silver",minimum=1,maximum=100_000_000)
+            if action in {"offer","pay","renew"}: require_int(payload,"amount_silver",minimum=1,maximum=100_000_000)
             if action=="offer": require_int(payload,"term_days",minimum=1,maximum=3650,default=90)
             else: require_text(payload,"contract_ref")
             if action=="deploy": self._location_record(require_text(payload,"location_ref"))
@@ -1043,6 +1212,8 @@ class RepositoryCommandPlanner:
                 self._autonomy_faction(host, occurrences, target_text)
             elif kind == "mercenary":
                 self._autonomy_mercenary(host, occurrences, target_text)
+            elif kind == "interstate":
+                self._autonomy_interstate(host, occurrences, target_text)
             elif kind == "person":
                 self._autonomy_person(host, occurrences, target_text)
             elif kind == "sword_manor":
@@ -1075,6 +1246,7 @@ class RepositoryCommandPlanner:
             review=first_due.add_seconds(i*recurrence)
             if review>CampaignTime.parse(at): break
             age=age_years(person,review); person["life_course_age_index"]=age; person.setdefault("runtime",{})["last_life_course_review_at"]=str(review); person["runtime"]["completed_life_course_reviews"]=int(person["runtime"].get("completed_life_course_reviews",0))+1; reviews+=1
+            self._settle_due_pregnancy(person_ref,person_path,person,str(review))
             # Standing activity contracts are evidence of opportunity, but explicit
             # "not automatic progress" clauses remain binding. The player never
             # receives autonomous training from a time skip.
@@ -1156,9 +1328,10 @@ class RepositoryCommandPlanner:
                 if max_threat>=35:
                     formation["mobilized"]=True; formation["status"]="mobilized"
                 depot_p=f"state/depots/{state}.json"; depot=_deepcopy(self.read(depot_p))
-                desired_food=int(formation["personnel"])*5; missing=max(0,desired_food-int(formation.get("logistics",{}).get("food_kg",0))); grain=min(missing,int(depot["stocks"].get("grain_kg",0)))
-                if grain:
-                    depot["stocks"]["grain_kg"]-=grain; formation["logistics"]["food_kg"]+=grain; self.put(depot_p,depot)
+                if str(formation.get("location_ref"))==str(depot.get("location_ref")):
+                    desired_food=int(formation["personnel"])*5; missing=max(0,desired_food-int(formation.get("logistics",{}).get("food_kg",0))); grain=min(missing,int(depot["stocks"].get("grain_kg",0)))
+                    if grain:
+                        depot["stocks"]["grain_kg"]-=grain; formation["logistics"]["food_kg"]+=grain; self.put(depot_p,depot)
                 self.put(existing,formation)
                 continue
             n=target_n; source_loc=str(force.get("source_location_ref") or self.read(f"state/depots/{state}.json").get("location_ref")); local=self._force_location_pool(force,source_loc)
@@ -1194,8 +1367,11 @@ class RepositoryCommandPlanner:
                 else: formation["logistics"]["fodder_kg"]=take
             self.put(depot_p,depot)
             if formation.get("commander_ref"):
-                cp,commander=self._validate_person_location_for_formation(str(formation["commander_ref"]),formation); self.put(cp,commander); self._assign_commander_index(str(formation["commander_ref"]),ref)
-            self.put(fpath,formation); self._register_owner(ref,fpath)
+                try:
+                    cp,commander=self._validate_person_location_for_formation(str(formation["commander_ref"]),formation); self.put(cp,commander); self._assign_commander_index(str(formation["commander_ref"]),ref)
+                except (ValueError,KeyError):
+                    formation["commander_ref"]=None; formation["status"]="commander_vacant"
+            self.put(fpath,formation); self._register_owner(ref,fpath); self._index_formation_location(ref,None,source_loc)
         self.put(force_path,force)
         # A material known threat creates one bounded strategic response operation, not a global war tick.
         if max_threat>=35:
@@ -1206,6 +1382,156 @@ class RepositoryCommandPlanner:
                 refs=[f"formation_{state}_{bp['key']}" for bp in blueprints[:2] if self.read("state/index/owner-index-gold.json").get("owners",{}).get(f"formation_{state}_{bp['key']}")]
                 op={"schema":"sword-operation","owner_id":op_ref,"operation_ref":op_ref,"objective":"respond to known border threat","status":"active","formation_refs":refs,"location_ref":self.read(f"state/depots/{state}.json").get("location_ref"),"created_at":at,"autonomous":True}
                 self.put(op_path,op); op_idx.setdefault("operations",{})[op_ref]=op_path; self.put("state/operations/index.json",op_idx); self._register_owner(op_ref,op_path)
+        self._autonomy_state_border_campaign(state,state_doc,blueprints,occurrences,at)
+        self.put(sp,state_doc)
+
+    def _autonomy_state_border_campaign(self, state: str, state_doc: Dict[str, Any], blueprints: list[Mapping[str, Any]], occurrences: int, at: str) -> None:
+        if occurrences<=0: return
+        self_ref=f"state_{state}"; territory_path="state/territory/control.json"; territory=_deepcopy(self.read(territory_path)); sites=territory.get("sites",{}); routes=self.read("game/data/world/routes.json").get("routes",[]); diplomacy=state_doc.setdefault("diplomacy",{}); now=CampaignTime.parse(at)
+        border_candidates: Dict[str,list[tuple[str,str,str]]] = {}
+        for route in routes:
+            if "formation" not in route.get("modes",[]): continue
+            a=str(route.get("a")); b=str(route.get("b")); sa=sites.get(a); sb=sites.get(b)
+            if not isinstance(sa,dict) or not isinstance(sb,dict): continue
+            ca=str(sa.get("controller","")); cb=str(sb.get("controller",""))
+            if ca==self_ref and cb.startswith("state_") and cb!=self_ref and not bool(sb.get("fortified",False)) and not b.startswith("loc_tang_manor"):
+                border_candidates.setdefault(cb,[]).append((a,b,str(route.get("ref",""))))
+            if cb==self_ref and ca.startswith("state_") and ca!=self_ref and not bool(sa.get("fortified",False)) and not a.startswith("loc_tang_manor"):
+                border_candidates.setdefault(ca,[]).append((b,a,str(route.get("ref",""))))
+        if not border_candidates: return
+        viable=[]
+        for rival,candidates in sorted(border_candidates.items()):
+            relation=diplomacy.setdefault(rival,{})
+            truce=relation.get("truce_until")
+            if truce and now<CampaignTime.parse(str(truce)): continue
+            tension=_clamp(int(relation.get("tension",0))+min(100,max(1,int(occurrences))*2)); relation["tension"]=tension; relation["last_reviewed_at"]=at
+            if tension>=60: viable.append((tension,rival,candidates))
+        if not viable: return
+        viable.sort(key=lambda x:(-x[0],x[1])); _,rival,candidates=viable[0]; candidates=sorted(candidates,key=lambda x:(hashlib.sha256((state+"|"+rival+"|"+x[1]).encode()).hexdigest(),x[1])); source,target,route_ref=candidates[0]
+        owners=self.read("state/index/owner-index-gold.json").get("owners",{}); formation_ref=None; formation_path=None; formation=None
+        for bp in blueprints:
+            ref=f"formation_{state}_{bp['key']}"; path=owners.get(ref)
+            if not path: continue
+            candidate=_deepcopy(self.read(path))
+            if int(candidate.get("personnel",0))<=0: continue
+            formation_ref=ref; formation_path=str(path); formation=candidate; break
+        if formation is None or formation_path is None or formation_ref is None: return
+        # Unopposed occupation is lawful only when the derived exact-location index
+        # proves there is no surviving hostile formation already at the target.
+        for other_ref in self._formations_at(target):
+            if other_ref==formation_ref: continue
+            try: _,other=self._load_formation(other_ref)
+            except ValueError: continue
+            if int(other.get("personnel",0))>0 and str(other.get("administrative_owner",""))!=self_ref: return
+        origin=str(formation.get("location_ref",""))
+        try: hours=self._route_travel_hours(origin,target,modes=("formation",))
+        except ValueError: return
+        personnel=max(1,int(formation.get("personnel",0))); food=max(1,int(math.ceil(personnel*0.8*max(1,hours)/24.0))); logistics=formation.setdefault("logistics",{})
+        if int(logistics.get("food_kg",0))<food: return
+        logistics["food_kg"]-=food; self._index_formation_location(formation_ref,origin,target); formation["mobilized"]=True; formation["status"]="occupying"; formation["fatigue"]=_clamp(int(formation.get("fatigue",0))+max(1,hours//12)); formation["location_ref"]=target; formation["last_autonomous_campaign_at"]=at
+        commander_ref=formation.get("commander_ref")
+        if commander_ref:
+            try:
+                cp,commander=self._exact_person(str(commander_ref)); self._set_person_location(commander,target); self.put(cp,commander)
+            except ValueError:
+                formation["commander_ref"]=None
+        self.put(formation_path,formation)
+        op_ref="operation_auto_occupation_"+hashlib.sha256((state+"|"+rival+"|"+target+"|"+at).encode()).hexdigest()[:16]; op_path=f"state/operations/{op_ref}.json"; op={"schema":"sword-operation","owner_id":op_ref,"operation_ref":op_ref,"objective":"occupy exposed rival border territory","status":"completed","location_ref":target,"formation_refs":[formation_ref],"created_at":at,"completed_at":at,"autonomous":True,"phase_history":[{"phase":"political_objective","at":at},{"phase":"mobilization","at":at},{"phase":"movement","route_ref":route_ref,"from":origin,"to":target,"travel_hours":hours,"food_consumed_kg":food},{"phase":"occupation","at":at,"basis":"no saved hostile formation or fortification blocked entry"}]}
+        op_idx=_deepcopy(self.read("state/operations/index.json")); self.put(op_path,op); op_idx.setdefault("operations",{})[op_ref]=op_path; self.put("state/operations/index.json",op_idx); self._register_owner(op_ref,op_path)
+        old=str(sites[target].get("controller")); sites[target]["controller"]=self_ref; sites[target]["previous_controller"]=old; sites[target]["changed_at"]=at; sites[target]["change_basis"]="autonomous_occupation_operation"; sites[target]["change_evidence_ref"]=op_ref; self.put(territory_path,territory)
+        hist=_deepcopy(self.read("state/history/events/index.json")); eid="territory_auto_"+hashlib.sha256((op_ref+"|"+target).encode()).hexdigest()[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"territorial_control_change","at":at,"location_ref":target,"from":old,"to":self_ref,"evidence_ref":op_ref,"basis":"autonomous occupation"}); self.put("state/history/events/index.json",hist)
+        truce_until=str(now.add_days(180)); diplomacy.setdefault(rival,{})["tension"]=20; diplomacy[rival]["truce_until"]=truce_until; diplomacy[rival]["last_conflict_ref"]=op_ref; state_doc.setdefault("autonomous_actions",[]).append({"at":at,"posture":"border_occupation","rival":rival,"location_ref":target,"operation_ref":op_ref,"basis":"saved border tension, route, formation, supply and exposed territory"})
+        rival_key=self._state_key(rival); rsp=f"state/states/{rival_key}.json"; rival_doc=_deepcopy(self.read(rsp)); rival_doc.setdefault("known_threats",{})[state]={"severity":80,"observed_at":at,"provenance":op_ref}; rd=rival_doc.setdefault("diplomacy",{}).setdefault(self_ref,{}); rd["tension"]=20; rd["truce_until"]=truce_until; rd["last_conflict_ref"]=op_ref; self.put(rsp,rival_doc)
+
+    def _autonomy_interstate(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
+        """Advance bounded exact interstate theaters through objective -> war -> occupation -> peace.
+
+        The theater registry lists exact states, formations, and one contested strategic
+        site.  No person/faction/force/House directory is scanned.  A long jump may
+        batch many quarterly reviews, but each theater still advances one causal phase
+        per saved review instant and writes exact material-history events.
+        """
+        path=self.owner_path(str(host["owner_ref"])); world=_deepcopy(self.read(path)); config=self.read("game/data/world/autonomous-theaters.json"); territory=_deepcopy(self.read("state/territory/control.json")); hist=_deepcopy(self.read("state/history/events/index.json")); first_due=CampaignTime.parse(str(host.get("next_due",at))); recurrence=max(1,int(host.get("recurrence_seconds",7776000))); world_seed=str(self.read("state/meta.json").get("world_seed","sword"))
+        def state_doc(state: str) -> tuple[str,Dict[str,Any]]:
+            sp=f"state/states/{state}.json"; return sp,_deepcopy(self.read(sp))
+        def formation_power(ref: str, defender: bool) -> float:
+            try: _,f=self._load_formation(ref)
+            except ValueError: return 0.0
+            n=max(0,int(f.get("personnel",0)))
+            if n<=0: return 0.0
+            readiness=int(f.get("readiness",50)); morale=int(f.get("morale",50)); cohesion=int(f.get("cohesion",50)); training=int(f.get("training_progress",20)); fatigue=int(f.get("fatigue",0)); equipment=max(.15,_pct(f.get("equipment_completeness","0"))); food=min(1.0,int(f.get("logistics",{}).get("food_kg",0))/max(1,n*2)); supply=.72+.28*food; doctrine=f.get("doctrine_behavior",{}); reserve=_clamp(int(doctrine.get("reserve_commitment",50))); doctrine_factor=.88+.24*reserve/100.0; base=max(.1,(readiness+morale+cohesion+training+max(0,100-fatigue))/500.0); command=1.0; commander_ref=f.get("commander_ref")
+            if commander_ref:
+                try:
+                    _,c=self._exact_person(str(commander_ref)); caps=c.get("capabilities",c.get("skills",{})); score=sum(_fixed(caps.get(k,0)) for k in ("Formation Command","Tactics","Leadership","Strategy","Mass Combat")) if isinstance(caps,dict) else 0; command+=min(500.0,score)/3000.0
+                except ValueError: command*=.88
+            terrain=1.10 if defender and str(self._location_record(str(f.get("location_ref"))).get("kind","")) in {"pass","fort","fortress","city","capital"} else 1.0
+            return n*base*equipment*supply*doctrine_factor*command*terrain
+        for i in range(max(0,int(occurrences))):
+            review=first_due.add_seconds(i*recurrence)
+            if review>CampaignTime.parse(at): break
+            review_text=str(review)
+            for cfg in config.get("theaters",[]):
+                tref=str(cfg["theater_ref"]); record=world.setdefault("theaters",{}).setdefault(tref,{"phase":"peace","cycle":0,"pressure":int(cfg.get("base_pressure",20)),"cooldown_quarters":0,"history":[]}); sides=[str(x) for x in cfg["sides"]]; target=str(cfg["target_location_ref"]); site=territory.get("sites",{}).get(target)
+                if not site: continue
+                phase=str(record.get("phase","peace")); cooldown=max(0,int(record.get("cooldown_quarters",0)))
+                if phase=="peace":
+                    if cooldown>0:
+                        record["cooldown_quarters"]=cooldown-1; continue
+                    controller=str(site.get("controller","")).replace("state_","")
+                    if controller not in sides: continue
+                    attacker=sides[1] if controller==sides[0] else sides[0]; seed=int(hashlib.sha256((world_seed+"|pressure|"+tref+"|"+review_text).encode()).hexdigest()[:8],16); record["pressure"]=min(120,int(record.get("pressure",cfg.get("base_pressure",20)))+5+seed%7)
+                    if int(record["pressure"])<100: continue
+                    record["cycle"]=int(record.get("cycle",0))+1; record["attacker_state"]=attacker; record["defender_state"]=controller; record["phase"]="mobilizing"; record["started_at"]=review_text; record["battle_count"]=0; record["history"].append({"at":review_text,"event":"political_objective","attacker":attacker,"defender":controller,"target":target,"basis":"deterministic rivalry pressure"});
+                    for a,b in ((attacker,controller),(controller,attacker)):
+                        sp,sd=state_doc(a); sd.setdefault("diplomacy",{})[b]={"tension":100,"status":"war","theater_ref":tref,"since":review_text}; sd.setdefault("strategic_goals",[]).append(f"contest {target} against {b}"); sd["strategic_goals"]=sd["strategic_goals"][-12:]; self.put(sp,sd)
+                    continue
+                attacker=str(record.get("attacker_state","")); defender=str(record.get("defender_state","")); af=str(cfg.get("formation_refs",{}).get(attacker,"")); df=str(cfg.get("formation_refs",{}).get(defender,""))
+                if not attacker or not defender or not af or not df: record["phase"]="peace"; record["pressure"]=int(cfg.get("base_pressure",20)); continue
+                if phase=="mobilizing":
+                    try: ap,a0=self._load_formation(af); dp,d0=self._load_formation(df)
+                    except ValueError:
+                        record["history"].append({"at":review_text,"event":"mobilization_delayed","reason":"required exact formation unavailable"}); continue
+                    a=_deepcopy(a0); d=_deepcopy(d0)
+                    if int(a.get("personnel",0))<=0 or int(d.get("personnel",0))<=0: record["phase"]="peace_settlement"; record["war_result"]="no_capable_force"; continue
+                    for fp,f in ((ap,a),(dp,d)):
+                        f["mobilized"]=True; f["status"]="mobilized"; f["mobilized_at"]=review_text; self.put(fp,f)
+                    record["phase"]="advancing"; record["history"].append({"at":review_text,"event":"mobilization","attacker_formation":af,"defender_formation":df}); continue
+                if phase=="advancing":
+                    am=self._autonomy_move_formation_step(af,target,review_text); dm=self._autonomy_move_formation_step(df,target,review_text); record["last_attacker_march"]=am; record["last_defender_march"]=dm
+                    if am.get("location_ref")==target and dm.get("location_ref")==target: record["phase"]="engaged"; record["contact_at"]=review_text; record["history"].append({"at":review_text,"event":"contact","location_ref":target})
+                    continue
+                if phase=="engaged":
+                    try: _,a=self._load_formation(af); _,d=self._load_formation(df)
+                    except ValueError: record["phase"]="peace_settlement"; continue
+                    if str(a.get("location_ref"))!=target or str(d.get("location_ref"))!=target: record["phase"]="advancing"; continue
+                    apow=formation_power(af,False); dpow=formation_power(df,True); if_zero=apow<=0 or dpow<=0
+                    if if_zero:
+                        winner=defender if apow<=0 else attacker
+                    else:
+                        variance_seed=int(hashlib.sha256((world_seed+"|battle|"+tref+"|"+review_text+"|"+str(record.get("battle_count",0))).encode()).hexdigest()[:8],16); variance=.95+(variance_seed%1001)/10000.0; winner=attacker if apow*variance>=dpow else defender
+                    loser=defender if winner==attacker else attacker; winner_ref=af if winner==attacker else df; loser_ref=df if winner==attacker else af; winner_power=apow if winner==attacker else dpow; loser_power=dpow if winner==attacker else apow; ratio=max(.25,min(4.0,winner_power/max(1.0,loser_power))); loser_rate=min(.45,.14+.05*max(0.0,ratio-1.0)); winner_rate=min(.22,.05+.025*max(0.0,1.0/ratio)); _,wf=self._load_formation(winner_ref); _,lf=self._load_formation(loser_ref); winner_loss=min(int(wf.get("personnel",0)),max(1,int(round(int(wf.get("personnel",0))*winner_rate)))) if int(wf.get("personnel",0)) else 0; loser_loss=min(int(lf.get("personnel",0)),max(1,int(round(int(lf.get("personnel",0))*loser_rate)))) if int(lf.get("personnel",0)) else 0; seed_material=world_seed+"|"+tref+"|"+review_text; wloss=self._autonomy_apply_battle_losses(winner_ref,winner_loss,review_text,losing_side=False,opponent_state=loser,seed_material=seed_material+"|winner"); lloss=self._autonomy_apply_battle_losses(loser_ref,loser_loss,review_text,losing_side=True,opponent_state=winner,seed_material=seed_material+"|loser"); record["battle_count"]=int(record.get("battle_count",0))+1; eid="interstate_battle_"+hashlib.sha256((tref+"|"+review_text).encode()).hexdigest()[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"interstate_battle","at":review_text,"theater_ref":tref,"battlefield_ref":target,"attacker_state":attacker,"defender_state":defender,"attacker_formation_ref":af,"defender_formation_ref":df,"winner_state":winner,"losses":{winner_ref:wloss,loser_ref:lloss}}); record["last_battle_event"]=eid; record["last_winner_state"]=winner
+                    home=str(self.read(f"state/depots/{loser}.json").get("location_ref")); retreat=self._autonomy_move_formation_step(loser_ref,home,review_text); record["last_retreat"]=retreat
+                    record["phase"]="occupation" if winner==attacker else "withdrawal"; continue
+                if phase=="occupation":
+                    _,a=self._load_formation(af); enemies=[]
+                    for fr in self._formations_at(target):
+                        try: _,f=self._load_formation(fr)
+                        except ValueError: continue
+                        if int(f.get("personnel",0))>0 and str(f.get("administrative_owner"))==f"state_{defender}": enemies.append(fr)
+                    if str(a.get("location_ref"))!=target or int(a.get("personnel",0))<=0: record["phase"]="withdrawal"; continue
+                    if enemies:
+                        # Occupation cannot be declared over an intact opposing force.
+                        record["phase"]="engaged"; continue
+                    old=str(site.get("controller")); site["controller"]=f"state_{attacker}"; site["previous_controller"]=old; site["changed_at"]=review_text; site["change_basis"]="autonomous_interstate_occupation"; site["change_evidence_ref"]=str(record.get("last_battle_event")); eid="territory_auto_"+hashlib.sha256((tref+"|"+review_text+"|"+attacker).encode()).hexdigest()[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"territorial_control_change","at":review_text,"location_ref":target,"from":old,"to":f"state_{attacker}","evidence_ref":record.get("last_battle_event"),"basis":"autonomous_interstate_occupation"}); record["territory_event"]=eid; record["war_result"]="attacker_occupation"; record["phase"]="peace_settlement"; continue
+                if phase=="withdrawal":
+                    try: self._autonomy_move_formation_step(af,str(self.read(f"state/depots/{attacker}.json").get("location_ref")),review_text)
+                    except ValueError: pass
+                    record["war_result"]="defender_holds"; record["phase"]="peace_settlement"; continue
+                if phase=="peace_settlement":
+                    for a,b in ((attacker,defender),(defender,attacker)):
+                        sp,sd=state_doc(a); sd.setdefault("diplomacy",{})[b]={"tension":25,"status":"armed_peace","theater_ref":tref,"settled_at":review_text}; sd.setdefault("war_history",[]).append({"theater_ref":tref,"cycle":record.get("cycle"),"started_at":record.get("started_at"),"settled_at":review_text,"result":record.get("war_result")}); sd["war_history"]=sd["war_history"][-16:]; self.put(sp,sd)
+                    record["history"].append({"at":review_text,"event":"peace_settlement","result":record.get("war_result")}); record["history"]=record["history"][-32:]; record["phase"]="peace"; record["pressure"]=int(cfg.get("base_pressure",20)); record["cooldown_quarters"]=40; record.pop("attacker_state",None); record.pop("defender_state",None); continue
+        world["last_review"]=at; self.put(path,world); self.put("state/territory/control.json",territory); self.put("state/history/events/index.json",hist)
 
     def _autonomy_population(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
         state=self._state_key(str(host["owner_ref"]))
@@ -1224,11 +1550,27 @@ class RepositoryCommandPlanner:
         self.put(p,pop)
 
     def _autonomy_house(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
-        p=self.owner_path(str(host["owner_ref"])); house=_deepcopy(self.read(p)); cohort=house.get("lineage_cohort",{})
-        adults=int(cohort.get("adults",0)); children=int(cohort.get("children",0)); elders=int(cohort.get("elders",0))
-        births=max(0,(adults//2)*occurrences//3); mature=min(children, occurrences); deaths=min(elders, occurrences//2)
-        cohort["children"]=children+births-mature; cohort["adults"]=max(0,adults+mature); cohort["elders"]=max(0,elders-deaths)
-        cohort["marriages"]=int(cohort.get("marriages",0))+max(0,mature//2); cohort["last_close"]=at
+        house_ref=str(host["owner_ref"]); p=self.owner_path(house_ref); house=_deepcopy(self.read(p)); cohort=house.setdefault("lineage_cohort",{})
+        if house_ref=="house_tang":
+            # House Tang is an exact named family. Its aggregate cohort is a projection
+            # of family authority, never an independent demographic simulator.
+            fidx=self.read("state/family/index.json"); member_refs=sorted(str(x) for x in fidx.get("person_index",{})); children=adults=elders=0; living=[]
+            review=CampaignTime.parse(at)
+            for ref in member_refs:
+                try: _,person=self._exact_person(ref,active=False)
+                except ValueError: continue
+                if str(person.get("life_status",person.get("status","active"))).lower() in {"dead","deceased"}: continue
+                living.append(ref); age=age_years(person,review)
+                if age<16: children+=1
+                elif age<60: adults+=1
+                else: elders+=1
+            marriages=0
+            for up in fidx.get("unions",{}).values():
+                union=self.read(up)
+                if str(union.get("status"))=="married" and any(str(x) in living for x in union.get("participants",[])): marriages+=1
+            cohort.update({"children":children,"adults":adults,"elders":elders,"marriages":marriages,"exact_member_refs":living,"projection_basis":"state/family/index.json exact people","last_close":at})
+        else:
+            adults=int(cohort.get("adults",0)); children=int(cohort.get("children",0)); elders=int(cohort.get("elders",0)); births=max(0,(adults//2)*occurrences//3); mature=min(children,occurrences); deaths=min(elders,occurrences//2); cohort["children"]=children+births-mature; cohort["adults"]=max(0,adults+mature); cohort["elders"]=max(0,elders-deaths); cohort["marriages"]=int(cohort.get("marriages",0))+max(0,mature//2); cohort["last_close"]=at
         house["last_review"]=at
         if house.get("treasury_ref")=="treasury_house_tang":
             tp="state/treasury/treasury-house-tang.json"; treasury=_deepcopy(self.read(tp))
@@ -1251,24 +1593,32 @@ class RepositoryCommandPlanner:
                 state=self._state_key(house.get("state")); pp=f"state/population/{state}.json"; pop=_deepcopy(self.read(pp)); source="household_and_service"; available=int(pop["strata"].get(source,0)); recruits=min(shortage,available,max(1,25*occurrences))
                 if recruits:
                     pop["strata"][source]-=recruits; pop["strata"]["private_household_military"]+=recruits; force["headcount"]+=recruits
-                    role="heavy_cavalry" if force_ref=="force_house_tang" else "household_retainer"; force["available_by_role"][role]=int(force["available_by_role"].get(role,0))+recruits; self.put(pp,pop)
+                    role="heavy_cavalry" if force_ref=="force_house_tang" else "household_retainer"; force["available_by_role"][role]=int(force["available_by_role"].get(role,0))+recruits; source_loc=str(force.get("source_location_ref") or house.get("location_ref") or "loc_kanyou"); local=self._force_location_pool(force,source_loc); local[role]=int(local.get(role,0))+recruits; self.put(pp,pop)
             formation_refs=["formation_tang_champions_first","formation_tang_champions_second"] if force_ref=="force_house_tang" else [f"formation_{house['house_ref']}_guard"]
             idx=self.read("state/index/owner-index-gold.json").get("owners",{})
             for fr in formation_refs:
                 fpath=idx.get(fr)
                 if not fpath: continue
-                formation=_deepcopy(self.read(fpath)); target=50 if fr.startswith("formation_tang_champions_") else authorized; need=max(0,target-int(formation.get("personnel",0))); role=next(iter(formation.get("composition",{})),"household_retainer"); take=min(need,int(force["available_by_role"].get(role,0)))
+                formation=_deepcopy(self.read(fpath)); target=50 if fr.startswith("formation_tang_champions_") else authorized; need=max(0,target-int(formation.get("personnel",0))); role=next(iter(formation.get("composition",{})),"household_retainer"); location=str(formation.get("location_ref")); local=self._force_location_pool(force,location); take=min(need,int(force["available_by_role"].get(role,0)),int(local.get(role,0)))
                 if take:
-                    force["available_by_role"][role]-=take; formation["personnel"]+=take; formation["composition"][role]=formation["personnel"]; force["allocated_to_formations"][fr]={"personnel":formation["personnel"],"role":role}
+                    old_n=int(formation.get("personnel",0)); self._take_force_personnel(force,role,take,location); formation["personnel"]=old_n+take; formation["composition"][role]=formation["personnel"]; incoming={"readiness":35,"morale":60,"cohesion":25,"training_progress":10,"fatigue":0}
+                    for field,base in incoming.items(): formation[field]=_clamp(int(round((int(formation.get(field,base))*old_n+base*take)/max(1,formation["personnel"]))))
+                    if take*2>=formation["personnel"] and str(formation.get("experience","new")) in {"veteran","hardened"}: formation["experience"]="field_tested"
+                    force["allocated_to_formations"][fr]={"personnel":formation["personnel"],"role":role}
                 formation["readiness"]=_clamp(int(formation.get("readiness",50))+min(8,occurrences)); formation["cohesion"]=_clamp(int(formation.get("cohesion",50))+min(5,occurrences)); formation["training_progress"]=_clamp(int(formation.get("training_progress",20))+min(10,occurrences)); self.put(fpath,formation)
             self.put(fp,force)
-        projects=house.setdefault("projects",[])
-        threat=_fixed(house.get("threat_level","0"))
-        action="guard_readiness" if threat>=0.5 else "estate_and_retainer_review"
-        projects.append({"kind":action,"status":"active","at":at,"source":"autonomous_house_policy"})
-        # compact repetitive housekeeping rather than append unbounded project history
-        if len(projects)>8: del projects[:-8]
-        self.put(p,house)
+        projects=house.setdefault("projects",[]); now=CampaignTime.parse(at); settled=0
+        for project in projects:
+            if str(project.get("status")) not in {"scheduled","active"} or not project.get("completes_at"): continue
+            if CampaignTime.parse(str(project["completes_at"]))>now: continue
+            kind=str(project.get("kind","review")); subject=project.get("subject_ref")
+            if kind in {"assign_duty","appointment"} and subject:
+                house.setdefault("duties",[]).append({"subject_ref":subject,"kind":kind,"effective_at":str(project["completes_at"])})
+                house["duties"]=house["duties"][-32:]
+            elif kind in {"construction","estate_improvement","expansion"}: house["estate_capacity"]=int(house.get("estate_capacity",0))+1
+            else: house.setdefault("resolved_effects",{})[kind]=int(house.get("resolved_effects",{}).get(kind,0))+1
+            project["status"]="completed"; project["resolved_at"]=str(project["completes_at"]); project["resolution_basis"]="house causal review"; settled+=1
+        threat=_fixed(house.get("threat_level","0")); action="guard_readiness" if threat>=0.5 else "estate_and_retainer_review"; reviews=house.setdefault("autonomous_reviews",[]); reviews.append({"kind":action,"at":at,"source":"autonomous_house_policy","projects_settled":settled}); house["autonomous_reviews"]=reviews[-12:]; self.put(p,house)
 
     def _autonomy_institution(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
         if str(host.get("owner_ref")) == "institution_sword_manor":
@@ -1282,6 +1632,20 @@ class RepositoryCommandPlanner:
         elif kind=="granary_depot_office":
             dp=f"state/depots/{state}.json"; depot=_deepcopy(self.read(dp)); cap=max(1,int(inst.get("capacity",1000))); depot["stocks"]["grain_kg"]+=cap*occurrences; self.put(dp,depot)
         inst["backlog"]=max(0,int(inst.get("backlog",0))-int(inst.get("capacity",0))*occurrences)
+        # Projects settle from their saved completion time during the institution's
+        # normal causal review. A long time skip cannot leave completed work inert.
+        settled=[]
+        for project in inst.get("projects",[]):
+            if str(project.get("status"))!="active" or not project.get("completes_at"): continue
+            if CampaignTime.parse(str(project["completes_at"]))>CampaignTime.parse(at): continue
+            kind=str(project.get("kind","capacity")); magnitude=max(1,int(project.get("magnitude",1))); effect=project.get("effect",{}) if isinstance(project.get("effect"),dict) else {}
+            if kind in {"capacity","construction","expansion"}: inst["capacity"]=max(0,int(inst.get("capacity",0))+magnitude)
+            elif kind in {"backlog","process"}: inst["backlog"]=max(0,int(inst.get("backlog",0))-magnitude)
+            elif kind in {"stock","resource","logistics"}:
+                key=str(effect.get("resource","generic_stock")); inst.setdefault("resources",{})[key]=int(inst.get("resources",{}).get(key,0))+magnitude
+            else: inst.setdefault("resolved_effects",{})[kind]=int(inst.get("resolved_effects",{}).get(kind,0))+magnitude
+            project["status"]="completed"; project["resolved_at"]=str(project["completes_at"]); project["resolution_basis"]="institution causal review"; settled.append(str(project.get("project_ref")))
+        if settled: inst.setdefault("runtime",{})["projects_settled"]=int(inst.get("runtime",{}).get("projects_settled",0))+len(settled)
         self.put(p,inst)
 
     def _autonomy_faction(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
@@ -1298,8 +1662,30 @@ class RepositoryCommandPlanner:
 
     def _autonomy_mercenary(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
         owner_ref=str(host["owner_ref"]); path=self.owner_path(owner_ref); doc=_deepcopy(self.read(path)); runtime=doc.setdefault("runtime",{}); runtime["completed_quarterly_reviews"]=int(runtime.get("completed_quarterly_reviews",0))+occurrences; runtime["last_settled_at"]=at
-        if "status" in doc and doc.get("status") not in {"destroyed","dissolved"}:
-            contracts=doc.get("contracts",[]); doc["status"]="contracted" if contracts else "available"
+        if doc.get("status") in {"destroyed","dissolved"}: self.put(path,doc); return
+        contracts=doc.setdefault("contracts",[]); now=CampaignTime.parse(at); headcount=max(1,int(doc.get("headcount",doc.get("personnel",doc.get("strength",1))))); econ=self.read("game/data/mechanics/economy-gold.json"); monthly=_fixed(econ.get("wages",{}).get("professional_soldier_monthly_silver",7)); factor=_fixed(self.read("game/data/mechanics/career.json").get("service_models",{}).get("army_model_mercenary",{}).get("cash_pay_factor_vs_common_role_baseline",1.35),1.35)
+        active=None
+        for contract in contracts:
+            status=str(contract.get("status","")); term=max(1,int(contract.get("term_days",90))); amount=max(0,int(contract.get("amount_silver",0))); minimum=int(math.ceil(headcount*monthly*factor*term/30.0))
+            contract["minimum_fair_value_silver"]=minimum
+            if status in {"offered","renewal_offered"}:
+                if amount>=minimum:
+                    contract["status"]="accepted_unpaid" if status=="offered" else "renewal_accepted"; contract["accepted_at"]=at; contract["decision_basis"]="offer meets deterministic pay floor"
+                else:
+                    contract["status"]="rejected"; contract["rejected_at"]=at; contract["decision_basis"]="offer below deterministic pay floor"
+            status=str(contract.get("status",""))
+            if status=="active":
+                active=contract; active_at=CampaignTime.parse(str(contract.get("active_at",at))); expires=active_at.add_days(term); contract["expires_at"]=str(expires)
+                if now>=expires:
+                    contract["status"]="completed"; contract["completed_at"]=str(expires); contract["completion_basis"]="contract term elapsed"; active=None
+            elif status in {"accepted_unpaid","renewal_accepted"}:
+                accepted_at=CampaignTime.parse(str(contract.get("accepted_at",contract.get("renewal_offered_at",at))))
+                if accepted_at.seconds_until(now)>30*86400:
+                    contract["status"]="breached"; contract["breached_at"]=at; contract["breach_reason"]="employer failed to fund accepted contract within 30 days"
+        if active is not None: doc["status"]="deployed" if active.get("deployment_location_ref") else "contracted"
+        elif any(str(c.get("status")) in {"accepted_unpaid","renewal_accepted"} for c in contracts): doc["status"]="contracted_unpaid"
+        elif any(str(c.get("status")) in {"offered","renewal_offered"} for c in contracts): doc["status"]="considering_offer"
+        else: doc["status"]="available"
         self.put(path,doc)
 
     def _battle(
@@ -1501,6 +1887,7 @@ class RepositoryCommandPlanner:
         battle_hours = max(1, min(12, 2 + int(math.log10(max(10, represented)))))
         battle_started = self._world_time(); battle_completed = battle_started.add_seconds(battle_hours * 3600)
         attacker_won = a_score >= d_score
+        event_id = "battle_" + command.digest[:16]
         for refs, rate in ((attackers, a_rate), (defenders, d_rate)):
             for ref in refs:
                 path, formation = formations[ref]
@@ -1542,6 +1929,8 @@ class RepositoryCommandPlanner:
                     outcome = "wounded"; self._set_person_health(commander,"injured"); commander["injury_state"]={"label":"battle wound","severity":"severe" if casualty_fraction>=0.20 else "moderate","inflicted_at":str(battle_completed),"minimum_recovery_hours":72 if casualty_fraction>=0.20 else 24,"recovered_hours":0,"active":True}; formation["commander_ref"] = None; self._release_commander_index(commander_ref,ref)
                 named_person_outcomes[commander_ref]={"formation_ref":ref,"outcome":outcome,"roll_basis_points":int(round(roll*10000)),"casualty_fraction_basis_points":int(round(casualty_fraction*10000))}
                 self.put(commander_path,commander)
+                won_side=(ref in attackers and attacker_won) or (ref in defenders and not attacker_won); self._award_career_merit(commander_ref,5 if won_side else 2,event_id,str(battle_completed)); opponents=defenders if ref in attackers else attackers
+                if opponents: self._record_reputation_signal(commander_ref,str(opponents[0]),3 if won_side else 1,"battle_command",event_id,str(battle_completed),"directly witnessed battlefield command")
                 self.put(path, formation)
 
                 force_ref = formation["owner_force_ref"]
@@ -1574,7 +1963,6 @@ class RepositoryCommandPlanner:
 
         time_metrics = self._advance_runtime(str(battle_completed))
         hist = _deepcopy(self.read("state/history/events/index.json"))
-        event_id = "battle_" + command.digest[:16]
         hist.setdefault("events", []).append({
             "event_id": event_id,
             "kind": "battle",
@@ -1653,10 +2041,13 @@ class RepositoryCommandPlanner:
                     self._set_person_health(player,"injured")
             self.put("state/player.json",player); self._write_meta(command,target); return self._result(health=self._person_health(player),fatigue=player["fatigue"],hours=hours,world_time=target,**metrics)
         if t=="relationship_change":
-            p="state/relationships-gold.json"; doc=_deepcopy(self.read_optional(p) or {"schema":"sword-relationship-ledger","owner_id":"relationships_gold","edges":[]}); src=str(payload.get("source_ref",command.actor_id)); dst=str(payload["target_ref"]); kind=str(payload.get("kind","trust")); delta=int(payload.get("delta",0));
+            p="state/relationships-gold.json"; doc=_deepcopy(self.read_optional(p) or {"schema":"sword-relationship-ledger","owner_id":"relationships_gold","edges":[]}); src=str(payload.get("source_ref",command.actor_id)); dst=str(payload["target_ref"]); kind=str(payload.get("kind","trust")); delta=int(payload.get("delta",0)); _,src_person=self._exact_person(src); _,dst_person=self._exact_person(dst)
+            if command.actor_id!=self.INTERNAL_ACTOR:
+                src_loc=self._person_location(src_person); dst_loc=self._person_location(dst_person)
+                if not src_loc or src_loc!=dst_loc: raise ValueError("direct relationship change requires exact co-location; remote social effects must arise from evidence/reputation")
             edge=next((e for e in doc["edges"] if e["source_ref"]==src and e["target_ref"]==dst and e["kind"]==kind),None)
-            if edge is None: edge={"source_ref":src,"target_ref":dst,"kind":kind,"value":0}; doc["edges"].append(edge)
-            edge["value"]=_clamp(int(edge["value"])+delta,-100,100); self.put(p,doc); self._write_meta(command); return self._result(target_ref=dst,kind=kind,value=edge["value"])
+            if edge is None: edge={"source_ref":src,"target_ref":dst,"kind":kind,"value":0,"evidence_refs":[]}; doc["edges"].append(edge)
+            edge["value"]=_clamp(int(edge["value"])+delta,-100,100); edge["last_changed_at"]=str(self._world_time()); basis=str(payload.get("basis_ref",f"direct_interaction:{command.expected_revision}")); edge["last_basis_ref"]=basis; edge.setdefault("evidence_refs",[]).append(basis); edge["evidence_refs"]=edge["evidence_refs"][-16:]; self.put(p,doc); world_time,metrics=self._advance_seconds(3600); self._write_meta(command,world_time); return self._result(target_ref=dst,kind=kind,value=edge["value"],world_time=world_time,**metrics)
         if t in {"recruitment","population_transfer"}:
             state=self._state_key(payload["state"]); n=int(payload["personnel"]); pp=f"state/population/{state}.json"; pop=_deepcopy(self.read(pp)); source=str(payload.get("source_stratum","agricultural")); dest=str(payload.get("destination_stratum","active_military"));
             if int(pop["strata"].get(source,0))<n: raise ValueError("insufficient population source")
@@ -1669,11 +2060,10 @@ class RepositoryCommandPlanner:
         if t=="person_materialize":
             state=self._state_key(payload.get("state","qin")); person_ref=str(payload["person_ref"]); if_path=f"state/char/{person_ref.replace('char_','').replace('_','-')}.json"; existing=self.read_optional(if_path)
             if existing is None:
-                fp=f"state/forces/state-{state}.json"; force=_deepcopy(self.read(fp)); role=str(payload.get("role","command_personnel"));
-                if int(force["available_by_role"].get(role,0))<1: raise ValueError("no lawful person source")
-                force["available_by_role"][role]-=1; force.setdefault("materialized_people",{})[person_ref]=1; self.put(fp,force)
-                person={"schema":"sword-materialized-person","id":person_ref,"name":str(payload.get("name",person_ref)),"state":state,"birth_date":str(payload.get("birth_date","270-BCE-01-01")),"status":"alive"}; self.put(if_path,person); self._register_owner(person_ref,if_path)
-            self._write_meta(command); return self._result(person_ref=person_ref)
+                fp=f"state/forces/state-{state}.json"; force=_deepcopy(self.read(fp)); role=str(payload.get("role","command_personnel")); source_loc=str(force.get("source_location_ref") or self.read(f"state/depots/{state}.json").get("location_ref"))
+                self._take_force_personnel(force,role,1,source_loc); force.setdefault("materialized_people",{})[person_ref]=1; self.put(fp,force)
+                person={"schema":"sword-materialized-person","owner_id":person_ref,"owner_type":"character","id":person_ref,"name":str(payload.get("name",person_ref)),"state":state,"birth_date":str(payload.get("birth_date","270-BCE-01-01")),"status":"alive","life_status":"active","health_status":"healthy","current_location":source_loc,"attributes":{},"skills":{},"aptitude":{"physical_learning":100,"technical_learning":100,"tactical_learning":100,"academic_learning":100,"social_learning":100},"development_state":{"completed_reviews":0,"maintenance_credit":0.0,"training_credit":0.0}}; self.put(if_path,person); self._register_owner(person_ref,if_path); self._ensure_person_life_host(person_ref,self._world_time())
+            world_time,metrics=self._advance_seconds(3600); self._write_meta(command,world_time); return self._result(person_ref=person_ref,world_time=world_time,**metrics)
         if t=="formation_create":
             state=self._state_key(payload["state"]); ref=str(payload["formation_ref"]); role=str(payload.get("role","line_infantry")); n=int(payload["personnel"]); fp=f"state/forces/state-{state}.json"; force=_deepcopy(self.read(fp));
             if self.read_optional(f"state/formations/{ref.replace('formation_','').replace('_','-')}.json") is not None: raise ValueError("formation_ref already exists")
@@ -1686,7 +2076,7 @@ class RepositoryCommandPlanner:
             self._set_equipment_units(f,{role:equipped})
             if commander_ref:
                 cp, commander=self._validate_person_location_for_formation(str(commander_ref),f); self.put(cp,commander); self._assign_commander_index(str(commander_ref),ref)
-            self.put(path,f); self._register_owner(ref,path)
+            self.put(path,f); self._register_owner(ref,path); self._index_formation_location(ref,None,location)
             muster_hours=max(1,min(48,int(math.ceil(n/500.0)))); current=self._world_time(); target=str(current.add_seconds(muster_hours*3600)); metrics=self._advance_runtime(target); self._write_meta(command,target); return self._result(formation_ref=ref,personnel=n,world_time=target,muster_hours=muster_hours,**metrics)
         if t in {"formation_reconstitute","formation_train","formation_mobilize","formation_demobilize","formation_doctrine_set","formation_training_set","formation_assign","force_assignment","command_assign","command_transfer","formation_move","resupply"}:
             ref=str(payload["formation_ref"]); p,f0=self._load_formation(ref); f=_deepcopy(f0); world_time: Optional[str]=None; time_metrics: Dict[str,int]={}
@@ -1729,7 +2119,7 @@ class RepositoryCommandPlanner:
                 commander_ref=f.get("commander_ref"); commander_path=None; commander=None
                 if commander_ref:
                     commander_path,commander=self._validate_person_location_for_formation(str(commander_ref),f)
-                current=self._world_time(); world_time=str(current.add_seconds(hours*3600)); time_metrics=self._advance_runtime(world_time); f["logistics"]["food_kg"]-=food; f["logistics"]["fodder_kg"]-=fod; f["location_ref"]=dest; f["fatigue"]=_clamp(int(f.get("fatigue",0))+max(1,hours//12)); f["last_moved_at"]=world_time
+                current=self._world_time(); world_time=str(current.add_seconds(hours*3600)); time_metrics=self._advance_runtime(world_time); f["logistics"]["food_kg"]-=food; f["logistics"]["fodder_kg"]-=fod; f["location_ref"]=dest; self._index_formation_location(ref,origin,dest); f["fatigue"]=_clamp(int(f.get("fatigue",0))+max(1,hours//12)); f["last_moved_at"]=world_time
                 if commander is not None and commander_path is not None: self._set_person_location(commander,dest); self.put(commander_path,commander)
             elif t=="resupply":
                 dp,depot=self._material_depot(f)
@@ -1747,7 +2137,7 @@ class RepositoryCommandPlanner:
                 if n<=0 or n>=int(f["personnel"]): raise ValueError("invalid split personnel")
                 total=int(original["personnel"]); f["personnel"]=total-n; parent_comp,child_comp=self._partition_counts(original.get("composition",{}),n,total); f["composition"]=parent_comp; new=_deepcopy(original); new["formation_ref"]=new_ref; new["name"]=str(payload.get("name",new_ref)); new["personnel"]=n; new["composition"]=child_comp; new["commander_ref"]=None; new["status"]="detached_pending_commander"
                 f["logistics"],new["logistics"]=self._partition_material(original.get("logistics",{}),n,total); f["mounts"],new["mounts"]=self._partition_material(original.get("mounts",{}),n,total); parent_eq,child_eq=self._partition_material(self._equipment_units(original),n,total); self._set_equipment_units(f,parent_eq); self._set_equipment_units(new,child_eq)
-                np=f"state/formations/{new_ref.replace('formation_','').replace('_','-')}.json"; fp=self.owner_path(f["owner_force_ref"]); force=_deepcopy(self.read(fp)); role=next(iter(f["composition"])); force["allocated_to_formations"][ref]={"personnel":f["personnel"],"role":role}; force["allocated_to_formations"][new_ref]={"personnel":n,"role":next(iter(new["composition"]))}; self.put(fp,force); self.put(p,f); self.put(np,new); self._register_owner(new_ref,np); world_time,metrics=self._advance_seconds(max(3600,int(math.ceil(n/1000.0))*3600)); self._write_meta(command,world_time); return self._result(formation_ref=ref,new_formation_ref=new_ref,world_time=world_time,**metrics)
+                np=f"state/formations/{new_ref.replace('formation_','').replace('_','-')}.json"; fp=self.owner_path(f["owner_force_ref"]); force=_deepcopy(self.read(fp)); role=next(iter(f["composition"])); force["allocated_to_formations"][ref]={"personnel":f["personnel"],"role":role}; force["allocated_to_formations"][new_ref]={"personnel":n,"role":next(iter(new["composition"]))}; self.put(fp,force); self.put(p,f); self.put(np,new); self._register_owner(new_ref,np); self._index_formation_location(new_ref,None,str(new.get("location_ref"))); world_time,metrics=self._advance_seconds(max(3600,int(math.ceil(n/1000.0))*3600)); self._write_meta(command,world_time); return self._result(formation_ref=ref,new_formation_ref=new_ref,world_time=world_time,**metrics)
             refs=list(payload.get("formation_refs",[]));
             if t=="formation_merge":
                 if len(refs)<2: raise ValueError("merge requires at least two formations")
@@ -1761,7 +2151,7 @@ class RepositoryCommandPlanner:
                         adopted_commander=secondary_commander; pf["commander_ref"]=secondary_commander; self._release_commander_index(str(secondary_commander),ref); self._assign_commander_index(str(secondary_commander),primary)
                     elif secondary_commander:
                         self._release_commander_index(str(secondary_commander),ref)
-                    members.append(_deepcopy(f)); self.delete(p); self._unregister_owner(ref); force["allocated_to_formations"].pop(ref,None)
+                    members.append(_deepcopy(f)); self.delete(p); self._unregister_owner(ref); self._index_formation_location(str(ref),str(f.get("location_ref")),None); force["allocated_to_formations"].pop(ref,None)
                 total=sum(int(x["personnel"]) for x in members); pf["personnel"]=total; pf["composition"]=self._merge_material(*(x.get("composition",{}) for x in members)); pf["logistics"]=self._merge_material(*(x.get("logistics",{}) for x in members)); pf["mounts"]=self._merge_material(*(x.get("mounts",{}) for x in members)); self._set_equipment_units(pf,self._merge_material(*(self._equipment_units(x) for x in members)))
                 for field in ("readiness","morale","cohesion","fatigue","training_progress"):
                     pf[field]=_clamp(int(round(sum(int(x.get(field,0))*int(x["personnel"]) for x in members)/max(1,total))))
@@ -1769,7 +2159,7 @@ class RepositoryCommandPlanner:
             ref=str(payload.get("formation_ref",refs[0] if refs else "")); p,f=self._load_formation(ref); fp=self.owner_path(f["owner_force_ref"]); force=_deepcopy(self.read(fp)); location=str(f.get("location_ref"))
             for role,count in f.get("composition",{}).items(): self._return_force_personnel(force,str(role),int(count),location)
             for role,count in self._equipment_units(f).items(): self._return_force_equipment(force,str(role),int(count),location)
-            force["allocated_to_formations"].pop(ref,None); self.put(fp,force); self._return_formation_materials(f); self._release_commander_index(f.get("commander_ref"),ref); self.delete(p); self._unregister_owner(ref); world_time,metrics=self._advance_seconds(max(3600,int(math.ceil(int(f.get("personnel",0))/1000.0))*3600)); self._write_meta(command,world_time); return self._result(dissolved=ref,location_ref=location,world_time=world_time,**metrics)
+            force["allocated_to_formations"].pop(ref,None); self.put(fp,force); self._return_formation_materials(f); self._release_commander_index(f.get("commander_ref"),ref); self.delete(p); self._unregister_owner(ref); self._index_formation_location(ref,location,None); world_time,metrics=self._advance_seconds(max(3600,int(math.ceil(int(f.get("personnel",0))/1000.0))*3600)); self._write_meta(command,world_time); return self._result(dissolved=ref,location_ref=location,world_time=world_time,**metrics)
         if t=="battle_resolve":
             result=self._battle(command,payload); self._write_meta(command,str(result["world_time"])); return self._result(**result)
         if t=="personal_combat":
@@ -1815,21 +2205,43 @@ class RepositoryCommandPlanner:
             fatigue_gain=max(2,int(math.ceil(minutes/10))); player["fatigue"]=_clamp(int(player.get("fatigue",0))+fatigue_gain); opponent["fatigue"]=_clamp(int(opponent.get("fatigue",0))+fatigue_gain)
             if not spar and outcome in {"win","loss"}:
                 loser=opponent if outcome=="win" else player; self._set_person_health(loser,"injured"); loser["injury_state"]={"label":"personal combat injury","severity":"moderate","inflicted_at":self.read("state/runtime.json")["world_time"],"minimum_recovery_hours":24,"recovered_hours":0,"active":True}
-            current=CampaignTime.parse(self.read("state/runtime.json")["world_time"]); target=current.add_seconds(minutes*60).__str__(); metrics=self._advance_runtime(target); self.put("state/player.json",player); self.put(opponent_path,opponent); hist=_deepcopy(self.read("state/history/events/index.json")); eid="personal_combat_"+hashlib.sha256((str(current)+":"+self.PLAYER_ACTOR+":"+opponent_ref+":"+objective).encode()).hexdigest()[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"personal_combat","at":str(current),"completed_at":target,"actor_ref":self.PLAYER_ACTOR,"opponent_ref":opponent_ref,"location_ref":player_loc,"objective":objective,"spar":spar,"outcome":outcome,"player_equipment":player_equipment,"opponent_equipment":opponent_equipment}); self.put("state/history/events/index.json",hist); self._write_meta(command,target); return self._result(outcome=outcome,scale="exact_personal",opponent_ref=opponent_ref,location_ref=player_loc,duration_minutes=minutes,world_time=target,score_scale=100,player_score=int(round(pscore*100)),opponent_score=int(round(oscore*100)),player_equipment=player_equipment,opponent_equipment=opponent_equipment,**metrics)
+            # Exact equipped items experience custody/condition consequences. A
+            # bought weapon is therefore not decorative inventory data.
+            mp,manifest=self._player_manifest(); wear=1 if spar else (2 if outcome!="loss" else 3)
+            for entry in manifest.get("equipment_manifest",[]):
+                if any(token in str(entry.get("current_state","")).lower() for token in ("equipped","worn","readied","quivered","mounted")):
+                    entry["condition_pct"]=max(0,int(entry.get("condition_pct",100))-wear)
+                    if entry["condition_pct"]==0: entry["current_state"]="broken/unserviceable in player custody"
+            self.put(mp,manifest)
+            current=CampaignTime.parse(self.read("state/runtime.json")["world_time"]); target=current.add_seconds(minutes*60).__str__(); metrics=self._advance_runtime(target); self.put("state/player.json",player); self.put(opponent_path,opponent); hist=_deepcopy(self.read("state/history/events/index.json")); eid="personal_combat_"+hashlib.sha256((str(current)+":"+self.PLAYER_ACTOR+":"+opponent_ref+":"+objective).encode()).hexdigest()[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"personal_combat","at":str(current),"completed_at":target,"actor_ref":self.PLAYER_ACTOR,"opponent_ref":opponent_ref,"location_ref":player_loc,"objective":objective,"spar":spar,"outcome":outcome,"player_equipment":player_equipment,"opponent_equipment":opponent_equipment,"equipment_wear_pct":wear}); self.put("state/history/events/index.json",hist); self._record_reputation_signal(self.PLAYER_ACTOR,opponent_ref,1 if outcome=="win" else (-1 if outcome=="loss" else 1),"personal_combat",eid,target,"direct witness to the exact encounter");
+            if not spar and outcome=="win": self._award_career_merit(self.PLAYER_ACTOR,1,eid,target)
+            self._write_meta(command,target); return self._result(outcome=outcome,scale="exact_personal",opponent_ref=opponent_ref,location_ref=player_loc,duration_minutes=minutes,world_time=target,score_scale=100,player_score=int(round(pscore*100)),opponent_score=int(round(oscore*100)),player_equipment=player_equipment,opponent_equipment=opponent_equipment,equipment_wear_pct=wear,**metrics)
         if t in {"operation_create","operation_transition"}:
-            idxp="state/operations/index.json"; idx=_deepcopy(self.read(idxp));
+            idxp="state/operations/index.json"; idx=_deepcopy(self.read(idxp))
             if t=="operation_create":
-                ref=str(payload["operation_ref"]); formation_refs=[str(x) for x in payload.get("formation_refs",[])]; [self._load_formation(x) for x in formation_refs]; path=f"state/operations/{ref}.json"; doc={"schema":"sword-operation","owner_id":ref,"operation_ref":ref,"objective":str(payload.get("objective","operation")),"status":"planned","location_ref":payload.get("location_ref"),"formation_refs":formation_refs,"created_at":command.submitted_at}; self.put(path,doc); idx.setdefault("operations",{})[ref]=path; self.put(idxp,idx); self._register_owner(ref,path); self._write_meta(command); return self._result(operation_ref=ref,status="planned")
+                ref=str(payload["operation_ref"]); formation_refs=[str(x) for x in payload.get("formation_refs",[])]; forms=[self._load_formation(x)[1] for x in formation_refs]
+                if idx.get("operations",{}).get(ref): raise ValueError("operation_ref already exists")
+                authorities={str(f.get("administrative_owner")) for f in forms}
+                if len(authorities)!=1: raise ValueError("one operation cannot silently combine unrelated administrative authorities")
+                path=f"state/operations/{ref}.json"; now=str(self._world_time()); doc={"schema":"sword-operation","owner_id":ref,"operation_ref":ref,"objective":str(payload.get("objective","operation")),"status":"planned","location_ref":payload.get("location_ref"),"formation_refs":formation_refs,"administrative_authority":next(iter(authorities)),"created_at":now,"status_history":[{"status":"planned","at":now}]}; self.put(path,doc); idx.setdefault("operations",{})[ref]=path; self.put(idxp,idx); self._register_owner(ref,path); world_time,metrics=self._advance_seconds(2*3600); self._write_meta(command,world_time); return self._result(operation_ref=ref,status="planned",world_time=world_time,**metrics)
             ref=str(payload["operation_ref"]); path=idx.get("operations",{}).get(ref)
             if not path: raise ValueError("unknown operation")
-            doc=_deepcopy(self.read(path)); status=str(payload["status"])
-            if status in {"active","engaged"}:
-                refs=[str(x) for x in doc.get("formation_refs",[])]
+            doc=_deepcopy(self.read(path)); status=str(payload["status"]); old=str(doc.get("status","planned")); legal={"planned":{"mobilizing","cancelled"},"mobilizing":{"active","cancelled"},"active":{"engaged","occupied","completed","cancelled"},"engaged":{"active","occupied","completed","cancelled"},"occupied":{"completed","cancelled"},"completed":set(),"cancelled":set()}
+            if status==old: raise ValueError("operation transition must change state")
+            if status not in legal.get(old,set()): raise ValueError(f"illegal operation transition: {old} -> {status}")
+            refs=[str(x) for x in doc.get("formation_refs",[])]
+            if status in {"active","engaged","occupied"}:
                 if not refs: raise ValueError("active operation requires exact participating formations")
                 forms=[self._load_formation(x)[1] for x in refs]; locations={str(x.get("location_ref")) for x in forms}
                 if len(locations)!=1 or next(iter(locations))!=doc.get("location_ref"): raise ValueError("active operation requires all formations at the exact operation location")
                 if any(not bool(x.get("mobilized",False)) for x in forms): raise ValueError("active operation requires mobilized formations")
-            doc["status"]=status; doc["updated_at"]=command.submitted_at; self.put(path,doc); self._write_meta(command); return self._result(operation_ref=ref,status=doc["status"])
+                if status=="occupied":
+                    surviving=[x for x in forms if int(x.get("personnel",0))>0]
+                    if not surviving: raise ValueError("occupation requires a surviving formation at the site")
+                    authorities={str(x.get("administrative_owner")) for x in surviving}
+                    if len(authorities)!=1: raise ValueError("occupation requires one exact controlling authority")
+                    doc["occupation_authority"]=next(iter(authorities)); doc["occupied_at"]=str(self._world_time())
+            duration_hours={"mobilizing":2,"active":1,"engaged":1,"occupied":6,"completed":1,"cancelled":1}[status]; now=str(self._world_time()); doc["status"]=status; doc["updated_at"]=now; doc.setdefault("status_history",[]).append({"from":old,"status":status,"at":now}); self.put(path,doc); world_time,metrics=self._advance_seconds(duration_hours*3600); self._write_meta(command,world_time); return self._result(operation_ref=ref,status=doc["status"],world_time=world_time,**metrics)
         if t in {"information_create","information_deliver"}:
             idxp="state/information/index.json"; idx=_deepcopy(self.read(idxp))
             if t=="information_create":
@@ -1862,17 +2274,17 @@ class RepositoryCommandPlanner:
             else: doc.setdefault("resolved_effects",{})[kind]=int(doc.get("resolved_effects",{}).get(kind,0))+magnitude
             project["status"]="completed"; project["resolved_at"]=str(self._world_time()); self.put(p,doc); world_time,metrics=self._advance_seconds(3600); self._write_meta(command,world_time); return self._result(institution_ref=ref,project_ref=project_ref,status="completed",world_time=world_time,**metrics)
         if t=="house_action":
-            ref=str(payload.get("house_ref","house_tang")); p=self.owner_path(ref); doc=_deepcopy(self.read(p)); action=str(payload.get("action","assign_duty")); doc.setdefault("projects",[]).append({"kind":action,"subject_ref":payload.get("subject_ref"),"at":command.submitted_at}); self.put(p,doc); self._write_meta(command); return self._result(house_ref=ref,action=action)
+            ref=str(payload.get("house_ref","house_tang")); p=self.owner_path(ref); doc=_deepcopy(self.read(p)); action=str(payload.get("action","assign_duty")); now=str(self._world_time()); doc.setdefault("projects",[]).append({"kind":action,"subject_ref":payload.get("subject_ref"),"at":now}); self.put(p,doc); world_time,metrics=self._advance_seconds(2*3600); self._write_meta(command,world_time); return self._result(house_ref=ref,action=action,world_time=world_time,**metrics)
         if t=="state_action":
             state=self._state_key(payload.get("state","qin")); p=f"state/states/{state}.json"; doc=_deepcopy(self.read(p)); action=str(payload.get("action","strategic_goal"));
             if action=="strategic_goal": doc.setdefault("strategic_goals",[]).append(str(payload.get("goal","maintain readiness")))
             elif action=="appointment":
-                person_ref=str(payload["person_ref"]); self.owner(person_ref); capabilities=[str(x) for x in payload.get("capabilities",[])]; doc.setdefault("appointments",{})[str(payload["office"])]={"person_ref":person_ref,"capabilities":capabilities,"appointed_at":command.submitted_at}
+                person_ref=str(payload["person_ref"]); self._exact_person(person_ref); capabilities=[str(x) for x in payload.get("capabilities",[])]; doc.setdefault("appointments",{})[str(payload["office"])]={"person_ref":person_ref,"capabilities":capabilities,"appointed_at":str(self._world_time())}
             elif action in {"enemy_action","record_threat"}:
                 source=self._state_key(payload.get("source_state","zhao")); severity=_clamp(int(payload.get("severity",50)))
-                doc.setdefault("known_threats",{})[source]={"severity":severity,"observed_at":command.submitted_at,"provenance":str(payload.get("provenance","lawful report"))}
+                doc.setdefault("known_threats",{})[source]={"severity":severity,"observed_at":str(self._world_time()),"provenance":str(payload.get("provenance","lawful report"))}
                 doc.setdefault("diplomacy",{})[source]={"tension":severity}
-            self.put(p,doc); self._write_meta(command); return self._result(state=state,action=action)
+            self.put(p,doc); world_time,metrics=self._advance_seconds(2*3600); self._write_meta(command,world_time); return self._result(state=state,action=action,world_time=world_time,**metrics)
         if t in {"market_purchase","market_sell","economy_transfer","enlisted_service_pay"}:
             walletp="state/economy/player-wallet.json"; wallet=_deepcopy(self.read(walletp))
             if t in {"market_purchase","market_sell"}:
@@ -1899,8 +2311,8 @@ class RepositoryCommandPlanner:
             else:
                 if int(sd["treasury_silver"]) < amount: raise ValueError("state treasury insufficient")
                 sd["treasury_silver"] -= amount; wallet["silver"] += amount
-            self.put(sp,sd); self.put(walletp,wallet); self._write_meta(command); return self._result(amount_silver=amount,state=state)
-        if t in {"equipment_equip","equipment_unequip","equipment_transfer","equipment_drop","equipment_consume"}:
+            self.put(sp,sd); self.put(walletp,wallet); world_time,metrics=self._advance_seconds(1800); self._write_meta(command,world_time); return self._result(amount_silver=amount,state=state,world_time=world_time,**metrics)
+        if t in {"equipment_equip","equipment_unequip","equipment_transfer","equipment_issue","equipment_return","equipment_drop","equipment_loot","equipment_consume"}:
             item_id=str(payload["item_key"]); qty=int(payload.get("quantity",1)); self._item_record(item_id); player=_deepcopy(self.read("state/player.json")); player_loc=self._person_location(player); invp,inv=self._player_inventory(); mp,manifest=self._player_manifest(); entries=manifest.setdefault("equipment_manifest",[])
             def find_entry(states: tuple[str,...]=()) -> Optional[Dict[str,Any]]:
                 for entry in entries:
@@ -1923,25 +2335,40 @@ class RepositoryCommandPlanner:
             elif t=="equipment_unequip":
                 if self._manifest_quantity(manifest,item_id,equipped_only=True)<qty: raise ValueError("insufficient equipped quantity")
                 self._take_manifest_items(manifest,item_id,qty,require_equipped=True); entries.append({"item_id":item_id,"quantity":qty,"custody":"Tang Wei player equipment","current_state":"stored with player at "+str(player_loc)}); action="unequipped"
-            elif t=="equipment_transfer":
+            elif t in {"equipment_transfer","equipment_issue"}:
                 target_ref=str(payload["target_ref"]); tp,target=self._exact_person(target_ref); target_loc=self._person_location(target)
                 if not player_loc or player_loc!=target_loc: raise ValueError("equipment transfer requires exact co-location")
                 available=int(inv["items"].get(item_id,0)); take_inv=min(qty,available); inv["items"][item_id]=available-take_inv; remaining=qty-take_inv
                 if remaining: self._take_manifest_items(manifest,item_id,remaining,require_equipped=False)
-                target.setdefault("personal_inventory",{})[item_id]=int(target.get("personal_inventory",{}).get(item_id,0))+qty; self.put(tp,target); action="transferred"
+                target.setdefault("personal_inventory",{})[item_id]=int(target.get("personal_inventory",{}).get(item_id,0))+qty; self.put(tp,target); action="issued" if t=="equipment_issue" else "transferred"
+            elif t=="equipment_return":
+                target_ref=str(payload["target_ref"]); tp,target=self._exact_person(target_ref); target_loc=self._person_location(target)
+                if not player_loc or player_loc!=target_loc: raise ValueError("equipment return requires exact co-location")
+                tinv=target.setdefault("personal_inventory",{}); available=int(tinv.get(item_id,0))
+                if available<qty: raise ValueError("returning person does not hold enough of the exact item")
+                tinv[item_id]=available-qty
+                if tinv[item_id]<=0: tinv.pop(item_id,None)
+                inv["items"][item_id]=int(inv["items"].get(item_id,0))+qty; self.put(tp,target); action="returned"
             elif t=="equipment_drop":
                 available=int(inv["items"].get(item_id,0)); take_inv=min(qty,available); inv["items"][item_id]=available-take_inv; remaining=qty-take_inv
                 if remaining: self._take_manifest_items(manifest,item_id,remaining,require_equipped=False)
-                hist=_deepcopy(self.read("state/history/events/index.json")); eid="equipment_drop_"+command.digest[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"equipment_drop","at":str(self._world_time()),"person_ref":self.PLAYER_ACTOR,"location_ref":player_loc,"item_id":item_id,"quantity":qty}); self.put("state/history/events/index.json",hist); action="dropped"
+                world_items_path="state/economy/world-items.json"; world_items=_deepcopy(self.read(world_items_path)); cache=world_items.setdefault("locations",{}).setdefault(str(player_loc),{}); cache[item_id]=int(cache.get(item_id,0))+qty; self.put(world_items_path,world_items); hist=_deepcopy(self.read("state/history/events/index.json")); eid="equipment_drop_"+command.digest[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"equipment_drop","at":str(self._world_time()),"person_ref":self.PLAYER_ACTOR,"location_ref":player_loc,"item_id":item_id,"quantity":qty}); self.put("state/history/events/index.json",hist); action="dropped"
+            elif t=="equipment_loot":
+                world_items_path="state/economy/world-items.json"; world_items=_deepcopy(self.read(world_items_path)); cache=world_items.setdefault("locations",{}).setdefault(str(player_loc),{}); available=int(cache.get(item_id,0))
+                if available<qty: raise ValueError("no sufficient exact dropped item exists at the player location")
+                cache[item_id]=available-qty
+                if cache[item_id]<=0: cache.pop(item_id,None)
+                if not cache: world_items["locations"].pop(str(player_loc),None)
+                inv["items"][item_id]=int(inv["items"].get(item_id,0))+qty; self.put(world_items_path,world_items); action="looted"
             else:
                 available=int(inv["items"].get(item_id,0)); take_inv=min(qty,available); inv["items"][item_id]=available-take_inv; remaining=qty-take_inv
                 if remaining: self._take_manifest_items(manifest,item_id,remaining,require_equipped=True)
                 action="consumed"
-            entries[:]=[e for e in entries if int(e.get("quantity",0))>0]; inv["items"]={k:int(v) for k,v in inv["items"].items() if int(v)>0}; self.put(invp,inv); self._register_owner("inventory_char_tang_wei",invp); self.put(mp,manifest); world_time,metrics=self._advance_seconds(300 if t in {"equipment_equip","equipment_unequip","equipment_consume"} else 600); self._write_meta(command,world_time); return self._result(action=action,item_id=item_id,quantity=qty,world_time=world_time,**metrics)
+            entries[:]=[e for e in entries if int(e.get("quantity",0))>0]; inv["items"]={k:int(v) for k,v in inv["items"].items() if int(v)>0}; self.put(invp,inv); self._register_owner("inventory_char_tang_wei",invp); self.put(mp,manifest); world_time,metrics=self._advance_seconds(300 if t in {"equipment_equip","equipment_unequip","equipment_consume","equipment_loot"} else 600); self._write_meta(command,world_time); return self._result(action=action,item_id=item_id,quantity=qty,world_time=world_time,**metrics)
         if t=="reputation_event":
             subject_ref=str(payload["subject_ref"]); audience_ref=str(payload["audience_ref"]); delta=int(payload["delta"]); event_type=str(payload.get("event_type","material_conduct")); now=str(self._world_time()); idxp="state/reputation/index.json"; idx=_deepcopy(self.read(idxp)); subject_path=idx.get("subjects",{}).get(subject_ref)
             if not subject_path: raise ValueError("reputation subject is not registered")
-            subject=_deepcopy(self.read(subject_path)); slug=lambda x: x.replace(".","-").replace("_","-").replace(":","-"); profile_id=f"reputation.{slug(subject_ref)}.{slug(audience_ref)}"; profile_path=subject.get("audience_profiles",{}).get(audience_ref,f"state/reputation/audiences/{slug(subject_ref)}--{slug(audience_ref)}.json"); profile=_deepcopy(self.read_optional(profile_path) or {"schema":"reputation-audience-profile.v1","subject_id":subject_ref,"audience_id":audience_ref,"as_of":now,"authority":True,"standing":{"overall":0},"dimensions":{},"evidence_count":0,"last_event_refs":[],"memory_class":"normal"}); profile["standing"]["overall"]=_clamp(int(profile.get("standing",{}).get("overall",0))+delta,-100,100); dimension=str(payload.get("dimension","general")); profile.setdefault("dimensions",{})[dimension]=_clamp(int(profile.get("dimensions",{}).get(dimension,0))+delta,-100,100); eid="reputation."+hashlib.sha256((now+":"+subject_ref+":"+audience_ref+":"+str(command.expected_revision)).encode()).hexdigest()[:16]; event_path=f"state/reputation/events/{eid}.json"; event={"schema":"reputation-event.v1","event_id":eid,"subject_id":subject_ref,"event_type":event_type,"occurred_at":now,"source_event_ref":payload.get("source_event_ref"),"authority":True,"signals":{dimension:delta},"standing_signals":{"overall":delta},"visibility":{"audience_ref":audience_ref,"basis":str(payload.get("basis","verified material evidence"))},"witnesses":[str(x) for x in payload.get("witnesses",[])],"report_routes":[],"deliveries":{},"status":"settled"}; self.put(event_path,event); profile["as_of"]=now; profile["evidence_count"]=int(profile.get("evidence_count",0))+1; profile.setdefault("last_event_refs",[]).append(eid); profile["last_event_refs"]=profile["last_event_refs"][-16:]; self.put(profile_path,profile); subject.setdefault("audience_profiles",{})[audience_ref]=profile_path; subject["as_of"]=now; self.put(subject_path,subject); idx["event_count"]=int(idx.get("event_count",0))+1; idx["audience_profile_count"]=sum(len(self.read(path).get("audience_profiles",{})) if path!=subject_path else len(subject.get("audience_profiles",{})) for path in idx.get("subjects",{}).values()); self.put(idxp,idx); self._write_meta(command); return self._result(event_ref=eid,subject_ref=subject_ref,audience_ref=audience_ref,standing=profile["standing"]["overall"])
+            subject=_deepcopy(self.read(subject_path)); slug=lambda x: x.replace(".","-").replace("_","-").replace(":","-"); profile_id=f"reputation.{slug(subject_ref)}.{slug(audience_ref)}"; profile_path=subject.get("audience_profiles",{}).get(audience_ref,f"state/reputation/audiences/{slug(subject_ref)}--{slug(audience_ref)}.json"); profile=_deepcopy(self.read_optional(profile_path) or {"schema":"reputation-audience-profile.v1","subject_id":subject_ref,"audience_id":audience_ref,"as_of":now,"authority":True,"standing":{"overall":0},"dimensions":{},"evidence_count":0,"last_event_refs":[],"memory_class":"normal"}); profile["standing"]["overall"]=_clamp(int(profile.get("standing",{}).get("overall",0))+delta,-100,100); dimension=str(payload.get("dimension","general")); profile.setdefault("dimensions",{})[dimension]=_clamp(int(profile.get("dimensions",{}).get(dimension,0))+delta,-100,100); eid="reputation."+hashlib.sha256((now+":"+subject_ref+":"+audience_ref+":"+str(command.expected_revision)).encode()).hexdigest()[:16]; event_path=f"state/reputation/events/{eid}.json"; event={"schema":"reputation-event.v1","event_id":eid,"subject_id":subject_ref,"event_type":event_type,"occurred_at":now,"source_event_ref":payload.get("source_event_ref"),"authority":True,"signals":{dimension:delta},"standing_signals":{"overall":delta},"visibility":{"audience_ref":audience_ref,"basis":str(payload.get("basis","verified material evidence"))},"witnesses":[str(x) for x in payload.get("witnesses",[])],"report_routes":[],"deliveries":{},"status":"settled"}; self.put(event_path,event); profile["as_of"]=now; profile["evidence_count"]=int(profile.get("evidence_count",0))+1; profile.setdefault("last_event_refs",[]).append(eid); profile["last_event_refs"]=profile["last_event_refs"][-16:]; self.put(profile_path,profile); subject.setdefault("audience_profiles",{})[audience_ref]=profile_path; subject["as_of"]=now; self.put(subject_path,subject); idx["event_count"]=int(idx.get("event_count",0))+1; idx["audience_profile_count"]=sum(len(self.read(path).get("audience_profiles",{})) if path!=subject_path else len(subject.get("audience_profiles",{})) for path in idx.get("subjects",{}).values()); self.put(idxp,idx); world_time,metrics=self._advance_seconds(300); self._write_meta(command,world_time); return self._result(event_ref=eid,subject_ref=subject_ref,audience_ref=audience_ref,standing=profile["standing"]["overall"],world_time=world_time,**metrics)
         if t=="career_event":
             person_ref=str(payload["person_ref"]); pp,person=self._exact_person(person_ref); kind=str(payload["kind"]); registry_path="state/career/merit-and-career-history.json"; registry=_deepcopy(self.read(registry_path)); career=person.setdefault("career_state",{"merit_total":0,"qualifications":[],"grade":None,"appointments":[]}); record={"record_id":"career."+hashlib.sha256((str(self._world_time())+":"+person_ref+":"+kind+":"+str(command.expected_revision)).encode()).hexdigest()[:14],"person_ref":person_ref,"kind":kind,"at":str(self._world_time()),"authority":True}
             if kind=="merit":
@@ -1958,7 +2385,7 @@ class RepositoryCommandPlanner:
                 career["grade"]=grade; record.update({"grade":grade,"command_score":round(command_score,3),"merit_required":merit_required})
             else:
                 office=str(payload["office"]); career.setdefault("appointments",[]).append({"office":office,"at":str(self._world_time()),"grantor_ref":payload.get("grantor_ref")}); record["office"]=office
-            registry.setdefault("records",[]).append(record); registry.setdefault("runtime",{})["last_settled_at"]=str(self._world_time()); self.put(registry_path,registry); self.put(pp,person); self._write_meta(command); return self._result(person_ref=person_ref,kind=kind,career_state=career,record_id=record["record_id"])
+            registry.setdefault("records",[]).append(record); registry.setdefault("runtime",{})["last_settled_at"]=str(self._world_time()); self.put(registry_path,registry); self.put(pp,person); world_time,metrics=self._advance_seconds(3600); self._write_meta(command,world_time); return self._result(person_ref=person_ref,kind=kind,career_state=career,record_id=record["record_id"],world_time=world_time,**metrics)
         if t=="mercenary_contract":
             merc_ref=str(payload["mercenary_ref"]); mp,merc0=self.owner(merc_ref); merc=_deepcopy(merc0); action=str(payload["action"]); contracts=merc.setdefault("contracts",[]); now=self._world_time(); contract_ref=str(payload.get("contract_ref","contract."+hashlib.sha256((merc_ref+":"+str(now)+":"+str(command.expected_revision)).encode()).hexdigest()[:12])); contract=next((x for x in contracts if str(x.get("contract_ref"))==contract_ref),None); treasury_path=self.owner_path("treasury_house_tang"); treasury=_deepcopy(self.read(treasury_path)); metrics: Dict[str,int]={}; world_time=str(now)
             if action=="offer":
@@ -2092,6 +2519,17 @@ class RepositoryCommandPlanner:
             def add_person_index(ref: str, bucket: str, record_id: str) -> None:
                 pi=idx.setdefault("person_index",{}).setdefault(ref,{}); values=pi.setdefault(bucket,[]);
                 if record_id not in values: values.append(record_id)
+            def close_kin(a: str, b: str) -> bool:
+                if a==b: return True
+                for kp in idx.get("kinships",{}).values():
+                    kin=self.read(kp); participants={str(x) for x in kin.get("participants",[])}
+                    if {a,b}.issubset(participants) and str(kin.get("status","active"))=="active": return True
+                parents={}
+                for pp in idx.get("parentage",{}).values():
+                    par=self.read(pp); child=str(par.get("child_id","")); parents[child]={str(x.get("parent_id")) for x in par.get("parent_links",[]) if x.get("parent_id")}
+                if a in parents.get(b,set()) or b in parents.get(a,set()): return True
+                if parents.get(a,set()) & parents.get(b,set()): return True
+                return False
             def write_family_event(event_type: str, refs: list[str], refs_sources: list[str]) -> str:
                 eid="family."+event_type+"."+hashlib.sha256((str(now)+":"+":".join(sorted(refs))+":"+str(command.expected_revision)).encode()).hexdigest()[:12]; path=f"state/family/events/{eid}.json"; event={"schema":"family-event.v1","event_id":eid,"event_type":event_type,"occurred_at":str(now),"authority":True,"subject_refs":refs,"source_refs":refs_sources}; self.put(path,event); idx.setdefault("events",{})[eid]=path; idx.setdefault("counts",{})["events"]=len(idx["events"]);
                 for ref in refs: add_person_index(ref,"events",eid)
@@ -2099,6 +2537,7 @@ class RepositoryCommandPlanner:
             if kind=="proposal":
                 a=str(payload["person_ref"]); b=str(payload["partner_ref"]);
                 if a==b: raise ValueError("a family proposal requires two distinct people")
+                if close_kin(a,b): raise ValueError("marriage proposal is ineligible because the saved family authority records close kinship")
                 if person_age(a)<16 or person_age(b)<16: raise ValueError("marriage proposal participants must be at least 16")
                 pa,aa=self._exact_person(a); pb,bb=self._exact_person(b);
                 if self._person_location(aa)!=self._person_location(bb) or self._person_location(aa) is None: raise ValueError("family proposal requires exact co-location")
@@ -2135,7 +2574,7 @@ class RepositoryCommandPlanner:
                 due=CampaignTime.parse(str(preg["due_at"]));
                 if now<due: raise ValueError("birth cannot occur before the saved due time")
                 if self.read("state/index/owner-index-gold.json").get("owners",{}).get(child_ref): raise ValueError("child_ref already exists")
-                loc=self._person_location(mother); birth_date=f"{now.bce_year}-BCE-{now.month:02d}-{now.day:02d}"; seed=self._causal_seed(command,payload,"birth:"+child_ref); child_path=f"state/char/{child_ref.replace('char_','').replace('_','-')}.json"; child={"schema":"sab_character","owner_id":child_ref,"owner_type":"character","name":str(payload.get("name",child_ref.replace('char_','').replace('_',' ').title())),"birth_date":birth_date,"body":{"adult_height_cm":float(160+(seed%1800)/100.0),"growth_end_age":18,"current_weight_kg":3.2+((seed//100)%8)/10.0,"frame":"infant","growth_profile_id":"human_height_to_18"},"appearance":int(40+(seed%61)),"attributes":{},"skills":{},"aptitude":{"physical_learning":100,"technical_learning":100,"tactical_learning":100,"academic_learning":100,"social_learning":100},"development_state":{"completed_reviews":0,"maintenance_credit":0.0,"training_credit":0.0},"health_status":"healthy","life_status":"active","current_location":loc,"family":house_ref}; self.put(child_path,child); self._register_owner(child_ref,child_path); parentage_id=f"parentage.{child_ref.replace('char_','')}.birth_parents"; parpath=f"state/family/parentage/{parentage_id}.json"; parentage={"schema":"family-parentage.v1","parentage_id":parentage_id,"child_id":child_ref,"authority":True,"parent_links":[{"parent_id":mother_ref,"kind":"biological"},{"parent_id":father_ref,"kind":"biological"}],"guardian_links":[]}; self.put(parpath,parentage); idx.setdefault("parentage",{})[parentage_id]=parpath; idx.setdefault("counts",{})["parentage"]=len(idx["parentage"]); add_person_index(child_ref,"parentage",parentage_id); add_person_index(mother_ref,"parentage",parentage_id); add_person_index(father_ref,"parentage",parentage_id); uid=str(preg.get("union_ref")); up=idx.get("unions",{}).get(uid); union=self.read(up) if up else {}; hpath=union.get("household_ref") if isinstance(union,dict) else None
+                loc=self._person_location(mother); birth_date=f"{now.bce_year}-BCE-{now.month:02d}-{now.day:02d}"; seed=self._causal_seed(command,payload,"birth:"+child_ref); child_path=f"state/char/{child_ref.replace('char_','').replace('_','-')}.json"; child={"schema":"sab_character","owner_id":child_ref,"owner_type":"character","name":str(payload.get("name",child_ref.replace('char_','').replace('_',' ').title())),"birth_date":birth_date,"body":{"adult_height_cm":float(160+(seed%1800)/100.0),"growth_end_age":18,"current_weight_kg":3.2+((seed//100)%8)/10.0,"frame":"infant","growth_profile_id":"human_height_to_18"},"appearance":int(40+(seed%61)),"attributes":{},"skills":{},"aptitude":{"physical_learning":100,"technical_learning":100,"tactical_learning":100,"academic_learning":100,"social_learning":100},"development_state":{"completed_reviews":0,"maintenance_credit":0.0,"training_credit":0.0},"health_status":"healthy","life_status":"active","current_location":loc,"family":house_ref}; self.put(child_path,child); self._register_owner(child_ref,child_path); self._ensure_person_life_host(child_ref,now); parentage_id=f"parentage.{child_ref.replace('char_','')}.birth_parents"; parpath=f"state/family/parentage/{parentage_id}.json"; parentage={"schema":"family-parentage.v1","parentage_id":parentage_id,"child_id":child_ref,"authority":True,"parent_links":[{"parent_id":mother_ref,"kind":"biological"},{"parent_id":father_ref,"kind":"biological"}],"guardian_links":[]}; self.put(parpath,parentage); idx.setdefault("parentage",{})[parentage_id]=parpath; idx.setdefault("counts",{})["parentage"]=len(idx["parentage"]); add_person_index(child_ref,"parentage",parentage_id); add_person_index(mother_ref,"parentage",parentage_id); add_person_index(father_ref,"parentage",parentage_id); uid=str(preg.get("union_ref")); up=idx.get("unions",{}).get(uid); union=self.read(up) if up else {}; hpath=union.get("household_ref") if isinstance(union,dict) else None
                 if isinstance(hpath,str): household=_deepcopy(self.read(hpath)); deps=household.setdefault("dependent_refs",[]);
                 if isinstance(hpath,str) and child_ref not in deps: deps.append(child_ref); self.put(hpath,household); add_person_index(child_ref,"households",str(household.get("household_id")))
                 preg["active"]=False; preg["resolved_at"]=str(now); preg["child_ref"]=child_ref; mother["pregnancy_state"]=preg; self.put(mp,mother); house.setdefault("lineage_cohort",{})["children"]=int(house.get("lineage_cohort",{}).get("children",0))+1; subjects=[mother_ref,father_ref,child_ref]; source_refs=[parpath]+([str(hpath)] if hpath else []); result.update({"child_ref":child_ref,"parentage_ref":parentage_id}); result["family_event"]=write_family_event("birth",subjects,source_refs)
@@ -2169,7 +2608,9 @@ class RepositoryCommandPlanner:
                     if replacement is None: raise ValueError("succession has no living eligible candidate")
                     succession["current_holder_id"]=replacement; succession["last_changed_at"]=str(now); self.put(sp,succession); result["new_holder_ref"]=replacement; subjects=[holder,replacement]; source_refs=[sp]; result["family_event"]=write_family_event("succession_change",subjects,source_refs)
                 else: result["new_holder_ref"]=holder
-            idx.setdefault("counts",{})["unions"]=len(idx.get("unions",{})); idx["counts"]["households"]=len(idx.get("households",{})); idx["counts"]["parentage"]=len(idx.get("parentage",{})); self.put(idxp,idx); house.setdefault("family_events",[]).append({"kind":kind,"at":str(now),"subjects":subjects}); house["family_events"]=house["family_events"][-32:]; self.put(hp,house); self._write_meta(command,world_time); return self._result(**result)
+            idx.setdefault("counts",{})["unions"]=len(idx.get("unions",{})); idx["counts"]["households"]=len(idx.get("households",{})); idx["counts"]["parentage"]=len(idx.get("parentage",{})); self.put(idxp,idx); house.setdefault("family_events",[]).append({"kind":kind,"at":str(now),"subjects":subjects}); house["family_events"]=house["family_events"][-32:]; self.put(hp,house); family_hours={"proposal":1,"engagement":1,"marriage":8,"pregnancy":1,"birth":8,"death":0,"widowhood":1,"succession_review":2}; metrics: Dict[str,int]={}; hours=int(family_hours.get(kind,1));
+            if hours>0: world_time,metrics=self._advance_seconds(hours*3600)
+            self._write_meta(command,world_time); result.update({"world_time":world_time}); result.update(metrics); return self._result(**result)
         if t=="repair":
             if command.actor_id!=self.INTERNAL_ACTOR or command.mode!="maintenance": raise PermissionError("repair requires trusted internal maintenance actor")
             path=str(payload["path"]); before=self.read(path); after=_deepcopy(before); changes=dict(payload.get("changes",{})); after.update(changes); self.put(path,after); hist=_deepcopy(self.read("state/history/events/index.json")); eid="repair_"+command.digest[:16]; hist.setdefault("events",[]).append({"event_id":eid,"kind":"explicit_repair","at":command.submitted_at,"path":path,"reason":str(payload.get("reason","confirmed campaign-state repair"))}); self.put("state/history/events/index.json",hist); self._write_meta(command); return self._result(repair_event=eid,path=path)
@@ -2216,6 +2657,9 @@ class SwordRuntime:
     def preview(self, command: CommandEnvelope) -> CommandPlan:
         if command.actor_id == RepositoryCommandPlanner.INTERNAL_ACTOR or command.mode in {"autonomous", "maintenance"}:
             raise PermissionError("trusted internal commands are not exposed through player-facing preview")
+        payload=thaw_json(command.payload)
+        if command.command_type in {"battle_resolve","personal_combat"} or (command.command_type=="siege_action" and str(payload.get("action"))=="assault"):
+            raise PermissionError("stochastic or contested outcomes are execute-only and cannot be probed through player preview")
         return self.planner.preview(command)
 
     def execute(self, command: CommandEnvelope, crash_injector=None) -> TransactionExecution:

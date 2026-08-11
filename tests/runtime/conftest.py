@@ -44,9 +44,11 @@ def execute_internal(root, command_type, payload, *, request_id=None, mode='auto
     from sword_runtime.engine import RepositoryCommandPlanner
     return execute(root,command_type,payload,actor=RepositoryCommandPlanner.INTERNAL_ACTOR,mode=mode,request_id=request_id)
 
-def route_path(root, origin, destination):
+def route_path(root, origin, destination, *, mode=None):
     routes=json.load(open(Path(root)/'game/data/world/routes.json'))['routes']; graph=collections.defaultdict(list)
     for route in routes:
+        if mode is not None and mode not in set(route.get('modes', [])):
+            continue
         a,b=route['a'],route['b']; graph[a].append(b); graph[b].append(a)
     q=collections.deque([(origin,[origin])]); seen={origin}
     while q:
@@ -58,12 +60,7 @@ def route_path(root, origin, destination):
 
 def move_formation_internal(root, formation_ref, destination):
     idx=json.load(open(Path(root)/'state/index/owner-index-gold.json'))['owners']; formation=json.load(open(Path(root)/idx[formation_ref])); origin=formation['location_ref']
-    if origin.startswith('loc_tang_manor_') and destination != origin:
-        execute_internal(root,'formation_move',{'formation_ref':formation_ref,'destination_ref':'loc_kanyou'})
-        origin='loc_kanyou'
-        if destination == origin:
-            return
-    for nxt in route_path(root,origin,destination)[1:]:
+    for nxt in route_path(root,origin,destination,mode='formation')[1:]:
         execute_internal(root,'formation_move',{'formation_ref':formation_ref,'destination_ref':nxt})
 
 def prepare_field_formation(root, formation_ref, destination='loc_kankoku_pass', *, food_per_person=7):
@@ -75,5 +72,6 @@ def prepare_field_formation(root, formation_ref, destination='loc_kankoku_pass',
 
 def activate_operation(root, operation_ref, formation_refs, location='loc_kankoku_pass'):
     execute_internal(root,'operation_create',{'operation_ref':operation_ref,'objective':'verified battlefield contact','formation_refs':list(formation_refs),'location_ref':location})
+    execute_internal(root,'operation_transition',{'operation_ref':operation_ref,'status':'mobilizing'})
     execute_internal(root,'operation_transition',{'operation_ref':operation_ref,'status':'active'})
     return operation_ref
