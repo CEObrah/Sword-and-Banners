@@ -372,6 +372,35 @@ class RepositoryCommandPlanner:
         if not self._has_formation_authority(actor_ref, formation_ref, capability):
             raise PermissionError(f"{actor_ref} lacks saved {capability} authority for {formation_ref}")
 
+    def _require_commandable_person(self, actor_ref: str, person_ref: str, formation_ref: str) -> None:
+        """Prove that a proposed exact commander is actually subject to the actor's command.
+
+        Authority over a formation is not authority over arbitrary named people. Gameplay
+        may appoint the player, retain an already-lawful commander, or appoint an exact
+        person whose saved service record binds them to Tang Wei's personal force.
+        Autonomous/state actors use their separate runtime authority path.
+        """
+        if actor_ref == self.INTERNAL_ACTOR:
+            return
+        if person_ref == actor_ref:
+            return
+        _, formation = self._load_formation(formation_ref)
+        if str(formation.get("commander_ref") or "") == person_ref:
+            return
+        _, person = self._exact_person(person_ref)
+        affiliation = str(person.get("affiliation", "")).strip().lower()
+        force = str(person.get("current_formation_id", "")).strip().lower()
+        authority = str(person.get("authority", "")).strip().lower()
+        loyalty = str(person.get("loyalty", "")).strip().lower()
+        saved_retainer = (
+            affiliation == "tang wei personal retinue"
+            or force == "personal_force_tang_wei"
+            or ("tang wei" in authority and ("retainer" in authority or "field commander" in authority or "guardian" in authority))
+            or ("lifetime vow" in loyalty and "tang" in affiliation)
+        )
+        if not saved_retainer:
+            raise PermissionError(f"{actor_ref} has no saved personnel authority over {person_ref}")
+
     def _commander_index(self) -> Dict[str, Any]:
         path = "state/index/commander-formation-index.json"
         return _deepcopy(self.read_optional(path) or {"schema":"sword-commander-formation-index","authority":False,"assignments":{}})
@@ -454,7 +483,10 @@ class RepositoryCommandPlanner:
             "formation_dissolve",
         }
         if t in formation_commands:
-            self._require_formation_authority(actor, str(payload["formation_ref"]))
+            formation_ref = str(payload["formation_ref"])
+            self._require_formation_authority(actor, formation_ref)
+            if t in {"command_assign", "command_transfer", "formation_assign", "force_assignment"} and payload.get("commander_ref"):
+                self._require_commandable_person(actor, str(payload["commander_ref"]), formation_ref)
         elif t == "formation_merge":
             refs = [str(x) for x in payload.get("formation_refs", [])]
             if not refs:
