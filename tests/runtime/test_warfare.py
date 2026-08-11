@@ -2,8 +2,11 @@ import json,time
 from conftest import execute, execute_internal, prepare_field_formation, activate_operation
 
 def create_pair(campaign,tag,n,battlefield='loc_kankoku_pass',food_per_person=7):
-    execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':f'formation_qin_{tag}','role':'line_infantry','personnel':n,'commander_ref':'char_ouki'})
-    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':f'formation_zhao_{tag}','role':'line_infantry','personnel':n,'commander_ref':'char_riboku'})
+    qcmd=f'char_warfare_{tag}_qin'; zcmd=f'char_warfare_{tag}_zhao'
+    execute_internal(campaign,'person_materialize',{'state':'qin','person_ref':qcmd,'name':f'Qin {tag} commander','birth_date':'270-BCE-01-01','role':'command_personnel'})
+    execute_internal(campaign,'person_materialize',{'state':'zhao','person_ref':zcmd,'name':f'Zhao {tag} commander','birth_date':'270-BCE-01-01','role':'command_personnel'})
+    execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':f'formation_qin_{tag}','role':'line_infantry','personnel':n,'commander_ref':qcmd})
+    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':f'formation_zhao_{tag}','role':'line_infantry','personnel':n,'commander_ref':zcmd})
     a,d=f'formation_qin_{tag}',f'formation_zhao_{tag}'
     prepare_field_formation(campaign,a,battlefield,food_per_person=food_per_person); prepare_field_formation(campaign,d,battlefield,food_per_person=food_per_person)
     op=activate_operation(campaign,f'operation_{tag}',[a,d],battlefield)
@@ -17,8 +20,11 @@ def create_local_scale_pair(campaign,tag,n):
     admitted to one saved operation at Qin's military depot.
     """
     a=f'formation_qin_{tag}_a'; d=f'formation_qin_{tag}_b'
-    execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':a,'role':'line_infantry','personnel':n,'commander_ref':'char_ouki'})
-    execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':d,'role':'line_infantry','personnel':n,'commander_ref':'char_ousen'})
+    acmd=f'char_warfare_{tag}_a'; dcmd=f'char_warfare_{tag}_b'
+    execute_internal(campaign,'person_materialize',{'state':'qin','person_ref':acmd,'name':f'Qin {tag} A commander','birth_date':'270-BCE-01-01','role':'command_personnel'})
+    execute_internal(campaign,'person_materialize',{'state':'qin','person_ref':dcmd,'name':f'Qin {tag} B commander','birth_date':'270-BCE-01-01','role':'command_personnel'})
+    execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':a,'role':'line_infantry','personnel':n,'commander_ref':acmd})
+    execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':d,'role':'line_infantry','personnel':n,'commander_ref':dcmd})
     for ref in (a,d):
         execute_internal(campaign,'resupply',{'formation_ref':ref,'food_kg':n,'war_arrows':0})
         execute_internal(campaign,'formation_mobilize',{'formation_ref':ref})
@@ -42,7 +48,7 @@ def test_200k_battle_is_bounded(campaign):
 
 def test_full_siege_lifecycle(campaign):
     q,z,_=create_pair(campaign,'siege',4000,food_per_person=20)
-    execute_internal(campaign,'fortification_materialize',{'fortification_ref':'fort_kankoku_accept','location_ref':'loc_kankoku_pass','garrison_formation_refs':[q],'food_kg':20000,'state':'qin','commander_ref':'char_ouki'})
+    execute_internal(campaign,'fortification_materialize',{'fortification_ref':'fort_kankoku_accept','location_ref':'loc_kankoku_pass','garrison_formation_refs':[q],'food_kg':20000,'state':'qin','commander_ref':'char_warfare_siege_qin'})
     execute_internal(campaign,'siege_start',{'siege_ref':'siege_kankoku_accept','fortification_ref':'fort_kankoku_accept','attacker_formation_refs':[z]})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'blockade','days':1})
     execute_internal(campaign,'siege_action',{'siege_ref':'siege_kankoku_accept','action':'repair','points':3})
