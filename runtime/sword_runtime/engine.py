@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, Mapping, Optional
 
 from sword_runtime.commands import CommandEnvelope
+from sword_runtime.command_contracts import COMMAND_PAYLOAD_KEYS
 from sword_runtime.development import age_years, settle_skill_training
 from sword_runtime.semantic_validation import require_int, require_number, require_text, require_list
 from sword_runtime.sim.calendar import CampaignTime
@@ -408,7 +409,12 @@ class RepositoryCommandPlanner:
     def _assign_commander_index(self, commander_ref: str, formation_ref: str, *, replace: bool = False) -> None:
         idx = self._commander_index(); assignments = idx.setdefault("assignments", {})
         current = [str(x) for x in assignments.get(commander_ref, [])]
-        if formation_ref not in current:
+        other = [ref for ref in current if ref != formation_ref]
+        if other and not replace:
+            raise ValueError(f"exact commander {commander_ref} is already assigned to {other[0]}")
+        if replace:
+            current = [formation_ref]
+        elif formation_ref not in current:
             current.append(formation_ref)
         assignments[commander_ref] = sorted(set(current))
         self.put("state/index/commander-formation-index.json", idx)
@@ -1289,6 +1295,12 @@ class RepositoryCommandPlanner:
         t = command.command_type
         if t not in COMMAND_TYPES:
             raise ValueError("unsupported Sword semantic command: %s" % t)
+        allowed_keys = COMMAND_PAYLOAD_KEYS.get(t)
+        if allowed_keys is None:
+            raise ValueError(f"semantic command has no payload contract: {t}")
+        unknown_keys = sorted(set(payload) - set(allowed_keys))
+        if unknown_keys:
+            raise ValueError(f"unsupported payload fields for {t}: {unknown_keys}")
 
         if t == "scene_consequence":
             require_text(payload, "summary", max_length=4000)
@@ -1316,7 +1328,16 @@ class RepositoryCommandPlanner:
             if self.read("state/index/owner-index-gold.json").get("owners",{}).get(str(payload["person_ref"])):
                 raise ValueError("person_ref already exists")
         if t == "formation_split":
-            require_int(payload, "personnel", minimum=1, maximum=1_000_000); require_text(payload, "new_formation_ref")
+            require_int(payload, "personnel", minimum=1, maximum=1_000_000)
+            new_ref=require_text(payload, "new_formation_ref")
+            source_ref=require_text(payload, "formation_ref")
+            if not new_ref.startswith("formation_"):
+                raise ValueError("new_formation_ref must use the formation_ namespace")
+            if new_ref == source_ref:
+                raise ValueError("split formation_ref must be distinct from its source")
+            owners=self.read("state/index/owner-index-gold.json").get("owners",{})
+            if new_ref in owners:
+                raise ValueError("new_formation_ref already exists")
         if t == "formation_reconstitute":
             require_int(payload, "target_personnel", minimum=1, maximum=1_000_000)
             if "equipment_units" in payload: require_int(payload, "equipment_units", minimum=0, maximum=1_000_000)
@@ -2365,11 +2386,15 @@ class RepositoryCommandPlanner:
             elif t=="resupply":
                 dp,depot=self._material_depot(f)
                 if depot.get("location_ref") and depot.get("location_ref")!=f.get("location_ref"): raise ValueError("resupply requires physical depot access")
-                requests={"food_kg":int(payload.get("food_kg",int(f["personnel"])*5)),"fodder_kg":int(payload.get("fodder_kg",0)),"war_arrows":int(payload.get("war_arrows",0))}; mapkey={"food_kg":"grain_kg","fodder_kg":"fodder_kg","war_arrows":"war_arrows"}
-                transferred=0
+                requests={"food_kg":int(payload.get("food_kg",0)),"fodder_kg":int(payload.get("fodder_kg",0)),"war_arrows":int(payload.get("war_arrows",0))}; mapkey={"food_kg":"grain_kg","fodder_kg":"fodder_kg","war_arrows":"war_arrows"}
                 for k,n in requests.items():
-                    take=min(n,int(depot["stocks"].get(mapkey[k],0))); depot["stocks"][mapkey[k]]-=take; f["logistics"][k]=int(f["logistics"].get(k,0))+take; transferred+=take
-                if transferred<=0: raise ValueError("no requested resupply material is physically available")
+                    available=int(depot.get("stocks",{}).get(mapkey[k],0))
+                    if n > available:
+                        raise ValueError(f"depot lacks exact requested {k}: requested {n}, available {available}")
+                transferred=sum(requests.values())
+                if transferred<=0: raise ValueError("resupply requires at least one positive material quantity")
+                for k,n in requests.items():
+                    depot["stocks"][mapkey[k]]-=n; f["logistics"][k]=int(f["logistics"].get(k,0))+n
                 world_time,time_metrics=self._advance_seconds(max(3600,min(12*3600,int(math.ceil(transferred/5000.0))*3600))); f["last_resupplied_at"]=world_time; self.put(dp,depot)
             self.put(p,f); self._write_meta(command,world_time); result=self._result(formation_ref=ref,status=f.get("status"),world_time=world_time or str(self._world_time())); result.update(time_metrics); return result
         if t in {"formation_split","formation_merge","formation_dissolve"}:

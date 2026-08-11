@@ -2,6 +2,7 @@ import json
 import pytest
 
 from conftest import execute, meta
+from sword_runtime.command_contracts import COMMAND_PAYLOAD_KEYS
 
 
 def test_every_semantic_command_has_a_fail_closed_hostile_case(campaign):
@@ -74,6 +75,11 @@ def test_every_semantic_command_has_a_fail_closed_hostile_case(campaign):
     }
 
     catalog = set(json.load(open(campaign/'game/data/mechanics/command-catalog.json'))['commands'])
+    hostile_contract = json.load(open(campaign/'game/data/mechanics/command-hostile-contracts.json'))
+    assert hostile_contract['schema'] == 'sword-hostile-command-contracts.v1'
+    assert set(hostile_contract['commands']) == catalog
+    assert {'unknown_field', 'wrong_actor', 'stale_revision', 'impossible_chronology', 'internal_preview'} <= set(hostile_contract['universal_attacks'])
+    assert set(COMMAND_PAYLOAD_KEYS) == catalog
     assert set(cases) == catalog, f'matrix drift: missing={sorted(catalog-set(cases))}, extra={sorted(set(cases)-catalog)}'
 
     baseline = meta(campaign)
@@ -88,3 +94,19 @@ def test_every_semantic_command_has_a_fail_closed_hostile_case(campaign):
         assert meta(campaign) == baseline, f'{command_type} mutated authoritative meta before rejection'
 
     assert set(failures) == catalog
+
+
+def test_every_semantic_command_rejects_unknown_payload_fields(campaign):
+    """No production command may silently accept caller fields outside its contract."""
+    catalog = set(json.load(open(campaign/'game/data/mechanics/command-catalog.json'))['commands'])
+    assert set(COMMAND_PAYLOAD_KEYS) == catalog
+    baseline = meta(campaign)
+    for command_type in sorted(catalog):
+        with pytest.raises(ValueError, match='unsupported payload fields'):
+            execute(
+                campaign,
+                command_type,
+                {'__unexpected_shadow_field__': True},
+                request_id=f'hostile-unknown-field-{command_type}',
+            )
+        assert meta(campaign) == baseline, f'{command_type} mutated authoritative meta before unknown-field rejection'

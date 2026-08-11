@@ -96,13 +96,13 @@ def test_battle_time_named_people_and_no_same_timestamp_rerolls(campaign):
     from sword_runtime.sim.calendar import CampaignTime
     q='formation_parity_qin'; z='formation_parity_zhao'
     execute_internal(campaign,'formation_create',{'state':'qin','formation_ref':q,'role':'line_infantry','personnel':1000,'commander_ref':'char_heki'})
-    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':z,'role':'line_infantry','personnel':1000,'commander_ref':'char_riboku'})
+    execute_internal(campaign,'formation_create',{'state':'zhao','formation_ref':z,'role':'line_infantry','personnel':1000,'commander_ref':'char_bananji'})
     prepare_field_formation(campaign,q); prepare_field_formation(campaign,z); op=activate_operation(campaign,'operation_parity_battle',[q,z])
     t0=CampaignTime.parse(meta(campaign)['time'])
     r1=execute_internal(campaign,'battle_resolve',{'attacker_formation_refs':[q],'defender_formation_refs':[z],'operation_ref':op}).receipt.result
     t1=CampaignTime.parse(meta(campaign)['time'])
     assert t0.seconds_until(t1)>=3600
-    assert {'char_heki','char_riboku'}.issubset(set(r1['named_person_outcomes']))
+    assert {'char_heki','char_bananji'}.issubset(set(r1['named_person_outcomes']))
     # A caller cannot replay the battle at its old timestamp. Whether another
     # battle is otherwise lawful depends on who survived and still commands.
     from sword_runtime.engine import SwordRuntime, RepositoryCommandPlanner
@@ -177,3 +177,61 @@ def test_fifty_year_world_produces_exact_human_and_interstate_history(campaign):
     assert all(int(e.get('travel_hours',0))>0 for e in remote)
     assert all(str(e.get('dispatched_at'))!=str(e.get('at')) for e in convoy_receipts)
     assert all(CampaignTime.parse(str(e['arrives_at'])) <= CampaignTime.parse(str(e['at'])) for e in convoy_receipts)
+
+
+def test_split_identity_resupply_exactness_and_single_commander(campaign):
+    ref='formation_tang_champions_first'
+    _,before=owner_doc(campaign,ref)
+    before_meta=meta(campaign)
+
+    # A split cannot overwrite an existing formation identity or alias its source.
+    with pytest.raises(ValueError):
+        execute(campaign,'formation_split',{'formation_ref':ref,'personnel':10,'new_formation_ref':ref})
+    with pytest.raises(ValueError):
+        execute(campaign,'formation_split',{'formation_ref':ref,'personnel':10,'new_formation_ref':'formation_tang_champions_second'})
+    _,after=owner_doc(campaign,ref)
+    assert after==before and meta(campaign)==before_meta
+
+    # Resupply is exact, not an implicit/partial order.  Asking for more than
+    # the physically colocated depot owns must reject the entire transaction.
+    depot_path=campaign/'state/depots/house-tang.json'
+    depot0=json.load(open(depot_path))
+    with pytest.raises(ValueError):
+        execute(campaign,'resupply',{'formation_ref':ref,'food_kg':int(depot0['stocks']['grain_kg'])+1})
+    assert json.load(open(depot_path))==depot0
+    _,unchanged=owner_doc(campaign,ref)
+    assert unchanged==before
+
+    # A single exact person cannot command two formations at once.
+    with pytest.raises(ValueError):
+        execute(campaign,'command_assign',{'formation_ref':ref,'commander_ref':'char_shen_rui'})
+
+
+def test_derived_state_and_project_timing_fail_closed(campaign):
+    # Reputation and career are consequences of evidence, not player-authored knobs.
+    with pytest.raises(PermissionError):
+        execute(campaign,'reputation_event',{'subject_ref':'char_tang_wei','audience_ref':'char_shen_rui','delta':20})
+    with pytest.raises(PermissionError):
+        execute(campaign,'career_event',{'person_ref':'char_tang_wei','kind':'merit','merit':1000})
+
+    # A project cannot be resolved before its persisted due time.
+    project_ref='project_parity_timing'
+    execute_internal(campaign,'institution_project',{'institution_ref':'inst_qin_fortification_bureau','project_ref':project_ref,'duration_hours':24,'magnitude':1})
+    with pytest.raises(ValueError):
+        execute_internal(campaign,'project_resolve',{'institution_ref':'inst_qin_fortification_bureau','project_ref':project_ref})
+
+
+def test_siege_inputs_and_equipment_custody_are_exact(campaign):
+    # Caller-supplied siege damage is forbidden and nonexistent siege state fails.
+    with pytest.raises(ValueError):
+        execute_internal(campaign,'siege_action',{'siege_ref':'siege_does_not_exist','action':'assault','damage':100})
+
+    # Owning a catalog key is not custody.  Equipment operations require exact
+    # inventory instances and cannot fabricate/overdraw them.
+    with pytest.raises(ValueError):
+        execute(campaign,'equipment_equip',{'item_key':'military_sword','quantity':1})
+    execute(campaign,'travel',{'destination_ref':'loc_kanyou','mode':'foot'})
+    purchase=execute(campaign,'market_purchase',{'item_key':'military_sword','quantity':1}).receipt.result
+    item_id=purchase['item_id']
+    with pytest.raises(ValueError):
+        execute(campaign,'equipment_equip',{'item_key':item_id,'quantity':10000})

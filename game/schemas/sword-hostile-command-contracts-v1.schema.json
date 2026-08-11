@@ -1,0 +1,53 @@
+{
+  "$id": "sword-hostile-command-contracts.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "commands": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "properties": {
+          "specific_attack": {
+            "additionalProperties": false,
+            "properties": {
+              "dimension": {
+                "type": "string"
+              },
+              "payload": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "dimension",
+              "payload"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "specific_attack"
+        ],
+        "type": "object"
+      },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "schema": {
+      "const": "sword-hostile-command-contracts.v1"
+    },
+    "universal_attacks": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 5,
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema",
+    "universal_attacks",
+    "commands"
+  ],
+  "type": "object"
+}

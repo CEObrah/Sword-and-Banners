@@ -5,6 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'runtime'))
 from sword_runtime.engine import COMMAND_TYPES
+from sword_runtime.command_contracts import COMMAND_PAYLOAD_KEYS
 from sword_runtime.sim.calendar import CampaignTime
 from jsonschema import validators as jsonschema_validators
 
@@ -88,6 +89,20 @@ check('autonomous_interstate_history_loop',lambda: (lambda rt,cfg,idx: ok(sum(1 
 
 check('hostile_rules_parity_suite_mandatory',lambda: (lambda suite: ok('tests/runtime/test_rules_parity_adversarial.py' in suite))((ROOT/'tools/run_gold_suite.py').read_text()))
 check('command_wide_hostile_matrix_mandatory',lambda: (lambda suite: ok('tests/runtime/test_hostile_command_matrix.py' in suite))((ROOT/'tools/run_gold_suite.py').read_text()))
+
+def command_payload_contract_coverage():
+    catalog=set(j('game/data/mechanics/command-catalog.json')['commands'])
+    ok(set(COMMAND_PAYLOAD_KEYS)==catalog, f'payload contract drift missing={sorted(catalog-set(COMMAND_PAYLOAD_KEYS))} extra={sorted(set(COMMAND_PAYLOAD_KEYS)-catalog)}')
+check('command_payload_contract_coverage',command_payload_contract_coverage)
+
+def hostile_contract_registry():
+    contract=j('game/data/mechanics/command-hostile-contracts.json')
+    catalog=set(j('game/data/mechanics/command-catalog.json')['commands'])
+    ok(contract.get('schema')=='sword-hostile-command-contracts.v1','wrong hostile contract schema')
+    ok(set(contract.get('commands',{}))==catalog,f'hostile contract drift missing={sorted(catalog-set(contract.get("commands",{})))} extra={sorted(set(contract.get("commands",{}))-catalog)}')
+    ok({'unknown_field','wrong_actor','stale_revision','impossible_chronology','internal_preview'}<=set(contract.get('universal_attacks',[])),'hostile contract missing universal attacks')
+    ok(all(bool(v) for v in contract.get('commands',{}).values()),'every command needs at least one command-specific hostile dimension')
+check('hostile_command_contract_registry',hostile_contract_registry)
 
 check('server_owned_chronology_and_preview_security',lambda: (lambda src: ok('submitted_at must equal authoritative campaign world time' in src and 'contested outcomes are execute-only' in src.lower() and 'command.command_type' in src))((ROOT/'runtime/sword_runtime/engine.py').read_text()))
 
