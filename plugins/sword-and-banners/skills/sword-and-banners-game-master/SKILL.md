@@ -117,7 +117,7 @@ Use one semantic command per write transaction.
 1. Generate a new bounded `request_id`.
 2. Call `preview_command` with that request ID, fresh `expected_revision`, the exact current `command_type`, and a payload satisfying the live contract.
 3. Treat preview as read-only and noncanonical.
-4. Deterministic commands may return projected results. Contested battle, personal-combat, and siege-assault previews deliberately hide their outcomes and may return readiness only. Never retry previews to probe a stochastic result.
+4. Deterministic commands may return projected results. Contested battle, personal combat, siege assault, and broad `advance_time` previews deliberately hide their outcomes and may return readiness only. Broad time advancement is hidden so preview cannot be used to probe future autonomous contacts or other not-yet-player-known events. Never retry previews to probe a stochastic or hidden-future result.
 5. A preview is executable only when it returns a ready status, the complete immutable command object, and a `preview_attestation`.
 6. Preserve that command object and attestation exactly. Never construct, edit, summarize, or recreate the attestation.
 
@@ -132,7 +132,8 @@ For multi-step intent, preview one command, execute it, refresh context, then re
 5. If execution fails, never narrate the intended mutation as completed.
 6. On stale revision or another refresh-required failure, call `get_play_context` again and re-evaluate intent.
 7. After a committed or duplicate receipt, call `get_play_context` again before narrating persistent aftermath.
-8. If preview or execution returns `high_salience_wake_required`, treat it as a causal player-agency boundary rather than a generic failure. Do not retry the same broad time skip or autonomous continuation. Refresh with `get_play_context`, narrate only the player-visible situation that has now become consequential, and hand the genuine decision back to the player using `references/choices.md` when decision scaffolding is useful.
+8. If a committed time-advancement receipt ends early with an interruption/wake, or refreshed context contains `pending_wake` / `decision_required`, treat the committed boundary as the actual elapsed result. Do not narrate the originally requested later time as reached and do not continue automatically. Narrate only the player-visible contact or other consequential boundary now established, then hand the genuine decision back to the player using `references/choices.md` when scaffolding is useful.
+9. If preview or execution instead fails with `high_salience_wake_required`, treat it as a causal player-agency boundary rather than a generic failure. Do not retry the same broad action. Refresh with `get_play_context`, use any returned pending decision state, and ask only for the consequential response the runtime now requires.
 
 Never invent runtime-owned outcomes such as success, failure, injury, death, capture, casualties, morale loss, equipment loss, expenditure, training gain, relationship change, reputation, office, recruitment, formation movement, battle result, siege progress, territorial transfer, or elapsed time.
 
