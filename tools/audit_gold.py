@@ -87,6 +87,7 @@ check('exact_person_causal_hosts',exact_person_causal_hosts)
 check('autonomous_interstate_history_loop',lambda: (lambda rt,cfg,idx: ok(sum(1 for h in rt['hosts'].values() if h.get('kind')=='interstate')==1 and bool(cfg.get('theaters')) and idx.get('interstate_warring_states')=='state/politics/interstate-history.json'))(j('state/runtime.json'),j('game/data/world/autonomous-theaters.json'),j('state/index/owner-index-gold.json')['owners']))
 
 check('hostile_rules_parity_suite_mandatory',lambda: (lambda suite: ok('tests/runtime/test_rules_parity_adversarial.py' in suite))((ROOT/'tools/run_gold_suite.py').read_text()))
+check('command_wide_hostile_matrix_mandatory',lambda: (lambda suite: ok('tests/runtime/test_hostile_command_matrix.py' in suite))((ROOT/'tools/run_gold_suite.py').read_text()))
 
 check('server_owned_chronology_and_preview_security',lambda: (lambda src: ok('submitted_at must equal authoritative campaign world time' in src and 'contested outcomes are execute-only' in src.lower() and 'command.command_type' in src))((ROOT/'runtime/sword_runtime/engine.py').read_text()))
 

@@ -36,7 +36,7 @@ def command_for(root:Path,index:int,baseline_revision:int):
     elif slot==3: t,p='relationship_change',{'target_ref':'char_shen_rui','kind':'trust','delta':1 if cycle%2==0 else -1}
     elif slot==4: t,p='cohort_training',{'cohort_ref':'junior_disciple','hours':1}
     elif slot==5: t,p='formation_train',{'formation_ref':'formation_tang_champions_first','hours':1}
-    elif slot==6: t,p='house_action',{'house_ref':'house_tang','action':'assign_duty','subject_ref':'char_tang_kai'}
+    elif slot==6: t,p='house_action',{'house_ref':'house_tang','action':'assign_duty','subject_ref':'char_tang_kai','duty':'gold_soak_readiness_assistant'}
     elif slot==7: t,p='state_action',{'state':'qin','action':'strategic_goal','goal':f'maintain readiness soak {cycle}'}
     elif slot==8: t,p='enlisted_service_pay',{'state':'qin','amount_silver':7}
     elif slot==9: t,p='information_create',{'information_ref':f'info_gold_soak_{cycle:04d}','claim':f'Routine logistics report {cycle}','confidence':'0.8','knowers':['char_tang_wei']}

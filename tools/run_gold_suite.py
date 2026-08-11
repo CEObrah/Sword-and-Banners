@@ -17,6 +17,7 @@ MODULES = [
     'tests/runtime/test_semantic_surface.py',
     'tests/runtime/test_gold_hardening.py',
     'tests/runtime/test_rules_parity_adversarial.py',
+    'tests/runtime/test_hostile_command_matrix.py',
     'tests/runtime/test_warfare.py',
 ]
 
