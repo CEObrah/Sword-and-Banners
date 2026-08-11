@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "owner_id",
+    "owner_type",
+    "roles",
+    "runtime"
+  ],
+  "properties": {
+    "schema": {
+      "const": "role-slot-registry"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "const": "role_slot_registry"
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "institution_ref",
+          "role",
+          "status",
+          "position_count"
+        ],
+        "properties": {
+          "institution_ref": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "occupied",
+              "vacant",
+              "selection_in_progress",
+              "capacity_only"
+            ]
+          },
+          "position_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "authority_summary": {
+            "type": "string"
+          },
+          "location_ref": {
+            "type": "string"
+          },
+          "source_population_ref": {
+            "type": "string"
+          },
+          "included_in_population": {
+            "type": "boolean"
+          },
+          "incumbent": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "representation",
+              "age_years",
+              "capability_bands",
+              "health_availability",
+              "service_development_credit",
+              "retirement_status",
+              "materialized_character_id",
+              "settled_through"
+            ],
+            "properties": {
+              "representation": {
+                "enum": [
+                  "anonymous_role_incumbent",
+                  "materialized_character"
+                ]
+              },
+              "age_years": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "capability_bands": {
+                "type": "object",
+                "additionalProperties": {
+                  "enum": [
+                    "basic",
+                    "competent",
+                    "experienced",
+                    "expert",
+                    "master"
+                  ]
+                }
+              },
+              "health_availability": {
+                "enum": [
+                  "fit",
+                  "limited",
+                  "unavailable",
+                  "dead"
+                ]
+              },
+              "service_development_credit": {
+                "type": "number",
+                "minimum": 0
+              },
+              "retirement_status": {
+                "enum": [
+                  "active",
+                  "eligible",
+                  "retiring",
+                  "retired"
+                ]
+              },
+              "materialized_character_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "settled_through": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "last_settled_at"
+      ],
+      "properties": {
+        "last_settled_at": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

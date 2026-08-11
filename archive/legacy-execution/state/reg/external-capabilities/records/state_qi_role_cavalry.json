@@ -1,0 +1,81 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qi_role_cavalry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        68,
+        66,
+        72,
+        68,
+        68,
+        65,
+        66,
+        55,
+        52
+      ],
+      "skill_values": [
+        58,
+        72,
+        52,
+        45,
+        45,
+        48,
+        50,
+        58,
+        44,
+        58,
+        63,
+        64,
+        52,
+        50,
+        48,
+        76,
+        66,
+        58,
+        45,
+        56,
+        54,
+        28,
+        30,
+        43,
+        38,
+        44,
+        32,
+        42,
+        34,
+        41,
+        32,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qi_role_cavalry",
+    "monthly_factor_inputs": "instruction 1.01; facility 1.01; equipment 0.99; recovery 1.00; administration 0.78",
+    "role": "cavalry",
+    "state": "QI",
+    "identity_notes": "Wealthy, organized defensive state: logistics, training, administration, missile support, and strategic patience.",
+    "balance_adjustment": {
+      "state_identity": "QI",
+      "role": "cavalry",
+      "attribute_modifiers": {
+        "Intelligence": 3,
+        "Composure": 2,
+        "Awareness": 1
+      },
+      "skill_modifiers": {
+        "Logistics": 4,
+        "Training": 3,
+        "Crossbow": 2,
+        "Leadership": 1,
+        "Tactics": 2,
+        "Defense": 1
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

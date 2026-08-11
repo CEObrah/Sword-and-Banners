@@ -1,0 +1,41 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.merc.regional.26",
+    "owner_id": "merc.regional.26",
+    "owner_type": "regional_mercenary_company",
+    "source_force_ref": "state/merc/regional/merc-regional-26.json",
+    "formation_library_ref": "formation.mercenary.standard",
+    "reconstitution_policy_ref": "reconstitution.mercenary",
+    "unit_series": [
+      {
+        "series_id": "est.merc.regional.26.field",
+        "source_manpower_id": "merc.regional.26",
+        "role": "veteran_line",
+        "unit_count": 3,
+        "nominal_strength": 250,
+        "final_unit_strength": 150,
+        "stable_unit_id_pattern": "est.merc.regional.26.field.{ordinal:03d}",
+        "doctrine": "doc.merc.regional.26",
+        "training": "train.merc.regional",
+        "troop_type": "light_infantry",
+        "loadout_standard": "loadout_mercenary_line",
+        "specialty": "veteran_line"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mercenary.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.mercenary_captain"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 50,
+      "initiative": 49,
+      "caution": 51,
+      "adaptability": 58
+    }
+  }
+}

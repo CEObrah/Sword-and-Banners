@@ -1,0 +1,80 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_wei_role_chariot",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        62,
+        60,
+        66,
+        62,
+        73,
+        66,
+        64,
+        56,
+        50
+      ],
+      "skill_values": [
+        52,
+        62,
+        45,
+        40,
+        40,
+        45,
+        45,
+        64,
+        50,
+        55,
+        58,
+        55,
+        50,
+        45,
+        42,
+        71,
+        60,
+        50,
+        35,
+        48,
+        50,
+        28,
+        45,
+        40,
+        38,
+        44,
+        34,
+        44,
+        34,
+        36,
+        32,
+        28,
+        34,
+        30,
+        30
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_wei_role_chariot",
+    "monthly_factor_inputs": "instruction 1.00; facility 1.02; equipment 1.00; recovery 0.98; administration 0.72",
+    "role": "chariot",
+    "state": "WEI",
+    "identity_notes": "Technical warfare specialist: crossbows, siege engineering, chariots, fortifications, and deliberate tactical systems.",
+    "balance_adjustment": {
+      "state_identity": "WEI",
+      "role": "chariot",
+      "attribute_modifiers": {
+        "Intelligence": 2,
+        "Coordination": 3
+      },
+      "skill_modifiers": {
+        "Crossbow": 2,
+        "Engineering": 7,
+        "Logistics": 2,
+        "Tactics": 2,
+        "Riding": 3,
+        "Formation Fighting": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

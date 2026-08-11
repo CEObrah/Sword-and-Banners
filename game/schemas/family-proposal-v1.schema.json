@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "proposal_id",
+    "kind",
+    "proposer_id",
+    "target_id",
+    "status",
+    "authority",
+    "proposed_at",
+    "player_choice_required"
+  ],
+  "properties": {
+    "schema": {
+      "const": "family-proposal.v1"
+    },
+    "proposal_id": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "courtship_offer",
+        "marriage_proposal",
+        "betrothal_proposal",
+        "political_match_offer",
+        "household_proposal"
+      ]
+    },
+    "proposer_id": {
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "pending",
+        "accepted",
+        "declined",
+        "withdrawn",
+        "expired",
+        "superseded"
+      ]
+    },
+    "authority": {
+      "const": true
+    },
+    "proposed_at": {
+      "type": "string"
+    },
+    "player_choice_required": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

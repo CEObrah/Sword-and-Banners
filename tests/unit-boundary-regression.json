@@ -1,0 +1,57 @@
+{
+  "schema": "unit-boundary-regression.v1",
+  "game": "sword_and_banners",
+  "cases": [
+    {
+      "id": "mixed_types_forbidden",
+      "given": [
+        "5000 infantry",
+        "2000 archers"
+      ],
+      "valid_split": [
+        "2500 infantry",
+        "2500 infantry",
+        "1000 archers",
+        "1000 archers"
+      ],
+      "invalid": [
+        "2500 infantry + 1000 archers in one unit"
+      ]
+    },
+    {
+      "id": "partial_loadout_requires_split",
+      "given": {
+        "troop_type": "infantry",
+        "count": 5000,
+        "loadout": "A"
+      },
+      "order": "give 1000 loadout B",
+      "expected_units": [
+        {
+          "count": 4000,
+          "troop_type": "infantry",
+          "loadout": "A"
+        },
+        {
+          "count": 1000,
+          "troop_type": "infantry",
+          "loadout": "B"
+        }
+      ]
+    },
+    {
+      "id": "support_not_frontage",
+      "given": [
+        "line infantry unit",
+        "medical unit",
+        "logistics unit"
+      ],
+      "expected": "only frontage-eligible/explicitly committed combat units add default assault contact; medical/logistics remain targetable support"
+    },
+    {
+      "id": "split_no_frontage_exploit",
+      "given": "one 5000-person line unit split into five 1000-person units without other changes",
+      "expected": "same people/equipment/intrinsic aggregate capability; terrain/weapon lanes cap contact; higher direct command burden if one commander controls all five"
+    }
+  ]
+}

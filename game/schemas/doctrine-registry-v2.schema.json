@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "record_index"
+  ],
+  "properties": {
+    "schema": {
+      "const": "doctrine_registry.v2"
+    }
+  },
+  "additionalProperties": true
+}

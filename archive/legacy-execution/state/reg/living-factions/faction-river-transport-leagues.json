@@ -1,0 +1,50 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.river_transport_leagues",
+    "name": "River Transport Leagues",
+    "leadership_ids": [],
+    "status": "active",
+    "goal": "protect river access, boat crews, ferries, warehouses, and toll agreements",
+    "current_plan": "Monitor water levels, toll disputes, and security before committing large cargo movements.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "keep river movement profitable and navigable",
+      "protect crews, docks, and local access agreements"
+    ],
+    "resources": [
+      "boats",
+      "crews",
+      "dock contacts",
+      "river knowledge"
+    ],
+    "constraints": [
+      "flooding",
+      "tolls",
+      "war zones"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Major river routes, ferries, boat crews, warehouses, and toll relationships",
+    "leadership_model": "distributed_transport_leagues",
+    "relationships": [
+      {
+        "target_id": "faction.central_merchant_houses",
+        "relationship_type": "transport_dependency",
+        "stance": "cooperative",
+        "intensity": 72
+      },
+      {
+        "target_id": "faction.tang_merchant_partners",
+        "relationship_type": "transport_access",
+        "stance": "transactional",
+        "intensity": 58
+      }
+    ]
+  }
+}

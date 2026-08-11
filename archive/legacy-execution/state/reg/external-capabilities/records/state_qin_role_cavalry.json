@@ -1,0 +1,82 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qin_role_cavalry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        68,
+        66,
+        72,
+        68,
+        68,
+        64,
+        66,
+        54,
+        52
+      ],
+      "skill_values": [
+        58,
+        72,
+        52,
+        45,
+        45,
+        48,
+        50,
+        58,
+        42,
+        58,
+        62,
+        64,
+        55,
+        50,
+        48,
+        76,
+        69,
+        58,
+        45,
+        56,
+        54,
+        28,
+        30,
+        44,
+        41,
+        45,
+        34,
+        41,
+        34,
+        40,
+        32,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qin_role_cavalry",
+    "monthly_factor_inputs": "instruction 1.03; facility 1.03; equipment 1.00; recovery 0.98; administration 0.82",
+    "role": "cavalry",
+    "state": "QIN",
+    "identity_notes": "Best-balanced institutional army: disciplined line infantry, command, training, logistics, and combined-arms coordination.",
+    "balance_adjustment": {
+      "state_identity": "QIN",
+      "role": "cavalry",
+      "attribute_modifiers": {
+        "Composure": 2,
+        "Intelligence": 2
+      },
+      "skill_modifiers": {
+        "Mass Combat": 3,
+        "Formation Fighting": 3,
+        "Leadership": 2,
+        "Formation Command": 3,
+        "Tactics": 3,
+        "Strategy": 2,
+        "Logistics": 3,
+        "Training": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

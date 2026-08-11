@@ -1,0 +1,51 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.chu_karin_network",
+    "name": "Karin Military-Political Network",
+    "leadership_ids": [
+      "char_karin"
+    ],
+    "status": "active",
+    "goal": "expand military influence and protect Chu strategic interests",
+    "current_plan": "Cultivate useful commanders and political contacts while keeping options open across multiple theaters.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "expand Karin’s military-political influence",
+      "coordinate large Chu resources without losing operational flexibility"
+    ],
+    "resources": [
+      "command network",
+      "Chu manpower access",
+      "political contacts"
+    ],
+    "constraints": [
+      "regional diversity",
+      "court competition",
+      "coordination burden"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Chu military command, political clients, staff, and strategic influence",
+    "leadership_model": "military_political_network",
+    "relationships": [
+      {
+        "target_id": "faction.wei_engineering_command",
+        "relationship_type": "interstate_military_competition",
+        "stance": "competitive",
+        "intensity": 55
+      },
+      {
+        "target_id": "faction.qin_court_reform",
+        "relationship_type": "strategic_state_opposition",
+        "stance": "adversarial",
+        "intensity": 62
+      }
+    ]
+  }
+}

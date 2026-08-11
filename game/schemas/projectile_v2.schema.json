@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "mass_kg",
+    "armor_penetration",
+    "impact_transfer"
+  ],
+  "properties": {
+    "schema": {
+      "const": "projectile_v2"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mass_kg": {},
+    "armor_penetration": {},
+    "impact_transfer": {}
+  },
+  "additionalProperties": true
+}

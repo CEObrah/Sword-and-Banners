@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "schema": {
+      "const": "sword-materialized-person"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "birth_date",
+    "status"
+  ],
+  "type": "object"
+}

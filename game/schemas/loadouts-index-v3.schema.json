@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "count",
+    "path_template",
+    "ids"
+  ],
+  "properties": {
+    "schema": {
+      "const": "loadouts-index.v3"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "path_template": {
+      "type": "string"
+    },
+    "ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": true
+}

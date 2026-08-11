@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "fact": {},
+    "information_ref": {},
+    "knowers": {},
+    "schema": {
+      "const": "sword-information"
+    }
+  },
+  "required": [
+    "schema",
+    "information_ref",
+    "fact",
+    "knowers"
+  ],
+  "type": "object"
+}

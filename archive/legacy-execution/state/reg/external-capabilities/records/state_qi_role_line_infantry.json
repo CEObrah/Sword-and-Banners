@@ -1,0 +1,81 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qi_role_line_infantry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        62,
+        58,
+        68,
+        66,
+        60,
+        59,
+        64,
+        51,
+        48
+      ],
+      "skill_values": [
+        55,
+        68,
+        48,
+        50,
+        50,
+        52,
+        45,
+        40,
+        40,
+        62,
+        63,
+        62,
+        48,
+        50,
+        48,
+        28,
+        66,
+        55,
+        42,
+        45,
+        44,
+        28,
+        32,
+        39,
+        32,
+        38,
+        28,
+        40,
+        30,
+        38,
+        30,
+        28,
+        30,
+        28,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qi_role_line_infantry",
+    "monthly_factor_inputs": "instruction 1.01; facility 1.01; equipment 0.99; recovery 1.00; administration 0.78",
+    "role": "line_infantry",
+    "state": "QI",
+    "identity_notes": "Wealthy, organized defensive state: logistics, training, administration, missile support, and strategic patience.",
+    "balance_adjustment": {
+      "state_identity": "QI",
+      "role": "line_infantry",
+      "attribute_modifiers": {
+        "Intelligence": 3,
+        "Composure": 2,
+        "Awareness": 1
+      },
+      "skill_modifiers": {
+        "Logistics": 4,
+        "Training": 3,
+        "Crossbow": 2,
+        "Leadership": 1,
+        "Tactics": 2,
+        "Defense": 1
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

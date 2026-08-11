@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "loadout"
+  ],
+  "properties": {
+    "schema": {
+      "const": "loadout-record.v1"
+    },
+    "loadout": {
+      "type": "object",
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

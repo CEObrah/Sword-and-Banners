@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68,<84"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sword-runtime"
+version = "1.0.0"
+description = "Deterministic persistent runtime for Sword & Banners"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+service = [
+  "fastapi==0.141.1",
+  "jsonschema==4.26.0",
+  "mcp==2.0.0",
+  "pydantic==2.13.4",
+  "PyJWT[crypto]==2.13.0",
+  "uvicorn==0.52.1",
+]
+service-test = ["httpx==0.28.1", "pytest==8.4.2"]
+
+[tool.setuptools.packages.find]
+where = ["runtime"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/runtime"]
+pythonpath = ["runtime"]

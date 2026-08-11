@@ -1,0 +1,46 @@
+{
+  "schema": "process-contract.v1",
+  "cadence": "monthly",
+  "constraints": [
+    "cashflow, stock, contracts, routes, damage, and arrears bound"
+  ],
+  "contract_id": "contract_process_house_tang_resources_aggregate",
+  "domain": "resources_and_treasury",
+  "goals": [
+    "meet payroll and maintenance",
+    "preserve food, fodder, ammunition, and equipment readiness",
+    "reconcile deliveries"
+  ],
+  "owner_id": "process_house_tang_resources_aggregate",
+  "plan_lifecycle": [
+    "proposed",
+    "active",
+    "blocked",
+    "completed",
+    "failed",
+    "abandoned",
+    "superseded"
+  ],
+  "plan_revision": 1,
+  "reconstruction_policy": "Use saved state, standing orders, resources, opposition, exact events, stable seed, and prior receipts. Never award unsupported success or make Tang Wei choices.",
+  "replanning_policy": "After every settled interval, reassess goals, authority, knowledge, health, resources, dependencies, opposition, constraints, and risk. Continue, block, fail, complete, or supersede the current plan and create a supported successor when the owner remains autonomous.",
+  "result_requirement": [
+    "progress",
+    "maintenance",
+    "recovery",
+    "decline",
+    "loss",
+    "transformation",
+    "closure",
+    "blocked",
+    "no_material_change"
+  ],
+  "revision": 1,
+  "safe_compaction_policy": "A span receipt may cover multiple intervals only when each interval is internally processed in order and material interruptions split the span.",
+  "standing_orders": [
+    "record routine income and expense as conserved aggregate flow",
+    "never invent unique property or unsupported windfalls"
+  ],
+  "successor_plan_required": true,
+  "visibility": "owner_internal"
+}

@@ -1,0 +1,82 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qin_role_missile_crossbow",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        55,
+        58,
+        62,
+        58,
+        66,
+        64,
+        62,
+        52,
+        45
+      ],
+      "skill_values": [
+        45,
+        42,
+        35,
+        35,
+        35,
+        40,
+        42,
+        62,
+        70,
+        48,
+        55,
+        56,
+        47,
+        45,
+        42,
+        30,
+        59,
+        52,
+        48,
+        55,
+        50,
+        28,
+        35,
+        36,
+        33,
+        41,
+        32,
+        37,
+        38,
+        38,
+        30,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qin_role_missile_crossbow",
+    "monthly_factor_inputs": "instruction 1.03; facility 1.03; equipment 1.00; recovery 0.98; administration 0.82",
+    "role": "missile_crossbow",
+    "state": "QIN",
+    "identity_notes": "Best-balanced institutional army: disciplined line infantry, command, training, logistics, and combined-arms coordination.",
+    "balance_adjustment": {
+      "state_identity": "QIN",
+      "role": "missile_crossbow",
+      "attribute_modifiers": {
+        "Composure": 2,
+        "Intelligence": 2
+      },
+      "skill_modifiers": {
+        "Mass Combat": 3,
+        "Formation Fighting": 3,
+        "Leadership": 2,
+        "Formation Command": 3,
+        "Tactics": 3,
+        "Strategy": 2,
+        "Logistics": 3,
+        "Training": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

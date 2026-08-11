@@ -1,0 +1,80 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_zhao_role_chariot",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        62,
+        62,
+        66,
+        62,
+        70,
+        68,
+        65,
+        54,
+        50
+      ],
+      "skill_values": [
+        52,
+        62,
+        45,
+        40,
+        40,
+        45,
+        45,
+        64,
+        48,
+        55,
+        58,
+        55,
+        52,
+        45,
+        42,
+        70,
+        58,
+        52,
+        35,
+        51,
+        50,
+        28,
+        38,
+        40,
+        38,
+        44,
+        34,
+        42,
+        34,
+        36,
+        32,
+        28,
+        34,
+        30,
+        30
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_zhao_role_chariot",
+    "monthly_factor_inputs": "instruction 1.02; facility 0.98; equipment 0.98; recovery 0.98; administration 0.75",
+    "role": "chariot",
+    "state": "ZHAO",
+    "identity_notes": "Cavalry and frontier warfare leader: superior riding, scouting, maneuver, field experience, and mobile command.",
+    "balance_adjustment": {
+      "state_identity": "ZHAO",
+      "role": "chariot",
+      "attribute_modifiers": {
+        "Agility": 2,
+        "Awareness": 2,
+        "Composure": 1
+      },
+      "skill_modifiers": {
+        "Riding": 2,
+        "Scouting": 3,
+        "Survival": 2,
+        "Tactics": 2,
+        "Mass Combat": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

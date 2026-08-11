@@ -1,0 +1,52 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.yan_frontier_command",
+    "name": "Yan Frontier Command",
+    "leadership_ids": [
+      "char_ordo"
+    ],
+    "status": "active",
+    "goal": "protect Yan frontiers through cavalry, mountain auxiliaries, and reconnaissance",
+    "current_plan": "Maintain forward reconnaissance and keep mountain contacts responsive to frontier changes.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "secure Yan frontier approaches",
+      "use cavalry, scouts, and mountain auxiliaries where terrain favors them"
+    ],
+    "resources": [
+      "frontier cavalry",
+      "scouts",
+      "mountain auxiliaries",
+      "local guides"
+    ],
+    "constraints": [
+      "long borders",
+      "weather",
+      "limited central support"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Yan frontier armies, cavalry screens, mountain auxiliaries, and border intelligence",
+    "leadership_model": "frontier_military_command",
+    "relationships": [
+      {
+        "target_id": "faction.zhao_riboku_network",
+        "relationship_type": "frontier_strategic_opposition",
+        "stance": "adversarial",
+        "intensity": 60
+      },
+      {
+        "target_id": "faction.yotanwa_confederation",
+        "relationship_type": "mountain_frontier_awareness",
+        "stance": "wary",
+        "intensity": 36
+      }
+    ]
+  }
+}

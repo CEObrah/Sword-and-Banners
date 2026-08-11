@@ -1,0 +1,74 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_han_role_medical",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        48,
+        50,
+        56,
+        53,
+        58,
+        62,
+        66,
+        66,
+        50
+      ],
+      "skill_values": [
+        38,
+        35,
+        28,
+        30,
+        32,
+        42,
+        40,
+        35,
+        39,
+        42,
+        43,
+        50,
+        36,
+        40,
+        42,
+        27,
+        36,
+        50,
+        35,
+        42,
+        48,
+        58,
+        51,
+        42,
+        34,
+        36,
+        34,
+        36,
+        38,
+        48,
+        42,
+        38,
+        54,
+        36,
+        48
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_han_role_medical",
+    "monthly_factor_inputs": "instruction 0.99; facility 1.00; equipment 0.98; recovery 0.97; administration 0.70",
+    "role": "medical",
+    "state": "HAN",
+    "identity_notes": "Smallest state: weaker broad manpower quality offset by unusually strong crossbow, engineering, and fortified-defense specialization.",
+    "balance_adjustment": {
+      "state_identity": "HAN",
+      "role": "medical",
+      "attribute_modifiers": {
+        "Strength": -2,
+        "Endurance": -2,
+        "Toughness": -1
+      },
+      "skill_modifiers": {},
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

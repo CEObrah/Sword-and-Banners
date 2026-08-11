@@ -1,0 +1,49 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.quanrong_polity",
+    "name": "Quanrong Polity",
+    "leadership_ids": [],
+    "status": "active",
+    "goal": "protect fortified settlements, clan power, and warband autonomy",
+    "current_plan": "Maintain fortified settlements and manage rivalry among major warbands before outside pressure forces unity or fracture.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "preserve Ryouyou autonomy",
+      "keep major warbands loyal enough to deter outsiders"
+    ],
+    "resources": [
+      "fortified settlements",
+      "warbands",
+      "local terrain knowledge"
+    ],
+    "constraints": [
+      "internal rivalries",
+      "limited external trust",
+      "resource geography"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Ryouyou-centered Quanrong settlements, clan warbands, chiefs, and defended approaches",
+    "leadership_model": "distributed_clan_polity",
+    "relationships": [
+      {
+        "target_id": "faction.yotanwa_confederation",
+        "relationship_type": "mountain_power_rivalry",
+        "stance": "hostile",
+        "intensity": 78
+      },
+      {
+        "target_id": "faction.yan_frontier_command",
+        "relationship_type": "frontier_contact",
+        "stance": "wary",
+        "intensity": 42
+      }
+    ]
+  }
+}

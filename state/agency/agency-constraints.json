@@ -1,0 +1,41 @@
+{
+  "name": "NPC and Faction Agency",
+  "owner_id": "agency_constraints",
+  "owner_type": "agency_registry",
+  "records": [
+    {
+      "label": "Overview",
+      "notes": [
+        "Ordinary background populations use units. Full or routed named profiles become independently active only when current runtime state gives them real existence, role, source population, location, health, authority, knowledge, equipment and goals. New original leaders arise only from real populations through vacancy, promotion, achievement, office or interaction."
+      ],
+      "record_id": "overview"
+    },
+    {
+      "institution_owner_ids": [
+        "school_qin",
+        "school_zhao",
+        "school_chu",
+        "school_wei",
+        "school_han",
+        "school_yan",
+        "school_qi",
+        "escort_qin",
+        "escort_zhao",
+        "escort_chu",
+        "escort_wei",
+        "escort_han",
+        "escort_yan",
+        "escort_qi"
+      ],
+      "label": "Persistent named institutions",
+      "notes": [
+        "These typed institution owners persist and may pursue supported training, recruitment, contracts, alliances, rivalries, losses and reputation changes. Leaders materialize only when causally necessary."
+      ],
+      "record_id": "persistent_named_institutions"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "agency-registry"
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_wei_role_signal",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        58,
+        56,
+        64,
+        60,
+        63,
+        68,
+        72,
+        72,
+        66
+      ],
+      "skill_values": [
+        58,
+        52,
+        40,
+        38,
+        38,
+        45,
+        50,
+        52,
+        50,
+        55,
+        60,
+        58,
+        54,
+        48,
+        45,
+        58,
+        66,
+        55,
+        45,
+        58,
+        58,
+        38,
+        52,
+        40,
+        35,
+        38,
+        30,
+        54,
+        54,
+        60,
+        52,
+        48,
+        45,
+        50,
+        50
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_wei_role_signal",
+    "monthly_factor_inputs": "instruction 1.00; facility 1.02; equipment 1.00; recovery 0.98; administration 0.72",
+    "role": "signal",
+    "state": "WEI",
+    "identity_notes": "Technical warfare specialist: crossbows, siege engineering, chariots, fortifications, and deliberate tactical systems. Signal personnel are communications specialists; commander authority is modeled separately as people/command assignments.",
+    "balance_adjustment": {
+      "state_identity": "WEI",
+      "role": "signal",
+      "attribute_modifiers": {
+        "Intelligence": 2,
+        "Coordination": 1
+      },
+      "skill_modifiers": {},
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

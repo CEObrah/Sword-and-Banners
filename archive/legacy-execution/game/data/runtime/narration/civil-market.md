@@ -1,0 +1,2 @@
+# Civil, market, and administration narration
+Show markets, estates, workshops, tenants, officials, escort bureaus, schools, and towns as systems of people and resources rather than menu screens. Prices, labor, taxation, contracts, shortages, security, weather, and reputation matter when they alter choices. Routine administration can be concise; expand disputes, shortages, fraud, public reaction, legal conflict, or decisions with long consequences.

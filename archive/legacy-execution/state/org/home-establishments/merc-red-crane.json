@@ -1,0 +1,65 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.merc_red_crane",
+    "owner_id": "merc_red_crane",
+    "owner_type": "mercenary_company",
+    "source_force_ref": "state/merc/red-crane.json",
+    "formation_library_ref": "formation.mercenary.standard",
+    "reconstitution_policy_ref": "reconstitution.mercenary",
+    "unit_series": [
+      {
+        "series_id": "est.merc_red_crane.bed_crossbow_corps",
+        "source_manpower_id": "merc_red_crane:pool_bed_crossbow_corps",
+        "role": "bed_crossbow_corps",
+        "unit_count": 6,
+        "nominal_strength": 250,
+        "final_unit_strength": 30,
+        "stable_unit_id_pattern": "est.merc_red_crane.bed_crossbow_corps.{ordinal:03d}",
+        "doctrine": "doc.merc_red_crane.bed_crossbow_corps",
+        "training": "train.merc_red_crane.bed_crossbow_corps",
+        "loadout_standard": "loadout_mercenary_artillery",
+        "troop_type": "siege_artillery",
+        "specialty": "bed_crossbow_corps"
+      },
+      {
+        "series_id": "est.merc_red_crane.trebuchet_corps",
+        "source_manpower_id": "merc_red_crane:pool_trebuchet_corps",
+        "role": "trebuchet_corps",
+        "unit_count": 12,
+        "nominal_strength": 250,
+        "final_unit_strength": 130,
+        "stable_unit_id_pattern": "est.merc_red_crane.trebuchet_corps.{ordinal:03d}",
+        "doctrine": "doc.merc_red_crane.trebuchet_corps",
+        "training": "train.merc_red_crane.trebuchet_corps",
+        "loadout_standard": "loadout_mercenary_artillery",
+        "troop_type": "siege_artillery",
+        "specialty": "trebuchet_corps"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mercenary.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.mercenary_captain"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 55,
+      "initiative": 50,
+      "caution": 50,
+      "adaptability": 50,
+      "flank_bias": 45,
+      "counterattack_bias": 55,
+      "pursuit_bias": 45,
+      "reserve_bias": 55,
+      "withdrawal_willingness": 45,
+      "casualty_tolerance": 60,
+      "objective_focus": 70,
+      "ally_support": 60,
+      "formation_discipline": 70,
+      "commander_dependence": 60
+    }
+  }
+}

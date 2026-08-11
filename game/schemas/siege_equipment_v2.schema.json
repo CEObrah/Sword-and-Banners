@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "mass_kg",
+    "crew_minimum"
+  ],
+  "properties": {
+    "schema": {
+      "const": "siege_equipment_v2"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mass_kg": {},
+    "crew_minimum": {}
+  },
+  "additionalProperties": true
+}

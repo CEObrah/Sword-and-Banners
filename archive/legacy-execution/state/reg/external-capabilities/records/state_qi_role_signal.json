@@ -1,0 +1,77 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qi_role_signal",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        58,
+        56,
+        64,
+        60,
+        62,
+        69,
+        74,
+        76,
+        68
+      ],
+      "skill_values": [
+        58,
+        52,
+        40,
+        38,
+        38,
+        45,
+        50,
+        52,
+        50,
+        55,
+        61,
+        58,
+        54,
+        48,
+        45,
+        58,
+        66,
+        55,
+        45,
+        58,
+        58,
+        38,
+        48,
+        40,
+        35,
+        38,
+        30,
+        68,
+        59,
+        63,
+        55,
+        48,
+        45,
+        50,
+        58
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qi_role_signal",
+    "monthly_factor_inputs": "instruction 1.01; facility 1.01; equipment 0.99; recovery 1.00; administration 0.78",
+    "role": "signal",
+    "state": "QI",
+    "identity_notes": "Wealthy, organized defensive state: logistics, training, administration, missile support, and strategic patience. Signal personnel are communications specialists; commander authority is modeled separately as people/command assignments.",
+    "balance_adjustment": {
+      "state_identity": "QI",
+      "role": "signal",
+      "attribute_modifiers": {
+        "Intelligence": 6,
+        "Composure": 2,
+        "Awareness": 1,
+        "Presence": 2
+      },
+      "skill_modifiers": {
+        "Training": 3
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

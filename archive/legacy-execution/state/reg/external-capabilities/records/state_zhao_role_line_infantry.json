@@ -1,0 +1,81 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_zhao_role_line_infantry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        62,
+        60,
+        68,
+        66,
+        60,
+        60,
+        63,
+        48,
+        48
+      ],
+      "skill_values": [
+        55,
+        68,
+        48,
+        50,
+        50,
+        52,
+        45,
+        40,
+        38,
+        62,
+        64,
+        62,
+        52,
+        50,
+        48,
+        30,
+        68,
+        57,
+        42,
+        48,
+        44,
+        28,
+        32,
+        38,
+        32,
+        39,
+        28,
+        36,
+        30,
+        35,
+        30,
+        28,
+        30,
+        28,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_zhao_role_line_infantry",
+    "monthly_factor_inputs": "instruction 1.02; facility 0.98; equipment 0.98; recovery 0.98; administration 0.75",
+    "role": "line_infantry",
+    "state": "ZHAO",
+    "identity_notes": "Cavalry and frontier warfare leader: superior riding, scouting, maneuver, field experience, and mobile command.",
+    "balance_adjustment": {
+      "state_identity": "ZHAO",
+      "role": "line_infantry",
+      "attribute_modifiers": {
+        "Agility": 2,
+        "Awareness": 2,
+        "Composure": 1
+      },
+      "skill_modifiers": {
+        "Riding": 2,
+        "Scouting": 3,
+        "Survival": 2,
+        "Tactics": 3,
+        "Mass Combat": 4,
+        "Formation Fighting": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

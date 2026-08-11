@@ -1,0 +1,52 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.wei_engineering_command",
+    "name": "Wei Engineering and Siege Establishment",
+    "leadership_ids": [
+      "char_go_hou_mei"
+    ],
+    "status": "active",
+    "goal": "maintain Wei technical, siege, and crossbow advantages",
+    "current_plan": "Prioritize crossbow, fortification, and siege preparations that can be supported by actual workshops and stores.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "maintain siege and engineering superiority",
+      "turn technical expertise into battlefield leverage"
+    ],
+    "resources": [
+      "engineers",
+      "siege workshops",
+      "crossbow establishments",
+      "technical officers"
+    ],
+    "constraints": [
+      "smaller manpower pool",
+      "material cost",
+      "construction time"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Wei military workshops, siege corps, crossbow establishments, engineers, and technical officers",
+    "leadership_model": "military_technical_establishment",
+    "relationships": [
+      {
+        "target_id": "faction.chu_karin_network",
+        "relationship_type": "interstate_military_competition",
+        "stance": "competitive",
+        "intensity": 55
+      },
+      {
+        "target_id": "faction.central_merchant_houses",
+        "relationship_type": "materials_and_credit_supply",
+        "stance": "transactional",
+        "intensity": 58
+      }
+    ]
+  }
+}

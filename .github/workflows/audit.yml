@@ -1,0 +1,14 @@
+name: gold-release-gate
+on: [push, pull_request]
+jobs:
+  gold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Sword runtime and test dependencies
+        run: pip install -e ".[service,service-test]"
+      - name: Run Gold production audit and runtime suite
+        run: python tools/run_gold_suite.py

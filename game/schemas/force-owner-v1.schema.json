@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Persistent Force/Institution Personnel Owner",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "owner_type",
+    "name",
+    "headcount",
+    "manpower_pools"
+  ],
+  "properties": {
+    "schema": {
+      "const": "force_owner.v1"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "headcount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "manpower_pools": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Persistent personnel/manpower authority that feeds permanent units. It is not an active battle formation."
+}

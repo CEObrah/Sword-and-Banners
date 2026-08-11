@@ -1,0 +1,54 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.zhao_riboku_network",
+    "name": "Riboku Strategic Network",
+    "leadership_ids": [
+      "char_riboku",
+      "char_kaine",
+      "char_futei"
+    ],
+    "status": "active",
+    "goal": "protect Zhao through strategic preparation, intelligence, and mobile warfare",
+    "current_plan": "Review frontier reports and preserve cavalry/scout readiness while court politics constrain overt initiative.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "improve Zhao strategic security",
+      "build reliable military intelligence and mobile response capacity"
+    ],
+    "resources": [
+      "strategic staff",
+      "cavalry contacts",
+      "scouts",
+      "military intelligence"
+    ],
+    "constraints": [
+      "court interference",
+      "distance",
+      "resource allocation"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Zhao strategic command, northern military networks, scouts, and trusted staff",
+    "leadership_model": "strategic_command_network",
+    "relationships": [
+      {
+        "target_id": "faction.zhao_court_conservatives",
+        "relationship_type": "civil_military_power_tension",
+        "stance": "contested",
+        "intensity": 80
+      },
+      {
+        "target_id": "faction.yan_frontier_command",
+        "relationship_type": "frontier_strategic_opposition",
+        "stance": "adversarial",
+        "intensity": 60
+      }
+    ]
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "counts",
+    "courtships",
+    "proposals",
+    "unions",
+    "households",
+    "kinships",
+    "parentage",
+    "successions",
+    "events",
+    "person_index",
+    "path_templates",
+    "rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "family-index.v1"
+    },
+    "authority": {
+      "const": false
+    },
+    "counts": {
+      "type": "object",
+      "required": [
+        "courtships",
+        "proposals",
+        "unions",
+        "households",
+        "kinships",
+        "parentage",
+        "successions",
+        "events"
+      ],
+      "properties": {
+        "courtships": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "proposals": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "households": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "kinships": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "parentage": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "successions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "events": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "courtships": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "proposals": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "unions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "households": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "kinships": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "parentage": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "successions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "events": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "person_index": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "courtships": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "proposals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "unions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "households": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kinships": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "parentage": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "successions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "path_templates": {
+      "type": "object",
+      "required": [
+        "courtship",
+        "proposal",
+        "union",
+        "household",
+        "kinship",
+        "parentage",
+        "succession",
+        "event"
+      ],
+      "properties": {
+        "courtship": {
+          "type": "string"
+        },
+        "proposal": {
+          "type": "string"
+        },
+        "union": {
+          "type": "string"
+        },
+        "household": {
+          "type": "string"
+        },
+        "kinship": {
+          "type": "string"
+        },
+        "parentage": {
+          "type": "string"
+        },
+        "succession": {
+          "type": "string"
+        },
+        "event": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "rule": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "name",
+    "birth_date",
+    "body",
+    "appearance"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sab_character"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "birth_date": {
+      "type": "string"
+    },
+    "body": {
+      "type": "object",
+      "required": [
+        "adult_height_cm",
+        "growth_end_age",
+        "current_weight_kg",
+        "frame"
+      ]
+    },
+    "appearance": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    }
+  },
+  "additionalProperties": true
+}
