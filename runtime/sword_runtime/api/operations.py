@@ -149,12 +149,18 @@ class CampaignOperations:
         wallet = self.store.read_json("state/economy/player-wallet.json")
         player_id = str(meta["player_id"])
         formations = self._controlled_formations(player_id)
+        safe_scene = self._safe_scene(meta, player, scene)
 
-        relevant = {
-            str(value)
-            for value in scene.get("relevant_owner_ids", [])
-            if isinstance(value, str) and value
-        }
+        # Scene-derived read permissions are projections too. Once the scene is
+        # stale, retain only campaign-intrinsic player/controlled-formation reads
+        # until a fresh scene projection establishes new contextual visibility.
+        relevant: set[str] = set()
+        if safe_scene["projection_status"] == "fresh":
+            relevant.update(
+                str(value)
+                for value in scene.get("relevant_owner_ids", [])
+                if isinstance(value, str) and value
+            )
         relevant.add(player_id)
         permitted_people = sorted(ref for ref in relevant if ref.startswith("char_"))
         permitted_objects = set(ref for ref in relevant if not ref.startswith("char_"))
@@ -169,7 +175,6 @@ class CampaignOperations:
                 permitted_people.append(commander)
         permitted_people = sorted(set(permitted_people))
 
-        safe_scene = self._safe_scene(meta, player, scene)
         command_types = {
             command_type: {
                 "accepted_payload_keys": sorted(COMMAND_PAYLOAD_KEYS.get(command_type, ())),
@@ -229,7 +234,7 @@ class CampaignOperations:
                 "person": "second_person_present",
                 "knowledge_boundary": "player_visible_only",
                 "decision_scaffolding": "narrate_first_then_scene_relevant_choices",
-                "stale_scene_policy": "strip_transient_scene_claims_and_surface_projection_status",
+                "stale_scene_policy": "strip_transient_scene_claims_and_scene_derived_read_permissions",
             },
         }
 

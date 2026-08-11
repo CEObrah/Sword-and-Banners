@@ -88,11 +88,24 @@ def test_play_context_scene_projection_freshness_and_readiness(campaign):
             for field in ('readiness','morale','cohesion','training_progress','fatigue','logistics'):
                 assert field in formation
 
-        # Scene projections are presentation caches, not authority. Mutate only
-        # this disposable fixture to simulate a projection left behind after a
-        # state/time change. Current play context must strip its old decision.
         scene_path=campaign/'state/scene.json'
         scene=json.load(open(scene_path))
+        scene_refs={str(x) for x in scene.get('relevant_owner_ids',[]) if isinstance(x,str)}
+        intrinsic_people={data['campaign']['player_id']} | {
+            str(f.get('commander_ref')) for f in data['controlled_formations']
+            if isinstance(f.get('commander_ref'),str) and str(f.get('commander_ref')).startswith('char_')
+        }
+        intrinsic_objects={
+            str(f.get('formation_ref')) for f in data['controlled_formations']
+            if isinstance(f.get('formation_ref'),str)
+        }
+        scene_only_people={x for x in scene_refs if x.startswith('char_')} - intrinsic_people
+        scene_only_objects={x for x in scene_refs if not x.startswith('char_')} - intrinsic_objects
+
+        # Scene projections are presentation caches, not authority. Mutate only
+        # this disposable fixture to simulate a projection left behind after a
+        # state/time change. Current play context must strip its old decision
+        # and any read permissions that existed only because of that old scene.
         scene['world_time']='stale-projection-test'
         scene_path.write_text(json.dumps(scene,indent=2)+'\n')
         stale=client.get('/v1/play/context',headers=headers).json()
@@ -101,6 +114,8 @@ def test_play_context_scene_projection_freshness_and_readiness(campaign):
         assert stale['scene']['observable_pressures']==[]
         assert stale['scene']['known_clock_boundaries']==[]
         assert stale['scene']['location_id']==stale['player']['location']
+        assert scene_only_people.isdisjoint(set(stale['permitted_person_ids']))
+        assert scene_only_objects.isdisjoint(set(stale['permitted_object_refs']))
 
 
 def test_player_api_forbids_internal_actor(campaign):
