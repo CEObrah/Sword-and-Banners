@@ -1,7 +1,7 @@
 import json
 import pytest
 
-from conftest import execute, meta
+from conftest import execute, execute_internal, meta
 from sword_runtime.command_contracts import COMMAND_PAYLOAD_KEYS
 
 
@@ -103,10 +103,19 @@ def test_every_semantic_command_rejects_unknown_payload_fields(campaign):
     baseline = meta(campaign)
     for command_type in sorted(catalog):
         with pytest.raises(ValueError, match='unsupported payload fields'):
-            execute(
-                campaign,
-                command_type,
-                {'__unexpected_shadow_field__': True},
-                request_id=f'hostile-unknown-field-{command_type}',
-            )
+            if command_type == 'repair':
+                execute_internal(
+                    campaign,
+                    command_type,
+                    {'__unexpected_shadow_field__': True},
+                    mode='maintenance',
+                    request_id=f'hostile-unknown-field-{command_type}',
+                )
+            else:
+                execute(
+                    campaign,
+                    command_type,
+                    {'__unexpected_shadow_field__': True},
+                    request_id=f'hostile-unknown-field-{command_type}',
+                )
         assert meta(campaign) == baseline, f'{command_type} mutated authoritative meta before unknown-field rejection'
