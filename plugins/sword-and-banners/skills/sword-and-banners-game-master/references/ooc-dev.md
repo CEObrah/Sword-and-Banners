@@ -50,7 +50,9 @@ When changing the runtime, protect:
 - bounded player-visible reads;
 - knowledge separation;
 - state-only commits not causing deployment loops;
-- repaired transaction tombstones and permanent invalidated-request reservation.
+- repaired transaction tombstones and permanent invalidated-request reservation;
+- high-salience wake boundaries before autonomous resolution crosses protected player decisions;
+- bounded non-authoritative operational memory that never replaces exact campaign owners.
 
 Do not weaken an invariant merely to make an integration test easier.
 
@@ -68,11 +70,16 @@ Gold should verify, as applicable:
 - semantic surface;
 - long-horizon behavior;
 - warfare and siege rules;
+- living-world intelligence and wake boundaries;
 - mandatory soak.
 
 Treat a failing gate as evidence to diagnose, not a nuisance to bypass. If a gate itself is stale, modernize it rather than preserving obsolete duplicate documentation or deployment authorities merely to satisfy a path assertion.
 
 Run mutating tests, acceptance scenarios, soak tests, migration rehearsals, and destructive diagnostics only on disposable repository/campaign copies. Never point them at the authoritative live campaign root. Tests against an evolving real-campaign snapshot should derive mutable facts from that snapshot rather than hard-coding one revision, timestamp, readiness value, roster, or other naturally changing fact unless that value is an intentional immutable campaign premise.
+
+For changes that alter autonomous scheduling, progression, formations, House or institution settlement, social propagation, economy, family, or another cross-system causal path, synthetic fixtures are not sufficient by themselves. Add or run a deterministic replay on at least two independent disposable copies of the current real campaign snapshot for a meaningful horizon. Require exact equality of the resulting authoritative state, equal revision/time advancement, no unexplained cursor jumps, no unowned terminal consequences, and no mutation of the source campaign. Use a longer replay when the changed hosts wake less frequently than the default horizon.
+
+A CI failure caused by runner infrastructure, billing, quota, or another condition that prevents tests from starting is not a passing gate and is not evidence that source failed. Diagnose it separately, preserve the exact candidate head, and do not promote that head as Gold until the required suite actually runs successfully.
 
 ## Skill changes
 
