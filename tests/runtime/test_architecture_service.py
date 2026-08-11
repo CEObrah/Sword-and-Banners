@@ -74,20 +74,28 @@ def test_api_auth_and_player_safe_information(campaign):
         assert data['object_read_policy'].startswith('Use only exact IDs')
         assert all(x['information_ref']!='secret_api_test' for x in data['known_information'])
         assert data['campaign']['player_id']==meta(campaign)['player_id']
+
+
+def test_play_context_scene_projection_freshness_and_readiness(campaign):
+    from sword_runtime.api.app import create_app
+    token='p'*48
+    with TestClient(create_app(campaign,token)) as client:
+        headers={'Authorization':f'Bearer {token}'}
+        data=client.get('/v1/play/context',headers=headers).json()
         assert data['scene']['projection_status']=='fresh'
         if data['controlled_formations']:
             formation=data['controlled_formations'][0]
             for field in ('readiness','morale','cohesion','training_progress','fatigue','logistics'):
                 assert field in formation
 
-        # Scene projections are presentation caches, not authority. If a stale
-        # scene survives a state/time change, play context must not carry its
-        # old unresolved decision or pressure forward as current truth.
+        # Scene projections are presentation caches, not authority. Mutate only
+        # this disposable fixture to simulate a projection left behind after a
+        # state/time change. Current play context must strip its old decision.
         scene_path=campaign/'state/scene.json'
         scene=json.load(open(scene_path))
         scene['world_time']='stale-projection-test'
         scene_path.write_text(json.dumps(scene,indent=2)+'\n')
-        stale=client.get('/v1/play/context',headers={'Authorization':f'Bearer {token}'}).json()
+        stale=client.get('/v1/play/context',headers=headers).json()
         assert stale['scene']['projection_status']=='stale_after_state_change'
         assert stale['scene']['unresolved_decision'] is None
         assert stale['scene']['observable_pressures']==[]
