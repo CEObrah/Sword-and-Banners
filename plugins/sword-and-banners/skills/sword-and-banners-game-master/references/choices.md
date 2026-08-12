@@ -48,6 +48,20 @@ Before ending an IC response, check fresh runtime context and the narrated endpo
 
 Do not end with only `Your next movement belongs to you`, `What happens next is your choice`, a generic question with no useful options when grounded options exist, or an abstract statement that the runtime is waiting for input. If six meaningful choices exist, show six. If fewer exist, show the meaningful set plus `Free Action`.
 
+## Do not re-offer completed setup
+
+Treat persisted doctrine, rosters, standing orders, schedules, instructors, facilities, equipment standards, plans, assignments, and other durable arrangements as already established until authoritative state says they changed, expired, failed, or need revision. Before offering planning or setup again, inspect the current owner and ask what would actually change.
+
+Do not repeatedly offer `set up the training block`, `establish the doctrine`, `arrange instructors`, `prepare the roster`, or equivalent administration when those facts already persist. Prefer executing the established plan, inspecting a new problem, responding to changed conditions, deliberately revising the plan, delegating, suspending, resuming, or redirecting it. An ongoing training or readiness hook does not imply setup is unfinished.
+
+If the player explicitly asks to skip until something significant happens, do not interrupt the skip for routine execution of already-established systems unless the runtime produces a real player-facing decision, material consequence, hard boundary, or meaningful report.
+
+## Keep implementation state out of IC choices
+
+Numbered choices are fiction-facing. Never put runtime, command, schema, API, code, GitHub, deployment, migration, bug, fix, repair, implementation, unsupported-action, or similar engineering language inside an IC option. Never give Wei a developer workaround as an in-world motive.
+
+If a fictionally valid action is implementation-blocked, do not convert it into a fictionally worse but executable workaround. Keep any remaining IC choices clean, preserve already-declared intent, and put the narrow QA explanation in a separate OOC note.
+
 ## Preserve defect and readiness visibility
 
 Classify constrained suggestions before presenting them:
@@ -56,7 +70,7 @@ Classify constrained suggestions before presenting them:
 - **Valid after a diagnosed fix or state change**: the action is conceptually legitimate, but a known defect, stale projection, missing interface capability, readiness gate, custody requirement, recovery condition, or other explicit blocker prevents execution now.
 - **Currently unavailable**: current authority, resources, location, state, or mechanics do not support it.
 
-Never turn a known defect or readiness block into a fake executable choice merely because the option would be interesting. If a blocked option is important to the player's planning, it may remain visible only when clearly labeled as unavailable and paired with the player-visible blocker or a concise OOC DEV finding. Do not hide a defect by silently deleting the player's previously valid strategic path from the menu.
+Never turn a known defect or readiness block into a fake executable choice merely because the option would be interesting. If a blocked action is important to the player's planning, preserve the in-world possibility but keep any implementation diagnosis outside the numbered IC choices in a concise OOC QA note. Do not hide a defect by silently deleting the player's previously valid strategic path from the menu.
 
 Do not promise that an OOC DEV fix will make an option legal unless the source diagnosis actually supports that conclusion.
 
