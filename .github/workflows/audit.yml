@@ -51,6 +51,8 @@ jobs:
             tests/runtime/test_production_living_world.py \
             tests/runtime/test_exact_aggregate_conservation.py \
             tests/runtime/test_character_progression_schema.py \
+            tests/runtime/test_progression_topology.py \
+            tests/runtime/test_diegetic_skill_contract.py \
             -q
       - name: Diff hygiene
         run: git diff --check HEAD^ HEAD
