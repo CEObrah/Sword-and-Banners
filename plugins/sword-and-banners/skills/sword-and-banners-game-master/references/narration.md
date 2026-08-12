@@ -43,6 +43,26 @@ Lead with the positive result. Add only limitations that affect the next decisio
 
 Use names, offices, unit names, locations, and physical referents whenever a pronoun could be ambiguous. A reader should not need to reverse-engineer who spoke or which formation moved.
 
+## Diegetic firewall
+
+Normal IC prose must remain inside the setting. Never mention runtimes, systems, engines, commands, schemas, tools, code, GitHub, deployments, migrations, fixes, repairs, unsupported actions, revisions, validators, state files, or developer work in narration. If implementation context matters, finish the lived scene first and place it in a clearly separated OOC note.
+
+Do not alter Wei's fictional motive or burden to accommodate software. Never make him personally escort subordinates, repeat an action, wait, train differently, or choose a worse route solely because a cleaner capability is missing. Preserve the fictionally valid intent and fail honestly at the implementation boundary.
+
+## Translate mechanics into lived consequence
+
+Mechanics determine truth. Narration translates that truth into experience. Show established fatigue through pace, recovery, posture, or precision; injury through guarded movement or restricted range; reputation through recognition, access, caution, invitations, hostility, or rumor among audiences that could know; training through cleaner execution, fewer corrections, better timing, sharper recognition, improved coordination, or broader reliable application when committed state supports it.
+
+A training session that produces no whole-number skill increase is not automatically pointless. Residual development, familiarity, readiness, doctrine integration, teaching, maintenance, or consolidation may still be meaningful if the runtime actually records them. Conversely, never invent progress to make a session feel rewarding.
+
+Never narrate a routine-training ceiling or reference value as a visible wall in the world. Do not write that a skill is 180 or 200 and therefore cannot move in ordinary practice. Show the work and its limits. Explain the numeric progression topology only OOC when the player asks or needs it for a mechanical decision.
+
+## Use authored places as real spaces
+
+When player-safe context exposes named rooms, yards, gates, courts, roads, camps, wards, stables, workshops, walls, or other site topology, use the smallest relevant detail instead of collapsing everything into `the training area`, `the facility`, or `the building`. Reuse established spatial facts consistently so places acquire memory.
+
+Static topology is not mutable truth. A room name does not prove current access, guards, occupancy, stock, damage, alert, staffing, medical capacity, or weather. Those require current player-visible state.
+
 ## NPC dialogue
 
 NPCs should sound like people situated inside Warring States institutions, not explanatory interfaces. Ground wording in player-visible age and generation, role, rank or office, demonstrated temperament, status, relationship with the addressee, authority, audience, knowledge, uncertainty, incentives, and current pressure. The same person may speak differently to a superior, subordinate, child, rival, patron, spouse, or trusted companion when established context supports it.
@@ -93,6 +113,12 @@ When several player-declared actions are already ordered, narrate them as one co
 Keep exact mechanics underneath the narration. Mention exact time, distance, quantity, casualties, silver, authority, confidence, fatigue, equipment, supply, or personnel when Wei would care about it or when it changes the next choice, not because a field exists in state.
 
 Never narrate validation language such as unsupported-result checks, schema terms, revisions, transaction IDs, repository paths, OAuth, preview attestations, or Git details during ordinary IC play.
+
+## Quiet time and non-events
+
+Quiet time is not a list of things that failed to happen. Do not narrate an interval as `no emergency summons`, `no battle begins`, `no encounter appears`, or `nothing interrupts you`. Those describe the GM's event-generation process rather than Wei's life.
+
+When time passes without a player-facing event, compress toward what actually occupies it when established: sleep, meals, paperwork, equipment care, training, ordinary conversation, travel, duty, household routine, observation, or a clean time cut. Mention an absence only when the absence itself is visible and meaningful, such as a late courier, a missing officer at a scheduled muster, or a silent alarm after an evacuation order. Do not manufacture danger merely to avoid quiet.
 
 ## Endings
 

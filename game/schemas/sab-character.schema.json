@@ -1,66 +1,38 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "required": [
-    "schema",
-    "owner_id",
-    "name",
-    "birth_date",
-    "body",
-    "appearance"
-  ],
+  "required": ["schema", "owner_id", "name", "birth_date", "body", "appearance"],
   "properties": {
-    "schema": {
-      "const": "sab_character"
-    },
-    "owner_id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "birth_date": {
-      "type": "string"
-    },
-    "body": {
-      "type": "object",
-      "required": [
-        "adult_height_cm",
-        "growth_end_age",
-        "current_weight_kg",
-        "frame"
-      ]
-    },
-    "appearance": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 100
-    },
+    "schema": {"const": "sab_character"},
+    "owner_id": {"type": "string"},
+    "name": {"type": "string"},
+    "birth_date": {"type": "string"},
+    "body": {"type": "object", "required": ["adult_height_cm", "growth_end_age", "current_weight_kg", "frame"]},
+    "appearance": {"type": "number", "minimum": 0, "maximum": 100},
     "development_state": {
       "type": "object",
       "properties": {
-        "skill_edu_banks": {
+        "skill_edu_banks": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+        "settled_training_hours": {"type": "integer", "minimum": 0},
+        "training_credit": {"type": "number", "minimum": 0},
+        "maintenance_credit": {"type": "number", "minimum": 0},
+        "completed_reviews": {"type": "integer", "minimum": 0},
+        "breakthrough_event_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true, "maxItems": 512},
+        "breakthrough_dossiers": {
           "type": "object",
           "additionalProperties": {
-            "type": "number",
-            "minimum": 0
+            "type": "object",
+            "properties": {
+              "last_breakthrough_at": {"type": "string"},
+              "last_starting_value": {"type": "integer", "minimum": 0},
+              "last_ending_value": {"type": "integer", "minimum": 0},
+              "last_evidence_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "last_context_signatures": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "last_consolidation_units": {"type": "number", "minimum": 0},
+              "resolved_breakthroughs": {"type": "integer", "minimum": 0}
+            },
+            "additionalProperties": false
           }
-        },
-        "settled_training_hours": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "training_credit": {
-          "type": "number",
-          "minimum": 0
-        },
-        "maintenance_credit": {
-          "type": "number",
-          "minimum": 0
-        },
-        "completed_reviews": {
-          "type": "integer",
-          "minimum": 0
         }
       },
       "additionalProperties": true
@@ -70,22 +42,11 @@
       "items": {
         "type": "object",
         "properties": {
-          "started_at": {
-            "type": "string"
-          },
-          "completed_at": {
-            "type": "string"
-          },
-          "focus": {
-            "type": "string"
-          },
-          "hours": {
-            "type": "integer",
-            "minimum": 0
-          },
-          "development": {
-            "type": "object"
-          }
+          "started_at": {"type": "string"},
+          "completed_at": {"type": "string"},
+          "focus": {"type": "string"},
+          "hours": {"type": "integer", "minimum": 0},
+          "development": {"type": "object"}
         },
         "additionalProperties": true
       }
