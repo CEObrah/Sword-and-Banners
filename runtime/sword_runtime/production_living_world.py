@@ -11,10 +11,19 @@ import copy
 from typing import Any, Mapping
 
 from sword_runtime.causal_living_world import CausalLivingWorldSwordPlanner
+from sword_runtime.development import resolve_exceptional_skill_breakthrough, skill_category
 from sword_runtime.living_world import OPERATIONAL_MEMORY_PATH
 
 
 _ACTIVE_OPERATION_STATES = frozenset({"planned", "mobilizing", "active", "engaged", "occupied"})
+_HISTORY_EVENTS_PATH = "state/history/events/index.json"
+_EXPECTED_BREAKTHROUGH_BLOCKERS = frozenset({
+    "exceptional progression evidence depth is insufficient",
+    "exceptional progression lacks enough unused exact-person evidence",
+    "exceptional progression evidence lacks contextual novelty",
+    "exceptional progression consolidation is insufficient",
+    "exceptional progression cooldown is active",
+})
 
 
 class ProductionLivingWorldSwordPlanner(CausalLivingWorldSwordPlanner):
@@ -50,6 +59,122 @@ class ProductionLivingWorldSwordPlanner(CausalLivingWorldSwordPlanner):
             memory,
             reserved,
         )
+
+    @staticmethod
+    def _breakthrough_event_relevant(focus: str, event: Mapping[str, Any]) -> bool:
+        """Require domain-relevant saved experience before exceptional growth."""
+        kind = str(event.get("kind", "")).lower()
+        if not kind:
+            return False
+        martial = ("combat", "battle", "siege", "duel", "assault", "skirmish", "pursuit", "withdraw")
+        command = martial + ("operation", "campaign", "command", "formation", "territorial")
+        if skill_category(focus) == "physical_or_martial_skill":
+            return any(token in kind for token in martial)
+        if focus in {"Formation Command", "Leadership", "Logistics", "Mass Combat", "Strategy", "Tactics"}:
+            return any(token in kind for token in command)
+        if focus in {"Governance", "Law"}:
+            return any(token in kind for token in ("govern", "law", "institution", "appointment", "career", "project", "territorial"))
+        if focus in {"Diplomacy", "Intrigue", "Trade", "Intelligence Operations"}:
+            return any(token in kind for token in ("diplom", "intelligence", "information", "negoti", "contract", "trade", "market", "relationship", "reputation", "state"))
+        if focus == "Engineering":
+            return any(token in kind for token in ("engineer", "fortification", "siege", "project", "construction", "repair"))
+        if focus == "Medicine":
+            return any(token in kind for token in ("health", "injury", "recovery", "medicine", "medical"))
+        if focus == "Training":
+            return any(token in kind for token in ("training", "doctrine", "formation", "instruction"))
+        return any(token in kind for token in ("project", "institution", "career", "information", "operation"))
+
+    def _breakthrough_evidence_candidates(self, focus: str) -> list[Mapping[str, Any]]:
+        """Return a bounded deterministic set of persisted, relevant world events."""
+        history = self.read_optional(_HISTORY_EVENTS_PATH)
+        if not isinstance(history, Mapping):
+            return []
+        raw = history.get("events")
+        if not isinstance(raw, list):
+            return []
+        rows = [event for event in raw[-512:] if isinstance(event, Mapping)]
+        return [event for event in rows if self._breakthrough_event_relevant(focus, event)]
+
+    def _resolve_training_breakthrough_if_ready(
+        self,
+        *,
+        focus: str,
+        training_result: Mapping[str, Any],
+    ) -> tuple[dict[str, Any], Mapping[str, Any] | None]:
+        """Consolidate already-earned exact-person evidence after deliberate training.
+
+        Ordinary training remains authoritative through the routine ceiling. Once
+        the staged player is at or above that ceiling, a training session may
+        consolidate one exceptional point only from server-discovered persisted
+        evidence. Missing evidence, novelty, consolidation, or cooldown is a normal
+        no-breakthrough outcome. Malformed progression state still fails closed.
+        """
+        player = self.read("state/player.json")
+        if not isinstance(player, dict):
+            raise ValueError("player progression owner is invalid")
+        skills = player.get("skills")
+        if not isinstance(skills, Mapping) or focus not in skills:
+            raise ValueError("player progression target is invalid")
+        routine = training_result.get("routine_training_ceiling")
+        current = skills.get(focus)
+        if (
+            isinstance(routine, bool)
+            or not isinstance(routine, int)
+            or isinstance(current, bool)
+            or not isinstance(current, int)
+            or current < routine
+        ):
+            return dict(training_result), None
+        evidence = self._breakthrough_evidence_candidates(focus)
+        if not evidence:
+            return dict(training_result), None
+        training = self.read("game/data/mechanics/training.json")
+        try:
+            breakthrough = resolve_exceptional_skill_breakthrough(
+                player,
+                focus,
+                evidence,
+                self._world_time(),
+                training,
+            )
+        except ValueError as exc:
+            if str(exc) in _EXPECTED_BREAKTHROUGH_BLOCKERS:
+                return dict(training_result), None
+            raise
+        self.put("state/player.json", player)
+        updated = dict(training_result)
+        updated["skill_score"] = int(breakthrough["ending_value"])
+        updated["exceptional_breakthrough_point"] = 1
+        updated["exceptional_breakthrough"] = {
+            "starting_value": int(breakthrough["starting_value"]),
+            "ending_value": int(breakthrough["ending_value"]),
+            "evidence_count": len(breakthrough["evidence_event_refs"]),
+            "distinct_contexts": int(breakthrough["distinct_contexts"]),
+            "consolidation_units": float(breakthrough["consolidation_units"]),
+        }
+        history = player.get("training_history")
+        if isinstance(history, list) and history and isinstance(history[-1], dict):
+            history[-1]["development"] = copy.deepcopy(updated)
+        return updated, breakthrough
+
+    def _dispatch(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
+        result = super()._dispatch(command, payload)
+        if command.command_type != "individual_training":
+            return result
+        focus = str(payload.get("focus", "Training"))
+        development = result.get("development") if isinstance(result, Mapping) else None
+        if not isinstance(development, Mapping):
+            return result
+        updated_development, breakthrough = self._resolve_training_breakthrough_if_ready(
+            focus=focus,
+            training_result=development,
+        )
+        if breakthrough is None:
+            return result
+        updated = dict(result)
+        updated["development"] = updated_development
+        updated["exceptional_breakthrough"] = updated_development["exceptional_breakthrough"]
+        return updated
 
     def _autonomy_state(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
         super()._autonomy_state(host, occurrences, at)
