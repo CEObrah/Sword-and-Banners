@@ -1,18 +1,20 @@
 from __future__ import annotations
 
-import math
 import re
-from typing import Any, Mapping
+from decimal import Decimal
+from typing import Any, Mapping, Sequence
 
 from sword_runtime.sim.calendar import CampaignTime
 
 _BIRTH = re.compile(r"^(?P<year>[0-9]{1,4})-BCE-(?P<month>[0-9]{2})-(?P<day>[0-9]{2})$")
 
-# Sword's authored current-performance tables top out at 200. Soft potential
-# ceilings control how difficult exceptional development becomes; they are not
-# themselves a numerical bound. This absolute scale guard prevents arbitrarily
-# long time horizons from increasing an exact skill forever.
-ABSOLUTE_SKILL_HARD_CAP = 200
+# Capability values are open-ended. 200 remains a useful authored reference
+# band, not a universal maximum. Routine practice has a ceiling because enough
+# calendar time alone must not manufacture legendary people.
+CAPABILITY_REFERENCE_VALUE = 200
+ROUTINE_SKILL_TRAINING_CEILING = 180
+SKILL_HARD_CAP = None
+_PREPARATION_BANK_MAX_FRACTION = Decimal("0.95")
 
 PHYSICAL_SKILLS = {
     "Athletics","Axe","Bow","Crossbow","Dagger","Defense","Glaive","Grappling","Mace","Riding",
@@ -74,14 +76,33 @@ def _potential(aptitude: float) -> tuple[str, float]:
     return "common", 0.9
 
 
+def _next_skill_point_cost(score: int) -> float:
+    return 18.0 * ((1.0 + score / 50.0) ** 1.75)
+
+
+def _progression_values(training: Mapping[str, Any]) -> tuple[int, int, Decimal]:
+    topology = training.get("progression_topology", {})
+    if not isinstance(topology, Mapping):
+        topology = {}
+    routine = int(topology.get("routine_training_ceiling", ROUTINE_SKILL_TRAINING_CEILING))
+    reference = int(topology.get("reference_value", CAPABILITY_REFERENCE_VALUE))
+    fraction = Decimal(str(topology.get("preparation_bank_max_fraction_of_next_point", _PREPARATION_BANK_MAX_FRACTION)))
+    if routine < 1 or reference < routine or not Decimal("0") < fraction < Decimal("1"):
+        raise ValueError("invalid progression topology")
+    return routine, reference, fraction
+
+
 def settle_skill_training(person: dict[str, Any], skill: str, hours: int, at: CampaignTime, training: Mapping[str, Any]) -> dict[str, Any]:
     skills = person.setdefault("skills", {})
     if skill not in skills:
         raise ValueError(f"unknown trainable skill: {skill}")
     score = int(skills[skill])
-    if score > ABSOLUTE_SKILL_HARD_CAP:
-        raise ValueError("saved skill exceeds the absolute Sword progression scale")
+    if score < 0:
+        raise ValueError("saved skill must be nonnegative")
+    routine_ceiling, reference_value, bank_fraction = _progression_values(training)
     aptitude = float(person.get("aptitude", {}).get(aptitude_key(skill), 100))
+    if aptitude < 0:
+        raise ValueError("saved aptitude must be nonnegative")
     potential_name, potential_factor = _potential(aptitude)
     age = age_years(person, at)
     age_factor = _age_factor(training, skill_category(skill), age)
@@ -91,7 +112,7 @@ def settle_skill_training(person: dict[str, Any], skill: str, hours: int, at: Ca
     equipment = float(tables.get("equipment", {}).get("adequate", 0.92))
     recovery = float(tables.get("recovery", {}).get("adequate", 0.92))
     health = 1.0 if str(person.get("health", person.get("health_status", "healthy"))) in {"healthy","fit","stable"} else 0.68
-    aptitude_factor = max(0.25, min(2.0, aptitude / 100.0))
+    aptitude_factor = max(0.25, min(3.0, aptitude / 100.0))
     raw = hours * self_factor * facility * equipment * recovery * health * age_factor * aptitude_factor * potential_factor
     ceilings = training.get("potential_soft_ceilings", {}).get("skill", {})
     ceiling = float(ceilings.get(potential_name, 100))
@@ -103,18 +124,21 @@ def settle_skill_training(person: dict[str, Any], skill: str, hours: int, at: Ca
         diminishing = 0.45 - (score - ceiling) * (0.35 / 20.0)
     else:
         diminishing = 0.05
-    effective = 0.0 if score >= ABSOLUTE_SKILL_HARD_CAP else max(0.0, raw * max(0.05, diminishing))
+    effective = max(0.0, raw * max(0.05, diminishing))
     ds = person.setdefault("development_state", {})
     banks = ds.setdefault("skill_edu_banks", {})
     bank = float(banks.get(skill, 0.0)) + effective
     gained = 0
-    while gained < 25 and score < ABSOLUTE_SKILL_HARD_CAP:
-        cost = 18.0 * ((1.0 + score / 50.0) ** 1.75)
+    while gained < 25 and score < routine_ceiling:
+        cost = _next_skill_point_cost(score)
         if bank + 1e-9 < cost:
             break
         bank -= cost
         score += 1
         gained += 1
+    if score >= routine_ceiling:
+        preparation_cap = float(Decimal(str(_next_skill_point_cost(score))) * bank_fraction)
+        bank = min(bank, preparation_cap)
     skills[skill] = score
     banks[skill] = round(bank, 3)
     ds["settled_training_hours"] = int(ds.get("settled_training_hours", 0)) + hours
@@ -128,9 +152,142 @@ def settle_skill_training(person: dict[str, Any], skill: str, hours: int, at: Ca
         "effective_edu_milli": int(round(effective * 1000)),
         "skill_points_gained": gained,
         "skill_score": score,
-        "skill_hard_cap": ABSOLUTE_SKILL_HARD_CAP,
+        "routine_training_ceiling": routine_ceiling,
+        "capability_reference_value": reference_value,
+        "skill_hard_cap": None,
+        "exceptional_progression_required": score >= routine_ceiling,
         "edu_bank_milli": int(round(bank * 1000)),
     }
 
 
-__all__ = ["ABSOLUTE_SKILL_HARD_CAP", "age_years", "settle_skill_training"]
+def _breakthrough_requirements(score: int) -> tuple[int, int, int, Decimal]:
+    if score < CAPABILITY_REFERENCE_VALUE:
+        return 2, 2, 7, Decimal("0.25")
+    if score < 225:
+        return 3, 2, 14, Decimal("0.35")
+    return 4, 3, 30, Decimal("0.50")
+
+
+def _event_ref(event: Mapping[str, Any]) -> str:
+    ref = event.get("event_id", event.get("id"))
+    if not isinstance(ref, str) or not ref:
+        raise ValueError("breakthrough evidence requires a stable event id")
+    return ref
+
+
+def _event_involves(event: Mapping[str, Any], person_ref: str) -> bool:
+    if event.get("person_ref") == person_ref or event.get("subject_ref") == person_ref:
+        return True
+    for key in ("actor_refs", "subject_refs", "participant_refs", "participants"):
+        refs = event.get(key)
+        if isinstance(refs, Sequence) and not isinstance(refs, (str, bytes, bytearray)) and person_ref in refs:
+            return True
+    return False
+
+
+def _event_context(event: Mapping[str, Any]) -> str:
+    for key in ("mission_ref", "operation_ref", "battle_ref", "siege_ref", "project_ref", "location_ref", "theater_ref"):
+        value = event.get(key)
+        if isinstance(value, str) and value:
+            return f"{key}:{value}"
+    hosts = event.get("host_refs")
+    if isinstance(hosts, Sequence) and not isinstance(hosts, (str, bytes, bytearray)):
+        first = next((str(x) for x in hosts if isinstance(x, str) and x), None)
+        if first:
+            return "host:" + first
+    return "kind:" + str(event.get("kind", "unknown"))
+
+
+def resolve_exceptional_skill_breakthrough(
+    person: dict[str, Any],
+    skill: str,
+    evidence_events: Sequence[Mapping[str, Any]],
+    at: CampaignTime,
+    training: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Advance one exact-person skill point from persisted, already-authored evidence.
+
+    The function deliberately accepts full saved event records, not caller-asserted
+    booleans. It verifies that every consumed event names the exact person, requires
+    distinct contexts, consumes target-specific consolidation, enforces a persistent
+    cooldown, and records one-use evidence. It never creates or infers an event.
+    """
+    person_ref = person.get("owner_id", person.get("id"))
+    if not isinstance(person_ref, str) or not person_ref:
+        raise ValueError("exceptional progression requires an exact persisted person")
+    skills = person.get("skills")
+    if not isinstance(skills, dict) or skill not in skills:
+        raise ValueError("unknown exceptional skill target")
+    score = int(skills[skill])
+    routine_ceiling, reference_value, _bank_fraction = _progression_values(training)
+    if score < routine_ceiling:
+        raise ValueError("routine training remains authoritative below the exceptional threshold")
+    evidence_count, distinct_contexts, cooldown_days, consolidation_fraction = _breakthrough_requirements(score)
+    if len(evidence_events) < evidence_count:
+        raise ValueError("exceptional progression evidence depth is insufficient")
+    ds = person.setdefault("development_state", {})
+    banks = ds.setdefault("skill_edu_banks", {})
+    consumed = ds.setdefault("breakthrough_event_refs", [])
+    dossiers = ds.setdefault("breakthrough_dossiers", {})
+    dossier = dossiers.setdefault(skill, {})
+    if not isinstance(consumed, list) or not isinstance(dossier, dict):
+        raise ValueError("invalid exceptional progression state")
+    last_raw = dossier.get("last_breakthrough_at")
+    if isinstance(last_raw, str):
+        last = CampaignTime.parse(last_raw)
+        if at < last.add_seconds(cooldown_days * 86400):
+            raise ValueError("exceptional progression cooldown is active")
+    selected: list[str] = []
+    contexts: set[str] = set()
+    for event in evidence_events:
+        ref = _event_ref(event)
+        if ref in consumed or ref in selected:
+            continue
+        if not _event_involves(event, person_ref):
+            continue
+        selected.append(ref)
+        contexts.add(_event_context(event))
+        if len(selected) >= evidence_count and len(contexts) >= distinct_contexts:
+            break
+    if len(selected) < evidence_count:
+        raise ValueError("exceptional progression lacks enough unused exact-person evidence")
+    if len(contexts) < distinct_contexts:
+        raise ValueError("exceptional progression evidence lacks contextual novelty")
+    available = Decimal(str(banks.get(skill, 0.0)))
+    required = Decimal(str(_next_skill_point_cost(score))) * consolidation_fraction
+    if available < required:
+        raise ValueError("exceptional progression consolidation is insufficient")
+    banks[skill] = round(float(available - required), 3)
+    skills[skill] = score + 1
+    consumed.extend(selected)
+    if len(consumed) > 512:
+        del consumed[:-512]
+    dossier.update({
+        "last_breakthrough_at": str(at),
+        "last_starting_value": score,
+        "last_ending_value": score + 1,
+        "last_evidence_refs": list(selected),
+        "last_context_signatures": sorted(contexts),
+        "last_consolidation_units": float(required),
+        "resolved_breakthroughs": int(dossier.get("resolved_breakthroughs", 0)) + 1,
+    })
+    return {
+        "skill": skill,
+        "starting_value": score,
+        "ending_value": score + 1,
+        "evidence_event_refs": list(selected),
+        "distinct_contexts": len(contexts),
+        "consolidation_units": float(required),
+        "capability_reference_value": reference_value,
+        "skill_hard_cap": None,
+    }
+
+
+__all__ = [
+    "CAPABILITY_REFERENCE_VALUE",
+    "ROUTINE_SKILL_TRAINING_CEILING",
+    "SKILL_HARD_CAP",
+    "age_years",
+    "resolve_exceptional_skill_breakthrough",
+    "settle_skill_training",
+]
