@@ -20,6 +20,18 @@ def _development_state():
         "settled_training_hours": 10,
         "training_credit": 0.0,
         "completed_reviews": 1,
+        "breakthrough_event_refs": ["event.breakthrough.fixture"],
+        "breakthrough_dossiers": {
+            "Sword": {
+                "last_breakthrough_at": "245-BCE-01-01T00:00:00+08:00",
+                "last_starting_value": 200,
+                "last_ending_value": 201,
+                "last_evidence_refs": ["event.breakthrough.fixture"],
+                "last_context_signatures": ["battle:battle.fixture"],
+                "last_consolidation_units": 12.5,
+                "resolved_breakthroughs": 1,
+            }
+        },
     }
 
 
@@ -76,6 +88,13 @@ def test_sab_character_accepts_registered_progression_fields() -> None:
 def test_sab_character_rejects_invalid_progression_bank_type() -> None:
     value = _sab_character()
     value["development_state"]["skill_edu_banks"]["Sword"] = "not-a-number"
+    with pytest.raises(ValidationError):
+        Draft202012Validator(_schema("sab-character.schema.json")).validate(value)
+
+
+def test_sab_character_rejects_duplicate_breakthrough_evidence() -> None:
+    value = _sab_character()
+    value["development_state"]["breakthrough_event_refs"] = ["event.same", "event.same"]
     with pytest.raises(ValidationError):
         Draft202012Validator(_schema("sab-character.schema.json")).validate(value)
 
