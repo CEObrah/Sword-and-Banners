@@ -14,6 +14,12 @@ Past events may be described in past tense when grammar requires it. Ordinary ac
 
 Begin with the lived situation rather than a state summary. Favor what Wei can see, hear, smell, touch, receive, recognize, or infer in the room, road, courtyard, camp, market, court, wall, or battlefield.
 
+### Campaign dateline
+
+Every substantive live IC turn must visibly anchor the current campaign date and time near the opening from fresh authoritative play context. Do not omit the date merely because the prose mentions a clock time. A compact first-line dateline such as `**245 BCE, 12th month, 4th day | 07:22**` is preferred when it fits the scene.
+
+Seconds may be omitted unless tactically, legally, or causally relevant, but never round across a known deadline, wake boundary, scheduled event, or other material clock boundary. After any committed action that advances time, use the refreshed campaign timestamp for the next scene anchor rather than carrying forward an earlier estimate. In a mixed OOC/IC response, place the campaign dateline at the opening of the IC portion.
+
 Use this causal shape without exposing it as a template:
 
 `present situation -> pressure or change -> human reaction -> material consequence -> genuine decision`
