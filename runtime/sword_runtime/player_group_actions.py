@@ -6,6 +6,11 @@ order applies to several controlled formations in parallel, or when the player
 travels in one column with exact controlled escorts. It does not create a second
 military authority: all formations, logistics, commanders, locations, and time
 remain owned by the existing exact campaign records.
+
+Doctrine and training-program assignment are command/administrative changes,
+not physical drill. They therefore preserve the current campaign instant. Actual
+formation training consumes the requested elapsed hours once even when several
+controlled formations train concurrently under one grouped order.
 """
 from __future__ import annotations
 
@@ -18,6 +23,12 @@ from sword_runtime.engine import _clamp
 from sword_runtime.production_living_world import ProductionLivingWorldSwordPlanner
 
 _MAX_GROUP_FORMATIONS = 128
+_GROUPABLE_EXACT_ONE = frozenset({
+    "formation_mobilize",
+    "formation_doctrine_set",
+    "formation_training_set",
+    "formation_train",
+})
 
 
 def _exact_group_refs(payload: Mapping[str, Any]) -> list[str]:
@@ -42,10 +53,12 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
     def _validate_command_semantics(self, command: Any, payload: Mapping[str, Any]) -> None:
         super()._validate_command_semantics(command, payload)
         refs = _exact_group_refs(payload)
-        if command.command_type == "formation_mobilize":
+        if command.command_type in _GROUPABLE_EXACT_ONE:
             has_single = isinstance(payload.get("formation_ref"), str) and bool(payload.get("formation_ref"))
             if bool(refs) == has_single:
-                raise ValueError("formation_mobilize requires exactly one of formation_ref or formation_refs")
+                raise ValueError(
+                    f"{command.command_type} requires exactly one of formation_ref or formation_refs"
+                )
         elif command.command_type == "travel" and refs:
             # Escort movement is one physical column with the player, not a set
             # of separately elapsed formation moves.
@@ -54,7 +67,7 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
 
     def _authorize_command(self, command: Any, payload: Mapping[str, Any]) -> None:
         refs = _exact_group_refs(payload)
-        if command.command_type == "formation_mobilize" and refs:
+        if command.command_type in _GROUPABLE_EXACT_ONE and refs:
             if command.actor_id == self.INTERNAL_ACTOR:
                 return
             for ref in refs:
@@ -89,6 +102,105 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
             formation_count=len(refs),
             status="mobilized",
             duration_hours=4,
+            world_time=world_time,
+        )
+        result.update(metrics)
+        return result
+
+    def _dispatch_group_doctrine_set(
+        self,
+        command: Any,
+        payload: Mapping[str, Any],
+        refs: list[str],
+    ) -> dict[str, Any]:
+        doctrine_ref = str(payload["doctrine_ref"])
+        world_time = str(self._world_time())
+        for ref in refs:
+            path, formation0 = self._load_formation(ref)
+            formation = copy.deepcopy(formation0)
+            formation["doctrine_ref"] = doctrine_ref
+            if "doctrine_behavior" in payload:
+                formation["doctrine_behavior"] = copy.deepcopy(dict(payload["doctrine_behavior"]))
+            formation["doctrine_last_reformed_at"] = world_time
+            formation["doctrine_proficiency_rule"] = (
+                "doctrine assignment consumes no drill time; proficiency and cohesion change only through verified training or combat"
+            )
+            self.put(path, formation)
+        self._write_meta(command, world_time)
+        return self._result(
+            formation_refs=refs,
+            formation_count=len(refs),
+            doctrine_ref=doctrine_ref,
+            duration_hours=0,
+            world_time=world_time,
+        )
+
+    def _dispatch_group_training_set(
+        self,
+        command: Any,
+        payload: Mapping[str, Any],
+        refs: list[str],
+    ) -> dict[str, Any]:
+        training_ref = str(payload["training_ref"])
+        world_time = str(self._world_time())
+        for ref in refs:
+            path, formation0 = self._load_formation(ref)
+            formation = copy.deepcopy(formation0)
+            formation["training_ref"] = training_ref
+            formation["training_program_last_changed_at"] = world_time
+            formation["training_program_proficiency_rule"] = (
+                "program assignment consumes no drill time; development is earned only through verified formation training"
+            )
+            self.put(path, formation)
+        self._write_meta(command, world_time)
+        return self._result(
+            formation_refs=refs,
+            formation_count=len(refs),
+            training_ref=training_ref,
+            duration_hours=0,
+            world_time=world_time,
+        )
+
+    def _dispatch_group_train(
+        self,
+        command: Any,
+        payload: Mapping[str, Any],
+        refs: list[str],
+    ) -> dict[str, Any]:
+        hours = int(payload.get("hours", 1))
+        loaded: list[tuple[str, dict[str, Any]]] = []
+        for ref in refs:
+            path, formation0 = self._load_formation(ref)
+            loaded.append((path, copy.deepcopy(formation0)))
+
+        # One grouped training order represents formations drilling in parallel.
+        # Elapsed campaign time is paid once; every formation receives only the
+        # same verified hours, never multiplied hours from the group size.
+        world_time, metrics = self._advance_seconds(hours * 3600)
+        for path, formation in loaded:
+            formation["training_progress"] = _clamp(
+                int(formation.get("training_progress", 0)) + max(1, hours // 3)
+            )
+            formation["cohesion"] = _clamp(
+                int(formation.get("cohesion", 50)) + max(1, hours // 4)
+            )
+            formation["readiness"] = _clamp(
+                int(formation.get("readiness", 50)) + max(0, hours // 6)
+            )
+            formation["fatigue"] = _clamp(
+                int(formation.get("fatigue", 0)) + max(1, hours // 5)
+            )
+            formation["verified_training_hours"] = (
+                int(formation.get("verified_training_hours", 0)) + hours
+            )
+            formation["last_training_at"] = world_time
+            self.put(path, formation)
+        self._write_meta(command, world_time)
+        result = self._result(
+            formation_refs=refs,
+            formation_count=len(refs),
+            hours=hours,
+            duration_hours=hours,
             world_time=world_time,
         )
         result.update(metrics)
@@ -201,6 +313,14 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
         refs = _exact_group_refs(payload)
         if command.command_type == "formation_mobilize" and refs:
             return self._dispatch_group_mobilize(command, refs)
+        if command.command_type == "formation_doctrine_set":
+            target_refs = refs or [str(payload["formation_ref"])]
+            return self._dispatch_group_doctrine_set(command, payload, target_refs)
+        if command.command_type == "formation_training_set":
+            target_refs = refs or [str(payload["formation_ref"])]
+            return self._dispatch_group_training_set(command, payload, target_refs)
+        if command.command_type == "formation_train" and refs:
+            return self._dispatch_group_train(command, payload, refs)
         if command.command_type == "travel" and refs:
             return self._dispatch_escorted_travel(command, payload, refs)
         return super()._dispatch(command, payload)
