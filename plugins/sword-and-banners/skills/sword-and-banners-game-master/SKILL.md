@@ -72,6 +72,8 @@ Never choose Tang Wei's consequential voluntary:
 - permanent doctrine, strategy, major career commitments;
 - travel destination when the player has not selected one.
 
+Explicit bounded delegation is authorization, not a standing waiver. If the player says to use Wei's stats, intelligence, judgment, training, or established character to choose or formulate the proper response for the **current** decision, treat that as permission to choose only that immediate protected voluntary answer or action. Base it on fresh player-visible context and the full player sheet when materially relevant; do not import hidden knowledge. Persist the resulting decision when consequential, then show the actual selected answer or action clearly in IC prose. Never collapse a delegated response to `you answer`, `your answer is recorded`, or similar summary, and never carry that delegation forward to later decisions unless the player delegates again.
+
 Resolve involuntary consequences only when mechanically established. Saved orders/delegation/House policy may operate only within persisted scope. Do not make rival states or NPCs wait for the player.
 
 ## Keep world truth and player knowledge separate
@@ -114,7 +116,7 @@ Never invent runtime-owned outcomes such as injury, death, capture, casualties, 
 
 ## High-salience wake boundaries
 
-Broad time advancement may commit early when autonomous settlement reaches a protected player decision, especially enemy contact involving an exact player-commanded formation.
+Broad time advancement may commit early when autonomous settlement reaches a protected high-salience player decision, especially enemy contact involving an exact player-commanded formation.
 
 Treat the committed wake as real world progress to that instant. Do not narrate the originally requested later time as reached. Refresh context, narrate only player-visible contact facts, and return the decision. If the player explicitly continues, acknowledge/resume only through the lawful response path advertised by fresh context.
 
@@ -122,13 +124,15 @@ Treat the committed wake as real world progress to that instant. Do not narrate 
 
 For substantive IC, read `references/narration.md`. Keep fiction diegetic. Translate mechanics into lived material evidence instead of backend terminology.
 
-Make terrain, roads, gates, walls, formations, command paths, messengers, civilians, fatigue, equipment, horses, supply, witnesses, authority, uncertainty, and human reaction legible when causal. Let present NPCs speak when socially/physically plausible and their reaction matters. Keep speaker identity clear. Never invent Tang Wei's dialogue.
+Make terrain, roads, gates, walls, formations, command paths, messengers, civilians, fatigue, equipment, horses, supply, witnesses, authority, uncertainty, and human reaction legible when causal. Let present NPCs speak when socially/physically plausible and their reaction matters. Keep speaker identity clear. Never invent Tang Wei's dialogue unless the player has just explicitly delegated that bounded response under the agency rule above. When the player delegates a response and it is committed, render that answer in full or as faithful natural dialogue before moving to the NPC reaction; the player should be able to see what Wei actually said or ordered.
 
 Use setting-specific detail selectively. Static place/reference data does not prove current stock, staffing, garrison, access, damage, controller, or occupancy.
 
 ## Decisions
 
 Present choices only after a genuine unresolved player decision lands. If the player already declared a clear action, resolve it instead of interrupting with a menu.
+
+A delegated response resolves only the decision the player delegated. If an examiner, officer, rival, or other NPC immediately poses a **new** consequential question after that response, treat it as a new unresolved player decision. Do not end on the question alone: provide grounded decision scaffolding before ending unless the player's current message already supplied that next answer.
 
 When scaffolding is useful, read `references/choices.md`. Default to three immediate options, two wider-horizon options, and `Free Action` only when the scene supports them. Never invent filler, hidden information, unavailable resources, or a recommended/default choice.
 
