@@ -1,8 +1,14 @@
 from __future__ import annotations
 
-# Production semantic payload surface.  Every command is fail-closed: fields not
-# listed here are rejected before authority checks/reducers.  This prevents
-# ignored caller data from becoming a shadow control channel as reducers evolve.
+# Production engine semantic payload surface. Every engine command is fail-closed:
+# fields not listed here are rejected before authority checks/reducers. This
+# prevents ignored caller data from becoming a shadow control channel as reducers
+# evolve.
+#
+# scene_consequence remains listed for replay/backward compatibility inside the
+# legacy reducer. Player-facing stable operations do not advertise or permit new
+# raw scene_consequence writes. The surface-only interaction_action contract lives
+# in api/interaction_surface.py and is translated before it reaches the engine.
 COMMAND_PAYLOAD_KEYS: dict[str, frozenset[str]] = {
     "advance_time": frozenset({"hours", "target_time"}),
     "battle_resolve": frozenset({"attacker_formation_refs", "defender_formation_refs", "operation_ref", "controlled_side", "objective"}),
@@ -64,10 +70,6 @@ COMMAND_PAYLOAD_KEYS: dict[str, frozenset[str]] = {
     "travel": frozenset({"destination_ref", "mode", "formation_refs"}),
 }
 
-# Dimensions accounted for by the release adversarial matrix.  A command need
-# not have every dimension (for example scene_consequence has no numeric field),
-# but every production command must be covered by universal envelope attacks and
-# at least one applicable command-specific semantic attack.
 HOSTILE_DIMENSIONS = (
     "negative_or_zero",
     "absurd_magnitude",

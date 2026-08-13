@@ -82,7 +82,7 @@ def test_play_context_scene_projection_freshness_and_readiness(campaign):
     with TestClient(create_app(campaign,token)) as client:
         headers={'Authorization':f'Bearer {token}'}
         data=client.get('/v1/play/context',headers=headers).json()
-        assert data['scene']['projection_status']=='fresh'
+        assert data['scene']['projection_status'] in {'fresh','fresh_runtime_projection'}
         if data['controlled_formations']:
             formation=data['controlled_formations'][0]
             for field in ('readiness','morale','cohesion','training_progress','fatigue','logistics'):
@@ -103,17 +103,25 @@ def test_play_context_scene_projection_freshness_and_readiness(campaign):
         scene_only_objects={x for x in scene_refs if not x.startswith('char_')} - intrinsic_objects
 
         # Scene projections are presentation caches, not authority. Mutate only
-        # this disposable fixture to simulate a projection left behind after a
-        # state/time change. Current play context must strip its old decision
-        # and any read permissions that existed only because of that old scene.
+        # this disposable fixture to simulate an authored projection left behind
+        # after a state/time change. The service must discard its transient claims
+        # and immediately provide a revision-matched minimal projection from live
+        # owners and already-triggered player-visible facts.
         scene['world_time']='stale-projection-test'
         scene_path.write_text(json.dumps(scene,indent=2)+'\n')
         stale=client.get('/v1/play/context',headers=headers).json()
-        assert stale['scene']['projection_status']=='stale_after_state_change'
-        assert stale['scene']['unresolved_decision'] is None
-        assert stale['scene']['observable_pressures']==[]
-        assert stale['scene']['known_clock_boundaries']==[]
-        assert stale['scene']['location_id']==stale['player']['location']
+        projected=stale['scene']
+        assert projected['projection_status']=='fresh_runtime_projection'
+        assert projected['projected_revision']==stale['campaign']['revision']
+        assert projected['projected_at']==stale['campaign']['world_time']
+        assert projected['unresolved_decision'] is None
+        assert projected['known_clock_boundaries']==[]
+        assert projected['location_id']==stale['player']['location']
+        assert projected['projection_provenance']=='exact_current_owners_triggered_events_and_typed_player_attempts'
+        if projected.get('continuity_anchor') is not None:
+            assert projected['continuity_anchor']['presentation_only'] is True
+        visible_handles={x['interaction_ref'] for x in stale.get('interaction_handles',[])}
+        assert all(x.get('interaction_ref') in visible_handles for x in projected['observable_pressures'])
         assert scene_only_people.isdisjoint(set(stale['permitted_person_ids']))
         assert scene_only_objects.isdisjoint(set(stale['permitted_object_refs']))
 
@@ -162,6 +170,7 @@ def test_railway_and_mcp_files_present():
     assert '"**"' in railway and '"!/state/**"' in railway
     assert (root/'runtime/sword_runtime/bootstrap.py').is_file()
     assert (root/'runtime/sword_runtime/api/mcp.py').is_file()
+    assert (root/'runtime/sword_runtime/api/mcp_extensions.py').is_file()
     assert (root/'runtime/sword_runtime/service_runtime.py').is_file()
     assert (root/'docs/RUNTIME_SERVICE_DEPLOYMENT.md').is_file()
     assert (skill/'SKILL.md').is_file()
@@ -172,10 +181,15 @@ def test_railway_and_mcp_files_present():
     py=(root/'pyproject.toml').read_text()
     assert 'mcp==2.0.0' in py and 'PyJWT[crypto]==2.13.0' in py
     mcp_source=(root/'runtime/sword_runtime/api/mcp.py').read_text()
+    extension_source=(root/'runtime/sword_runtime/api/mcp_extensions.py').read_text()
+    app_source=(root/'runtime/sword_runtime/api/app.py').read_text()
     assert 'from mcp.server.mcpserver import MCPServer' in mcp_source
     assert 'get_play_context' in mcp_source
     assert 'preview_attestation' in mcp_source
     assert 'sword:read' in mcp_source and 'sword:write' in mcp_source
+    for tool_name in ('get_command_contract','list_controlled_formations','list_known_information','list_interaction_handles'):
+        assert f'name="{tool_name}"' in extension_source
+    assert 'install_extended_tools' in app_source
 
 
 def test_gameplay_router_has_no_version_ids():
