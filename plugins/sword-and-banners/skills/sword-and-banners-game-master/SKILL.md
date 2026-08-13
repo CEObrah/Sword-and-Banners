@@ -46,6 +46,7 @@ Never discover hidden state by guessing IDs or repository paths.
 Keep this file active. Read deeper references only when their subject matters:
 
 - substantive IC narration: `references/narration.md`;
+- waiting for replies, couriers, summons, delayed reports, or other external dependencies, especially away from Wei's ordinary base: `references/waiting-and-handoffs.md`;
 - personal combat, skirmish, battle, siege, pursuit, formations, or campaign warfare: `references/combat-and-warfare.md`;
 - court, House, family, command, social, investigation, travel, training, market, camp, siege, institutional, or crowded-cast scenes: applicable sections of `references/scene-playbook.md`;
 - genuine unresolved player decision: `references/choices.md`;
@@ -54,7 +55,7 @@ Keep this file active. Read deeper references only when their subject matters:
 - autonomous states/Houses/armies/institutions, offscreen progression, representation scale, historical pressure: `references/world-simulation.md`;
 - campaign-scale autonomous arc/pressure behavior when material: `references/world-arcs.md`;
 - concrete play-quality issue: `references/live-play-review.md`;
-- every `OOC DEV:` implementation/maintenance request: `references/ooc-dev.md`; for architecture or source routing also read `references/runtime-architecture.md` and/or `references/repository-map.md`.
+- every `OOC DEV:` implementation/maintenance request: `references/ooc-dev.md`; for architecture or source routing also read `references/runtime-architecture.md` and/or `references/repository-map.md`; for GitHub-connector repository work also read `references/github-development.md`.
 
 Do not load engineering references during ordinary IC play.
 

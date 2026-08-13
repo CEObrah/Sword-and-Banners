@@ -1,8 +1,8 @@
-"""Production planner layer for short-horizon campaign event work and world arcs.
+"""Production planner layer for short-horizon campaign work and world arcs.
 
-One-shot campaign work and recurring world-arc pressure share the existing
-chronological causal frontier. Exact event owners become truth only when their
-runtime host settles.
+One-shot campaign work, institutional follow-ups, and recurring world-arc
+pressure share the existing chronological causal frontier. Exact event owners
+become truth only when their runtime host settles.
 """
 from __future__ import annotations
 
@@ -11,6 +11,10 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.autonomy_routing import select_formations_fair
+from sword_runtime.institutional_processes import (
+    settle_institutional_process_followup,
+    sync_institutional_process_routes,
+)
 from sword_runtime.player_group_actions import PlayerGroupActionPlanner
 from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.systems.campaign_events import (
@@ -111,6 +115,7 @@ class CampaignEventPlayerGroupActionPlanner(PlayerGroupActionPlanner):
         sync_world_arc_routes(self, runtime)
         self._defer_new_world_arc_routes(runtime, previous_host_ids)
         sync_campaign_work_routes(self, runtime)
+        sync_institutional_process_routes(self, runtime)
         self.put(_RUNTIME_PATH, runtime)
         return super()._advance_runtime(target_text)
 
@@ -122,6 +127,13 @@ class CampaignEventPlayerGroupActionPlanner(PlayerGroupActionPlanner):
             return
         if kind == "world_arc_report":
             wake = settle_world_arc_report(self, host, due_text)
+            if wake is not None:
+                wake["target_host"] = self._active_host_id
+                wake["event_id"] = self._active_event_id
+            self._pending_wake_created = wake
+            return
+        if kind == "institutional_process":
+            wake = settle_institutional_process_followup(self, host, due_text)
             if wake is not None:
                 wake["target_host"] = self._active_host_id
                 wake["event_id"] = self._active_event_id

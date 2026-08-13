@@ -57,7 +57,10 @@ Use this reference for OOC DEV source-location and authority questions. The mach
 : Bounded short-horizon campaign-event routing. `authority: false` work targets become occurrence truth only when the causal runtime settles them into an exact event-registry owner.
 
 `runtime/sword_runtime/campaign_event_planner.py`
-: Hosted planner integration for one-shot campaign-event work, recurring world-arc reviews/report routes, fair formation-candidate routing, and resumable player-facing event boundaries.
+: Hosted planner integration for one-shot campaign-event work, routed institutional follow-ups, recurring world-arc reviews/report routes, fair formation-candidate routing, and resumable player-facing event boundaries.
+
+`runtime/sword_runtime/institutional_processes.py`
+: Causal follow-up routing for already-established institutional interactions. It reads bounded `authority: false` process routes and typed player attempts, then settles due responses into the existing exact event-registry authority.
 
 `runtime/sword_runtime/world_arcs.py`
 : Causal reviews for the existing exact `arc-registry` authority and delayed player-visible report propagation. It may establish bounded abstract initiatives from exact saved actors/goals but never replaces the exact domain owner of a material consequence.
@@ -146,6 +149,9 @@ Use this reference for OOC DEV source-location and authority questions. The mach
 `state/index/campaign-causal-work.json`
 : Optional bounded `authority: false` routing for explicit short-horizon campaign work. A pending target is not proof an event occurred.
 
+`state/index/institutional-process-routing.json`
+: Bounded `authority: false` trigger/delay routing for institutional follow-ups. It never proves that a response occurred; only the settled exact event-registry record does.
+
 `state/event/*.json`
 : Exact mutable event/message/movement owners. Triggered campaign occurrences are authoritative here after runtime settlement.
 
@@ -184,7 +190,10 @@ Never infer that every state file is player-visible. Bounded operations enforce 
 : Typed attempt, outcome-injection, digest/idempotency, bounded interaction-handle paging, raw-scene bypass, and stale-projection continuation regressions.
 
 `tests/runtime/test_world_arcs.py`
-: Active-arc scheduler registration, exact saved-goal initiative, deterministic review, hidden/report knowledge separation, and rotating-candidate fairness regressions.
+: Active-arc scheduler registration, exact saved-goal initiative, event-schema parity, deterministic review, hidden/report knowledge separation, and rotating-candidate fairness regressions.
+
+`tests/runtime/test_institutional_processes.py`
+: Current-campaign regression that a completed Ouki review withdrawal arms a causal follow-up and that the settled response validates against the canonical event schema.
 
 `tests/runtime/test_architecture_service.py`
 : Service architecture, player-safe context, scene projection, MCP/deployment-file, and integration invariants.

@@ -46,7 +46,7 @@ RepositoryCommandPlanner
 
 Exact formations, people, force pools, operations, Houses, treasuries, relationships, reputation, information, territory, event registries, and logistics remain authoritative in their exact owners.
 
-`CampaignEventPlayerGroupActionPlanner` also routes active records from the existing `state/arc/kingdom-arcs.json` authority onto the causal frontier. `runtime/sword_runtime/world_arcs.py` settles recurring abstract arc initiatives from exact saved actors and saved goals, while `runtime/sword_runtime/autonomy_routing.py` keeps bounded formation selection fair with a rotating cursor. Neither layer replaces exact military, economic, political, person, information, or territory owners.
+`CampaignEventPlayerGroupActionPlanner` also routes active records from the existing `state/arc/kingdom-arcs.json` authority and bounded institutional follow-ups onto the same causal frontier. `runtime/sword_runtime/world_arcs.py` settles recurring abstract arc initiatives from exact saved actors and saved goals. `runtime/sword_runtime/institutional_processes.py` reads `authority: false` trigger/delay routes plus typed player interaction attempts and may later settle a due procedural response into the existing exact event registry. `runtime/sword_runtime/autonomy_routing.py` keeps bounded formation selection fair with a rotating cursor. None of these layers replaces exact military, economic, political, person, information, territory, or event owners.
 
 Hidden arc activity stays hidden. A player-facing world-arc report exists only after a saved information path is propagated through a compatible current location or channel. Dormant arcs are not activated merely by elapsed calendar time.
 
@@ -91,7 +91,7 @@ The surface may contain only player-owned intent: exact visible target/process r
 
 `interaction_action` is intentionally a **surface-only** semantic command. Stable operations validate it, preserve the original surface command digest, and translate it into a typed attempt-only compatibility record for the existing engine reducer. New player-facing raw `scene_consequence` writes are blocked; the legacy reducer remains only for replay/backward compatibility and exact already-committed duplicate recovery.
 
-An interaction attempt does not advance time or fabricate a reply. Waiting uses `advance_time`. External response becomes fact only when another runtime authority actually establishes it, for example an already-triggered causal event/message owner.
+An interaction attempt does not advance time or fabricate a reply. Waiting uses `advance_time`. External response becomes fact only when another runtime authority actually establishes it, for example an already-triggered causal event/message owner. A non-authoritative institutional route may arm a later causal follow-up from that saved attempt, but the route itself is not a response and only the settled exact event-registry record becomes campaign truth.
 
 This distinction prevents player or model prose from silently becoming NPC consent, office, access, or institutional outcome.
 
