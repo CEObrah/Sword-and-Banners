@@ -1,0 +1,86 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qin_role_line_infantry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        62,
+        58,
+        70,
+        66,
+        60,
+        58,
+        66,
+        50,
+        48
+      ],
+      "skill_values": [
+        60,
+        76,
+        48,
+        50,
+        50,
+        52,
+        45,
+        40,
+        38,
+        70,
+        70,
+        62,
+        59,
+        50,
+        48,
+        28,
+        78,
+        55,
+        42,
+        45,
+        44,
+        28,
+        32,
+        40,
+        35,
+        39,
+        30,
+        39,
+        30,
+        37,
+        30,
+        28,
+        30,
+        28,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qin_role_line_infantry",
+    "monthly_factor_inputs": "instruction 1.03; facility 1.03; equipment 1.00; recovery 0.98; administration 0.82",
+    "role": "line_infantry",
+    "state": "QIN",
+    "identity_notes": "Best-balanced institutional army: disciplined line infantry, command, training, logistics, and combined-arms coordination.",
+    "balance_adjustment": {
+      "state_identity": "QIN",
+      "role": "line_infantry",
+      "attribute_modifiers": {
+        "Composure": 4,
+        "Intelligence": 2,
+        "Endurance": 2
+      },
+      "skill_modifiers": {
+        "Mass Combat": 6,
+        "Formation Fighting": 7,
+        "Leadership": 2,
+        "Formation Command": 3,
+        "Tactics": 3,
+        "Strategy": 2,
+        "Logistics": 3,
+        "Training": 2,
+        "Spear": 3,
+        "Shield": 3,
+        "Defense": 3
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

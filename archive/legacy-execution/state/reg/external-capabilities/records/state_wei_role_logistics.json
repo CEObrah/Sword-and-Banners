@@ -1,0 +1,75 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_wei_role_logistics",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        50,
+        50,
+        58,
+        54,
+        59,
+        62,
+        66,
+        68,
+        50
+      ],
+      "skill_values": [
+        38,
+        35,
+        28,
+        30,
+        32,
+        42,
+        40,
+        35,
+        37,
+        42,
+        42,
+        50,
+        38,
+        40,
+        42,
+        30,
+        38,
+        50,
+        35,
+        42,
+        48,
+        28,
+        52,
+        42,
+        34,
+        38,
+        34,
+        72,
+        38,
+        48,
+        42,
+        38,
+        54,
+        36,
+        48
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_wei_role_logistics",
+    "monthly_factor_inputs": "instruction 1.00; facility 1.02; equipment 1.00; recovery 0.98; administration 0.72",
+    "role": "logistics",
+    "state": "WEI",
+    "identity_notes": "Technical warfare specialist: crossbows, siege engineering, chariots, fortifications, and deliberate tactical systems.",
+    "balance_adjustment": {
+      "state_identity": "WEI",
+      "role": "logistics",
+      "attribute_modifiers": {
+        "Intelligence": 2,
+        "Coordination": 1
+      },
+      "skill_modifiers": {
+        "Logistics": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

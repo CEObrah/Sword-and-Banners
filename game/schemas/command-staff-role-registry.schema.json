@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "owner_id", "owner_type", "policy", "roles", "runtime"],
+  "properties": {
+    "schema": {"const": "command-staff-role-registry"},
+    "owner_id": {"type": "string"},
+    "owner_type": {"const": "command_staff_role_registry"},
+    "policy": {"type":"object","additionalProperties":false,"required":["role_slot_is_not_character","materialize_only_when_personal_identity_is_causal","materialization_preserves_same_incumbent","command_effect_requires_current_evidence","vacancy_and_unavailability_are_mechanical"],"properties":{"role_slot_is_not_character":{"const":true},"materialize_only_when_personal_identity_is_causal":{"const":true},"materialization_preserves_same_incumbent":{"const":true},"command_effect_requires_current_evidence":{"const":true},"vacancy_and_unavailability_are_mechanical":{"const":true}}},
+    "roles": {"type":"object","additionalProperties":{"type":"object","additionalProperties":false,"required":["command_owner_ref","principal_ref","role","specialty_hint","status","position_count","incumbent"],"properties":{"command_owner_ref":{"type":"string","minLength":1},"principal_ref":{"type":"string","minLength":1},"role":{"type":"string","minLength":1},"specialty_hint":{"type":"string","minLength":1},"status":{"enum":["occupied","vacant","selection_in_progress"]},"position_count":{"const":1},"incumbent":{"type":"object","additionalProperties":false,"required":["representation","age_years","capability_bands","health_availability","service_development_credit","retirement_status","materialized_character_id","settled_through"],"properties":{"representation":{"enum":["anonymous_command_staff_incumbent","materialized_character"]},"age_years":{"type":"integer","minimum":16},"capability_bands":{"type":"object","minProperties":1,"additionalProperties":{"enum":["basic","competent","experienced","expert","master"]}},"health_availability":{"enum":["fit","limited","unavailable","dead"]},"service_development_credit":{"type":"number","minimum":0},"retirement_status":{"enum":["active","eligible","retiring","retired"]},"materialized_character_id":{"type":["string","null"]},"settled_through":{"type":"string","minLength":1}}}}}},
+    "runtime": {"type":"object","additionalProperties":false,"required":["last_settled_at"],"properties":{"last_settled_at":{"type":"string","minLength":1}}}
+  }
+}

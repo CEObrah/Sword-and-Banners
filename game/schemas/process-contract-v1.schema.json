@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "contract_id", "owner_id", "domain", "cadence", "revision", "plan_revision", "goals", "constraints", "standing_orders", "result_requirement", "plan_lifecycle", "replanning_policy", "reconstruction_policy", "safe_compaction_policy", "successor_plan_required", "visibility"],
+  "properties": {
+    "schema": {"const": "process-contract.v1"},
+    "contract_id": {"type":"string"}, "owner_id":{"type":"string"}, "domain":{"type":"string"}, "cadence":{"type":"string"},
+    "revision":{"type":"integer","minimum":1}, "plan_revision":{"type":"integer","minimum":1},
+    "goals":{"type":"array","items":{"type":"string"}}, "constraints":{"type":"array","items":{"type":"string"}}, "standing_orders":{"type":"array","items":{"type":"string"}},
+    "result_requirement":{"type":"array","items":{"type":"string"}}, "plan_lifecycle":{"type":"array","items":{"type":"string"}},
+    "replanning_policy":{"type":"string"}, "reconstruction_policy":{"type":"string"}, "safe_compaction_policy":{"type":"string"},
+    "successor_plan_required":{"type":"boolean"}, "visibility":{"type":"string"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,105 @@
+{
+  "schema": "household-military-network-registry",
+  "owner_id": "force.household_military_networks",
+  "owner_type": "household_military_network_registry",
+  "policy": {
+    "state_command_separate_from_household": true,
+    "profile_only_noncombat": true,
+    "exact_manpower_requires_source_conservation": true,
+    "exact_equipment_requires_source_conservation": true,
+    "quality_requires_training_resources_history": true,
+    "royal_state_boundary_must_be_resolved": true
+  },
+  "networks": {
+    "house_ou": {
+      "name": "Ou family military household",
+      "anchor_refs": ["char_ousen", "char_ou_hon"],
+      "polity_scope": "Qin",
+      "network_kind": "aristocratic_household",
+      "ownership_scope": "private_household",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    },
+    "house_mou": {
+      "name": "Mou family military household",
+      "anchor_refs": ["char_mou_gou", "char_mou_bu", "char_mou_ten", "char_mou_ki"],
+      "polity_scope": "Qin",
+      "network_kind": "aristocratic_household",
+      "ownership_scope": "private_household",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    },
+    "household_ouki": {
+      "name": "Ouki military household",
+      "anchor_refs": ["char_ouki"],
+      "polity_scope": "Qin",
+      "network_kind": "military_household",
+      "ownership_scope": "private_household",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    },
+    "household_tou": {
+      "name": "Tou military household",
+      "anchor_refs": ["char_tou"],
+      "polity_scope": "Qin",
+      "network_kind": "military_household",
+      "ownership_scope": "private_household",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    },
+    "retinue_kanki": {
+      "name": "Kanki personal retainer network",
+      "anchor_refs": ["char_kanki"],
+      "polity_scope": "Qin",
+      "network_kind": "personal_retainer_network",
+      "ownership_scope": "personal_loyalty",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    },
+    "retinue_riboku": {
+      "name": "Riboku personal retainer network",
+      "anchor_refs": ["char_riboku"],
+      "polity_scope": "Zhao",
+      "network_kind": "personal_retainer_network",
+      "ownership_scope": "personal_loyalty",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    },
+    "house_go": {
+      "name": "Go family military household",
+      "anchor_refs": ["char_go_hou_mei", "char_go_kei"],
+      "polity_scope": "Wei",
+      "network_kind": "aristocratic_household",
+      "ownership_scope": "private_household",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    },
+    "retinue_karin": {
+      "name": "Karin personal military household",
+      "anchor_refs": ["char_karin"],
+      "polity_scope": "Chu",
+      "network_kind": "personal_retainer_network",
+      "ownership_scope": "personal_loyalty",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    },
+    "household_shou_bun_kun": {
+      "name": "Shou Bun Kun household retainer network",
+      "anchor_refs": ["char_shou_bun_kun"],
+      "polity_scope": "Qin",
+      "network_kind": "political_household",
+      "ownership_scope": "private_household",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    },
+    "royal_qin": {
+      "name": "Qin royal household military network",
+      "anchor_refs": ["char_ei_sei"],
+      "polity_scope": "Qin",
+      "network_kind": "royal_household",
+      "ownership_scope": "crown_state_boundary",
+      "materialization_state": "profile_only",
+      "force_refs": []
+    }
+  }
+}

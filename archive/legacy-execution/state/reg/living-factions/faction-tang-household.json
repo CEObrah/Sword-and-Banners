@@ -1,0 +1,62 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.tang_household",
+    "name": "House Tang Institutional Network",
+    "leadership_ids": [
+      "char_tang_wei",
+      "char_tang_zhu",
+      "char_tang_ling"
+    ],
+    "status": "active",
+    "goal": "protect House Tang, Sword Manor, dependents, contracts, and long-term autonomy",
+    "current_plan": "Run estate, security, training, trade, and medical obligations under Zhu, Ling, and Wei’s actual offices while preserving replacement capacity.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "protect House Tang people, property, reputation, and autonomy",
+      "develop Sword Manor and household institutions without state capture"
+    ],
+    "resources": [
+      "House Guards",
+      "Guardian Cavalry",
+      "Sword Manor",
+      "estate wealth",
+      "Household Champions",
+      "professional staff"
+    ],
+    "constraints": [
+      "small total manpower",
+      "slow elite replacement",
+      "political exposure"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Tang estate, Sword Manor, household forces, dependents, contracts, and external relationships",
+    "leadership_model": "household_command",
+    "relationships": [
+      {
+        "target_id": "faction.tang_merchant_partners",
+        "relationship_type": "house_commercial_partnership",
+        "stance": "allied",
+        "intensity": 92
+      },
+      {
+        "target_id": "faction.martial_school_networks",
+        "relationship_type": "martial_lineage_and_reputation",
+        "stance": "cooperative_competitive",
+        "intensity": 72
+      },
+      {
+        "target_id": "faction.mercenary_brokers",
+        "relationship_type": "contract_market_access",
+        "stance": "transactional",
+        "intensity": 62
+      }
+    ]
+  }
+}

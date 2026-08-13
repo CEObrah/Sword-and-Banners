@@ -1,0 +1,83 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_han_role_cavalry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        66,
+        64,
+        68,
+        67,
+        68,
+        64,
+        64,
+        52,
+        52
+      ],
+      "skill_values": [
+        58,
+        69,
+        52,
+        45,
+        45,
+        48,
+        50,
+        58,
+        46,
+        58,
+        63,
+        64,
+        50,
+        50,
+        48,
+        69,
+        62,
+        58,
+        45,
+        56,
+        54,
+        28,
+        33,
+        42,
+        38,
+        42,
+        32,
+        38,
+        34,
+        38,
+        32,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_han_role_cavalry",
+    "monthly_factor_inputs": "instruction 0.99; facility 1.00; equipment 0.98; recovery 0.97; administration 0.70",
+    "role": "cavalry",
+    "state": "HAN",
+    "identity_notes": "Smallest state: weaker broad manpower quality offset by unusually strong crossbow, engineering, and fortified-defense specialization.",
+    "balance_adjustment": {
+      "state_identity": "HAN",
+      "role": "cavalry",
+      "attribute_modifiers": {
+        "Strength": -2,
+        "Endurance": -4,
+        "Toughness": -1,
+        "Agility": -2
+      },
+      "skill_modifiers": {
+        "Crossbow": 4,
+        "Engineering": 3,
+        "Defense": 1,
+        "Formation Fighting": -4,
+        "Riding": -7,
+        "Mass Combat": -2,
+        "Spear": -3
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

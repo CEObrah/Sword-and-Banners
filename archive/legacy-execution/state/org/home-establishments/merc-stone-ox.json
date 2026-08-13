@@ -1,0 +1,78 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.merc_stone_ox",
+    "owner_id": "merc_stone_ox",
+    "owner_type": "mercenary_company",
+    "source_force_ref": "state/merc/stone-ox.json",
+    "formation_library_ref": "formation.mercenary.standard",
+    "reconstitution_policy_ref": "reconstitution.mercenary",
+    "unit_series": [
+      {
+        "series_id": "est.merc_stone_ox.heavy",
+        "source_manpower_id": "merc_stone_ox:pool_heavy",
+        "role": "heavy",
+        "unit_count": 6,
+        "nominal_strength": 250,
+        "final_unit_strength": 250,
+        "stable_unit_id_pattern": "est.merc_stone_ox.heavy.{ordinal:03d}",
+        "doctrine": "doc.merc_stone_ox.heavy",
+        "training": "train.merc_stone_ox.heavy",
+        "loadout_standard": "loadout_mercenary_heavy_infantry",
+        "troop_type": "heavy_infantry",
+        "specialty": "heavy"
+      },
+      {
+        "series_id": "est.merc_stone_ox.engineer",
+        "source_manpower_id": "merc_stone_ox:pool_engineer",
+        "role": "engineer",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.merc_stone_ox.engineer.{ordinal:03d}",
+        "doctrine": "doc.merc_stone_ox.engineer",
+        "training": "train.merc_stone_ox.engineer",
+        "loadout_standard": "loadout_mercenary_engineer",
+        "troop_type": "engineer"
+      },
+      {
+        "series_id": "est.merc_stone_ox.support",
+        "source_manpower_id": "merc_stone_ox:pool_support",
+        "role": "support",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.merc_stone_ox.support.{ordinal:03d}",
+        "doctrine": "doc.merc_stone_ox.support",
+        "training": "train.merc_stone_ox.support",
+        "loadout_standard": "loadout_mercenary_support",
+        "troop_type": "support_staff",
+        "specialty": "support"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mercenary.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.mercenary_captain"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 55,
+      "initiative": 50,
+      "caution": 50,
+      "adaptability": 50,
+      "flank_bias": 45,
+      "counterattack_bias": 55,
+      "pursuit_bias": 45,
+      "reserve_bias": 55,
+      "withdrawal_willingness": 45,
+      "casualty_tolerance": 60,
+      "objective_focus": 70,
+      "ally_support": 60,
+      "formation_discipline": 70,
+      "commander_dependence": 60
+    }
+  }
+}

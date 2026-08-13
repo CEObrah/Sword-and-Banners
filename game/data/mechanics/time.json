@@ -1,0 +1,33 @@
+{
+  "schema": "time-mechanics.v38",
+  "calendar": {
+    "days_per_year_for_game_calendar": 365,
+    "seconds_per_day": 86400,
+    "timezone": "+08:00",
+    "no_year_zero": true,
+    "epoch_year_bce": 245
+  },
+  "formulas": {
+    "era_year_index": "epoch_year_bce-bce_year",
+    "day_index": "era_year_index*365+completed_days_before_month+day-1",
+    "time_key_second": "day_index*86400+hour*3600+minute*60+second",
+    "base_travel_hours": "24*distance/mode_distance_per_day",
+    "adjusted_travel_hours": "base_travel_hours/(terrain_factor*weather_factor*load_factor*fatigue_factor*congestion_factor)"
+  },
+  "rules": {
+    "true_calendar_quarter_boundaries": true,
+    "crossed_material_events_split_time_batch": true,
+    "travel_interrupts_at_actual_events": true
+  },
+  "mode_distance_km_per_day": {
+    "foot_light": 32,
+    "foot_formation": 22,
+    "mounted_courier": 75,
+    "mounted_party": 50,
+    "cavalry_formation": 35,
+    "wagon_convoy": 24,
+    "river_skiff": 70,
+    "river_barge": 42,
+    "mixed_army": 20
+  }
+}

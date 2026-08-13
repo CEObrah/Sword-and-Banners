@@ -1,0 +1,84 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.local.raider.red_marsh",
+    "owner_id": "local.raider.red_marsh",
+    "owner_type": "raider_band",
+    "source_force_ref": "state/force/local-autonomous-composition.json#raiders/Red Marsh",
+    "formation_library_ref": "formation.raider.standard",
+    "reconstitution_policy_ref": "reconstitution.raider",
+    "standing_procedure_ref": "procedure.raider.standard",
+    "unit_series": [
+      {
+        "series_id": "est.local.raider.red_marsh.raiders",
+        "source_manpower_id": "raider:Red Marsh:raiders",
+        "role": "raiders",
+        "unit_count": 4,
+        "nominal_strength": 100,
+        "final_unit_strength": 20,
+        "stable_unit_id_pattern": "est.local.raider.red_marsh.raiders.{ordinal:03d}",
+        "doctrine": "doc.organization.raider_band",
+        "training": "train.organization.raider_band",
+        "loadout_standard": "loadout_mercenary_light",
+        "troop_type": "light_infantry",
+        "specialty": "raiders"
+      },
+      {
+        "series_id": "est.local.raider.red_marsh.river_scouts",
+        "source_manpower_id": "raider:Red Marsh:river_scouts",
+        "role": "river_scouts",
+        "unit_count": 2,
+        "nominal_strength": 50,
+        "final_unit_strength": 50,
+        "stable_unit_id_pattern": "est.local.raider.red_marsh.river_scouts.{ordinal:03d}",
+        "doctrine": "doc.organization.raider_band",
+        "training": "train.organization.raider_band",
+        "loadout_standard": "loadout_mercenary_scout",
+        "troop_type": "scout",
+        "specialty": "river_scouts"
+      },
+      {
+        "series_id": "est.local.raider.red_marsh.veterans",
+        "source_manpower_id": "raider:Red Marsh:veterans",
+        "role": "veterans",
+        "unit_count": 2,
+        "nominal_strength": 50,
+        "final_unit_strength": 15,
+        "stable_unit_id_pattern": "est.local.raider.red_marsh.veterans.{ordinal:03d}",
+        "doctrine": "doc.organization.raider_band",
+        "training": "train.organization.raider_band",
+        "loadout_standard": "loadout_mercenary_light",
+        "troop_type": "light_infantry",
+        "specialty": "veterans"
+      }
+    ],
+    "command_structure": {
+      "home_command": "band leadership",
+      "unit_command": "band leaders/veterans",
+      "succession": "band practice and surviving authority",
+      "default_commander_profile_ref": "command_profile.irregular_leader"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 70,
+      "initiative": 75,
+      "caution": 55,
+      "adaptability": 75,
+      "flank_bias": 75,
+      "counterattack_bias": 45,
+      "pursuit_bias": 65,
+      "reserve_bias": 30,
+      "withdrawal_willingness": 90,
+      "casualty_tolerance": 35,
+      "objective_focus": 65,
+      "ally_support": 45,
+      "formation_discipline": 40,
+      "commander_dependence": 55
+    },
+    "command_personnel_establishment": {
+      "source_manpower_id": "raider:Red Marsh:command_personnel",
+      "total_personnel": 15,
+      "rule": "Band leaders are individual command personnel, not a leader combat unit."
+    }
+  }
+}

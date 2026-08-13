@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "audience_id_pattern": {
+      "type": "string"
+    },
+    "game": {
+      "enum": [
+        "sword"
+      ]
+    },
+    "schema": {
+      "const": "reputation-audience-segments.v1"
+    },
+    "segments": {
+      "minProperties": 1,
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "game",
+    "audience_id_pattern",
+    "segments"
+  ],
+  "type": "object"
+}

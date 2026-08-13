@@ -1,0 +1,128 @@
+{
+  "base_region": "Kanyou road network",
+  "finance_equipment_and_mounts": {
+    "armed_personnel": 740,
+    "assigned_mounts": 140,
+    "assigned_war_arrows": 26640,
+    "facility_factor": 0.994,
+    "fodder_stock_kg": 84000,
+    "food_stock_kg": 86400,
+    "issued_combat_loadouts": 740,
+    "loadout_id": "role-specific escort loadouts",
+    "monthly_normal_expense_silver": 15300,
+    "monthly_realized_revenue_silver": 19800,
+    "mount_type": "horse_war_military",
+    "reserve_combat_loadouts": 74,
+    "reserve_war_arrows": 26640,
+    "support_personnel": 160,
+    "treasury_silver": 108000
+  },
+  "institution_class": "escort_agency",
+  "leader_status": "unresolved named full sheet only when encountered",
+  "name": "Four Gates Escort Bureau",
+  "owner_id": "escort_qin",
+  "owner_type": "institution",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "independent-institution",
+  "settlement_process_id": "process_independent_world_ecosystem",
+  "state": "QIN",
+  "subprocess_id": "process_escort_qin",
+  "total_people": 900,
+  "direct_members": 900,
+  "armed_members": 600,
+  "field_ready_members": 580,
+  "support_members": 300,
+  "institution_rule": "escort house is a transport/security business; support, stable, warehouse, route-agent, medical, and clerical personnel are not frontline units",
+  "home_establishment_ref": "establishment.escort_qin",
+  "formation_library_ref": "formation.escort.standard",
+  "reconstitution_policy_ref": "reconstitution.escort",
+  "doctrine": "doc.organization.escort_bureau",
+  "training": "train.organization.escort_bureau",
+  "combat_tendencies": {
+    "aggression": 40,
+    "initiative": 55,
+    "caution": 70,
+    "adaptability": 65,
+    "flank_bias": 35,
+    "counterattack_bias": 60,
+    "pursuit_bias": 20,
+    "reserve_bias": 60,
+    "withdrawal_willingness": 70,
+    "casualty_tolerance": 35,
+    "objective_focus": 90,
+    "ally_support": 85,
+    "formation_discipline": 80,
+    "commander_dependence": 55
+  },
+  "troop_pools": [
+    {
+      "condition": {
+        "fit": 20
+      },
+      "count": 20,
+      "fatigue_mean": 0.0,
+      "role": "escort_captain",
+      "loadout_id": "loadout_escort_captain",
+      "pool_id": "escort_qin:pool_escort_captain",
+      "pool_kind": "command_personnel",
+      "accounting_only": true,
+      "accounting_scale": "individual_command_slots",
+      "capability_ref": "state/manpower-capability/escort-qin-pool-escort-captain.json"
+    },
+    {
+      "condition": {
+        "fit": 480
+      },
+      "count": 480,
+      "fatigue_mean": 0.0,
+      "role": "escort_guard",
+      "loadout_id": "loadout_escort_guard",
+      "pool_id": "escort_qin:pool_escort_guard",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "troop_type": "guard_infantry",
+      "capability_ref": "state/manpower-capability/escort-qin-pool-escort-guard.json",
+      "specialty": "escort_guard"
+    },
+    {
+      "condition": {
+        "fit": 100
+      },
+      "count": 100,
+      "fatigue_mean": 0.0,
+      "role": "escort_scout",
+      "loadout_id": "loadout_escort_scout",
+      "pool_id": "escort_qin:pool_escort_scout",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "troop_type": "scout",
+      "capability_ref": "state/manpower-capability/escort-qin-pool-escort-scout.json",
+      "specialty": "escort_scout"
+    },
+    {
+      "condition": {
+        "fit": 300
+      },
+      "count": 300,
+      "fatigue_mean": 0.0,
+      "role": "escort_support",
+      "loadout_id": "loadout_escort_support",
+      "pool_id": "escort_qin:pool_escort_support",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "troop_type": "logistics",
+      "capability_ref": "state/manpower-capability/escort-qin-pool-escort-support.json",
+      "specialty": "escort_support"
+    }
+  ],
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "accounting_only": true,
+  "institutional_track_record_index": 152
+}

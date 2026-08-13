@@ -1,0 +1,76 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_qin_role_medical",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        50,
+        50,
+        58,
+        54,
+        58,
+        62,
+        68,
+        70,
+        50
+      ],
+      "skill_values": [
+        38,
+        35,
+        28,
+        30,
+        32,
+        42,
+        40,
+        35,
+        35,
+        42,
+        42,
+        50,
+        41,
+        40,
+        42,
+        30,
+        41,
+        50,
+        35,
+        42,
+        48,
+        60,
+        48,
+        44,
+        37,
+        39,
+        36,
+        39,
+        38,
+        53,
+        42,
+        38,
+        54,
+        36,
+        48
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_qin_role_medical",
+    "monthly_factor_inputs": "instruction 1.03; facility 1.03; equipment 1.00; recovery 0.98; administration 0.82",
+    "role": "medical",
+    "state": "QIN",
+    "identity_notes": "Best-balanced institutional army: disciplined line infantry, command, training, logistics, and combined-arms coordination.",
+    "balance_adjustment": {
+      "state_identity": "QIN",
+      "role": "medical",
+      "attribute_modifiers": {
+        "Composure": 2,
+        "Intelligence": 4
+      },
+      "skill_modifiers": {
+        "Training": 5,
+        "Medicine": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

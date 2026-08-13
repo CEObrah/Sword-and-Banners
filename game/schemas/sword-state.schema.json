@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "owner_id": {},
+    "schema": {
+      "const": "sword-state"
+    },
+    "state": {},
+    "treasury_silver": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "state",
+    "treasury_silver"
+  ],
+  "type": "object"
+}

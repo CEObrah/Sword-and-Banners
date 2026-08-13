@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "process_id",
+    "owner_ids"
+  ],
+  "properties": {
+    "schema": {
+      "const": "process-coverage.v1"
+    },
+    "process_id": {
+      "type": "string"
+    },
+    "owner_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

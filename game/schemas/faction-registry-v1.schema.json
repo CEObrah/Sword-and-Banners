@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "owner_type",
+    "factions"
+  ],
+  "properties": {
+    "schema": {
+      "const": "faction-registry.v1"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "factions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "status",
+          "leadership_ids",
+          "leadership_model",
+          "scope",
+          "goals",
+          "current_plan",
+          "resources",
+          "constraints",
+          "plan_state",
+          "relationships",
+          "knowledge_policy",
+          "development_process_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "leadership_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "leadership_model": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "goals": {
+            "type": "array",
+            "minItems": 1
+          },
+          "current_plan": {},
+          "resources": {
+            "type": "array",
+            "minItems": 1
+          },
+          "constraints": {
+            "type": "array",
+            "minItems": 1
+          },
+          "plan_state": {
+            "type": "object"
+          },
+          "relationships": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": [
+                "target_id",
+                "relationship_type",
+                "stance",
+                "intensity"
+              ],
+              "properties": {
+                "target_id": {
+                  "type": "string"
+                },
+                "relationship_type": {
+                  "type": "string"
+                },
+                "stance": {
+                  "type": "string"
+                },
+                "intensity": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "knowledge_policy": {
+            "type": "string"
+          },
+          "development_process_id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

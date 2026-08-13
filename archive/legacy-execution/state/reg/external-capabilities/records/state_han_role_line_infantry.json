@@ -1,0 +1,83 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_han_role_line_infantry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        58,
+        58,
+        64,
+        65,
+        60,
+        58,
+        62,
+        48,
+        48
+      ],
+      "skill_values": [
+        55,
+        66,
+        48,
+        50,
+        50,
+        52,
+        45,
+        40,
+        42,
+        61,
+        63,
+        62,
+        44,
+        50,
+        48,
+        25,
+        62,
+        55,
+        42,
+        45,
+        44,
+        28,
+        35,
+        38,
+        32,
+        36,
+        28,
+        36,
+        30,
+        35,
+        30,
+        28,
+        30,
+        28,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_han_role_line_infantry",
+    "monthly_factor_inputs": "instruction 0.99; facility 1.00; equipment 0.98; recovery 0.97; administration 0.70",
+    "role": "line_infantry",
+    "state": "HAN",
+    "identity_notes": "Smallest state: weaker broad manpower quality offset by unusually strong crossbow, engineering, and fortified-defense specialization.",
+    "balance_adjustment": {
+      "state_identity": "HAN",
+      "role": "line_infantry",
+      "attribute_modifiers": {
+        "Strength": -4,
+        "Endurance": -4,
+        "Toughness": -1
+      },
+      "skill_modifiers": {
+        "Crossbow": 4,
+        "Engineering": 3,
+        "Defense": 1,
+        "Formation Fighting": -4,
+        "Riding": -3,
+        "Mass Combat": -4,
+        "Spear": -2,
+        "Shield": -1
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

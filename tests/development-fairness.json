@@ -1,0 +1,35 @@
+{
+  "schema": "development-fairness-tests.v38",
+  "tests": [
+    {
+      "id": "representation_mode_no_efficiency_bonus",
+      "assertion": "With identical starting state, aptitude, training, resources, and experience, changing between lawful exact, individual-lite, and aggregate-unit representation grants no development efficiency bonus.",
+      "expected_efficiency": 1.0
+    },
+    {
+      "id": "one_thousand_person_unit_no_compression_bonus",
+      "assertion": "A 1,000-person unit receives no development multiplier from representation size.",
+      "expected_efficiency": 1.0
+    },
+    {
+      "id": "instructor_capacity_conservation",
+      "assertion": "An elite instructor cannot provide full individualized training simultaneously beyond available instructional capacity.",
+      "required": true
+    },
+    {
+      "id": "promotion_subset_transfer",
+      "assertion": "Promotion transfers only qualified people and conserves total personnel.",
+      "required": true
+    },
+    {
+      "id": "year_skip_no_free_rank_jump",
+      "assertion": "A one-year or five-year skip settles training and experience but cannot promote an entire unit without individual qualification distribution.",
+      "required": true
+    },
+    {
+      "id": "batch_equivalence",
+      "assertion": "A safe batch and equivalent fine-grained unchanged cycles produce materially equivalent development.",
+      "required": true
+    }
+  ]
+}

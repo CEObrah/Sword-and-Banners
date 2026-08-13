@@ -1,0 +1,56 @@
+{
+  "schema": "commander-army",
+  "id": "army.yan.ordo",
+  "name": "Ordo Army",
+  "commander_id": "char_ordo",
+  "state": "Yan",
+  "accounting_mode": "assignment_view_not_additional_manpower",
+  "external_incorporated_mountain_specialists": 8000,
+  "total_current_view": 28000,
+  "home_establishment_ref": "establishment.army.yan.ordo",
+  "formation_library_ref": "formation.irregular.standard",
+  "reconstitution_policy_ref": "reconstitution.irregular",
+  "troop_pools": [
+    {
+      "id": "ordo.yan_regulars",
+      "count": 12000,
+      "source": "Yan state pool",
+      "role": "frontier_regulars",
+      "quality": "regular_veteran",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "line_infantry",
+      "accounting_scale": "strategic_10k",
+      "capability_ref": "state/manpower-capability/ordo-yan-regulars.json",
+      "specialty": "frontier_regulars"
+    },
+    {
+      "id": "ordo.yan_cavalry",
+      "count": 8000,
+      "source": "Yan state pool",
+      "role": "frontier_cavalry_scouts",
+      "quality": "experienced",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "mounted_scout",
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/ordo-yan-cavalry.json",
+      "specialty": "frontier_cavalry_scouts"
+    },
+    {
+      "id": "ordo.mountain_elite",
+      "count": 8000,
+      "source": "incorporated mountain auxiliaries",
+      "role": "elite_mountain_specialists",
+      "quality": "terrain_elite",
+      "terrain_effectiveness": "very high in mountains and mountain siege; raw stats do not receive universal terrain bonus",
+      "pool_kind": "unit_manpower",
+      "accounting_only": true,
+      "troop_type": "light_infantry",
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/ordo-mountain-elite.json",
+      "specialty": "elite_mountain_specialists"
+    }
+  ],
+  "accounting_only": true
+}

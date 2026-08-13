@@ -1,0 +1,76 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_chu_role_logistics",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        53,
+        50,
+        61,
+        57,
+        58,
+        62,
+        66,
+        66,
+        50
+      ],
+      "skill_values": [
+        38,
+        36,
+        30,
+        30,
+        32,
+        42,
+        40,
+        35,
+        35,
+        42,
+        42,
+        52,
+        40,
+        40,
+        42,
+        30,
+        38,
+        50,
+        35,
+        42,
+        48,
+        28,
+        48,
+        42,
+        33,
+        36,
+        34,
+        68,
+        38,
+        48,
+        42,
+        38,
+        54,
+        36,
+        48
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_chu_role_logistics",
+    "monthly_factor_inputs": "instruction 0.96; facility 0.96; equipment 0.97; recovery 0.97; administration 0.67",
+    "role": "logistics",
+    "state": "CHU",
+    "identity_notes": "Massive, physically powerful and regionally varied: stronger heavy fighting base but less uniformly centralized administration.",
+    "balance_adjustment": {
+      "state_identity": "CHU",
+      "role": "logistics",
+      "attribute_modifiers": {
+        "Strength": 3,
+        "Endurance": 3,
+        "Toughness": 3
+      },
+      "skill_modifiers": {
+        "Logistics": -2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

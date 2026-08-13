@@ -1,0 +1,77 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_han_role_signal",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        56,
+        56,
+        62,
+        59,
+        62,
+        68,
+        72,
+        70,
+        66
+      ],
+      "skill_values": [
+        58,
+        52,
+        40,
+        38,
+        38,
+        45,
+        50,
+        52,
+        52,
+        55,
+        61,
+        58,
+        52,
+        48,
+        45,
+        55,
+        62,
+        55,
+        45,
+        58,
+        58,
+        38,
+        51,
+        40,
+        35,
+        38,
+        30,
+        52,
+        54,
+        60,
+        52,
+        48,
+        45,
+        50,
+        50
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_han_role_signal",
+    "monthly_factor_inputs": "instruction 0.99; facility 1.00; equipment 0.98; recovery 0.97; administration 0.70",
+    "role": "signal",
+    "state": "HAN",
+    "identity_notes": "Smallest state: weaker broad manpower quality offset by unusually strong crossbow, engineering, and fortified-defense specialization. Signal personnel are communications specialists; commander authority is modeled separately as people/command assignments.",
+    "balance_adjustment": {
+      "state_identity": "HAN",
+      "role": "signal",
+      "attribute_modifiers": {
+        "Strength": -2,
+        "Endurance": -2,
+        "Toughness": -1
+      },
+      "skill_modifiers": {
+        "Formation Fighting": -2,
+        "Mass Combat": -2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

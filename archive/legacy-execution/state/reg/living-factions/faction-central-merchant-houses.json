@@ -1,0 +1,56 @@
+{
+  "schema": "faction-owner.v1",
+  "faction": {
+    "id": "faction.central_merchant_houses",
+    "name": "Central Plains Merchant Houses",
+    "leadership_ids": [],
+    "status": "active",
+    "goal": "protect trade, credit, warehousing, transport, and political access",
+    "current_plan": "Shift capital toward routes and states with the best balance of security, tolls, and demand.",
+    "resources_rule": "references existing state, institution, market, force, or household assets; creates no extra personnel",
+    "development_process_id": "process_living_factions_monthly",
+    "knowledge_policy": "knowledge must arrive through saved observers, reports, spies, messengers, or institutions",
+    "goals": [
+      "protect trade margins and route access",
+      "turn political information into safer commercial positioning"
+    ],
+    "resources": [
+      "capital",
+      "warehouses",
+      "caravan networks",
+      "commercial intelligence"
+    ],
+    "constraints": [
+      "war disruption",
+      "taxation",
+      "banditry"
+    ],
+    "plan_state": {
+      "status": "active",
+      "last_review_at": "245-BCE-12-02T06:00:00+08:00",
+      "wake_policy": "monthly review or immediate causal trigger/information delivery"
+    },
+    "scope": "Interstate merchant capital, warehouses, credit, caravans, and commercial intelligence",
+    "leadership_model": "distributed_merchant_houses",
+    "relationships": [
+      {
+        "target_id": "faction.tang_merchant_partners",
+        "relationship_type": "trade_and_credit_network",
+        "stance": "cooperative_competitive",
+        "intensity": 64
+      },
+      {
+        "target_id": "faction.river_transport_leagues",
+        "relationship_type": "transport_dependency",
+        "stance": "cooperative",
+        "intensity": 72
+      },
+      {
+        "target_id": "faction.mercenary_brokers",
+        "relationship_type": "security_contract_market",
+        "stance": "transactional",
+        "intensity": 55
+      }
+    ]
+  }
+}

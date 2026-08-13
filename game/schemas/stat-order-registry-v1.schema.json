@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Stat order registry v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "profiles"
+  ],
+  "properties": {
+    "schema": {
+      "const": "stat-order-registry.v1"
+    },
+    "authority": {
+      "type": "string"
+    },
+    "profiles": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

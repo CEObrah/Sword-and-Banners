@@ -1,0 +1,79 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_wei_role_missile_crossbow",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        55,
+        58,
+        62,
+        58,
+        69,
+        64,
+        60,
+        52,
+        45
+      ],
+      "skill_values": [
+        45,
+        42,
+        35,
+        35,
+        35,
+        40,
+        42,
+        62,
+        83,
+        48,
+        55,
+        56,
+        44,
+        45,
+        42,
+        30,
+        64,
+        52,
+        48,
+        55,
+        50,
+        28,
+        41,
+        34,
+        30,
+        40,
+        30,
+        36,
+        38,
+        36,
+        30,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_wei_role_missile_crossbow",
+    "monthly_factor_inputs": "instruction 1.00; facility 1.02; equipment 1.00; recovery 0.98; administration 0.72",
+    "role": "missile_crossbow",
+    "state": "WEI",
+    "identity_notes": "Technical warfare specialist: crossbows, siege engineering, chariots, fortifications, and deliberate tactical systems.",
+    "balance_adjustment": {
+      "state_identity": "WEI",
+      "role": "missile_crossbow",
+      "attribute_modifiers": {
+        "Intelligence": 2,
+        "Coordination": 3
+      },
+      "skill_modifiers": {
+        "Crossbow": 7,
+        "Engineering": 6,
+        "Logistics": 2,
+        "Tactics": 2,
+        "Formation Fighting": 2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

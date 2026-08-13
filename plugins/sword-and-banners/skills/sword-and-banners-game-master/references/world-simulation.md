@@ -1,0 +1,160 @@
+# World Simulation
+
+Sword & Banners is a living political and military simulation. Tang Wei is important to his own story, but he is not the scheduler for the rest of the world.
+
+## Independent actors
+
+States, Houses, factions, institutions, commanders, mercenary companies, households, markets, and materialized people may act without Wei initiating them when the runtime's causal hosts and authority rules permit it.
+
+Their decisions should arise from saved state such as:
+- goals and priorities;
+- authority and office;
+- relationships and reputation access;
+- military doctrine and command custody;
+- personnel and formations;
+- treasury and economic capacity;
+- population and recruitment;
+- territory and fortifications;
+- intelligence and misinformation;
+- logistics and travel time;
+- family and succession concerns;
+- current threats and obligations;
+- bounded operational history and learned performance evidence.
+
+Do not bend organizational behavior to make the player's next scene convenient.
+
+## Operational memory and learned choice
+
+Autonomous organizations may retain bounded operational memory when the runtime provides it. Treat that memory as evidence, not a second authority. Exact formations, commanders, operations, battle records, treasuries, relationships, reputation profiles, locations, and casualties remain authoritative in their normal owners.
+
+When an organization has several lawful assets available, prefer runtime-grounded assignment that considers objective fit, readiness, fatigue, logistics, commander capability, prior performance, current commitments, and complementary roles rather than arbitrary list order.
+
+A formation that repeatedly succeeds, fails, suffers replacement, accumulates training, or develops relevant experience may influence later assignments only through saved runtime evidence. Never invent institutional learning merely because it would make the story more dramatic.
+
+## Concurrent autonomous work
+
+A living state or House may have several simultaneous concerns. When the runtime exposes bounded operational capacity, allow multiple concurrent operations rather than forcing every institution through a single global activity slot.
+
+Concurrency is constrained by exact resources. The same formation, commander, treasury, institution slot, courier, or material reserve cannot satisfy several commitments at once unless the runtime explicitly permits it. Capacity limits are simulation rules, not narrative suggestions.
+
+## Offscreen time matters
+
+Advancing time can progress independent causal hosts. During Wei's travel or training, other actors may recruit, move, report, train, appoint, negotiate, build, spend, fight, or respond within runtime rules.
+
+Do not narrate offscreen truth automatically. Wei learns about offscreen developments only through lawful perception or information delivery.
+
+## Representation scale
+
+The runtime may represent some actors as fully materialized people or formations and others as colder causal hosts until they become relevant.
+
+Do not confuse representation depth with importance. A cold host can still create consequential world events. Materialization should occur through runtime systems rather than the GM inventing a full person record in prose.
+
+Avoid global polling in narration or reasoning. Fresh play context and bounded reads should expose what matters to the current turn.
+
+## States and Houses
+
+A state is not one NPC. It contains rulers, offices, military commands, institutions, noble Houses, populations, treasuries, routes, fortifications, interests, and internal friction.
+
+A House is not automatically subordinate to Wei even when it is House Tang. Saved authority determines what Wei may command, spend, promise, or delegate.
+
+Differentiate:
+- ownership;
+- administrative control;
+- military command;
+- state office;
+- patronage;
+- family status.
+
+These can overlap but are not interchangeable.
+
+## Armies, formations, and lifecycle
+
+Military organizations can recruit, replace losses, train, mobilize, change commander, receive assignment, move, resupply, fortify, raid, besiege, defend, and fight when current runtime capabilities allow it.
+
+Do not assume a formation remains static merely because Wei is elsewhere.
+
+Command custody is exact. A formation belonging to a state or House does not automatically obey every member of that organization.
+
+Where the runtime records lifecycle or operational-memory data, distinguish standing formations from temporary operational groupings. Replacement policy, target strength, current personnel, training history, prior deployments, casualties, and current assignments should matter to future decisions. A persistent formation should not be silently dissolved merely because one operation ends.
+
+NPC military development should obey the same material principles as player-controlled development. Training requires elapsed time and lawful opportunity. Doctrine should arise from saved composition, command, training, equipment, history, and explicit doctrine authority rather than free competence granted because an NPC is offscreen.
+
+## Exact people and aggregate development
+
+Named exact people and aggregate cohorts must not receive the same elapsed development twice. If House, institutional, formation, cohort, or personal activity systems overlap, one authoritative progression cursor or settlement path must own each eligible period.
+
+When exact House members receive development from House institutions, preserve their individual state and do not also award an independent aggregate copy of the same training. If ownership is ambiguous, fail closed and flag the overlap OOC rather than compounding progression.
+
+## Exact identity and aggregate conservation
+
+An exact materialized person may also represent one slot inside a larger conserved personnel or population pool. Those are two views of one person, not two people.
+
+When materialization, recruitment, graduation, promotion, transfer, demobilization, casualty settlement, or another pipeline changes that shared representation, synchronize the exact identity and aggregate counts inside the same causal settlement. Reclassify or consume an existing anonymous slot rather than creating extra headcount. If an exact person leaves one cohort for another, the aggregate representation must move with the same conserved identity rather than leaving a duplicate anonymous copy behind.
+
+Do not infer that every aggregate transfer must materialize named people. Exact/aggregate synchronization applies only when a materialized identity is already represented inside the affected conserved flow or when the runtime explicitly materializes one from it.
+
+## Economy and logistics
+
+Wealth is not infinite. Armies consume supply. Horses require forage. Institutions use capacity. Projects take labor and material. Markets respond through the runtime's economic systems.
+
+Logistics should create causal pressure without becoming arbitrary punishment. Use actual runtime state and rules.
+
+## Information propagation
+
+World truth moves through scouts, couriers, officials, merchants, captives, witnesses, letters, institutional records, rumor, and other supported channels.
+
+Distance creates delay. Political access affects who receives what. Reputation knowledge can be local to the communities that plausibly know it.
+
+Do not grant instant global awareness after a battle or appointment unless the runtime establishes that propagation.
+
+## Social consequences from world events
+
+A meaningful world event may become evidence for reputation or relationships without a player manually issuing a social command. Shared service, public success, failure, rescue, betrayal, command performance, appointments, contracts, marriage, political conflict, witnessed violence, and reported battlefield conduct may propagate socially when the runtime establishes the witnesses, reports, audience, or relationship pathway.
+
+Do not manufacture universal fame. Social effects require an audience or evidence route, and different audiences may learn different things at different times.
+
+## High-salience wake boundaries
+
+Compressed autonomous resolution must not silently carry Wei through an irreversible consequential decision that belongs to the player.
+
+If the runtime reports a high-salience wake requirement, stop the broad time skip or autonomous continuation and hand the situation back to the player. Examples include an imminent autonomous battle while Wei is the exact commander, a protected surrender or allegiance decision, or another runtime-defined irreversible player-facing consequence.
+
+Do not treat a wake as a failed simulation. It is a causal boundary: the world has progressed far enough that player agency is now required before settlement can continue.
+
+## Historical pressure without predetermined history
+
+The campaign is grounded in the Warring States period, but future history is not a script.
+
+Use game data for established background, known people, institutions, past events, geopolitical conditions, and conditional historical pressures. Do not force a famous future battle, death, conquest, appointment, or alliance merely because it occurred historically outside the simulation.
+
+If player or autonomous actions change the conditions that produced a historical event, let the runtime's causality govern the result.
+
+## Player relevance
+
+The world should bring Wei consequences appropriate to his location, relationships, reputation, office, command, House position, and prior actions. It should not bring him every important event.
+
+A believable world includes consequential events that occur without Wei and sometimes never concern him directly.
+
+## Time and distance
+
+Time is physical. Couriers travel. Armies march. Bureaucracies process documents. Sieges take labor. Recovery takes time. Recruits require integration. Roads and crossings constrain movement.
+
+Never compress these away merely because a strategic choice is phrased broadly. Let runtime time advancement and hard causal boundaries decide what completes before interruption.
+
+## Consequences must propagate across systems
+
+Do not let an autonomous battle, appointment, mission-like operation, contract, death, marriage, public dispute, or major report remain isolated inside the subsystem that resolved it when the runtime has causal pathways for wider consequences. Witnessed or reported events may affect reputation, relationships, information, logistics, command availability, House memory, institutional priorities, succession, or later autonomous decisions only when the required evidence and authority exist.
+
+Compact operational history or memory may summarize evidence for later autonomous choices, but it must never replace the authoritative battle, person, relationship, reputation, treasury, formation, information, or family state it references.
+
+## Player-neutral autonomy
+
+Protect the player from autonomous control because the player is marked as player-controlled campaign authority, not because one hard-coded character name receives special immunity. Apply the same autonomous eligibility, resource, knowledge, and timing laws to comparable NPCs and organizations unless saved authority or state creates a real difference.
+
+## Deferred settlement
+
+A causal host's `resolved_through` cursor is evidence that eligible work through that point has actually been settled, not a mirror of global campaign time. A `safe_through` horizon may permit bounded lazy settlement, but it must never erase training, recovery, economic, social, institutional, family, or other elapsed work that was actually eligible. Before a capability-dependent resolution, the relevant deferred progression must be settled or proven to have produced zero eligible activity.
+
+## Progression bounds
+
+Soft ceilings and diminishing returns are not numerical bounds. When the runtime exposes an absolute progression limit, treat it as a hard invariant for player and NPC development alike. Long time skips, high aptitude, aggregate settlement, residual banks, or repeated autonomous reviews must never push an exact stat beyond the registered scale.

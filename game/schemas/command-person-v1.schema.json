@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "person_id",
+    "command"
+  ],
+  "properties": {
+    "schema": {
+      "const": "command-person.v1"
+    }
+  },
+  "additionalProperties": true
+}

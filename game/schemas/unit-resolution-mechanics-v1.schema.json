@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "principle",
+    "resolution_depths",
+    "kernel_authority",
+    "determinism"
+  ],
+  "properties": {
+    "schema": {
+      "const": "unit_resolution_mechanics.v1"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_han_role_missile_crossbow",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        53,
+        58,
+        60,
+        57,
+        69,
+        66,
+        60,
+        50,
+        45
+      ],
+      "skill_values": [
+        45,
+        42,
+        35,
+        35,
+        35,
+        40,
+        42,
+        62,
+        88,
+        48,
+        66,
+        56,
+        42,
+        45,
+        42,
+        27,
+        56,
+        52,
+        48,
+        55,
+        50,
+        28,
+        38,
+        34,
+        30,
+        38,
+        30,
+        34,
+        38,
+        36,
+        30,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_han_role_missile_crossbow",
+    "monthly_factor_inputs": "instruction 0.99; facility 1.00; equipment 0.98; recovery 0.97; administration 0.70",
+    "role": "missile_crossbow",
+    "state": "HAN",
+    "identity_notes": "Smallest state: weaker broad manpower quality offset by unusually strong crossbow, engineering, and fortified-defense specialization.",
+    "balance_adjustment": {
+      "state_identity": "HAN",
+      "role": "missile_crossbow",
+      "attribute_modifiers": {
+        "Strength": -2,
+        "Endurance": -2,
+        "Toughness": -1,
+        "Coordination": 3,
+        "Awareness": 2
+      },
+      "skill_modifiers": {
+        "Crossbow": 11,
+        "Engineering": 3,
+        "Defense": 4,
+        "Formation Fighting": 0,
+        "Riding": -3,
+        "Mass Combat": -2
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

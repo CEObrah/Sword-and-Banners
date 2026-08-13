@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "claims": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-information-index"
+    }
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "claims"
+  ],
+  "type": "object"
+}

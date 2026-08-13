@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Current canonical schema: independent institution v38",
+  "type": "object",
+  "required": [
+    "base_region",
+    "troop_pools",
+    "finance_equipment_and_mounts",
+    "institution_class",
+    "leader_status",
+    "name",
+    "owner_id",
+    "owner_type",
+    "institutional_track_record_index",
+    "runtime",
+    "schema",
+    "settlement_process_id",
+    "state",
+    "subprocess_id",
+    "total_people"
+  ],
+  "properties": {
+    "base_region": {
+      "type": "string"
+    },
+    "finance_equipment_and_mounts": {
+      "type": "object"
+    },
+    "institution_class": {
+      "type": "string"
+    },
+    "leader_status": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "object"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "settlement_process_id": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "subprocess_id": {
+      "type": "string"
+    },
+    "total_people": {
+      "type": "integer"
+    },
+    "troop_pools": {
+      "type": "array"
+    },
+    "institutional_track_record_index": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 200,
+      "description": "Legacy factual track-record continuity index, not audience-specific reputation. Audience reputation lives only under state/reputation/."
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current canonical schema contract."
+}

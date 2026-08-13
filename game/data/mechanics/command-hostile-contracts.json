@@ -1,0 +1,578 @@
+{
+  "commands": {
+    "advance_time": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "hours": 0
+        }
+      }
+    },
+    "battle_resolve": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "attacker_formation_refs": [
+            "formation_missing"
+          ],
+          "defender_formation_refs": [
+            "formation_tang_champions_first"
+          ],
+          "operation_ref": "operation_missing"
+        }
+      }
+    },
+    "career_event": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "kind": "merit",
+          "merit": 1,
+          "person_ref": "char_missing"
+        }
+      }
+    },
+    "cohort_training": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "hours": 0
+        }
+      }
+    },
+    "command_assign": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "commander_ref": "char_tang_wei",
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "command_transfer": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "commander_ref": "char_tang_wei",
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "economy_transfer": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "amount_silver": 0,
+          "direction": "player_to_state",
+          "state": "qin"
+        }
+      }
+    },
+    "enlisted_service_pay": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "amount_silver": 0,
+          "state": "qin"
+        }
+      }
+    },
+    "equipment_consume": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "ammo_arrow_hunting",
+          "quantity": 0
+        }
+      }
+    },
+    "equipment_drop": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "ammo_arrow_hunting",
+          "quantity": 0
+        }
+      }
+    },
+    "equipment_equip": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "ammo_arrow_hunting",
+          "quantity": 0
+        }
+      }
+    },
+    "equipment_issue": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "ammo_arrow_hunting",
+          "quantity": 0,
+          "target_ref": "char_shen_rui"
+        }
+      }
+    },
+    "equipment_loot": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "ammo_arrow_hunting",
+          "quantity": 0
+        }
+      }
+    },
+    "equipment_return": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "ammo_arrow_hunting",
+          "quantity": 0,
+          "target_ref": "char_shen_rui"
+        }
+      }
+    },
+    "equipment_transfer": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "ammo_arrow_hunting",
+          "quantity": 0,
+          "target_ref": "char_shen_rui"
+        }
+      }
+    },
+    "equipment_unequip": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "ammo_arrow_hunting",
+          "quantity": 0
+        }
+      }
+    },
+    "family_event": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "house_ref": "house_tang",
+          "kind": "marriage",
+          "partner_ref": "char_missing",
+          "person_ref": "char_tang_wei"
+        }
+      }
+    },
+    "force_assignment": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "commander_ref": "char_tang_wei",
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "formation_assign": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "commander_ref": "char_tang_wei",
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "formation_create": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "formation_ref": "formation_bad",
+          "personnel": 0,
+          "role": "line_infantry",
+          "state": "qin"
+        }
+      }
+    },
+    "formation_demobilize": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "formation_dissolve": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "formation_doctrine_set": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "doctrine_behavior": {},
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "formation_merge": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "formation_refs": [
+            "formation_missing_a",
+            "formation_missing_b"
+          ]
+        }
+      }
+    },
+    "formation_mobilize": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "formation_move": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "destination_ref": "loc_kanyou",
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "formation_reconstitute": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "formation_ref": "formation_missing",
+          "target_personnel": 100
+        }
+      }
+    },
+    "formation_split": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "formation_ref": "formation_missing",
+          "new_formation_ref": "formation_bad_child",
+          "personnel": 1
+        }
+      }
+    },
+    "formation_train": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "formation_ref": "formation_missing",
+          "hours": 1
+        }
+      }
+    },
+    "formation_training_set": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "formation_ref": "formation_missing",
+          "training_ref": "train.bad"
+        }
+      }
+    },
+    "fortification_materialize": {
+      "specific_attack": {
+        "dimension": "wrong_state_or_owner",
+        "payload": {
+          "fortification_ref": "fort_bad",
+          "garrison_formation_refs": [
+            "formation_tang_champions_first"
+          ],
+          "location_ref": "loc_kanyou",
+          "state": "atlantis"
+        }
+      }
+    },
+    "health_injury": {
+      "specific_attack": {
+        "dimension": "wrong_state_or_owner",
+        "payload": {
+          "injury": "bruise",
+          "severity": "impossible"
+        }
+      }
+    },
+    "health_recovery": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "hours": 0
+        }
+      }
+    },
+    "house_action": {
+      "specific_attack": {
+        "dimension": "wrong_state_or_owner",
+        "payload": {
+          "action": "review",
+          "duration_hours": 1,
+          "house_ref": "house_missing"
+        }
+      }
+    },
+    "individual_training": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "focus": "Formation Command",
+          "hours": 0
+        }
+      }
+    },
+    "information_create": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "claim": "ghost",
+          "information_ref": "info_bad",
+          "knowers": [
+            "char_missing"
+          ]
+        }
+      }
+    },
+    "information_deliver": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "information_ref": "info_missing",
+          "source_ref": "char_tang_wei",
+          "target_ref": "char_missing"
+        }
+      }
+    },
+    "institution_project": {
+      "specific_attack": {
+        "dimension": "wrong_state_or_owner",
+        "payload": {
+          "duration_hours": 1,
+          "institution_ref": "house_tang",
+          "kind": "capacity",
+          "magnitude": 1,
+          "project_ref": "bad"
+        }
+      }
+    },
+    "market_purchase": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "common_sword",
+          "quantity": 0
+        }
+      }
+    },
+    "market_sell": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "item_key": "common_sword",
+          "quantity": 0
+        }
+      }
+    },
+    "mercenary_contract": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "action": "offer",
+          "amount_silver": 1,
+          "mercenary_ref": "merc_missing",
+          "term_days": 1
+        }
+      }
+    },
+    "operation_create": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "formation_refs": [
+            "formation_missing"
+          ],
+          "location_ref": "loc_kanyou",
+          "objective": "bad",
+          "operation_ref": "op_bad"
+        }
+      }
+    },
+    "operation_transition": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "operation_ref": "op_missing",
+          "status": "active"
+        }
+      }
+    },
+    "person_materialize": {
+      "specific_attack": {
+        "dimension": "wrong_state_or_owner",
+        "payload": {
+          "person_ref": "char_bad",
+          "role": "command_personnel",
+          "state": "atlantis"
+        }
+      }
+    },
+    "personal_combat": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "duration_minutes": 30,
+          "opponent_ref": "char_missing"
+        }
+      }
+    },
+    "population_transfer": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "destination_stratum": "active_military",
+          "personnel": 0,
+          "source_stratum": "agricultural",
+          "state": "qin"
+        }
+      }
+    },
+    "project_resolve": {
+      "specific_attack": {
+        "dimension": "wrong_state_or_owner",
+        "payload": {
+          "institution_ref": "house_tang",
+          "project_ref": "project_missing"
+        }
+      }
+    },
+    "recruitment": {
+      "specific_attack": {
+        "dimension": "negative_or_zero",
+        "payload": {
+          "personnel": 0,
+          "role": "line_infantry",
+          "source_stratum": "agricultural",
+          "state": "qin"
+        }
+      }
+    },
+    "relationship_change": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "delta": 1,
+          "kind": "trust",
+          "source_ref": "char_tang_wei",
+          "target_ref": "char_missing"
+        }
+      }
+    },
+    "repair": {
+      "specific_attack": {
+        "dimension": "wrong_location",
+        "payload": {
+          "changes": {
+            "x": 1
+          },
+          "path": "../outside.json",
+          "reason": "hostile path"
+        }
+      }
+    },
+    "reputation_event": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "audience_ref": "state_qin",
+          "delta": 1,
+          "subject_ref": "char_missing"
+        }
+      }
+    },
+    "resupply": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "food_kg": 1,
+          "formation_ref": "formation_missing"
+        }
+      }
+    },
+    "scene_consequence": {
+      "specific_attack": {
+        "dimension": "absurd_magnitude",
+        "payload": {
+          "summary": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        }
+      }
+    },
+    "siege_action": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "action": "assault",
+          "siege_ref": "siege_missing"
+        }
+      }
+    },
+    "siege_start": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "attacker_formation_refs": [
+            "formation_tang_champions_first"
+          ],
+          "fortification_ref": "fort_missing",
+          "siege_ref": "siege_bad"
+        }
+      }
+    },
+    "state_action": {
+      "specific_attack": {
+        "dimension": "wrong_state_or_owner",
+        "payload": {
+          "action": "strategic_goal",
+          "goal": "impossible",
+          "state": "atlantis"
+        }
+      }
+    },
+    "territorial_consequence": {
+      "specific_attack": {
+        "dimension": "wrong_state_or_owner",
+        "payload": {
+          "controller": "house_tang",
+          "location_ref": "loc_kanyou",
+          "operation_ref": "operation_missing"
+        }
+      }
+    },
+    "travel": {
+      "specific_attack": {
+        "dimension": "nonexistent_reference",
+        "payload": {
+          "destination_ref": "loc_missing",
+          "mode": "foot"
+        }
+      }
+    }
+  },
+  "schema": "sword-hostile-command-contracts.v1",
+  "universal_attacks": [
+    "unknown_field",
+    "wrong_actor",
+    "stale_revision",
+    "impossible_chronology",
+    "internal_preview"
+  ]
+}

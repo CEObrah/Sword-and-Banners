@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "allocated_to_formations": {},
+    "available_by_role": {},
+    "headcount": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-force"
+    }
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "headcount",
+    "available_by_role",
+    "allocated_to_formations"
+  ],
+  "type": "object"
+}

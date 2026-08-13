@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "locations"],
+  "properties": {
+    "schema": {"const": "sword-location-formation-index"},
+    "authority": {"type": "boolean"},
+    "locations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"},
+        "uniqueItems": true
+      }
+    },
+    "rule": {"type": "string"}
+  },
+  "additionalProperties": true
+}

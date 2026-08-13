@@ -1,0 +1,143 @@
+{
+  "schema": "person-lite",
+  "id": "staff.chu.karin.lan_qi",
+  "name": "Lan Qi",
+  "resolution": "individual_lite",
+  "owner": "army.karin_army",
+  "family_id": "fam.lan_qi",
+  "origin": "Chu",
+  "rank": "named_staff_officer",
+  "role": "logistics officer",
+  "stats": {
+    "attributes": {
+      "Strength": 99,
+      "Agility": 77,
+      "Endurance": 104,
+      "Toughness": 76,
+      "Coordination": 86,
+      "Awareness": 94,
+      "Composure": 80,
+      "Intelligence": 93,
+      "Presence": 83
+    },
+    "skills": {
+      "Sword": 73,
+      "Spear": 101,
+      "Glaive": 73,
+      "Axe": 99,
+      "Mace": 99,
+      "Staff": 102,
+      "Dagger": 72,
+      "Bow": 83,
+      "Crossbow": 73,
+      "Shield": 72,
+      "Defense": 101,
+      "Athletics": 90,
+      "Mass Combat": 105,
+      "Grappling": 96,
+      "Unarmed": 90,
+      "Riding": 100,
+      "Formation Fighting": 124,
+      "Survival": 89,
+      "Stealth": 68,
+      "Scouting": 74,
+      "Navigation": 100,
+      "Medicine": 100,
+      "Engineering": 88,
+      "Leadership": 109,
+      "Formation Command": 100,
+      "Tactics": 112,
+      "Strategy": 81,
+      "Logistics": 137,
+      "Intelligence Operations": 100,
+      "Training": 85,
+      "Diplomacy": 100,
+      "Law": 93,
+      "Trade": 93,
+      "Intrigue": 100,
+      "Governance": 91
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Chu",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Rose through Chu field logistics by keeping grain, replacement weapons, draft animals, and casualty evacuation moving during repeated high-tempo deployments.",
+      "Earned Karin's staff confidence after reorganizing a delayed supply column without stripping frontline formations of their reserve stores."
+    ],
+    "promotion": []
+  },
+  "birth_date": "271-BCE-11-24",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 174.6,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 71.5,
+    "frame": "lean",
+    "source": "simulation_assigned"
+  },
+  "appearance": 53,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 132,
+    "technical_learning": 109,
+    "tactical_learning": 139,
+    "academic_learning": 148,
+    "social_learning": 149,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "pragmatic",
+      "dry-humored",
+      "unyielding about preparation"
+    ],
+    "preferences": [
+      "accurate consumption reports",
+      "redundant supply routes",
+      "commanders who declare priorities early"
+    ],
+    "dislikes": [
+      "prestige requisitions",
+      "last-minute route changes",
+      "officers who hide losses from the supply staff"
+    ],
+    "decision_tendency": "protects operational tempo by building redundancy before crisis; will challenge an aggressive timetable when the supply calculation does not support it"
+  },
+  "relationships": [
+    {
+      "target_id": "army.karin_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 72,
+      "respect": 74,
+      "duty": 82
+    },
+    {
+      "target_id": "char_karin",
+      "relationship_type": "direct professional relationship",
+      "trust": 63,
+      "respect": 81,
+      "duty": 78
+    },
+    {
+      "target_id": "staff.chu.karin.chu_yan",
+      "relationship_type": "staff_peer",
+      "trust": 68,
+      "respect": 71,
+      "duty": 66
+    }
+  ],
+  "current_goal": "build enough supply redundancy for Karin's army to sustain an aggressive campaign without depending on a single road, depot, or local harvest",
+  "background": "Persistent named logistics officer on Karin's staff. Lan Qi specializes in route redundancy, consumption forecasting, remount and wagon replacement, and keeping operational plans honest about supply limits. He remains an individual person attached through a command-staff appointment and never becomes part of a unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.chu.karin.lan_qi.json"
+}

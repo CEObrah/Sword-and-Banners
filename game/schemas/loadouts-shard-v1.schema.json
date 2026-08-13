@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "loadouts"
+  ],
+  "properties": {
+    "schema": {
+      "const": "loadouts-shard.v1"
+    },
+    "loadouts": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,42 @@
+{
+  "currency": {
+    "copper_per_silver": 100
+  },
+  "military_finance": {
+    "recruitment_and_basic_issue_cost_silver_per_person": 12,
+    "replacement_requires_population_source": true,
+    "standard_issue_paid_by_organization": true
+  },
+  "prices_silver": {
+    "arrows_20": 3,
+    "common_sword": 11,
+    "fodder_kg": 0.1,
+    "grain_kg": 0.08,
+    "helmet": 21,
+    "lamellar_cuirass": 72,
+    "military_bow": 20,
+    "military_spear": 7,
+    "military_sword": 23,
+    "pack_animal": 68,
+    "padded_coat": 12,
+    "riding_horse": 110,
+    "shield": 10,
+    "two_axle_wagon": 115
+  },
+  "retail_rule": "Exact buyer money and materially scarce stock; ordinary sellers settle into aggregate local/private-economy accounts, not individual merchant balance sheets.",
+  "schema": "sword-economy-balance",
+  "service_issue": {
+    "includes": [
+      "primary service weapon",
+      "required basic armor",
+      "helmet/shield when role requires",
+      "campaign rations",
+      "formation ammunition"
+    ],
+    "standard_service_kit_is_state_issue": true
+  },
+  "wages": {
+    "professional_soldier_monthly_silver": 7.0,
+    "unskilled_monthly_silver": 4.5
+  }
+}

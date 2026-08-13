@@ -1,0 +1,85 @@
+{
+  "schema": "home_establishment_owner.v2",
+  "record": {
+    "id": "establishment.merc.major.12",
+    "owner_id": "merc.major.12",
+    "owner_type": "mercenary_company",
+    "source_force_ref": "state/merc/major-12.json",
+    "formation_library_ref": "formation.mercenary.standard",
+    "reconstitution_policy_ref": "reconstitution.mercenary",
+    "unit_series": [
+      {
+        "series_id": "est.merc.major.12.cavalry",
+        "source_manpower_id": "merc.major.12.cavalry",
+        "role": "cavalry",
+        "unit_count": 4,
+        "nominal_strength": 250,
+        "final_unit_strength": 20,
+        "stable_unit_id_pattern": "est.merc.major.12.cavalry.{ordinal:03d}",
+        "doctrine": "doc.merc.major.12",
+        "training": "train.merc.regular",
+        "troop_type": "cavalry",
+        "loadout_standard": "loadout_mercenary_cavalry"
+      },
+      {
+        "series_id": "est.merc.major.12.scouts",
+        "source_manpower_id": "merc.major.12.scouts",
+        "role": "scouts",
+        "unit_count": 4,
+        "nominal_strength": 100,
+        "final_unit_strength": 8,
+        "stable_unit_id_pattern": "est.merc.major.12.scouts.{ordinal:03d}",
+        "doctrine": "doc.merc.major.12",
+        "training": "train.merc.regular",
+        "troop_type": "scout",
+        "loadout_standard": "loadout_mercenary_scout",
+        "specialty": "scouts"
+      },
+      {
+        "series_id": "est.merc.major.12.light_line",
+        "source_manpower_id": "merc.major.12.light_line",
+        "role": "light_line",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 54,
+        "stable_unit_id_pattern": "est.merc.major.12.light_line.{ordinal:03d}",
+        "doctrine": "doc.merc.major.12",
+        "training": "train.merc.regular",
+        "troop_type": "light_infantry",
+        "loadout_standard": "loadout_mercenary_light",
+        "specialty": "light_line"
+      },
+      {
+        "series_id": "est.merc.major.12.support",
+        "source_manpower_id": "merc.major.12.support",
+        "role": "support",
+        "unit_count": 2,
+        "nominal_strength": 100,
+        "final_unit_strength": 68,
+        "stable_unit_id_pattern": "est.merc.major.12.support.{ordinal:03d}",
+        "doctrine": "doc.merc.major.12",
+        "training": "train.merc.regular",
+        "troop_type": "support_staff",
+        "loadout_standard": "loadout_mercenary_support",
+        "specialty": "support"
+      }
+    ],
+    "standing_procedure_ref": "procedure.mercenary.standard",
+    "command_structure": {
+      "home_command": "owner institution/company",
+      "unit_command": "existing or materialized qualified commander",
+      "succession": "owner doctrine/appointment/contract authority",
+      "default_commander_profile_ref": "command_profile.mercenary_captain"
+    },
+    "series_rule_ref": "establishment.rule.standard",
+    "default_combat_tendencies": {
+      "aggression": 58,
+      "initiative": 54,
+      "caution": 48,
+      "adaptability": 62,
+      "pursuit_bias": 50,
+      "casualty_tolerance": 55,
+      "objective_focus": 68
+    }
+  }
+}

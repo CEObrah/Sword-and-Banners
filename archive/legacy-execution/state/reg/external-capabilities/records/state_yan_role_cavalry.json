@@ -1,0 +1,81 @@
+{
+  "schema": "external-capability-kernel.v1",
+  "kernel_id": "state_yan_role_cavalry",
+  "kernel": {
+    "capabilities": {
+      "attribute_values": [
+        68,
+        70,
+        73,
+        68,
+        68,
+        69,
+        64,
+        52,
+        52
+      ],
+      "skill_values": [
+        58,
+        72,
+        52,
+        45,
+        45,
+        48,
+        50,
+        70,
+        42,
+        58,
+        62,
+        64,
+        52,
+        50,
+        48,
+        88,
+        65,
+        65,
+        45,
+        70,
+        54,
+        28,
+        30,
+        42,
+        38,
+        42,
+        32,
+        37,
+        34,
+        38,
+        32,
+        28,
+        32,
+        32,
+        28
+      ]
+    },
+    "fatigue_mean": 0.0,
+    "health_state": "state-pool distribution owner",
+    "kernel_id": "state_yan_role_cavalry",
+    "monthly_factor_inputs": "instruction 0.98; facility 0.96; equipment 0.97; recovery 0.96; administration 0.64",
+    "role": "cavalry",
+    "state": "YAN",
+    "identity_notes": "Frontier and mountain-oriented: cavalry, bows, scouts, survival, and terrain knowledge exceed its generic line quality.",
+    "balance_adjustment": {
+      "state_identity": "YAN",
+      "role": "cavalry",
+      "attribute_modifiers": {
+        "Agility": 4,
+        "Awareness": 5,
+        "Endurance": 1
+      },
+      "skill_modifiers": {
+        "Riding": 6,
+        "Scouting": 8,
+        "Survival": 7,
+        "Bow": 6,
+        "Formation Fighting": -1,
+        "Logistics": -1
+      },
+      "principle": "modest branch identity; no magical state-wide multiplier"
+    }
+  }
+}

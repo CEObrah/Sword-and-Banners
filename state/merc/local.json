@@ -1,0 +1,59 @@
+{
+  "schema": "mercenary_local_pool",
+  "owner_id": "merc.local.pool",
+  "owner_type": "mercenary_pool",
+  "armed_total": 9000,
+  "classes": [
+    {
+      "role": "caravan_guard",
+      "count": 2200
+    },
+    {
+      "role": "veteran_band",
+      "count": 1600
+    },
+    {
+      "role": "engineer_sapper",
+      "count": 1200
+    },
+    {
+      "role": "river_crew",
+      "count": 1000
+    },
+    {
+      "role": "scout",
+      "count": 1000
+    },
+    {
+      "role": "seasonal_contract",
+      "count": 2000
+    }
+  ],
+  "mechanical_profiles": {
+    "caravan_guard": {
+      "quality_band": "42-58",
+      "loadout": "loadout_mercenary_line"
+    },
+    "veteran_band": {
+      "quality_band": "50-68",
+      "loadout": "loadout_mercenary_line"
+    },
+    "engineer_sapper": {
+      "quality_band": "45-64",
+      "loadout": "loadout_mercenary_engineer"
+    },
+    "river_crew": {
+      "quality_band": "42-60",
+      "loadout": "loadout_mercenary_light"
+    },
+    "scout": {
+      "quality_band": "48-66",
+      "loadout": "loadout_mercenary_scout"
+    },
+    "seasonal_contract": {
+      "quality_band": "32-50",
+      "loadout": "load.merc.regular"
+    }
+  },
+  "determinism_rule": "profile must be selected from pre-registered class before opponent-aware combat resolution"
+}

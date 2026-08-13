@@ -1,0 +1,21 @@
+{
+  "schema": "family-succession.v1",
+  "succession_id": "succession.house_tang",
+  "authority": true,
+  "subject_owner_id": "institution_house_tang",
+  "status": "active",
+  "rule_basis": [
+    "state/player.json#authority=House Tang heir",
+    "state/char/tang-zhu.json#authority=owner and senior principal of House Tang"
+  ],
+  "current_holder_id": "char_tang_zhu",
+  "candidate_order": [
+    {
+      "person_id": "char_tang_wei",
+      "basis": "explicit current House Tang heir status"
+    }
+  ],
+  "notes": [
+    "No additional heirs, parentage rules, primogeniture, testamentary rules, or fallback order are inferred beyond current explicit state. Recompute only through actual House/law/family events."
+  ]
+}
