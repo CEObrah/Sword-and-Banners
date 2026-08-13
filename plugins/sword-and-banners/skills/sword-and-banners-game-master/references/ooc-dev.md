@@ -99,7 +99,7 @@ For changes that alter autonomous scheduling, progression, formations, House or 
 
 ## Schema and reducer parity
 
-When a reducer starts writing a new persistent structure, register and test the structure in the canonical schema/template authority in the same change whenever practical. Do not rely on permissive fields as a permanent substitute for mechanically meaningful structure.
+When a reducer starts writing a new persistent structure, register and test the structure in the canonical schema/template authority in the same change whenever practical. Do not rely on permissive fields as a permanent substitute for mechanically meaningful structure. For autonomous or causal settlement, include at least one transaction-level or schema-validation regression so a planner-only unit test cannot pass while commit validation rejects the staged owner.
 
 ## Skill changes
 
@@ -132,7 +132,7 @@ A server deployment is not proof that ChatGPT has refreshed its MCP action schem
 
 Preserve Git history as development and campaign provenance.
 
-Default small requested implementation work to direct `main` commits. Use an isolated branch for broad/risky work, explicit review, repository policy, blocked direct writes, or temporary release isolation. Before moving `main` from an isolated branch, re-read current `main`; if it advanced independently, integrate deliberately rather than force-resetting it.
+Default small requested implementation work to direct `main` commits. Use an isolated branch for broad/risky work, explicit review, repository policy, blocked direct writes, or temporary release isolation. Before moving `main` from an isolated branch, re-read current `main`; if it advanced independently, integrate deliberately rather than force-resetting it. When local private-repository access is unavailable but the GitHub connector is writable, use `references/github-development.md` rather than treating the missing clone as a development blocker.
 
 Never force-push campaign history as a routine release strategy.
 
