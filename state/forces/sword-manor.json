@@ -1,44 +1,19 @@
 {
-  "administrative_owner": "house_tang",
-  "allocated_to_formations": {},
-  "authorized_strength": 1600,
-  "available_by_location": {
-    "loc_tang_manor_training_ground": {
-      "general_disciple": 350,
-      "junior_disciple": 450,
-      "officer": 50,
-      "senior_disciple": 150,
-      "trainee": 600
-    }
-  },
-  "available_by_role": {
-    "general_disciple": 350,
-    "junior_disciple": 450,
-    "officer": 50,
-    "senior_disciple": 150,
-    "trainee": 600
-  },
-  "available_equipment_by_location": {
-    "loc_tang_manor_training_ground": {
-      "general_disciple": 245,
-      "junior_disciple": 315,
-      "officer": 35,
-      "senior_disciple": 105,
-      "trainee": 420
-    }
-  },
-  "available_equipment_units_by_role": {
-    "general_disciple": 245,
-    "junior_disciple": 315,
-    "officer": 35,
-    "senior_disciple": 105,
-    "trainee": 420
-  },
-  "headcount": 1600,
-  "kind": "institution_cohort",
-  "materialized_people": {},
+  "schema": "sword-force",
   "owner_id": "institution_sword_manor",
   "owner_type": "force",
-  "schema": "sword-force",
-  "source_location_ref": "loc_tang_manor_training_ground"
+  "kind": "institution_cohort",
+  "administrative_owner": "house_tang",
+  "source_location_ref": "loc_tang_manor_training_ground",
+  "authorized_strength": 8750,
+  "authorized_by_role": {"trainee":5000,"junior_disciple":2000,"general_disciple":1500,"senior_disciple":150,"officer":50,"mounted_scout":50},
+  "headcount": 8750,
+  "available_by_role": {"trainee":5000,"junior_disciple":2000,"general_disciple":1500,"senior_disciple":150,"officer":50,"mounted_scout":50},
+  "available_by_location": {"loc_tang_manor_training_ground":{"trainee":5000,"junior_disciple":2000,"general_disciple":1500,"senior_disciple":150,"officer":50,"mounted_scout":50}},
+  "available_equipment_units_by_role": {"trainee":5000,"junior_disciple":2000,"general_disciple":1500,"senior_disciple":150,"officer":50,"mounted_scout":50},
+  "available_equipment_by_location": {"loc_tang_manor_training_ground":{"trainee":5000,"junior_disciple":2000,"general_disciple":1500,"senior_disciple":150,"officer":50,"mounted_scout":50}},
+  "allocated_to_formations": {},
+  "materialized_people": {},
+  "personnel_representation": "aggregate_provenance_cohorts; promotions move qualified conserved cohort slices and do not create anonymous exact people",
+  "migration_provenance": "Restored pre-Gold Sword Manor anonymous ranks: 5000 trainees, 2000 junior disciples, 1500 general disciples, 150 senior disciples, 50 officers, and 50 mounted scouts. Preserved combat-kernel/training evidence supplies cohort capability baselines."
 }

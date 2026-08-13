@@ -1,42 +1,35 @@
 {
-  "schema": "progression-registry",
-  "owner_id": "house_tang_champion_progression",
-  "owner_type": "progression_registry",
-  "name": "House Tang Guardian Cavalry to Tang Champion Progression",
-  "predecessor_registry": "sword_manor_progression",
-  "records": [
+  "schema":"progression-registry",
+  "owner_id":"house_tang_champion_progression",
+  "owner_type":"progression_registry",
+  "name":"House Tang Guardian Cavalry to Tang Champion Progression",
+  "predecessor_registry":"sword_manor_progression",
+  "records":[
     {
-      "record_id": "guardian_cavalry_to_tang_champion",
-      "label": "House Guardian Cavalry to Tang Champion",
-      "facts": {
-        "source_role": "guardian_cavalry",
-        "destination_role": "tang_champion",
-        "institutional_owner": "house_tang",
-        "minimum_verified_service_months_at_guardian_cavalry": 24,
-        "required_qualifications": [
-          "Tang Heavy Warhorse qualification",
-          "mounted Great War Bow qualification",
-          "cavalry lance qualification",
-          "elite defensive and formation assessment",
-          "awareness and tactical judgment assessment",
-          "discipline and House Tang loyalty review",
-          "health and remount qualification"
-        ],
-        "vacancy_or_authorized_expansion_required": true,
-        "transaction": "transfer one conserved body from House Guardian Cavalry to the House Tang Tang Champion reserve and create that person's persistent latent Champion identity exactly once"
+      "record_id":"guardian_cavalry_to_tang_champion",
+      "label":"House Guardian Cavalry to Tang Champion",
+      "facts":{
+        "source_role":"guardian_cavalry",
+        "destination_role":"tang_champion",
+        "institutional_owner":"house_tang",
+        "minimum_verified_service_months_at_guardian_cavalry":24,
+        "minimum_attribute_values":[120,120,128,122,125,122,128,100,100],
+        "minimum_skill_values":[140,145,90,75,75,80,90,145,80,140,155,145,130,110,105,155,150,105,85,110,100,55,55,100,100,115,75,90,75,100,50,45,45,55,45],
+        "required_qualifications":["horse_tang_heavy_war qualification","mounted Great War Bow qualification","cavalry lance qualification","elite defensive and formation assessment","awareness and tactical judgment assessment","discipline and House Tang loyalty review","health and remount qualification"],
+        "vacancy_or_authorized_expansion_required":true,
+        "transaction":"transfer a qualified conserved cohort slice from House Guardian Cavalry into the House Tang Tang Champion reserve; preserve cohort provenance and development; do not create anonymous exact people"
       }
     },
     {
-      "record_id": "champion_identity_boundary",
-      "label": "Tang Champion persistent identity boundary",
-      "notes": [
-        "House Guards, Guardian Cavalry, Sword Manor ranks, and ordinary world forces remain aggregate cohorts unless separately materialized for evidence-backed narrative or command reasons.",
-        "Tang Champion promotion is an explicit fidelity boundary: every promoted Champion receives a stable persistent latent identity. Assignment to Tang Wei or another commander moves that same identity; it never creates a duplicate person.",
-        "Tang Wei personally recruited retinue personnel also use persistent latent identity from intake. This exception is player-personal and does not make all armies individual simulations."
+      "record_id":"champion_representation_policy",
+      "label":"Tang Champion aggregate representation policy",
+      "notes":[
+        "Tang Champion is an institutional House Tang elite rank, not ownership by Tang Wei.",
+        "Anonymous Champions remain heterogeneous aggregate provenance/development cohorts. Their distributions preserve meaningful differences without one persistent NPC record per soldier.",
+        "Exact person state is created only when a Champion becomes named or materially relevant, and that transaction must debit one already-conserved body rather than creating headcount.",
+        "Assignment to Tang Wei or another commander moves the same institutional manpower allocation; it does not clone a roster."
       ]
     }
   ],
-  "runtime": {
-    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
-  }
+  "runtime":{"last_settled_at":"245-BCE-12-02T06:00:00+08:00"}
 }

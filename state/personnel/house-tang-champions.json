@@ -1,53 +1,15 @@
 {
-  "schema": "latent-identity-catalog",
-  "owner_id": "latent_house_tang_champions",
-  "count": 100,
-  "active_count": 100,
-  "id_namespace": "htc",
-  "roster_seed": "house-tang-champions-restored-from-pre-gold-tw-m001-m100",
-  "rank": "tang_champion",
-  "institutional_owner": "house_tang",
-  "source_kind": "restored_pre_gold_champion_roster",
-  "identity_policy": "deterministic_latent_roster",
-  "latent_vector_labels": [
-    "strength",
-    "agility",
-    "endurance",
-    "perception",
-    "intelligence",
-    "willpower",
-    "discipline",
-    "leadership",
-    "social",
-    "bow",
-    "riding",
-    "lance",
-    "sword",
-    "shield",
-    "athletics",
-    "awareness",
-    "formation_command",
-    "mass_combat",
-    "scouting",
-    "survival",
-    "medicine"
-  ],
-  "assignment_ranges": {
-    "formation_tang_champions_first": [
-      {
-        "start_index": 1,
-        "end_index": 100
-      }
-    ]
-  },
-  "member_overrides": {},
-  "promotion_batches": [
-    {
-      "at": "pre-gold-restoration",
-      "from_role": "legacy_tw_m001_m100",
-      "start_index": 1,
-      "count": 100,
-      "evidence": "pre-Gold campaign retained one hundred distinct Tang Champion personnel records"
-    }
+  "schema":"migration-provenance",
+  "owner_id":"archive_house_tang_champions_pre_cohort",
+  "authoritative":false,
+  "count":100,
+  "rank":"tang_champion",
+  "institutional_owner":"house_tang",
+  "replacement_authority":"state/forces/house-tang.json#cohort_ledger (materialized lazily by production cohort runtime)",
+  "source_kind":"restored_pre_gold_tw_m001_m100",
+  "notes":[
+    "This file preserves evidence that the pre-Gold campaign contained one hundred distinct Tang Champion people with heterogeneous capability.",
+    "It is no longer a latent identity roster and does not assign a persistent identity to every anonymous Champion.",
+    "Current manpower is owned once by force_house_tang and currently allocated as one 100-man formation to Tang Wei."
   ]
 }

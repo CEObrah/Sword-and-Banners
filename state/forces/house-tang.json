@@ -1,24 +1,20 @@
 {
-  "administrative_owner": "house_tang",
-  "allocated_to_formations": {
-    "formation_tang_champions_first": {"personnel": 100, "role": "tang_champion"}
-  },
-  "authorized_strength": 1100,
-  "authorized_by_role": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 100},
-  "available_by_location": {"loc_tang_manor_garrison_yard": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 0}},
-  "available_by_role": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 0},
-  "available_equipment_by_location": {"loc_tang_manor_garrison_yard": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 0}},
-  "available_equipment_units_by_role": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 0},
-  "cohort_development": {
-    "house_guard": {"representation": "aggregate_distribution_only_no_persistent_individuals", "minimum_service_months": 18, "service_months_mean": 30.0, "verified_training_hours_per_month": 96, "monthly_newly_qualified_fraction": 0.004, "assessment_ready": 0, "qualification_fraction_carry": 0.0},
-    "guardian_cavalry": {"representation": "aggregate_distribution_only_until_champion_promotion", "minimum_service_months": 24, "service_months_mean": 36.0, "verified_training_hours_per_month": 120, "monthly_newly_qualified_fraction": 0.002, "assessment_ready": 0, "qualification_fraction_carry": 0.0}
-  },
-  "headcount": 1100,
-  "kind": "house_force",
-  "latent_rosters": {"tang_champion": "state/personnel/house-tang-champions.json"},
-  "materialized_people": {},
+  "schema": "sword-force",
   "owner_id": "force_house_tang",
   "owner_type": "force",
-  "schema": "sword-force",
-  "source_location_ref": "loc_tang_manor_garrison_yard"
+  "kind": "house_force",
+  "administrative_owner": "house_tang",
+  "source_location_ref": "loc_tang_manor_garrison_yard",
+  "authorized_strength": 1100,
+  "authorized_by_role": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 100},
+  "formation_authorizations": {"formation_tang_champions_first": 100},
+  "headcount": 1100,
+  "available_by_role": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 0},
+  "available_by_location": {"loc_tang_manor_garrison_yard": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 0}},
+  "available_equipment_units_by_role": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 0},
+  "available_equipment_by_location": {"loc_tang_manor_garrison_yard": {"house_guard": 700, "guardian_cavalry": 300, "tang_champion": 0}},
+  "allocated_to_formations": {"formation_tang_champions_first": {"personnel": 100, "role": "tang_champion"}},
+  "materialized_people": {},
+  "personnel_representation": "aggregate_provenance_cohorts; exact people only when named/relevant or explicitly recruited by the player",
+  "migration_provenance": "House Tang restored as 700 House Guards plus 300 Guardian Cavalry in family reserve and 100 institutional Tang Champions allocated to Tang Wei. The 100 Champions are included once in the 1100 headcount, not duplicated."
 }
