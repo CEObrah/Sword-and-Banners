@@ -224,10 +224,12 @@ def test_campaign_causal_work_catches_up_without_rewind_and_wakes_once(campaign:
     assert causal_events["event_test_staff_response"]["status"] == "triggered"
     assert causal_events["event_test_staff_response"]["provenance"]["late_catch_up"] is False
     work = planner.read("state/index/campaign-causal-work.json")
-    assert {target["status"] for target in work["targets"]} == {"consumed"}
+    assert {target["status"] for target in work["targets"]} == {"pending"}
 
     # Continuing after the one-shot wake acknowledges it without rearming the
-    # already-triggered campaign events or moving the clock backward.
+    # already-triggered campaign events or moving the clock backward. The
+    # authority:false routing remains unchanged; exact triggered records suppress
+    # duplicate scheduling.
     second = planner._advance_runtime(str(now.add_seconds(3600)))
     runtime2 = planner.read("state/runtime.json")
     assert second.get("wake_required") is not True
@@ -238,6 +240,8 @@ def test_campaign_causal_work_catches_up_without_rewind_and_wakes_once(campaign:
         "event_test_overdue_boundary",
         "event_test_staff_response",
     }
+    work2 = planner.read("state/index/campaign-causal-work.json")
+    assert work2 == work
 
 
 def test_campaign_causal_work_fails_closed_on_non_event_owner(campaign: Path) -> None:
