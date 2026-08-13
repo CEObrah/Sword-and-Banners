@@ -1,6 +1,6 @@
 """Bounded short-horizon campaign events for the causal scheduler.
 
-Campaign event work targets are routing definitions, not occurrence truth.  A
+Campaign event work targets are routing definitions, not occurrence truth. A
 planned target becomes campaign truth only when the causal runtime settles it
 and writes the triggered record into the exact routed event-registry owner.
 """
@@ -20,9 +20,8 @@ _MAX_SUMMARY_CHARS = 4000
 
 
 def _work_document(planner: Any) -> dict[str, Any]:
-    try:
-        document = copy.deepcopy(planner.read(CAMPAIGN_CAUSAL_WORK_PATH))
-    except FileNotFoundError:
+    document = copy.deepcopy(planner.read_optional(CAMPAIGN_CAUSAL_WORK_PATH))
+    if document is None:
         return {"authority": False, "targets": []}
     if not isinstance(document, dict) or document.get("authority") is not False:
         raise ValueError("campaign causal work routing must be authority:false")
