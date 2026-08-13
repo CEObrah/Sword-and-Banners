@@ -2,20 +2,45 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": true,
   "properties": {
-    "allocated_to_formations": {},
-    "available_by_role": {},
-    "headcount": {},
-    "owner_id": {},
-    "schema": {
-      "const": "sword-force"
-    }
+    "allocated_to_formations": {"type": "object"},
+    "available_by_role": {"type": "object"},
+    "cohort_ledger": {
+      "type": "object",
+      "required": ["schema", "representation", "cohorts"],
+      "properties": {
+        "schema": {"const": "force-cohort-ledger.v1"},
+        "representation": {"const": "aggregate_provenance_cohorts"},
+        "individualization_policy": {"type": "string"},
+        "cohorts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["cohort_id", "role", "origin", "reserve_by_location", "allocated_by_formation"],
+            "properties": {
+              "cohort_id": {"type": "string"},
+              "role": {"type": "string"},
+              "origin": {"type": "object"},
+              "reserve_by_location": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+              "allocated_by_formation": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+              "age_distribution": {"type": "object"},
+              "aptitude_means": {"type": "object"},
+              "attribute_means": {"type": "object"},
+              "attribute_sd": {"type": "object"},
+              "skill_means": {"type": "object"},
+              "skill_sd": {"type": "object"},
+              "skill_edu_banks": {"type": "object"},
+              "attribute_edu_banks": {"type": "object"}
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "headcount": {"type": "integer", "minimum": 0},
+    "owner_id": {"type": "string"},
+    "schema": {"const": "sword-force"}
   },
-  "required": [
-    "schema",
-    "owner_id",
-    "headcount",
-    "available_by_role",
-    "allocated_to_formations"
-  ],
+  "required": ["schema", "owner_id", "headcount", "available_by_role", "allocated_to_formations"],
   "type": "object"
 }
