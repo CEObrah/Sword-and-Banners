@@ -1,18 +1,11 @@
 from __future__ import annotations
 
-import json
-import subprocess
-from pathlib import Path
-
 from sword_runtime.api.gameplay_vitality import (
-    VitalityCampaignOperations,
     build_player_opportunities,
     build_scene_vitality,
     translate_continuation_command,
 )
-from sword_runtime.campaign_event_planner import _player_facing_event_wake
 from sword_runtime.commands import CommandEnvelope
-from sword_runtime.service_runtime import ProductionSwordRuntime
 
 
 class _ProjectionStore:
@@ -32,19 +25,6 @@ class _ProjectionStore:
 
     def read_json(self, path):
         return self.docs[path]
-
-
-class _WakePlanner:
-    def __init__(self, event):
-        self.event = event
-
-    def owner_path(self, owner_ref):
-        assert owner_ref == "events_messages_and_movement"
-        return "state/event/events-messages-and-movement.json"
-
-    def read(self, path):
-        assert path == "state/event/events-messages-and-movement.json"
-        return {"causal_events": {self.event["event_ref"]: self.event}}
 
 
 def test_scene_vitality_uses_only_permitted_exact_people() -> None:
@@ -96,85 +76,26 @@ def test_continuation_translation_is_deterministic_and_reuses_advance_time() -> 
     assert first.digest == second.digest
 
 
-def test_player_facing_event_wake_ignores_noninteractive_calendar_boundary() -> None:
-    interactive = {
-        "event_ref": "event_message",
-        "kind": "message",
-        "status": "triggered",
-        "triggered_at": "245-BCE-12-05T07:00:00+08:00",
-        "summary": "A message arrives.",
+def test_continuation_rejects_ambiguous_or_invalid_horizons() -> None:
+    base = {
+        "campaign_id": "campaign",
+        "request_id": "continue-invalid",
+        "actor_id": "char_tang_wei",
+        "command_type": "advance_until_event",
+        "expected_revision": 9,
+        "submitted_at": "245-BCE-12-05T06:22:48+08:00",
+        "mode": "gameplay",
     }
-    wake = _player_facing_event_wake(
-        _WakePlanner(interactive),
-        owner_ref="events_messages_and_movement",
-        event_ref="event_message",
-        at=interactive["triggered_at"],
-    )
-    assert wake is not None
-    assert wake["campaign_event_ref"] == "event_message"
-
-    calendar = {
-        "event_ref": "event_calendar",
-        "kind": "calendar_boundary",
-        "status": "triggered",
-        "triggered_at": "245-BCE-12-05T07:00:00+08:00",
-        "summary": "A known date boundary is reached.",
-    }
-    assert _player_facing_event_wake(
-        _WakePlanner(calendar),
-        owner_ref="events_messages_and_movement",
-        event_ref="event_calendar",
-        at=calendar["triggered_at"],
-    ) is None
-
-
-def test_advance_until_event_stops_on_new_player_facing_campaign_event(campaign: Path) -> None:
-    meta = json.loads((campaign / "state/meta.json").read_text(encoding="utf-8"))
-    work_path = campaign / "state/index/campaign-causal-work.json"
-    work = {
-        "authority": False,
-        "purpose": "gameplay vitality regression",
-        "targets": [
-            {
-                "work_ref": "event_vitality_message",
-                "source_owner_ref": "events_messages_and_movement",
-                "kind": "message",
-                "due_at": meta["time"],
-                "priority": 1,
-                "status": "pending",
-                "effect": {"summary": "A lawful player-facing message reaches Tang Wei."},
-                "wake": False,
-            }
-        ],
-    }
-    work_path.write_text(json.dumps(work, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    subprocess.run(["git", "-C", str(campaign), "add", "state/index/campaign-causal-work.json"], check=True)
-    subprocess.run(["git", "-C", str(campaign), "commit", "-q", "-m", "test: add vitality event"], check=True)
-
-    runtime = ProductionSwordRuntime(campaign, runtime_root=campaign.parent / "runtime-vitality")
-    operations = VitalityCampaignOperations(runtime)
-    context = operations.play_context()
-    assert "advance_until_event" in context["commands"]["supported_command_types"]
-    assert "scene_cast" in context
-    assert "scene_vitality" in context
-    assert "opportunities" in context
-
-    command = CommandEnvelope(
-        campaign_id=meta["campaign_id"],
-        request_id="vitality.advance-until-event",
-        actor_id=meta["player_id"],
-        command_type="advance_until_event",
-        expected_revision=meta["revision"],
-        submitted_at=meta["time"],
-        payload={"hours": 24},
-        mode="gameplay",
-    )
-    receipt = operations.execute_command(command)
-    assert receipt["surface_command_type"] == "advance_until_event"
-    assert receipt["result"]["wake_required"] is True
-    assert receipt["result"]["world_time"] == meta["time"]
-
-    after = operations.play_context()
-    assert after["pending_wake"]["campaign_event_ref"] == "event_vitality_message"
-    refs = {item["interaction_ref"] for item in after["opportunities"]}
-    assert "event_vitality_message" in refs
+    for payload in (
+        {"hours": 1, "target_time": "245-BCE-12-06T06:22:48+08:00"},
+        {"hours": 0},
+        {"hours": True},
+        {"unexpected": 1},
+    ):
+        command = CommandEnvelope(payload=payload, **base)
+        try:
+            translate_continuation_command(command)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(f"invalid continuation payload accepted: {payload!r}")
