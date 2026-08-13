@@ -11,7 +11,7 @@ from typing import Any
 from sword_runtime.causal_living_world import _WAKE_RESPONSE_COMMANDS
 from sword_runtime.engine import SwordRuntime
 from sword_runtime.living_world import HighSalienceWakeRequired
-from sword_runtime.production_living_world import ProductionLivingWorldSwordPlanner
+from sword_runtime.player_group_actions import PlayerGroupActionPlanner
 from sword_runtime.tx.canonical import thaw_json
 from sword_runtime.tx.campaign_coordinator import TransactionCoordinator
 from sword_runtime.tx.git import GitStager
@@ -37,9 +37,9 @@ class ProductionSwordRuntime(SwordRuntime):
         # Production autonomy is layered over the same exact repository owners.
         # Replacing the generic planner here avoids a second runtime instance or
         # a second campaign authority while allowing the hosted service to use
-        # learned operational memory, causal provenance, and high-salience wake
-        # protection.
-        self.planner = ProductionLivingWorldSwordPlanner(self.root)
+        # learned operational memory, causal provenance, high-salience wake
+        # protection, and causally parallel grouped player military actions.
+        self.planner = PlayerGroupActionPlanner(self.root)
         self.planner.PLAYER_ACTOR = player_id
 
         git = GitStager(self.root)
