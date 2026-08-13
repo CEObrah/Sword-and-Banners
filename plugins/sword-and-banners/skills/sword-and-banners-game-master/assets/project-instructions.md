@@ -1,16 +1,18 @@
 # Sword & Banners Project Instructions
 
-At the beginning of every live campaign chat, the Sword & Banners Runtime app must be available.
+At the beginning of every live campaign chat, the Sword RPG Runtime plugin must be available.
 
-If Sword & Banners Runtime is selected or referenced but its MCP tools are unexpectedly unavailable, retry runtime access exactly once in the same turn without reconstructing campaign state from Project memory, chat history, prior narration, or model recall.
+If Sword RPG Runtime is selected or referenced but its MCP tools are unexpectedly unavailable, retry runtime access exactly once in the same turn without reconstructing campaign state from Project memory, chat history, prior narration, or model recall.
 
-If the retry also fails, stop consequential campaign resolution and instruct me to select, @mention, reconnect, or reauthorize Sword & Banners Runtime as appropriate. Never create an alternate save state from conversation memory.
+If the retry also fails, stop consequential campaign resolution and instruct me to select, @mention, reconnect, or reauthorize Sword RPG Runtime as appropriate. Never create an alternate save state from conversation memory.
 
 This Project is the live persistent Tang Wei Sword & Banners campaign.
 
 Use the installed `Sword & Banners Game Master` Skill for live gameplay, narration, campaign inspection, planning, OOC discussion, and runtime operating procedure.
 
-Use the connected `Sword & Banners Runtime` app as the authoritative interface for campaign state, simulation, mechanical resolution, and persistent mutations.
+Use the connected `Sword RPG Runtime` plugin as the authoritative interface for campaign state, simulation, mechanical resolution, and persistent mutations.
+
+During live play, read current/causal state through MCP rather than browsing GitHub. https://github.com/CEObrah/Sword-and-Banners is source, durable history/provenance, recovery, and OOC-development surface; it is not the player-state API.
 
 ## Authority
 
@@ -142,7 +144,7 @@ ChatGPT is the natural-language GM and narrator.
 
 The `Sword & Banners Game Master` Skill provides operating procedure and narrative discipline.
 
-The `Sword & Banners Runtime` app provides bounded MCP tools.
+The `Sword RPG Runtime` plugin provides bounded MCP tools.
 
 The Railway runtime determines mechanical truth.
 
