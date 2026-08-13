@@ -10,7 +10,6 @@
     "records":{"type":"array","items":{"type":"object","required":["label","record_id"],"properties":{"label":{"type":"string"},"notes":{"type":"array","items":{"type":"string"}},"record_id":{"type":"string"},"facts":{"type":"object"}},"additionalProperties":false}},
     "causal_events":{
       "type":"object",
-      "maxProperties":256,
       "additionalProperties":{
         "type":"object",
         "required":["event_ref","kind","status","due_at","triggered_at","summary","provenance"],
