@@ -17,6 +17,8 @@ def test_narration_has_diegetic_firewall_and_training_translation() -> None:
     assert "## Use authored places as real spaces" in narration
     assert "## Quiet time and non-events" in narration
     assert "### Arrival handoffs" in narration
+    assert "### Player action is not world reaction" in narration
+    assert "### Standing policies and waiting" in narration
     assert "history of a software correction" in narration
     assert "no whole-number skill increase is not automatically pointless" in narration
     assert "routine-training ceiling" in narration
@@ -25,6 +27,8 @@ def test_narration_has_diegetic_firewall_and_training_translation() -> None:
 def test_choices_do_not_reoffer_setup_or_leak_implementation() -> None:
     choices = _text("references/choices.md")
     assert "## Arrival and stale-projection handoffs" in choices
+    assert "## Standing-policy choices" in choices
+    assert "Do not offer two choices whose practical effect is the same waiting posture" in choices
     assert "scene.continuity_anchor" in choices
     assert "## Do not re-offer completed setup" in choices
     assert "## Keep implementation state out of IC choices" in choices
