@@ -163,6 +163,63 @@ def test_campaign_event_wake_allows_normal_player_response(campaign: Path) -> No
     assert runtime.store.read_json("state/runtime.json")["pending_wake"]["wake_ref"] == "wake.campaign_event.test"
 
 
+def test_campaign_event_settlement_commits_through_production_transaction(campaign: Path) -> None:
+    meta_path = campaign / "state/meta.json"
+    meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    work_path = campaign / "state/index/campaign-causal-work.json"
+    work = {
+        "authority": False,
+        "purpose": "test one-shot production transaction routing",
+        "targets": [
+            {
+                "work_ref": "event_test_transactional_staff_response",
+                "source_owner_ref": "events_messages_and_movement",
+                "kind": "institutional_response",
+                "due_at": meta["time"],
+                "priority": 50,
+                "status": "pending",
+                "effect": {"summary": "The transactional test staff response arrives."},
+                "wake": True,
+            }
+        ],
+    }
+    work_path.write_text(
+        json.dumps(work, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    runtime = ProductionSwordRuntime(
+        campaign,
+        runtime_root=campaign.parent / "runtime-campaign-event-transaction",
+    )
+    command = CommandEnvelope(
+        campaign_id=meta["campaign_id"],
+        request_id="campaign-event.transaction.advance",
+        actor_id=meta["player_id"],
+        command_type="advance_time",
+        expected_revision=meta["revision"],
+        submitted_at=meta["time"],
+        payload={"hours": 1},
+        mode="gameplay",
+    )
+    execution = runtime.execute(command)
+    assert execution.receipt.committed_revision == meta["revision"] + 1
+    assert execution.receipt.result["wake_required"] is True
+    assert execution.receipt.result["events_processed"] == 1
+
+    operations = StableCampaignOperations(runtime)
+    context = operations.play_context()
+    assert context["decision_reason"] == "campaign_event_boundary"
+    assert context["pending_wake"]["campaign_event_ref"] == "event_test_transactional_staff_response"
+    owners = runtime.store.read_json("state/index/owner-index-gold.json")["owners"]
+    event_owner = runtime.store.read_json(owners["events_messages_and_movement"])
+    event = event_owner["causal_events"]["event_test_transactional_staff_response"]
+    assert event["status"] == "triggered"
+    assert event["triggered_at"] == meta["time"]
+    assert event["provenance"]["late_catch_up"] is False
+    assert runtime.store.read_json("state/index/campaign-causal-work.json") == work
+
+
 def test_transaction_failure_codes_do_not_expose_git_output() -> None:
     assert transaction_failure_code(GitStageError(1, "secret-bearing stderr")) == "transaction_git_stage_failed"
     assert transaction_failure_code(GitCommitError(1, "secret-bearing stderr")) == "transaction_git_commit_failed"
