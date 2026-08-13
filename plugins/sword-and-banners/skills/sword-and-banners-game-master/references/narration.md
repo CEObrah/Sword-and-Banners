@@ -172,6 +172,17 @@ When time passes without a player-facing event, compress toward what actually oc
 
 ## Endings
 
-End when a committed consequence lands, an NPC's uninterrupted action has finished, or a genuine player decision appears. Do not manufacture suspense with an ominous final sentence on every turn.
+End a **turn** when a committed consequence lands, an NPC's uninterrupted action has finished, or a genuine player decision appears. Do not confuse that turn boundary with the end of the surrounding scene, process, mission chain, or campaign thread, and do not manufacture suspense with an ominous final sentence on every turn.
 
-If a genuine unresolved decision remains and the player has not already declared the next action, use `choices.md` after the scene. A stale scene projection does not excuse omitting choices when current exact state, the committed endpoint, and a presentation-only continuity anchor clearly show that a new player-facing fork has been reached. Do not end with a generic `what do you do?` or abstract statement that the runtime is waiting when grounded decision scaffolding would help.
+Before sending the last paragraph, perform a handoff check:
+
+1. What larger player-known objective or process was active before this beat?
+2. Did the current result finish only a local subtask, or did it actually finish that larger objective?
+3. If the larger thread continues, is the next beat an obvious non-decision continuation, a waiting interval, or a genuine player decision?
+4. What concrete player-visible direction tells the player how play continues from here?
+
+When a local objective completes inside an established examination, council, audience, mission, investigation, journey, training sequence, or other larger process, transition back to that larger frame in the fiction. Let the examiner set aside the board, the council move to the next matter, the unit reform after the ordered maneuver, or the clerk finish the current document when those are reversible procedural connective actions already supported by the scene. Do not stop at `mission complete`, `that ends this problem`, or equivalent wording while the larger player-known process is still plainly active.
+
+If fresh runtime context exposes no durable next institutional stage, do not fabricate one. State only what is actually complete, keep the unresolved larger purpose visible, and either carry an obvious reversible procedure forward or hand the player grounded lawful attempts that can move the situation. A runtime `unresolved_decision: null` is not a command to fade to black.
+
+If a genuine unresolved decision remains and the player has not already declared the next action, use `choices.md` after the scene. A stale scene projection does not excuse omitting choices when current exact state, the committed endpoint, and a presentation-only continuity anchor clearly show that a new player-facing fork has been reached. Do not end with a generic `what do you do?`, a bare disclaimer about what has not yet been granted, or an abstract statement that the runtime is waiting when grounded decision scaffolding would help.
