@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -186,6 +187,17 @@ def test_campaign_event_settlement_commits_through_production_transaction(campai
     work_path.write_text(
         json.dumps(work, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
+    )
+    # Production transactions fail closed on dirty repositories. Make this
+    # disposable routing fixture part of the test clone's committed baseline;
+    # gameplay must read it but never mutate it.
+    subprocess.run(
+        ["git", "-C", str(campaign), "add", "state/index/campaign-causal-work.json"],
+        check=True,
+    )
+    subprocess.run(
+        ["git", "-C", str(campaign), "commit", "-q", "-m", "test: add campaign causal work fixture"],
+        check=True,
     )
 
     runtime = ProductionSwordRuntime(
