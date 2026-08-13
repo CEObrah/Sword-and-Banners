@@ -7,14 +7,16 @@ current owners and already-triggered event-registry facts.
 """
 from __future__ import annotations
 
-from collections.abc import Mapping
+import json
+import re
+from collections.abc import Mapping, Sequence
 from typing import Any
 
 from sword_runtime.commands import CommandEnvelope
 
 INTERACTION_ACTIONS = frozenset({
     "present", "request", "petition", "report", "ask", "offer", "decline",
-    "comply", "withdraw", "wait_for_reply", "proceed",
+    "comply", "withdraw", "proceed", "seek_contact",
 })
 INTERACTION_PAYLOAD_KEYS = frozenset({
     "target_ref", "action", "process_ref", "player_statement",
@@ -28,6 +30,12 @@ FORBIDDEN_OUTCOME_KEYS = frozenset({
 HOT_INFORMATION_LIMIT = 16
 HOT_FORMATION_LIMIT = 12
 HOT_INTERACTION_LIMIT = 8
+HOT_ATTEMPT_LIMIT = 8
+INTERACTION_ATTEMPT_PREFIX = "sword-interaction-attempt.v1 "
+_SAFE_REF = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$")
+_TRIGGERED_INTERACTION_KINDS = frozenset({
+    "institutional_response", "petition_response", "message", "audience_response",
+})
 
 
 def _walk_forbidden(value: Any) -> bool:
@@ -37,9 +45,28 @@ def _walk_forbidden(value: Any) -> bool:
                 return True
             if _walk_forbidden(child):
                 return True
-    elif isinstance(value, list):
+    elif isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray)):
         return any(_walk_forbidden(item) for item in value)
     return False
+
+
+def _require_safe_ref(value: object, field: str) -> str:
+    if not isinstance(value, str) or not _SAFE_REF.fullmatch(value):
+        raise ValueError(f"interaction_action {field} is invalid")
+    return value
+
+
+def _optional_text(value: object, field: str, maximum: int) -> str | None:
+    if value is None:
+        return None
+    if (
+        not isinstance(value, str)
+        or not value.strip()
+        or len(value) > maximum
+        or any(character in value for character in ("\x00", "\r", "\n"))
+    ):
+        raise ValueError(f"interaction_action {field} is invalid")
+    return value.strip()
 
 
 def validate_interaction_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
@@ -48,56 +75,78 @@ def validate_interaction_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
         raise ValueError("interaction_action contains unsupported caller fields")
     if _walk_forbidden(payload):
         raise ValueError("interaction_action may not supply world or NPC outcomes")
-    target_ref = payload.get("target_ref")
+    target_ref = _require_safe_ref(payload.get("target_ref"), "target_ref")
     action = payload.get("action")
-    if not isinstance(target_ref, str) or not target_ref or len(target_ref) > 160:
-        raise ValueError("interaction_action requires one exact target_ref")
     if not isinstance(action, str) or action not in INTERACTION_ACTIONS:
         raise ValueError("interaction_action action is unsupported")
     process_ref = payload.get("process_ref")
-    if process_ref is not None and (not isinstance(process_ref, str) or not process_ref or len(process_ref) > 160):
-        raise ValueError("interaction_action process_ref is invalid")
-    statement = payload.get("player_statement")
-    if statement is not None and (not isinstance(statement, str) or not statement.strip() or len(statement) > 2000 or "\x00" in statement):
-        raise ValueError("interaction_action player_statement is invalid")
-    posture = payload.get("posture")
-    if posture is not None and (not isinstance(posture, str) or not posture.strip() or len(posture) > 500 or "\x00" in posture):
-        raise ValueError("interaction_action posture is invalid")
-    formation_refs = payload.get("formation_refs", [])
-    if not isinstance(formation_refs, list) or len(formation_refs) > 128:
+    if process_ref is not None:
+        process_ref = _require_safe_ref(process_ref, "process_ref")
+    statement = _optional_text(payload.get("player_statement"), "player_statement", 2000)
+    posture = _optional_text(payload.get("posture"), "posture", 500)
+    formation_values = payload.get("formation_refs", ())
+    if (
+        not isinstance(formation_values, Sequence)
+        or isinstance(formation_values, (str, bytes, bytearray))
+        or len(formation_values) > 128
+    ):
         raise ValueError("interaction_action formation_refs is invalid")
-    if any(not isinstance(ref, str) or not ref or len(ref) > 160 for ref in formation_refs):
-        raise ValueError("interaction_action formation_refs is invalid")
+    formation_refs = [_require_safe_ref(ref, "formation_refs") for ref in formation_values]
     if len(set(formation_refs)) != len(formation_refs):
         raise ValueError("interaction_action formation_refs must be unique")
     return {
         "target_ref": target_ref,
         "action": action,
         "process_ref": process_ref,
-        "player_statement": statement.strip() if isinstance(statement, str) else None,
-        "formation_refs": list(formation_refs),
-        "posture": posture.strip() if isinstance(posture, str) else None,
+        "player_statement": statement,
+        "formation_refs": formation_refs,
+        "posture": posture,
     }
 
 
-def interaction_summary(actor_id: str, payload: Mapping[str, Any]) -> str:
-    """Render only player-owned intent. Never render an external response."""
+def interaction_attempt_summary(command: CommandEnvelope, payload: Mapping[str, Any]) -> str:
+    """Encode a typed, attempt-only record with the original surface digest."""
     record = validate_interaction_payload(payload)
-    parts = [f"{actor_id} performs interaction action '{record['action']}' toward exact ref {record['target_ref']}."]
-    if record["process_ref"]:
-        parts.append(f"The declared process anchor is {record['process_ref']}.")
-    if record["formation_refs"]:
-        parts.append("The declared accompanying controlled formations are: " + ", ".join(record["formation_refs"]) + ".")
-    if record["posture"]:
-        parts.append("Player-declared posture: " + record["posture"])
-    if record["player_statement"]:
-        parts.append("Player-declared statement: " + record["player_statement"])
-    parts.append("No NPC response, access, appointment, rank, vacancy, acceptance, permission, or other world outcome is established by this attempt record.")
-    return " ".join(parts)
+    attempt = {
+        "schema": "sword-interaction-attempt.v1",
+        "surface_digest": command.digest,
+        "request_id": command.request_id,
+        "actor_id": command.actor_id,
+        "target_ref": record["target_ref"],
+        "action": record["action"],
+        "process_ref": record["process_ref"],
+        "player_statement": record["player_statement"],
+        "formation_refs": record["formation_refs"],
+        "posture": record["posture"],
+        "world_response_status": "not_established_by_attempt",
+    }
+    summary = INTERACTION_ATTEMPT_PREFIX + json.dumps(
+        attempt,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    if len(summary) > 4000:
+        raise ValueError("interaction_action serialized attempt exceeds bounded history record")
+    return summary
+
+
+def parse_interaction_attempt_summary(summary: object) -> dict[str, Any] | None:
+    if not isinstance(summary, str) or not summary.startswith(INTERACTION_ATTEMPT_PREFIX):
+        return None
+    try:
+        record = json.loads(summary[len(INTERACTION_ATTEMPT_PREFIX):])
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(record, dict) or record.get("schema") != "sword-interaction-attempt.v1":
+        return None
+    if record.get("world_response_status") != "not_established_by_attempt":
+        return None
+    return record
 
 
 def translate_interaction_command(command: CommandEnvelope) -> CommandEnvelope:
-    payload = validate_interaction_payload(command.payload)
+    summary = interaction_attempt_summary(command, command.payload)
     return CommandEnvelope(
         campaign_id=command.campaign_id,
         request_id=command.request_id,
@@ -105,12 +154,28 @@ def translate_interaction_command(command: CommandEnvelope) -> CommandEnvelope:
         command_type="scene_consequence",
         expected_revision=command.expected_revision,
         submitted_at=command.submitted_at,
-        payload={"summary": interaction_summary(command.actor_id, payload)},
+        payload={"summary": summary},
         mode=command.mode,
     )
 
 
-def triggered_interaction_handles(store, *, limit: int = HOT_INTERACTION_LIMIT) -> list[dict[str, Any]]:
+def _format_triggered_interaction(event_ref: str, raw: object) -> dict[str, Any] | None:
+    if not isinstance(raw, Mapping) or raw.get("status") != "triggered":
+        return None
+    kind = str(raw.get("kind", ""))
+    if kind not in _TRIGGERED_INTERACTION_KINDS:
+        return None
+    return {
+        "interaction_ref": str(raw.get("event_ref") or event_ref),
+        "kind": kind,
+        "status": "triggered",
+        "triggered_at": raw.get("triggered_at"),
+        "summary": raw.get("summary"),
+        "provenance": raw.get("provenance"),
+    }
+
+
+def _triggered_interaction_rows(store) -> list[dict[str, Any]]:
     try:
         registry = store.read_json("state/event/events-messages-and-movement.json")
     except FileNotFoundError:
@@ -120,24 +185,87 @@ def triggered_interaction_handles(store, *, limit: int = HOT_INTERACTION_LIMIT) 
         return []
     rows: list[dict[str, Any]] = []
     for event_ref, raw in causal.items():
-        if not isinstance(raw, Mapping) or raw.get("status") != "triggered":
+        record = _format_triggered_interaction(str(event_ref), raw)
+        if record is not None:
+            rows.append(record)
+    rows.sort(key=lambda item: (str(item.get("triggered_at") or ""), str(item["interaction_ref"])))
+    return rows
+
+
+def triggered_interaction_handles(store, *, limit: int = HOT_INTERACTION_LIMIT) -> tuple[list[dict[str, Any]], int]:
+    rows = _triggered_interaction_rows(store)
+    bounded = max(1, min(int(limit), 32))
+    return rows[-bounded:], len(rows)
+
+
+def triggered_interaction_page(store, *, cursor: str | None = None, limit: int = 20) -> dict[str, Any]:
+    if cursor is None:
+        offset = 0
+    elif isinstance(cursor, str) and cursor.isdigit() and len(cursor) <= 12:
+        offset = int(cursor)
+    else:
+        raise ValueError("interaction page cursor is invalid")
+    if isinstance(limit, bool) or not isinstance(limit, int) or limit < 1 or limit > 64:
+        raise ValueError("interaction page limit is invalid")
+    rows = list(reversed(_triggered_interaction_rows(store)))
+    page = rows[offset:offset + limit]
+    next_offset = offset + len(page)
+    return {
+        "cursor": cursor,
+        "count": len(rows),
+        "returned": len(page),
+        "truncated": next_offset < len(rows),
+        "next_cursor": str(next_offset) if next_offset < len(rows) else None,
+        "interaction_handles": page,
+    }
+
+
+def triggered_interaction_record(store, interaction_ref: str) -> dict[str, Any] | None:
+    try:
+        registry = store.read_json("state/event/events-messages-and-movement.json")
+    except FileNotFoundError:
+        return None
+    causal = registry.get("causal_events", {}) if isinstance(registry, Mapping) else {}
+    if not isinstance(causal, Mapping):
+        return None
+    raw = causal.get(interaction_ref)
+    return _format_triggered_interaction(interaction_ref, raw)
+
+
+def recent_interaction_attempts(
+    store,
+    actor_id: str,
+    *,
+    limit: int = HOT_ATTEMPT_LIMIT,
+) -> tuple[list[dict[str, Any]], int]:
+    try:
+        history = store.read_json("state/history/events/index.json")
+    except FileNotFoundError:
+        return [], 0
+    events = history.get("events", []) if isinstance(history, Mapping) else []
+    if not isinstance(events, list):
+        return [], 0
+    rows: list[dict[str, Any]] = []
+    for event in events:
+        if not isinstance(event, Mapping):
             continue
-        kind = str(raw.get("kind", ""))
-        if kind not in {"institutional_response", "petition_response", "message", "audience_response"}:
+        attempt = parse_interaction_attempt_summary(event.get("summary"))
+        if attempt is None or attempt.get("actor_id") != actor_id:
             continue
         rows.append({
-            "interaction_ref": str(raw.get("event_ref") or event_ref),
-            "kind": kind,
-            "status": "triggered",
-            "triggered_at": raw.get("triggered_at"),
-            "summary": raw.get("summary"),
-            "provenance": raw.get("provenance"),
+            "event_id": event.get("event_id"),
+            "at": event.get("at"),
+            **attempt,
         })
-    rows.sort(key=lambda item: (str(item.get("triggered_at") or ""), str(item["interaction_ref"])))
-    return rows[-max(1, min(int(limit), 32)):]
+    bounded = max(1, min(int(limit), 32))
+    return rows[-bounded:], len(rows)
 
 
-def fresh_runtime_projection(context: Mapping[str, Any], handles: list[dict[str, Any]]) -> dict[str, Any]:
+def fresh_runtime_projection(
+    context: Mapping[str, Any],
+    handles: list[dict[str, Any]],
+    attempts: list[dict[str, Any]],
+) -> dict[str, Any]:
     campaign = context["campaign"]
     player = context["player"]
     location = player.get("location")
@@ -155,7 +283,7 @@ def fresh_runtime_projection(context: Mapping[str, Any], handles: list[dict[str,
     current_handles = [item for item in handles if item.get("triggered_at") == campaign.get("world_time")]
     return {
         "projection_status": "fresh_runtime_projection",
-        "projection_provenance": "exact_current_owners_and_triggered_event_registry",
+        "projection_provenance": "exact_current_owners_triggered_events_and_typed_player_attempts",
         "projected_at": campaign.get("world_time"),
         "projected_revision": campaign.get("revision"),
         "scene_id": f"runtime_projection_r{campaign.get('revision')}",
@@ -163,7 +291,7 @@ def fresh_runtime_projection(context: Mapping[str, Any], handles: list[dict[str,
         "location": location,
         "location_id": location,
         "physical_scene": {"controlled_formations_at_player_location": colocated},
-        "observable_pressures": [item for item in current_handles],
+        "observable_pressures": current_handles,
         "player_observable_state": {
             "location": location,
             "health": player.get("health"),
@@ -172,16 +300,18 @@ def fresh_runtime_projection(context: Mapping[str, Any], handles: list[dict[str,
         "unresolved_decision": None,
         "known_clock_boundaries": [],
         "active_questions": [],
-        "available_reports": [item for item in current_handles],
+        "available_reports": handles,
         "pending_information_paths": [],
-        "recent_reveals": [item for item in current_handles],
+        "recent_reveals": current_handles,
+        "recent_player_actions": attempts,
         "unresolved_hooks": [],
     }
 
 
 __all__ = [
-    "HOT_FORMATION_LIMIT", "HOT_INFORMATION_LIMIT", "HOT_INTERACTION_LIMIT",
+    "HOT_ATTEMPT_LIMIT", "HOT_FORMATION_LIMIT", "HOT_INFORMATION_LIMIT", "HOT_INTERACTION_LIMIT",
     "INTERACTION_ACTIONS", "INTERACTION_PAYLOAD_KEYS", "FORBIDDEN_OUTCOME_KEYS",
-    "fresh_runtime_projection", "interaction_summary", "translate_interaction_command",
-    "triggered_interaction_handles", "validate_interaction_payload",
+    "fresh_runtime_projection", "interaction_attempt_summary", "parse_interaction_attempt_summary",
+    "recent_interaction_attempts", "translate_interaction_command", "triggered_interaction_handles",
+    "triggered_interaction_page", "triggered_interaction_record", "validate_interaction_payload",
 ]
