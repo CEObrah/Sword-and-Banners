@@ -59,6 +59,7 @@ class StableCampaignOperations(CampaignOperations):
         context = super().play_context()
         context.setdefault("limits", {})["high_salience_wake_boundary"] = True
         context["limits"]["operational_memory_is_non_authoritative"] = True
+        context["limits"]["campaign_event_boundaries"] = True
 
         scene_context = context.get("scene")
         if isinstance(scene_context, dict):
