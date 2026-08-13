@@ -134,7 +134,9 @@ Present choices only after a genuine unresolved player decision lands. If the pl
 
 A delegated response resolves only the decision the player delegated. If an examiner, officer, rival, or other NPC immediately poses a **new** consequential question after that response, treat it as a new unresolved player decision. Do not end on the question alone: provide grounded decision scaffolding before ending unless the player's current message already supplied that next answer.
 
-When scaffolding is useful, read `references/choices.md`. Default to three immediate options, two wider-horizon options, and `Free Action` only when the scene supports them. Never invent filler, hidden information, unavailable resources, or a recommended/default choice.
+When scaffolding is useful, read `references/choices.md`. Default to three immediate options, two wider-horizon options, and `Free Action` only when the scene supports them. Never invent filler, hidden information, unavailable resources, or a recommended/default choice. Every material premise used by an option must already be established in the preceding IC beat or fresh player-visible context; if terrain, contact, authority, resources, timing, or another fact is needed to understand a choice, narrate it before the menu instead of revealing it for the first time inside the option.
+
+A numbered selection, quoted option, or pasted option text is a complete player declaration of that offered choice. Resolve it without reconfirmation. Render Wei's concrete action, orders, or faithful dialogue on-screen before NPC/world reaction or the next decision; do not collapse a selected option to `you choose 1`, `you do that`, or an invisible control action. The selection authorizes only the substance already contained in that option, not additional protected commitments.
 
 ## Live-play quality review
 
