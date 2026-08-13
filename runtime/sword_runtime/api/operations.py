@@ -8,6 +8,7 @@ from sword_runtime.command_contracts import COMMAND_PAYLOAD_KEYS
 from sword_runtime.commands import CommandEnvelope
 from sword_runtime.engine import COMMAND_TYPES
 from sword_runtime.service_runtime import ProductionSwordRuntime
+from sword_runtime.tx.canonical import thaw_json
 from sword_runtime.tx.errors import StaleRevisionError
 from sword_runtime.tx.invalidations import load_transaction_invalidations
 
@@ -28,7 +29,7 @@ def _receipt_record(execution) -> dict[str, Any]:
         "campaign_id": receipt.campaign_id,
         "committed_revision": receipt.committed_revision,
         "committed_at": receipt.committed_at,
-        "result": dict(receipt.result),
+        "result": thaw_json(receipt.result),
     }
 
 
@@ -267,7 +268,7 @@ class CampaignOperations:
             receipt = None
         if receipt is None:
             return None
-        return {"status": "duplicate", "request_id": receipt.request_id, "transaction_id": receipt.transaction_id, "campaign_id": receipt.campaign_id, "committed_revision": receipt.committed_revision, "committed_at": receipt.committed_at, "result": dict(receipt.result)}
+        return {"status": "duplicate", "request_id": receipt.request_id, "transaction_id": receipt.transaction_id, "campaign_id": receipt.campaign_id, "committed_revision": receipt.committed_revision, "committed_at": receipt.committed_at, "result": thaw_json(receipt.result)}
 
     def execute_command(self, command: CommandEnvelope) -> dict[str, Any]:
         if command.actor_id != self._player_actor() or command.mode != "gameplay":
