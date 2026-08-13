@@ -2,7 +2,13 @@
 builder = "RAILPACK"
 watchPatterns = [
   "**",
-  "!/state/**"
+  "!/state/**",
+  "!/plugins/**",
+  "!/docs/**",
+  "!/tests/**",
+  "!/tools/**",
+  "!/.github/**",
+  "!/README.md"
 ]
 
 [deploy]
