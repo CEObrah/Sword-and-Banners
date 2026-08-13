@@ -69,14 +69,14 @@ def test_location_search_returns_exact_registered_ref() -> None:
 def test_reference_search_is_paginated_and_deterministic() -> None:
     result = search_world_reference(_Store(), "kan", category="location", limit=1)
     assert result["result_count"] == 2
-    assert result["results"][0]["ref"] == "loc_kanyou"
+    assert result["results"][0]["ref"] == "loc_kantan"
     assert result["results_truncated"] is True
     assert result["next_offset"] == 1
 
     second = search_world_reference(
         _Store(), "kan", category="location", offset=result["next_offset"], limit=1
     )
-    assert second["results"][0]["ref"] == "loc_kantan"
+    assert second["results"][0]["ref"] == "loc_kanyou"
     assert second["results_truncated"] is False
 
 
