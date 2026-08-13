@@ -19,12 +19,18 @@ COMMAND_INPUT_GUIDANCE: Mapping[str, Mapping[str, Any]] = {
     "travel": {
         "mode": {"allowed_values": ["foot", "horse"], "default": "foot"},
         "destination_ref": {"rule": "use an exact player-known registered location ref"},
+        "formation_refs": {"type": "array", "minimum_items": 1, "maximum_items": 128, "rule": "optional exact controlled escort formations; all must be mobilized and co-located with the player; the column advances time once and draws only minimum route grain/fodder from a co-located lawful material depot when carried supply is short"},
     },
     "individual_training": {"hours": {"type": "integer", "minimum": 1, "maximum": 12}},
     "cohort_training": {"hours": {"type": "integer", "minimum": 1, "maximum": 12}},
     "formation_train": {
         "hours": {"type": "integer", "minimum": 1, "maximum": 12},
         "formation_ref": {"rule": "use an exact controlled formation ref"},
+    },
+    "formation_mobilize": {
+        "rule": "provide exactly one of formation_ref or formation_refs",
+        "formation_ref": {"rule": "use one exact controlled formation ref"},
+        "formation_refs": {"type": "array", "minimum_items": 1, "maximum_items": 128, "rule": "use unique exact controlled formation refs; grouped formations mobilize in parallel and consume the normal mobilization duration once"},
     },
     "health_injury": {"severity": {"allowed_values": ["minor", "moderate", "severe", "critical"], "default": "minor"}},
     "health_recovery": {"hours": {"type": "integer", "minimum": 1, "maximum": 168}},
