@@ -57,7 +57,13 @@ Use this reference for OOC DEV source-location and authority questions. The mach
 : Bounded short-horizon campaign-event routing. `authority: false` work targets become occurrence truth only when the causal runtime settles them into an exact event-registry owner.
 
 `runtime/sword_runtime/campaign_event_planner.py`
-: Hosted planner integration for one-shot campaign-event work and resumable player-facing event boundaries.
+: Hosted planner integration for one-shot campaign-event work, recurring world-arc reviews/report routes, fair formation-candidate routing, and resumable player-facing event boundaries.
+
+`runtime/sword_runtime/world_arcs.py`
+: Causal reviews for the existing exact `arc-registry` authority and delayed player-visible report propagation. It may establish bounded abstract initiatives from exact saved actors/goals but never replaces the exact domain owner of a material consequence.
+
+`runtime/sword_runtime/autonomy_routing.py`
+: Rotating bounded candidate windows for large autonomous formation sets so a working-set limit never becomes permanent first-N eligibility.
 
 `runtime/sword_runtime/development.py`
 : Exact-person development settlement and skill progression bounds.
@@ -74,7 +80,7 @@ Use this reference for OOC DEV source-location and authority questions. The mach
 : Production player-safe wrapper. It owns bounded hot-context projection, exact rehydration/paging, stale-scene replacement, typed interaction admission, hiding new raw `scene_consequence` writes, wake-aware availability, and stable low-information failures.
 
 `runtime/sword_runtime/api/interaction_surface.py`
-: Surface-only `interaction_action` contract. Validates player-owned target/action/statement/posture/formations, forbids caller-authored NPC/world outcomes, embeds the original surface digest, translates to an attempt-only compatibility record, reads triggered interaction handles, and reconstructs safe runtime scene continuity from current owners plus already-triggered facts.
+: Surface-only `interaction_action` contract. Validates player-owned target/action/statement/posture/formations, forbids caller-authored NPC/world outcomes, embeds the original surface digest, translates to an attempt-only compatibility record, reads triggered interaction/report handles, and reconstructs safe runtime scene continuity from current owners plus already-triggered facts.
 
 `runtime/sword_runtime/api/mcp.py`
 : OAuth/JWT MCP base service, core ChatGPT tools, exact preview attestation, security metadata, and protected-resource metadata.
@@ -125,6 +131,9 @@ Use this reference for OOC DEV source-location and authority questions. The mach
 `state/runtime.json`
 : Authoritative temporal frontier: causal hosts/events and persisted wake state.
 
+`state/arc/kingdom-arcs.json`
+: Exact mutable campaign-scale arc/pressure authority. Active records may be routed into recurring causal review; dormant historical possibilities remain conditional and are not activated by date alone.
+
 `state/index/owner-index-gold.json`
 : Active exact owner routing for mutable campaign objects.
 
@@ -174,6 +183,9 @@ Never infer that every state file is player-visible. Bounded operations enforce 
 `tests/runtime/test_interaction_surface.py`
 : Typed attempt, outcome-injection, digest/idempotency, bounded interaction-handle paging, raw-scene bypass, and stale-projection continuation regressions.
 
+`tests/runtime/test_world_arcs.py`
+: Active-arc scheduler registration, exact saved-goal initiative, deterministic review, hidden/report knowledge separation, and rotating-candidate fairness regressions.
+
 `tests/runtime/test_architecture_service.py`
 : Service architecture, player-safe context, scene projection, MCP/deployment-file, and integration invariants.
 
@@ -184,4 +196,4 @@ Prefer state-independent fixtures for invariant logic. Keep evolving-current-cam
 
 ## Canonical documentation rule
 
-The Game Master Skill is the canonical ChatGPT-facing operating/development manual. Do not recreate root `VOICE.md`, `PLAYER_INTERFACE.md`, `RUNTIME.md`, `REPOSITORY_MAP.md`, `AGENTS.md`, or `DEPLOYMENT.md` copies. Keep root `README.md` as orientation only and deployment procedure under `docs/`.
+The Game Master Skill is the canonical ChatGPT-facing operating/development manual. `references/world-arcs.md` documents the campaign-scale arc rules. Do not recreate root `VOICE.md`, `PLAYER_INTERFACE.md`, `RUNTIME.md`, `REPOSITORY_MAP.md`, `AGENTS.md`, or `DEPLOYMENT.md` copies. Keep root `README.md` as orientation only and deployment procedure under `docs/`.
