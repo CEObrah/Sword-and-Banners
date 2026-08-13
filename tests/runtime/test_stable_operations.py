@@ -111,6 +111,58 @@ def test_pending_wake_context_and_preview_share_one_response_contract(campaign: 
     assert preview["contested_outcome_hidden"] is True
 
 
+def test_campaign_event_wake_allows_normal_player_response(campaign: Path) -> None:
+    runtime_path = campaign / "state/runtime.json"
+    runtime_state = json.loads(runtime_path.read_text(encoding="utf-8"))
+    runtime_state["pending_wake"] = {
+        "wake_ref": "wake.campaign_event.test",
+        "kind": "campaign_event",
+        "at": runtime_state["world_time"],
+        "campaign_event_ref": "event_test_staff_response",
+        "reason": "The staff channel returns a procedural response.",
+        "target_host": "host_campaign_event_test",
+        "event_id": "event_campaign_event_test",
+    }
+    runtime_path.write_text(
+        json.dumps(runtime_state, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    runtime = ProductionSwordRuntime(
+        campaign,
+        runtime_root=campaign.parent / "runtime-campaign-wake",
+    )
+    operations = StableCampaignOperations(runtime)
+    context = operations.play_context()
+    supported = context["commands"]["supported_command_types"]
+    assert context["decision_required"] is True
+    assert context["decision_reason"] == "campaign_event_boundary"
+    assert context["pending_wake"]["campaign_event_ref"] == "event_test_staff_response"
+    assert context["pending_wake"]["response_command_types"] == supported
+    assert context["pending_wake"]["continue_command"] == "advance_time"
+    assert context["commands"]["availability_scope"] == "campaign_event_response"
+    assert "target_host" not in context["pending_wake"]
+    assert "event_id" not in context["pending_wake"]
+
+    meta = runtime.store.read_json("state/meta.json")
+    ordinary = CommandEnvelope(
+        campaign_id=meta["campaign_id"],
+        request_id="wake.preview.campaign-event-scene",
+        actor_id=meta["player_id"],
+        command_type="scene_consequence",
+        expected_revision=meta["revision"],
+        submitted_at=meta["time"],
+        payload={"summary": "Tang Wei responds to the newly arrived campaign event."},
+        mode="gameplay",
+    )
+    preview = operations.preview_command(ordinary)
+    assert preview["status"] == "ready"
+    assert preview["contested_outcome_hidden"] is False
+    # Preview remains read-only; the wake is cleared only if the exact command
+    # actually commits.
+    assert runtime.store.read_json("state/runtime.json")["pending_wake"]["wake_ref"] == "wake.campaign_event.test"
+
+
 def test_transaction_failure_codes_do_not_expose_git_output() -> None:
     assert transaction_failure_code(GitStageError(1, "secret-bearing stderr")) == "transaction_git_stage_failed"
     assert transaction_failure_code(GitCommitError(1, "secret-bearing stderr")) == "transaction_git_commit_failed"
