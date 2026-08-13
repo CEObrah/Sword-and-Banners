@@ -11,7 +11,7 @@ Use this reference for OOC DEV source location and authority questions.
 : Static game authority: rules, schemas, mechanics definitions, world content, historical background, locations, routes, institutions, Houses, equipment, economy, and other non-campaign definitions.
 
 `state/`
-: Mutable committed campaign truth for the active Tang Wei campaign. Persisted records explicitly marked `authority: false` are bounded projections/evidence and do not replace the exact owners they reference.
+: Mutable committed campaign truth for the active Tang Wei campaign. Persisted records explicitly marked `authority: false` are bounded projections/evidence/routing and do not replace the exact owners they reference.
 
 `plugins/sword-and-banners/skills/sword-and-banners-game-master/`
 : ChatGPT GM operating and presentation Skill. It is not mechanical campaign authority.
@@ -53,6 +53,15 @@ Do not recreate the retired `game/data/runtime/` directory. Gold explicitly trea
 `runtime/sword_runtime/production_living_world.py`
 : Final hosted planner normalizations: hard assignment/custody exclusion, exact commander availability, truthful physical operation status, and provenance normalization.
 
+`runtime/sword_runtime/player_group_actions.py`
+: Causally parallel grouped player military actions such as multi-formation mobilization and escorted travel; exact formation owners remain military authority.
+
+`runtime/sword_runtime/systems/campaign_events.py`
+: Bounded short-horizon campaign-event routing. It materializes `authority: false` work targets into the existing causal frontier and settles due targets only into exact event-registry owners.
+
+`runtime/sword_runtime/campaign_event_planner.py`
+: Hosted planner layer that integrates one-shot campaign-event work with chronological catch-up and resumable player-facing event boundaries.
+
 `runtime/sword_runtime/development.py`
 : Exact-person development settlement and absolute skill progression bound.
 
@@ -72,7 +81,7 @@ Do not recreate the retired `game/data/runtime/` directory. Gold explicitly trea
 : FastAPI application, health, compatibility REST routes, one production runtime instance, optional MCP mounting.
 
 `runtime/sword_runtime/api/mcp.py`
-: OAuth/JWT MCP service, six ChatGPT tools, preview attestation, security metadata, and protected-resource metadata.
+: OAuth/JWT MCP service, ChatGPT tools, preview attestation, security metadata, and protected-resource metadata.
 
 `runtime/sword_runtime/bootstrap.py`
 : Railway persistent-checkout bootstrap and safe history-replacement recovery.
@@ -109,7 +118,13 @@ Do not recreate the retired `game/data/runtime/` directory. Gold explicitly trea
 : Player-facing scene projection and unresolved decision context. It is valid only when its projection revision/time match current campaign authority.
 
 `state/runtime.json`
-: Autonomous causal hosts, scheduler/runtime campaign state, and bounded persisted wake state.
+: Authoritative temporal frontier: autonomous causal hosts, scheduler/runtime campaign state, and bounded persisted wake state.
+
+`state/index/campaign-causal-work.json`
+: Optional bounded `authority: false` routing for explicit short-horizon campaign work. A pending target here is not proof an event occurred and is not a second event authority. When the causal runtime settles a due target, the occurrence is written into its exact routed `state/event/` owner; overdue repair targets catch up at the current world time rather than rewinding history.
+
+`state/event/*.json`
+: Exact mutable event/message/movement owners. Causally triggered campaign occurrences become authoritative here only after runtime settlement.
 
 `state/index/owner-index-gold.json`
 : Active owner routing for mutable campaign objects.
@@ -142,7 +157,10 @@ Routine pushes do not need the complete release suite.
 : Living-world intelligence, high-salience wake, progression-bound, exact/aggregate and current-campaign replay coverage.
 
 `tests/runtime/test_production_living_world.py`
-: Hosted planner assignment/custody/provenance invariants.
+: Hosted planner assignment/custody/provenance invariants, including short-horizon campaign causal-work settlement.
+
+`tests/runtime/test_stable_operations.py`
+: Stable player-facing wake and error-surface behavior, including ordinary responses to one-shot campaign-event boundaries.
 
 Prefer state-independent fixture regressions for invariant logic. Keep evolving-current-campaign replay as a separate integration layer on disposable copies.
 
