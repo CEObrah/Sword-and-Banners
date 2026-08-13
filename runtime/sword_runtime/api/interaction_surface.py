@@ -35,6 +35,7 @@ INTERACTION_ATTEMPT_PREFIX = "sword-interaction-attempt.v1 "
 _SAFE_REF = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$")
 _TRIGGERED_INTERACTION_KINDS = frozenset({
     "institutional_response", "petition_response", "message", "audience_response",
+    "world_arc_report",
 })
 
 
@@ -165,7 +166,7 @@ def _format_triggered_interaction(event_ref: str, raw: object) -> dict[str, Any]
     kind = str(raw.get("kind", ""))
     if kind not in _TRIGGERED_INTERACTION_KINDS:
         return None
-    return {
+    record = {
         "interaction_ref": str(raw.get("event_ref") or event_ref),
         "kind": kind,
         "status": "triggered",
@@ -173,6 +174,10 @@ def _format_triggered_interaction(event_ref: str, raw: object) -> dict[str, Any]
         "summary": raw.get("summary"),
         "provenance": raw.get("provenance"),
     }
+    for key in ("arc_ref", "source_event_ref", "delivery"):
+        if key in raw:
+            record[key] = raw.get(key)
+    return record
 
 
 def _triggered_interaction_rows(store) -> list[dict[str, Any]]:
@@ -261,6 +266,15 @@ def recent_interaction_attempts(
     return rows[-bounded:], len(rows)
 
 
+def _dedupe_handles(values: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    by_ref: dict[str, dict[str, Any]] = {}
+    for item in values:
+        ref = str(item.get("interaction_ref", ""))
+        if ref:
+            by_ref[ref] = item
+    return list(by_ref.values())
+
+
 def fresh_runtime_projection(
     context: Mapping[str, Any],
     handles: list[dict[str, Any]],
@@ -281,6 +295,8 @@ def fresh_runtime_projection(
         if item.get("location_ref") == location
     ]
     current_handles = [item for item in handles if item.get("triggered_at") == campaign.get("world_time")]
+    recent_world_reports = [item for item in handles if item.get("kind") == "world_arc_report"][-3:]
+    pressures = _dedupe_handles(current_handles + recent_world_reports)
     return {
         "projection_status": "fresh_runtime_projection",
         "projection_provenance": "exact_current_owners_triggered_events_and_typed_player_attempts",
@@ -291,7 +307,7 @@ def fresh_runtime_projection(
         "location": location,
         "location_id": location,
         "physical_scene": {"controlled_formations_at_player_location": colocated},
-        "observable_pressures": current_handles,
+        "observable_pressures": pressures,
         "player_observable_state": {
             "location": location,
             "health": player.get("health"),
@@ -302,9 +318,9 @@ def fresh_runtime_projection(
         "active_questions": [],
         "available_reports": handles,
         "pending_information_paths": [],
-        "recent_reveals": current_handles,
+        "recent_reveals": pressures,
         "recent_player_actions": attempts,
-        "unresolved_hooks": [],
+        "unresolved_hooks": recent_world_reports,
     }
 
 
