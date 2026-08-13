@@ -28,7 +28,7 @@ def _work_document(planner: Any) -> dict[str, Any]:
     if not isinstance(document, dict) or document.get("authority") is not False:
         raise ValueError("campaign causal work routing must be authority:false")
     targets = document.get("targets")
-    if not isinstance(targets, list) or len(targets) > _MAX_CAMUSAL_WORK_TARGETS:
+    if not isinstance(targets, list) or len(targets) > _MAX_CAMPAIGN_WORK_TARGETS:
         raise ValueError("campaign causal work routing is invalid or unbounded")
     return document
 
