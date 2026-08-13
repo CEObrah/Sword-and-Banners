@@ -38,7 +38,7 @@ COMMAND_PAYLOAD_KEYS: dict[str, frozenset[str]] = {
     "formation_move": frozenset({"formation_ref", "destination_ref"}),
     "formation_reconstitute": frozenset({"formation_ref", "target_personnel", "equipment_units"}),
     "formation_split": frozenset({"formation_ref", "new_formation_ref", "personnel", "name"}),
-    "formation_train": frozenset({"formation_ref", "formation_refs", "hours"}),
+    "formation_train": frozenset({"formation_ref", "formation_refs", "hours", "participant_refs", "focuses"}),
     "formation_training_set": frozenset({"formation_ref", "formation_refs", "training_ref"}),
     "fortification_materialize": frozenset({"fortification_ref", "location_ref", "garrison_formation_refs", "food_kg", "fodder_kg", "state", "commander_ref", "integrity"}),
     "health_injury": frozenset({"injury", "severity"}),
