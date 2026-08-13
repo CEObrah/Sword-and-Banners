@@ -10,7 +10,9 @@ remain owned by the existing exact campaign records.
 Doctrine and training-program assignment are command/administrative changes,
 not physical drill. They therefore preserve the current campaign instant. Actual
 formation training consumes the requested elapsed hours once even when several
-controlled formations train concurrently under one grouped order.
+controlled formations train concurrently under one grouped order. Exact named
+participants may train inside that same block when they are lawfully commanded,
+healthy, co-located, and supplied with exact saved skill focuses.
 """
 from __future__ import annotations
 
@@ -19,10 +21,14 @@ import math
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.development import settle_skill_training
 from sword_runtime.engine import _clamp
 from sword_runtime.production_living_world import ProductionLivingWorldSwordPlanner
+from sword_runtime.sim.calendar import CampaignTime
 
 _MAX_GROUP_FORMATIONS = 128
+_MAX_TRAINING_PARTICIPANTS = 16
+_MAX_TRAINING_FOCUSES = 12
 _GROUPABLE_EXACT_ONE = frozenset({
     "formation_mobilize",
     "formation_doctrine_set",
@@ -47,6 +53,22 @@ def _exact_group_refs(payload: Mapping[str, Any]) -> list[str]:
     return refs
 
 
+def _bounded_exact_strings(payload: Mapping[str, Any], key: str, limit: int) -> list[str]:
+    raw = payload.get(key)
+    if raw is None:
+        return []
+    if not isinstance(raw, list) or not 1 <= len(raw) <= limit:
+        raise ValueError(f"{key} must contain 1..{limit} exact strings")
+    values: list[str] = []
+    for value in raw:
+        if not isinstance(value, str) or not value or len(value) > 160:
+            raise ValueError(f"{key} contains an invalid exact string")
+        values.append(value)
+    if len(values) != len(set(values)):
+        raise ValueError(f"{key} must be unique")
+    return values
+
+
 class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
     """Hosted planner extension for causally parallel player military actions."""
 
@@ -60,23 +82,37 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
                     f"{command.command_type} requires exactly one of formation_ref or formation_refs"
                 )
         elif command.command_type == "travel" and refs:
-            # Escort movement is one physical column with the player, not a set
-            # of separately elapsed formation moves.
             if len(refs) > _MAX_GROUP_FORMATIONS:
                 raise ValueError("too many escort formations")
+
+        if command.command_type == "formation_train":
+            participants = _bounded_exact_strings(payload, "participant_refs", _MAX_TRAINING_PARTICIPANTS)
+            focuses = _bounded_exact_strings(payload, "focuses", _MAX_TRAINING_FOCUSES)
+            if bool(participants) != bool(focuses):
+                raise ValueError("named formation-training participants require exact skill focuses and vice versa")
 
     def _authorize_command(self, command: Any, payload: Mapping[str, Any]) -> None:
         refs = _exact_group_refs(payload)
         if command.command_type in _GROUPABLE_EXACT_ONE and refs:
-            if command.actor_id == self.INTERNAL_ACTOR:
-                return
-            for ref in refs:
-                self._require_formation_authority(command.actor_id, ref)
-            return
-        super()._authorize_command(command, payload)
+            if command.actor_id != self.INTERNAL_ACTOR:
+                for ref in refs:
+                    self._require_formation_authority(command.actor_id, ref)
+        else:
+            super()._authorize_command(command, payload)
+
         if command.command_type == "travel" and refs and command.actor_id != self.INTERNAL_ACTOR:
             for ref in refs:
                 self._require_formation_authority(command.actor_id, ref)
+
+        if command.command_type == "formation_train" and command.actor_id != self.INTERNAL_ACTOR:
+            participants = _bounded_exact_strings(payload, "participant_refs", _MAX_TRAINING_PARTICIPANTS)
+            if participants:
+                target_refs = refs or [str(payload["formation_ref"])]
+                anchor = target_refs[0]
+                for person_ref in participants:
+                    if person_ref == command.actor_id:
+                        continue
+                    self._require_commandable_person(command.actor_id, person_ref, anchor)
 
     def _dispatch_group_mobilize(self, command: Any, refs: list[str]) -> dict[str, Any]:
         loaded: list[tuple[str, dict[str, Any]]] = []
@@ -87,9 +123,6 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
                 raise ValueError(f"formation is already mobilized: {ref}")
             loaded.append((path, formation))
 
-        # The companies muster concurrently under their existing commanders.
-        # Four hours is the existing formation-mobilization duration, paid once
-        # for the parallel order rather than once per serialized API write.
         world_time, metrics = self._advance_seconds(4 * 3600)
         for path, formation in loaded:
             formation["mobilized"] = True
@@ -169,13 +202,37 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
     ) -> dict[str, Any]:
         hours = int(payload.get("hours", 1))
         loaded: list[tuple[str, dict[str, Any]]] = []
+        locations: set[str] = set()
         for ref in refs:
             path, formation0 = self._load_formation(ref)
-            loaded.append((path, copy.deepcopy(formation0)))
+            formation = copy.deepcopy(formation0)
+            loaded.append((path, formation))
+            locations.add(str(formation.get("location_ref", "")))
+        if len(locations) != 1:
+            raise ValueError("grouped formation training requires co-located formations")
+        training_location = next(iter(locations))
 
-        # One grouped training order represents formations drilling in parallel.
-        # Elapsed campaign time is paid once; every formation receives only the
-        # same verified hours, never multiplied hours from the group size.
+        participant_refs = _bounded_exact_strings(payload, "participant_refs", _MAX_TRAINING_PARTICIPANTS)
+        focuses = _bounded_exact_strings(payload, "focuses", _MAX_TRAINING_FOCUSES)
+        participants: list[tuple[str, dict[str, Any]]] = []
+        for person_ref in participant_refs:
+            if person_ref == self.PLAYER_ACTOR:
+                person_path = "state/player.json"
+                person = copy.deepcopy(self.read(person_path))
+            else:
+                person_path, person0 = self._exact_person(person_ref)
+                person = copy.deepcopy(person0)
+            if self._person_health(person) not in {"healthy", "fit", "stable"}:
+                raise ValueError(f"training participant is not fit for deliberate training: {person_ref}")
+            if int(person.get("fatigue", 0)) > 70:
+                raise ValueError(f"training participant is too fatigued: {person_ref}")
+            if self._person_location(person) != training_location:
+                raise ValueError("named formation-training participants must be co-located with the formations")
+            missing = [focus for focus in focuses if focus not in person.get("skills", {})]
+            if missing:
+                raise ValueError(f"training participant lacks exact saved skill focus: {person_ref}: {missing[0]}")
+            participants.append((person_path, person))
+
         world_time, metrics = self._advance_seconds(hours * 3600)
         for path, formation in loaded:
             formation["training_progress"] = _clamp(
@@ -195,6 +252,24 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
             )
             formation["last_training_at"] = world_time
             self.put(path, formation)
+
+        person_development: dict[str, list[dict[str, Any]]] = {}
+        if participants:
+            training_rules = self.read("game/data/mechanics/training.json")
+            completed_at = CampaignTime.parse(world_time)
+            base_hours, remainder = divmod(hours, len(focuses))
+            for person_path, person in participants:
+                person_ref = str(person.get("owner_id", self.PLAYER_ACTOR if person_path == "state/player.json" else person_path))
+                results: list[dict[str, Any]] = []
+                for index, focus in enumerate(focuses):
+                    focus_hours = base_hours + (1 if index < remainder else 0)
+                    if focus_hours <= 0:
+                        continue
+                    results.append(settle_skill_training(person, focus, focus_hours, completed_at, training_rules))
+                person["fatigue"] = _clamp(int(round(int(person.get("fatigue", 0)) + hours / 2.0)))
+                self.put(person_path, person)
+                person_development[person_ref] = results
+
         self._write_meta(command, world_time)
         result = self._result(
             formation_refs=refs,
@@ -202,9 +277,20 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
             hours=hours,
             duration_hours=hours,
             world_time=world_time,
+            participant_refs=participant_refs,
+            focuses=focuses,
+            person_development=person_development,
         )
         result.update(metrics)
         return result
+
+    @staticmethod
+    def _is_local_house_tang_move(origin: str, destination: str, hours: int) -> bool:
+        if hours > 4:
+            return False
+        origin_local = origin == "loc_kanyou" or origin.startswith("loc_tang_manor_")
+        destination_local = destination == "loc_kanyou" or destination.startswith("loc_tang_manor_")
+        return origin_local and destination_local
 
     def _dispatch_escorted_travel(
         self,
@@ -219,11 +305,14 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
         if mode not in {"foot", "horse"}:
             raise ValueError("personal travel mode must be foot or horse")
 
-        # Use the route graph rather than exact single-edge lookup. This is
-        # important for nested Tang Manor locations, which lawfully connect to
-        # Kanyou through the existing manor-capital bridge in _route_travel_hours.
+        location = self._location_record(destination)
+        if refs and destination.startswith("loc_tang_manor_"):
+            functions = {str(value) for value in location.get("functions", [])}
+            if not functions.intersection({"military", "training", "movement", "supply", "stables"}):
+                raise ValueError("formation escorts require a House Tang military-capable destination, not a residential room")
+
         player_hours = self._route_travel_hours(origin, destination, modes=(mode,))
-        loaded: list[tuple[str, str, dict[str, Any], int, int, int, Any, Any]] = []
+        loaded: list[tuple[str, str, dict[str, Any], int, Any, Any]] = []
         column_hours = player_hours
 
         for ref in refs:
@@ -233,8 +322,8 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
                 raise ValueError(f"escort formation is not mobilized: {ref}")
             if str(formation.get("location_ref", "")) != origin:
                 raise ValueError("escorted travel requires player and all formations to be co-located")
-            hours = self._route_travel_hours(origin, destination, modes=("formation",))
-            column_hours = max(column_hours, hours)
+            formation_hours = self._route_travel_hours(origin, destination, modes=("formation",))
+            column_hours = max(column_hours, formation_hours)
             commander_ref = formation.get("commander_ref")
             commander_path = None
             commander = None
@@ -242,16 +331,15 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
                 commander_path, commander = self._validate_person_location_for_formation(
                     str(commander_ref), formation
                 )
-            loaded.append((ref, path, formation, hours, 0, 0, commander_path, commander))
+            loaded.append((ref, path, formation, formation_hours, commander_path, commander))
 
-        # Recompute carried requirements at the slowest column duration so no
-        # formation gets free forage merely because another element sets pace.
+        supply_hours = 0 if self._is_local_house_tang_move(origin, destination, column_hours) else column_hours
         prepared: list[tuple[str, str, dict[str, Any], int, int, Any, Any]] = []
-        for ref, path, formation, _hours, _food, _fodder, commander_path, commander in loaded:
+        for ref, path, formation, _formation_hours, commander_path, commander in loaded:
             personnel = max(0, int(formation.get("personnel", 0)))
             mounts = sum(max(0, int(v)) for v in formation.get("mounts", {}).values())
-            food_need = max(0, int(math.ceil(personnel * 0.8 * column_hours / 24.0)))
-            fodder_need = max(0, int(math.ceil(mounts * 4.0 * column_hours / 24.0)))
+            food_need = max(0, int(math.ceil(personnel * 0.8 * supply_hours / 24.0)))
+            fodder_need = max(0, int(math.ceil(mounts * 4.0 * supply_hours / 24.0)))
             logistics = formation.setdefault("logistics", {})
             food_short = max(0, food_need - int(logistics.get("food_kg", 0)))
             fodder_short = max(0, fodder_need - int(logistics.get("fodder_kg", 0)))
@@ -319,8 +407,9 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
         if command.command_type == "formation_training_set":
             target_refs = refs or [str(payload["formation_ref"])]
             return self._dispatch_group_training_set(command, payload, target_refs)
-        if command.command_type == "formation_train" and refs:
-            return self._dispatch_group_train(command, payload, refs)
+        if command.command_type == "formation_train":
+            target_refs = refs or [str(payload["formation_ref"])]
+            return self._dispatch_group_train(command, payload, target_refs)
         if command.command_type == "travel" and refs:
             return self._dispatch_escorted_travel(command, payload, refs)
         return super()._dispatch(command, payload)
