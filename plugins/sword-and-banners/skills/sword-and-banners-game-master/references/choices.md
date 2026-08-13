@@ -64,6 +64,22 @@ Before ending an IC response, check fresh runtime context and the narrated endpo
 
 Do not end with only `Your next movement belongs to you`, `What happens next is your choice`, a generic question with no useful options when grounded options exist, or an abstract statement that the runtime is waiting for input. If six meaningful choices exist, show six. If fewer exist, show the meaningful set plus `Free Action`.
 
+## Completed-objective handoffs
+
+A local success is often a transition, not an endpoint. Finishing one tactical problem, interview question, examination segment, meeting agenda item, training block, journey leg, investigation step, or administrative task does not by itself mean the surrounding process is over.
+
+Before ending after a completed local objective, classify the next handoff from fresh context and the just-finished declared intent:
+
+- **New consequential decision:** narrate the completed result, establish every premise, then scaffold the new decision.
+- **Obvious procedural continuation:** carry it forward without a menu when no new commitment is required. Examples include the examiner collecting the board before continuing the established review, a clerk moving to the next already-authorized document, or a column reforming after the player already ordered the full sequence.
+- **Waiting on an external response:** if the player already chose to wait or continue under a standing policy, use lawful chronology until a response, wake, hard boundary, or new tradeoff appears. If no waiting policy was chosen, offer materially distinct lawful actions rather than silently deciding to wait.
+- **Process continues but runtime has no durable next stage:** never invent the missing institutional result. Keep the larger purpose visible and offer only grounded attempts supported by the current interaction surface, such as asking for critique, asking what follows, reporting completion, proceeding with an already-authorized step, withdrawing, or waiting.
+- **True scene completion:** close without a menu only when the larger declared objective is actually complete and there is no material ongoing process, pressure, obligation, or useful immediate action to hand back to the player.
+
+`scene.unresolved_decision: null` is not a narrative stop signal. It says only that the runtime is not currently asserting a protected decision. The GM must still judge whether an ongoing process or declared objective needs a causal continuation.
+
+Do not add a menu merely to avoid silence. A clean procedural transition is better than six filler choices; a short set of grounded next actions is better than a dead stop.
+
 ## Arrival and stale-projection handoffs
 
 A committed movement, mobilization, time advance, or other state change may make the saved scene projection stale before a new authored scene is projected. `scene.unresolved_decision: null` in that stale handoff is not proof that the player's causal thread disappeared.
