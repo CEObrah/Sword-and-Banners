@@ -28,7 +28,7 @@ COMMAND_PAYLOAD_KEYS: dict[str, frozenset[str]] = {
     "formation_dissolve": frozenset({"formation_ref"}),
     "formation_doctrine_set": frozenset({"formation_ref", "doctrine_ref", "doctrine_behavior"}),
     "formation_merge": frozenset({"formation_refs"}),
-    "formation_mobilize": frozenset({"formation_ref"}),
+    "formation_mobilize": frozenset({"formation_ref", "formation_refs"}),
     "formation_move": frozenset({"formation_ref", "destination_ref"}),
     "formation_reconstitute": frozenset({"formation_ref", "target_personnel", "equipment_units"}),
     "formation_split": frozenset({"formation_ref", "new_formation_ref", "personnel", "name"}),
@@ -61,7 +61,7 @@ COMMAND_PAYLOAD_KEYS: dict[str, frozenset[str]] = {
     "siege_start": frozenset({"siege_ref", "fortification_ref", "attacker_formation_refs"}),
     "state_action": frozenset({"state", "action", "goal", "person_ref", "office", "capabilities", "source_state", "severity", "provenance"}),
     "territorial_consequence": frozenset({"location_ref", "controller", "siege_ref", "operation_ref"}),
-    "travel": frozenset({"destination_ref", "mode"}),
+    "travel": frozenset({"destination_ref", "mode", "formation_refs"}),
 }
 
 # Dimensions accounted for by the release adversarial matrix.  A command need
