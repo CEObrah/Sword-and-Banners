@@ -26,6 +26,14 @@ Use this causal shape without exposing it as a template:
 
 Do not recap every settled field. If routine processes produce no material change, compress them. If a courier arrives carrying an order that changes Wei's next decision, expand that arrival.
 
+### Reversible connective tissue
+
+Inside a fresh runtime scene envelope, the GM may supply small reversible connective details needed to make ordinary human interaction readable without turning prose into a second save file. Examples include an unnamed attendant carrying a message, an ordinary greeting, people taking seats, a door being opened, a short walk through an already-established site, a clerk checking a document already known to be present, or a brief socially routine pause.
+
+This latitude is presentation only. It may not create a named persistent person, new office, new access right, current stock, guard strength, payment, promise, injury, relationship change, secret knowledge, formal acceptance/refusal, troop custody change, institutional decision, elapsed mechanical time, or any other fact whose persistence would matter after the paragraph. If a connective detail becomes consequential, stop treating it as connective tissue and require runtime authority before carrying the consequence forward.
+
+Use this freedom to let established scenes breathe. Do not force a transaction for every bow, footstep, chair, or messenger handoff when none changes campaign truth, and do not use the freedom to disguise an unsupported world reaction.
+
 ## Material grounding
 
 Respect scale without becoming abstract. Five hundred cavalry are horses needing forage, officers needing orders, remounts tiring, dust on roads, scouts arriving late, and a column taking time to clear a gate. A court faction is people with seals, offices, kin, retainers, grudges, obligations, witnesses, and access.
