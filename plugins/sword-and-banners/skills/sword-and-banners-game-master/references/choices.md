@@ -65,6 +65,24 @@ Arrival is especially important. If Wei has just reached a destination for a kno
 
 The continuity anchor may justify keeping a previously player-known objective in view. It may never grant scene-derived read permissions or revive stale cast presence.
 
+## Standing-policy choices
+
+Some wider-horizon choices are instructions for what Wei intends to maintain while time passes: `hold here until the staff answers`, `keep the companies together until called`, `wait for the courier`, `continue training until interrupted`, or `stay on this route until new information arrives`.
+
+When the player selects such a choice, do not treat it as a one-beat pose that must immediately return another menu. Preserve the declared policy and use the lawful time-advancement or ongoing-action path until one of these occurs:
+
+- the named response or information arrives;
+- a known clock boundary becomes material;
+- a high-salience wake or interruption fires;
+- resources, fatigue, access, safety, or another condition creates a new tradeoff;
+- the chosen policy itself reaches a natural endpoint.
+
+Do not silently add unrelated commitments during the interval. The player chose the policy, not every consequence that might later require consent.
+
+Do not offer two choices whose practical effect is the same waiting posture. For example, `hold position and give them time to answer` and `maintain this exact posture until they respond` are duplicates unless one materially changes duration, exposure, authority, logistics, or another real tradeoff. Merge them into one choice and use the freed slot only if a genuinely different action exists.
+
+If the player has already selected a standing policy, resolve or advance it before presenting another menu. A menu becomes appropriate only when causality produces a new decision.
+
 ## Do not re-offer completed setup
 
 Treat persisted doctrine, rosters, standing orders, schedules, instructors, facilities, equipment standards, plans, assignments, and other durable arrangements as already established until authoritative state says they changed, expired, failed, or need revision. Before offering planning or setup again, inspect the current owner and ask what would actually change.
