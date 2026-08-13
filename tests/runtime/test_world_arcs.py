@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import copy
+import json
+from pathlib import Path
+
+from jsonschema import Draft202012Validator
 
 from sword_runtime.api.interaction_surface import triggered_interaction_handles
 from sword_runtime.autonomy_routing import rotating_candidate_refs
@@ -19,6 +23,11 @@ def _active_arc_refs(planner):
         and isinstance(record.get("facts"), dict)
         and str(record["facts"].get("status", "")).lower().startswith("active")
     )
+
+
+def _validate_event_registry(campaign: Path, owner: dict) -> None:
+    schema = json.loads((campaign / "game/schemas/event-registry.schema.json").read_text(encoding="utf-8"))
+    Draft202012Validator(schema).validate(owner)
 
 
 def test_active_arcs_register_on_causal_frontier_without_player_action(campaign):
@@ -54,9 +63,10 @@ def test_arc_review_creates_runtime_owned_initiative_from_saved_goals(campaign):
     assert runtime["initiative_count"] in {0, 1}
     assert runtime["pressure_stage"] in {"contained", "developing", "material", "acute"}
     assert isinstance(runtime["driver_refs"], list)
+    owner = planner.read("state/event/events-messages-and-movement.json")
+    _validate_event_registry(Path(campaign), owner)
     if runtime["initiative_count"]:
         event_ref = runtime["last_initiative_ref"]
-        owner = planner.read("state/event/events-messages-and-movement.json")
         event = owner["causal_events"][event_ref]
         assert event["kind"] == "world_arc_activity"
         assert event["actor_ref"] in runtime["driver_refs"]
@@ -68,6 +78,34 @@ def test_arc_review_creates_runtime_owned_initiative_from_saved_goals(campaign):
     assert not any(path.startswith("state/formations/") for path in planner._writes)
     assert not any(path.startswith("state/depots/") for path in planner._writes)
     assert not any(path.startswith("state/territory/") for path in planner._writes)
+
+
+def test_event_registry_schema_accepts_world_arc_report_shape(campaign):
+    planner = CampaignEventPlayerGroupActionPlanner(campaign)
+    planner._reset()
+    owner = copy.deepcopy(planner.read("state/event/events-messages-and-movement.json"))
+    now = str(planner.read("state/runtime.json")["world_time"])
+    owner.setdefault("causal_events", {})["event_schema_world_arc_report"] = {
+        "event_ref": "event_schema_world_arc_report",
+        "kind": "world_arc_report",
+        "status": "triggered",
+        "due_at": now,
+        "triggered_at": now,
+        "arc_ref": "arc_schema_test",
+        "source_event_ref": "event_schema_world_arc_activity",
+        "summary": "A lawfully propagated test report reaches Tang Wei.",
+        "delivery": {
+            "target_ref": "char_tang_wei",
+            "location_ref": "loc_kanyou",
+            "route": "direct staff report",
+        },
+        "provenance": {
+            "kind": "world_arc_information_propagation",
+            "exposure_roll": 12,
+            "exposure_chance": 70,
+        },
+    }
+    _validate_event_registry(Path(campaign), owner)
 
 
 def test_world_arc_planning_is_deterministic_on_same_snapshot(campaign):
