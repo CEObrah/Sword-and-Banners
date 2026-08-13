@@ -1,9 +1,14 @@
 from __future__ import annotations
 
 import copy
+import json
 from pathlib import Path
 
+import pytest
+
+from sword_runtime.campaign_event_planner import CampaignEventPlayerGroupActionPlanner
 from sword_runtime.production_living_world import ProductionLivingWorldSwordPlanner
+from sword_runtime.sim.calendar import CampaignTime
 
 
 _ACTIVE = {"planned", "mobilizing", "active", "engaged", "occupied"}
@@ -155,3 +160,116 @@ def test_interstate_provenance_uses_exact_location_ref(campaign: Path) -> None:
     assert event["causal_refs"] == ["theater_test"]
     assert "battlefield_ref" not in event
     assert event["provenance"]["kind"] == "autonomous_runtime_resolution"
+
+
+def test_campaign_causal_work_catches_up_without_rewind_and_wakes_once(campaign: Path) -> None:
+    planner = CampaignEventPlayerGroupActionPlanner(campaign)
+    planner.PLAYER_ACTOR = planner.read("state/meta.json")["player_id"]
+    planner._reset()
+    now = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
+    owner_ref = "events_messages_and_movement"
+    work_path = campaign / "state/index/campaign-causal-work.json"
+    work_path.write_text(
+        json.dumps(
+            {
+                "authority": False,
+                "purpose": "test bounded campaign causal routing",
+                "targets": [
+                    {
+                        "work_ref": "event_test_overdue_boundary",
+                        "source_owner_ref": owner_ref,
+                        "kind": "calendar_boundary",
+                        "due_at": str(now.add_seconds(-3600)),
+                        "priority": 40,
+                        "status": "pending",
+                        "effect": {"summary": "The known test calendar boundary has been reached."},
+                        "wake": False,
+                    },
+                    {
+                        "work_ref": "event_test_staff_response",
+                        "source_owner_ref": owner_ref,
+                        "kind": "institutional_response",
+                        "due_at": str(now),
+                        "priority": 50,
+                        "status": "pending",
+                        "effect": {"summary": "The test staff channel returns a procedural response."},
+                        "wake": True,
+                    },
+                ],
+            },
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    planner._active_command_type = "advance_time"
+    first = planner._advance_runtime(str(now.add_seconds(3600)))
+    runtime = planner.read("state/runtime.json")
+    assert first["interrupted"] is True
+    assert first["wake_required"] is True
+    assert first["events_processed"] == 2
+    assert runtime["world_time"] == str(now)
+    assert runtime["pending_wake"]["kind"] == "campaign_event"
+    assert runtime["pending_wake"]["campaign_event_ref"] == "event_test_staff_response"
+
+    owners = planner.read("state/index/owner-index-gold.json")["owners"]
+    event_owner = planner.read(owners[owner_ref])
+    causal_events = event_owner["causal_events"]
+    assert causal_events["event_test_overdue_boundary"]["status"] == "triggered"
+    assert causal_events["event_test_overdue_boundary"]["triggered_at"] == str(now)
+    assert causal_events["event_test_overdue_boundary"]["provenance"]["late_catch_up"] is True
+    assert causal_events["event_test_staff_response"]["status"] == "triggered"
+    assert causal_events["event_test_staff_response"]["provenance"]["late_catch_up"] is False
+    work = planner.read("state/index/campaign-causal-work.json")
+    assert {target["status"] for target in work["targets"]} == {"pending"}
+
+    # Continuing after the one-shot wake acknowledges it without rearming the
+    # already-triggered campaign events or moving the clock backward. The
+    # authority:false routing remains unchanged; exact triggered records suppress
+    # duplicate scheduling.
+    second = planner._advance_runtime(str(now.add_seconds(3600)))
+    runtime2 = planner.read("state/runtime.json")
+    assert second.get("wake_required") is not True
+    assert runtime2.get("pending_wake") is None
+    assert runtime2["world_time"] == str(now.add_seconds(3600))
+    event_owner2 = planner.read(owners[owner_ref])
+    assert set(event_owner2["causal_events"]) >= {
+        "event_test_overdue_boundary",
+        "event_test_staff_response",
+    }
+    work2 = planner.read("state/index/campaign-causal-work.json")
+    assert work2 == work
+
+
+def test_campaign_causal_work_fails_closed_on_non_event_owner(campaign: Path) -> None:
+    planner = CampaignEventPlayerGroupActionPlanner(campaign)
+    planner.PLAYER_ACTOR = planner.read("state/meta.json")["player_id"]
+    planner._reset()
+    now = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
+    path = campaign / "state/index/campaign-causal-work.json"
+    path.write_text(
+        json.dumps(
+            {
+                "authority": False,
+                "targets": [
+                    {
+                        "work_ref": "event_test_bad_owner",
+                        "source_owner_ref": "char_tang_wei",
+                        "kind": "institutional_response",
+                        "due_at": str(now),
+                        "priority": 50,
+                        "status": "pending",
+                        "effect": {"summary": "This must never become campaign truth."},
+                        "wake": True,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    planner._active_command_type = "advance_time"
+    with pytest.raises(ValueError, match="exact event owner"):
+        planner._advance_runtime(str(now.add_seconds(3600)))
