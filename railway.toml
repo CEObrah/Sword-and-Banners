@@ -1,5 +1,6 @@
 [build]
 builder = "RAILPACK"
+buildCommand = "python -m pip install -e '.[service]'"
 watchPatterns = [
   "**",
   "!/state/**"
