@@ -13,3 +13,13 @@ Hidden arc activity remains hidden. A player-visible report requires a saved inf
 This layer is not a drama quota. It lets independent actors continue pursuing saved interests while Wei trains, travels, waits, or handles other business, so larger developments can emerge without requiring the player to initiate every causal chain.
 
 A bounded autonomy working set is never permanent eligibility. If one review can score only part of a large exact formation set, use rotating or resumable routing so every lawful formation can eventually be considered.
+
+## Convert lawful pressure into play
+
+Background progression is not player-facing gameplay until a lawful consequence actually reaches Tang Wei. When fresh context exposes `opportunities`, treat them as non-authoritative routing cues built from already-triggered player-visible reports, messages, institutional responses, and other delivered developments. Inspect the exact `interaction_ref` before a consequential response when details materially matter.
+
+Do not generate a random hook merely because play is quiet, and do not bury a delivered report merely because it originated offscreen. The desired chain is `saved actor or institution -> lawful action -> committed consequence -> information/contact route -> player-visible opportunity -> scene or decision`.
+
+When fresh context advertises `advance_until_event`, use it for a standing interval intent such as `wait until something happens`, `continue until summoned`, or equivalent. Each use advances only to the next established scheduler boundary inside a bounded horizon. Refresh context after every commit; stop for a protected wake, player-facing opportunity, delivered report, material decision, or resource problem, otherwise continue the already-declared standing intent with a fresh revision and request ID.
+
+`scene_vitality` is presentation permission, not campaign authority. It may support reversible local motion, routine background work, brief greetings, and spatially plausible entry or exit by a nearby established person. It may never create knowledge, relationships, promises, resources, injuries, offices, persistent movement, mission state, named staffing, or any later callback that depends on saved truth.
