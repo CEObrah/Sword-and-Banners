@@ -46,6 +46,10 @@ RepositoryCommandPlanner
 
 Exact formations, people, force pools, operations, Houses, treasuries, relationships, reputation, information, territory, event registries, and logistics remain authoritative in their exact owners.
 
+`CampaignEventPlayerGroupActionPlanner` also routes active records from the existing `state/arc/kingdom-arcs.json` authority onto the causal frontier. `runtime/sword_runtime/world_arcs.py` settles recurring abstract arc initiatives from exact saved actors and saved goals, while `runtime/sword_runtime/autonomy_routing.py` keeps bounded formation selection fair with a rotating cursor. Neither layer replaces exact military, economic, political, person, information, or territory owners.
+
+Hidden arc activity stays hidden. A player-facing world-arc report exists only after a saved information path is propagated through a compatible current location or channel. Dormant arcs are not activated merely by elapsed calendar time.
+
 ## Chronological causal scheduling and wakes
 
 Time advancement settles due causal work globally by due time, priority, and stable event identity. A host's progression cursor advances only after its exact occurrence settles.
@@ -77,7 +81,7 @@ A stored authored scene is fresh only when both its `world_time` and `projection
 2. retain its previous summary only as a clearly presentation-only continuity anchor;
 3. build a revision-matched `fresh_runtime_projection` from exact current owners, already-triggered player-visible event-registry facts, and typed player interaction attempts.
 
-The runtime projection never promotes old prose into current presence, access, protocol, staffing, opportunity, or unresolved status.
+The runtime projection never promotes old prose into current presence, access, protocol, staffing, opportunity, or unresolved status. Recently delivered world-arc reports may appear as observable pressure; hidden arc activity may not.
 
 ## Typed player interaction boundary
 
