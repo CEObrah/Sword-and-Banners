@@ -1,13 +1,14 @@
 from __future__ import annotations
 
-# Production semantic payload surface. Every command is fail-closed: fields not
-# listed here are rejected before authority checks/reducers. This prevents
-# ignored caller data from becoming a shadow control channel as reducers evolve.
+# Production engine semantic payload surface. Every engine command is fail-closed:
+# fields not listed here are rejected before authority checks/reducers. This
+# prevents ignored caller data from becoming a shadow control channel as reducers
+# evolve.
 #
-# scene_consequence remains listed only for replay/backward compatibility inside
-# the legacy reducer. Player-facing catalogs must not advertise it. New social
-# and institutional interaction enters through interaction_action, which is
-# translated by the stable API into a server-authored attempt record.
+# scene_consequence remains listed for replay/backward compatibility inside the
+# legacy reducer. Player-facing stable operations do not advertise or permit new
+# raw scene_consequence writes. The surface-only interaction_action contract lives
+# in api/interaction_surface.py and is translated before it reaches the engine.
 COMMAND_PAYLOAD_KEYS: dict[str, frozenset[str]] = {
     "advance_time": frozenset({"hours", "target_time"}),
     "battle_resolve": frozenset({"attacker_formation_refs", "defender_formation_refs", "operation_ref", "controlled_side", "objective"}),
@@ -47,7 +48,6 @@ COMMAND_PAYLOAD_KEYS: dict[str, frozenset[str]] = {
     "information_create": frozenset({"information_ref", "claim", "knowers", "confidence", "provenance"}),
     "information_deliver": frozenset({"information_ref", "target_ref", "source_ref"}),
     "institution_project": frozenset({"institution_ref", "project_ref", "duration_hours", "kind", "magnitude", "effect"}),
-    "interaction_action": frozenset({"target_ref", "action", "process_ref", "player_statement", "formation_refs", "posture"}),
     "market_purchase": frozenset({"item_key", "quantity"}),
     "market_sell": frozenset({"item_key", "quantity"}),
     "mercenary_contract": frozenset({"mercenary_ref", "action", "contract_ref", "amount_silver", "term_days", "location_ref", "reason"}),
