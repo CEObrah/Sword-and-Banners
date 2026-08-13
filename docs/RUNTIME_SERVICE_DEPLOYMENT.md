@@ -21,6 +21,8 @@ Set `SWORD_GIT_TOKEN` privately in Railway. Use a fine-grained token restricted 
 
 `railway.toml` is the sole config-as-code file. It deploys on every non-`state/**` repository change and ignores state-only gameplay commits. This is required because the persistent checkout must stay synchronized with `main` for remote-durability preflight, while runtime-generated gameplay commits must not cause deployment loops.
 
+The transaction preflight may also fast-forward a pristine live checkout when GitHub `main` is a strict descendant and the complete changed-path set is confined to the explicit runtime-neutral allowlist: GM Skill sources, docs, tests, tools, workflow files, or the root README. It must never live-adopt `state/**`, runtime code, game/rule data, dependencies, deployment files, or unknown paths. Those continue to require normal deployment or deliberate repair. This prevents a harmless Skill/doc commit from freezing the next gameplay save without weakening campaign-history safety.
+
 The production start command is:
 
 ```text
@@ -41,7 +43,7 @@ Use that exact resource consistently as the MCP public URL and OAuth audience/re
 
 ## Auth0 API and permissions
 
-Create a separate Sword API/resource server rather than reusing Shinobi's audience. Use the Sword MCP resource URL as the audience. Configure RS256 and permissions:
+Create a separate Sword API/resource server rather than reusing any other game's audience. Use the Sword MCP resource URL as the audience. Configure RS256 and permissions:
 
 ```text
 sword:read
@@ -99,11 +101,16 @@ Expected production tools:
 - `get_play_context`
 - `get_person_sheet`
 - `inspect_game_object`
+- `search_world_reference`
 - `preview_command`
 - `execute_command`
 - `ooc_audit`
 
+`search_world_reference` is a bounded cold-reference lookup. It may return exact static refs such as a known location identifier, but its results never prove current mutable state, occupancy, wounds, stock, control, private knowledge, relationships, or future outcomes.
+
 Read tools require read access. Persistent execution requires write access.
+
+After adding, removing, or changing an MCP tool or schema, deployment alone is not sufficient proof that ChatGPT sees the new surface. Refresh/review or recreate/republish the custom ChatGPT app action snapshot as required by the workspace plan, reconnect if necessary, and verify the currently discovered tool schema before consequential play.
 
 ## Game Master Skill and Project
 
@@ -117,7 +124,7 @@ Use `assets/project-instructions.md` for the dedicated ChatGPT Project instructi
 
 With the Runtime app selected, initialize the Project read-only. Require fresh `get_play_context` and verify player identity, location, world time, immediate situation, known obligations, and current decision state without mutation.
 
-Then test one permitted person read and one permitted object read. Guessed/hidden identifiers must fail closed and hidden information must not appear in player context.
+Then test one permitted person read, one permitted object read, and one bounded cold-reference lookup. Guessed/hidden mutable identifiers must fail closed and hidden information must not appear in player context.
 
 ## First persistent integration test
 
@@ -144,6 +151,6 @@ Do not wipe the persistent volume when bootstrap detects divergence. Preserve it
 
 ## Ongoing development
 
-Live play is continuous integration and playtesting. The Skill may surface worthwhile source improvements, but ordinary IC/OOC play must not silently edit GitHub or campaign truth. Explicit `OOC DEV:` work should inspect current source, implement the smallest coherent reusable fix, run the Gold release gate, and keep any campaign repair separate from source changes.
+Live play is continuous integration and playtesting. The Skill may surface worthwhile source improvements, but ordinary IC/OOC play must not silently edit GitHub or campaign truth. Explicit `OOC DEV:` work should inspect current source, implement the smallest coherent reusable fix, run the fast structural gate plus changed-path tests, and keep any campaign repair separate from source changes. Deeper replay/soak diagnostics are selected only when the changed subsystem warrants them.
 
 Run mutating tests and soak gates only on disposable copies, never on the authoritative live campaign root. Keep evolving-campaign tests snapshot-relative unless a value is intentionally immutable.
