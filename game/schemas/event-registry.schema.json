@@ -1,43 +1,107 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "title":"Current canonical schema: event registry v38",
-  "type":"object",
-  "required":["name","owner_id","owner_type","records","runtime","schema"],
-  "properties":{
-    "name":{"type":"string"},
-    "owner_id":{"type":"string"},
-    "owner_type":{"type":"string"},
-    "records":{"type":"array","items":{"type":"object","required":["label","record_id"],"properties":{"label":{"type":"string"},"notes":{"type":"array","items":{"type":"string"}},"record_id":{"type":"string"},"facts":{"type":"object"}},"additionalProperties":false}},
-    "causal_events":{
-      "type":"object",
-      "additionalProperties":{
-        "type":"object",
-        "required":["event_ref","kind","status","due_at","triggered_at","summary","provenance"],
-        "properties":{
-          "event_ref":{"type":"string","minLength":1,"maxLength":160},
-          "kind":{"type":"string","minLength":1,"maxLength":96},
-          "status":{"const":"triggered"},
-          "due_at":{"type":"string","minLength":1,"maxLength":64},
-          "triggered_at":{"type":"string","minLength":1,"maxLength":64},
-          "summary":{"type":"string","minLength":1,"maxLength":4000},
-          "provenance":{
-            "type":"object",
-            "required":["kind","source_owner_ref","work_ref","late_catch_up"],
-            "properties":{
-              "kind":{"const":"causal_runtime_settlement"},
-              "source_owner_ref":{"type":"string","minLength":1,"maxLength":160},
-              "work_ref":{"type":"string","minLength":1,"maxLength":160},
-              "late_catch_up":{"type":"boolean"}
-            },
-            "additionalProperties":false
-          }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Current canonical schema: event registry v38",
+  "type": "object",
+  "required": ["name", "owner_id", "owner_type", "records", "runtime", "schema"],
+  "properties": {
+    "name": {"type": "string"},
+    "owner_id": {"type": "string"},
+    "owner_type": {"type": "string"},
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label", "record_id"],
+        "properties": {
+          "label": {"type": "string"},
+          "notes": {"type": "array", "items": {"type": "string"}},
+          "record_id": {"type": "string"},
+          "facts": {"type": "object"}
         },
-        "additionalProperties":false
+        "additionalProperties": false
       }
     },
-    "runtime":{"type":"object","required":["last_settled_at"],"properties":{"last_settled_at":{"type":"string"}},"additionalProperties":false},
-    "schema":{"const":"event-registry"}
+    "causal_events": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["event_ref", "kind", "status", "due_at", "triggered_at", "summary", "provenance"],
+        "properties": {
+          "event_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+          "kind": {"type": "string", "minLength": 1, "maxLength": 96},
+          "status": {"const": "triggered"},
+          "due_at": {"type": "string", "minLength": 1, "maxLength": 64},
+          "triggered_at": {"type": "string", "minLength": 1, "maxLength": 64},
+          "summary": {"type": "string", "minLength": 1, "maxLength": 4000},
+          "arc_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+          "actor_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+          "target_ref": {"type": ["string", "null"], "maxLength": 160},
+          "initiative_kind": {"type": "string", "minLength": 1, "maxLength": 96},
+          "basis_goal": {"type": "string", "minLength": 1, "maxLength": 500},
+          "result": {"enum": ["gains_ground", "checked", "inconclusive"]},
+          "pressure_stage": {"enum": ["contained", "developing", "material", "acute"]},
+          "visibility_class": {"enum": ["hidden", "discoverable", "direct"]},
+          "source_event_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+          "process_kind": {"type": "string", "minLength": 1, "maxLength": 96},
+          "process_stage": {"type": "string", "minLength": 1, "maxLength": 96},
+          "delivery": {
+            "type": "object",
+            "required": ["target_ref", "location_ref", "route"],
+            "properties": {
+              "target_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+              "location_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+              "route": {"type": "string", "minLength": 1, "maxLength": 1000}
+            },
+            "additionalProperties": false
+          },
+          "provenance": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": ["kind", "source_owner_ref", "work_ref", "late_catch_up"],
+                "properties": {
+                  "kind": {"const": "causal_runtime_settlement"},
+                  "source_owner_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+                  "work_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+                  "late_catch_up": {"type": "boolean"}
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "required": ["kind", "arc_owner_ref", "review_count", "deterministic_roll"],
+                "properties": {
+                  "kind": {"const": "world_arc_causal_review"},
+                  "arc_owner_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+                  "review_count": {"type": "integer", "minimum": 1},
+                  "deterministic_roll": {"type": "integer", "minimum": 0, "maximum": 99}
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "required": ["kind", "exposure_roll", "exposure_chance"],
+                "properties": {
+                  "kind": {"const": "world_arc_information_propagation"},
+                  "exposure_roll": {"type": "integer", "minimum": 0, "maximum": 99},
+                  "exposure_chance": {"type": "integer", "minimum": 0, "maximum": 100}
+                },
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": ["last_settled_at"],
+      "properties": {"last_settled_at": {"type": "string"}},
+      "additionalProperties": false
+    },
+    "schema": {"const": "event-registry"}
   },
-  "additionalProperties":false,
-  "description":"Formal top-level structure for mutable event/message/movement registries. Exact writable fact keys and value types remain controlled by the registered structural template; causally triggered short-horizon events are recorded only after runtime settlement."
+  "additionalProperties": false,
+  "description": "Formal top-level structure for mutable event/message/movement registries. Exact triggered events support short-horizon causal work, autonomous world-arc activity/report propagation, and bounded institutional-process follow-ups without creating a second occurrence authority."
 }
