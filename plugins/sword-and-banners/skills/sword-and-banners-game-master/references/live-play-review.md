@@ -94,6 +94,8 @@ Watch for:
 - menus before the player-declared action is resolved;
 - fake or redundant choices;
 - failure to provide decision scaffolding at a real unresolved decision;
+- a local objective completing and the narration dead-stopping even though the larger scene, institutional process, mission chain, or declared purpose plainly continues;
+- treating `unresolved_decision: null` as proof that there is no next playable handoff;
 - a declared action being handed back to the player instead of carried through obvious prerequisite logistics;
 - combat narration that hides geometry or causal result;
 - battle narration that becomes an omniscient history-book summary;
@@ -133,7 +135,7 @@ Classify the likely owner:
 
 **Campaign truth defect**: committed state itself is wrong. Repair explicitly with migration/provenance, never by casual JSON edit.
 
-**Feature opportunity**: repeated player intent has no supported semantic representation. That is not automatically a bug.
+**Feature opportunity**: repeated player intent has no supported semantic representation. That is not automatically a bug. If an ongoing institutional or mission process repeatedly has a start state but no durable completion/evaluation/next-stage lifecycle, classify that structural gap separately from the GM handoff defect: the Skill should keep play moving without inventing outcomes, while the runtime may still need a first-class process stage.
 
 ## Evidence standard
 
