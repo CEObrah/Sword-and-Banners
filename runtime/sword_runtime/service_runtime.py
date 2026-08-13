@@ -8,10 +8,10 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.campaign_event_planner import CampaignEventPlayerGroupActionPlanner
 from sword_runtime.causal_living_world import _WAKE_RESPONSE_COMMANDS
 from sword_runtime.engine import SwordRuntime
 from sword_runtime.living_world import HighSalienceWakeRequired
-from sword_runtime.player_group_actions import PlayerGroupActionPlanner
 from sword_runtime.tx.canonical import thaw_json
 from sword_runtime.tx.campaign_coordinator import TransactionCoordinator
 from sword_runtime.tx.git import GitStager
@@ -38,8 +38,9 @@ class ProductionSwordRuntime(SwordRuntime):
         # Replacing the generic planner here avoids a second runtime instance or
         # a second campaign authority while allowing the hosted service to use
         # learned operational memory, causal provenance, high-salience wake
-        # protection, and causally parallel grouped player military actions.
-        self.planner = PlayerGroupActionPlanner(self.root)
+        # protection, short-horizon campaign-event boundaries, and causally
+        # parallel grouped player military actions.
+        self.planner = CampaignEventPlayerGroupActionPlanner(self.root)
         self.planner.PLAYER_ACTOR = player_id
 
         git = GitStager(self.root)
@@ -97,7 +98,15 @@ class ProductionSwordRuntime(SwordRuntime):
     def _require_pending_wake_response(self, command_type: str) -> None:
         runtime_state = self.store.read_json("state/runtime.json")
         wake = runtime_state.get("pending_wake") if isinstance(runtime_state, Mapping) else None
-        if isinstance(wake, Mapping) and command_type not in _WAKE_RESPONSE_COMMANDS:
+        if not isinstance(wake, Mapping):
+            return
+        # Campaign-event wakes are one-shot information/decision boundaries.
+        # Any otherwise authorized gameplay command may answer them. Interstate
+        # contact remains narrowly restricted because unresolved formation
+        # contact cannot be bypassed by an unrelated action.
+        if wake.get("kind") == "campaign_event":
+            return
+        if command_type not in _WAKE_RESPONSE_COMMANDS:
             raise HighSalienceWakeRequired("pending_autonomous_contact_requires_player_resolution")
 
     @staticmethod
