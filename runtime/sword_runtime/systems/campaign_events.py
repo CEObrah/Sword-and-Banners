@@ -3,6 +3,8 @@
 Campaign event work targets are routing definitions, not occurrence truth. A
 planned target becomes campaign truth only when the causal runtime settles it
 and writes the triggered record into the exact routed event-registry owner.
+The routing document itself is read-only during gameplay; exact triggered
+records, not mutable routing status, prevent duplicate settlement.
 """
 from __future__ import annotations
 
@@ -26,7 +28,7 @@ def _work_document(planner: Any) -> dict[str, Any]:
     if not isinstance(document, dict) or document.get("authority") is not False:
         raise ValueError("campaign causal work routing must be authority:false")
     targets = document.get("targets")
-    if not isinstance(targets, list) or len(targets) > _MAX_CAMPAIGN_WORK_TARGETS:
+    if not isinstance(targets, list) or len(targets) > _MAX_CAMUSAL_WORK_TARGETS:
         raise ValueError("campaign causal work routing is invalid or unbounded")
     return document
 
@@ -42,7 +44,7 @@ def _target_map(document: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
         if work_ref in targets:
             raise ValueError("duplicate campaign causal work_ref")
         status = raw.get("status", "pending")
-        if status not in {"pending", "consumed", "cancelled"}:
+        if status not in {"pending", "cancelled"}:
             raise ValueError("campaign causal work status is invalid")
         targets[work_ref] = raw
     return targets
@@ -108,7 +110,6 @@ def sync_campaign_work_routes(planner: Any, runtime: dict[str, Any]) -> None:
         for event in events
         if isinstance(event, dict) and isinstance(event.get("event_id"), str)
     }
-    work_changed = False
 
     for work_ref, target in sorted(targets.items()):
         if target.get("status", "pending") != "pending":
@@ -120,9 +121,6 @@ def sync_campaign_work_routes(planner: Any, runtime: dict[str, Any]) -> None:
         recorded = owner.get("causal_events") if isinstance(owner.get("causal_events"), Mapping) else {}
         existing_record = recorded.get(work_ref) if isinstance(recorded, Mapping) else None
         if isinstance(existing_record, Mapping) and existing_record.get("status") == "triggered":
-            target["status"] = "consumed"
-            target.setdefault("consumed_at", existing_record.get("triggered_at"))
-            work_changed = True
             continue
 
         effective_due = due if due > current else current
@@ -170,9 +168,6 @@ def sync_campaign_work_routes(planner: Any, runtime: dict[str, Any]) -> None:
             )
             scheduler_event.pop("suspended", None)
 
-    if work_changed:
-        planner.put(CAMPAIGN_CAUSAL_WORK_PATH, document)
-
 
 def settle_campaign_work_target(planner: Any, host: Mapping[str, Any], at: str) -> dict[str, Any] | None:
     """Commit one planned campaign work target into its exact event owner."""
@@ -191,8 +186,6 @@ def settle_campaign_work_target(planner: Any, host: Mapping[str, Any], at: str) 
         raise ValueError("campaign event host diverged from its work target")
     if target.get("status", "pending") == "cancelled":
         return None
-    if target.get("status", "pending") == "consumed":
-        return None
 
     triggered_at = CampaignTime.parse(at)
     if due > triggered_at:
@@ -206,9 +199,6 @@ def settle_campaign_work_target(planner: Any, host: Mapping[str, Any], at: str) 
         raise ValueError("event owner causal_events is invalid")
     existing = causal_events.get(work_ref)
     if isinstance(existing, Mapping) and existing.get("status") == "triggered":
-        target["status"] = "consumed"
-        target.setdefault("consumed_at", existing.get("triggered_at"))
-        planner.put(CAMPAIGN_CAUSAL_WORK_PATH, document)
         return None
 
     causal_events[work_ref] = {
@@ -229,10 +219,7 @@ def settle_campaign_work_target(planner: Any, host: Mapping[str, Any], at: str) 
     if not isinstance(owner_runtime, dict):
         raise ValueError("event owner runtime is invalid")
     owner_runtime["last_settled_at"] = at
-    target["status"] = "consumed"
-    target["consumed_at"] = at
     planner.put(owner_path, owner)
-    planner.put(CAMPAIGN_CAUSAL_WORK_PATH, document)
 
     if not wake:
         return None
