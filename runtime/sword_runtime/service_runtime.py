@@ -14,6 +14,7 @@ from sword_runtime.engine import SwordRuntime
 from sword_runtime.living_world import HighSalienceWakeRequired
 from sword_runtime.tx.canonical import thaw_json
 from sword_runtime.tx.campaign_coordinator import TransactionCoordinator
+from sword_runtime.tx.errors import RemoteDivergenceError, RemoteDurabilityError
 from sword_runtime.tx.git import GitStager
 from sword_runtime.tx.receipts import ReceiptStore
 from sword_runtime.tx.remote import GitRemoteDurability
@@ -115,11 +116,46 @@ class ProductionSwordRuntime(SwordRuntime):
             command_type == "siege_action" and str(payload.get("action")) == "assault"
         )
 
+    def _preview_persistence_readiness(self) -> dict[str, Any] | None:
+        """Fail preview closed when this process cannot safely execute a write.
+
+        Execute already performs this recovery/remote synchronization preflight
+        under the campaign writer lock. Running the same infrastructure check
+        before issuing a ready preview prevents a stale Railway process from
+        promising an executable command and only discovering deployment drift
+        after the player's action is submitted.
+        """
+
+        try:
+            self.coordinator.recover()
+        except RemoteDivergenceError as exc:
+            if exc.code == "head_mismatch":
+                return {
+                    "status": "deployment_sync_required",
+                    "reason": "runtime_source_head_mismatch",
+                    "contested_outcome_hidden": False,
+                }
+            return {
+                "status": "persistence_unavailable",
+                "reason": "remote_branch_diverged",
+                "contested_outcome_hidden": False,
+            }
+        except RemoteDurabilityError:
+            return {
+                "status": "persistence_unavailable",
+                "reason": "remote_durability_unavailable",
+                "contested_outcome_hidden": False,
+            }
+        return None
+
     def preview_for_execution(self, command):
         """Preview intent without leaking a stochastic or hidden-future outcome."""
 
         self._validate_player_authored_agency(command)
         self._require_pending_wake_response(command.command_type)
+        persistence_block = self._preview_persistence_readiness()
+        if persistence_block is not None:
+            return persistence_block
         payload = thaw_json(command.payload)
         if not self._is_contested(command.command_type, payload):
             plan = self.preview(command)
