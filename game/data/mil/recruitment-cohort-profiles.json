@@ -1,0 +1,89 @@
+{
+  "schema": "recruitment-cohort-profiles.v1",
+  "authority": "Reusable statistical intake and role-development defaults. Population and force owners remain the material authority; these profiles never create headcount.",
+  "source_profiles": {
+    "civilian_common": {
+      "age_distribution": {"mean": 24.0, "sd": 8.0, "min": 14, "max": 45},
+      "aptitude_means": {"physical_learning": 100, "technical_learning": 100, "tactical_learning": 96, "academic_learning": 96, "social_learning": 100},
+      "attribute_means": {"Strength": 58, "Agility": 58, "Endurance": 60, "Toughness": 59, "Coordination": 58, "Awareness": 56, "Composure": 58, "Intelligence": 52, "Presence": 52},
+      "attribute_sd": {"Strength": 12, "Agility": 12, "Endurance": 12, "Toughness": 11, "Coordination": 12, "Awareness": 12, "Composure": 11, "Intelligence": 12, "Presence": 12},
+      "skill_means": {"Sword": 12, "Spear": 14, "Bow": 14, "Crossbow": 8, "Shield": 12, "Defense": 18, "Athletics": 48, "Riding": 22, "Formation Fighting": 8, "Survival": 38, "Scouting": 22, "Navigation": 24, "Medicine": 12, "Engineering": 16, "Trade": 20},
+      "skill_sd": {"Sword": 10, "Spear": 10, "Bow": 12, "Crossbow": 8, "Shield": 10, "Defense": 10, "Athletics": 15, "Riding": 16, "Formation Fighting": 8, "Survival": 16, "Scouting": 14, "Navigation": 14, "Medicine": 10, "Engineering": 12, "Trade": 16},
+      "correlation_groups": [["Strength", "Endurance", "Athletics"], ["Awareness", "Scouting", "Survival"], ["Coordination", "Bow", "Riding"]]
+    },
+    "agricultural": {
+      "age_distribution": {"mean": 24.0, "sd": 7.5, "min": 14, "max": 44},
+      "aptitude_means": {"physical_learning": 105, "technical_learning": 94, "tactical_learning": 92, "academic_learning": 90, "social_learning": 94},
+      "attribute_means": {"Strength": 64, "Agility": 57, "Endurance": 70, "Toughness": 65, "Coordination": 58, "Awareness": 57, "Composure": 60, "Intelligence": 50, "Presence": 50},
+      "attribute_sd": {"Strength": 12, "Agility": 11, "Endurance": 11, "Toughness": 11, "Coordination": 11, "Awareness": 12, "Composure": 11, "Intelligence": 11, "Presence": 11},
+      "skill_means": {"Sword": 10, "Spear": 16, "Bow": 18, "Shield": 10, "Defense": 18, "Athletics": 58, "Riding": 24, "Formation Fighting": 8, "Survival": 52, "Scouting": 28, "Navigation": 26, "Medicine": 10, "Engineering": 14, "Trade": 12},
+      "skill_sd": {"Sword": 9, "Spear": 11, "Bow": 14, "Shield": 9, "Defense": 10, "Athletics": 14, "Riding": 16, "Formation Fighting": 8, "Survival": 15, "Scouting": 14, "Navigation": 13, "Medicine": 9, "Engineering": 11, "Trade": 10},
+      "correlation_groups": [["Strength", "Endurance", "Toughness", "Athletics"], ["Awareness", "Survival", "Scouting"]]
+    },
+    "craft_and_industry": {
+      "age_distribution": {"mean": 25.0, "sd": 7.0, "min": 15, "max": 45},
+      "aptitude_means": {"physical_learning": 102, "technical_learning": 112, "tactical_learning": 94, "academic_learning": 100, "social_learning": 96},
+      "attribute_means": {"Strength": 63, "Agility": 57, "Endurance": 63, "Toughness": 62, "Coordination": 67, "Awareness": 58, "Composure": 60, "Intelligence": 56, "Presence": 50},
+      "attribute_sd": {"Strength": 12, "Agility": 11, "Endurance": 11, "Toughness": 11, "Coordination": 12, "Awareness": 11, "Composure": 11, "Intelligence": 12, "Presence": 11},
+      "skill_means": {"Sword": 12, "Spear": 14, "Bow": 12, "Shield": 12, "Defense": 18, "Athletics": 52, "Riding": 14, "Formation Fighting": 8, "Survival": 30, "Scouting": 18, "Navigation": 22, "Medicine": 10, "Engineering": 46, "Trade": 26},
+      "skill_sd": {"Sword": 10, "Spear": 10, "Bow": 10, "Shield": 10, "Defense": 10, "Athletics": 13, "Riding": 12, "Formation Fighting": 8, "Survival": 12, "Scouting": 11, "Navigation": 12, "Medicine": 9, "Engineering": 16, "Trade": 14},
+      "correlation_groups": [["Strength", "Coordination", "Engineering"], ["Intelligence", "Engineering"]]
+    },
+    "household_and_service": {
+      "age_distribution": {"mean": 24.0, "sd": 8.0, "min": 14, "max": 46},
+      "aptitude_means": {"physical_learning": 96, "technical_learning": 100, "tactical_learning": 96, "academic_learning": 102, "social_learning": 108},
+      "attribute_means": {"Strength": 54, "Agility": 60, "Endurance": 59, "Toughness": 56, "Coordination": 62, "Awareness": 62, "Composure": 64, "Intelligence": 55, "Presence": 57},
+      "attribute_sd": {"Strength": 11, "Agility": 12, "Endurance": 11, "Toughness": 11, "Coordination": 12, "Awareness": 12, "Composure": 11, "Intelligence": 12, "Presence": 12},
+      "skill_means": {"Sword": 10, "Spear": 10, "Bow": 10, "Shield": 12, "Defense": 18, "Athletics": 46, "Riding": 18, "Formation Fighting": 8, "Survival": 28, "Scouting": 24, "Navigation": 24, "Medicine": 16, "Engineering": 14, "Diplomacy": 24, "Trade": 20},
+      "skill_sd": {"Sword": 9, "Spear": 9, "Bow": 9, "Shield": 10, "Defense": 10, "Athletics": 13, "Riding": 14, "Formation Fighting": 8, "Survival": 12, "Scouting": 13, "Navigation": 13, "Medicine": 12, "Engineering": 10, "Diplomacy": 14, "Trade": 14},
+      "correlation_groups": [["Awareness", "Composure", "Diplomacy"], ["Coordination", "Medicine"]]
+    },
+    "merchant_and_transport": {
+      "age_distribution": {"mean": 26.0, "sd": 8.0, "min": 16, "max": 48},
+      "aptitude_means": {"physical_learning": 98, "technical_learning": 106, "tactical_learning": 98, "academic_learning": 104, "social_learning": 112},
+      "attribute_means": {"Strength": 55, "Agility": 59, "Endurance": 61, "Toughness": 57, "Coordination": 61, "Awareness": 63, "Composure": 61, "Intelligence": 58, "Presence": 61},
+      "attribute_sd": {"Strength": 11, "Agility": 11, "Endurance": 11, "Toughness": 11, "Coordination": 12, "Awareness": 12, "Composure": 11, "Intelligence": 12, "Presence": 12},
+      "skill_means": {"Sword": 12, "Spear": 10, "Bow": 14, "Shield": 10, "Defense": 18, "Athletics": 46, "Riding": 50, "Formation Fighting": 6, "Survival": 36, "Scouting": 34, "Navigation": 54, "Medicine": 10, "Engineering": 16, "Trade": 62, "Diplomacy": 32},
+      "skill_sd": {"Sword": 10, "Spear": 9, "Bow": 11, "Shield": 9, "Defense": 10, "Athletics": 13, "Riding": 18, "Formation Fighting": 7, "Survival": 14, "Scouting": 15, "Navigation": 17, "Medicine": 9, "Engineering": 11, "Trade": 18, "Diplomacy": 15},
+      "correlation_groups": [["Awareness", "Riding", "Scouting", "Navigation"], ["Presence", "Trade", "Diplomacy"]]
+    }
+  },
+  "selection_profiles": {
+    "state_basic_military_screen": {
+      "attribute_means": {"Strength": 3, "Agility": 3, "Endurance": 4, "Toughness": 3, "Coordination": 2, "Awareness": 2, "Composure": 2},
+      "skill_means": {"Athletics": 4, "Survival": 2},
+      "aptitude_means": {"physical_learning": 3, "tactical_learning": 2}
+    },
+    "household_retainer_screen": {
+      "attribute_means": {"Strength": 5, "Agility": 5, "Endurance": 5, "Toughness": 5, "Coordination": 5, "Awareness": 5, "Composure": 6},
+      "skill_means": {"Athletics": 6, "Defense": 4, "Survival": 3},
+      "aptitude_means": {"physical_learning": 6, "tactical_learning": 5, "social_learning": 3}
+    },
+    "sword_manor_screened_initiate": {
+      "age_distribution": {"mean": 17.5, "sd": 4.0, "min": 12, "max": 32},
+      "attribute_means": {"Strength": 8, "Agility": 9, "Endurance": 10, "Toughness": 8, "Coordination": 9, "Awareness": 8, "Composure": 8},
+      "skill_means": {"Bow": 8, "Defense": 6, "Athletics": 10, "Formation Fighting": 5, "Survival": 5},
+      "aptitude_means": {"physical_learning": 15, "technical_learning": 8, "tactical_learning": 12, "academic_learning": 5, "social_learning": 3},
+      "correlation_groups": [["Strength", "Endurance", "Athletics"], ["Coordination", "Bow", "Agility"], ["Awareness", "Composure", "Formation Fighting"]]
+    }
+  },
+  "role_training_profiles": {
+    "line_infantry": {"skills": ["Spear", "Shield", "Defense", "Athletics", "Mass Combat", "Formation Fighting", "Survival"], "attributes": ["Strength", "Endurance", "Toughness", "Coordination", "Awareness", "Composure"]},
+    "cavalry": {"skills": ["Spear", "Bow", "Defense", "Athletics", "Riding", "Formation Fighting", "Scouting", "Survival"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure"]},
+    "missile_crossbow": {"skills": ["Crossbow", "Bow", "Defense", "Athletics", "Mass Combat", "Formation Fighting", "Scouting"], "attributes": ["Agility", "Endurance", "Coordination", "Awareness", "Composure"]},
+    "household_retainer": {"skills": ["Sword", "Spear", "Shield", "Defense", "Athletics", "Formation Fighting", "Survival"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure"]},
+    "trainee": {"skills": ["Sword", "Spear", "Bow", "Shield", "Defense", "Athletics", "Formation Fighting", "Survival"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure"]},
+    "junior_disciple": {"skills": ["Sword", "Spear", "Bow", "Shield", "Defense", "Athletics", "Mass Combat", "Formation Fighting", "Survival", "Scouting"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure"]},
+    "general_disciple": {"skills": ["Sword", "Spear", "Bow", "Shield", "Defense", "Athletics", "Mass Combat", "Formation Fighting", "Survival", "Scouting", "Leadership", "Tactics", "Training"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure", "Intelligence"]},
+    "senior_disciple": {"skills": ["Sword", "Spear", "Bow", "Shield", "Defense", "Athletics", "Mass Combat", "Formation Fighting", "Riding", "Scouting", "Leadership", "Formation Command", "Tactics", "Training"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure", "Intelligence", "Presence"]},
+    "officer": {"skills": ["Sword", "Spear", "Bow", "Defense", "Athletics", "Mass Combat", "Riding", "Formation Fighting", "Leadership", "Formation Command", "Tactics", "Strategy", "Logistics", "Training"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure", "Intelligence", "Presence"]},
+    "house_guard": {"skills": ["Sword", "Spear", "Bow", "Shield", "Defense", "Athletics", "Mass Combat", "Formation Fighting", "Survival", "Leadership", "Tactics"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure"]},
+    "guardian_cavalry": {"skills": ["Sword", "Spear", "Bow", "Shield", "Defense", "Athletics", "Mass Combat", "Riding", "Formation Fighting", "Survival", "Scouting", "Leadership", "Tactics"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure"]},
+    "tang_champion": {"skills": ["Sword", "Spear", "Bow", "Shield", "Defense", "Athletics", "Mass Combat", "Riding", "Formation Fighting", "Survival", "Scouting", "Leadership", "Formation Command", "Tactics", "Strategy", "Training"], "attributes": ["Strength", "Agility", "Endurance", "Toughness", "Coordination", "Awareness", "Composure", "Intelligence", "Presence"]}
+  },
+  "training_regimens": {
+    "regular_army": {"deliberate_hours_per_30d": 56.0, "role_exposure_hours_per_30d": 48.0, "facility_grade": "adequate", "equipment_grade": "adequate", "recovery_grade": "adequate"},
+    "household_professional": {"deliberate_hours_per_30d": 120.0, "role_exposure_hours_per_30d": 96.0, "facility_grade": "good", "equipment_grade": "correct", "recovery_grade": "good"},
+    "house_tang_max_sustainable": {"deliberate_hours_per_30d": 240.0, "role_exposure_hours_per_30d": 137.143, "structured_military_hours_per_7d": 88.0, "deliberate_hours_per_7d": 56.0, "role_exposure_hours_per_7d": 32.0, "facility_grade": "excellent", "equipment_grade": "superior", "recovery_grade": "excellent", "rule": "House Tang and Sword Manor saturate the normal deliberate-training ceiling and use additional waking time for verified role-relevant field practice, riding, conditioning, weapons work, instruction, maintenance and duty. Exposure grants EDU only when causally relevant; calendar passage alone grants nothing."}
+  }
+}
