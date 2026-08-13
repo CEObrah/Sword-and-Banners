@@ -38,6 +38,44 @@ _TRIGGERED_INTERACTION_KINDS = frozenset({
     "world_arc_report",
 })
 
+# Live play needs a clear boundary between durable world truth and ordinary
+# reversible scene flow. An attempt-only interaction record correctly prevents
+# caller prose from becoming rank, access, consent, appointment, information,
+# or another persistent NPC/world outcome. It must not, however, turn every
+# greeting, follow-up question, examiner prompt, gesture, or procedural exchange
+# inside an already-established interaction into a transaction boundary.
+SCENE_LOCAL_NARRATION_CONTRACT = {
+    "mode": "presentation_only_reversible",
+    "rule": (
+        "Within an already-established live interaction or institutional process, "
+        "the GM may continue ordinary scene-local NPC behavior and dialogue without "
+        "a gameplay write when the beat is reversible and does not establish persistent campaign truth."
+    ),
+    "allowed_examples": [
+        "routine acknowledgements, objections, clarifying questions, and follow-up questions",
+        "examiner prompts and ordinary nonbinding reactions during an already-established review",
+        "brief procedural directions within access that is already established",
+        "gestures, seating, pauses, unnamed attendants, and short movement inside the established scene",
+    ],
+    "persistent_boundary_examples": [
+        "new access, permission, acceptance, refusal, or final institutional judgment",
+        "rank, office, appointment, vacancy, command authority, troop custody, or deployment authority",
+        "relationship or reputation change",
+        "a new information claim whose truth must persist beyond the scene",
+        "money, equipment, injury, death, formation, logistics, territory, or elapsed mechanical time",
+        "a promise, contract, obligation, or other durable consequence",
+    ],
+    "interaction_attempt_rule": (
+        "world_response_status:not_established_by_attempt blocks persistent NPC/world outcomes; "
+        "it does not require the GM to stop before reversible scene-local dialogue or questions."
+    ),
+    "continuation_rule": (
+        "Do not stop a live scene merely because the latest interaction_action is attempt-only when "
+        "the next beat is ordinary reversible continuation. Stop and require runtime authority only "
+        "when carrying a persistent consequence forward."
+    ),
+}
+
 
 def _walk_forbidden(value: Any) -> bool:
     if isinstance(value, Mapping):
@@ -313,6 +351,7 @@ def fresh_runtime_projection(
             "health": player.get("health"),
             "fatigue": player.get("fatigue"),
         },
+        "scene_local_narration_contract": SCENE_LOCAL_NARRATION_CONTRACT,
         "unresolved_decision": None,
         "known_clock_boundaries": [],
         "active_questions": [],
@@ -327,6 +366,7 @@ def fresh_runtime_projection(
 __all__ = [
     "HOT_ATTEMPT_LIMIT", "HOT_FORMATION_LIMIT", "HOT_INFORMATION_LIMIT", "HOT_INTERACTION_LIMIT",
     "INTERACTION_ACTIONS", "INTERACTION_PAYLOAD_KEYS", "FORBIDDEN_OUTCOME_KEYS",
+    "SCENE_LOCAL_NARRATION_CONTRACT",
     "fresh_runtime_projection", "interaction_attempt_summary", "parse_interaction_attempt_summary",
     "recent_interaction_attempts", "translate_interaction_command", "triggered_interaction_handles",
     "triggered_interaction_page", "triggered_interaction_record", "validate_interaction_payload",
