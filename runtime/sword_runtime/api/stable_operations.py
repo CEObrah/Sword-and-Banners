@@ -58,6 +58,38 @@ class StableCampaignOperations(CampaignOperations):
         context = super().play_context()
         context.setdefault("limits", {})["high_salience_wake_boundary"] = True
         context["limits"]["operational_memory_is_non_authoritative"] = True
+
+        scene_context = context.get("scene")
+        if isinstance(scene_context, dict):
+            if scene_context.get("projection_status") == "stale_after_state_change":
+                raw_scene = self.runtime.store.read_json("state/scene.json")
+                narrative = raw_scene.get("narrative", {}) if isinstance(raw_scene, Mapping) else {}
+                if not isinstance(narrative, Mapping):
+                    narrative = {}
+                summary = raw_scene.get("scene_summary") if isinstance(raw_scene, Mapping) else None
+                if not isinstance(summary, str) or not summary.strip():
+                    summary = narrative.get("last_scene_summary")
+                if isinstance(summary, str) and summary.strip():
+                    scene_context["continuity_anchor"] = {
+                        "presentation_only": True,
+                        "prior_scene_id": raw_scene.get("scene_id"),
+                        "prior_location": raw_scene.get("location_id") or raw_scene.get("location"),
+                        "summary": summary.strip(),
+                        "warning": (
+                            "Previous-scene orientation only; it does not prove current presence, access, "
+                            "pressure, opportunity, occupancy, or unresolved status."
+                        ),
+                    }
+                else:
+                    scene_context["continuity_anchor"] = None
+                context.setdefault("narration_guidance", {})["stale_scene_policy"] = (
+                    "require matching time/revision for mutable scene claims and scene-derived read permissions; "
+                    "when stale, strip them but retain a presentation-only continuity anchor from previously "
+                    "player-visible scene summary text"
+                )
+            else:
+                scene_context.setdefault("continuity_anchor", None)
+
         runtime = self.runtime.store.read_json("state/runtime.json")
         wake = runtime.get("pending_wake") if isinstance(runtime, Mapping) else None
         if isinstance(wake, Mapping):
