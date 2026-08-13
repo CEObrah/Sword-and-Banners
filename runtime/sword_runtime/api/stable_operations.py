@@ -9,8 +9,11 @@ from sword_runtime.api.interaction_surface import (
     HOT_INFORMATION_LIMIT,
     INTERACTION_ACTIONS,
     fresh_runtime_projection,
+    recent_interaction_attempts,
     translate_interaction_command,
     triggered_interaction_handles,
+    triggered_interaction_page,
+    triggered_interaction_record,
     validate_interaction_payload,
 )
 from sword_runtime.api.operations import CampaignOperations, OperationError, _receipt_record
@@ -63,30 +66,57 @@ class StableCampaignOperations(CampaignOperations):
     def _formation_sort_key(item: Mapping[str, Any], player_location: object) -> tuple[int, str]:
         return (0 if item.get("location_ref") == player_location else 1, str(item.get("formation_ref") or ""))
 
+    @staticmethod
+    def _cursor_offset(cursor: Optional[str], code: str) -> int:
+        if cursor is None:
+            return 0
+        if not isinstance(cursor, str) or not cursor.isdigit() or len(cursor) > 12:
+            raise OperationError(422, code)
+        offset = int(cursor)
+        if offset < 0 or offset > 1_000_000:
+            raise OperationError(422, code)
+        return offset
+
     def _all_controlled_formations(self, player_id: str) -> list[dict[str, Any]]:
         return super()._controlled_formations(player_id)
 
-    def _interaction_refs(self) -> tuple[list[dict[str, Any]], set[str]]:
-        handles = triggered_interaction_handles(self.store)
-        return handles, {str(item["interaction_ref"]) for item in handles}
+    def _all_known_information(self, player_id: str) -> list[dict[str, Any]]:
+        return super()._known_information(player_id)
+
+    def _interaction_refs(self) -> tuple[list[dict[str, Any]], set[str], int]:
+        handles, total = triggered_interaction_handles(self.store)
+        handles = list(reversed(handles))
+        return handles, {str(item["interaction_ref"]) for item in handles}, total
 
     def _validate_interaction_authority(self, command: CommandEnvelope) -> None:
         payload = validate_interaction_payload(command.payload)
         base = super().play_context()
         player_id = str(base["campaign"]["player_id"])
-        handles, handle_refs = self._interaction_refs()
-        del handles
         all_formations = self._all_controlled_formations(player_id)
         controlled_refs = {str(item["formation_ref"]) for item in all_formations if item.get("formation_ref")}
-        permitted = set(base.get("permitted_person_ids", [])) | set(base.get("permitted_object_refs", [])) | handle_refs
-        if payload["target_ref"] not in permitted:
+        permitted = set(base.get("permitted_person_ids", [])) | set(base.get("permitted_object_refs", []))
+
+        target_ref = payload["target_ref"]
+        target_visible = target_ref in permitted or triggered_interaction_record(self.store, target_ref) is not None
+        current_location = base.get("player", {}).get("location")
+        if payload["action"] == "seek_contact" and target_ref == current_location:
+            target_visible = True
+        if not target_visible:
             raise OperationError(404, "interaction_target_not_player_visible")
-        if payload["process_ref"] is not None and payload["process_ref"] not in permitted:
+
+        process_ref = payload["process_ref"]
+        if (
+            process_ref is not None
+            and process_ref not in permitted
+            and triggered_interaction_record(self.store, process_ref) is None
+        ):
             raise OperationError(404, "interaction_process_not_player_visible")
         if any(ref not in controlled_refs for ref in payload["formation_refs"]):
             raise OperationError(403, "interaction_formation_not_controlled")
 
     def _translate_surface_command(self, command: CommandEnvelope) -> CommandEnvelope:
+        if command.command_type == "scene_consequence":
+            raise OperationError(422, "legacy_scene_consequence_not_player_authored")
         if command.command_type != "interaction_action":
             return command
         self._validate_interaction_authority(command)
@@ -99,11 +129,15 @@ class StableCampaignOperations(CampaignOperations):
         context["limits"]["campaign_event_boundaries"] = True
         context["limits"]["bounded_hot_context_with_exact_rehydration"] = True
 
+        player_id = str(context["campaign"]["player_id"])
+        handles, handle_refs, handle_count = self._interaction_refs()
+        attempts, _ = recent_interaction_attempts(self.store, player_id)
+        attempts = list(reversed(attempts))
+
         # Preserve a presentation-only anchor, then replace a stale authored
         # scene with a revision-matched projection made only from exact current
-        # owners and already-triggered event-registry facts.
+        # owners, triggered event-registry facts, and typed player attempts.
         scene_context = context.get("scene")
-        handles, handle_refs = self._interaction_refs()
         if isinstance(scene_context, dict):
             continuity_anchor = None
             if scene_context.get("projection_status") == "stale_after_state_change":
@@ -125,26 +159,25 @@ class StableCampaignOperations(CampaignOperations):
                             "pressure, opportunity, occupancy, or unresolved status."
                         ),
                     }
-                projection = fresh_runtime_projection(context, handles)
+                projection = fresh_runtime_projection(context, handles, attempts)
                 projection["continuity_anchor"] = continuity_anchor
                 context["scene"] = projection
                 scene_context = projection
                 context.setdefault("narration_guidance", {})["stale_scene_policy"] = (
                     "stale authored scene claims are stripped; the runtime supplies a revision-matched "
-                    "minimal projection from exact current owners and triggered event facts, while any "
-                    "older prose remains presentation-only continuity"
+                    "minimal projection from exact current owners, triggered event facts, and typed "
+                    "player interaction attempts, while older prose remains presentation-only continuity"
                 )
             else:
                 scene_context.setdefault("continuity_anchor", None)
 
         # Keep ordinary turn handoff bounded. Paging and exact revalidation are
-        # the escape hatches, so this is a projection limit rather than a world
-        # cardinality limit.
+        # escape hatches, so projection limits never become world cardinality limits.
         known_all = list(context.get("known_information", []))
-        known_hot = known_all[-HOT_INFORMATION_LIMIT:]
-        context["known_information"] = known_hot
+        known_recent = list(reversed(known_all[-HOT_INFORMATION_LIMIT:]))
+        context["known_information"] = known_recent
         context["known_information_count"] = len(known_all)
-        context["known_information_truncated"] = len(known_all) > len(known_hot)
+        context["known_information_truncated"] = len(known_all) > len(known_recent)
 
         formations_all = list(context.get("controlled_formations", []))
         player_location = context.get("player", {}).get("location")
@@ -164,12 +197,30 @@ class StableCampaignOperations(CampaignOperations):
         context["permitted_object_refs"] = sorted(permitted_objects)
         permitted_people = set(context.get("permitted_person_ids", [])) - all_commanders
         permitted_people.update(hot_commanders)
-        permitted_people.add(str(context["campaign"]["player_id"]))
+        permitted_people.add(player_id)
         context["permitted_person_ids"] = sorted(permitted_people)
 
         context["interaction_handles"] = handles
-        context["interaction_handles_count"] = len(handles)
-        context["interaction_handles_truncated"] = False
+        context["interaction_handles_count"] = handle_count
+        context["interaction_handles_truncated"] = handle_count > len(handles)
+        context["recent_interaction_attempts"] = attempts
+
+        read_hints = context.setdefault("read_hints", {})
+        if context["controlled_formations_truncated"]:
+            read_hints["controlled_formations_page"] = {
+                "tool": "list_controlled_formations",
+                "next_cursor": str(len(formations_hot)),
+            }
+        if context["known_information_truncated"]:
+            read_hints["known_information_page"] = {
+                "tool": "list_known_information",
+                "next_cursor": str(len(known_recent)),
+            }
+        if context["interaction_handles_truncated"]:
+            read_hints["interaction_handles_page"] = {
+                "tool": "list_interaction_handles",
+                "next_cursor": str(len(handles)),
+            }
 
         commands = context.setdefault("commands", {})
         command_types = dict(commands.get("command_types", {}))
@@ -177,13 +228,19 @@ class StableCampaignOperations(CampaignOperations):
         command_types["interaction_action"] = {
             "accepted_payload_keys": ["action", "formation_refs", "player_statement", "posture", "process_ref", "target_ref"],
             "input_guidance": {
-                "target_ref": {"rule": "use an exact permitted person/object or returned interaction_ref"},
+                "target_ref": {
+                    "rule": (
+                        "use an exact permitted person/object or returned interaction_ref; seek_contact may "
+                        "instead target the player's exact current location to record an attempt to find a lawful receiving channel"
+                    )
+                },
                 "process_ref": {"rule": "optional exact permitted process/interaction ref"},
                 "action": {"allowed_values": sorted(INTERACTION_ACTIONS)},
                 "formation_refs": {"rule": "optional unique exact controlled formation refs"},
                 "player_statement": {"type": "string", "maximum_length": 2000, "rule": "player-authored speech only"},
                 "posture": {"type": "string", "maximum_length": 500, "rule": "player-authored posture only"},
-                "outcome_rule": "NPC/world response fields are forbidden at every nesting depth; an interaction command commits only the player's attempt unless another runtime authority establishes a response.",
+                "outcome_rule": "NPC/world response fields are forbidden; an interaction command commits only the player's attempt unless another runtime authority establishes a response.",
+                "time_rule": "interaction_action never advances chronology; elapsed waiting must use advance_time.",
             },
             "contested_preview_policy": "attempt_only_no_external_outcome",
         }
@@ -224,9 +281,8 @@ class StableCampaignOperations(CampaignOperations):
             raise OperationError(404, "command_contract_not_available")
         return {"command_type": command_type, **dict(record)}
 
-    def list_controlled_formations(self, offset: int = 0, limit: int = 20) -> dict[str, Any]:
-        if isinstance(offset, bool) or not isinstance(offset, int) or offset < 0 or offset > 100000:
-            raise OperationError(422, "formation_page_invalid")
+    def list_controlled_formations(self, cursor: Optional[str] = None, limit: int = 20) -> dict[str, Any]:
+        offset = self._cursor_offset(cursor, "formation_page_invalid")
         if isinstance(limit, bool) or not isinstance(limit, int) or limit < 1 or limit > 64:
             raise OperationError(422, "formation_page_invalid")
         player_id = self._player_actor()
@@ -234,20 +290,42 @@ class StableCampaignOperations(CampaignOperations):
         player_location = self.store.read_json("state/player.json").get("location")
         values.sort(key=lambda item: self._formation_sort_key(item, player_location))
         page = values[offset:offset + limit]
+        next_offset = offset + len(page)
         return {
-            "offset": offset,
-            "limit": limit,
+            "cursor": cursor,
             "count": len(values),
             "returned": len(page),
-            "truncated": offset + len(page) < len(values),
+            "truncated": next_offset < len(values),
+            "next_cursor": str(next_offset) if next_offset < len(values) else None,
             "formations": page,
         }
 
+    def list_known_information(self, cursor: Optional[str] = None, limit: int = 20) -> dict[str, Any]:
+        offset = self._cursor_offset(cursor, "information_page_invalid")
+        if isinstance(limit, bool) or not isinstance(limit, int) or limit < 1 or limit > 64:
+            raise OperationError(422, "information_page_invalid")
+        values = list(reversed(self._all_known_information(self._player_actor())))
+        page = values[offset:offset + limit]
+        next_offset = offset + len(page)
+        return {
+            "cursor": cursor,
+            "count": len(values),
+            "returned": len(page),
+            "truncated": next_offset < len(values),
+            "next_cursor": str(next_offset) if next_offset < len(values) else None,
+            "known_information": page,
+        }
+
+    def list_interaction_handles(self, cursor: Optional[str] = None, limit: int = 20) -> dict[str, Any]:
+        try:
+            return triggered_interaction_page(self.store, cursor=cursor, limit=limit)
+        except ValueError as exc:
+            raise OperationError(422, "interaction_page_invalid") from exc
+
     def inspect_game_object(self, object_ref: str) -> dict[str, Any]:
-        handles, handle_refs = self._interaction_refs()
-        if object_ref in handle_refs:
-            record = next(item for item in handles if item["interaction_ref"] == object_ref)
-            return {"object_ref": object_ref, "visibility": "player_visible_triggered_event", "object": record}
+        interaction = triggered_interaction_record(self.store, object_ref)
+        if interaction is not None:
+            return {"object_ref": object_ref, "visibility": "player_visible_triggered_event", "object": interaction}
         context = self.play_context()
         if object_ref in set(context.get("permitted_object_refs", [])):
             return super().inspect_game_object(object_ref)
@@ -303,6 +381,8 @@ class StableCampaignOperations(CampaignOperations):
             raise OperationError(422, "command_rejected") from exc
 
     def lookup_command_receipt(self, command: CommandEnvelope) -> Optional[dict[str, Any]]:
+        if command.command_type == "scene_consequence":
+            return super().lookup_command_receipt(command)
         translated = self._translate_surface_command(command)
         receipt = super().lookup_command_receipt(translated)
         if receipt is not None and command.command_type == "interaction_action":
@@ -313,6 +393,11 @@ class StableCampaignOperations(CampaignOperations):
     def execute_command(self, command):
         if command.actor_id != self._player_actor() or command.mode != "gameplay":
             raise OperationError(403, "player_surface_forbids_internal_mode")
+        if command.command_type == "scene_consequence":
+            existing = super().lookup_command_receipt(command)
+            if existing is not None:
+                return existing
+            raise OperationError(422, "legacy_scene_consequence_not_player_authored")
         translated = self._translate_surface_command(command)
         try:
             receipt = _receipt_record(self.runtime.execute(translated))
