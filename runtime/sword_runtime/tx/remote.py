@@ -1,10 +1,12 @@
 """Opt-in, fail-closed Git remote durability for the transaction coordinator.
 
-The remote adapter is intentionally narrower than a general Git client.  It
-fetches one configured branch, requires exact local/remote equality before a
-new transaction, and pushes one exact transaction commit without force.  It
-never logs Git output because transport errors can contain credential-bearing
-URLs.
+The remote adapter is intentionally narrower than a general Git client. It
+fetches one configured branch, requires synchronized campaign/runtime authority
+before a new transaction, and pushes one exact transaction commit without
+force. While the campaign single-writer lock is held, it may fast-forward a
+clean checkout across a strict remote descendant only when the resulting tree
+diff is limited to explicitly runtime-neutral paths. It never logs Git output
+because transport errors can contain credential-bearing URLs.
 """
 
 import os
@@ -24,6 +26,14 @@ from sword_runtime.tx.git import GitStager
 _REMOTE_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 _BRANCH_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$")
 _OBJECT_ID = re.compile(r"^(?:[0-9a-f]{40}|[0-9a-f]{64})$")
+_RUNTIME_NEUTRAL_PATH_PREFIXES = (
+    ".github/workflows/",
+    "docs/",
+    "plugins/sword-and-banners/skills/",
+    "tests/",
+    "tools/",
+)
+_RUNTIME_NEUTRAL_EXACT_PATHS = ("README.md",)
 
 
 def _validated_remote_name(value: str) -> str:
@@ -55,6 +65,12 @@ def _validated_object_id(value: str) -> str:
     return value
 
 
+def _runtime_neutral_path(path: str) -> bool:
+    if path in _RUNTIME_NEUTRAL_EXACT_PATHS:
+        return True
+    return any(path.startswith(prefix) for prefix in _RUNTIME_NEUTRAL_PATH_PREFIXES)
+
+
 @dataclass(frozen=True)
 class RemoteSnapshot:
     remote: str
@@ -67,8 +83,8 @@ class GitRemoteDurability:
     """Require one exact remote branch to durably contain each transaction.
 
     Construction enables remote durability; omitting this adapter from the
-    coordinator preserves local-only behavior.  All methods are expected to
-    run while the campaign's single-writer lock is held.
+    coordinator preserves local-only behavior. All methods are expected to run
+    while the campaign's single-writer lock is held.
     """
 
     def __init__(
@@ -97,7 +113,7 @@ class GitRemoteDurability:
     ) -> Optional["GitRemoteDurability"]:
         """Build required durability when both remote settings are present.
 
-        With neither setting, local-only mode remains the default.  Supplying
+        With neither setting, local-only mode remains the default. Supplying
         only one setting fails startup instead of silently dropping durability.
         """
 
@@ -151,8 +167,8 @@ class GitRemoteDurability:
         environment = dict(os.environ)
         environment["GIT_TERMINAL_PROMPT"] = "0"
         # The Railway bootstrap creates a 0700 askpass wrapper outside the
-        # checkout and exports it to Uvicorn.  Preserve that environment for
-        # every fetch/push.  If a token is present without the forced wrapper,
+        # checkout and exports it to Uvicorn. Preserve that environment for
+        # every fetch/push. If a token is present without the forced wrapper,
         # fail closed rather than fall back to an interactive prompt or place
         # the secret in a URL/argument.
         if environment.get("SWORD_GIT_TOKEN") is not None:
@@ -186,7 +202,7 @@ class GitRemoteDurability:
             raise error_type(operation, "command_unavailable") from exc
         if completed.returncode:
             error_type = RemotePushError if push else RemoteDurabilityError
-            # Do not retain or interpolate stdout/stderr.  Git transports may
+            # Do not retain or interpolate stdout/stderr. Git transports may
             # include a URL containing deployment credentials in either stream.
             raise error_type(operation, "git_rejected", completed.returncode)
         return completed.stdout
@@ -203,9 +219,7 @@ class GitRemoteDurability:
                 "inspect_local_branch", "invalid_branch_output"
             ) from exc
         if branch != self.branch:
-            raise RemoteDivergenceError(
-                "preflight", "local_branch_mismatch"
-            )
+            raise RemoteDivergenceError("preflight", "local_branch_mismatch")
         return branch
 
     def _head_for_ref(self, ref: str, operation: str) -> str:
@@ -220,24 +234,108 @@ class GitRemoteDurability:
         return _validated_object_id(value)
 
     def _fetch(self) -> str:
-        # The refspec is fully bounded and never begins with an option.  No
+        # The refspec is fully bounded and never begins with an option. No
         # pruning, tags, wildcard, force marker, or arbitrary destination ref
         # is accepted.
         refspec = "%s:%s" % (self.branch_ref, self.tracking_ref)
-        self._run(
-            ("fetch", "--no-tags", self.remote, refspec),
-            "fetch",
-        )
+        self._run(("fetch", "--no-tags", self.remote, refspec), "fetch")
         return self._head_for_ref(self.tracking_ref, "inspect_remote_head")
 
+    def _is_ancestor(self, older: str, newer: str) -> bool:
+        completed = subprocess.run(
+            [
+                self.git.git_binary,
+                "-C",
+                str(self.git.repository_root),
+                "merge-base",
+                "--is-ancestor",
+                older,
+                newer,
+            ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+            env={**os.environ, "GIT_TERMINAL_PROMPT": "0"},
+            timeout=self.timeout_seconds,
+        )
+        if completed.returncode not in (0, 1):
+            raise RemoteDurabilityError("preflight", "ancestry_check_failed")
+        return completed.returncode == 0
+
+    def _changed_paths(self, older: str, newer: str) -> Tuple[str, ...]:
+        output = self._run(
+            (
+                "diff",
+                "--no-renames",
+                "--name-only",
+                "-z",
+                older,
+                newer,
+                "--",
+            ),
+            "inspect_remote_changes",
+        )
+        paths = []
+        for raw_path in output.split(b"\x00"):
+            if not raw_path:
+                continue
+            try:
+                path = raw_path.decode("utf-8", errors="strict")
+            except UnicodeDecodeError as exc:
+                raise RemoteDurabilityError(
+                    "inspect_remote_changes", "invalid_path_output"
+                ) from exc
+            if not path or path.startswith("/") or "\x00" in path:
+                raise RemoteDurabilityError(
+                    "inspect_remote_changes", "invalid_path_output"
+                )
+            paths.append(path)
+            if len(paths) > 10000:
+                raise RemoteDurabilityError(
+                    "inspect_remote_changes", "too_many_changed_paths"
+                )
+        return tuple(sorted(set(paths)))
+
+    def _try_fast_forward_runtime_neutral(
+        self, local_head: str, remote_head: str
+    ) -> bool:
+        """Adopt a remote descendant only when its resulting diff is harmless.
+
+        This method runs under the coordinator's campaign single-writer lock.
+        It never adopts campaign state, executable runtime, game/rule data,
+        dependencies, deployment files, or unknown paths. Those continue to
+        require normal deployment or deliberate reconciliation.
+        """
+
+        if not self._is_ancestor(local_head, remote_head):
+            return False
+        changed_paths = self._changed_paths(local_head, remote_head)
+        if not changed_paths or not all(_runtime_neutral_path(p) for p in changed_paths):
+            return False
+        try:
+            self.git.assert_pristine()
+        except Exception as exc:
+            raise RemoteDivergenceError("preflight", "local_checkout_dirty") from exc
+        self._run(
+            ("merge", "--ff-only", self.tracking_ref),
+            "fast_forward_runtime_neutral",
+        )
+        return _validated_object_id(self.git.head()) == remote_head
+
     def verify_synchronized(self) -> RemoteSnapshot:
-        """Fetch and require the checked-out branch to equal remote exactly."""
+        """Fetch and require synchronized authority before a new transaction."""
 
         self._current_branch()
         local_head = _validated_object_id(self.git.head())
         remote_head = self._fetch()
         if local_head != remote_head:
-            raise RemoteDivergenceError("preflight", "head_mismatch")
+            if not self._try_fast_forward_runtime_neutral(local_head, remote_head):
+                raise RemoteDivergenceError("preflight", "head_mismatch")
+            local_head = _validated_object_id(self.git.head())
+            if local_head != remote_head:
+                raise RemoteDivergenceError(
+                    "preflight", "runtime_neutral_fast_forward_mismatch"
+                )
         return RemoteSnapshot(
             remote=self.remote,
             branch=self.branch,
@@ -265,8 +363,8 @@ class GitRemoteDurability:
     def ensure_commit_durable(self, commit_hash: str) -> RemoteSnapshot:
         """Push or verify one exact commit, without rolling it back on failure.
 
-        Recovery calls this same method.  A remote already at ``commit_hash``
-        means a prior push succeeded before the process died.  Otherwise the
+        Recovery calls this same method. A remote already at ``commit_hash``
+        means a prior push succeeded before the process died. Otherwise the
         remote must still be at the transaction commit's sole parent; any other
         head is a divergence and is never overwritten.
         """

@@ -27,6 +27,7 @@ from mcp.types import CallToolResult, TextContent, ToolAnnotations
 from pydantic import BaseModel, ConfigDict
 
 from sword_runtime.api.operations import CampaignOperations, OperationError
+from sword_runtime.api.world_reference import search_world_reference as _search_world_reference
 from sword_runtime.commands import CommandEnvelope
 
 _SAFE_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]*$")
@@ -459,13 +460,15 @@ def create_mcp_server(
         description="Private deterministic runtime for one persistent Warring States campaign.",
         instructions=(
             "Call get_play_context first for every live campaign turn. Use only player-visible "
-            "returned facts and bounded exact-ID reads. Preview one currently supported semantic "
-            "command, then pass the exact returned command and preview attestation to execute_command. "
-            "Contested previews deliberately hide battle, duel, and siege-assault outcomes until the "
-            "single execute. Narrate persistence only after a committed or duplicate receipt, then "
-            "refresh context. OOC audit is read-only. Unsupported intent fails closed."
+            "returned facts and bounded exact-ID reads. Use search_world_reference only for bounded "
+            "cold identity/reference lookup; its results never prove current mutable state or player "
+            "knowledge. Preview one currently supported semantic command, then pass the exact returned "
+            "command and preview attestation to execute_command. Contested previews deliberately hide "
+            "battle, duel, and siege-assault outcomes until the single execute. Narrate persistence only "
+            "after a committed or duplicate receipt, then refresh context. OOC audit is read-only. "
+            "Unsupported intent fails closed."
         ),
-        version="0.2.0",
+        version="0.3.0",
         token_verifier=verifier,
         auth=AuthSettings(
             issuer_url=oauth.issuer_url,
@@ -519,6 +522,54 @@ def create_mcp_server(
         if not isinstance(object_ref, str) or len(object_ref) > 160 or not _SAFE_ID.fullmatch(object_ref):
             return _failure(OperationError(422, "object_ref_invalid"))
         return _tool_call(lambda: operations.inspect_game_object(object_ref))
+
+    @server.tool(
+        name="search_world_reference",
+        title="Search cold world reference",
+        description=(
+            "Search bounded cold reference identity for locations, people, Houses, or completed "
+            "background history. Results are reference-only and never prove current location, wounds, "
+            "stock, staffing, control, private knowledge, relationships, deployments, or future outcomes."
+        ),
+        annotations=read_annotations,
+        meta=read_security_meta,
+        structured_output=True,
+    )
+    def search_world_reference(
+        query: str,
+        category: str = "any",
+        offset: int = 0,
+        limit: int = 12,
+    ) -> ReadToolOutput:
+        if (
+            not isinstance(query, str)
+            or not query.strip()
+            or len(query) > 160
+            or "\x00" in query
+            or category not in {"any", "location", "person", "house", "history"}
+            or isinstance(offset, bool)
+            or not isinstance(offset, int)
+            or offset < 0
+            or offset > 100000
+            or isinstance(limit, bool)
+            or not isinstance(limit, int)
+            or limit < 1
+            or limit > 32
+        ):
+            return _failure(OperationError(422, "world_reference_input_invalid"))
+        try:
+            result = _search_world_reference(
+                operations.store,
+                query,
+                category=category,
+                offset=offset,
+                limit=limit,
+            )
+        except (TypeError, ValueError):
+            return _failure(OperationError(422, "world_reference_input_invalid"))
+        except FileNotFoundError:
+            return _failure(OperationError(503, "world_reference_unavailable"))
+        return _success(result=result)
 
     @server.tool(
         name="preview_command",
