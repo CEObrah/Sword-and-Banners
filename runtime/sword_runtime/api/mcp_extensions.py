@@ -1,10 +1,15 @@
-"""Small additive MCP surface for bounded rediscovery and exact command contracts."""
+"""Additive MCP reads for exact contracts and bounded continuation pages."""
 from __future__ import annotations
+
+import re
+from typing import Optional
 
 from mcp.types import ToolAnnotations
 
 from sword_runtime.api.mcp import ReadToolOutput, _failure, _tool_call
 from sword_runtime.api.operations import OperationError
+
+_SAFE_COMMAND = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,95}$")
 
 
 def install_extended_tools(server, operations, oauth) -> None:
@@ -25,25 +30,42 @@ def install_extended_tools(server, operations, oauth) -> None:
         structured_output=True,
     )
     def get_command_contract(command_type: str) -> ReadToolOutput:
-        if not isinstance(command_type, str) or not command_type or len(command_type) > 96:
+        if not isinstance(command_type, str) or not _SAFE_COMMAND.fullmatch(command_type):
             return _failure(OperationError(422, "command_type_invalid"))
         return _tool_call(lambda: operations.get_command_contract(command_type))
 
     @server.tool(
         name="list_controlled_formations",
         title="List controlled formations",
-        description="Page through the player's current controlled formations when the bounded hot context is truncated. This is a read-only rediscovery surface; exact formation authority remains authoritative.",
+        description="Page through current player-controlled formations when the hot context is truncated. Continue with next_cursor; exact formation authority is revalidated on each read.",
         annotations=read_annotations,
         meta=read_security_meta,
         structured_output=True,
     )
-    def list_controlled_formations(offset: int = 0, limit: int = 20) -> ReadToolOutput:
-        if (
-            isinstance(offset, bool) or not isinstance(offset, int) or offset < 0 or offset > 100000
-            or isinstance(limit, bool) or not isinstance(limit, int) or limit < 1 or limit > 64
-        ):
-            return _failure(OperationError(422, "formation_page_invalid"))
-        return _tool_call(lambda: operations.list_controlled_formations(offset=offset, limit=limit))
+    def list_controlled_formations(cursor: Optional[str] = None, limit: int = 20) -> ReadToolOutput:
+        return _tool_call(lambda: operations.list_controlled_formations(cursor=cursor, limit=limit))
+
+    @server.tool(
+        name="list_known_information",
+        title="List known information",
+        description="Page through Tang Wei's saved known-information claims when the hot knowledge window is truncated. Continue with next_cursor; exact knower state remains authoritative.",
+        annotations=read_annotations,
+        meta=read_security_meta,
+        structured_output=True,
+    )
+    def list_known_information(cursor: Optional[str] = None, limit: int = 20) -> ReadToolOutput:
+        return _tool_call(lambda: operations.list_known_information(cursor=cursor, limit=limit))
+
+    @server.tool(
+        name="list_interaction_handles",
+        title="List interaction handles",
+        description="Page through player-visible triggered institutional/message interaction handles when the hot interaction window is truncated. Continue with next_cursor; these records establish only already-triggered player-visible facts.",
+        annotations=read_annotations,
+        meta=read_security_meta,
+        structured_output=True,
+    )
+    def list_interaction_handles(cursor: Optional[str] = None, limit: int = 20) -> ReadToolOutput:
+        return _tool_call(lambda: operations.list_interaction_handles(cursor=cursor, limit=limit))
 
 
 __all__ = ["install_extended_tools"]
