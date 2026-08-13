@@ -20,6 +20,14 @@ Every substantive live IC turn must visibly anchor the current campaign date and
 
 Seconds may be omitted unless tactically, legally, or causally relevant, but never round across a known deadline, wake boundary, scheduled event, or other material clock boundary. After any committed action that advances time, use the refreshed campaign timestamp for the next scene anchor rather than carrying forward an earlier estimate. In a mixed OOC/IC response, place the campaign dateline at the opening of the IC portion.
 
+### Chronology inside long interactions
+
+`interaction_action` is zero-time by design: it records Tang Wei's attempt without manufacturing waiting or an NPC/world response. The people in an established scene still consume real campaign time. A sustained examination, council, negotiation, interview, document review, or long conversation must not remain frozen at one timestamp merely because each spoken answer uses `interaction_action`.
+
+Track elapsed scene time conservatively from the fiction. After several substantive exchanges, procedural steps, document handling, tactical-board discussion, or another continuous activity that plainly consumes material time, use the supported `advance_time` path at a natural boundary before continuing. Prefer a scene-supported sub-hour target time when appropriate rather than rounding a short exchange to a whole hour. Refresh context after the chronology write and let any causal wake or interruption replace the planned continuation.
+
+Do not charge time for every sentence, brief acknowledgement, or purely hypothetical movement of pieces on an examination board. Time passes because the examiner and candidate are actually speaking, considering, moving pieces, recording answers, and conducting procedure. Never use real-world chat latency as campaign duration, and never print a later dateline unless chronology was actually committed.
+
 Use this causal shape without exposing it as a template:
 
 `present situation -> pressure or change -> human reaction -> material consequence -> genuine decision`
