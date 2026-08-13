@@ -1,87 +1,92 @@
 # Repository Map
 
-Use this reference for OOC DEV source location and authority questions.
+Use this reference for OOC DEV source-location and authority questions. The machine routing contract is `runtime/contracts/repository-map.json`; this prose explains the important human-facing ownership boundaries.
 
 ## Top-level authority
 
 `runtime/`
-: Executable Sword engine, command planning, transaction system, API/MCP service, bootstrap, persistence, recovery, production living-world intelligence, and integration.
+: Executable Sword engine, command planning, transaction system, causal simulation, API/MCP service, bootstrap, persistence, recovery, and integration.
 
 `game/`
 : Static game authority: rules, schemas, mechanics definitions, world content, historical background, locations, routes, institutions, Houses, equipment, economy, and other non-campaign definitions.
 
 `state/`
-: Mutable committed campaign truth for the active Tang Wei campaign. Persisted records explicitly marked `authority: false` are bounded projections/evidence/routing and do not replace the exact owners they reference.
+: Mutable committed campaign truth for the Tang Wei campaign. Records explicitly marked `authority: false` are bounded routing/projection/evidence surfaces and never replace the exact owners they reference.
 
 `plugins/sword-and-banners/skills/sword-and-banners-game-master/`
-: ChatGPT GM operating and presentation Skill. It is not mechanical campaign authority.
+: Canonical repository source for ChatGPT GM operating/presentation guidance. It is not mechanical campaign authority and a Git commit does not automatically update the installed Skill.
 
 `tests/runtime/`
-: Runtime, architecture, hostile-input, warfare, living-world, acceptance, transaction, current-campaign replay, and long-horizon verification.
+: Runtime, architecture, security, hostile-input, living-world, interaction, warfare, transaction, replay, and persistence verification.
 
 `tools/`
-: Gold audit, migrations, soak gates, release verification, and development utilities.
-
-`.github/workflows/audit.yml`
-: Lightweight path-filtered automatic smoke CI plus deliberate manual full-Gold entry point. Do not turn every commit into the complete soak/release suite.
+: Fast verification, focused test routing, Gold diagnostics, migrations, soak gates, and development utilities.
 
 `railway.toml`
-: Sole production Railway build/deploy/watch configuration.
+: Sole production Railway build/deploy/watch configuration. Runtime/game/dependency/deployment changes redeploy; gameplay state and runtime-neutral Skill/docs/tests/tools/workflow/README changes are excluded from deployment loops.
 
 `docs/RUNTIME_SERVICE_DEPLOYMENT.md`
 : Canonical Railway/Auth0/ChatGPT deployment procedure.
 
 ## Machine repository map
 
-The active machine-readable repository routing contract is:
-
 `runtime/contracts/repository-map.json`
-
-Do not recreate the retired `game/data/runtime/` directory. Gold explicitly treats that old execution tree as retired.
+: Active machine-readable development router. Do not recreate the retired `game/data/runtime/` execution tree.
 
 ## Runtime entry points
 
 `runtime/sword_runtime/engine.py`
 : Baseline domain mechanics, semantic reducers, formation/training/economy/family/warfare behavior, and core planner logic.
 
+`runtime/sword_runtime/service_runtime.py`
+: Production runtime wiring, remote durability, non-probing contested/hidden-future preview behavior, player-agency hardening, and hosted planner composition.
+
 `runtime/sword_runtime/living_world.py`
-: Bounded non-authoritative operational memory, objective-fit exact formation selection, concurrent state-response capacity, learned operational evidence, and high-salience wake primitives.
+: Bounded non-authoritative operational memory and high-salience wake primitives.
 
 `runtime/sword_runtime/causal_living_world.py`
-: Globally chronological causal catch-up, callback-created host preservation, resumable player-facing wake settlement, autonomous battle provenance, and cross-host chronological consistency.
+: Globally chronological causal catch-up, resumable player-facing wake settlement, and causal event provenance.
 
 `runtime/sword_runtime/production_living_world.py`
-: Final hosted planner normalizations: hard assignment/custody exclusion, exact commander availability, truthful physical operation status, and provenance normalization.
+: Final hosted planner normalizations for assignment/custody, commander availability, physical operation truth, and provenance.
 
 `runtime/sword_runtime/player_group_actions.py`
-: Causally parallel grouped player military actions such as multi-formation mobilization and escorted travel; exact formation owners remain military authority.
+: Causally parallel grouped player military actions such as multi-formation mobilization and escorted travel; exact formation owners remain authority.
 
 `runtime/sword_runtime/systems/campaign_events.py`
-: Bounded short-horizon campaign-event routing. It materializes `authority: false` work targets into the existing causal frontier and settles due targets only into exact event-registry owners.
+: Bounded short-horizon campaign-event routing. `authority: false` work targets become occurrence truth only when the causal runtime settles them into an exact event-registry owner.
 
 `runtime/sword_runtime/campaign_event_planner.py`
-: Hosted planner layer that integrates one-shot campaign-event work with chronological catch-up and resumable player-facing event boundaries.
+: Hosted planner integration for one-shot campaign-event work and resumable player-facing event boundaries.
 
 `runtime/sword_runtime/development.py`
-: Exact-person development settlement and absolute skill progression bound.
+: Exact-person development settlement and skill progression bounds.
 
 `runtime/sword_runtime/command_contracts.py`
-: Closed semantic command payload-key contracts.
+: Closed **engine** semantic payload-key contracts. Surface-only `interaction_action` is intentionally not an engine command.
 
-`runtime/sword_runtime/service_runtime.py`
-: Production runtime wiring, required remote Git durability, non-probing contested/hidden-future preview behavior, and production planner composition.
+## Player-facing API/MCP
 
 `runtime/sword_runtime/api/operations.py`
-: Core bounded player-facing operations shared by REST and MCP.
+: Core player-facing reads and semantic command operations shared by service surfaces.
 
 `runtime/sword_runtime/api/stable_operations.py`
-: Stable player-safe operation wrappers, wake-aware command availability, and low-information error mapping.
+: Production player-safe wrapper. It owns bounded hot-context projection, exact rehydration/paging, stale-scene replacement, typed interaction admission, hiding new raw `scene_consequence` writes, wake-aware availability, and stable low-information failures.
 
-`runtime/sword_runtime/api/app.py`
-: FastAPI application, health, compatibility REST routes, one production runtime instance, optional MCP mounting.
+`runtime/sword_runtime/api/interaction_surface.py`
+: Surface-only `interaction_action` contract. Validates player-owned target/action/statement/posture/formations, forbids caller-authored NPC/world outcomes, embeds the original surface digest, translates to an attempt-only compatibility record, reads triggered interaction handles, and reconstructs safe runtime scene continuity from current owners plus already-triggered facts.
 
 `runtime/sword_runtime/api/mcp.py`
-: OAuth/JWT MCP service, ChatGPT tools, preview attestation, security metadata, and protected-resource metadata.
+: OAuth/JWT MCP base service, core ChatGPT tools, exact preview attestation, security metadata, and protected-resource metadata.
+
+`runtime/sword_runtime/api/mcp_extensions.py`
+: Additive bounded read tools installed by production app wiring: `get_command_contract`, `list_controlled_formations`, `list_known_information`, and `list_interaction_handles`.
+
+`runtime/sword_runtime/api/app.py`
+: FastAPI application, health and compatibility REST routes, one production runtime instance, and production MCP mounting/extension installation.
+
+`runtime/sword_runtime/api/world_reference.py`
+: Bounded cold reference search. Reference results never prove mutable campaign facts or player knowledge.
 
 `runtime/sword_runtime/bootstrap.py`
 : Railway persistent-checkout bootstrap and safe history-replacement recovery.
@@ -92,7 +97,7 @@ Do not recreate the retired `game/data/runtime/` directory. Gold explicitly trea
 : Transaction lifecycle, WAL, commit, remote durability, receipt publication, and recovery.
 
 `runtime/sword_runtime/tx/remote.py`
-: Exact configured-branch remote preflight, push, and remote verification.
+: Exact configured-branch remote preflight, runtime-neutral fast-forward allowlist, push, and remote verification.
 
 `runtime/sword_runtime/tx/git.py`
 : Local Git staging/commit primitives.
@@ -104,7 +109,7 @@ Do not recreate the retired `game/data/runtime/` directory. Gold explicitly trea
 : Immutable command receipts and idempotent duplicate handling.
 
 `runtime/contracts/transaction-invalidations.json`
-: Explicit tombstones for receipted transactions deliberately removed by a diagnosed campaign repair.
+: Tombstones for receipted transactions deliberately removed by a diagnosed campaign repair.
 
 ## Campaign state anchors
 
@@ -115,55 +120,68 @@ Do not recreate the retired `game/data/runtime/` directory. Gold explicitly trea
 : Tang Wei's active player record.
 
 `state/scene.json`
-: Player-facing scene projection and unresolved decision context. It is valid only when its projection revision/time match current campaign authority.
+: Authored player-facing scene projection. It is presentation state only when its time/revision no longer match current campaign authority. Production stable operations then strip transient claims and build a current runtime projection rather than treating old prose as present fact.
 
 `state/runtime.json`
-: Authoritative temporal frontier: autonomous causal hosts, scheduler/runtime campaign state, and bounded persisted wake state.
-
-`state/index/campaign-causal-work.json`
-: Optional bounded `authority: false` routing for explicit short-horizon campaign work. A pending target here is not proof an event occurred and is not a second event authority. When the causal runtime settles a due target, the occurrence is written into its exact routed `state/event/` owner; overdue repair targets catch up at the current world time rather than rewinding history.
-
-`state/event/*.json`
-: Exact mutable event/message/movement owners. Causally triggered campaign occurrences become authoritative here only after runtime settlement.
+: Authoritative temporal frontier: causal hosts/events and persisted wake state.
 
 `state/index/owner-index-gold.json`
-: Active owner routing for mutable campaign objects.
+: Active exact owner routing for mutable campaign objects.
 
-`state/index/operational-memory.json`
-: Bounded `authority: false` operational evidence for autonomous selection and history when present. It never replaces exact formation, person, operation, battle, or state authority.
+`state/index/location-formation-index.json`
+: Non-authoritative exact-location routing for formations; exact formation documents remain authority.
+
+`state/index/commander-formation-index.json`
+: Non-authoritative commander-to-formation routing; exact people/formations remain authority.
+
+`state/index/campaign-causal-work.json`
+: Optional bounded `authority: false` routing for explicit short-horizon campaign work. A pending target is not proof an event occurred.
+
+`state/event/*.json`
+: Exact mutable event/message/movement owners. Triggered campaign occurrences are authoritative here after runtime settlement.
+
+`state/information/index.json`
+: Routing index for exact information claims. Player knowledge is revalidated from each claim's saved `knowers`; an omitted hot-window claim is not forgotten.
+
+`state/formations/*.json`
+: Persistent exact formations. The ordinary play context is a bounded recent/current window; omitted controlled formations can be rediscovered by the paged read surface and revalidated from exact authority.
+
+`state/world/operational-memory.json`
+: Bounded `authority: false` operational evidence when present. It never replaces exact formation, person, operation, battle, or state authority.
 
 `state/relationships-gold.json`
 : Active relationship authority.
 
-Do not infer that every state file is player-visible. MCP bounded reads enforce the knowledge boundary.
+Never infer that every state file is player-visible. Bounded operations enforce the knowledge boundary.
 
 ## Testing and release verification
 
-Routine pushes do not need the complete release suite.
+`tools/quick_check.py`
+: Fast syntax plus structural production-audit gate for normal development.
 
-`.github/workflows/audit.yml`
-: Runs fast automatic smoke checks only when relevant runtime/game/tools/tests/config paths change. Skill/docs/state-only commits do not need to spend CI on the full suite.
+`tools/test_changed.py`
+: Changed-path router for the maintained focused regression slice.
 
 `tools/audit_gold.py`
-: Structural production audit. Included in automatic smoke.
+: Structural production audit used by the quick gate.
 
 `tools/run_gold_suite.py`
-: Full deliberate Gold production verification runner. Use for major releases, substantial runtime changes, pre-deployment hardening, and explicit Gold certification.
+: Deliberate broad Gold diagnostic/release runner. It is not required for every ordinary edit.
 
 `tools/run_gold_soak_gate.py`
-: Long persistence soak used by the full Gold gate, not by every routine commit.
+: Long persistence soak for concrete release/diagnostic needs.
 
-`tests/runtime/test_living_world_intelligence.py`
-: Living-world intelligence, high-salience wake, progression-bound, exact/aggregate and current-campaign replay coverage.
+`tests/runtime/test_interaction_surface.py`
+: Typed attempt, outcome-injection, digest/idempotency, bounded interaction-handle paging, raw-scene bypass, and stale-projection continuation regressions.
 
-`tests/runtime/test_production_living_world.py`
-: Hosted planner assignment/custody/provenance invariants, including short-horizon campaign causal-work settlement.
+`tests/runtime/test_architecture_service.py`
+: Service architecture, player-safe context, scene projection, MCP/deployment-file, and integration invariants.
 
 `tests/runtime/test_stable_operations.py`
-: Stable player-facing wake and error-surface behavior, including ordinary responses to one-shot campaign-event boundaries.
+: Stable player-facing wake and failure-surface behavior.
 
-Prefer state-independent fixture regressions for invariant logic. Keep evolving-current-campaign replay as a separate integration layer on disposable copies.
+Prefer state-independent fixtures for invariant logic. Keep evolving-current-campaign integration as a separate disposable-copy layer.
 
 ## Canonical documentation rule
 
-The Game Master Skill is the canonical ChatGPT-facing operating and development manual. Do not recreate root `VOICE.md`, `PLAYER_INTERFACE.md`, `RUNTIME.md`, `REPOSITORY_MAP.md`, `AGENTS.md`, or `DEPLOYMENT.md` copies. Keep root `README.md` as orientation only and keep deployment procedure under `docs/`.
+The Game Master Skill is the canonical ChatGPT-facing operating/development manual. Do not recreate root `VOICE.md`, `PLAYER_INTERFACE.md`, `RUNTIME.md`, `REPOSITORY_MAP.md`, `AGENTS.md`, or `DEPLOYMENT.md` copies. Keep root `README.md` as orientation only and deployment procedure under `docs/`.
