@@ -48,6 +48,23 @@ Before ending an IC response, check fresh runtime context and the narrated endpo
 
 Do not end with only `Your next movement belongs to you`, `What happens next is your choice`, a generic question with no useful options when grounded options exist, or an abstract statement that the runtime is waiting for input. If six meaningful choices exist, show six. If fewer exist, show the meaningful set plus `Free Action`.
 
+## Arrival and stale-projection handoffs
+
+A committed movement, mobilization, time advance, or other state change may make the saved scene projection stale before a new authored scene is projected. `scene.unresolved_decision: null` in that stale handoff is not proof that the player's causal thread disappeared.
+
+When fresh play context reports a stale scene:
+
+- use current exact player/formation state and the just-committed result for present facts;
+- use `scene.continuity_anchor` only as presentation-only memory of the prior player-known situation;
+- use the player's still-active declared intent to understand what the completed movement or preparation was for;
+- never treat the continuity anchor as proof that an NPC is currently present, that access has been granted, that a prior pressure remains active, or that an old unresolved decision survived unchanged;
+- if the declared sequence has reached a new consequential fork, provide grounded choices even though the new scene projection has not yet been authored;
+- phrase uncertain access as an action Wei can attempt, such as presenting the summons, seeking the named office, sending a runner, or asking for protocol, rather than asserting that the audience or official is already waiting in front of him.
+
+Arrival is especially important. If Wei has just reached a destination for a known purpose, do not end merely because the travel command ended. Carry through obvious non-decision arrival logistics when current authority supports them. If escort disposition, access, protocol, timing, equipment, or another material choice now matters, stop there and scaffold that choice.
+
+The continuity anchor may justify keeping a previously player-known objective in view. It may never grant scene-derived read permissions or revive stale cast presence.
+
 ## Do not re-offer completed setup
 
 Treat persisted doctrine, rosters, standing orders, schedules, instructors, facilities, equipment standards, plans, assignments, and other durable arrangements as already established until authoritative state says they changed, expired, failed, or need revision. Before offering planning or setup again, inspect the current owner and ask what would actually change.
@@ -76,7 +93,7 @@ Do not promise that an OOC DEV fix will make an option legal unless the source d
 
 ## Ground every choice
 
-Every suggested action must come from fresh player-visible runtime context.
+Every suggested action must come from fresh player-visible runtime context. A continuity anchor returned inside that fresh context may preserve a previously player-known purpose, but it is presentation-only and cannot establish current mutable facts.
 
 Do not:
 - reveal hidden enemy plans;
@@ -130,7 +147,7 @@ If Wei chooses a campaign objective, do not silently resolve mobilization, march
 
 If the player already supplied a clear action, resolve it. Do not answer with a list of alternatives before attempting the action. Carry that intent through obvious non-decision logistics such as preparation, departure, routine lawful travel, arrival, reporting, or taking the already-selected seat or post when those steps are implied and no material tradeoff appears.
 
-If a new consequential choice arises during that sequence, stop at that new decision. After the action commits and the resulting scene creates a new unresolved decision, choices may then appear.
+If a new consequential choice arises during that sequence, stop at that new decision. After the action commits, refresh context and judge the actual endpoint. A fresh authored scene is not required for a menu when current exact state plus a presentation-only continuity anchor clearly establish that the declared sequence has reached a new player-facing fork.
 
 ## Choice language
 
