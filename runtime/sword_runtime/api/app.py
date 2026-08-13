@@ -34,8 +34,6 @@ class OocAuditRequest(StrictModel):
 def _safe_player_context(store) -> dict[str, Any]:
     """Compatibility helper retained for older tests and local callers."""
     runtime = type("ReadOnlyRuntime", (), {"store": store})()
-    # Do not use this helper for production writes. It exists only so old code
-    # that imported the function keeps a player-safe context during migration.
     meta = store.read_json("state/meta.json")
     player = store.read_json("state/player.json")
     wallet = store.read_json("state/economy/player-wallet.json")
@@ -88,7 +86,7 @@ def create_app(
     operations = StableCampaignOperations(runtime)
     app = FastAPI(
         title="Sword & Banners Runtime",
-        version="0.2.0",
+        version="0.3.0",
         docs_url=None,
         redoc_url=None,
         openapi_url=None,
@@ -164,9 +162,6 @@ def create_app_from_env() -> FastAPI:
     if not root or not runtime_root:
         raise RuntimeError("SWORD_CAMPAIGN_ROOT and SWORD_RUNTIME_ROOT are required")
 
-    # ChatGPT authenticates the MCP surface through OAuth. The compatibility
-    # REST token is optional; when absent, a per-process value effectively
-    # disables those private routes from external callers.
     token = os.environ.get("SWORD_API_TOKEN") or secrets.token_urlsafe(48)
     app = create_app(Path(root), token, Path(runtime_root), recover=True)
 
@@ -180,10 +175,13 @@ def create_app_from_env() -> FastAPI:
     )
     if any(os.environ.get(name) for name in mcp_environment):
         from sword_runtime.api.mcp import McpOAuthSettings, create_mcp_server, mount_mcp
+        from sword_runtime.api.mcp_extensions import install_extended_tools
         oauth = McpOAuthSettings.from_env()
+        server = create_mcp_server(app.state.campaign_operations, oauth)
+        install_extended_tools(server, app.state.campaign_operations, oauth)
         mount_mcp(
             app,
-            create_mcp_server(app.state.campaign_operations, oauth),
+            server,
             oauth,
             max_request_body_size=128 * 1024,
         )
