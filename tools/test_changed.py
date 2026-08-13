@@ -18,6 +18,7 @@ COMMAND_TESTS = {
     "tests/runtime/test_interaction_surface.py",
 }
 LIVING_WORLD_TESTS = {
+    "tests/runtime/test_campaign_event_liveness.py",
     "tests/runtime/test_living_world_intelligence.py",
     "tests/runtime/test_production_living_world.py",
     "tests/runtime/test_world_arcs.py",
