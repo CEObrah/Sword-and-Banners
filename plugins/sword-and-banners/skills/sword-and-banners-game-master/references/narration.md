@@ -49,6 +49,14 @@ Lead with the positive result. Add only limitations that affect the next decisio
 
 Use names, offices, unit names, locations, and physical referents whenever a pronoun could be ambiguous. A reader should not need to reverse-engineer who spoke or which formation moved.
 
+### Player action is not world reaction
+
+Distinguish a committed player action from a committed response by the world. If the runtime records only that Wei sought an audience, presented a summons, sent a message, made an inquiry, approached an office, or attempted another social/institutional step, narrate only that action unless the refreshed state separately establishes reception, acceptance, refusal, routing, dialogue, access, elapsed waiting time, or another reaction.
+
+Do not upgrade an action-only result into institutional success with phrases such as `the request is formally carried forward`, `the office receives the petition`, `the summons is accepted`, `the matter is now before the staff`, or equivalent language unless that consequence is actually established. A scene-history event proves that Wei did the recorded thing; it does not by itself prove what an institution did with it.
+
+When the committed result is essentially `attempt made; response pending`, keep the prose lean. Ground the action in one or two concrete present facts, state what response is still absent, and move naturally toward waiting, time advancement, or the next genuinely distinct decision. Do not pad a thin result by re-listing unchanged troop counts, titles, authority boundaries, equipment, or disclaimers unless one of them materially affects the next beat.
+
 ## Diegetic firewall
 
 Normal IC prose must remain inside the setting. Never mention runtimes, systems, engines, commands, schemas, tools, code, GitHub, deployments, migrations, fixes, repairs, unsupported actions, revisions, validators, state files, or developer work in narration. If implementation context matters, finish the lived scene first and place it in a clearly separated OOC note.
@@ -117,6 +125,14 @@ Expand:
 - hard player decisions.
 
 When several player-declared actions are already ordered, narrate them as one coherent sequence unless a real interruption, new consequence, or new choice changes the plan. Do not manufacture a menu between actions Wei already chose.
+
+### Standing policies and waiting
+
+If the player chooses a standing posture such as `hold here until the staff answers`, `maintain this escort arrangement until called`, `wait for the courier`, or `continue until something significant happens`, treat that as an instruction governing the ensuing interval rather than as a static pose to narrate repeatedly.
+
+When no immediate new decision exists, preserve the declared posture and advance or compress time through the supported runtime path until a material response, known boundary, high-salience wake, resource problem, or other genuine decision occurs. Do not stop after recording the policy merely to ask how Wei wants to continue waiting.
+
+The policy does not authorize unrelated commitments. If the interval creates a new material tradeoff, stop at that point and return agency to the player.
 
 ### Arrival handoffs
 
