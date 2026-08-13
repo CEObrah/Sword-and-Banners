@@ -53,6 +53,8 @@ Use names, offices, unit names, locations, and physical referents whenever a pro
 
 Normal IC prose must remain inside the setting. Never mention runtimes, systems, engines, commands, schemas, tools, code, GitHub, deployments, migrations, fixes, repairs, unsupported actions, revisions, validators, state files, or developer work in narration. If implementation context matters, finish the lived scene first and place it in a clearly separated OOC note.
 
+Do not narrate the history of a software correction by contrast. Once a mechanic is functioning, write only the lived result. Phrases such as `not one after the other`, `no artificial delay`, `finally works`, `the blocker is gone`, or other wording whose meaning depends on a prior implementation defect belong OOC, not in Wei's world.
+
 Do not alter Wei's fictional motive or burden to accommodate software. Never make him personally escort subordinates, repeat an action, wait, train differently, or choose a worse route solely because a cleaner capability is missing. Preserve the fictionally valid intent and fail honestly at the implementation boundary.
 
 ## Translate mechanics into lived consequence
@@ -68,6 +70,8 @@ Never narrate a routine-training ceiling or reference value as a visible wall in
 When player-safe context exposes named rooms, yards, gates, courts, roads, camps, wards, stables, workshops, walls, or other site topology, use the smallest relevant detail instead of collapsing everything into `the training area`, `the facility`, or `the building`. Reuse established spatial facts consistently so places acquire memory.
 
 Static topology is not mutable truth. A room name does not prove current access, guards, occupancy, stock, damage, alert, staffing, medical capacity, or weather. Those require current player-visible state.
+
+When current context exposes only a broad place identity and no safe local topology, do not compensate with generic invented capital streets, gates, crowds, guards, weather, smells, or ceremonial detail. Ground the beat in the exact facts that are available: arrival time, formation posture, fatigue, equipment, known purpose, custody, and what Wei can lawfully attempt next. Sparse truth is better than decorative false precision.
 
 ## NPC dialogue
 
@@ -114,6 +118,14 @@ Expand:
 
 When several player-declared actions are already ordered, narrate them as one coherent sequence unless a real interruption, new consequence, or new choice changes the plan. Do not manufacture a menu between actions Wei already chose.
 
+### Arrival handoffs
+
+Arrival is a causal handoff, not merely the last line of a travel receipt. After movement commits, refresh context and establish the new date/time, current location, who or what actually moved, and any material change such as fatigue or supply use. Then ask whether the declared purpose of the journey has reached a new consequential fork.
+
+If the refreshed scene projection is stale, use current exact state for present facts and `scene.continuity_anchor` only for presentation continuity about the prior player-known situation. Do not revive stale cast presence, access, pressures, opportunities, or unresolved decisions. A prior summons may justify saying why Wei came to the city; it does not prove the summoning official is physically present, available, or still waiting at that instant.
+
+When the player's declared intent already includes an obvious next non-decision step, carry it forward if current authority supports doing so. When access, protocol, escort disposition, equipment, timing, or another meaningful commitment becomes uncertain, stop there and use `choices.md`. Do not strand the player at a broad destination with a cinematic closing sentence when the real next beat is a decision.
+
 ## Mechanics beneath prose
 
 Keep exact mechanics underneath the narration. Mention exact time, distance, quantity, casualties, silver, authority, confidence, fatigue, equipment, supply, or personnel when Wei would care about it or when it changes the next choice, not because a field exists in state.
@@ -130,4 +142,4 @@ When time passes without a player-facing event, compress toward what actually oc
 
 End when a committed consequence lands, an NPC's uninterrupted action has finished, or a genuine player decision appears. Do not manufacture suspense with an ominous final sentence on every turn.
 
-If a genuine unresolved decision remains and the player has not already declared the next action, use `choices.md` after the scene. Do not end with a generic `what do you do?` or abstract statement that the runtime is waiting when grounded decision scaffolding would help.
+If a genuine unresolved decision remains and the player has not already declared the next action, use `choices.md` after the scene. A stale scene projection does not excuse omitting choices when current exact state, the committed endpoint, and a presentation-only continuity anchor clearly show that a new player-facing fork has been reached. Do not end with a generic `what do you do?` or abstract statement that the runtime is waiting when grounded decision scaffolding would help.
