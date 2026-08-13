@@ -8,9 +8,37 @@
     "owner_id":{"type":"string"},
     "owner_type":{"type":"string"},
     "records":{"type":"array","items":{"type":"object","required":["label","record_id"],"properties":{"label":{"type":"string"},"notes":{"type":"array","items":{"type":"string"}},"record_id":{"type":"string"},"facts":{"type":"object"}},"additionalProperties":false}},
+    "causal_events":{
+      "type":"object",
+      "maxProperties":256,
+      "additionalProperties":{
+        "type":"object",
+        "required":["event_ref","kind","status","due_at","triggered_at","summary","provenance"],
+        "properties":{
+          "event_ref":{"type":"string","minLength":1,"maxLength":160},
+          "kind":{"type":"string","minLength":1,"maxLength":96},
+          "status":{"const":"triggered"},
+          "due_at":{"type":"string","minLength":1,"maxLength":64},
+          "triggered_at":{"type":"string","minLength":1,"maxLength":64},
+          "summary":{"type":"string","minLength":1,"maxLength":4000},
+          "provenance":{
+            "type":"object",
+            "required":["kind","source_owner_ref","work_ref","late_catch_up"],
+            "properties":{
+              "kind":{"const":"causal_runtime_settlement"},
+              "source_owner_ref":{"type":"string","minLength":1,"maxLength":160},
+              "work_ref":{"type":"string","minLength":1,"maxLength":160},
+              "late_catch_up":{"type":"boolean"}
+            },
+            "additionalProperties":false
+          }
+        },
+        "additionalProperties":false
+      }
+    },
     "runtime":{"type":"object","required":["last_settled_at"],"properties":{"last_settled_at":{"type":"string"}},"additionalProperties":false},
     "schema":{"const":"event-registry"}
   },
   "additionalProperties":false,
-  "description":"Formal top-level structure for mutable event/message/movement registries. Exact writable fact keys and value types remain controlled by the registered structural template."
+  "description":"Formal top-level structure for mutable event/message/movement registries. Exact writable fact keys and value types remain controlled by the registered structural template; causally triggered short-horizon events are recorded only after runtime settlement."
 }
