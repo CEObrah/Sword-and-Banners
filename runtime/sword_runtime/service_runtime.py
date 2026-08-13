@@ -8,7 +8,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from sword_runtime.activity_living_world import ActivityCampaignEventPlanner
+from sword_runtime.house_tang_campaign import HouseTangCampaignPlanner
 from sword_runtime.causal_living_world import _WAKE_RESPONSE_COMMANDS
 from sword_runtime.engine import SwordRuntime
 from sword_runtime.living_world import HighSalienceWakeRequired
@@ -40,8 +40,9 @@ class ProductionSwordRuntime(SwordRuntime):
         # a second campaign authority while allowing the hosted service to use
         # learned operational memory, causal provenance, high-salience wake
         # protection, short-horizon campaign-event boundaries, routed named-person
-        # activity, and causally parallel grouped player military actions.
-        self.planner = ActivityCampaignEventPlanner(self.root)
+        # activity, causally parallel grouped player military actions, and the
+        # restored aggregate-cohort House Tang/Sword Manor personnel process.
+        self.planner = HouseTangCampaignPlanner(self.root)
         self.planner.PLAYER_ACTOR = player_id
 
         git = GitStager(self.root)
