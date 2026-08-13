@@ -112,6 +112,8 @@ For one persistent player action:
 
 Reuse a request ID only for an identical retry. On stale revision or changed causal state, refresh and re-evaluate. For multi-step intent, execute sequentially and stop whenever a new player decision appears.
 
+Scene-local interaction chronology is separate from interaction intent. `interaction_action` records only the player's attempt and does not advance time. During an extended established conversation, examination, council, negotiation, interview, or procedure, do not leave campaign time frozen across multiple substantive exchanges. When the accumulated scene has plainly consumed material time, commit a conservative `advance_time` at a natural boundary before continuing, refresh context, and let causal wakes interrupt normally. Use the scene itself rather than real-world chat latency to estimate elapsed time. Do not advance for every sentence, a trivial acknowledgement, or imaginary movement inside a tabletop hypothetical; time passes because the people are conducting the scene. Never narrate elapsed mechanical time that was not committed.
+
 Never invent runtime-owned outcomes such as injury, death, capture, casualties, morale, equipment loss, expenditure, training gain, relationship/reputation change, office, recruitment, formation movement, battle/siege result, territory, or elapsed time.
 
 ## High-salience wake boundaries
