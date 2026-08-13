@@ -1,0 +1,35 @@
+{
+  "authority": false,
+  "purpose": "Bounded short-horizon causal work routing. Planned targets are not occurrence truth; only triggered exact event-registry records are authoritative.",
+  "migration": {
+    "kind": "ooc_dev_causal_debt_reconciliation",
+    "at": "245-BCE-12-05T06:22:48+08:00",
+    "reason": "Known short-horizon campaign obligations were absent from the authoritative temporal frontier while campaign time advanced. Register forward-only catch-up work without rewinding the clock or fabricating backdated outcomes."
+  },
+  "targets": [
+    {
+      "work_ref": "event_tang_kai_birthday_001",
+      "source_owner_ref": "events_messages_and_movement",
+      "kind": "calendar_boundary",
+      "due_at": "245-BCE-12-05T06:00:00+08:00",
+      "priority": 40,
+      "status": "pending",
+      "effect": {
+        "summary": "The known 06:00 date boundary for Tang Kai's birthday has been reached while Tang Wei remains in Kanyou."
+      },
+      "wake": false
+    },
+    {
+      "work_ref": "event_ouki_preliminary_review_response_001",
+      "source_owner_ref": "events_messages_and_movement",
+      "kind": "institutional_response",
+      "due_at": "245-BCE-12-05T06:22:48+08:00",
+      "priority": 50,
+      "status": "pending",
+      "effect": {
+        "summary": "Ouki's staff-review channel acknowledges Tang Wei's presentation in Kanyou and returns word that his preliminary command-qualification review can proceed. This response grants no Qin rank, appointment, certified vacancy, private-unit acceptance, or deployment authority."
+      },
+      "wake": true
+    }
+  ]
+}
