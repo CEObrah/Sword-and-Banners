@@ -20,6 +20,7 @@ COMMAND_TESTS = {
 LIVING_WORLD_TESTS = {
     "tests/runtime/test_living_world_intelligence.py",
     "tests/runtime/test_production_living_world.py",
+    "tests/runtime/test_world_arcs.py",
 }
 GROUP_ACTION_TESTS = {"tests/runtime/test_player_group_actions.py"}
 DEFAULT_TESTS = {"tests/runtime/test_architecture_service.py"}
@@ -42,7 +43,14 @@ def select(paths: list[str]) -> list[str]:
             selected.update(API_TESTS)
         if path in {"runtime/sword_runtime/command_contracts.py", "game/data/mechanics/command-catalog.json", "game/data/mechanics/command-hostile-contracts.json"}:
             selected.update(COMMAND_TESTS)
-        if path.startswith("runtime/sword_runtime/living_world.py") or path.startswith("runtime/sword_runtime/causal_living_world.py") or path.startswith("runtime/sword_runtime/production_living_world.py") or path.startswith("runtime/sword_runtime/systems/campaign_events.py"):
+        if (
+            path.startswith("runtime/sword_runtime/living_world.py")
+            or path.startswith("runtime/sword_runtime/causal_living_world.py")
+            or path.startswith("runtime/sword_runtime/production_living_world.py")
+            or path.startswith("runtime/sword_runtime/systems/campaign_events.py")
+            or path.startswith("runtime/sword_runtime/campaign_event_planner.py")
+            or path.startswith("runtime/sword_runtime/world_arcs.py")
+        ):
             selected.update(LIVING_WORLD_TESTS)
         if path.startswith("runtime/sword_runtime/player_group_actions.py"):
             selected.update(GROUP_ACTION_TESTS)
