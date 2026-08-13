@@ -107,8 +107,10 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
         if mode not in {"foot", "horse"}:
             raise ValueError("personal travel mode must be foot or horse")
 
-        player_route = self._find_route(origin, destination, mode=mode)
-        player_hours = int(player_route.get("duration_hours", player_route.get("hours", 24)))
+        # Use the route graph rather than exact single-edge lookup. This is
+        # important for nested Tang Manor locations, which lawfully connect to
+        # Kanyou through the existing manor-capital bridge in _route_travel_hours.
+        player_hours = self._route_travel_hours(origin, destination, modes=(mode,))
         loaded: list[tuple[str, str, dict[str, Any], int, int, int, Any, Any]] = []
         column_hours = player_hours
 
@@ -119,8 +121,7 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
                 raise ValueError(f"escort formation is not mobilized: {ref}")
             if str(formation.get("location_ref", "")) != origin:
                 raise ValueError("escorted travel requires player and all formations to be co-located")
-            route = self._find_route(origin, destination, mode="formation")
-            hours = int(route.get("duration_hours", route.get("hours", 24)))
+            hours = self._route_travel_hours(origin, destination, modes=("formation",))
             column_hours = max(column_hours, hours)
             commander_ref = formation.get("commander_ref")
             commander_path = None
@@ -188,7 +189,7 @@ class PlayerGroupActionPlanner(ProductionLivingWorldSwordPlanner):
             destination=destination,
             formation_refs=refs,
             formation_count=len(refs),
-            route_ref=player_route.get("ref", player_route.get("route_ref")),
+            route_ref="derived_route_graph",
             duration_hours=column_hours,
             mode=mode,
             world_time=world_time,
