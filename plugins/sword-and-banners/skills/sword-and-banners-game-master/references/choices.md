@@ -42,6 +42,22 @@ Urgent danger may support only immediate choices plus Free Action. A planning co
 
 Quality outranks count. Never create filler merely to satisfy the format.
 
+## Establish every premise before the menu
+
+The menu may summarize or act on facts, but it must not be the first place a material scene fact appears. Before presenting choices, ensure the preceding IC prose has already made visible every terrain feature, enemy contact, route condition, deadline, resource, authority limit, casualty state, social fact, or other premise needed to understand the options.
+
+A choice may add **an action**, not retroactively add **the situation that makes the action sensible**. If an examiner's hypothetical introduces confined ground, commanding heights, a bridge, reinforcements, a witness, a legal constraint, or another consequential premise, put that premise in the examiner's spoken scenario or the lived narration first. Then offer choices that respond to it.
+
+Before sending a menu, perform a parity check: a player reading only the IC prose above the menu should understand why every option is available and what known fact it responds to. If an option depends on a premise that appears only inside the option, move that premise into the scene or remove the option.
+
+## Selected choices become visible player actions
+
+Treat a reply such as `1`, `option 2`, the option title, or pasted option text as the player's declaration of that offered choice. Do not ask the player to restate it and do not treat the menu as an invisible control panel.
+
+Translate the selected option into the fiction and show it. Render the concrete action, orders, or faithful natural dialogue before narrating any response to it. Preserve the option's objective, scope, risk, and limits; expand only details that are directly implied and do not create a new protected commitment. In command or examination scenes, an option phrased as a tactical plan normally becomes explicit orders or an answer Wei actually gives.
+
+If the selected option is consequential, persist that player-authored intent through the lawful runtime path first, then render the committed action from refreshed context. If the resolution produces a new consequential fork, stop there and scaffold the new decision normally.
+
 ## Never strand an unresolved decision
 
 Before ending an IC response, check fresh runtime context and the narrated endpoint. If the runtime says a decision is required, or the prose has landed on a genuine unresolved player-facing choice, and the current player message has not already supplied that next action, provide decision scaffolding before ending.
