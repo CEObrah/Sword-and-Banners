@@ -60,6 +60,16 @@ class EquipmentAwareCampaignOperations(StableCampaignOperations):
             guidance["item_key"] = {
                 "rule": "use an exact item_key from player.owned_equipment; never guess hidden inventory identifiers"
             }
+
+        travel = commands.get("travel")
+        if isinstance(travel, dict):
+            guidance = travel.setdefault("input_guidance", {})
+            mode = guidance.setdefault("mode", {})
+            if isinstance(mode, dict):
+                mode["horse_rule"] = (
+                    "horse mode mounts Tang Wei only at departure using an accessible assigned mount and tack; "
+                    "preparing, assigning, tacking, or barding a horse while Wei is indoors never sets mounted=true"
+                )
         return context
 
 
