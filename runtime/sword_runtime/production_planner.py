@@ -12,6 +12,7 @@ from sword_runtime.force_cohort_living_world import ForceCohortLivingWorldMixin
 from sword_runtime.house_tang_development import HouseTangDevelopmentMixin
 from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
 from sword_runtime.sim.calendar import CampaignTime
+from sword_runtime.standing_training import StandingTrainingSettlementMixin
 
 HOUSE_TANG_GARRISON_REF = "loc_tang_manor_garrison_yard"
 HOUSE_TANG_GARRISON: dict[str, Any] = {
@@ -26,6 +27,7 @@ HOUSE_TANG_GARRISON: dict[str, Any] = {
 
 
 class ProductionCampaignPlanner(
+    StandingTrainingSettlementMixin,
     DowntimeAdvanceMixin,
     EquipmentStateProjectionMixin,
     CivilWorldMixin,
@@ -37,6 +39,21 @@ class ProductionCampaignPlanner(
     """Production campaign planner with generic force cohorts and House Tang development."""
 
     _interruptible_personal_travel = False
+
+    def _validate_command_semantics(self, command: Any, payload: Mapping[str, Any]) -> None:
+        # standing_training_settle is a production surface extension rather than
+        # a baseline engine command. Admit exactly its closed payload here before
+        # the base command registry can reject the unknown semantic type.
+        if command.command_type == "standing_training_settle":
+            if set(payload) != {"target_ref"}:
+                raise ValueError("standing_training_settle accepts only target_ref")
+            target_ref = payload.get("target_ref")
+            if not isinstance(target_ref, str) or not target_ref or len(target_ref) > 160:
+                raise ValueError("standing_training_settle target_ref is invalid")
+            if target_ref != self.PLAYER_ACTOR and not target_ref.startswith("formation_"):
+                raise ValueError("standing training target must be Tang Wei or an exact formation")
+            return
+        super()._validate_command_semantics(command, payload)
 
     def _location_record(self, location_ref: str) -> Mapping[str, Any]:
         if location_ref == HOUSE_TANG_GARRISON_REF:
@@ -155,13 +172,7 @@ class ProductionCampaignPlanner(
         end: CampaignTime,
         request_id: str,
     ) -> dict[str, Any]:
-        """Normalize legacy null counters before the generic downtime reducer.
-
-        Older Tang Champion records legitimately predate numeric
-        ``training_progress``. Treat an explicit legacy null as the same baseline
-        as an absent counter; do not make the downtime path less tolerant than
-        the formation-training mechanics it is adapting.
-        """
+        """Normalize legacy null counters before the generic downtime reducer."""
 
         path, formation = self._load_formation(formation_ref)
         if formation.get("training_progress") is None or formation.get("verified_training_hours") is None:
@@ -181,9 +192,6 @@ class ProductionCampaignPlanner(
         if not personal_travel:
             return super()._dispatch(command, payload)
 
-        # Existing wakes retain their normal response restrictions. This adapter
-        # is only for a wake first reached while an otherwise legal personal
-        # journey is consuming time.
         runtime_before = self.read("state/runtime.json")
         if isinstance(runtime_before.get("pending_wake"), Mapping):
             return super()._dispatch(command, payload)
@@ -207,16 +215,11 @@ class ProductionCampaignPlanner(
         result["requested_arrival_time"] = requested_arrival
         result["interrupted_at"] = actual_time
 
-        # A wake exactly at the journey endpoint does not interrupt movement: the
-        # full travel duration has already elapsed, so preserve the base reducer's
-        # destination and equipment after-image while still surfacing the wake.
         if CampaignTime.parse(actual_time) >= CampaignTime.parse(requested_arrival):
             result["world_time"] = actual_time
             result["travel_completed"] = True
             return result
 
-        # For an earlier wake, restore player-controlled travel after-images while
-        # keeping the runtime wake and exact reached time that caused interruption.
         self.put("state/player.json", player_before)
         self.put("state/player-detail/equipment-manifest.json", manifest_before)
         self._write_meta(command, actual_time)

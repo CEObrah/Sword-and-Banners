@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from sword_runtime.api.household_operations import HouseholdAwareCampaignOperations
+from sword_runtime.api.standing_training_operations import StandingTrainingCampaignOperations
 
 
 _EQUIPMENT_COMMANDS = frozenset({
@@ -55,7 +55,7 @@ def _project_equipment_state(
     return compact
 
 
-class EquipmentAwareCampaignOperations(HouseholdAwareCampaignOperations):
+class EquipmentAwareCampaignOperations(StandingTrainingCampaignOperations):
     """Stable player surface with exact, bounded owned-equipment identifiers."""
 
     def _owned_equipment_view(self) -> list[dict[str, Any]]:
