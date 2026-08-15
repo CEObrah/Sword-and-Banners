@@ -6,6 +6,7 @@ from typing import Optional
 
 from mcp.types import ToolAnnotations
 
+from sword_runtime.api.contract_guidance import enrich_command_contract
 from sword_runtime.api.mcp import ReadToolOutput, _failure, _tool_call
 from sword_runtime.api.operations import OperationError
 
@@ -32,7 +33,9 @@ def install_extended_tools(server, operations, oauth) -> None:
     def get_command_contract(command_type: str) -> ReadToolOutput:
         if not isinstance(command_type, str) or not _SAFE_COMMAND.fullmatch(command_type):
             return _failure(OperationError(422, "command_type_invalid"))
-        return _tool_call(lambda: operations.get_command_contract(command_type))
+        return _tool_call(
+            lambda: enrich_command_contract(command_type, operations.get_command_contract(command_type))
+        )
 
     @server.tool(
         name="list_controlled_formations",
