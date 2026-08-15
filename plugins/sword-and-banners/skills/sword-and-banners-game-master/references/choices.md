@@ -2,6 +2,24 @@
 
 Choices are decision scaffolding, not the game. Narrate the lived scene first. Present options only after a genuine unresolved player-facing decision has landed.
 
+## Hard output gate: direct NPC questions
+
+A direct NPC question can itself create the player-facing decision even when `scene.unresolved_decision` is null. If an NPC asks Wei for an answer that would determine or materially condition his voluntary dialogue, allegiance, service, rank tolerance, command, office, spending, promise, surrender, strategy, relationship, household decision, or another protected commitment, treat the question as a genuine unresolved decision.
+
+Unless the player's **current** message has already supplied that answer:
+
+- do not end the turn on the NPC question alone;
+- do not rely on `unresolved_decision: null` as permission to omit scaffolding;
+- immediately follow the question with grounded choices;
+- for a genuinely binary or conditional question, two or three meaningful branches plus **Free Action** are enough; do not pad to six;
+- include materially useful conditional answers when the scene supports them, rather than forcing an artificial yes/no.
+
+This guard applies especially to audiences, examinations, negotiations, command interviews, petitions, employment/service discussions, court scenes, marriage/family discussions, and surrender or allegiance questions.
+
+A routine reversible clarification that does not require a protected commitment does not trigger this guard. The distinction is whether Wei's answer would itself choose or materially condition a consequential voluntary course.
+
+**Final-line audit before sending IC:** inspect the narrated endpoint, not only runtime fields. If the final beat contains a direct consequential question to Wei and the player has not already answered it, a choice block must follow before the response ends.
+
 ## Default structure
 
 When the scene supports it, present six visible choices:
