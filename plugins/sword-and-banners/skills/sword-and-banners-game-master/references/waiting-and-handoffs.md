@@ -37,6 +37,19 @@ If the intended option includes relocation, say so before the player selects it,
 
 If relocation is intentionally left open, resolve the withdrawal first and then scaffold the travel decision once.
 
+## Contact before petition
+
+Treat access-seeking and substantive business as separate causal stages.
+
+A location-targeted `seek_contact` means only that Wei is trying to find the proper receiving person, office, or channel. It must never be narrated as if a petition, offer, request, report, or political position has already been delivered to an unseen institution. In particular:
+- do not turn `seek_contact` into quoted substantive dialogue unless the player explicitly supplied those words for the contact attempt;
+- do not say that an office "received the request", "has the proposal", "is considering it", or will answer when no exact receiving handoff exists;
+- do not convert arrival in a city into institutional access merely because an institution exists there.
+
+When the runtime later establishes an `audience_response`, receiving officer, audience, clerk, commander, council, or equivalent access handoff, narrate that meeting first. The subsequent petition/request/report is a distinct player action unless the player had already explicitly delegated that exact immediate communication. A hearing is not acceptance, a request is not a decision, and waiting for access is not waiting for the eventual substantive answer.
+
+If the player says they intend to meet someone and then make a request, carry the sequence forward causally: seek access -> establish the receiver -> stage the meeting -> let the actual request occur at that receiver. Never collapse those stages into a request spoken "to the air".
+
 ## Institutional follow-ups
 
 An interaction attempt never fabricates a response. If the runtime exposes an already-routed institutional follow-up or other causal dependency, ordinary life may proceed until that route settles. Narrate only the resulting player-visible event when it is actually established.
