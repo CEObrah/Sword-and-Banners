@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-from sword_runtime.api.household_operations import HouseholdAwareCampaignOperations
+from sword_runtime.api.command_staff_operations import CommandStaffAwareCampaignOperations
 
 
-class StandingTrainingCampaignOperations(HouseholdAwareCampaignOperations):
+class StandingTrainingCampaignOperations(CommandStaffAwareCampaignOperations):
     """Expose zero-time reconciliation of server-owned standing-training credit."""
 
     def play_context(self):
