@@ -1,9 +1,11 @@
 """Immutable idempotency receipts stored outside mutable campaign owners."""
 
 import json
+import math
 import os
 import tempfile
 from dataclasses import dataclass
+from decimal import Decimal
 from pathlib import Path
 from typing import Any, Mapping, Optional
 
@@ -15,6 +17,45 @@ from sword_runtime.tx.canonical import (
     thaw_json,
 )
 from sword_runtime.tx.errors import IdempotencyConflictError
+
+
+def _decimal_text(value: float) -> str:
+    """Return one deterministic, finite decimal transport representation."""
+
+    if not math.isfinite(value):
+        raise TypeError("non-finite floating-point receipt results are forbidden")
+    text = format(Decimal(str(value)), "f")
+    if "." in text:
+        text = text.rstrip("0").rstrip(".")
+    return "0" if text in {"-0", ""} else text
+
+
+def normalize_receipt_result(value: Any) -> Any:
+    """Make result-only numbers canonical without weakening owner-state rules.
+
+    Mutable campaign owners keep their native schema-defined representation. The
+    immutable receipt format deliberately remains strict JSON with no binary
+    floating-point values, so finite result-only floats are converted to exact
+    decimal strings before ``freeze_json``/hashing. This prevents an otherwise
+    valid transaction from failing merely because its informational result
+    contains a fractional progress remainder. Non-finite values still fail
+    closed, and integer/bool/string/null semantics are unchanged.
+    """
+
+    if value is None or isinstance(value, (str, bool, int)):
+        return value
+    if isinstance(value, float):
+        return _decimal_text(value)
+    if isinstance(value, Mapping):
+        normalized = {}
+        for key, child in value.items():
+            if not isinstance(key, str):
+                raise TypeError("receipt result object keys must be strings")
+            normalized[key] = normalize_receipt_result(child)
+        return normalized
+    if isinstance(value, (list, tuple)):
+        return [normalize_receipt_result(child) for child in value]
+    raise TypeError("unsupported receipt result value: %s" % type(value).__name__)
 
 
 @dataclass(frozen=True)
@@ -55,7 +96,11 @@ class IdempotencyReceipt:
             raise ValueError("committed_revision must be non-negative")
         if not isinstance(self.result, Mapping):
             raise TypeError("receipt result must be an object")
-        object.__setattr__(self, "result", freeze_json(self.result))
+        object.__setattr__(
+            self,
+            "result",
+            freeze_json(normalize_receipt_result(self.result)),
+        )
 
     @classmethod
     def for_command(
@@ -189,3 +234,6 @@ class ReceiptStore:
             except FileNotFoundError:
                 pass
             raise
+
+
+__all__ = ["IdempotencyReceipt", "ReceiptStore", "normalize_receipt_result"]
