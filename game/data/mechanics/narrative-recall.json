@@ -1,0 +1,16 @@
+{
+  "schema": "narrative-recall.v1",
+  "principle": "Repository memory is not player memory. The narrator supplies recognition context without leaking facts the player character does not know.",
+  "scene_first_focus_rule": {
+    "very_familiar": "Name alone is normally sufficient for direct family, current teammates, and very close recurring subordinates unless role/status materially changed.",
+    "familiar_recurring": "On first meaningful focus in a new scene, use name plus one short known role/relationship cue.",
+    "infrequent_known": "On first meaningful focus in a new scene, use name plus one short known role and one prior-interaction or faction cue when available.",
+    "previous_minor": "Prefer description/previous interaction first, then name.",
+    "after_established_in_scene": "Use ordinary name/pronoun references. Do not repeat the cue every line."
+  },
+  "unknown_identity_rule": "If the player character has not lawfully learned the identity, describe the person by observable role/appearance and do not reveal the repository name.",
+  "large_meeting_rule": "Introduce only participants who become relevant. Give compact role cues on first focus; never dump full biographies or assume the player remembers a roster.",
+  "role_change_rule": "When a known person's office, allegiance, rank, or relationship has materially changed since the last relevant interaction, mention the changed role on first focus.",
+  "non_character_scope": "Apply the same reminder principle to infrequently used factions, locations, military units, techniques, treaties, and old political agreements when comprehension depends on remembering them.",
+  "forbidden": "Do not turn recognition cues into omniscient exposition or reveal hidden motives, secrets, or facts outside the player character's knowledge state."
+}

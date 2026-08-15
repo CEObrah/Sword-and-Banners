@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reputation subject v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "subject_id",
+    "subject_type",
+    "as_of",
+    "audience_profiles",
+    "authority"
+  ],
+  "properties": {
+    "schema": {
+      "const": "reputation-subject.v1"
+    },
+    "subject_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject_type": {
+      "enum": [
+        "person",
+        "unit",
+        "team",
+        "force",
+        "institution",
+        "faction",
+        "settlement",
+        "other"
+      ]
+    },
+    "as_of": {
+      "type": "string"
+    },
+    "authority": {
+      "const": true
+    },
+    "audience_profiles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "historical_foundation": {
+      "type": "object"
+    },
+    "institutional_status_sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

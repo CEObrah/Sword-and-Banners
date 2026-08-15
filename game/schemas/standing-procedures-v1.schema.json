@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "procedures"
+  ],
+  "properties": {
+    "schema": {
+      "const": "standing-procedures.v1"
+    },
+    "procedures": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

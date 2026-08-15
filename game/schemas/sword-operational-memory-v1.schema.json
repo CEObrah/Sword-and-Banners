@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "formationMemory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "lifecycle",
+        "replacement_policy",
+        "current_personnel",
+        "target_strength",
+        "last_readiness",
+        "training_reviews",
+        "replacements_received",
+        "deployments",
+        "battles",
+        "wins",
+        "losses",
+        "casualties",
+        "last_operation_ref",
+        "last_result",
+        "last_result_at",
+        "recent_event_refs"
+      ],
+      "properties": {
+        "role": {"type": "string", "minLength": 1},
+        "lifecycle": {"enum": ["standing_state_formation", "temporary_operation_formation", "unknown"]},
+        "replacement_policy": {"enum": ["maintain_strength", "authority_review", "none"]},
+        "current_personnel": {"type": "integer", "minimum": 0},
+        "target_strength": {"type": "integer", "minimum": 0},
+        "last_readiness": {"type": "integer", "minimum": 0, "maximum": 100},
+        "training_reviews": {"type": "integer", "minimum": 0},
+        "replacements_received": {"type": "integer", "minimum": 0},
+        "deployments": {"type": "integer", "minimum": 0},
+        "battles": {"type": "integer", "minimum": 0},
+        "wins": {"type": "integer", "minimum": 0},
+        "losses": {"type": "integer", "minimum": 0},
+        "casualties": {"type": "integer", "minimum": 0},
+        "last_operation_ref": {"type": ["string", "null"]},
+        "last_result": {"type": ["string", "null"]},
+        "last_result_at": {"type": ["string", "null"]},
+        "recent_event_refs": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "stateMemory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "last_review",
+        "operation_capacity",
+        "active_operation_refs",
+        "completed_operation_refs",
+        "battle_wins",
+        "battle_losses",
+        "recent_event_refs"
+      ],
+      "properties": {
+        "last_review": {"type": ["string", "null"]},
+        "operation_capacity": {"type": "integer", "minimum": 1, "maximum": 3},
+        "active_operation_refs": {
+          "type": "array",
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "completed_operation_refs": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "battle_wins": {"type": "integer", "minimum": 0},
+        "battle_losses": {"type": "integer", "minimum": 0},
+        "recent_event_refs": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "authority", "as_of", "state_memory", "formation_memory"],
+  "properties": {
+    "schema": {"const": "sword-operational-memory.v1"},
+    "authority": {"const": false},
+    "as_of": {"type": "string", "minLength": 1},
+    "state_memory": {
+      "type": "object",
+      "maxProperties": 16,
+      "additionalProperties": {"$ref": "#/$defs/stateMemory"}
+    },
+    "formation_memory": {
+      "type": "object",
+      "maxProperties": 256,
+      "additionalProperties": {"$ref": "#/$defs/formationMemory"}
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schema": "manpower-capability.v1",
+  "id": "capability.merc_golden_axle:pool_wagon_guard",
+  "pool_id": "merc_golden_axle:pool_wagon_guard",
+  "source_owner": "merc_golden_axle",
+  "capabilities": {
+    "attribute_values": [
+      88,
+      84,
+      100,
+      96,
+      90,
+      92,
+      102,
+      76,
+      84
+    ],
+    "skill_values": [
+      88,
+      92,
+      60,
+      70,
+      72,
+      68,
+      70,
+      72,
+      60,
+      100,
+      108,
+      100,
+      88,
+      78,
+      76,
+      52,
+      105,
+      78,
+      58,
+      70,
+      64,
+      38,
+      58,
+      70,
+      68,
+      72,
+      54,
+      70,
+      50,
+      62,
+      46,
+      44,
+      48,
+      46,
+      48
+    ]
+  },
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 6.8
+    },
+    "weight_kg": {
+      "mean": 58,
+      "sd": 7.3
+    },
+    "individual_records_required": false
+  },
+  "aptitude_distribution": {
+    "mean": 108,
+    "sd": 16,
+    "low_pct": 12,
+    "normal_pct": 62,
+    "high_pct": 22,
+    "exceptional_pct": 4,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "combat_tendencies": {
+    "aggression": 55,
+    "initiative": 50,
+    "caution": 50,
+    "adaptability": 50,
+    "flank_bias": 45,
+    "counterattack_bias": 55,
+    "pursuit_bias": 45,
+    "reserve_bias": 55,
+    "withdrawal_willingness": 45,
+    "casualty_tolerance": 60,
+    "objective_focus": 70,
+    "ally_support": 60,
+    "formation_discipline": 70,
+    "commander_dependence": 60
+  },
+  "experience_distribution": {
+    "field-tested": 900
+  },
+  "qualification_multiplier_applied_to_stats": false
+}

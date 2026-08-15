@@ -1,0 +1,36 @@
+{
+  "schema": "organization-authority-model.v1",
+  "authority": "Sword and Banners only",
+  "layers": {
+    "personnel_accounting": {
+      "owns": "unorganized/replacement/source manpower and conservation claims",
+      "combat_authority": false
+    },
+    "home_establishment": {
+      "owns": "cold permanent unit topology, stable unit IDs, home standards and source claims",
+      "combat_authority": false
+    },
+    "materialized_unit": {
+      "owns": "current exact homogeneous unit state and deviations",
+      "combat_authority": true
+    },
+    "commander_assignment": {
+      "owns": "which person commands which units and delegated authority",
+      "combat_authority": false
+    },
+    "formation": {
+      "owns": "temporary operational arrangement of existing units",
+      "combat_authority": false,
+      "owns_manpower": false
+    },
+    "indexes": {
+      "owns": "routing only",
+      "combat_authority": false
+    }
+  },
+  "unit_invariant": "One unit has one troop type and one intended standard loadout. A durable subset change in loadout, doctrine, training, commander, mount standard or independent assignment requires splitting that subset into its own unit first.",
+  "split_example": "A 5,000-infantry unit whose 1,000-person subset receives a different standard loadout becomes a 4,000-infantry unit plus a 1,000-infantry unit before the new loadout is applied.",
+  "commander_rule": "A commander is a separate person and may command one or several units subject to command capacity. Commander stats affect control/order/synchronization/morale mechanics, never soldier physical-stat averages.",
+  "formation_rule": "Formation arranges units for an operation/battle and never changes ownership, troop type, loadout or unit identity.",
+  "support_rule": "Support organizations remain targetable and casualty-bearing but contribute only their appropriate support/self-defense capability unless explicitly and lawfully committed."
+}

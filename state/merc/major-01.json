@@ -1,0 +1,131 @@
+{
+  "schema": "mercenary",
+  "owner_id": "merc.major.01",
+  "owner_type": "mercenary_company",
+  "name": "Black Tortoise",
+  "headcount": 3000,
+  "doctrine": "doc.merc.major.01",
+  "training": "train.merc.regular",
+  "combat_tendencies": {
+    "aggression": 58,
+    "initiative": 54,
+    "caution": 48,
+    "adaptability": 62,
+    "pursuit_bias": 50,
+    "casualty_tolerance": 55,
+    "objective_focus": 68
+  },
+  "doctrine_familiarity": 75,
+  "status": "available",
+  "contracts": [],
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 164,
+      "sd": 5.8
+    },
+    "weight_kg": {
+      "mean": 60,
+      "sd": 7.5
+    },
+    "individual_records_required": false
+  },
+  "specialty": "heavy_infantry",
+  "composition_rule": "company is persistent combined force, not one generic blob",
+  "home_establishment_ref": "establishment.merc.major.01",
+  "formation_library_ref": "formation.mercenary.standard",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "troop_pools": [
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.01.heavy_line",
+      "count": 2040,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_heavy_infantry",
+      "doctrine": "doc.merc.major.01",
+      "training": "train.merc.regular",
+      "role": "heavy_line",
+      "troop_type": "heavy_infantry",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-01-heavy-line.json",
+      "specialty": "heavy_line"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.01.crossbow",
+      "count": 360,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_crossbow",
+      "doctrine": "doc.merc.major.01",
+      "training": "train.merc.regular",
+      "role": "crossbow",
+      "troop_type": "crossbow_infantry",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-01-crossbow.json",
+      "specialty": "crossbow"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.01.engineers",
+      "count": 240,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_engineer",
+      "doctrine": "doc.merc.major.01",
+      "training": "train.merc.regular",
+      "role": "engineers",
+      "troop_type": "engineer",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-01-engineers.json",
+      "specialty": "engineers"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.01.scouts",
+      "count": 150,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_scout",
+      "doctrine": "doc.merc.major.01",
+      "training": "train.merc.regular",
+      "role": "scouts",
+      "troop_type": "scout",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-01-scouts.json",
+      "specialty": "scouts"
+    },
+    {
+      "schema": "troop_pool.v1",
+      "id": "merc.major.01.support",
+      "count": 210,
+      "quality": "regular",
+      "loadout": "loadout_mercenary_support",
+      "doctrine": "doc.merc.major.01",
+      "training": "train.merc.regular",
+      "role": "support",
+      "troop_type": "support_staff",
+      "readiness_class": "regular",
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "pool_kind": "unit_manpower",
+      "capability_ref": "state/manpower-capability/merc-major-01-support.json",
+      "specialty": "support"
+    }
+  ],
+  "accounting_only": true
+}

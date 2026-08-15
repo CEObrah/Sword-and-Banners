@@ -1,0 +1,635 @@
+{
+  "schema": "sword-rules-runtime-parity",
+  "policy": "Every Markdown rule authority is classified here. live/mixed entries must map to executable production commands, runtime hooks, or causal host kinds. Descriptive/deferred scope is not represented as executable gameplay until reclassified.",
+  "statuses": {
+    "live": "Executable production behavior for the scoped rule family.",
+    "mixed": "Listed implemented scope is executable; deferred_scope is explicitly not claimed.",
+    "descriptive": "Normative/design/world-description authority only; no executable behavior is claimed by this entry.",
+    "deferred": "Planned but not production authority."
+  },
+  "entries": [
+    {
+      "rule_ref": "game/rules/reputation.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "reputation_event"
+      ],
+      "runtime_hooks": [
+        "_record_reputation_signal"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/agency.md",
+      "implementation_status": "live",
+      "production_commands": [],
+      "runtime_hooks": [
+        "_authorize_command",
+        "_validate_command_semantics",
+        "SwordRuntime.preview"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/combat.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "personal_combat"
+      ],
+      "runtime_hooks": [
+        "_dispatch"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/battle.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "battle_resolve"
+      ],
+      "runtime_hooks": [
+        "_battle"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/body.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "health_injury",
+        "health_recovery"
+      ],
+      "runtime_hooks": [
+        "_settle_person_death"
+      ],
+      "causal_host_kinds": [],
+      "deferred_scope": "Detailed anatomical simulation beyond saved injury/health state is descriptive, not a separate production subsystem."
+    },
+    {
+      "rule_ref": "game/rules/world.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "travel",
+        "advance_time"
+      ],
+      "runtime_hooks": [
+        "_advance_runtime",
+        "_autonomy_interstate"
+      ],
+      "causal_host_kinds": [
+        "interstate"
+      ]
+    },
+    {
+      "rule_ref": "game/rules/siege.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "fortification_materialize",
+        "siege_start",
+        "siege_action"
+      ],
+      "runtime_hooks": [
+        "_dispatch"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/states.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "polity_action",
+        "state_action",
+        "territorial_consequence"
+      ],
+      "runtime_hooks": [
+        "_autonomy_interstate",
+        "_autonomy_polity",
+        "_autonomy_state",
+        "_dispatch_polity_action",
+        "_interstate_war_decision",
+        "_occupation_initialize",
+        "_settle_diplomatic_routes",
+        "_settle_occupation_administration",
+        "_settle_treaty_obligations",
+        "_territorial_revenue_factor"
+      ],
+      "causal_host_kinds": [
+        "interstate",
+        "polity",
+        "state"
+      ]
+    },
+    {
+      "rule_ref": "game/rules/settlements.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "house_action",
+        "polity_action",
+        "state_action",
+        "territorial_consequence"
+      ],
+      "runtime_hooks": [
+        "_autonomy_counterinsurgency",
+        "_autonomy_polity",
+        "_autonomy_polity_institution",
+        "_autonomy_rebel_faction",
+        "_autonomy_state",
+        "_consume_local_recruitment",
+        "_ensure_local_population_ledger",
+        "_ensure_local_site_baselines",
+        "_ensure_occupation_rebel_force",
+        "_ensure_polity_institutions",
+        "_occupation_initialize",
+        "_proclaim_house_territorial_authority",
+        "_recognize_polity",
+        "_settle_house_polity",
+        "_settle_occupation_administration",
+        "_settle_private_production",
+        "_sync_rebel_routes",
+        "_territorial_revenue_plan",
+        "sync_polity_routes"
+      ],
+      "causal_host_kinds": [
+        "state",
+        "institution",
+        "polity",
+        "faction"
+      ],
+      "deferred_scope": "Captured territory now uses persistent weighted local demographic/tax baselines plus a conserved local-population allocation ledger nested in the canonical state population owner. Native state, occupier, and rebels compete for the same local residents; service, deaths, displacement, taxation scale, revolt manpower, and governed recruitment update that ledger. Material revolts have autonomous recruitment, route interdiction, and counterinsurgency contact/battle through conserved formation losses. Dynamic polities have sovereign commands, institutions, monthly taxation/recruitment, interstate participation, and physical regional market/economy access. Full household-level settlement economy, local justice, epidemic propagation, and independent per-settlement production owners remain deferred."
+    },
+    {
+      "rule_ref": "game/rules/independent.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "mercenary_contract"
+      ],
+      "runtime_hooks": [
+        "_autonomy_mercenary"
+      ],
+      "causal_host_kinds": [
+        "mercenary"
+      ],
+      "deferred_scope": "Independent organizations other than routed mercenary companies remain descriptive unless separately registered."
+    },
+    {
+      "rule_ref": "game/rules/economy.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "economy_transfer",
+        "market_purchase",
+        "market_sell"
+      ],
+      "runtime_hooks": [
+        "_dispatch"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/items.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "market_purchase",
+        "market_sell",
+        "equipment_equip",
+        "equipment_unequip",
+        "equipment_transfer",
+        "equipment_issue",
+        "equipment_return",
+        "equipment_drop",
+        "equipment_loot",
+        "equipment_consume"
+      ],
+      "runtime_hooks": [
+        "_dispatch"
+      ],
+      "causal_host_kinds": [],
+      "deferred_scope": "Crafting and broad item-manufacturing loops are not claimed as implemented."
+    },
+    {
+      "rule_ref": "game/rules/politics/factions-war.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "operation_create",
+        "operation_transition",
+        "polity_action",
+        "state_action",
+        "territorial_consequence"
+      ],
+      "runtime_hooks": [
+        "_activate_diplomatic_treaty",
+        "_autonomy_counterinsurgency",
+        "_autonomy_faction",
+        "_autonomy_interstate",
+        "_autonomy_polity",
+        "_faction_organizational_observation",
+        "_interstate_theater_config",
+        "_interstate_war_decision",
+        "_occupation_initialize",
+        "_record_faction_information",
+        "_schedule_world_arc_priority_work",
+        "_settle_diplomatic_routes",
+        "_settle_world_arc_priority_host",
+        "_world_arc_domain_action",
+        "_world_arc_house_action",
+        "_world_arc_institution_action",
+        "_world_arc_person_action",
+        "_world_arc_polity_action",
+        "_world_arc_state_action"
+      ],
+      "causal_host_kinds": [
+        "faction",
+        "interstate",
+        "polity",
+        "world_arc_priority"
+      ],
+      "deferred_scope": "Factions have differentiated resources/actions, exact knowledge gates, relationship feedback, and material autonomous effects. Production world arcs route queued person/state/polity/House/institution priorities into one-shot owner work; queued work gives no arc momentum until the owning domain settles evidence. Interstate theaters are infrastructure and require saved war intent or a severe threat/claim/diplomatic basis rather than inevitable pressure. Dynamic polities can negotiate alliances, nonaggression, tribute, access, guarantees, and client-state proposals through routed target consent. Hostage/marriage diplomacy, negotiated territorial exchange, reparations bargaining, coalition conferences, and full court procedures remain deferred."
+    },
+    {
+      "rule_ref": "game/rules/politics/authority-law.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "command_assign",
+        "command_transfer",
+        "house_action",
+        "institution_project",
+        "polity_action",
+        "project_cancel",
+        "state_action"
+      ],
+      "runtime_hooks": [
+        "_apply_polity_recognition",
+        "_authorize_command",
+        "_dispatch_polity_action",
+        "_ensure_polity_institutions",
+        "_has_role_capability",
+        "_proclaim_house_territorial_authority",
+        "_recognize_polity"
+      ],
+      "causal_host_kinds": [
+        "polity"
+      ]
+    },
+    {
+      "rule_ref": "game/rules/politics/intrigue-governance.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "state_action",
+        "territorial_consequence"
+      ],
+      "runtime_hooks": [
+        "_autonomy_faction",
+        "_occupation_initialize",
+        "_settle_occupation_administration"
+      ],
+      "causal_host_kinds": [
+        "faction",
+        "institution"
+      ],
+      "deferred_scope": "Differentiated faction pressure/actions, event-driven knowledge wakes, relationship feedback, and contested occupation/revolt are executable. Full court procedure including exact office competition, petition adjudication, investigation chains, legal cases, client defections, and appointment blocs remains deferred."
+    },
+    {
+      "rule_ref": "game/rules/time.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "advance_time",
+        "travel",
+        "individual_training",
+        "cohort_training",
+        "formation_train",
+        "formation_move",
+        "battle_resolve",
+        "siege_action"
+      ],
+      "runtime_hooks": [
+        "_advance_seconds",
+        "_advance_runtime"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/character-runtime.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "individual_training",
+        "health_injury",
+        "health_recovery",
+        "personal_combat"
+      ],
+      "runtime_hooks": [
+        "_autonomy_person",
+        "_settle_person_death"
+      ],
+      "causal_host_kinds": [
+        "person"
+      ]
+    },
+    {
+      "rule_ref": "game/rules/growth.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "individual_training"
+      ],
+      "runtime_hooks": [
+        "settle_skill_training"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/training.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "individual_training",
+        "cohort_training",
+        "formation_train",
+        "formation_training_set"
+      ],
+      "runtime_hooks": [
+        "settle_skill_training"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/injury.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "health_injury",
+        "health_recovery",
+        "personal_combat"
+      ],
+      "runtime_hooks": [
+        "_settle_person_death"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/personal-force.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "formation_create",
+        "formation_reconstitute",
+        "formation_split",
+        "formation_merge",
+        "formation_dissolve",
+        "formation_move",
+        "formation_train",
+        "formation_mobilize",
+        "formation_demobilize",
+        "command_assign",
+        "command_transfer"
+      ],
+      "runtime_hooks": [
+        "_index_formation_location",
+        "_require_formation_authority"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/house.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "house_action",
+        "family_event",
+        "cohort_training"
+      ],
+      "runtime_hooks": [
+        "_autonomy_house"
+      ],
+      "causal_host_kinds": [
+        "house"
+      ],
+      "deferred_scope": "Not every House political custom described in prose has a bespoke reducer."
+    },
+    {
+      "rule_ref": "game/rules/loadouts.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "equipment_equip",
+        "equipment_unequip",
+        "equipment_issue",
+        "equipment_return"
+      ],
+      "runtime_hooks": [
+        "_dispatch"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/logistics.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "resupply",
+        "formation_move",
+        "formation_reconstitute",
+        "formation_dissolve"
+      ],
+      "runtime_hooks": [
+        "_force_location_pool"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/economy/military-service.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "enlisted_service_pay",
+        "career_event",
+        "recruitment"
+      ],
+      "runtime_hooks": [
+        "_dispatch"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/economy/treasury.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "economy_transfer",
+        "enlisted_service_pay"
+      ],
+      "runtime_hooks": [
+        "_dispatch"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/economy/markets.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "market_purchase",
+        "market_sell"
+      ],
+      "runtime_hooks": [
+        "_dispatch_market",
+        "_market_unit_price",
+        "_restock_capital_market",
+        "_market_transport_conditions",
+        "_settle_private_production"
+      ],
+      "causal_host_kinds": [
+        "state"
+      ],
+      "deferred_scope": "Capital markets use physical stock, scarcity pricing, produced finished goods and route/siege-sensitive delivery and insecurity. Fully materialized caravans, boat cargoes, household demand and route-by-route merchant contracts remain deferred."
+    },
+    {
+      "rule_ref": "game/rules/politics.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "polity_action",
+        "state_action",
+        "territorial_consequence"
+      ],
+      "runtime_hooks": [
+        "_activate_diplomatic_treaty",
+        "_autonomy_faction",
+        "_autonomy_interstate",
+        "_autonomy_state",
+        "_interstate_war_decision",
+        "_occupation_initialize",
+        "_record_faction_information",
+        "_settle_diplomatic_routes",
+        "_settle_occupation_administration",
+        "_settle_treaty_obligations",
+        "_world_arc_domain_action"
+      ],
+      "causal_host_kinds": [
+        "faction",
+        "institution",
+        "interstate",
+        "polity",
+        "state"
+      ],
+      "deferred_scope": "Saved state, polity, faction, war, treaty, occupation, knowledge and administrative effects are executable. Sovereign polities have first-class strategy/occupation/mobilization/governor/war/recognition/treaty commands; treaty proposals travel and targets decide autonomously; alliance, nonaggression, tribute, military access, guarantees and client-state terms are persisted, with conserved tribute settlement. General court adjudication, hostages, marriage diplomacy, negotiated territorial exchange/reparations, and richer multilateral diplomacy remain deferred."
+    },
+    {
+      "rule_ref": "game/rules/doctrine.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "formation_doctrine_set",
+        "formation_training_set",
+        "battle_resolve"
+      ],
+      "runtime_hooks": [
+        "_battle"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/equipment.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "equipment_equip",
+        "equipment_unequip",
+        "equipment_transfer",
+        "equipment_issue",
+        "equipment_return",
+        "equipment_drop",
+        "equipment_loot",
+        "equipment_consume",
+        "repair"
+      ],
+      "runtime_hooks": [
+        "_dispatch"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/characters.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "person_materialize",
+        "individual_training",
+        "career_event",
+        "family_event"
+      ],
+      "runtime_hooks": [
+        "_autonomy_person"
+      ],
+      "causal_host_kinds": [
+        "person"
+      ],
+      "deferred_scope": "Background characterization prose is descriptive; exact mutable lifecycle facts are runtime-owned."
+    },
+    {
+      "rule_ref": "game/rules/careers.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "career_event",
+        "enlisted_service_pay"
+      ],
+      "runtime_hooks": [
+        "_dispatch"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/memory.md",
+      "implementation_status": "descriptive",
+      "production_commands": [],
+      "runtime_hooks": [],
+      "causal_host_kinds": [],
+      "deferred_scope": "Narrative memory guidance is descriptive. Material history is stored in state/history rather than claimed as a full cognitive-memory reducer."
+    },
+    {
+      "rule_ref": "game/rules/process.md",
+      "implementation_status": "live",
+      "production_commands": [
+        "scene_consequence",
+        "advance_time"
+      ],
+      "runtime_hooks": [
+        "_advance_runtime"
+      ],
+      "causal_host_kinds": []
+    },
+    {
+      "rule_ref": "game/rules/family.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "family_event"
+      ],
+      "runtime_hooks": [
+        "_settle_due_pregnancy",
+        "_settle_person_death",
+        "_autonomy_house",
+        "_settle_person_family_life_stage"
+      ],
+      "causal_host_kinds": [
+        "person",
+        "house"
+      ],
+      "deferred_scope": "Exact proposal/engagement/marriage/pregnancy/birth/death/widowhood/succession are executable; autonomous courtship generation is not claimed."
+    },
+    {
+      "rule_ref": "game/rules/org.md",
+      "implementation_status": "mixed",
+      "production_commands": [
+        "institution_project",
+        "project_resolve",
+        "mercenary_contract",
+        "formation_create",
+        "project_cancel"
+      ],
+      "runtime_hooks": [
+        "_autonomy_institution",
+        "_start_funded_institution_project",
+        "_resolve_funded_project",
+        "_autonomy_mercenary",
+        "_cancel_funded_project"
+      ],
+      "causal_host_kinds": [
+        "institution",
+        "mercenary"
+      ],
+      "deferred_scope": "Institution projects reserve silver/material/labor or exact commodity stock and now support cancellation with labor release plus bounded unconsumed-input/recoverable-cash refunds; granaries procure sourced grain; mercenary employers fund accepted work. Bespoke workflows for every organization type remain deferred."
+    },
+    {
+      "rule_ref": "game/rules/README.md",
+      "implementation_status": "descriptive",
+      "production_commands": [],
+      "runtime_hooks": [],
+      "causal_host_kinds": [],
+      "deferred_scope": "This file declares rule authority and delegates implementation status to this parity registry."
+    }
+  ]
+}

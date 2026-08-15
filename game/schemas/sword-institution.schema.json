@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "capacity": {},
+    "kind": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-institution"
+    },
+    "state": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "state",
+    "kind",
+    "capacity"
+  ],
+  "type": "object"
+}

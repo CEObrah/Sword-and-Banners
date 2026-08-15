@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sword-polity.schema.json",
+  "title": "Sword sovereign polity",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "polity_ref",
+    "sovereign_house_ref",
+    "status",
+    "recognition_status",
+    "treasury_ref",
+    "military_force_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-polity"
+    },
+    "owner_id": {
+      "type": "string",
+      "pattern": "^polity_"
+    },
+    "polity_ref": {
+      "type": "string",
+      "pattern": "^polity_"
+    },
+    "sovereign_house_ref": {
+      "type": "string",
+      "pattern": "^house_"
+    },
+    "status": {
+      "enum": [
+        "territorial_authority",
+        "proto_state",
+        "recognized_state",
+        "dissolved"
+      ]
+    },
+    "recognition_status": {
+      "enum": [
+        "unrecognized",
+        "partially_recognized",
+        "recognized"
+      ]
+    },
+    "treasury_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "military_force_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "military_authority_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "occupied_site_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "recognized_by": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(state_|polity_)"
+      },
+      "uniqueItems": true
+    },
+    "administrative_capacity": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "seat_claim_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "communication_origin_state": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "known_threats": {
+      "type": "object"
+    },
+    "diplomacy": {
+      "type": "object"
+    },
+    "strategic_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "market_access_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "administrative_services": {
+      "type": "object"
+    },
+    "institution_refs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^inst_"
+      }
+    },
+    "state_integration": {
+      "type": "object"
+    },
+    "civil_finance": {
+      "type": "object"
+    },
+    "autonomous_actions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}

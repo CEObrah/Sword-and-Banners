@@ -1,0 +1,55 @@
+{
+  "schema": "sword-population",
+  "owner_id": "population_tang_manor",
+  "state": "qin",
+  "parent_population_ref": "population_qin",
+  "subset_of_parent": true,
+  "population_total": 9600,
+  "strata": {
+    "agricultural_workers_and_supervisors": 1800,
+    "forge_and_armory_workers": 250,
+    "stable_remount_and_carriage_workers": 220,
+    "warehouse_and_granary_workers": 250,
+    "construction_and_maintenance_workers": 300,
+    "household_service": 300,
+    "sword_manor_civilian_medical": 50,
+    "administrative_clerks": 180,
+    "water_sanitation_and_firefighting": 180,
+    "dependents_and_nonworking_children": 1255,
+    "other_permanent_household_residents": 4815
+  },
+  "sword_manor": {
+    "provisional_trainees": 5000,
+    "monthly_intake_capacity": 500,
+    "trainee_housing_capacity": 6000,
+    "standing_policy": "recruit_to_maximum_lawful_monthly_capacity_subject_to_housing_food_instructors_equipment_budget_and_candidate_acceptance"
+  },
+  "civil_recruitment_policy": {
+    "mode": "voluntary_paid_household_settlement",
+    "monthly_capacity": 200,
+    "candidate_constraints": [
+      "voluntary acceptance",
+      "lawful freedom to relocate or source permission",
+      "housing capacity",
+      "food capacity",
+      "real job vacancy",
+      "House Tang treasury can sustain wages and rations"
+    ],
+    "target_staffing": {
+      "agricultural_workers_and_supervisors": 2000,
+      "forge_and_armory_workers": 300,
+      "stable_remount_and_carriage_workers": 250,
+      "warehouse_and_granary_workers": 300,
+      "construction_and_maintenance_workers": 350,
+      "household_service": 325,
+      "sword_manor_civilian_medical": 60,
+      "administrative_clerks": 200,
+      "water_sanitation_and_firefighting": 200
+    }
+  },
+  "recruitment_runtime": {
+    "last_civil_intake": 0,
+    "last_sword_manor_intake": 0,
+    "last_review": "245-BCE-12-02T06:00:00+08:00"
+  }
+}

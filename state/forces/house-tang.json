@@ -1,0 +1,50 @@
+{
+  "schema": "sword-force",
+  "owner_id": "force_house_tang",
+  "owner_type": "force",
+  "kind": "house_force",
+  "administrative_owner": "house_tang",
+  "source_location_ref": "loc_tang_manor_garrison_yard",
+  "authorized_strength": 1100,
+  "authorized_by_role": {
+    "house_guard": 700,
+    "guardian_cavalry": 300,
+    "tang_champion": 100
+  },
+  "formation_authorizations": {
+    "formation_tang_champions_first": 100
+  },
+  "headcount": 1100,
+  "available_by_role": {
+    "house_guard": 700,
+    "guardian_cavalry": 300,
+    "tang_champion": 0
+  },
+  "available_by_location": {
+    "loc_tang_manor_garrison_yard": {
+      "house_guard": 700,
+      "guardian_cavalry": 300,
+      "tang_champion": 0
+    }
+  },
+  "available_equipment_units_by_role": {
+    "house_guard": 700,
+    "guardian_cavalry": 300,
+    "tang_champion": 0
+  },
+  "available_equipment_by_location": {
+    "loc_tang_manor_garrison_yard": {
+      "house_guard": 700,
+      "guardian_cavalry": 300,
+      "tang_champion": 0
+    }
+  },
+  "allocated_to_formations": {
+    "formation_tang_champions_first": {
+      "personnel": 100,
+      "role": "tang_champion"
+    }
+  },
+  "materialized_people": {},
+  "personnel_representation": "aggregate_provenance_cohorts; exact people only when named/relevant or explicitly recruited by the player"
+}

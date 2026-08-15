@@ -1,0 +1,196 @@
+{
+  "schema": "sword-economy-mechanics",
+  "formulas": {
+    "closing_balance": "opening_balance+realized_income+transfers_in-paid_expenditure-transfers_out",
+    "ordinary_headroom": "available_military_age_adults-medical_restriction-protected_household_duty-essential_labor_floor-recent_levy_exhaustion-candidate_reservations",
+    "campaign_fixed_cost": "recruiter_pay+travel+lodging+notices_brokers+required_authority_fees_or_bribes",
+    "entry_cost_per_recruit": "signing_bounty+first_pay_advance+family_payment+travel_to_muster+muster_food+registration+initial_personal_kit+training_cycle_inputs",
+    "selected_ranker_pay": "class_default_pay*selected_model_pay_factor/class_default_model_pay_factor",
+    "cash_payroll": "ranker_pay+nco_pay+officer_pay+named_contracts+support_pay+family_support+arrears_settlement",
+    "monthly_food_demand": "current_mouths*30*ration_per_person_day",
+    "monthly_fodder_demand": "sum(current_animals_by_type*30*saved_ration_per_animal_day)",
+    "monthly_maintenance_reserve": "durable_stock_value*pattern_maintenance_fraction*operating_mode_factor",
+    "monthly_cash_burden": "cash_payroll+purchased_food_fodder+facility_maintenance+realized_equipment_vehicle_animal_maintenance+medicine+administration+training_consumables+transport+casualty_compensation+other_committed_costs",
+    "realized_cash_revenue": "min(amount_due,payer_cash,collector_capacity,route_capacity)*compliance*security*collection_integrity",
+    "farm_output": "acreage*baseline_yield*seed_completion*agricultural_labor_factor*animal_tool_factor*water_weather*security*harvest_completion",
+    "sustainable_force_ceiling": "min(recruitment_quantity,candidate_quality,training_throughput,payroll,food,fodder_animals,equipment,officers,veteran_cadre,support,facilities,transport,political_tolerance)",
+    "desired_force": "max(minimum_garrison,active_goal_requirement,current_threat_requirement,committed_contractual_minimum)",
+    "feasible_force": "min(desired_force,sustainable_affordable_ceiling,recruitable_trainable_ceiling)",
+    "realization_factor": "clamp(collector_capacity*route_security*compliance*production*administration*(1-disruption),0,1)",
+    "scarcity": "clamp((normal_stock/current_stock)^0.55,0.55,3.50)",
+    "unit_price": "base_price*scarcity*demand*insecurity_hoarding_factor",
+    "procurement_value": "count*baseline_value*material_labor_factor*condition_target*local_scarcity*bulk_factor",
+    "routine_maintenance_reserve": "serviceable_stock_value*pattern_maintenance_fraction*operating_mode_factor",
+    "repair_slot_fraction": "condition_points_restored/100"
+  },
+  "recruitment_cost_constants": {
+    "contacted_candidate_local": 0.05,
+    "contacted_candidate_regional": 0.1,
+    "contacted_candidate_dangerous_or_secret": 0.2,
+    "screened_candidate_ordinary": 0.1
+  },
+  "rules": {
+    "no_negative_stock_from_formula_without_recorded_debt_or_shortage": true,
+    "current_stock_zero_scarcity": "market unavailable until a positive physical stock source exists; do not divide by zero"
+  },
+  "default_rank_structure": {
+    "junior_officer_per_combatants": 100,
+    "junior_officer_pay_factor": 3.0,
+    "nco_per_combatants": 12,
+    "nco_pay_factor": 1.4,
+    "remaining_combatants_pay_factor": 1.0,
+    "named_officers_and_specialists_use_exact_contract": true
+  },
+  "default_support_monthly_pay_silver": {
+    "porter_or_general_laborer": 2.0,
+    "cook": 2.4,
+    "driver": 3.0,
+    "groom": 3.0,
+    "scout_or_animal_handler": 4.0,
+    "boatman_or_rigger": 4.0,
+    "clerk": 4.5,
+    "medic": 5.0,
+    "smith_or_farrier": 6.0,
+    "engineer_or_carpenter": 6.5,
+    "quartermaster": 7.0
+  },
+  "force_posture_hysteresis": {
+    "recruit_below_feasible_fraction": 0.95,
+    "demobilize_above_feasible_fraction": 1.12,
+    "otherwise": "hold_or_reorganize",
+    "emergency_mobilization_requires_real_capacity": true
+  },
+  "operating_mode_factors": {
+    "stored_reserve": {
+      "pay_hazard": 0.9,
+      "maintenance": 0.75,
+      "medical_replacement": 0.75,
+      "transport": 0.25
+    },
+    "garrison": {
+      "pay_hazard": 1.0,
+      "maintenance": 1.0,
+      "medical_replacement": 1.0,
+      "transport": 0.5
+    },
+    "training": {
+      "pay_hazard": 1.0,
+      "maintenance": 1.25,
+      "medical_replacement": 1.15,
+      "transport": 0.5
+    },
+    "marching": {
+      "pay_hazard": 1.05,
+      "maintenance": 1.75,
+      "medical_replacement": 1.25,
+      "transport": 1.5
+    },
+    "active_campaign": {
+      "pay_hazard": 1.15,
+      "maintenance": 2.25,
+      "medical_replacement": 1.75,
+      "transport": 1.75
+    },
+    "siege_or_sustained_river_combat": {
+      "pay_hazard": 1.2,
+      "maintenance": 2.75,
+      "medical_replacement": 2.25,
+      "transport": 2.0
+    },
+    "winter_quarters": {
+      "pay_hazard": 1.0,
+      "maintenance": 1.2,
+      "medical_replacement": 1.1,
+      "transport": 0.75
+    }
+  },
+  "ordinary_market_reference": {
+    "unskilled_daily_wage_copper": 15,
+    "skilled_daily_wage_copper": 45,
+    "professional_soldier_monthly_pay_silver_before_support": 7,
+    "marching_ration_per_adult_day_copper": 13,
+    "common_sword_silver": 11,
+    "military_sword_silver": 23,
+    "military_spear_reference_silver": 7,
+    "military_bow_silver": 20,
+    "military_arrows_20_silver": 3,
+    "padded_coat_silver": 12,
+    "military_lamellar_cuirass_silver": 72,
+    "helmet_reference_silver": 21,
+    "shield_reference_silver": 10,
+    "common_riding_horse_silver": 110,
+    "trained_warhorse_reference_silver": 500,
+    "padded_horse_armor_silver": 48,
+    "light_lamellar_horse_armor_silver": 170,
+    "partial_lamellar_horse_armor_silver": 300,
+    "full_heavy_horse_armor_reference_silver": 580,
+    "pack_animal_reference_silver": 68,
+    "two_axle_wagon_reference_silver": 115,
+    "military_bolts_20_silver": 4
+  },
+  "currency": {
+    "copper_per_silver": 100
+  },
+  "military_finance": {
+    "recruitment_and_basic_issue_cost_silver_per_person": 12,
+    "replacement_requires_population_source": true,
+    "standard_issue_paid_by_organization": true
+  },
+  "prices_silver": {
+    "arrows_20": 3,
+    "common_sword": 11,
+    "fodder_kg": 0.1,
+    "grain_kg": 0.08,
+    "helmet": 21,
+    "lamellar_cuirass": 72,
+    "military_bow": 20,
+    "military_spear": 7,
+    "military_sword": 23,
+    "pack_animal": 68,
+    "padded_coat": 12,
+    "riding_horse": 110,
+    "shield": 10,
+    "two_axle_wagon": 115,
+    "bolts_20": 4
+  },
+  "retail_rule": "Exact buyer money and materially scarce stock; ordinary sellers settle into aggregate local/private-economy accounts, not individual merchant balance sheets.",
+  "service_issue": {
+    "includes": [
+      "primary service weapon",
+      "required basic armor",
+      "helmet/shield when role requires",
+      "campaign rations",
+      "formation ammunition"
+    ],
+    "standard_service_kit_is_state_issue": true
+  },
+  "wages": {
+    "professional_soldier_monthly_silver": 7.0,
+    "unskilled_monthly_silver": 4.5
+  },
+  "recruitment_campaign": {
+    "default_contact_cost_key": "contacted_candidate_regional",
+    "screening_cost_key": "screened_candidate_ordinary",
+    "candidate_food_kg_per_person_day": 1.6,
+    "candidate_training_capacity": 6000,
+    "training_day_hours": 24.0,
+    "final_issue_cost_key": "recruitment_and_basic_issue_cost_silver_per_person",
+    "principle": "Applicants remain civilians reserved from real population. Contact and screening spend cash, candidate training consumes real food over elapsed hours, and only accepted candidates incur military basic-issue cost and transfer into military/private-household manpower."
+  },
+  "ammunition_procurement": {
+    "lot_size": {
+      "war_arrows": 20,
+      "war_bolts": 20
+    },
+    "price_key": {
+      "war_arrows": "arrows_20",
+      "war_bolts": "bolts_20"
+    },
+    "central_reserve_carried_loads": 1.0,
+    "monthly_purchase_cap": {
+      "war_arrows": 500000,
+      "war_bolts": 350000
+    },
+    "principle": "Ammunition is manufactured or procured into an exact depot by spending real treasury silver in registered lots. Formation stocks and in-transit convoys remain separate conserved custody; no ranged attack may create projectiles."
+  }
+}

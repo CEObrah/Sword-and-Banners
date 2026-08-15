@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "population_background_defaults",
+    "background_profiles",
+    "selection_profiles",
+    "role_training_profiles",
+    "training_regimens",
+    "rules",
+    "population_background_mixes",
+    "candidate_campaign_source_mix"
+  ],
+  "properties": {
+    "schema": {
+      "const": "recruitment-cohort-profiles.v2"
+    },
+    "authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "population_background_defaults": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "background_profiles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "age_distribution",
+          "aptitude_means",
+          "aptitude_sd",
+          "aptitude_min",
+          "aptitude_max",
+          "attribute_means",
+          "attribute_sd",
+          "attribute_min",
+          "attribute_max",
+          "skill_means",
+          "skill_sd",
+          "skill_min",
+          "skill_max"
+        ],
+        "properties": {
+          "age_distribution": {
+            "type": "object",
+            "required": [
+              "mean",
+              "sd",
+              "min",
+              "max"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "mean": {
+                "type": "number"
+              },
+              "sd": {
+                "type": "number",
+                "minimum": 0
+              },
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              }
+            }
+          },
+          "aptitude_means": {
+            "$ref": "#/$defs/numberMap"
+          },
+          "aptitude_sd": {
+            "$ref": "#/$defs/nonnegativeMap"
+          },
+          "aptitude_min": {
+            "$ref": "#/$defs/nonnegativeMap"
+          },
+          "aptitude_max": {
+            "$ref": "#/$defs/nonnegativeMap"
+          },
+          "attribute_means": {
+            "$ref": "#/$defs/numberMap"
+          },
+          "attribute_sd": {
+            "$ref": "#/$defs/nonnegativeMap"
+          },
+          "attribute_min": {
+            "$ref": "#/$defs/nonnegativeMap"
+          },
+          "attribute_max": {
+            "$ref": "#/$defs/nonnegativeMap"
+          },
+          "skill_means": {
+            "$ref": "#/$defs/numberMap"
+          },
+          "skill_sd": {
+            "$ref": "#/$defs/nonnegativeMap"
+          },
+          "skill_min": {
+            "$ref": "#/$defs/nonnegativeMap"
+          },
+          "skill_max": {
+            "$ref": "#/$defs/nonnegativeMap"
+          },
+          "correlation_groups": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "selection_profiles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "method",
+          "default_retain_fraction"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "method": {
+            "enum": [
+              "eligibility",
+              "weighted_upper_tail"
+            ]
+          },
+          "default_retain_fraction": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 1
+          },
+          "sd_floor_fraction": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "role_training_profiles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "training_regimens": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "rules": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "population_background_mixes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "candidate_campaign_source_mix": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0
+      }
+    }
+  },
+  "$defs": {
+    "numberMap": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "nonnegativeMap": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0
+      }
+    }
+  }
+}

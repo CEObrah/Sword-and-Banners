@@ -1,0 +1,23 @@
+{
+  "backlog": 0,
+  "capacity": 85,
+  "kind": "granary_depot_office",
+  "last_review": "245-BCE-12-04T07:22:48+08:00",
+  "name": "ZHAO Granary and Depot Office",
+  "owner_id": "inst_zhao_granary_depot_office",
+  "policy": "ZHAO: procure physical grain into exact state depots from the private economy using state treasury funds",
+  "projects": [],
+  "resources": {},
+  "schema": "sword-institution",
+  "staffing": "aggregate",
+  "state": "zhao",
+  "operating_contract": {
+    "authority": "exact existing owners only",
+    "outputs": [
+      "grain_procurement",
+      "depot_stock",
+      "treasury_cost"
+    ],
+    "conservation_rule": "no people, money, mounts, food, equipment, materials, office, or territory may be created by review prose alone"
+  }
+}

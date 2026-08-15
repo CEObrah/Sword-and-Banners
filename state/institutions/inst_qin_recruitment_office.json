@@ -1,0 +1,23 @@
+{
+  "backlog": 0,
+  "capacity": 12000,
+  "kind": "recruitment_office",
+  "last_review": "245-BCE-12-04T07:22:48+08:00",
+  "name": "Qin Recruitment Office",
+  "owner_id": "inst_qin_recruitment_office",
+  "policy": "QIN: administer recruitment throughput against real population and force demand; office capacity constrains intake rather than creating recruits",
+  "projects": [],
+  "resources": {},
+  "schema": "sword-institution",
+  "staffing": "aggregate",
+  "state": "qin",
+  "operating_contract": {
+    "authority": "exact existing owners only",
+    "outputs": [
+      "recruitment_capacity",
+      "population_availability",
+      "force_shortage"
+    ],
+    "conservation_rule": "no people, money, mounts, food, equipment, materials, office, or territory may be created by review prose alone"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "profiles",
+    "fallbacks"
+  ],
+  "properties": {
+    "schema": {
+      "const": "combat-role-profiles.v1"
+    },
+    "authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profiles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "loadout_id",
+          "melee_skill_weights",
+          "attribute_weights",
+          "ranged_skill_weights",
+          "frontage_spacing_m",
+          "depth_support_factor"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "fallbacks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

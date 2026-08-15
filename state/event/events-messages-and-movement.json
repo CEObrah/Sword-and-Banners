@@ -1,0 +1,40 @@
+{
+  "causal_events": {
+    "event_ouki_preliminary_review_response_001": {
+      "due_at": "245-BCE-12-05T06:22:48+08:00",
+      "event_ref": "event_ouki_preliminary_review_response_001",
+      "kind": "institutional_response",
+      "provenance": {
+        "kind": "causal_runtime_settlement",
+        "late_catch_up": false,
+        "source_owner_ref": "events_messages_and_movement",
+        "work_ref": "event_ouki_preliminary_review_response_001"
+      },
+      "status": "triggered",
+      "summary": "Ouki's staff-review channel acknowledges Tang Wei's presentation in Kanyou and returns word that his preliminary command-qualification review can proceed. This response grants no Qin rank, appointment, certified vacancy, private-unit acceptance, or deployment authority.",
+      "triggered_at": "245-BCE-12-05T06:22:48+08:00"
+    },
+    "event_tang_kai_birthday_001": {
+      "due_at": "245-BCE-12-05T06:00:00+08:00",
+      "event_ref": "event_tang_kai_birthday_001",
+      "kind": "calendar_boundary",
+      "provenance": {
+        "kind": "causal_runtime_settlement",
+        "late_catch_up": true,
+        "source_owner_ref": "events_messages_and_movement",
+        "work_ref": "event_tang_kai_birthday_001"
+      },
+      "status": "triggered",
+      "summary": "The known 06:00 date boundary for Tang Kai's birthday has been reached while Tang Wei remains in Kanyou.",
+      "triggered_at": "245-BCE-12-05T06:22:48+08:00"
+    }
+  },
+  "name": "13 Events Messages Arcs And Movement",
+  "owner_id": "events_messages_and_movement",
+  "owner_type": "event_registry",
+  "records": [],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-07T00:00:48+08:00"
+  },
+  "schema": "event-registry"
+}

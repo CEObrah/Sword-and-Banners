@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "id", "name", "birth_date", "status"],
+  "properties": {
+    "schema": {"const": "sword-materialized-person"},
+    "owner_id": {"type": "string", "minLength": 1},
+    "owner_type": {"type": "string"},
+    "id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "birth_date": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "minLength": 1},
+    "state": {"type": "string"},
+    "life_status": {"type": "string"},
+    "health_status": {"type": "string"},
+    "current_location": {"type": "string"},
+    "attributes": {"type": "object"},
+    "skills": {"type": "object"},
+    "aptitude": {"type": "object"},
+    "development_state": {
+      "type": "object",
+      "properties": {
+        "skill_edu_banks": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+        "settled_training_hours": {"type": "integer", "minimum": 0},
+        "training_credit": {"type": "number", "minimum": 0},
+        "maintenance_credit": {"type": "number", "minimum": 0},
+        "completed_reviews": {"type": "integer", "minimum": 0},
+        "breakthrough_event_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true, "maxItems": 512},
+        "breakthrough_dossiers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "last_breakthrough_at": {"type": "string"},
+              "last_starting_value": {"type": "integer", "minimum": 0},
+              "last_ending_value": {"type": "integer", "minimum": 0},
+              "last_evidence_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "last_context_signatures": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "last_consolidation_units": {"type": "number", "minimum": 0},
+              "resolved_breakthroughs": {"type": "integer", "minimum": 0}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

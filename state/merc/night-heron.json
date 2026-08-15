@@ -1,0 +1,118 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "multi-state frontier routes",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 164,
+      "sd": 6.8
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 62,
+      "sd": 7.3
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "doctrine": "doc.merc_night_heron.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 500,
+    "assigned_war_arrows": 18000,
+    "assigned_war_bolts": 0,
+    "issued_loadouts": [
+      {
+        "count": 500,
+        "loadout_id": "loadout_mercenary_scout"
+      },
+      {
+        "count": 200,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 50,
+    "reserve_war_arrows": 18000,
+    "reserve_war_bolts": 0
+  },
+  "food_stock_kg": 67200,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 700,
+  "home_establishment_ref": "establishment.merc_night_heron",
+  "name": "Night Heron Scouts",
+  "owner_id": "merc_night_heron",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "Independent",
+  "subprocess_id": "process_merc_night_heron",
+  "training": "train.merc_night_heron.standard",
+  "treasury_silver": 56000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-night-heron-pool-scout.json",
+      "condition": {
+        "fit": 500
+      },
+      "count": 500,
+      "display": "Scouts",
+      "doctrine": "doc.merc_night_heron.scout",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_scout",
+      "mount_type": "horse_frontier_trained",
+      "pool_id": "merc_night_heron:pool_scout",
+      "pool_kind": "unit_manpower",
+      "role": "scout",
+      "training": "train.merc_night_heron.scout",
+      "troop_type": "scout"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-night-heron-pool-support.json",
+      "condition": {
+        "fit": 200
+      },
+      "count": 200,
+      "display": "Support",
+      "doctrine": "doc.merc_night_heron.support",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_support",
+      "mount_type": null,
+      "pool_id": "merc_night_heron:pool_support",
+      "pool_kind": "unit_manpower",
+      "role": "support",
+      "specialty": "support",
+      "training": "train.merc_night_heron.support",
+      "troop_type": "line_infantry"
+    }
+  ]
+}

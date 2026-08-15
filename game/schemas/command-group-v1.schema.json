@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command Group",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "commander_ref",
+    "direct_unit_refs",
+    "subordinate_command_group_refs",
+    "direct_person_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "command-group.v1"
+    },
+    "id": {
+      "type": "string"
+    },
+    "commander_ref": {
+      "type": "string"
+    },
+    "direct_unit_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "subordinate_command_group_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "parent_command_group_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "context": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "standing_order_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "location": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "direct_person_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "description": "Named people directly controlled by this commander and not already members of a direct troop unit."
+    },
+    "display_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "deputy_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "successor_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "authority_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "active_context_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "communication_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true,
+  "description": "Command-only hierarchy node. Owns no manpower. commander_ref is a real person who remains independently targetable/combat-capable when physically present. A parent counts this node as one direct command slot."
+}
