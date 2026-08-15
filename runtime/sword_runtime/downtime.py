@@ -19,9 +19,11 @@ from typing import Any
 
 from sword_runtime.development import settle_skill_training
 from sword_runtime.sim.calendar import CampaignTime
+from sword_runtime.training_rates import verified_activity_hours_per_cycle
 
 _RUNTIME_PATH = "state/runtime.json"
 _EVENT_PATH = "state/event/events-messages-and-movement.json"
+_PROFILES_PATH = "game/data/mil/recruitment-cohort-profiles.json"
 _PLAYER_FACING_EVENT_KINDS = frozenset(
     {"institutional_response", "petition_response", "message", "audience_response", "world_arc_report"}
 )
@@ -246,7 +248,7 @@ class DowntimeAdvanceMixin:
         formation = deepcopy(formation0)
         force_path = self.owner_path(str(formation["owner_force_ref"]))
         force = self.read(force_path)
-        profiles = self.read("game/data/mil/recruitment-cohort-profiles.json")
+        profiles = self.read(_PROFILES_PATH)
         regimen_name = (
             "house_tang_max_sustainable"
             if str(force.get("owner_id")) in {"force_house_tang", "institution_sword_manor"}
@@ -310,9 +312,19 @@ class DowntimeAdvanceMixin:
     ) -> dict[str, Any]:
         path, person0 = self._exact_person(person_ref, active=False)
         person = deepcopy(person0)
+        contract = person.get("activity_contract") if isinstance(person.get("activity_contract"), Mapping) else {}
         activity = person.setdefault("autonomous_activity_state", {})
         cadence = max(1, int(activity.get("cadence_seconds", 30 * 86400)))
-        cycle_hours = float(activity.get("verified_hours_per_cycle", 48.0) or 48.0)
+        cycle_hours = verified_activity_hours_per_cycle(
+            person,
+            contract,
+            self.read(_PROFILES_PATH),
+            cadence,
+            fallback_hours=48.0,
+        )
+        if cycle_hours <= 0:
+            raise PermissionError("named person does not have an adult standing-role training rate")
+        activity["verified_hours_per_cycle"] = round(cycle_hours, 6)
         next_due_text = activity.get("next_due")
         cycle_start = start
         if isinstance(next_due_text, str):
@@ -328,7 +340,7 @@ class DowntimeAdvanceMixin:
         activity["interim_verified_activity_hours"] = round(min(cycle_hours, total), 6)
         activity["interim_last_accrued_at"] = str(end)
         activity["interim_accrual_rule"] = (
-            "progress evidence only; exact skill settlement remains owned by the person's autonomous activity cycle"
+            "progress evidence only; rate derives from the canonical regimen when applicable; exact skill settlement remains owned by the person's autonomous activity cycle"
         )
         self.put(path, person)
         return {

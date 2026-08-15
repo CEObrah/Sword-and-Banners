@@ -63,6 +63,7 @@ jobs:
             tests/runtime/test_character_progression_schema.py \
             tests/runtime/test_progression_topology.py \
             tests/runtime/test_diegetic_skill_contract.py \
+            tests/runtime/test_training_reporting_repairs.py \
             tests/runtime/test_release_hardening.py
       - name: Diff hygiene
         if: github.event_name != 'workflow_dispatch'

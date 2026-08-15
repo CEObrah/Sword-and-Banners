@@ -361,6 +361,15 @@ def _ensure_report_watch(planner: Any, *, at: str, house: dict[str, Any], player
     reporting = house.setdefault("recruitment_reporting", {})
     subscription = reporting.setdefault(player_ref, {})
     subscription.update({"active": True, "subscribed_at": at})
+
+    # Baseline conditions that are disclosed in the same response that creates
+    # the subscription. A watch reports transitions after subscription; it must
+    # not later re-emit a condition the player was already explicitly told.
+    programs = house.get("administrative_programs", {}) if isinstance(house.get("administrative_programs"), Mapping) else {}
+    great = programs.get("great_bow_guard", {}) if isinstance(programs, Mapping) else {}
+    if isinstance(great, Mapping) and great.get("status") == "recruiting":
+        subscription.setdefault("reported_great_bow_guard_opened_at", str(great.get("opened_at", at)))
+
     runtime = copy.deepcopy(planner.read(_RUNTIME_PATH))
     hosts = runtime.get("hosts")
     events = runtime.get("events")
