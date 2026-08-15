@@ -12,6 +12,7 @@ from sword_runtime.api.stable_operations import StableCampaignOperations
 
 
 _DIRECT_FAMILY_LIMIT = 16
+_SWORD_MANOR_REF = "institution_sword_manor"
 
 
 def _person_location(person: Mapping[str, Any]) -> str | None:
@@ -166,7 +167,8 @@ class HouseholdAwareCampaignOperations(StableCampaignOperations):
         context = super().play_context()
         player = context.setdefault("player", {})
         player_id = str(context.get("campaign", {}).get("player_id", ""))
-        family_people = self._direct_family_scene_people(player_id, player.get("location"))
+        player_location = player.get("location")
+        family_people = self._direct_family_scene_people(player_id, player_location)
 
         if family_people:
             scene = context.setdefault("scene", {})
@@ -204,6 +206,23 @@ class HouseholdAwareCampaignOperations(StableCampaignOperations):
             permitted_people = set(context.get("permitted_person_ids", []))
             permitted_people.update(str(row["person_id"]) for row in family_people)
             context["permitted_person_ids"] = sorted(permitted_people)
+
+            # Sword Manor is an exact House Tang institution/force owner. While Wei
+            # is physically inside the Tang Manor household scene, exposing this
+            # one known institutional handle permits bounded inspection without
+            # turning the owner index into a browseable world dump.
+            if isinstance(player_location, str) and player_location.startswith("loc_tang_manor_"):
+                owner_index = self._read_optional_mapping("state/index/owner-index.json")
+                owners = owner_index.get("owners", {}) if isinstance(owner_index, Mapping) else {}
+                if isinstance(owners, Mapping) and isinstance(owners.get(_SWORD_MANOR_REF), str):
+                    permitted_objects = set(context.get("permitted_object_refs", []))
+                    permitted_objects.add(_SWORD_MANOR_REF)
+                    context["permitted_object_refs"] = sorted(permitted_objects)
+                    scene["household_institutions"] = [{
+                        "object_ref": _SWORD_MANOR_REF,
+                        "name": "Sword Manor",
+                        "relation": "House Tang institution",
+                    }]
 
         interaction = context.get("commands", {}).get("command_types", {}).get("interaction_action")
         if isinstance(interaction, dict):
