@@ -130,9 +130,14 @@ def _score_disposition(planner: Any, process_ref: str, spec: Mapping[str, Any]) 
     attr_keys, skill_keys = scoring.get("attributes", []), scoring.get("skills", [])
     if not isinstance(attr_keys, list) or not isinstance(skill_keys, list):
         raise ValueError("audience disposition scoring keys are invalid")
-    def mean(src, keys):
-        vals = [float(src[k]) for k in keys if isinstance(src, Mapping) and isinstance(src.get(k), (int, float)) and not isinstance(src.get(k), bool)]
+
+    def mean(src: Mapping[str, Any], keys: list[str]) -> float:
+        vals = [
+            float(src[key]) for key in keys
+            if isinstance(src.get(key), (int, float)) and not isinstance(src.get(key), bool)
+        ]
         return sum(vals) / len(vals) if vals else 0.0
+
     aw, sw = int(scoring.get("attribute_weight", 1)), int(scoring.get("skill_weight", 1))
     if aw < 0 or sw < 0 or aw + sw <= 0:
         raise ValueError("audience disposition scoring weights are invalid")
@@ -147,6 +152,14 @@ def _score_disposition(planner: Any, process_ref: str, spec: Mapping[str, Any]) 
     if score >= refer:
         return "referred", score, prior
     return "declined", score, prior
+
+
+def _precommit_disposition(planner: Any, process_ref: str, spec: Mapping[str, Any]) -> tuple[str, str]:
+    outcome, _score, _prior = _score_disposition(planner, process_ref, spec)
+    summary = spec.get(f"{outcome}_summary")
+    if not isinstance(summary, str) or not summary:
+        raise ValueError("audience disposition outcome summary is missing")
+    return outcome, summary[:4000]
 
 
 def _write_player_event(planner: Any, event_ref: str, row: Mapping[str, Any], at: str) -> str:
@@ -188,16 +201,20 @@ def _settle_contact_request(planner: Any, host: Mapping[str, Any], at: str) -> s
 
 
 def _settle_audience_disposition(planner: Any, host: Mapping[str, Any], at: str) -> str:
-    spec = host.get("disposition_spec")
-    if not isinstance(spec, Mapping):
-        raise ValueError("audience disposition host is invalid")
-    outcome, score, prior = _score_disposition(planner, str(host.get("source_process_ref", "")), spec)
-    summary = spec.get(f"{outcome}_summary")
-    if not isinstance(summary, str) or not summary:
-        raise ValueError("audience disposition outcome summary is missing")
+    outcome = host.get("disposition_outcome")
+    summary = host.get("response_summary")
+    if not isinstance(outcome, str) or outcome not in {"recommended", "referred", "declined"} or not isinstance(summary, str) or not summary:
+        spec = host.get("disposition_spec")
+        if not isinstance(spec, Mapping):
+            raise ValueError("audience disposition host is invalid")
+        outcome, summary = _precommit_disposition(planner, str(host.get("source_process_ref", "")), spec)
+    institution_ref = host.get("institution_ref")
+    source_process_ref = host.get("source_process_ref")
+    if not isinstance(institution_ref, str) or not institution_ref or not isinstance(source_process_ref, str) or not source_process_ref:
+        raise ValueError("audience disposition host lost its exact institutional identity")
     player = planner.read("state/player.json")
     location_ref = player.get("location")
-    if not isinstance(location_ref, str):
+    if not isinstance(location_ref, str) or not location_ref:
         raise ValueError("audience disposition delivery lost player location")
     event_ref = _disposition_response_ref(str(host.get("request_id", "")))
     return _write_player_event(planner, event_ref, {
@@ -206,17 +223,24 @@ def _settle_audience_disposition(planner: Any, host: Mapping[str, Any], at: str)
         "status": "triggered",
         "due_at": at,
         "triggered_at": at,
-        "actor_ref": host.get("institution_ref"),
+        "actor_ref": institution_ref,
         "target_ref": "char_tang_wei",
-        "route_ref": host.get("route_ref"),
-        "disposition_ref": host.get("disposition_ref"),
-        "basis_goal": f"Institutional disposition for player request {host.get('request_id')}"[:500],
+        "basis_goal": f"Qin Military Bureau responds to Tang Wei's service recommendation request"[:500],
         "process_kind": "institutional_disposition",
         "process_stage": outcome,
-        "source_event_ref": host.get("source_process_ref"),
         "summary": summary[:4000],
-        "delivery": {"target_ref": "char_tang_wei", "location_ref": location_ref, "route": str(host.get("delivery_route", ""))[:1000]},
-        "provenance": {"kind": "causal_runtime_settlement", "source_owner_ref": host.get("institution_ref"), "work_ref": event_ref, "late_catch_up": False},
+        "source_event_ref": source_process_ref,
+        "delivery": {
+            "target_ref": "char_tang_wei",
+            "location_ref": location_ref,
+            "route": str(host.get("delivery_route", "Qin Military Bureau receiving office in Kanyou"))[:1000],
+        },
+        "provenance": {
+            "kind": "causal_runtime_settlement",
+            "source_owner_ref": institution_ref,
+            "work_ref": event_ref,
+            "late_catch_up": False,
+        },
     }, at)
 
 
@@ -236,7 +260,8 @@ class ContactRequestFlowMixin:
 
     def _sync_contact_request_routes(self, runtime: dict[str, Any]) -> None:
         current_text = runtime.get("world_time")
-        if not isinstance(current_text, str):
+        hosts = runtime.get("hosts")
+        if not isinstance(current_text, str) or not isinstance(hosts, dict):
             raise ValueError("runtime causal queue is invalid")
         current = CampaignTime.parse(current_text)
         invalidated = invalidated_request_ids(self)
@@ -264,12 +289,22 @@ class ContactRequestFlowMixin:
             delay = spec.get("delay_seconds")
             if isinstance(delay, bool) or not isinstance(delay, int) or delay <= 0:
                 raise ValueError("audience disposition delay is invalid")
+            process_ref = str(attempt.get("process_ref", ""))
+            outcome, response_summary = _precommit_disposition(self, process_ref, spec)
             due = max(current, CampaignTime.parse(requested_at).add_seconds(delay))
             h, e = _disposition_ids(request_id)
+            existing = hosts.get(h)
+            if isinstance(existing, dict):
+                if not isinstance(existing.get("disposition_outcome"), str):
+                    existing["disposition_outcome"] = outcome
+                if not isinstance(existing.get("response_summary"), str):
+                    existing["response_summary"] = response_summary
+                continue
             self._schedule_one_shot(runtime, host_id=h, event_id=e, kind="audience_disposition", priority=47, due=due, row={
                 "owner_ref": droute["institution_ref"], "request_id": request_id, "source_event_id": event.get("event_id"),
-                "source_process_ref": attempt.get("process_ref"), "route_ref": droute.get("route_ref"), "institution_ref": droute["institution_ref"],
+                "source_process_ref": process_ref, "route_ref": droute.get("route_ref"), "institution_ref": droute["institution_ref"],
                 "disposition_ref": spec.get("disposition_ref"), "disposition_spec": copy.deepcopy(dict(spec)), "delivery_route": droute.get("delivery_route"),
+                "disposition_outcome": outcome, "response_summary": response_summary,
                 "resolved_through": str(current if current < due else due.add_seconds(-1)),
             })
 
@@ -281,9 +316,13 @@ class ContactRequestFlowMixin:
 
     def _run_due_host(self, host: Mapping[str, Any], due_text: str) -> None:
         if host.get("kind") == "contact_request":
-            _settle_contact_request(self, host, due_text); self._pending_wake_created = None; return
+            _settle_contact_request(self, host, due_text)
+            self._pending_wake_created = None
+            return
         if host.get("kind") == "audience_disposition":
-            _settle_audience_disposition(self, host, due_text); self._pending_wake_created = None; return
+            _settle_audience_disposition(self, host, due_text)
+            self._pending_wake_created = None
+            return
         super()._run_due_host(host, due_text)
 
 
