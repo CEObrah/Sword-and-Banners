@@ -10,7 +10,7 @@ from __future__ import annotations
 # The surface-only interaction_action contract lives
 # in api/interaction_surface.py and is translated before it reaches the engine.
 COMMAND_PAYLOAD_KEYS: dict[str, frozenset[str]] = {
-    "advance_time": frozenset({"hours", "target_time"}),
+    "advance_time": frozenset({"hours", "target_time", "stop_on_player_event", "activity_policy"}),
     "battle_resolve": frozenset({"attacker_formation_refs", "defender_formation_refs", "operation_ref", "controlled_side", "objective", "battlefield_ref", "sector_ref"}),
     "battlefield_control": frozenset({"action", "operation_ref", "battlefield_ref", "name", "side_refs", "layout_ref", "formation_ref", "side_ref", "sector_ref", "target_sector_ref", "pace", "order"}),
     "career_event": frozenset({"person_ref", "kind", "merit", "qualification_ref", "grade", "office", "evidence_ref", "grantor_ref"}),
