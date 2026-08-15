@@ -6,6 +6,7 @@ from typing import Any
 
 from sword_runtime.activity_living_world import ActivityCampaignEventPlanner
 from sword_runtime.civil_world import CivilWorldMixin
+from sword_runtime.downtime import DowntimeAdvanceMixin
 from sword_runtime.equipment_planner import EquipmentStateProjectionMixin
 from sword_runtime.force_cohort_living_world import ForceCohortLivingWorldMixin
 from sword_runtime.house_tang_development import HouseTangDevelopmentMixin
@@ -25,6 +26,7 @@ HOUSE_TANG_GARRISON: dict[str, Any] = {
 
 
 class ProductionCampaignPlanner(
+    DowntimeAdvanceMixin,
     EquipmentStateProjectionMixin,
     CivilWorldMixin,
     HouseholdRequestFlowMixin,
