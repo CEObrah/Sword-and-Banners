@@ -9,6 +9,7 @@ from sword_runtime.civil_world import CivilWorldMixin
 from sword_runtime.equipment_planner import EquipmentStateProjectionMixin
 from sword_runtime.force_cohort_living_world import ForceCohortLivingWorldMixin
 from sword_runtime.house_tang_development import HouseTangDevelopmentMixin
+from sword_runtime.sim.calendar import CampaignTime
 
 HOUSE_TANG_GARRISON_REF = "loc_tang_manor_garrison_yard"
 HOUSE_TANG_GARRISON: dict[str, Any] = {
@@ -52,9 +53,10 @@ class ProductionCampaignPlanner(
         The causal scheduler normally permits only ``advance_time`` to commit a
         newly reached high-salience wake. During one unescorted personal travel
         reducer we temporarily give only the scheduler that permission. The
-        outer travel adapter below then rolls back the travel after-image when
-        the scheduler stops early, while preserving the committed causal time and
-        wake. Escorted travel does not use this adapter and remains fail-closed.
+        outer travel adapter below rolls back the travel after-image only when
+        the scheduler actually stops before arrival, while preserving the
+        committed causal time and wake. Escorted travel does not use this adapter
+        and remains fail-closed.
         """
 
         if self._interruptible_personal_travel and self._active_command_type == "travel":
@@ -91,20 +93,27 @@ class ProductionCampaignPlanner(
             result["travel_completed"] = True
             return result
 
-        # The base travel reducer applies its destination/equipment after-image
-        # only after elapsed time settles. If the causal scheduler stopped early,
-        # restore those player-controlled after-images while keeping the runtime
-        # wake and exact reached time that caused the interruption.
         runtime_after = self.read("state/runtime.json")
         actual_time = str(runtime_after["world_time"])
         requested_arrival = str(result.get("world_time", actual_time))
+        result["requested_arrival_time"] = requested_arrival
+        result["interrupted_at"] = actual_time
+
+        # A wake exactly at the journey endpoint does not interrupt movement: the
+        # full travel duration has already elapsed, so preserve the base reducer's
+        # destination and equipment after-image while still surfacing the wake.
+        if CampaignTime.parse(actual_time) >= CampaignTime.parse(requested_arrival):
+            result["world_time"] = actual_time
+            result["travel_completed"] = True
+            return result
+
+        # For an earlier wake, restore player-controlled travel after-images while
+        # keeping the runtime wake and exact reached time that caused interruption.
         self.put("state/player.json", player_before)
         self.put("state/player-detail/equipment-manifest.json", manifest_before)
         self._write_meta(command, actual_time)
 
-        result["requested_arrival_time"] = requested_arrival
         result["world_time"] = actual_time
-        result["interrupted_at"] = actual_time
         result["travel_completed"] = False
         result["current_location"] = str(player_before.get("location", ""))
         return result
