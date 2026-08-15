@@ -13,6 +13,7 @@ from sword_runtime.api.stable_operations import StableCampaignOperations
 
 _DIRECT_FAMILY_LIMIT = 16
 _SWORD_MANOR_REF = "institution_sword_manor"
+_SUPERSEDED_RESPONSE_STATUS = "superseded_misclassified_response"
 
 
 def _person_location(person: Mapping[str, Any]) -> str | None:
@@ -31,6 +32,37 @@ class HouseholdAwareCampaignOperations(StableCampaignOperations):
         except (FileNotFoundError, ValueError):
             return None
         return value if isinstance(value, Mapping) else None
+
+    def _superseded_house_response_refs(self) -> set[str]:
+        """Return repaired House responses that must not remain live interaction handles.
+
+        The causal event remains durable history.  House Tang is the exact owner of
+        the administrative request classification, so an explicit repair marker on
+        that request can supersede the old delivery without deleting history or
+        rewriting an otherwise-valid gameplay transaction.
+        """
+        house = self._read_optional_mapping("state/houses/house_tang.json")
+        requests = house.get("administrative_requests", {}) if isinstance(house, Mapping) else {}
+        if not isinstance(requests, Mapping):
+            return set()
+        refs: set[str] = set()
+        for request in requests.values():
+            if not isinstance(request, Mapping):
+                continue
+            if request.get("response_validity") != _SUPERSEDED_RESPONSE_STATUS:
+                continue
+            response_ref = request.get("response_event_ref")
+            if isinstance(response_ref, str) and response_ref:
+                refs.add(response_ref)
+        return refs
+
+    def _interaction_refs(self) -> tuple[list[dict[str, Any]], set[str], int]:
+        handles, refs, total = super()._interaction_refs()
+        superseded = self._superseded_house_response_refs()
+        if not superseded:
+            return handles, refs, total
+        filtered = [row for row in handles if str(row.get("interaction_ref", "")) not in superseded]
+        return filtered, refs - superseded, max(0, total - len(superseded))
 
     def _direct_family_scene_people(self, player_id: str, player_location: object) -> list[dict[str, Any]]:
         """Return exact direct family who are physically at the player's current location.
@@ -141,11 +173,15 @@ class HouseholdAwareCampaignOperations(StableCampaignOperations):
         permitted = set(context.get("permitted_person_ids", [])) | set(
             context.get("permitted_object_refs", [])
         )
+        superseded = self._superseded_house_response_refs()
 
         target_ref = payload["target_ref"]
         target_visible = (
             target_ref in permitted
-            or triggered_interaction_record(self.store, target_ref) is not None
+            or (
+                target_ref not in superseded
+                and triggered_interaction_record(self.store, target_ref) is not None
+            )
         )
         current_location = context.get("player", {}).get("location")
         if payload["action"] == "seek_contact" and target_ref == current_location:
@@ -157,7 +193,10 @@ class HouseholdAwareCampaignOperations(StableCampaignOperations):
         if (
             process_ref is not None
             and process_ref not in permitted
-            and triggered_interaction_record(self.store, process_ref) is None
+            and (
+                process_ref in superseded
+                or triggered_interaction_record(self.store, process_ref) is None
+            )
         ):
             raise OperationError(404, "interaction_process_not_player_visible")
         if any(ref not in controlled_refs for ref in payload["formation_refs"]):
