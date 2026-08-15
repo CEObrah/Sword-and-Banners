@@ -22,6 +22,7 @@ from sword_runtime.causal_event_store import (
 )
 from sword_runtime.history_store import recent_history_events
 from sword_runtime.sim.calendar import CampaignTime
+from sword_runtime.transaction_invalidations import invalidated_request_ids
 
 _RUNTIME_PATH = "state/runtime.json"
 _RULES_PATH = "game/data/politics/contact-routes.json"
@@ -138,6 +139,7 @@ class ContactRequestFlowMixin:
         if not isinstance(hosts, dict) or not isinstance(events, list) or not isinstance(current_text, str):
             raise ValueError("runtime causal queue is invalid")
         current = CampaignTime.parse(current_text)
+        invalidated = invalidated_request_ids(self)
         event_ids = {
             str(row.get("event_id"))
             for row in events
@@ -150,8 +152,10 @@ class ContactRequestFlowMixin:
             attempt = parse_interaction_attempt_summary(event.get("summary"))
             if not isinstance(attempt, Mapping):
                 continue
-            route = _route_for_attempt(self, attempt)
             request_id = attempt.get("request_id")
+            if request_id in invalidated:
+                continue
+            route = _route_for_attempt(self, attempt)
             requested_at = event.get("at")
             if route is None or not isinstance(request_id, str) or not request_id or not isinstance(requested_at, str):
                 continue
