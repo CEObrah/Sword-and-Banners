@@ -1,0 +1,45 @@
+{
+  "schema": "house-tang-programs.v1",
+  "authority": "Static House Tang administrative program rules. This file registers lawful program templates and treasury-safety policy; it does not prove that any campaign program has been accepted or opened.",
+  "treasury_safety": {
+    "reserve_months_of_stable_expense": 12,
+    "discretionary_program_fraction_basis_points": 1000,
+    "rule": "A new discretionary House program may receive at most the registered fraction of cash remaining after the protected stable-expense reserve. Opening a program reserves no money and spends nothing by itself."
+  },
+  "great_bow_guard": {
+    "program_ref": "program_house_tang_great_bow_guard",
+    "fighting_establishment_max": 300,
+    "selection_profile": "wei_archery_trial",
+    "recruitment_phase_on_open": "applicant_intake",
+    "standards_rule": "Selection standards are never lowered merely to fill the establishment.",
+    "separate_from_formation_ref": "formation_tang_champions_first",
+    "fighter_loadout": [
+      "weapon_bow_great_war",
+      "shield_tang",
+      "weapon_spear_long",
+      "weapon_sword_one_hand_long",
+      "armor_tang",
+      "helmet_tang"
+    ],
+    "war_arrows_carried_per_fighter": 36,
+    "initial_field_war_arrows_minimum": 54000,
+    "support_personnel_outside_fighting_establishment": true,
+    "founder_title": "First Three Hundred",
+    "training_requirements": [
+      "Bow Order",
+      "Phalanx",
+      "Shielded Order",
+      "Sword Order",
+      "rotating demonstrated command",
+      "weeks-long final field camp"
+    ],
+    "opening_rule": "Opening applicant intake creates no fighter headcount, formation, equipment issue, spending, or completed recruitment. Candidate screening, acceptance, training, equipment, and formation creation remain separate conserved consequences."
+  },
+  "sword_manor_initiates": {
+    "institution_ref": "institution_sword_manor",
+    "role": "trainee",
+    "selection_profile": "sword_manor_screened_initiate",
+    "training_ground_ref": "loc_tang_manor_training_ground",
+    "intake_rule": "House-requested intake may fill only an exact existing trainee vacancy and must consume conserved Qin population. It never grants training time. Existing trainees continue only through the normal Sword Manor training cycle."
+  }
+}
