@@ -5,7 +5,7 @@ import copy
 from sword_runtime.api.equipment_operations import EquipmentAwareCampaignOperations
 from sword_runtime.causal_event_store import get_causal_event
 from sword_runtime.engine import SwordRuntime
-from sword_runtime.household_request_flow import _settle_household_request
+from sword_runtime.household_request_flow import _emit_watch_report, _settle_household_request
 from sword_runtime.production_planner import ProductionCampaignPlanner
 from sword_runtime.vitality import summarize_playability_vitality
 
@@ -46,7 +46,29 @@ def test_house_recruitment_review_opens_great_bow_intake_without_creating_fighte
     assert int(planner.read("state/forces/sword-manor.json")["headcount"]) == before_sword
     request = after_house["administrative_requests"]["test-house-recruitment-start"]
     assert request["status"] == "settled"
-    assert get_causal_event(planner, request["response_event_ref"])["kind"] == "institutional_response"
+    assert request["result"]["great_bow_guard"]["status"] == "recruiting"
+    event = get_causal_event(planner, request["response_event_ref"])
+    assert event["kind"] == "institutional_response"
+    assert event["process_stage"] == "completed"
+    assert event["provenance"]["late_catch_up"] is False
+    assert "result" not in event
+    assert "source_interaction_request_id" not in event
+
+
+def test_house_recruitment_watch_report_uses_schema_valid_delivery(campaign) -> None:
+    planner = _planner(campaign)
+    at = str(planner.read("state/runtime.json")["world_time"])
+    event_ref = _emit_watch_report(
+        planner,
+        player_ref="char_tang_wei",
+        at=at,
+        summary="House Tang reports a test recruitment opening.",
+        key="test",
+    )
+    event = get_causal_event(planner, event_ref)
+    assert event["delivery"]["target_ref"] == "char_tang_wei"
+    assert event["delivery"]["location_ref"] == planner.read("state/player.json")["location"]
+    assert event["provenance"]["late_catch_up"] is False
 
 
 def test_household_scene_exposes_exact_sword_manor_handle(campaign) -> None:
