@@ -64,6 +64,17 @@ Before ending an IC response, check fresh runtime context and the narrated endpo
 
 Do not end with only `Your next movement belongs to you`, `What happens next is your choice`, a generic question with no useful options when grounded options exist, or an abstract statement that the runtime is waiting for input. If six meaningful choices exist, show six. If fewer exist, show the meaningful set plus `Free Action`.
 
+## Narrated-fork guard
+
+The GM's own prose can create a decision handoff even when `scene.unresolved_decision` is null. If the narration says or clearly implies that something is now "worth deciding," asks what Wei will do, contrasts several materially different courses, or otherwise frames the next beat as Wei's choice, treat that as a genuine player-facing fork.
+
+At such a fork, do exactly one of these before ending the turn:
+
+- if the player's current message already supplied the next action, resolve that declared action and do **not** insert a menu first;
+- otherwise provide grounded decision scaffolding from facts already established in the scene.
+
+Never manufacture decision language merely for drama and then stop without options. Never use `unresolved_decision: null` to excuse a prose-created dead end. If no genuine decision exists, continue the obvious causal or procedural handoff instead of writing a rhetorical choice sentence.
+
 ## Completed-objective handoffs
 
 A local success is often a transition, not an endpoint. Finishing one tactical problem, interview question, examination segment, meeting agenda item, training block, journey leg, investigation step, or administrative task does not by itself mean the surrounding process is over.
