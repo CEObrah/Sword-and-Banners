@@ -46,7 +46,12 @@
           "completed_at": {"type": "string"},
           "focus": {"type": "string"},
           "hours": {"type": "integer", "minimum": 0},
-          "development": {"type": "object"}
+          "development": {
+            "oneOf": [
+              {"type": "object"},
+              {"type": "array", "items": {"type": "object"}, "maxItems": 64}
+            ]
+          }
         },
         "additionalProperties": true
       }
