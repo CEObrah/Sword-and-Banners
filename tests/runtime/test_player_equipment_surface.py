@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 
 from conftest import execute_production
-from sword_runtime.equipment_support import EquipmentAwareCampaignOperations
+from sword_runtime.api.equipment_operations import EquipmentAwareCampaignOperations
 from sword_runtime.engine import SwordRuntime
 
 
