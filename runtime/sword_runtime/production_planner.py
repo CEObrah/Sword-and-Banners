@@ -98,7 +98,85 @@ class ProductionCampaignPlanner(
                 self._active_command_type = previous
         return super()._advance_runtime(target_text)
 
+    def _dispatch_event_bounded_advance(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
+        """Commit an event-bounded wait at the scheduler's actual reached time.
+
+        The historical base ``advance_time`` reducer assumes each scheduler call
+        reaches the outer requested step and only knows a battlefield-specific
+        interrupt flag. Event-bounded downtime deliberately may stop earlier on
+        an informational player-facing report, so this production adapter owns
+        that outer clock write while the causal scheduler still owns every event
+        and consequence underneath it.
+        """
+
+        runtime_before = self.read("state/runtime.json")
+        start = CampaignTime.parse(str(runtime_before["world_time"]))
+        if "target_time" in payload:
+            requested = CampaignTime.parse(str(payload["target_time"]))
+        else:
+            requested = start.add_hours(int(payload["hours"]))
+        policy = self._policy(payload)
+
+        previous_active = self._active_command_type
+        previous_event = self._active_event_id
+        previous_host = self._active_host_id
+        previous_pending = self._pending_wake_created
+        previous_stop = self._downtime_stop_on_player_event
+        self._active_command_type = "advance_time"
+        self._downtime_stop_on_player_event = True
+        try:
+            metrics = self._advance_runtime(str(requested))
+        finally:
+            self._downtime_stop_on_player_event = previous_stop
+            self._active_command_type = previous_active
+            self._active_event_id = previous_event
+            self._active_host_id = previous_host
+            self._pending_wake_created = previous_pending
+
+        actual = CampaignTime.parse(str(self.read("state/runtime.json")["world_time"]))
+        self._write_meta(command, str(actual))
+        result = dict(metrics)
+        result["world_time"] = str(actual)
+        result["requested_time"] = str(requested)
+        result["interrupted"] = bool(result.get("interrupted", False))
+        if policy:
+            result["downtime_activity"] = self._settle_downtime_policy(
+                start,
+                actual,
+                policy,
+                str(command.request_id),
+            )
+        return self._result(**result)
+
+    def _settle_formation_training(
+        self,
+        formation_ref: str,
+        start: CampaignTime,
+        end: CampaignTime,
+        request_id: str,
+    ) -> dict[str, Any]:
+        """Normalize legacy null counters before the generic downtime reducer.
+
+        Older Tang Champion records legitimately predate numeric
+        ``training_progress``. Treat an explicit legacy null as the same baseline
+        as an absent counter; do not make the downtime path less tolerant than
+        the formation-training mechanics it is adapting.
+        """
+
+        path, formation = self._load_formation(formation_ref)
+        if formation.get("training_progress") is None or formation.get("verified_training_hours") is None:
+            normalized = copy.deepcopy(formation)
+            if normalized.get("training_progress") is None:
+                normalized["training_progress"] = 0
+            if normalized.get("verified_training_hours") is None:
+                normalized["verified_training_hours"] = 0
+            self.put(path, normalized)
+        return super()._settle_formation_training(formation_ref, start, end, request_id)
+
     def _dispatch(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
+        if command.command_type == "advance_time" and bool(payload.get("stop_on_player_event", False)):
+            return self._dispatch_event_bounded_advance(command, payload)
+
         personal_travel = command.command_type == "travel" and not payload.get("formation_refs")
         if not personal_travel:
             return super()._dispatch(command, payload)
