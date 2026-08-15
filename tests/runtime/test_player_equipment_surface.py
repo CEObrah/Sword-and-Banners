@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 
 from conftest import execute_production
 from sword_runtime.api.equipment_operations import EquipmentAwareCampaignOperations
@@ -31,7 +32,8 @@ def _reset_equipment(root):
     }
     for row in manifest["equipment_manifest"]:
         row["current_state"] = baseline[row["item_id"]]
-    (root / "state/player-detail/equipment-manifest.json").write_text(
+    manifest_path = root / "state/player-detail/equipment-manifest.json"
+    manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
     )
 
@@ -49,6 +51,14 @@ def _reset_equipment(root):
         "worn": "ceremonial birthday clothing",
     }
     player_path.write_text(json.dumps(player, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
+    subprocess.run(
+        ["git", "-C", str(root), "add", "state/player.json", "state/player-detail/equipment-manifest.json"],
+        check=True,
+    )
+    subprocess.run(
+        ["git", "-C", str(root), "commit", "--quiet", "-m", "test equipment baseline"],
+        check=True,
+    )
 
 
 def test_play_context_exposes_exact_player_owned_equipment_keys(campaign):
