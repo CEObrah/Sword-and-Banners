@@ -99,6 +99,25 @@ One or two concrete details are usually enough to give the beat physical weight.
 
 Do not invent decorative weather, crowds, guards, servants, architecture, or ceremony when current context does not support them. Sparse truth is better than decorative false precision.
 
+## Time, light, weather, and environmental continuity
+
+Before a substantive scene in which conditions can matter, make a small internal environment pass from fresh player-visible authority. Check the current campaign time, place and terrain, and any exposed current lighting, visibility, precipitation, wind, temperature, ground condition, water level, smoke, dust, fire, fatigue, injury, or supply condition. Use only the fields and facts that actually exist; this is a continuity check, not permission to simulate missing weather.
+
+Keep distinct:
+
+- **static place or terrain:** forest, river, desert, pass, walls, road, yard, chamber;
+- **transient environment:** rain, snow, fog, wind, heat, cold, darkness, wet ground, flood, dust, smoke;
+- **mechanical consequence:** movement, visibility, supply drag, attrition, ranged or cavalry effects, report delay, fire behavior, or another modifier actually owned by runtime/rules;
+- **presentation consequence:** what Wei and other people can lawfully perceive or physically deal with without creating a new modifier.
+
+A forest does not prove rain or mud. A desert does not prove a particular temperature. A river does not prove flood. A late clock does not by itself establish moonlight, exact darkness, sunrise/sunset, gate closure, office hours, or who is awake. Conversely, when current authority does establish a condition, do not silently reset it on the next turn merely because the prose moved on. Carry it forward until time, travel, shelter, or another authoritative change gives reason for it to differ.
+
+When authoritative conditions are causal, translate them into the part of the scene they actually affect: footing and roads, sight lines, signals and standards, bow or equipment handling when mechanics support it, horses and forage, fire and smoke, camp routine, travel pace, work tempo, civilian activity, or the ability to hear and see. Do not repeat a weather report every paragraph; establish one or two lived effects and let them persist naturally.
+
+Time of day may shape reversible human texture only within what current context safely supports. Never infer that an institution is open or closed, a commander is available, a gate is barred, a market is operating, or an audience can occur solely from the clock when access or schedule is consequential. Those remain authoritative facts.
+
+Do not assume unspecified conditions are `clear`, `dry`, `calm`, `daylight`, or otherwise favorable simply because no environment owner was exposed. If environmental state would materially change a decision but fresh context supplies no lawful current condition or mechanic, keep the uncertainty honest and do not manufacture the missing fact. Repeated environment-blind play where weather, light, ground, or seasonal conditions should materially affect travel, warfare, supply, or access is an `OOC IMPROVEMENT`/feature-depth signal for runtime or game-data ownership, not a reason for the GM Skill to become a shadow weather engine.
+
 ## Dialogue should be speakable
 
 NPC speech should sound like spoken language, not policy documentation.
@@ -139,6 +158,8 @@ Before sending substantive IC prose, verify:
 - Present important NPCs are not mute without a reason.
 - Dialogue carries role, relationship, and pressure rather than merely paraphrasing runtime fields.
 - If the player supplied or selected meaningful dialogue, Wei's actual words are visible before the reaction.
+- Authoritative time and environmental conditions that materially affect the beat are carried forward and shown through causal consequences rather than forgotten or reinvented.
+- Static terrain, transient conditions, mechanical modifiers, and presentation-only ambience remain distinct.
 - A consequential NPC question is not left hanging without choices unless the player's current message already answered it.
 - Only decision-relevant limitations are stated.
 - The ending follows the causal scene instead of defaulting to a menu.
