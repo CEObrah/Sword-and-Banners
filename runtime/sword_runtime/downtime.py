@@ -7,9 +7,9 @@ command to express two things that were previously lost in broad time skips:
 * settle already-authorized standing training during the time actually reached.
 
 The caller may direct only Tang Wei and formations already under Tang Wei's saved
-authority. Exact House Tang people may be named only to settle their own existing
+authority. Exact House Tang people may be named only to accrue their own existing
 autonomous standing-activity contracts; the caller cannot choose their focus,
-hours, or willingness.
+hours, willingness, or immediate skill result.
 """
 from __future__ import annotations
 
@@ -147,7 +147,13 @@ class DowntimeAdvanceMixin:
             self._merge_time_metrics(total, metrics)
             actual = CampaignTime.parse(str(self.read(_RUNTIME_PATH)["world_time"]))
             if metrics.get("interrupted"):
-                total.update({key: value for key, value in metrics.items() if key not in {"hosts_woken", "events_processed", "battlefield_reports", "battlefield_reviews"}})
+                total.update(
+                    {
+                        key: value
+                        for key, value in metrics.items()
+                        if key not in {"hosts_woken", "events_processed", "battlefield_reports", "battlefield_reviews"}
+                    }
+                )
                 return total
             new_refs = sorted(self._player_facing_event_refs() - before)
             if new_refs:
@@ -191,7 +197,11 @@ class DowntimeAdvanceMixin:
         if whole <= 0:
             ds["standing_training_last_accrued_at"] = str(end)
             self.put("state/player.json", player)
-            return {"status": "accrued", "settled_hours": 0, "credit_hours": ds["standing_training_time_credit_hours"]}
+            return {
+                "status": "accrued",
+                "settled_hours": 0,
+                "credit_hours": ds["standing_training_time_credit_hours"],
+            }
 
         training = self.read("game/data/mechanics/training.json")
         cursor = max(0, int(ds.get("standing_training_focus_cursor", 0)))
@@ -225,13 +235,23 @@ class DowntimeAdvanceMixin:
             "focus_results": results,
         }
 
-    def _settle_formation_training(self, formation_ref: str, start: CampaignTime, end: CampaignTime, request_id: str) -> dict[str, Any]:
+    def _settle_formation_training(
+        self,
+        formation_ref: str,
+        start: CampaignTime,
+        end: CampaignTime,
+        request_id: str,
+    ) -> dict[str, Any]:
         path, formation0 = self._load_formation(formation_ref)
         formation = deepcopy(formation0)
         force_path = self.owner_path(str(formation["owner_force_ref"]))
         force = self.read(force_path)
         profiles = self.read("game/data/mil/recruitment-cohort-profiles.json")
-        regimen_name = "house_tang_max_sustainable" if str(force.get("owner_id")) in {"force_house_tang", "institution_sword_manor"} else "regular_army"
+        regimen_name = (
+            "house_tang_max_sustainable"
+            if str(force.get("owner_id")) in {"force_house_tang", "institution_sword_manor"}
+            else "regular_army"
+        )
         regimen = profiles.get("training_regimens", {}).get(regimen_name, {})
         weekly = float(regimen.get("deliberate_hours_per_7d", 0.0) or 0.0)
         elapsed = max(0, start.seconds_until(end))
@@ -241,7 +261,12 @@ class DowntimeAdvanceMixin:
         if whole <= 0:
             formation["standing_training_last_accrued_at"] = str(end)
             self.put(path, formation)
-            return {"formation_ref": formation_ref, "status": "accrued", "settled_hours": 0, "credit_hours": formation["standing_training_time_credit_hours"]}
+            return {
+                "formation_ref": formation_ref,
+                "status": "accrued",
+                "settled_hours": 0,
+                "credit_hours": formation["standing_training_time_credit_hours"],
+            }
 
         formation["training_progress"] = min(100, int(formation.get("training_progress", 0)) + max(1, whole // 4))
         formation["cohesion"] = min(100, int(formation.get("cohesion", 50)) + max(1, whole // 4))
@@ -251,11 +276,22 @@ class DowntimeAdvanceMixin:
         formation["last_training_at"] = str(end)
         self.put(path, formation)
         if hasattr(self, "_ct_train_formation"):
-            self._ct_train_formation(formation_ref, float(whole), f"downtime_training:{request_id}:{formation_ref}")
+            self._ct_train_formation(
+                formation_ref,
+                float(whole),
+                f"downtime_training:{request_id}:{formation_ref}",
+            )
         settled = deepcopy(self.read(path))
         settled["standing_training_time_credit_hours"] = round(credit - whole, 6)
         history = settled.setdefault("standing_training_history", [])
-        history.append({"started_at": str(start), "completed_at": str(end), "hours": whole, "request_id": request_id})
+        history.append(
+            {
+                "started_at": str(start),
+                "completed_at": str(end),
+                "hours": whole,
+                "request_id": request_id,
+            }
+        )
         settled["standing_training_history"] = history[-32:]
         self.put(path, settled)
         return {
@@ -265,58 +301,51 @@ class DowntimeAdvanceMixin:
             "credit_hours": settled["standing_training_time_credit_hours"],
         }
 
-    def _settle_household_person_activity(self, person_ref: str, start: CampaignTime, end: CampaignTime, request_id: str) -> dict[str, Any]:
-        path, person = self._exact_person(person_ref, active=False)
-        person = deepcopy(person)
-        contract = person.get("activity_contract") if isinstance(person.get("activity_contract"), Mapping) else {}
+    def _accrue_household_person_activity(
+        self,
+        person_ref: str,
+        start: CampaignTime,
+        end: CampaignTime,
+        request_id: str,
+    ) -> dict[str, Any]:
+        path, person0 = self._exact_person(person_ref, active=False)
+        person = deepcopy(person0)
         activity = person.setdefault("autonomous_activity_state", {})
         cadence = max(1, int(activity.get("cadence_seconds", 30 * 86400)))
         cycle_hours = float(activity.get("verified_hours_per_cycle", 48.0) or 48.0)
         next_due_text = activity.get("next_due")
         cycle_start = start
         if isinstance(next_due_text, str):
-            cycle_start = max(start, CampaignTime.parse(next_due_text).add_seconds(-cadence))
-        eligible_seconds = max(0, cycle_start.seconds_until(end)) if end >= cycle_start else 0
-        credit = float(activity.get("interim_training_credit_hours", 0.0)) + cycle_hours * eligible_seconds / cadence
-        whole = max(0, int(credit))
-        activity["interim_training_credit_hours"] = round(credit - whole, 6)
-        if whole <= 0:
-            activity["interim_last_accrued_at"] = str(end)
-            self.put(path, person)
-            return {"person_ref": person_ref, "status": "accrued", "settled_hours": 0, "credit_hours": activity["interim_training_credit_hours"]}
-
-        focuses = self._focuses(person, contract)
-        if not focuses:
-            self.put(path, person)
-            return {"person_ref": person_ref, "status": "no_trainable_focus", "settled_hours": 0}
-        cursor = max(0, int(activity.get("focus_cursor", 0)))
-        focus = focuses[cursor % len(focuses)]
-        training = self.read("game/data/mechanics/training.json")
-        development = settle_skill_training(person, focus, whole, end, training)
-        activity["interim_settled_hours"] = int(activity.get("interim_settled_hours", 0)) + whole
-        activity["interim_last_settled_at"] = str(end)
-        person.setdefault("autonomous_development_history", []).append(
-            {
-                "at": str(end),
-                "focus": focus,
-                "hours": whole,
-                "development": development,
-                "verification_basis": "explicit_downtime_window_using_saved_autonomous_contract",
-                "request_id": request_id,
-            }
+            cycle_start = CampaignTime.parse(next_due_text).add_seconds(-cadence)
+        prior_cycle = activity.get("interim_cycle_started_at")
+        if prior_cycle != str(cycle_start):
+            activity["interim_verified_activity_hours"] = 0.0
+            activity["interim_cycle_started_at"] = str(cycle_start)
+        eligible_start = max(start, cycle_start)
+        eligible_seconds = max(0, eligible_start.seconds_until(end)) if end >= eligible_start else 0
+        accrued = cycle_hours * eligible_seconds / cadence
+        total = float(activity.get("interim_verified_activity_hours", 0.0)) + accrued
+        activity["interim_verified_activity_hours"] = round(min(cycle_hours, total), 6)
+        activity["interim_last_accrued_at"] = str(end)
+        activity["interim_accrual_rule"] = (
+            "progress evidence only; exact skill settlement remains owned by the person's autonomous activity cycle"
         )
-        person["autonomous_development_history"] = person["autonomous_development_history"][-24:]
         self.put(path, person)
         return {
             "person_ref": person_ref,
-            "status": "settled",
-            "settled_hours": whole,
-            "credit_hours": activity["interim_training_credit_hours"],
-            "focus": focus,
-            "development": development,
+            "status": "accrued_under_autonomous_contract",
+            "verified_activity_hours_in_current_cycle": activity["interim_verified_activity_hours"],
+            "skill_settlement_deferred_to_activity_host": True,
+            "request_id": request_id,
         }
 
-    def _settle_downtime_policy(self, start: CampaignTime, end: CampaignTime, policy: Mapping[str, Any], request_id: str) -> dict[str, Any]:
+    def _settle_downtime_policy(
+        self,
+        start: CampaignTime,
+        end: CampaignTime,
+        policy: Mapping[str, Any],
+        request_id: str,
+    ) -> dict[str, Any]:
         result: dict[str, Any] = {"elapsed_seconds": max(0, start.seconds_until(end))}
         if policy.get("player_standing_training") is True:
             result["player"] = self._settle_player_training(start, end, request_id)
@@ -327,7 +356,7 @@ class DowntimeAdvanceMixin:
             result["formations"] = formations
         people = []
         for person_ref in policy.get("household_standing_person_refs", []):
-            people.append(self._settle_household_person_activity(str(person_ref), start, end, request_id))
+            people.append(self._accrue_household_person_activity(str(person_ref), start, end, request_id))
         if people:
             result["household_people"] = people
         return result
@@ -346,7 +375,12 @@ class DowntimeAdvanceMixin:
         end = CampaignTime.parse(str(self.read(_RUNTIME_PATH)["world_time"]))
         if policy and end >= start:
             updated = dict(result)
-            updated["downtime_activity"] = self._settle_downtime_policy(start, end, policy, str(command.request_id))
+            updated["downtime_activity"] = self._settle_downtime_policy(
+                start,
+                end,
+                policy,
+                str(command.request_id),
+            )
             return updated
         return result
 
