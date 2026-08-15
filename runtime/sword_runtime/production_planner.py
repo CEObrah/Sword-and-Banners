@@ -44,11 +44,14 @@ class ProductionCampaignPlanner(
     ForceCohortLivingWorldMixin,
     ActivityCampaignEventPlanner,
 ):
-    """Production campaign planner with generic force cohorts, environment, and House Tang development."""
+    """Production campaign planner with generic force cohorts and House Tang development."""
 
     _interruptible_personal_travel = False
 
     def _validate_command_semantics(self, command: Any, payload: Mapping[str, Any]) -> None:
+        # standing_training_settle is a production surface extension rather than
+        # a baseline engine command. Admit exactly its closed payload here before
+        # the base command registry can reject the unknown semantic type.
         if command.command_type == "standing_training_settle":
             if set(payload) != {"target_ref"}:
                 raise ValueError("standing_training_settle accepts only target_ref")
@@ -76,7 +79,16 @@ class ProductionCampaignPlanner(
         return self._environment_adjusted_route_hours(origin, destination, int(base_hours))
 
     def _find_route(self, origin: str, destination: str, *, mode: str | None = None) -> Mapping[str, Any]:
-        """Honor the production local-route graph for ordinary personal movement."""
+        """Honor the production local-route graph for ordinary personal movement.
+
+        The base reducer historically asks for one exact route edge. House Tang
+        interiors and the garrison are registered production locations connected
+        by the local route graph instead, so a lawful walk between them must not
+        fail merely because no duplicate room-to-room edge exists in routes.json.
+        Exact authored edges remain preferred; only foot/horse movement inside the
+        Kanyou/Tang-manor local envelope falls back to the derived graph.
+        """
+
         try:
             return super()._find_route(origin, destination, mode=mode)
         except ValueError:
@@ -90,10 +102,20 @@ class ProductionCampaignPlanner(
                 "b": destination,
                 "modes": [str(mode)],
                 "duration_hours": duration,
-                "environment_adjusted": duration > 1,
             }
 
     def _advance_runtime(self, target_text: str) -> dict[str, Any]:
+        """Let personal travel persist a real wake instead of previewing it forever.
+
+        The causal scheduler normally permits only ``advance_time`` to commit a
+        newly reached high-salience wake. During one unescorted personal travel
+        reducer we temporarily give only the scheduler that permission. The
+        outer travel adapter below rolls back the travel after-image only when
+        the scheduler actually stops before arrival, while preserving the
+        committed causal time and wake. Escorted travel does not use this adapter
+        and remains fail-closed.
+        """
+
         if self._interruptible_personal_travel and self._active_command_type == "travel":
             previous = self._active_command_type
             self._active_command_type = "advance_time"
@@ -104,6 +126,16 @@ class ProductionCampaignPlanner(
         return super()._advance_runtime(target_text)
 
     def _dispatch_event_bounded_advance(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
+        """Commit an event-bounded wait at the scheduler's actual reached time.
+
+        The historical base ``advance_time`` reducer assumes each scheduler call
+        reaches the outer requested step and only knows a battlefield-specific
+        interrupt flag. Event-bounded downtime deliberately may stop earlier on
+        an informational player-facing report, so this production adapter owns
+        that outer clock write while the causal scheduler still owns every event
+        and consequence underneath it.
+        """
+
         runtime_before = self.read("state/runtime.json")
         start = CampaignTime.parse(str(runtime_before["world_time"]))
         if "target_time" in payload:
@@ -135,10 +167,23 @@ class ProductionCampaignPlanner(
         result["requested_time"] = str(requested)
         result["interrupted"] = bool(result.get("interrupted", False))
         if policy:
-            result["downtime_activity"] = self._settle_downtime_policy(start, actual, policy, str(command.request_id))
+            result["downtime_activity"] = self._settle_downtime_policy(
+                start,
+                actual,
+                policy,
+                str(command.request_id),
+            )
         return self._result(**result)
 
-    def _settle_formation_training(self, formation_ref: str, start: CampaignTime, end: CampaignTime, request_id: str) -> dict[str, Any]:
+    def _settle_formation_training(
+        self,
+        formation_ref: str,
+        start: CampaignTime,
+        end: CampaignTime,
+        request_id: str,
+    ) -> dict[str, Any]:
+        """Normalize legacy null counters before the generic downtime reducer."""
+
         path, formation = self._load_formation(formation_ref)
         if formation.get("training_progress") is None or formation.get("verified_training_hours") is None:
             normalized = copy.deepcopy(formation)
@@ -188,6 +233,7 @@ class ProductionCampaignPlanner(
         self.put("state/player.json", player_before)
         self.put("state/player-detail/equipment-manifest.json", manifest_before)
         self._write_meta(command, actual_time)
+
         result["world_time"] = actual_time
         result["travel_completed"] = False
         result["current_location"] = str(player_before.get("location", ""))
