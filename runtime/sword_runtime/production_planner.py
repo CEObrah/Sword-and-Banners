@@ -7,6 +7,7 @@ from typing import Any
 from sword_runtime.activity_living_world import ActivityCampaignEventPlanner
 from sword_runtime.civil_world import CivilWorldMixin
 from sword_runtime.command_staff_movement import CommandStaffMovementMixin
+from sword_runtime.contact_request_flow import ContactRequestFlowMixin
 from sword_runtime.downtime import DowntimeAdvanceMixin
 from sword_runtime.equipment_planner import EquipmentStateProjectionMixin
 from sword_runtime.family_counsel import FamilyCounselMixin
@@ -36,6 +37,7 @@ class ProductionCampaignPlanner(
     CivilWorldMixin,
     FamilyCounselMixin,
     HouseholdRequestFlowMixin,
+    ContactRequestFlowMixin,
     HouseTangDevelopmentMixin,
     ForceCohortLivingWorldMixin,
     ActivityCampaignEventPlanner,
