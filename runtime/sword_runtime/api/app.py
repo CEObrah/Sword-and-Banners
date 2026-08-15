@@ -7,9 +7,9 @@ from typing import Any, Optional
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ConfigDict, Field
+from sword_runtime.api.equipment_operations import EquipmentAwareCampaignOperations
 from sword_runtime.api.middleware import BodySizeLimitMiddleware
 from sword_runtime.api.operations import OperationError
-from sword_runtime.api.stable_operations import StableCampaignOperations
 from sword_runtime.commands import CommandEnvelope
 from sword_runtime.service_runtime import ProductionSwordRuntime
 
@@ -83,7 +83,7 @@ def create_app(
     runtime = ProductionSwordRuntime(root, runtime_root)
     if recover:
         runtime.recover()
-    operations = StableCampaignOperations(runtime)
+    operations = EquipmentAwareCampaignOperations(runtime)
     app = FastAPI(
         title="Sword & Banners Runtime",
         version="0.3.0",
