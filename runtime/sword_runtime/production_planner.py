@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from collections.abc import Mapping
 from typing import Any
 
@@ -30,6 +31,8 @@ class ProductionCampaignPlanner(
 ):
     """Production campaign planner with generic force cohorts and House Tang development."""
 
+    _interruptible_personal_travel = False
+
     def _location_record(self, location_ref: str) -> Mapping[str, Any]:
         if location_ref == HOUSE_TANG_GARRISON_REF:
             return HOUSE_TANG_GARRISON
@@ -42,6 +45,69 @@ class ProductionCampaignPlanner(
         if local(origin) and local(destination):
             return 1
         return super()._route_travel_hours(origin, destination, modes=modes)
+
+    def _advance_runtime(self, target_text: str) -> dict[str, Any]:
+        """Let personal travel persist a real wake instead of previewing it forever.
+
+        The causal scheduler normally permits only ``advance_time`` to commit a
+        newly reached high-salience wake. During one unescorted personal travel
+        reducer we temporarily give only the scheduler that permission. The
+        outer travel adapter below then rolls back the travel after-image when
+        the scheduler stops early, while preserving the committed causal time and
+        wake. Escorted travel does not use this adapter and remains fail-closed.
+        """
+
+        if self._interruptible_personal_travel and self._active_command_type == "travel":
+            previous = self._active_command_type
+            self._active_command_type = "advance_time"
+            try:
+                return super()._advance_runtime(target_text)
+            finally:
+                self._active_command_type = previous
+        return super()._advance_runtime(target_text)
+
+    def _dispatch(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
+        personal_travel = command.command_type == "travel" and not payload.get("formation_refs")
+        if not personal_travel:
+            return super()._dispatch(command, payload)
+
+        # Existing wakes retain their normal response restrictions. This adapter
+        # is only for a wake first reached while an otherwise legal personal
+        # journey is consuming time.
+        runtime_before = self.read("state/runtime.json")
+        if isinstance(runtime_before.get("pending_wake"), Mapping):
+            return super()._dispatch(command, payload)
+
+        player_before = copy.deepcopy(self.read("state/player.json"))
+        manifest_before = copy.deepcopy(self.read("state/player-detail/equipment-manifest.json"))
+        previous_flag = self._interruptible_personal_travel
+        self._interruptible_personal_travel = True
+        try:
+            result = super()._dispatch(command, payload)
+        finally:
+            self._interruptible_personal_travel = previous_flag
+
+        if not (bool(result.get("interrupted")) and bool(result.get("wake_required"))):
+            result["travel_completed"] = True
+            return result
+
+        # The base travel reducer applies its destination/equipment after-image
+        # only after elapsed time settles. If the causal scheduler stopped early,
+        # restore those player-controlled after-images while keeping the runtime
+        # wake and exact reached time that caused the interruption.
+        runtime_after = self.read("state/runtime.json")
+        actual_time = str(runtime_after["world_time"])
+        requested_arrival = str(result.get("world_time", actual_time))
+        self.put("state/player.json", player_before)
+        self.put("state/player-detail/equipment-manifest.json", manifest_before)
+        self._write_meta(command, actual_time)
+
+        result["requested_arrival_time"] = requested_arrival
+        result["world_time"] = actual_time
+        result["interrupted_at"] = actual_time
+        result["travel_completed"] = False
+        result["current_location"] = str(player_before.get("location", ""))
+        return result
 
 
 __all__ = ["HOUSE_TANG_GARRISON", "HOUSE_TANG_GARRISON_REF", "ProductionCampaignPlanner"]
