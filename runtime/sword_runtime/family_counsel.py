@@ -107,7 +107,7 @@ def _settle_family_counsel(planner: Any, host: Mapping[str, Any], at: str) -> No
     if source.get("status") != "triggered" or str(source.get("kind", "")) not in _ALLOWED_REPORT_KINDS:
         raise ValueError("family counsel source is not a triggered player-facing report")
 
-    host_id, _event_id, response_ref = _ids(request_id)
+    _host_id, _event_id, response_ref = _ids(request_id)
     _path, owner = read_causal_event_owner(planner)
     if response_ref in owner["causal_events"]:
         return
@@ -146,13 +146,6 @@ def _settle_family_counsel(planner: Any, host: Mapping[str, Any], at: str) -> No
     }
     owner.setdefault("runtime", {})["last_settled_at"] = at
     write_causal_event_owner(planner, owner)
-
-    # One-shot hosts remain historical scheduler records, but can never recur.
-    runtime = copy.deepcopy(planner.read(_RUNTIME_PATH))
-    current = runtime.get("hosts", {}).get(host_id) if isinstance(runtime.get("hosts"), dict) else None
-    if isinstance(current, dict):
-        current["recurrence_seconds"] = 0
-        planner.put(_RUNTIME_PATH, runtime)
 
 
 class FamilyCounselMixin:
