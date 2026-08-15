@@ -24,20 +24,27 @@ def _person_location(person: Mapping[str, Any]) -> str | None:
 class HouseholdAwareCampaignOperations(StableCampaignOperations):
     """Stable player surface with bounded exact direct-family scene fidelity."""
 
+    def _read_optional_mapping(self, path: str) -> Mapping[str, Any] | None:
+        try:
+            value = self.store.read_json(path)
+        except (FileNotFoundError, ValueError):
+            return None
+        return value if isinstance(value, Mapping) else None
+
     def _direct_family_scene_people(self, player_id: str, player_location: object) -> list[dict[str, Any]]:
         """Return exact direct family who are physically at the player's current location.
 
         Family index reads are bounded routing only. Presence comes exclusively
         from each exact character owner's current_location/location field, so a
         household residence or family relationship never fabricates occupancy.
+        A stale optional family route is skipped rather than making all play
+        context unavailable; exact current person owners remain presence truth.
         """
         if not isinstance(player_location, str) or not player_location:
             return []
-        try:
-            family = self.store.read_json("state/family/index.json")
-            owners = self.store.read_json("state/index/owner-index.json").get("owners", {})
-        except FileNotFoundError:
-            return []
+        family = self._read_optional_mapping("state/family/index.json")
+        owner_index = self._read_optional_mapping("state/index/owner-index.json")
+        owners = owner_index.get("owners", {}) if isinstance(owner_index, Mapping) else {}
         if not isinstance(family, Mapping) or not isinstance(owners, Mapping):
             return []
         person_index = family.get("person_index", {})
@@ -52,7 +59,7 @@ class HouseholdAwareCampaignOperations(StableCampaignOperations):
                 path = parentage_index.get(parentage_ref)
                 if not isinstance(path, str):
                     continue
-                record = self.store.read_json(path)
+                record = self._read_optional_mapping(path)
                 if not isinstance(record, Mapping):
                     continue
                 child_id = record.get("child_id")
@@ -77,7 +84,7 @@ class HouseholdAwareCampaignOperations(StableCampaignOperations):
                 path = kinship_index.get(kinship_ref)
                 if not isinstance(path, str):
                     continue
-                record = self.store.read_json(path)
+                record = self._read_optional_mapping(path)
                 if not isinstance(record, Mapping) or record.get("status", "active") != "active":
                     continue
                 participants = record.get("participants", [])
@@ -102,7 +109,7 @@ class HouseholdAwareCampaignOperations(StableCampaignOperations):
             path = owners.get(person_ref)
             if not isinstance(path, str):
                 continue
-            person = self.store.read_json(path)
+            person = self._read_optional_mapping(path)
             if not isinstance(person, Mapping):
                 continue
             if str(person.get("life_status", "active")) != "active":
