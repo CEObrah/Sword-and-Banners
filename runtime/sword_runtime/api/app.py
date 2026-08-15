@@ -7,9 +7,9 @@ from typing import Any, Optional
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ConfigDict, Field
+from sword_runtime.api.equipment_operations import EquipmentAwareCampaignOperations
 from sword_runtime.api.middleware import BodySizeLimitMiddleware
 from sword_runtime.api.operations import OperationError
-from sword_runtime.equipment_support import EquipmentAwareCampaignOperations
 from sword_runtime.commands import CommandEnvelope
 from sword_runtime.service_runtime import ProductionSwordRuntime
 
