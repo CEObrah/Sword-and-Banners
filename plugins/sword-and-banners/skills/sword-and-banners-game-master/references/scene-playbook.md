@@ -18,6 +18,10 @@ A House is family, retainers, property, offices, finances, reputation, servants,
 
 Let household scenes contain ordinary life when relevant: meals, children, servants, training noise, accounts, visitors, illness, family friction, and competing schedules.
 
+When fresh context marks a known family member or household member as present in the same room/site, ordinary intent such as `talk to my parents`, `go speak to my brother`, `join them`, or `ask her about this` means direct social approach. Do not translate it into an audience request, courier/request workflow, `seek_contact`, or a waiting interval merely because a semantic interaction command exists. Walk the few steps, begin the conversation, and preserve Wei's exact words for the player when they matter.
+
+Presence is not consent to consequential commitments. If the player actually makes a proposal, petition, offer, report, promise, request for resources, or another durable attempt, persist that consequential intent through the supported interaction path. If the person is not presently accessible, then a contact-seeking or waiting lifecycle may be appropriate. Never manufacture gatekeeping where exact current presence and ordinary household access already establish direct contact.
+
 Differentiate House authority from state office. Being House Tang's heir or patron does not automatically grant Qin state command.
 
 ## Command and camp scenes
