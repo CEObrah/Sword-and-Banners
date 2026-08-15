@@ -84,6 +84,14 @@ During ordinary play, present mechanics through lived consequences. Exact mechan
 
 Do not expose OAuth, Git hashes, revisions, request IDs, attestation strings, command payloads, or validators in IC narration.
 
+## Current environment
+
+Fresh `get_play_context` may expose a top-level `environment` object for Tang Wei's exact current location. Treat it as authoritative derived runtime context for that campaign instant: season, light band, weather, wind, temperature band, visibility, ground condition, and the registered mechanical effect channels.
+
+The environment object is derived deterministically from authoritative campaign time, world seed, static location/climate rules, and the environment contract. It is not an invitation to invent conditions for another place or another time. Use `environment.mechanical_effects` only through runtime-owned mechanics; never add a second rain, darkness, cavalry, missile, agriculture, forage, market, or travel modifier in narration.
+
+Environment does not own mutable fires, smoke events, flood-control works, siege damage, gate status, office hours, staffing, institutional availability, or other exact campaign state. Those remain with their existing owners. A weather/light transition is not automatically a scheduler wake.
+
 ## Freedom of action
 
 Choice menus are examples, not limits. The player may ignore them and type any natural-language action. Do not reduce play to repeated menus when the world can continue naturally. Surface choices only at genuine decision points.
