@@ -20,10 +20,10 @@ from sword_runtime.tx.receipts import ReceiptStore
 from sword_runtime.tx.remote import GitRemoteDurability
 from sword_runtime.tx.wal import WriteAheadLog
 
-# Broad time advancement can cross hidden autonomous causal events. Treat its
-# preview like other contested resolution so the model cannot probe future
-# contacts by repeatedly previewing different horizons.
-_CONTESTED_COMMANDS = frozenset({"advance_time", "battle_resolve", "personal_combat"})
+# Broad time advancement and personal travel can cross hidden autonomous causal
+# events. Treat their previews like other contested resolution so the model
+# cannot probe future contacts or reports by repeatedly previewing horizons.
+_CONTESTED_COMMANDS = frozenset({"advance_time", "travel", "battle_resolve", "personal_combat"})
 
 
 class ProductionSwordRuntime(SwordRuntime):
