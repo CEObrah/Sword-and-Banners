@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 
 from sword_runtime.api.equipment_operations import EquipmentAwareCampaignOperations
-from sword_runtime.causal_event_store import get_causal_event
+from sword_runtime.causal_event_store import get_causal_event, read_causal_event_owner, write_causal_event_owner
 from sword_runtime.engine import SwordRuntime
 from sword_runtime.household_request_flow import _classify_request, _emit_watch_report, _settle_household_request
 from sword_runtime.production_planner import ProductionCampaignPlanner
@@ -104,6 +104,46 @@ def test_household_scene_exposes_exact_sword_manor_handle(campaign) -> None:
     assert "institution_sword_manor" in context["permitted_object_refs"]
     rows = context["scene"]["household_institutions"]
     assert rows == [{"object_ref": "institution_sword_manor", "name": "Sword Manor", "relation": "House Tang institution"}]
+
+
+def test_superseded_house_response_is_not_a_live_interaction_handle(campaign) -> None:
+    planner = _planner(campaign)
+    at = str(planner.read("state/runtime.json")["world_time"])
+    response_ref = "event_household_response_test_superseded"
+
+    house = copy.deepcopy(planner.read("state/houses/house_tang.json"))
+    house.setdefault("administrative_requests", {})["test-superseded-request"] = {
+        "request_id": "test-superseded-request",
+        "kind": "recruitment_numbers",
+        "status": "settled",
+        "response_event_ref": response_ref,
+        "response_validity": "superseded_misclassified_response",
+    }
+    planner.put("state/houses/house_tang.json", house)
+
+    _path, owner = read_causal_event_owner(planner)
+    owner["causal_events"][response_ref] = {
+        "event_ref": response_ref,
+        "kind": "institutional_response",
+        "status": "triggered",
+        "due_at": at,
+        "triggered_at": at,
+        "summary": "Historical response that has been superseded by a repair.",
+        "provenance": {
+            "kind": "causal_runtime_settlement",
+            "source_owner_ref": "house_tang",
+            "work_ref": response_ref,
+            "late_catch_up": False,
+        },
+    }
+    write_causal_event_owner(planner, owner)
+
+    context = EquipmentAwareCampaignOperations(SwordRuntime(campaign)).play_context()
+    refs = {str(row["interaction_ref"]) for row in context["interaction_handles"]}
+    assert response_ref not in refs
+    assert response_ref not in context["permitted_object_refs"]
+    scene_reports = context.get("scene", {}).get("available_reports", [])
+    assert all(row.get("interaction_ref") != response_ref for row in scene_reports)
 
 
 class _VitalityStore:
