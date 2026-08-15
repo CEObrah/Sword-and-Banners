@@ -18,6 +18,43 @@ _EQUIPMENT_COMMANDS = frozenset({
 })
 
 
+def _states(equipment: list[dict[str, Any]], item_key: str) -> list[str]:
+    return [
+        str(row.get("current_state", "")).lower()
+        for row in equipment
+        if row.get("item_key") == item_key and int(row.get("quantity", 0)) > 0
+    ]
+
+
+def _active_personal(equipment: list[dict[str, Any]], item_key: str) -> bool:
+    return any(
+        any(token in state for token in ("equipped", "worn", "readied", "quivered"))
+        for state in _states(equipment, item_key)
+    )
+
+
+def _project_equipment_state(
+    base: Mapping[str, Any],
+    equipment: list[dict[str, Any]],
+    player_location: object,
+) -> dict[str, Any]:
+    compact = dict(base)
+    compact["bow"] = "readied" if _active_personal(equipment, "weapon_bow_great_war") else "stored"
+    compact["lance"] = "carried/secured" if _active_personal(equipment, "weapon_lance_cavalry") else "stored_with_mounted_issue"
+    compact["shield"] = "readied/slung" if _active_personal(equipment, "shield_tang") else "stored"
+    compact["sword"] = "sheathed_and_carried" if _active_personal(equipment, "weapon_sword_one_hand_long") else "sheathed_and_stored"
+    worn = [item_key for item_key in ("armor_tang", "helmet_tang") if _active_personal(equipment, item_key)]
+    if worn:
+        compact["worn"] = " + ".join(worn)
+    mounted = any("mounted by tang wei" in state for state in _states(equipment, "horse_tang_heavy_war"))
+    compact["mounted"] = mounted
+    if mounted and isinstance(player_location, str) and player_location:
+        compact["mount_location"] = player_location
+    elif not compact.get("mount_location"):
+        compact["mount_location"] = "House Tang cavalry stables"
+    return compact
+
+
 class EquipmentAwareCampaignOperations(StableCampaignOperations):
     """Stable player surface with exact, bounded owned-equipment identifiers."""
 
@@ -50,6 +87,14 @@ class EquipmentAwareCampaignOperations(StableCampaignOperations):
         player = context.setdefault("player", {})
         player["owned_equipment"] = equipment
         player["owned_equipment_count"] = len(equipment)
+        base_equipment = player.get("equipment_state", {})
+        if not isinstance(base_equipment, Mapping):
+            base_equipment = {}
+        player["equipment_state"] = _project_equipment_state(
+            base_equipment,
+            equipment,
+            player.get("location"),
+        )
 
         commands = context.get("commands", {}).get("command_types", {})
         for command_type in _EQUIPMENT_COMMANDS:
