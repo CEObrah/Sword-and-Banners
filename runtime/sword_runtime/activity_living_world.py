@@ -15,13 +15,15 @@ from typing import Any
 from sword_runtime.campaign_event_planner import CampaignEventPlayerGroupActionPlanner
 from sword_runtime.development import settle_skill_training
 from sword_runtime.sim.calendar import CampaignTime
+from sword_runtime.training_rates import verified_activity_hours_per_cycle
 
 _RUNTIME_PATH = "state/runtime.json"
-_ACTIVITY_ROUTING_VERSION = 1
+_PROFILES_PATH = "game/data/mil/recruitment-cohort-profiles.json"
+_ACTIVITY_ROUTING_VERSION = 2
 _ACTIVITY_HOST_ID = "host_named_person_activity"
 _ACTIVITY_EVENT_ID = "event_host_named_person_activity_review"
 _ACTIVITY_CADENCE_SECONDS = 30 * 86400
-_ACTIVITY_VERIFIED_HOURS = 48
+_ACTIVITY_DEFAULT_VERIFIED_HOURS = 48
 _ACTIVITY_HISTORY_LIMIT = 24
 _ACTIVITY_FATIGUE_BLOCK = 80
 _ACTIVITY_SHARD_SIZE = 512
@@ -134,6 +136,7 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
 
         now_text = str(runtime.get("world_time"))
         now = CampaignTime.parse(now_text)
+        profiles = self.read(_PROFILES_PATH)
         newly_routed: list[str] = []
         classified = 0
 
@@ -155,28 +158,37 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
                     person = None
                 if isinstance(person, dict):
                     contract = person.get("activity_contract")
+                    focuses = self._activity_focuses(person, contract) if isinstance(contract, Mapping) else []
                     if (
                         isinstance(contract, Mapping)
                         and contract.get("autonomous_enabled") is not False
-                        and self._activity_focuses(person, contract)
+                        and focuses
                     ):
                         activity = person.setdefault("autonomous_activity_state", {})
                         if not isinstance(activity, dict):
                             raise ValueError("exact person autonomous_activity_state is invalid")
-                        activity.setdefault("version", _ACTIVITY_ROUTING_VERSION)
-                        activity.setdefault("enabled", True)
-                        activity.setdefault("routed_at", now_text)
-                        activity.setdefault("cadence_seconds", _ACTIVITY_CADENCE_SECONDS)
-                        activity.setdefault("verified_hours_per_cycle", _ACTIVITY_VERIFIED_HOURS)
-                        activity.setdefault("focus_cursor", 0)
-                        activity.setdefault("next_due", str(now.add_seconds(_ACTIVITY_CADENCE_SECONDS)))
-                        activity.setdefault(
-                            "verification_rule",
-                            "fixed structured causal cycles verify routine standing activity prospectively; planned_opportunity prose is capacity context only and is never converted into training hours",
+                        cadence = max(1, int(activity.get("cadence_seconds", _ACTIVITY_CADENCE_SECONDS)))
+                        cycle_hours = verified_activity_hours_per_cycle(
+                            person,
+                            contract,
+                            profiles,
+                            cadence,
+                            fallback_hours=_ACTIVITY_DEFAULT_VERIFIED_HOURS,
                         )
-                        self.put(person_path, person)
-                        newly_routed.append(person_ref)
-                        status = "routed"
+                        if cycle_hours > 0:
+                            activity["version"] = _ACTIVITY_ROUTING_VERSION
+                            activity.setdefault("enabled", True)
+                            activity.setdefault("routed_at", now_text)
+                            activity["cadence_seconds"] = cadence
+                            activity["verified_hours_per_cycle"] = round(cycle_hours, 6)
+                            activity.setdefault("focus_cursor", 0)
+                            activity.setdefault("next_due", str(now.add_seconds(cadence)))
+                            activity[
+                                "verification_rule"
+                            ] = "structured causal cycles derive standard House Tang adult hours from the canonical training regimen; planned_opportunity prose is capacity context only and is never converted into training hours"
+                            self.put(person_path, person)
+                            newly_routed.append(person_ref)
+                            status = "routed"
             host["activity_route"] = {
                 "version": _ACTIVITY_ROUTING_VERSION,
                 "status": status,
@@ -224,7 +236,7 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
             "routed_count": routed_count,
             "route_shards": len(shards),
             "shard_size": _ACTIVITY_SHARD_SIZE,
-            "rule": "only scheduler-known exact people with explicit standing activity contracts are routed; route pages scale by deterministic scheduler shards; no character-directory scan and no player autonomous training",
+            "rule": "only scheduler-known exact people with explicit eligible standing activity contracts are routed; House Tang adult standing-role rates derive from the canonical max-sustainable regimen; child household development is excluded from adult skill settlement; no character-directory scan and no player autonomous training",
         })
         metrics = runtime.setdefault("metrics", {})
         if newly_routed:
@@ -261,6 +273,7 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
             raise ValueError("named-person activity shard exceeds its routing page size")
         due = CampaignTime.parse(due_text)
         training = self.read("game/data/mechanics/training.json")
+        profiles = self.read(_PROFILES_PATH)
         for person_ref in refs:
             if not isinstance(person_ref, str) or person_ref == self.PLAYER_ACTOR:
                 continue
@@ -277,10 +290,24 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
             activity = person.setdefault("autonomous_activity_state", {})
             if not isinstance(activity, dict):
                 raise ValueError("exact person autonomous_activity_state is invalid")
+            cadence = max(1, int(activity.get("cadence_seconds", _ACTIVITY_CADENCE_SECONDS)))
+            cycle_hours = verified_activity_hours_per_cycle(
+                person,
+                contract,
+                profiles,
+                cadence,
+                fallback_hours=_ACTIVITY_DEFAULT_VERIFIED_HOURS,
+            )
+            if cycle_hours <= 0:
+                activity["version"] = _ACTIVITY_ROUTING_VERSION
+                activity["verified_hours_per_cycle"] = 0.0
+                activity["resolved_through"] = due_text
+                self.put(person_path, person)
+                continue
             next_due_text = activity.get("next_due")
             if not isinstance(next_due_text, str):
                 routed_at = CampaignTime.parse(str(activity.get("routed_at", due_text)))
-                next_due = routed_at.add_seconds(_ACTIVITY_CADENCE_SECONDS)
+                next_due = routed_at.add_seconds(cadence)
             else:
                 next_due = CampaignTime.parse(next_due_text)
             cursor = max(0, int(activity.get("focus_cursor", 0)))
@@ -295,13 +322,13 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
                 reason = self._activity_skip_reason(person, contract)
                 cycle_at = str(next_due)
                 if reason is None:
-                    development = settle_skill_training(person, focus, _ACTIVITY_VERIFIED_HOURS, next_due, training)
+                    development = settle_skill_training(person, focus, cycle_hours, next_due, training)
                     person.setdefault("autonomous_development_history", []).append({
                         "at": cycle_at,
                         "focus": focus,
-                        "hours": _ACTIVITY_VERIFIED_HOURS,
+                        "hours": cycle_hours,
                         "development": development,
-                        "verification_basis": "structured_causal_activity_cycle_v1",
+                        "verification_basis": "structured_causal_activity_cycle_v2",
                         "planned_opportunity_hours_used": False,
                     })
                     person["autonomous_development_history"] = person["autonomous_development_history"][-_ACTIVITY_HISTORY_LIMIT:]
@@ -316,15 +343,15 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
                         activity["enabled"] = False
                 activity["reviewed_cycles"] = int(activity.get("reviewed_cycles", 0)) + 1
                 activity["last_cycle_at"] = cycle_at
-                next_due = next_due.add_seconds(_ACTIVITY_CADENCE_SECONDS)
+                next_due = next_due.add_seconds(cadence)
                 changed = True
                 if reason == "dead":
                     break
             if changed:
                 activity.update({
                     "version": _ACTIVITY_ROUTING_VERSION,
-                    "cadence_seconds": _ACTIVITY_CADENCE_SECONDS,
-                    "verified_hours_per_cycle": _ACTIVITY_VERIFIED_HOURS,
+                    "cadence_seconds": cadence,
+                    "verified_hours_per_cycle": round(cycle_hours, 6),
                     "focus_cursor": cursor,
                     "next_due": str(next_due),
                     "resolved_through": due_text,
