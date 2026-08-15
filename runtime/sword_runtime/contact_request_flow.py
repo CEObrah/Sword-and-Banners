@@ -202,7 +202,7 @@ def _settle_audience_disposition(planner: Any, host: Mapping[str, Any], at: str)
     event_ref = _disposition_response_ref(str(host.get("request_id", "")))
     return _write_player_event(planner, event_ref, {
         "event_ref": event_ref,
-        "kind": "petition_response",
+        "kind": "institutional_response",
         "status": "triggered",
         "due_at": at,
         "triggered_at": at,
@@ -215,7 +215,6 @@ def _settle_audience_disposition(planner: Any, host: Mapping[str, Any], at: str)
         "process_stage": outcome,
         "source_event_ref": host.get("source_process_ref"),
         "summary": summary[:4000],
-        "assessment": {"method": "registered_audience_command_assessment", "score": score, "prior_present_attempts": prior},
         "delivery": {"target_ref": "char_tang_wei", "location_ref": location_ref, "route": str(host.get("delivery_route", ""))[:1000]},
         "provenance": {"kind": "causal_runtime_settlement", "source_owner_ref": host.get("institution_ref"), "work_ref": event_ref, "late_catch_up": False},
     }, at)
