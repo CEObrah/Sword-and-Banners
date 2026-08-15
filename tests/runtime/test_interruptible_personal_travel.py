@@ -38,6 +38,51 @@ def _personal_travel_planner(campaign):
     return planner, meta, origin, runtime
 
 
+def test_personal_travel_uses_derived_route_between_tang_garrison_and_family_hall(campaign, monkeypatch) -> None:
+    planner, meta, _origin, runtime = _personal_travel_planner(campaign)
+    origin = "loc_tang_manor_garrison_yard"
+    destination = "loc_tang_manor_inner_citadel_family_hall"
+
+    player = copy.deepcopy(planner.read("state/player.json"))
+    player["location"] = origin
+    planner.put("state/player.json", player)
+
+    def fake_causal_advance(self, target_text: str):
+        current = copy.deepcopy(self.read("state/runtime.json"))
+        current["world_time"] = target_text
+        current.pop("pending_wake", None)
+        self.put("state/runtime.json", current)
+        return {
+            "hosts_woken": 0,
+            "events_processed": 0,
+            "battlefield_reports": [],
+            "battlefield_reviews": 0,
+            "battlefield_player_interrupt": False,
+        }
+
+    monkeypatch.setattr(CausalLivingWorldSwordPlanner, "_advance_runtime", fake_causal_advance)
+
+    command = CommandEnvelope(
+        meta["campaign_id"],
+        "test-personal-manor-derived-route",
+        planner.PLAYER_ACTOR,
+        "travel",
+        int(meta["revision"]),
+        str(meta["time"]),
+        {"destination_ref": destination, "mode": "foot"},
+        mode="gameplay",
+    )
+    result = planner._dispatch(command, {"destination_ref": destination, "mode": "foot"})
+
+    expected_arrival = CampaignTime.parse(str(runtime["world_time"])).add_seconds(3600)
+    assert result["route_ref"] == "derived_route_graph"
+    assert result["duration_hours"] == 1
+    assert result["travel_completed"] is True
+    assert result["world_time"] == str(expected_arrival)
+    assert planner.read("state/player.json")["location"] == destination
+    assert planner.read("state/meta.json")["time"] == str(expected_arrival)
+
+
 def test_personal_travel_commits_reached_wake_without_false_arrival(campaign, monkeypatch) -> None:
     planner, meta, origin, runtime = _personal_travel_planner(campaign)
     manifest_before = copy.deepcopy(planner.read("state/player-detail/equipment-manifest.json"))

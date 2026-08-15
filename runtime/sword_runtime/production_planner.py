@@ -47,6 +47,32 @@ class ProductionCampaignPlanner(
             return 1
         return super()._route_travel_hours(origin, destination, modes=modes)
 
+    def _find_route(self, origin: str, destination: str, *, mode: str | None = None) -> Mapping[str, Any]:
+        """Honor the production local-route graph for ordinary personal movement.
+
+        The base reducer historically asks for one exact route edge. House Tang
+        interiors and the garrison are registered production locations connected
+        by the local route graph instead, so a lawful walk between them must not
+        fail merely because no duplicate room-to-room edge exists in routes.json.
+        Exact authored edges remain preferred; only foot/horse movement inside the
+        Kanyou/Tang-manor local envelope falls back to the derived graph.
+        """
+
+        try:
+            return super()._find_route(origin, destination, mode=mode)
+        except ValueError:
+            local = lambda ref: ref == "loc_kanyou" or ref.startswith("loc_tang_manor_")
+            if mode not in {"foot", "horse"} or not (local(origin) and local(destination)):
+                raise
+            duration = self._route_travel_hours(origin, destination, modes=(str(mode),))
+            return {
+                "ref": "derived_route_graph",
+                "a": origin,
+                "b": destination,
+                "modes": [str(mode)],
+                "duration_hours": duration,
+            }
+
     def _advance_runtime(self, target_text: str) -> dict[str, Any]:
         """Let personal travel persist a real wake instead of previewing it forever.
 
