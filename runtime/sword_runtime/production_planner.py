@@ -9,6 +9,7 @@ from sword_runtime.civil_world import CivilWorldMixin
 from sword_runtime.equipment_planner import EquipmentStateProjectionMixin
 from sword_runtime.force_cohort_living_world import ForceCohortLivingWorldMixin
 from sword_runtime.house_tang_development import HouseTangDevelopmentMixin
+from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
 from sword_runtime.sim.calendar import CampaignTime
 
 HOUSE_TANG_GARRISON_REF = "loc_tang_manor_garrison_yard"
@@ -26,6 +27,7 @@ HOUSE_TANG_GARRISON: dict[str, Any] = {
 class ProductionCampaignPlanner(
     EquipmentStateProjectionMixin,
     CivilWorldMixin,
+    HouseholdRequestFlowMixin,
     HouseTangDevelopmentMixin,
     ForceCohortLivingWorldMixin,
     ActivityCampaignEventPlanner,
