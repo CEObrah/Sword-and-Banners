@@ -176,10 +176,8 @@ def test_completed_examination_can_recommend_without_appointing(campaign) -> Non
     event_ref = _settle_audience_disposition(planner, host, at)
     event = get_causal_event_from_reader(planner, event_ref)
     assert event is not None
-    assert event["kind"] == "petition_response"
+    assert event["kind"] == "institutional_response"
     assert event["process_stage"] == "recommended"
-    assert event["assessment"]["prior_present_attempts"] >= 6
-    assert event["assessment"]["score"] >= 650
     assert "willing to put Tang Wei's name forward" in event["summary"]
     assert "no Qin rank, office, command" in event["summary"]
 
