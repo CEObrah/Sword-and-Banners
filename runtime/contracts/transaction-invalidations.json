@@ -1,5 +1,17 @@
 {
   "schema": "sword.transaction-invalidations",
   "version": 1,
-  "records": []
+  "records": [
+    {
+      "campaign_id": "sword-banner-tang-wei-main",
+      "transaction_id": "sword-edc6e75e10e29e7fb498434d",
+      "request_id": "wei-downtime-train-until-next-event-r35-20260815-a",
+      "request_digest": "1bd5a58682de8cb31f7c267af0d6c62206766e0080078440da1ce0d304947548",
+      "invalidated_revision": 36,
+      "restored_revision": 35,
+      "bad_commit": "ea868b6b07af2f1d3ae9a806302b41a52c315183",
+      "repair_commit": "d4cc2e3a04b7f661e8c9db934f4de6053aa75bd5",
+      "reason": "The r36 downtime command was intended to stop at the next player-facing event but advanced through 245-BCE-12-14 and settled later world consequences. Campaign state was restored exactly to the pre-command r35 tree; the corrected runtime now provides event-bounded downtime."
+    }
+  ]
 }
