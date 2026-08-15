@@ -304,6 +304,7 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
                 activity["resolved_through"] = due_text
                 self.put(person_path, person)
                 continue
+            settlement_hours = max(1, int(cycle_hours))
             next_due_text = activity.get("next_due")
             if not isinstance(next_due_text, str):
                 routed_at = CampaignTime.parse(str(activity.get("routed_at", due_text)))
@@ -322,11 +323,11 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
                 reason = self._activity_skip_reason(person, contract)
                 cycle_at = str(next_due)
                 if reason is None:
-                    development = settle_skill_training(person, focus, cycle_hours, next_due, training)
+                    development = settle_skill_training(person, focus, settlement_hours, next_due, training)
                     person.setdefault("autonomous_development_history", []).append({
                         "at": cycle_at,
                         "focus": focus,
-                        "hours": cycle_hours,
+                        "hours": settlement_hours,
                         "development": development,
                         "verification_basis": "structured_causal_activity_cycle_v2",
                         "planned_opportunity_hours_used": False,
