@@ -30,6 +30,7 @@ _TREASURY_PATH = "state/treasury/treasury-house-tang.json"
 _SWORD_FORCE_PATH = "state/forces/sword-manor.json"
 _QIN_POPULATION_PATH = "state/population/qin.json"
 _MANOR_POPULATION_PATH = "state/population/tang-manor.json"
+_PLAYER_PATH = "state/player.json"
 _RULES_PATH = "game/data/mechanics/house-tang-programs.json"
 _PROFILES_PATH = "game/data/mil/recruitment-cohort-profiles.json"
 _TRAINING_GROUND = "loc_tang_manor_training_ground"
@@ -121,9 +122,11 @@ def _treasury_safe_ceiling(treasury: Mapping[str, Any], rules: Mapping[str, Any]
 def _role_total(force: Mapping[str, Any], role: str) -> int:
     reserve = int(force.get("available_by_role", {}).get(role, 0)) if isinstance(force.get("available_by_role"), Mapping) else 0
     allocated = 0
-    for value in force.get("allocated_to_formations", {}).values() if isinstance(force.get("allocated_to_formations"), Mapping) else ():
-        if isinstance(value, Mapping) and str(value.get("role", "")) == role:
-            allocated += max(0, int(value.get("personnel", 0)))
+    allocations = force.get("allocated_to_formations", {})
+    if isinstance(allocations, Mapping):
+        for value in allocations.values():
+            if isinstance(value, Mapping) and str(value.get("role", "")) == role:
+                allocated += max(0, int(value.get("personnel", 0)))
     return reserve + allocated
 
 
@@ -211,7 +214,13 @@ def _perform_house_requested_sword_intake(planner: Any, at: str, request_id: str
     return {**after, "intake_count": moved, "status": "intake_opened" if moved else "population_blocked", "source_mix": source_mix}
 
 
-def _response_event(planner: Any, *, request_id: str, at: str, summary: str, result: Mapping[str, Any]) -> str:
+def _response_event(planner: Any, *, request_id: str, at: str, summary: str) -> str:
+    """Publish one schema-valid player-visible House response event.
+
+    Detailed administrative result data stays in the exact House request owner.
+    The causal event is the delivery surface only and therefore uses only fields
+    already authorized by event-registry.schema.json.
+    """
     event_ref = _response_ref(request_id)
     _path, owner = read_causal_event_owner(planner)
     causal = owner["causal_events"]
@@ -222,14 +231,17 @@ def _response_event(planner: Any, *, request_id: str, at: str, summary: str, res
             "status": "triggered",
             "due_at": at,
             "triggered_at": at,
+            "actor_ref": "house_tang",
+            "target_ref": "char_tang_wei",
+            "basis_goal": f"House Tang response to player request {request_id}"[:500],
             "process_kind": "house_tang_household_administration",
-            "source_interaction_request_id": request_id,
+            "process_stage": "completed",
             "summary": summary[:4000],
-            "result": copy.deepcopy(dict(result)),
             "provenance": {
                 "kind": "causal_runtime_settlement",
                 "source_owner_ref": "house_tang",
                 "work_ref": event_ref,
+                "late_catch_up": False,
             },
         }
         owner.setdefault("runtime", {})["last_settled_at"] = at
@@ -391,10 +403,16 @@ def _settle_household_request(planner: Any, host: Mapping[str, Any], at: str) ->
         summary, result = _settle_reporting(planner, at=at, house=house)
     else:
         raise ValueError("unsupported House Tang administrative request kind")
-    event_ref = _response_event(planner, request_id=request_id, at=at, summary=summary, result=result)
+    event_ref = _response_event(planner, request_id=request_id, at=at, summary=summary)
     mutable_requests = house.setdefault("administrative_requests", {})
     mutable = dict(mutable_requests[request_id])
-    mutable.update({"status": "settled", "settled_at": at, "response_event_ref": event_ref})
+    mutable.update({
+        "status": "settled",
+        "settled_at": at,
+        "response_event_ref": event_ref,
+        "response_summary": summary[:4000],
+        "result": copy.deepcopy(dict(result)),
+    })
     mutable_requests[request_id] = mutable
     house["last_review"] = at
     planner.put(_HOUSE_PATH, house)
@@ -403,6 +421,10 @@ def _settle_household_request(planner: Any, host: Mapping[str, Any], at: str) ->
 def _emit_watch_report(planner: Any, *, player_ref: str, at: str, summary: str, key: str) -> str:
     digest = hashlib.sha256(f"house-recruitment-report|{player_ref}|{key}|{at}".encode("utf-8")).hexdigest()[:20]
     event_ref = f"event_house_recruitment_report_{digest}"
+    player = planner.read(_PLAYER_PATH)
+    location_ref = player.get("location") if isinstance(player, Mapping) else None
+    if not isinstance(location_ref, str) or not location_ref:
+        raise ValueError("House recruitment report cannot resolve the player's delivery location")
     _path, owner = read_causal_event_owner(planner)
     if event_ref not in owner["causal_events"]:
         owner["causal_events"][event_ref] = {
@@ -411,10 +433,18 @@ def _emit_watch_report(planner: Any, *, player_ref: str, at: str, summary: str, 
             "status": "triggered",
             "due_at": at,
             "triggered_at": at,
+            "actor_ref": "house_tang",
+            "target_ref": player_ref,
             "process_kind": "house_tang_recruitment_reporting",
+            "process_stage": "delivered",
             "summary": summary[:4000],
-            "delivery": {"target_ref": player_ref, "route": "House Tang direct report"},
-            "provenance": {"kind": "causal_runtime_settlement", "source_owner_ref": "house_tang", "work_ref": event_ref},
+            "delivery": {"target_ref": player_ref, "location_ref": location_ref, "route": "House Tang direct report"},
+            "provenance": {
+                "kind": "causal_runtime_settlement",
+                "source_owner_ref": "house_tang",
+                "work_ref": event_ref,
+                "late_catch_up": False,
+            },
         }
         owner.setdefault("runtime", {})["last_settled_at"] = at
         write_causal_event_owner(planner, owner)
