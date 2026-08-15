@@ -5,7 +5,7 @@ import copy
 from sword_runtime.api.equipment_operations import EquipmentAwareCampaignOperations
 from sword_runtime.causal_event_store import get_causal_event
 from sword_runtime.engine import SwordRuntime
-from sword_runtime.household_request_flow import _emit_watch_report, _settle_household_request
+from sword_runtime.household_request_flow import _classify_request, _emit_watch_report, _settle_household_request
 from sword_runtime.production_planner import ProductionCampaignPlanner
 from sword_runtime.vitality import summarize_playability_vitality
 
@@ -16,6 +16,34 @@ def _planner(campaign):
     planner.PLAYER_ACTOR = str(meta["player_id"])
     planner._reset()
     return planner
+
+
+def test_house_request_classifier_distinguishes_live_recruitment_chain() -> None:
+    common = {"actor_id": "char_tang_wei"}
+    assert _classify_request({
+        **common,
+        "action": "request",
+        "target_ref": "char_tang_ling",
+        "player_statement": "Mother, Father: please start the Great Bow Guard recruitment as soon as possible within the treasury-safe ceiling we discussed. Also begin recruiting and training Initiates for Sword Manor.",
+    }) == "recruitment_start"
+    assert _classify_request({
+        **common,
+        "action": "ask",
+        "target_ref": "char_tang_ling",
+        "player_statement": "Mother, what is the treasury-safe ceiling, and how soon can the Great Bow Guard recruitment and Sword Manor Initiate intake actually open?",
+    }) == "recruitment_numbers"
+    assert _classify_request({
+        **common,
+        "action": "ask",
+        "target_ref": "char_tang_zhu",
+        "player_statement": "Father, what practical constraint prevents us from running the Great Bow Guard recruitment and Sword Manor Initiate intake in parallel?",
+    }) == "recruitment_parallel_constraints"
+    assert _classify_request({
+        **common,
+        "action": "request",
+        "target_ref": "char_tang_ling",
+        "player_statement": "Mother, when either recruitment intake actually opens, send me word immediately. I want the concrete figures and what has begun.",
+    }) == "recruitment_opening_report"
 
 
 def test_house_recruitment_review_opens_great_bow_intake_without_creating_fighters(campaign) -> None:

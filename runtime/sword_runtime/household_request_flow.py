@@ -78,14 +78,25 @@ def _classify_request(attempt: Mapping[str, Any]) -> str | None:
     has_gbg = "great bow guard" in text
     has_sword = "sword manor" in text
     has_recruit = "recruit" in text or "intake" in text
+
+    # Classify the most specific typed intent before generic start language.
+    # A numbers question may legitimately contain the word "open", while the
+    # start order may legitimately mention the treasury-safe ceiling. The typed
+    # interaction action disambiguates those cases without parsing hidden intent.
+    if action == "ask" and has_gbg and has_sword and any(
+        phrase in text for phrase in ("treasury-safe ceiling", "treasury safe ceiling", "how soon", "earliest")
+    ):
+        return _KIND_NUMBERS
+    if action == "ask" and has_gbg and has_sword and (
+        "parallel" in text or "constraint" in text or "prevent" in text
+    ):
+        return _KIND_CONSTRAINTS
+    if action == "request" and has_recruit and any(
+        phrase in text for phrase in ("send me word", "report to me", "tell me when", "word immediately")
+    ) and any(word in text for word in ("open", "opens", "begins", "starts")):
+        return _KIND_REPORTING
     if has_gbg and has_sword and has_recruit and any(word in text for word in ("start", "begin", "open")):
         return _KIND_START
-    if has_gbg and has_sword and any(phrase in text for phrase in ("treasury-safe ceiling", "treasury safe ceiling", "how soon", "earliest")):
-        return _KIND_NUMBERS
-    if has_gbg and has_sword and ("parallel" in text or "constraint" in text or "prevent" in text):
-        return _KIND_CONSTRAINTS
-    if has_recruit and any(phrase in text for phrase in ("send me word", "report to me", "tell me when", "word immediately")) and any(word in text for word in ("open", "opens", "begins", "starts")):
-        return _KIND_REPORTING
     return None
 
 
