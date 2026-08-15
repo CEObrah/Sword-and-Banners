@@ -329,12 +329,14 @@ class StableCampaignOperations(CampaignOperations):
                 context.setdefault("permitted_object_refs", [])
                 context["permitted_object_refs"] = sorted(set(context["permitted_object_refs"]) | {wake_operation_ref})
             context["pending_wake"] = {key: wake[key] for key in _WAKE_VISIBLE_FIELDS if key in wake}
-            context["decision_required"] = True
             if wake.get("kind") == "campaign_event":
                 response_types = list(commands.get("supported_command_types", []))
                 context["pending_wake"]["response_command_types"] = response_types
                 context["pending_wake"]["continue_command"] = "advance_time"
-                context["decision_reason"] = "campaign_event_boundary"
+                context["pending_wake"]["requires_player_decision"] = False
+                context["decision_required"] = False
+                context["attention_required"] = True
+                context["attention_reason"] = "campaign_event_notice"
                 commands["availability_scope"] = "campaign_event_response"
                 commands["temporarily_available_command_types"] = response_types
             elif wake.get("kind") == "battlefield_report":
@@ -343,6 +345,8 @@ class StableCampaignOperations(CampaignOperations):
                     response_types.remove("scene_consequence")
                 context["pending_wake"]["response_command_types"] = response_types
                 context["pending_wake"]["continue_command"] = "advance_time"
+                context["pending_wake"]["requires_player_decision"] = True
+                context["decision_required"] = True
                 context["decision_reason"] = "battlefield_report_boundary"
                 commands["availability_scope"] = "battlefield_report_response"
                 commands["temporarily_available_command_types"] = response_types
@@ -355,6 +359,8 @@ class StableCampaignOperations(CampaignOperations):
                     response_types.sort()
                 context["pending_wake"]["response_command_types"] = response_types
                 context["pending_wake"]["continue_contact_command"] = "advance_time"
+                context["pending_wake"]["requires_player_decision"] = True
+                context["decision_required"] = True
                 context["decision_reason"] = "high_salience_autonomous_contact"
                 commands["availability_scope"] = "pending_wake_response"
                 commands["temporarily_available_command_types"] = response_types
