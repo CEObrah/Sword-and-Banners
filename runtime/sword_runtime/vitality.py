@@ -25,24 +25,57 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     process_routes = _mapping(store.read_json("state/index/institutional-process-routing.json"))
 
     active_arcs = 0
+    active_visible_arcs = 0
     for row in arcs.get("records", []):
         facts = _mapping(row.get("facts")) if isinstance(row, Mapping) else {}
         status = str(facts.get("status", "")).lower()
         if status.startswith("active"):
             active_arcs += 1
+            visibility = str(facts.get("visibility_to_tang_wei", row.get("visibility_to_tang_wei", "hidden"))).lower()
+            route = facts.get("information_path", row.get("information_path"))
+            if visibility in {"discoverable", "direct"} and isinstance(route, str) and route:
+                active_visible_arcs += 1
 
     hosts = _mapping(runtime.get("hosts"))
     scheduled_world_arcs = sum(
         1 for host in hosts.values()
         if isinstance(host, Mapping) and host.get("kind") == "world_arc" and host.get("next_due") is not None
     )
+    scheduled_arc_reports = sum(
+        1 for host in hosts.values()
+        if isinstance(host, Mapping) and host.get("kind") == "world_arc_report" and host.get("next_due") is not None
+    )
     scheduled_reports = sum(
         1 for host in hosts.values()
-        if isinstance(host, Mapping) and host.get("kind") in {"world_arc_report", "campaign_event", "institutional_process"}
+        if isinstance(host, Mapping) and host.get("kind") in {"world_arc_report", "campaign_event", "institutional_process", "household_request", "household_recruitment_watch"}
         and host.get("next_due") is not None
     )
     pending_wake = isinstance(runtime.get("pending_wake"), Mapping)
-    causal_events = max(0, int(events.get("archived_event_count", 0))) + len(_mapping(events.get("causal_events")))
+    causal_head = _mapping(events.get("causal_events"))
+    causal_events = max(0, int(events.get("archived_event_count", 0))) + len(causal_head)
+
+    report_sources = {
+        str(event.get("source_event_ref"))
+        for event in causal_head.values()
+        if isinstance(event, Mapping)
+        and event.get("kind") == "world_arc_report"
+        and isinstance(event.get("source_event_ref"), str)
+    }
+    routed_sources = {
+        str(host.get("source_event_ref"))
+        for host in hosts.values()
+        if isinstance(host, Mapping)
+        and host.get("kind") == "world_arc_report"
+        and isinstance(host.get("source_event_ref"), str)
+    }
+    visible_arc_activities_without_delivery_route = 0
+    for event_ref, event in causal_head.items():
+        if not isinstance(event_ref, str) or not isinstance(event, Mapping) or event.get("kind") != "world_arc_activity":
+            continue
+        if str(event.get("visibility_class", "hidden")) not in {"discoverable", "direct"}:
+            continue
+        if event_ref not in report_sources and event_ref not in routed_sources:
+            visible_arc_activities_without_delivery_route += 1
 
     player_id = str(meta.get("player_id", ""))
     known_claims = 0
@@ -67,6 +100,9 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     if active_arcs and scheduled_world_arcs == 0:
         diagnostics.append("active_world_arcs_without_scheduled_progression")
         suggestions.append("review_world_arc_scheduler_routing")
+    if visible_arc_activities_without_delivery_route:
+        diagnostics.append("player_visible_world_arc_activity_without_delivery_route")
+        suggestions.append("repair_world_arc_report_routing_before_increasing_arc_frequency")
     if (known_claims or causal_events) and visible_reports == 0 and scene_fresh:
         diagnostics.append("established_information_without_player_facing_scene_report")
         suggestions.append("review_information_and_scene_delivery_routing")
@@ -76,8 +112,11 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
 
     return {
         "active_world_arcs": active_arcs,
+        "active_world_arcs_with_player_visible_routes": active_visible_arcs,
         "scheduled_world_arc_hosts": scheduled_world_arcs,
+        "scheduled_world_arc_report_hosts": scheduled_arc_reports,
         "scheduled_player_relevant_hosts": scheduled_reports,
+        "visible_arc_activities_without_delivery_route": visible_arc_activities_without_delivery_route,
         "institutional_process_routes": institutional_routes,
         "exact_causal_events": causal_events,
         "player_known_information_claims": known_claims,
