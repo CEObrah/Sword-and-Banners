@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from copy import deepcopy
 from pathlib import Path
+from types import SimpleNamespace
 
 from sword_runtime.downtime import DowntimeAdvanceMixin
 from sword_runtime.production_planner import ProductionCampaignPlanner
@@ -75,6 +76,40 @@ def test_stop_on_player_event_halts_at_first_new_report():
     assert result["player_facing_event_refs"] == ["report_1"]
 
 
+def test_event_bounded_outer_dispatch_commits_actual_reached_time(campaign, monkeypatch):
+    planner = ProductionCampaignPlanner(campaign)
+    planner._reset()
+    meta = planner.read("state/meta.json")
+    start = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
+    reached = start.add_hours(3)
+
+    def fake_advance(_target_text: str):
+        runtime = deepcopy(planner.read("state/runtime.json"))
+        runtime["world_time"] = str(reached)
+        planner.put("state/runtime.json", runtime)
+        return {
+            "hosts_woken": 1,
+            "events_processed": 1,
+            "battlefield_reports": [],
+            "battlefield_reviews": 0,
+            "interrupted": True,
+            "interrupt_reason": "player_facing_event",
+        }
+
+    monkeypatch.setattr(planner, "_advance_runtime", fake_advance)
+    command = SimpleNamespace(expected_revision=int(meta["revision"]), request_id="test-event-bounded-outer")
+    result = planner._dispatch_event_bounded_advance(
+        command,
+        {"hours": 24, "stop_on_player_event": True},
+    )
+
+    assert result["world_time"] == str(reached)
+    assert result["requested_time"] == str(start.add_hours(24))
+    assert result["interrupted"] is True
+    assert planner.read("state/meta.json")["time"] == str(reached)
+    assert planner.read("state/meta.json")["revision"] == int(meta["revision"]) + 1
+
+
 def test_player_standing_plan_settles_only_configured_rate(campaign):
     player_path = Path(campaign) / "state/player.json"
     player = json.loads(player_path.read_text())
@@ -101,7 +136,7 @@ def test_controlled_formation_downtime_uses_house_training_regimen(campaign):
     start = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
     end = start.add_hours(8)
     _path, before = planner._load_formation("formation_tang_champions_first")
-    before_hours = int(before.get("verified_training_hours", 0))
+    before_hours = int(before.get("verified_training_hours") or 0)
 
     result = planner._settle_formation_training(
         "formation_tang_champions_first",
@@ -113,7 +148,8 @@ def test_controlled_formation_downtime_uses_house_training_regimen(campaign):
 
     assert result["status"] == "settled"
     assert result["settled_hours"] == 2
-    assert int(after.get("verified_training_hours", 0)) == before_hours + 2
+    assert int(after.get("verified_training_hours") or 0) == before_hours + 2
+    assert int(after.get("training_progress") or 0) >= 1
 
 
 def test_household_person_downtime_accrues_without_authoring_skill_result(campaign):
