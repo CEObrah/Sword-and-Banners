@@ -19,6 +19,7 @@ from sword_runtime.causal_event_store import (
     get_causal_event_from_reader,
     iter_causal_events_newest,
 )
+from sword_runtime.transaction_invalidations import invalidated_request_ids
 
 INTERACTION_ACTIONS = frozenset({
     "present", "request", "petition", "report", "ask", "offer", "decline",
@@ -287,12 +288,15 @@ def recent_interaction_attempts(
         events = recent_history_events(store, 512)
     except FileNotFoundError:
         return [], 0
+    invalidated = invalidated_request_ids(store)
     rows: list[dict[str, Any]] = []
     for event in events:
         if not isinstance(event, Mapping):
             continue
         attempt = parse_interaction_attempt_summary(event.get("summary"))
         if attempt is None or attempt.get("actor_id") != actor_id:
+            continue
+        if attempt.get("request_id") in invalidated:
             continue
         rows.append({
             "event_id": event.get("event_id"),
