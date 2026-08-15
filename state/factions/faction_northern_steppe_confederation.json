@@ -1,0 +1,27 @@
+{
+  "schema": "sword-faction-agenda",
+  "owner_id": "faction_northern_steppe_confederation",
+  "name": "Northern Steppe Confederation",
+  "profile_ref": "game/data/politics/faction-profiles.json#faction_northern_steppe_confederation",
+  "goals": [
+    "preserve steppe confederation autonomy",
+    "secure northern pasture, trade, and frontier leverage"
+  ],
+  "resources": {
+    "influence": 57,
+    "agents": 24,
+    "warband_capacity": 82,
+    "information_access": 58,
+    "transport_capacity": 90
+  },
+  "relationships": {
+    "state_zhao": {
+      "kind": "contested_frontier_contact",
+      "strength": 38
+    }
+  },
+  "knowledge": [],
+  "commitments": [],
+  "pressure": 0,
+  "last_review": "245-BCE-12-04T07:22:48+08:00"
+}

@@ -1,0 +1,95 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "Tang Manor Outer Wall",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 7.0
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 59,
+      "sd": 7.6
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "doctrine": "doc.merc_iron_rampart.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 0,
+    "assigned_war_arrows": 0,
+    "assigned_war_bolts": 33600,
+    "issued_loadouts": [
+      {
+        "count": 1400,
+        "loadout_id": "loadout_mercenary_heavy_infantry"
+      }
+    ],
+    "reserve_mounts": 0,
+    "reserve_war_arrows": 0,
+    "reserve_war_bolts": 33600
+  },
+  "food_stock_kg": 134400,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 1400,
+  "home_establishment_ref": "establishment.merc_iron_rampart",
+  "name": "Iron Rampart Company",
+  "owner_id": "merc_iron_rampart",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "QIN",
+  "subprocess_id": "process_merc_iron_rampart",
+  "training": "train.merc_iron_rampart.standard",
+  "treasury_silver": 168000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-iron-rampart-pool-outer-wall-guard.json",
+      "condition": {
+        "fit": 1400
+      },
+      "count": 1400,
+      "display": "Outer Wall Guard",
+      "doctrine": "doc.merc_iron_rampart.outer_wall_guard",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_heavy_infantry",
+      "mount_type": null,
+      "pool_id": "merc_iron_rampart:pool_outer_wall_guard",
+      "pool_kind": "unit_manpower",
+      "role": "outer_wall_guard",
+      "specialty": "outer_wall_guard",
+      "training": "train.merc_iron_rampart.outer_wall_guard",
+      "troop_type": "heavy_infantry"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "sword-formation",
+  "formation_ref": "formation_qin_mobile_reserve",
+  "name": "QIN Mobile Reserve",
+  "owner_force_ref": "force_state_qin",
+  "administrative_owner": "state_qin",
+  "command_authority": "state_qin",
+  "commander_ref": null,
+  "personnel": 5000,
+  "composition": {
+    "cavalry": 5000
+  },
+  "location_ref": "loc_qin_eastern_depot",
+  "doctrine_ref": "doc.house_tang_internal.heavy_cavalry",
+  "training_ref": "train.house_tang_internal.heavy_cavalry",
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 50,
+    "withdrawal_threshold": 30
+  },
+  "training_progress": 15,
+  "readiness": 65,
+  "morale": 70,
+  "cohesion": 65,
+  "fatigue": 0,
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "cavalry": 5000
+  },
+  "experience": "formed",
+  "mobilized": false,
+  "status": "formed",
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mounts": {
+    "horse_war_military": 5000
+  }
+}

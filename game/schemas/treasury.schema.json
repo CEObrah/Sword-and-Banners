@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Current canonical schema: treasury v38",
+  "type": "object",
+  "required": [
+    "cash_close_rule",
+    "fodder_kg",
+    "food_kg",
+    "monthly_flow_components",
+    "owner_id",
+    "owner_type",
+    "runtime",
+    "schema",
+    "silver",
+    "stable_four_month_fixture",
+    "stable_monthly_flows"
+  ],
+  "properties": {
+    "cash_close_rule": {
+      "type": "string"
+    },
+    "fodder_kg": {
+      "type": "integer"
+    },
+    "food_kg": {
+      "type": "integer"
+    },
+    "monthly_flow_components": {
+      "type": "object"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "object"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "silver": {
+      "type": "integer"
+    },
+    "stable_four_month_fixture": {
+      "type": "object"
+    },
+    "stable_monthly_flows": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current canonical schema contract."
+}

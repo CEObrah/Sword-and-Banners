@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "owner_id",
+    "houses",
+    "aggregate_capital_silver"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-merchant-house-registry"
+    },
+    "owner_id": {
+      "const": "merchant_house_registry"
+    },
+    "houses": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "aggregate_capital_silver": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

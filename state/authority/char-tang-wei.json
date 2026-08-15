@@ -1,0 +1,29 @@
+{
+  "schema": "sword-actor-authority",
+  "owner_id": "authority_char_tang_wei",
+  "actor_ref": "char_tang_wei",
+  "roles": [
+    {
+      "authority_ref": "house_tang",
+      "role": "heir",
+      "source": "state/player.json#authority",
+      "capabilities": [
+        "house_administration",
+        "house_training",
+        "formation_command"
+      ]
+    },
+    {
+      "authority_ref": "force_house_tang",
+      "role": "patron_and_commander",
+      "source": "state/player.json#authority",
+      "capabilities": [
+        "formation_command",
+        "formation_administration",
+        "operation_command"
+      ]
+    }
+  ],
+  "state_offices": [],
+  "rule": "Gameplay authority is capability-scoped. This record grants no Qin, Zhao, other state, treasury, institution, or public-force authority. State authority must be proven by an explicit saved appointment or delegation with capabilities."
+}

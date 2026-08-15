@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "food_kg": {},
+    "fortification_ref": {},
+    "garrison_formation_refs": {},
+    "integrity": {},
+    "schema": {
+      "const": "sword-fortification"
+    },
+    "site_ref": {}
+  },
+  "required": [
+    "schema",
+    "fortification_ref",
+    "site_ref",
+    "garrison_formation_refs",
+    "integrity",
+    "food_kg"
+  ],
+  "type": "object"
+}

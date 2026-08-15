@@ -1,0 +1,155 @@
+{
+  "schema": "reputation-mechanics.v1",
+  "game": "sword",
+  "purpose": "Knowledge-gated, audience-specific, deterministic social reputation. Reputation changes expectations and access through observers and institutions; it never grants magical knowledge or direct combat stats.",
+  "scale": {
+    "min": 0,
+    "max": 100,
+    "neutral": 50,
+    "unknown": "absence of a profile/axis is unknown, not 50"
+  },
+  "standing_axes": {
+    "renown": "recognition for meaningful achievement inside a relevant professional/social audience",
+    "fame": "public recognition inside an audience; not a global omniscient score",
+    "prestige": "status/esteem that the audience assigns from known achievement, office, pedigree, honor, patronage, wealth, or institutional standing",
+    "notoriety": "recognition driven by danger, controversy, disruption, criminality, scandal, or feared conduct; not automatically moral condemnation",
+    "infamy": "strongly negative notoriety: hatred, stigma, or moral condemnation inside that audience"
+  },
+  "profile_rule": "Every standing/dimension value belongs to one subject+audience pair. No universal reputation vector exists.",
+  "knowledge_gate": {
+    "profile_absence_means_no_audience_reputation_knowledge": true,
+    "direct_personal_knowledge_precedes_audience_rumor": true,
+    "relationship_is_separate": "A person may dislike a respected subject or love someone they consider incompetent. Relationship state never substitutes for reputation evidence.",
+    "institutional_fact_rule": "Known rank, office, title, uniform, banner, seal, affiliation, or public appointment may affect treatment as an observed fact without inventing a reputation score."
+  },
+  "evidence_update": {
+    "signal_score_range": [
+      0,
+      100
+    ],
+    "base_weight_range": [
+      0,
+      100
+    ],
+    "factor_range": [
+      0,
+      100
+    ],
+    "factors": [
+      "source_reliability",
+      "clarity",
+      "channel_integrity",
+      "audience_relevance",
+      "corroboration"
+    ],
+    "effective_weight_formula": "round(base_weight * source_reliability/100 * clarity/100 * channel_integrity/100 * audience_relevance/100 * corroboration/100)",
+    "prior_mass_cap": 400,
+    "update_formula": "prior=min(old_mass,max(0,prior_mass_cap-effective_weight)); new_score=round((old_score*prior + signal_score*effective_weight)/(prior+effective_weight)); new_mass=min(prior_mass_cap,prior+effective_weight)",
+    "new_axis_rule": "If an axis has no prior evidence and effective_weight>0, set score=signal_score and mass=effective_weight.",
+    "confidence_formula": "round(min(100, 20 + 80*evidence_mass/prior_mass_cap))",
+    "zero_weight_rule": "Zero effective weight creates no profile change."
+  },
+  "corroboration": {
+    "same_lineage_repeat": 60,
+    "single_source": 80,
+    "independent_second_source": 100,
+    "multiple_independent_sources": 115,
+    "hard_physical_or_official_record": 120,
+    "cap": 120,
+    "rule": "Corroboration above 100 increases evidence weight but never bypasses audience access or knowledge routes."
+  },
+  "propagation": {
+    "uses_existing_information_routes": true,
+    "no_free_global_broadcast": true,
+    "route_inputs": [
+      "direct witness",
+      "official report/proclamation",
+      "courier/message",
+      "scout/intelligence report",
+      "merchant/traveler network",
+      "institutional briefing",
+      "public gathering",
+      "rumor chain"
+    ],
+    "delivery_key": "event_id|audience_id|report_lineage_id",
+    "duplicate_delivery_rule": "The same delivery key may update a subject+audience profile at most once.",
+    "chronology_rule": "Reports affect an audience only after the route physically/institutionally reaches that audience. Use existing message/travel/faction/institution clocks rather than a duplicate reputation-only global clock.",
+    "distortion_rule": "A report may carry a transformed signal only when the source has saved bias, incentives, error, censorship, propaganda, or incomplete observation. Preserve the original event separately.",
+    "tie_break": "stable route/report ID"
+  },
+  "decay": {
+    "settlement": "lazy exact-time settlement is allowed when no intervening report/update exists; active report travel uses existing process coverage",
+    "classes": {
+      "ephemeral": {
+        "standing_points_per_year": 8,
+        "dimension_evidence_mass_percent_per_year": 25
+      },
+      "normal": {
+        "standing_points_per_year": 4,
+        "dimension_evidence_mass_percent_per_year": 12
+      },
+      "durable": {
+        "standing_points_per_year": 1,
+        "dimension_evidence_mass_percent_per_year": 4
+      },
+      "historical": {
+        "standing_points_per_year": 0,
+        "dimension_evidence_mass_percent_per_year": 1
+      }
+    },
+    "toward": "standing recognition trends toward 0 when forgotten; descriptive dimension scores retain their last direction while confidence/evidence mass decays",
+    "title_office_rule": "Current office/title effects come from current institutional facts, not immortalized reputation memory."
+  },
+  "effects": {
+    "never_directly_modify": [
+      "body stats",
+      "weapon stats",
+      "stamina",
+      "raw troop combat capability",
+      "treasury",
+      "legal authority",
+      "knowledge"
+    ],
+    "may_condition": [
+      "recognition",
+      "initial expectations",
+      "meeting/access willingness",
+      "recruitment interest",
+      "contract pricing/terms",
+      "morale expectations",
+      "enemy caution",
+      "political attention",
+      "patronage",
+      "propaganda targeting",
+      "witness behavior",
+      "security posture"
+    ],
+    "context_rule": "Any mechanical consequence must cite the relevant audience profile plus the domain rule that makes that reputation relevant. Reputation is not a universal percentage bonus."
+  },
+  "subject_types": [
+    "person",
+    "unit",
+    "team",
+    "force",
+    "institution",
+    "faction",
+    "settlement",
+    "other"
+  ],
+  "history_rule": "Current audience profiles are authoritative current state. Reputation events are cold causal history. Do not load event history unless explaining provenance, propagating an undelivered report, or auditing a change.",
+  "worked_example": {
+    "old_score": 60,
+    "old_mass": 100,
+    "signal_score": 80,
+    "base_weight": 50,
+    "source_reliability": 80,
+    "clarity": 90,
+    "channel_integrity": 75,
+    "audience_relevance": 100,
+    "corroboration": 100,
+    "effective_weight": 27,
+    "new_score": 64,
+    "new_mass": 127,
+    "confidence": 45
+  }
+}

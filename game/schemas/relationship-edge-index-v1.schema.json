@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "derived_index",
+    "edge_count",
+    "edge_index",
+    "person_shards"
+  ],
+  "properties": {
+    "schema": {
+      "const": "relationship-edge-index.v1"
+    },
+    "derived_index": {
+      "const": true
+    },
+    "edge_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source_shard_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rule": {
+      "type": "string"
+    },
+    "edge_index": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "person_shards": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

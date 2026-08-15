@@ -1,0 +1,544 @@
+{
+  "version": 1,
+  "profiles": {
+    "faction_qin_ryofui_network": {
+      "goals": [
+        "expand patronage through Qin offices",
+        "protect commercial clients"
+      ],
+      "resource_seed": {
+        "influence": 78,
+        "agents": 45,
+        "patronage": 82,
+        "information_access": 70,
+        "funds_silver": 2400000
+      },
+      "action": "patronage_lobbying",
+      "state": "qin",
+      "cost": {
+        "influence": 8,
+        "funds_silver": 25000
+      },
+      "relationship_seed": {
+        "state_qin": {
+          "kind": "court_commercial_embeddedness",
+          "strength": 78
+        }
+      },
+      "representative_refs": [
+        "char_ryo_fui"
+      ],
+      "review_seconds": 1814400,
+      "urgent_review_seconds": 86400,
+      "pressure_per_review": 12,
+      "partners": [
+        "faction_central_merchant_houses"
+      ],
+      "rivals": [
+        "faction_qin_court_reform"
+      ]
+    },
+    "faction_qin_court_reform": {
+      "goals": [
+        "increase administrative capacity",
+        "reduce hereditary obstruction"
+      ],
+      "resource_seed": {
+        "influence": 62,
+        "agents": 25,
+        "administrative_access": 75
+      },
+      "action": "administrative_reform",
+      "state": "qin",
+      "cost": {
+        "influence": 6
+      },
+      "relationship_seed": {
+        "state_qin": {
+          "kind": "administrative_reform_constituency",
+          "strength": 70
+        }
+      },
+      "representative_refs": [
+        "char_shou_hei_kun",
+        "char_ri_shi"
+      ],
+      "review_seconds": 1814400,
+      "urgent_review_seconds": 86400,
+      "pressure_per_review": 12,
+      "partners": [],
+      "rivals": [
+        "faction_qin_ryofui_network"
+      ]
+    },
+    "faction_zhao_riboku_network": {
+      "goals": [
+        "strengthen frontier readiness",
+        "protect trusted military appointments"
+      ],
+      "resource_seed": {
+        "influence": 70,
+        "agents": 36,
+        "military_access": 88,
+        "information_access": 82
+      },
+      "action": "frontier_readiness",
+      "state": "zhao",
+      "cost": {
+        "influence": 5
+      },
+      "relationship_seed": {
+        "state_zhao": {
+          "kind": "military_command_network",
+          "strength": 82
+        }
+      },
+      "representative_refs": [
+        "char_riboku"
+      ],
+      "review_seconds": 1209600,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 14,
+      "knowledge_required": true,
+      "partners": [],
+      "rivals": [
+        "faction_zhao_court_conservatives"
+      ]
+    },
+    "faction_zhao_court_conservatives": {
+      "goals": [
+        "preserve court prerogatives",
+        "limit disruptive military centralization"
+      ],
+      "resource_seed": {
+        "influence": 68,
+        "agents": 28,
+        "court_access": 85
+      },
+      "action": "court_resistance",
+      "state": "zhao",
+      "cost": {
+        "influence": 6
+      },
+      "relationship_seed": {
+        "state_zhao": {
+          "kind": "court_establishment",
+          "strength": 80
+        }
+      },
+      "representative_refs": [
+        "char_tou_jou",
+        "char_kaku_kai"
+      ],
+      "review_seconds": 1814400,
+      "urgent_review_seconds": 86400,
+      "pressure_per_review": 12,
+      "partners": [],
+      "rivals": [
+        "faction_zhao_riboku_network"
+      ]
+    },
+    "faction_chu_karin_network": {
+      "goals": [
+        "expand Karin aligned command influence",
+        "preserve Chu military leverage"
+      ],
+      "resource_seed": {
+        "influence": 66,
+        "agents": 31,
+        "military_access": 80
+      },
+      "action": "frontier_readiness",
+      "state": "chu",
+      "cost": {
+        "influence": 5
+      },
+      "relationship_seed": {
+        "state_chu": {
+          "kind": "military_command_network",
+          "strength": 78
+        }
+      },
+      "representative_refs": [
+        "char_karin"
+      ],
+      "review_seconds": 1209600,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 14,
+      "knowledge_required": true
+    },
+    "faction_yan_frontier_command": {
+      "goals": [
+        "protect Yan frontier approaches",
+        "secure supply for border forces"
+      ],
+      "resource_seed": {
+        "influence": 55,
+        "agents": 22,
+        "military_access": 82
+      },
+      "action": "frontier_readiness",
+      "state": "yan",
+      "cost": {
+        "influence": 4
+      },
+      "relationship_seed": {
+        "state_yan": {
+          "kind": "frontier_command_network",
+          "strength": 82
+        }
+      },
+      "representative_refs": [
+        "char_ordo"
+      ],
+      "review_seconds": 1209600,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 14,
+      "knowledge_required": true
+    },
+    "faction_wei_engineering_command": {
+      "goals": [
+        "expand engineering capacity",
+        "improve fortified routes"
+      ],
+      "resource_seed": {
+        "influence": 58,
+        "agents": 20,
+        "engineering_access": 90
+      },
+      "action": "engineering_priority",
+      "state": "wei",
+      "cost": {
+        "influence": 4
+      },
+      "relationship_seed": {
+        "state_wei": {
+          "kind": "engineering_administration",
+          "strength": 88
+        }
+      },
+      "representative_refs": [
+        "char_go_hou_mei"
+      ],
+      "review_seconds": 1814400,
+      "urgent_review_seconds": 86400,
+      "pressure_per_review": 12
+    },
+    "faction_central_merchant_houses": {
+      "goals": [
+        "keep intercity trade moving",
+        "protect merchant capital and contracts"
+      ],
+      "resource_seed": {
+        "influence": 72,
+        "agents": 60,
+        "trade_capacity": 88
+      },
+      "action": "merchant_liquidity",
+      "cost": {
+        "influence": 2
+      },
+      "relationship_seed": {
+        "private_economy_qin": {
+          "kind": "merchant_capital_network",
+          "strength": 70
+        },
+        "private_economy_zhao": {
+          "kind": "merchant_capital_network",
+          "strength": 70
+        },
+        "private_economy_chu": {
+          "kind": "merchant_capital_network",
+          "strength": 70
+        },
+        "private_economy_wei": {
+          "kind": "merchant_capital_network",
+          "strength": 70
+        },
+        "private_economy_han": {
+          "kind": "merchant_capital_network",
+          "strength": 70
+        },
+        "private_economy_yan": {
+          "kind": "merchant_capital_network",
+          "strength": 70
+        },
+        "private_economy_qi": {
+          "kind": "merchant_capital_network",
+          "strength": 70
+        },
+        "merchant_house_registry": {
+          "kind": "member_capital_network",
+          "strength": 100
+        }
+      },
+      "states": [
+        "qin",
+        "zhao",
+        "chu",
+        "wei",
+        "han",
+        "yan",
+        "qi"
+      ],
+      "loan_size_silver": 10000,
+      "representative_refs": [],
+      "review_seconds": 1209600,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 14
+    },
+    "faction_mercenary_brokers": {
+      "goals": [
+        "match available companies to solvent employers",
+        "protect brokerage credibility"
+      ],
+      "resource_seed": {
+        "influence": 50,
+        "agents": 34,
+        "brokerage_capacity": 90
+      },
+      "action": "broker_contracts",
+      "cost": {
+        "influence": 2
+      },
+      "relationship_seed": {
+        "sector_mercenary_companies": {
+          "kind": "brokerage_network",
+          "strength": 90
+        }
+      },
+      "representative_refs": [],
+      "review_seconds": 604800,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 16
+    },
+    "faction_river_transport_leagues": {
+      "goals": [
+        "preserve navigable trade routes",
+        "increase freight throughput"
+      ],
+      "resource_seed": {
+        "influence": 52,
+        "agents": 48,
+        "transport_capacity": 85
+      },
+      "action": "transport_capacity",
+      "cost": {
+        "influence": 2
+      },
+      "relationship_seed": {
+        "sector_river_transport": {
+          "kind": "transport_network",
+          "strength": 85
+        }
+      },
+      "states": [
+        "qin",
+        "zhao",
+        "chu",
+        "wei",
+        "han",
+        "yan",
+        "qi"
+      ],
+      "representative_refs": [],
+      "review_seconds": 604800,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 16
+    },
+    "faction_martial_school_networks": {
+      "goals": [
+        "maintain training standards",
+        "place qualified instructors"
+      ],
+      "resource_seed": {
+        "influence": 48,
+        "agents": 40,
+        "instruction_capacity": 80
+      },
+      "action": "training_network",
+      "cost": {
+        "influence": 2
+      },
+      "relationship_seed": {
+        "sector_martial_schools": {
+          "kind": "instruction_network",
+          "strength": 80
+        }
+      },
+      "representative_refs": [],
+      "review_seconds": 2592000,
+      "urgent_review_seconds": 259200,
+      "pressure_per_review": 10
+    },
+    "faction_yotanwa_confederation": {
+      "goals": [
+        "preserve confederation autonomy",
+        "protect mountain routes and allies"
+      ],
+      "resource_seed": {
+        "influence": 65,
+        "agents": 30,
+        "warband_capacity": 78,
+        "information_access": 60
+      },
+      "action": "confederation_muster",
+      "cost": {
+        "influence": 4
+      },
+      "relationship_seed": {
+        "state_qin": {
+          "kind": "independent_neighbor_contact",
+          "strength": 45
+        }
+      },
+      "representative_refs": [
+        "char_yotanwa"
+      ],
+      "review_seconds": 1209600,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 14
+    },
+    "faction_quanrong_polity": {
+      "goals": [
+        "preserve Quanrong autonomy",
+        "defend pasture and frontier access"
+      ],
+      "resource_seed": {
+        "influence": 60,
+        "agents": 26,
+        "warband_capacity": 74
+      },
+      "action": "confederation_muster",
+      "cost": {
+        "influence": 4
+      },
+      "relationship_seed": {
+        "state_qin": {
+          "kind": "frontier_neighbor_contact",
+          "strength": 30
+        }
+      },
+      "representative_refs": [],
+      "review_seconds": 1209600,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 14,
+      "knowledge_required": true,
+      "organizational_information_channels": [
+        {
+          "kind": "frontier_scout_network",
+          "scope": "direct observation of own patrol/contact frontier only"
+        },
+        {
+          "kind": "messenger_and_trader_reports",
+          "scope": "reports received through the polity own saved contact network only"
+        }
+      ],
+      "knowledge_rule": "knowledge_required remains true; exact-person claims or bounded organization-owned direct-observation receipts may satisfy it, but neither grants hidden enemy facts"
+    },
+    "faction_tang_household": {
+      "goals": [
+        "protect House Tang household",
+        "support lawful household commitments"
+      ],
+      "resource_seed": {
+        "influence": 45,
+        "agents": 18,
+        "household_access": 95
+      },
+      "action": "household_coordination",
+      "cost": {
+        "influence": 1
+      },
+      "relationship_seed": {
+        "house_tang": {
+          "kind": "household_core",
+          "strength": 100
+        }
+      },
+      "representative_refs": [
+        "char_tang_zhu",
+        "char_tang_ling"
+      ],
+      "review_seconds": 1209600,
+      "urgent_review_seconds": 86400,
+      "pressure_per_review": 12
+    },
+    "faction_tang_merchant_partners": {
+      "goals": [
+        "fulfill Tang supply contracts",
+        "maintain reliable commercial routes"
+      ],
+      "resource_seed": {
+        "influence": 46,
+        "agents": 22,
+        "trade_capacity": 72,
+        "funds_silver": 600000
+      },
+      "action": "merchant_liquidity",
+      "state": "qin",
+      "cost": {
+        "funds_silver": 5000
+      },
+      "relationship_seed": {
+        "house_tang": {
+          "kind": "commercial_partner",
+          "strength": 85
+        },
+        "private_economy_qin": {
+          "kind": "supply_market",
+          "strength": 70
+        }
+      },
+      "representative_refs": [],
+      "review_seconds": 1209600,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 14,
+      "partners": [
+        "faction_central_merchant_houses"
+      ]
+    },
+    "faction_northern_steppe_confederation": {
+      "goals": [
+        "preserve steppe confederation autonomy",
+        "secure northern pasture, trade, and frontier leverage"
+      ],
+      "resource_seed": {
+        "influence": 57,
+        "agents": 24,
+        "warband_capacity": 82,
+        "information_access": 58,
+        "transport_capacity": 90
+      },
+      "action": "confederation_muster",
+      "cost": {
+        "influence": 4
+      },
+      "relationship_seed": {
+        "state_zhao": {
+          "kind": "contested_frontier_contact",
+          "strength": 38
+        }
+      },
+      "representative_refs": [],
+      "review_seconds": 1209600,
+      "urgent_review_seconds": 43200,
+      "pressure_per_review": 14,
+      "knowledge_required": true,
+      "rivals": [
+        "faction_zhao_riboku_network"
+      ],
+      "organizational_information_channels": [
+        {
+          "kind": "frontier_scout_network",
+          "scope": "direct observation of own patrol/contact frontier only"
+        },
+        {
+          "kind": "messenger_and_trader_reports",
+          "scope": "reports received through the polity own saved contact network only"
+        }
+      ],
+      "knowledge_rule": "knowledge_required remains true; exact-person claims or bounded organization-owned direct-observation receipts may satisfy it, but neither grants hidden enemy facts"
+    }
+  }
+}

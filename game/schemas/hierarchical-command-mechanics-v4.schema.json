@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "principle",
+    "rating",
+    "comfortable_direct_personnel_anchors",
+    "comfortable_direct_command_slots_anchors",
+    "direct_load",
+    "effective_capacity",
+    "load_evaluation",
+    "hierarchy",
+    "bands"
+  ],
+  "properties": {
+    "schema": {
+      "const": "hierarchical_command_mechanics.v4"
+    }
+  },
+  "additionalProperties": true
+}

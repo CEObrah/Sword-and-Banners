@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "policies"
+  ],
+  "properties": {
+    "schema": {
+      "const": "reconstitution-policies.v1"
+    },
+    "policies": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

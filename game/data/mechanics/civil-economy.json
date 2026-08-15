@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "principles": {
+    "physical_stocks_are_conserved_after_production": true,
+    "taxes_and_purchases_require_payer_cash": true,
+    "institution_projects_require_reserved_inputs": true,
+    "occupation_separates_military_control_claim_administration_and_loyalty": true
+  },
+  "monthly_output_per_worker": {
+    "agricultural_grain_kg": 18.0,
+    "agricultural_fodder_kg": 4.0,
+    "craft_construction_material_units": 0.02,
+    "agricultural_horse_stock": 5e-05
+  },
+  "monthly_finished_goods_per_craft_worker": {
+    "arrows_20": 0.0005,
+    "common_sword": 5e-05,
+    "helmet": 3e-05,
+    "lamellar_cuirass": 2e-05,
+    "military_bow": 4e-05,
+    "military_spear": 0.0001,
+    "military_sword": 2e-05,
+    "padded_coat": 7e-05,
+    "shield": 4e-05
+  },
+  "market_normal_stock": {
+    "arrows_20": 400,
+    "common_sword": 60,
+    "helmet": 60,
+    "lamellar_cuirass": 35,
+    "military_bow": 50,
+    "military_spear": 120,
+    "military_sword": 25,
+    "padded_coat": 80,
+    "shield": 60
+  },
+  "market": {
+    "default_demand_factor": 1.0,
+    "default_insecurity_factor": 1.0,
+    "retail_sellback_factor": 0.7
+  },
+  "institution_projects": {
+    "silver_per_magnitude": 200,
+    "construction_material_units_per_magnitude": 20,
+    "labor_hours_per_magnitude": 12,
+    "minimum_project_hours": 24
+  },
+  "granary": {
+    "procurement_kg_per_capacity_per_review": 500
+  },
+  "house": {
+    "quarterly_estate_income_silver": 1000,
+    "recruitment_basic_issue_cost_silver_per_person": 12
+  },
+  "occupation": {
+    "initial_administration": 20,
+    "initial_elite_cooperation": 25,
+    "initial_civilian_loyalty": 20,
+    "initial_resistance": 70,
+    "initial_tax_compliance": 20,
+    "initial_recruitment_access": 10,
+    "regional_administration_gain_per_review": 4,
+    "resistance_reduction_per_review": 3,
+    "initial_displacement_pressure": 18,
+    "initial_disease_risk": 12,
+    "initial_food_security": 50,
+    "foreign_tax_realization_factor": 0.85,
+    "garrison_personnel_per_thousand_residents": 2.0,
+    "administration_silver_per_thousand_residents_per_review": 20.0,
+    "adjacent_enemy_support_pressure": 3,
+    "open_revolt_resistance_threshold": 88,
+    "open_revolt_max_garrison_factor": 0.65,
+    "revolt_contained_resistance_threshold": 55,
+    "minimum_recruitment_access": 20,
+    "occupation_recruitment_fraction_per_review": 0.001,
+    "polity_recruitment_personnel_per_admin_capacity_per_month": 10
+  },
+  "capital_markets": {
+    "qin": {
+      "market_ref": "market_kanyou",
+      "path": "state/markets/kanyou.json",
+      "location_ref": "loc_kanyou"
+    },
+    "zhao": {
+      "market_ref": "market_kantan",
+      "path": "state/markets/kantan.json",
+      "location_ref": "loc_kantan"
+    },
+    "chu": {
+      "market_ref": "market_shintei",
+      "path": "state/markets/shintei.json",
+      "location_ref": "loc_shintei"
+    },
+    "wei": {
+      "market_ref": "market_dairyou",
+      "path": "state/markets/dairyou.json",
+      "location_ref": "loc_dairyou"
+    },
+    "han": {
+      "market_ref": "market_han_capital",
+      "path": "state/markets/han-capital.json",
+      "location_ref": "loc_han_capital"
+    },
+    "yan": {
+      "market_ref": "market_ji",
+      "path": "state/markets/ji.json",
+      "location_ref": "loc_ji"
+    },
+    "qi": {
+      "market_ref": "market_ei",
+      "path": "state/markets/ei.json",
+      "location_ref": "loc_ei"
+    }
+  },
+  "labor": {
+    "construction_labor_fraction_of_craft_workers": 0.12,
+    "agricultural_labor_availability_floor": 0.55,
+    "civilian_grain_consumption_kg_per_person_per_month": 8.0,
+    "mobilized_labor_penalty_per_active_military_share": 0.65
+  },
+  "transport": {
+    "minimum_restock_route_factor": 0.2,
+    "foreign_control_route_penalty": 0.25,
+    "active_siege_market_insecurity_increment": 0.35,
+    "active_siege_demand_increment": 0.2,
+    "route_disruption_insecurity_increment": 0.08,
+    "market_recovery_per_month": 0.03
+  },
+  "mobilization_policy": {
+    "demobilized": {
+      "readiness_target": 35,
+      "threat_threshold": 70,
+      "operation_capacity": 1,
+      "recruitment_factor": 0.4
+    },
+    "defensive": {
+      "readiness_target": 55,
+      "threat_threshold": 30,
+      "operation_capacity": 2,
+      "recruitment_factor": 0.8
+    },
+    "balanced": {
+      "readiness_target": 60,
+      "threat_threshold": 35,
+      "operation_capacity": 3,
+      "recruitment_factor": 1.0
+    },
+    "expeditionary": {
+      "readiness_target": 72,
+      "threat_threshold": 40,
+      "operation_capacity": 5,
+      "recruitment_factor": 1.2
+    },
+    "total_war": {
+      "readiness_target": 82,
+      "threat_threshold": 20,
+      "operation_capacity": 8,
+      "recruitment_factor": 1.6
+    }
+  },
+  "polity_ministries": {
+    "military_bureau_training_silver_per_formation": 50,
+    "military_bureau_readiness_gain": 3,
+    "military_bureau_training_gain": 2,
+    "fortification_project_silver": 500,
+    "fortification_project_material_units": 50,
+    "fortification_project_workers": 20,
+    "fortification_project_days": 90,
+    "horse_purchase_price_silver": 500,
+    "horse_purchase_per_capacity": 2
+  }
+}

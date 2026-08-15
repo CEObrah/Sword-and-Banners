@@ -1,0 +1,44 @@
+{
+  "authority": false,
+  "purpose": "Bounded routing for player-triggered institutional follow-ups. Routing is not occurrence truth; only triggered records in the exact event registry become campaign facts.",
+  "processes": [
+    {
+      "route_ref": "process_ouki_preliminary_review_evaluation_ready_001",
+      "source_event_ref": "event_ouki_preliminary_review_response_001",
+      "candidate_ref": "char_tang_wei",
+      "process_kind": "command_qualification_review",
+      "trigger_actions": [
+        "withdraw"
+      ],
+      "delay_hours": 48,
+      "priority": 55,
+      "response": {
+        "event_ref": "event_ouki_preliminary_review_evaluation_ready_001",
+        "kind": "institutional_response",
+        "stage": "evaluation_ready",
+        "wake": true,
+        "summary": "Ouki's staff-review channel completes internal collation of Tang Wei's preliminary command-qualification review and sends word that its staff disposition is ready through the same registered channel. This is a procedural completion notice only; it grants no Qin rank, appointment, certified vacancy, private-unit acceptance, or deployment authority."
+      }
+    },
+    {
+      "route_ref": "process_ouki_preliminary_review_disposition_001",
+      "source_event_ref": "event_ouki_preliminary_review_evaluation_ready_001",
+      "candidate_ref": "char_tang_wei",
+      "process_kind": "command_qualification_review",
+      "trigger_actions": [
+        "ask",
+        "proceed",
+        "request"
+      ],
+      "delay_hours": 0,
+      "priority": 55,
+      "response": {
+        "event_ref": "event_ouki_preliminary_review_disposition_001",
+        "kind": "institutional_response",
+        "stage": "preliminary_review_complete",
+        "wake": true,
+        "summary": "Ouki's staff records Tang Wei's preliminary command-qualification review as completed. The completed review remains evidence for future staff consideration, but this disposition creates no current field-command vacancy, Qin appointment, private-unit acceptance, or deployment authority."
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema": "sword-environment-climate-catalog",
+  "version": 1,
+  "weather_block_hours": 6,
+  "basis": "Game-tuned regional climate profiles. Current conditions derive deterministically from campaign world seed, campaign time, and location climate; this file is static rules data, not mutable campaign weather state.",
+  "location_prefix_states": {
+    "loc_tang_manor_": "qin",
+    "loc_kanyou": "qin",
+    "loc_qin_": "qin",
+    "loc_zhao_": "zhao",
+    "loc_chu_": "chu",
+    "loc_wei_": "wei",
+    "loc_han_": "han",
+    "loc_yan_": "yan",
+    "loc_qi_": "qi"
+  },
+  "profiles": {
+    "default": {"temperature_index_by_season":{"winter":-1,"spring":0,"summer":2,"autumn":0},"precipitation_chance_pct":{"winter":18,"spring":28,"summer":32,"autumn":23},"storm_chance_pct":{"winter":3,"spring":5,"summer":8,"autumn":4},"fog_chance_pct":{"winter":8,"spring":9,"summer":6,"autumn":9},"cloud_chance_pct":{"winter":44,"spring":48,"summer":44,"autumn":43},"wind_bias":0},
+    "qin": {"temperature_index_by_season":{"winter":-1,"spring":0,"summer":2,"autumn":0},"precipitation_chance_pct":{"winter":12,"spring":22,"summer":30,"autumn":18},"storm_chance_pct":{"winter":3,"spring":5,"summer":7,"autumn":4},"fog_chance_pct":{"winter":6,"spring":7,"summer":5,"autumn":7},"cloud_chance_pct":{"winter":36,"spring":42,"summer":40,"autumn":36},"wind_bias":4},
+    "zhao": {"temperature_index_by_season":{"winter":-2,"spring":-1,"summer":1,"autumn":-1},"precipitation_chance_pct":{"winter":18,"spring":24,"summer":28,"autumn":19},"storm_chance_pct":{"winter":5,"spring":6,"summer":6,"autumn":5},"fog_chance_pct":{"winter":7,"spring":8,"summer":5,"autumn":8},"cloud_chance_pct":{"winter":43,"spring":43,"summer":38,"autumn":42},"wind_bias":10},
+    "chu": {"temperature_index_by_season":{"winter":0,"spring":1,"summer":3,"autumn":1},"precipitation_chance_pct":{"winter":28,"spring":42,"summer":52,"autumn":34},"storm_chance_pct":{"winter":3,"spring":7,"summer":12,"autumn":7},"fog_chance_pct":{"winter":11,"spring":13,"summer":9,"autumn":12},"cloud_chance_pct":{"winter":52,"spring":58,"summer":56,"autumn":52},"wind_bias":-2},
+    "wei": {"temperature_index_by_season":{"winter":-1,"spring":0,"summer":2,"autumn":0},"precipitation_chance_pct":{"winter":17,"spring":28,"summer":36,"autumn":24},"storm_chance_pct":{"winter":3,"spring":5,"summer":8,"autumn":4},"fog_chance_pct":{"winter":8,"spring":10,"summer":6,"autumn":10},"cloud_chance_pct":{"winter":42,"spring":47,"summer":44,"autumn":43},"wind_bias":1},
+    "han": {"temperature_index_by_season":{"winter":-1,"spring":0,"summer":2,"autumn":0},"precipitation_chance_pct":{"winter":20,"spring":31,"summer":40,"autumn":26},"storm_chance_pct":{"winter":3,"spring":6,"summer":9,"autumn":5},"fog_chance_pct":{"winter":9,"spring":11,"summer":7,"autumn":10},"cloud_chance_pct":{"winter":45,"spring":49,"summer":47,"autumn":45},"wind_bias":0},
+    "yan": {"temperature_index_by_season":{"winter":-2,"spring":-1,"summer":1,"autumn":-1},"precipitation_chance_pct":{"winter":22,"spring":29,"summer":34,"autumn":23},"storm_chance_pct":{"winter":6,"spring":6,"summer":7,"autumn":6},"fog_chance_pct":{"winter":10,"spring":11,"summer":8,"autumn":12},"cloud_chance_pct":{"winter":48,"spring":48,"summer":43,"autumn":48},"wind_bias":9},
+    "qi": {"temperature_index_by_season":{"winter":-1,"spring":0,"summer":2,"autumn":0},"precipitation_chance_pct":{"winter":24,"spring":34,"summer":43,"autumn":30},"storm_chance_pct":{"winter":5,"spring":7,"summer":11,"autumn":7},"fog_chance_pct":{"winter":13,"spring":13,"summer":10,"autumn":14},"cloud_chance_pct":{"winter":50,"spring":52,"summer":50,"autumn":50},"wind_bias":6}
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "domains"
+  ],
+  "properties": {
+    "schema": {
+      "const": "runtime-rule-router.v2"
+    },
+    "domains": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

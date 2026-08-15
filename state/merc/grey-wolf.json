@@ -1,0 +1,119 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "Zhao-Yan frontier",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 167,
+      "sd": 6.6
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 69,
+      "sd": 7.6
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "doctrine": "doc.merc_grey_wolf.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 0,
+    "assigned_war_arrows": 50400,
+    "assigned_war_bolts": 0,
+    "issued_loadouts": [
+      {
+        "count": 2100,
+        "loadout_id": "loadout_mercenary_spear"
+      },
+      {
+        "count": 300,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 0,
+    "reserve_war_arrows": 50400,
+    "reserve_war_bolts": 0
+  },
+  "food_stock_kg": 230400,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 2400,
+  "home_establishment_ref": "establishment.merc_grey_wolf",
+  "name": "Grey Wolf Free Spears",
+  "owner_id": "merc_grey_wolf",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "Independent",
+  "subprocess_id": "process_merc_grey_wolf",
+  "training": "train.merc_grey_wolf.standard",
+  "treasury_silver": 192000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-grey-wolf-pool-spears.json",
+      "condition": {
+        "fit": 2100
+      },
+      "count": 2100,
+      "display": "Spear Infantry",
+      "doctrine": "doc.merc_grey_wolf.spears",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_spear",
+      "mount_type": null,
+      "pool_id": "merc_grey_wolf:pool_spears",
+      "pool_kind": "unit_manpower",
+      "role": "spears",
+      "specialty": "spears",
+      "training": "train.merc_grey_wolf.spears",
+      "troop_type": "spear_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-grey-wolf-pool-support.json",
+      "condition": {
+        "fit": 300
+      },
+      "count": 300,
+      "display": "Support",
+      "doctrine": "doc.merc_grey_wolf.support",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_support",
+      "mount_type": null,
+      "pool_id": "merc_grey_wolf:pool_support",
+      "pool_kind": "unit_manpower",
+      "role": "support",
+      "specialty": "support",
+      "training": "train.merc_grey_wolf.support",
+      "troop_type": "line_infantry"
+    }
+  ]
+}

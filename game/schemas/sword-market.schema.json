@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "location_ref": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-market"
+    },
+    "stock": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "location_ref",
+    "stock"
+  ],
+  "type": "object"
+}
