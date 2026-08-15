@@ -12,6 +12,17 @@
       "bad_commit": "ea868b6b07af2f1d3ae9a806302b41a52c315183",
       "repair_commit": "d4cc2e3a04b7f661e8c9db934f4de6053aa75bd5",
       "reason": "The r36 downtime command was intended to stop at the next player-facing event but advanced through 245-BCE-12-14 and settled later world consequences. Campaign state was restored exactly to the pre-command r35 tree; the corrected runtime now provides event-bounded downtime."
+    },
+    {
+      "campaign_id": "sword-banner-tang-wei-main",
+      "transaction_id": "sword-80d7f17ec43d0b35e4a73a08",
+      "request_id": "wei-seek-qin-northern-wei-command-r44-20260815",
+      "request_digest": "454328285113c60804fc5c590993caffe497d57d30df9e35889c83a00ddf9047",
+      "invalidated_revision": 45,
+      "restored_revision": 44,
+      "bad_commit": "3345b6afd930c7013f419c01017c151edb71cc8f",
+      "repair_commit": "9bd10e9e1a057c4c3f56b75fcfffc759052402dc",
+      "reason": "The r45 zero-time seek_contact attempt was over-authored as substantive communication to loc_kanyou without an established receiving person, office, or causal follow-up. No campaign time or world consequence was created. Revision is restored to r44; the historical event remains audit evidence but is filtered from live interaction surfaces and causal contact routing. Future contact proceeds through the contact-before-petition lifecycle added by source fixes 8a3dc42e540aec5e24450976f9541b3b9b3da5b8 and 2b319549261a6f4a115d9985cd712443b87ff885."
     }
   ]
 }
