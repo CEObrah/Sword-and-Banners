@@ -78,6 +78,8 @@ Use this reference for `OOC DEV:` source routing. `runtime/contracts/repository-
 
 `runtime/sword_runtime/api/stable_operations.py` — bounded player-safe context, exact continuation reads, safe interaction surface, wake-aware availability.
 
+`runtime/sword_runtime/api/household_operations.py` — bounded direct-family scene projection. It follows existing family routing but marks a relative present only when that person's exact current location matches Wei; it also exposes present relatives as lawful direct interaction targets without turning household residence into presence.
+
 `runtime/sword_runtime/api/interaction_surface.py` — player-owned `interaction_action` admission/translation and safe interaction/report handles.
 
 `runtime/sword_runtime/api/mcp.py` / `runtime/sword_runtime/api/mcp_extensions.py` — OAuth MCP surface, preview attestation, bounded continuation tools.

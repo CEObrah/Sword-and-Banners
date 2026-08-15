@@ -12,6 +12,7 @@ API_TESTS = {
     "tests/runtime/test_architecture_service.py",
     "tests/runtime/test_stable_operations.py",
     "tests/runtime/test_interaction_surface.py",
+    "tests/runtime/test_household_social_surface.py",
 }
 COMMAND_TESTS = {
     "tests/runtime/test_hostile_command_matrix.py",
