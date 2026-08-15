@@ -81,6 +81,7 @@ def test_pending_wake_context_and_preview_share_one_response_contract(campaign: 
     response_types = sorted(set(_WAKE_RESPONSE_COMMANDS) | {'interaction_action'})
     assert context["decision_required"] is True
     assert context["decision_reason"] == "high_salience_autonomous_contact"
+    assert context["pending_wake"]["requires_player_decision"] is True
     assert context["pending_wake"]["response_command_types"] == response_types
     assert context["pending_wake"]["continue_contact_command"] == "advance_time"
     assert context["commands"]["availability_scope"] == "pending_wake_response"
@@ -143,8 +144,11 @@ def test_campaign_event_wake_allows_normal_player_response(campaign: Path) -> No
     operations = StableCampaignOperations(runtime)
     context = operations.play_context()
     supported = context["commands"]["supported_command_types"]
-    assert context["decision_required"] is True
-    assert context["decision_reason"] == "campaign_event_boundary"
+    assert context["decision_required"] is False
+    assert context["attention_required"] is True
+    assert context["attention_reason"] == "campaign_event_notice"
+    assert "decision_reason" not in context
+    assert context["pending_wake"]["requires_player_decision"] is False
     assert context["pending_wake"]["campaign_event_ref"] == "event_test_staff_response"
     assert context["pending_wake"]["response_command_types"] == supported
     assert context["pending_wake"]["continue_command"] == "advance_time"
@@ -232,7 +236,10 @@ def test_campaign_event_settlement_commits_through_production_transaction(campai
 
     operations = StableCampaignOperations(runtime)
     context = operations.play_context()
-    assert context["decision_reason"] == "campaign_event_boundary"
+    assert context["decision_required"] is False
+    assert context["attention_required"] is True
+    assert context["attention_reason"] == "campaign_event_notice"
+    assert context["pending_wake"]["requires_player_decision"] is False
     assert context["pending_wake"]["campaign_event_ref"] == "event_test_transactional_staff_response"
     owners = runtime.store.read_json("state/index/owner-index.json")["owners"]
     event_owner = runtime.store.read_json(owners["events_messages_and_movement"])
