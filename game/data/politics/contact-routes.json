@@ -8,7 +8,28 @@
       "receiving_role": "Qin Military Bureau duty officer",
       "delay_seconds": 3600,
       "delivery_route": "Qin Military Bureau receiving office in Kanyou",
-      "audience_summary": "The Qin Military Bureau receiving office makes a duty officer available to hear Tang Wei regarding the northern Wei operation. This establishes a hearing only: Tang Wei has not yet made a substantive request, and Qin has made no appointment, command, deployment decision, or commitment."
+      "audience_summary": "The Qin Military Bureau receiving office makes a duty officer available to hear Tang Wei regarding the northern Wei operation. This establishes a hearing only: Tang Wei has not yet made a substantive request, and Qin has made no appointment, command, deployment decision, or commitment.",
+      "audience_dispositions": [
+        {
+          "disposition_ref": "qin_northern_wei_service_recommendation",
+          "actions": ["ask", "request", "petition"],
+          "statement_all_terms": ["northern operation"],
+          "statement_any_phrases": ["put my name forward", "recommend me", "recommendation"],
+          "delay_seconds": 300,
+          "minimum_prior_present_attempts": 6,
+          "scoring": {
+            "attributes": ["Intelligence", "Awareness", "Composure"],
+            "skills": ["Strategy", "Tactics", "Leadership", "Logistics", "Formation Command", "Governance", "Intelligence Operations"],
+            "attribute_weight": 2,
+            "skill_weight": 3,
+            "recommend_threshold": 650,
+            "refer_threshold": 500
+          },
+          "recommended_summary": "The Qin Military Bureau duty officer is willing to put Tang Wei's name forward for consideration for service connected to the northern Wei operation. This is a recommendation only: it creates no Qin rank, office, command, troop custody, deployment authority, or guarantee of appointment.",
+          "referred_summary": "The Qin Military Bureau duty officer will refer Tang Wei's request and examination record for further review concerning service connected to the northern Wei operation. This is a referral only: it creates no Qin rank, office, command, troop custody, deployment authority, recommendation, or guarantee of appointment.",
+          "declined_summary": "The Qin Military Bureau duty officer declines to recommend Tang Wei for service connected to the northern Wei operation on the basis of this hearing. No Qin rank, office, command, troop custody, deployment authority, or appointment is created."
+        }
+      ]
     }
   ]
 }
