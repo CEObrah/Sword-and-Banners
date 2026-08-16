@@ -1,0 +1,20 @@
+{
+  "schema": "house-tang-development.v1",
+  "authority": "Registered House Tang development packages. Mutable project state remains in House Tang, Sword Manor, treasury, population, runtime and candidate-pool owners.",
+  "sword_manor_expansion": {
+    "project_ref": "project_house_tang_sword_manor_expansion_i",
+    "start_cost_silver": 1800000,
+    "construction_seconds": 5184000,
+    "initial_trainee_authorization_add": 1000,
+    "completion_trainee_authorization_add": 1000,
+    "completion_housing_add": 2000,
+    "completion_monthly_intake_add": 250,
+    "rule": "Start cost must fit the current House treasury-safe discretionary ceiling. Existing spare housing may be used immediately after the House raises trainee authorization; construction capacity is not usable before completion. Standards are unchanged."
+  },
+  "great_bow_guard_recruitment": {
+    "initial_applicant_wave": 1200,
+    "candidate_owner": "recruitment_candidate_pools",
+    "selection_profile_ref": "wei_archery_trial",
+    "rule": "Opening a candidate pool reserves real Qin population candidates and records contact cost; it creates no fighter, equipment issue, formation or accepted headcount."
+  }
+}
