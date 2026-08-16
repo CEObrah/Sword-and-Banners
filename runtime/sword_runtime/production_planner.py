@@ -91,7 +91,7 @@ class ProductionCampaignPlanner(
             base_hours = 1
         else:
             base_hours = super()._route_travel_hours(origin, destination, modes=modes)
-        return self._environment_adjusted_route_hours(origin, int(base_hours)) if False else self._environment_adjusted_route_hours(origin, destination, int(base_hours))
+        return self._environment_adjusted_route_hours(origin, destination, int(base_hours))
 
     def _find_route(self, origin: str, destination: str, *, mode: str | None = None) -> Mapping[str, Any]:
         """Honor the production local-route graph for ordinary personal movement.
