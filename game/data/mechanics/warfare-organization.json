@@ -1,6 +1,6 @@
 {
-  "schema": "warfare-organization.v3",
-  "authority": "Static organizational policy for state, House, private, personal and mercenary military organizations. Exact manpower, formations, represented people, casualties, operations, ownership, appointments and support allocations remain in their native campaign owners.",
+  "schema": "warfare-organization.v4",
+  "authority": "Static organizational policy for state, House, private, personal, polity, rebel and mercenary military organizations. Exact manpower, formations, represented people, casualties, operations, ownership, appointments, external-personnel allocations and support allocations remain in their native campaign owners.",
   "officer_representation_policy": {
     "default_representation": "aggregate",
     "person_lite_triggers": [
@@ -20,14 +20,15 @@
       "major_political_or_social_actor"
     ],
     "high_potential_evidence_rule": "High potential is never inferred from holding a billet. It requires saved screening, cohort, progression, performance or other exact provenance before it can justify individual representation.",
-    "materialization_rule": "Materializing an internal officer reclassifies one already conserved body from the exact owning force or formation. Representation never adds manpower."
+    "materialization_rule": "Materializing an internal officer reclassifies one already conserved body from the exact owning force or formation. Representation never adds manpower.",
+    "scale_rule": "A command billet is an organizational assignment, not an instruction to create a character. Even a 2,000-man or 1,000-man commander remains aggregate until one of the saved relevance triggers applies."
   },
   "accounting_modes": {
     "persistent_formation": {
       "scope": ["state", "house", "private", "personal", "polity", "rebel"],
       "fighting_establishment_field": "personnel",
-      "support_storage": "external_attachment",
-      "rule": "formation.personnel is fighting establishment. Unit command and separately attached support may sit above fighting strength only when exact conserved owner-force allocations prove those bodies."
+      "support_storage": "external_personnel_allocation",
+      "rule": "formation.personnel is fighting establishment. Unit command and separately attached support sit above fighting strength only when exact conserved owner-force external_personnel_allocations prove those bodies."
     },
     "mercenary_company": {
       "scope": ["mercenary"],
@@ -47,7 +48,8 @@
       "outside_fighting_establishment": true,
       "source_role": "command_personnel",
       "default_representation": "aggregate",
-      "rule": "The persistent unit commander and formal unit deputy are command-establishment personnel above the fighting-strength number for normal formations. They must still be conserved real people from an owning or lawfully attached force and never arise from narration."
+      "allocation_priority": 100,
+      "rule": "The persistent unit commander and formal unit deputy are command-establishment personnel above the fighting-strength number for normal formations. Exact named people or aggregate command bodies must be conserved from an owning or lawfully attached force and never arise from narration."
     },
     "deputy_policy": {
       "field_army": "strongly_expected",
@@ -55,7 +57,7 @@
       "internal_2000_plus": "optional_useful",
       "internal_1000": "optional",
       "internal_500_and_below": "normally_none",
-      "succession_rule": "When an internal commander is lost and no formal deputy exists, the best lawful subordinate commander may become acting commander; promotion never creates a body."
+      "succession_rule": "When a commander becomes dead, captured or incapacitated, a healthy formal deputy may act immediately without creating a new body. If no deputy is available, the best already-existing lawful subordinate may later be appointed or materialized from saved evidence; the system never mints a replacement officer."
     },
     "generic_internal_levels": [2000, 1000, 500, 100],
     "generic_representation": "aggregate",
@@ -65,12 +67,14 @@
       "signal": 2,
       "logistics": 3
     },
+    "external_support_priority": ["signal", "command_personnel", "logistics"],
     "external_support_function_map": {
       "command_personnel": ["staff officers", "clerks/adjutants"],
       "signal": ["signal officers", "scouts and messengers"],
       "logistics": ["quartermasters", "medical staff", "supply and transport staff"]
     },
-    "external_support_rule": "For normal persistent formations, support personnel are outside fighting establishment and must be allocated from conserved owner-force roles. They increase attached headcount but not fighting strength or persistent unit slots.",
+    "external_support_rule": "For normal persistent formations, support personnel are outside fighting establishment and must be allocated from conserved owner-force roles at the formation's actual location. They increase attached headcount but not fighting strength or persistent unit slots. Missing support remains a real staffing shortfall.",
+    "external_allocation_owner_rule": "The source force stores external_personnel_allocations by formation and role. Its cohort ledger stores the same bodies as allocated_external_by_formation. Reserve counters are debited while attached and restored only on lawful release; deaths reduce the conserved force headcount instead of returning bodies to reserve.",
     "internal_officer_rule": "Every internal command node is an assignment held by a soldier already inside the formation's fighting establishment. Materializing that commander converts one anonymous formation body into a represented person; it does not increase formation personnel.",
     "temporary_subdivision_rule": "A persistent cohort or internal command may be divided temporarily for battlefield control without rewriting the conserved cohort ledger or creating another persistent formation."
   },
@@ -89,6 +93,52 @@
       "logistics": 3
     },
     "rule": "Mercenary command nodes use the same scale-aware hierarchy, but generic officers remain aggregate. Unit command and support come from the company's existing total headcount unless a separate lawful attachment is saved. Important, exceptional or provenance-backed high-potential officers may later be materialized without changing total company manpower."
+  },
+  "mercenary_training": {
+    "review_kind": "quarterly_autonomy",
+    "hours_per_review_by_status": {
+      "available": 104,
+      "contracted": 96,
+      "contracted_defense": 104,
+      "deployed": 56
+    },
+    "role_exposure_fraction": 0.35,
+    "facility_grade": "adequate",
+    "equipment_grade": "adequate",
+    "recovery_grade": "adequate",
+    "doctrine_familiarity_gain_per_review": 2,
+    "doctrine_familiarity_cap": 100,
+    "training_history_limit": 24,
+    "focus_profiles": [
+      {
+        "tokens": ["countermining", "sapper", "engineer", "repair"],
+        "skills": ["Engineering", "Formation Fighting", "Defense", "Logistics", "Training"],
+        "attributes": ["Awareness", "Coordination", "Endurance", "Composure"]
+      },
+      {
+        "tokens": ["artillery", "trebuchet", "crossbow", "stone", "firepot", "siege"],
+        "skills": ["Engineering", "Crossbow", "Formation Fighting", "Tactics", "Logistics"],
+        "attributes": ["Coordination", "Awareness", "Endurance", "Composure"]
+      },
+      {
+        "tokens": ["heavy_infantry", "outer_wall", "guard", "line_infantry"],
+        "skills": ["Formation Fighting", "Defense", "Shield", "Athletics", "Mass Combat"],
+        "attributes": ["Strength", "Endurance", "Toughness", "Composure"]
+      },
+      {
+        "tokens": ["signal", "messenger", "scout"],
+        "skills": ["Scouting", "Navigation", "Intelligence Operations", "Logistics", "Tactics"],
+        "attributes": ["Awareness", "Coordination", "Endurance", "Composure"]
+      },
+      {
+        "tokens": ["logistics", "quartermaster", "transport", "medical"],
+        "skills": ["Logistics", "Medicine", "Survival", "Training", "Formation Fighting"],
+        "attributes": ["Awareness", "Endurance", "Intelligence", "Composure"]
+      }
+    ],
+    "default_skills": ["Formation Fighting", "Defense", "Athletics", "Mass Combat", "Leadership"],
+    "default_attributes": ["Strength", "Endurance", "Coordination", "Awareness", "Composure"],
+    "rule": "A living mercenary company uses its quarterly causal review to conduct role-specific aggregate drill when not destroyed or dissolved. Training advances the exact manpower-capability owner referenced by each troop pool under Sword's ordinary diminishing-return training law; it never creates character records or free headcount. Contracted House Tang defense companies therefore continue professional drill while on standing defensive duty, while deployed companies receive less deliberate drill and rely more on field exposure."
   },
   "command_effect_scales": {
     "local_100_200": {
@@ -113,7 +163,20 @@
       "mechanical_domains": ["whole_unit_direction", "command_throughput", "continuity", "reporting", "delegation", "overload_management"],
       "maximum_quality_delta": 0.12,
       "deputy_rule": "A deputy primarily improves continuity and throughput. A deputy is not an unrestricted additive stat bonus and cannot duplicate the commander's scale effects."
-    }
+    },
+    "support": {
+      "maximum_quality_delta": 0.08,
+      "rule": "Only actually allocated signal, staff and logistics bodies contribute. Target staffing without conserved allocation grants no mechanical benefit."
+    },
+    "combined_cap": 1.28
+  },
+  "command_casualty_exposure": {
+    "unit_command": 0.2,
+    "command_personnel": 0.3,
+    "signal": 0.45,
+    "logistics": 0.25,
+    "minimum_fighting_loss_fraction_before_aggregate_attachment_loss": 0.02,
+    "rule": "After a committed battle establishes fighting losses, aggregate attached personnel take deterministic bounded losses from that already-settled exposure. They are separate casualties and reduce their source force headcount exactly once; a later staffing review may replace them from real reserve bodies."
   },
   "formation_profiles": {
     "formation_qin_border_line": {
@@ -124,15 +187,15 @@
         "deputy_billets": 1,
         "source_force_ref": "force_state_qin",
         "source_role": "command_personnel",
-        "representation": "full_character"
+        "representation": "full_character_when_appointed"
       },
       "internal_hierarchy": [
-        {"scale": 2000, "count": 4, "representation": "person_lite", "deputy_policy": "optional_useful"},
-        {"scale": 1000, "count": 8, "representation": "person_lite", "deputy_policy": "optional"},
-        {"scale": 500, "count": 16, "representation": "person_lite", "deputy_policy": "normally_none"},
-        {"scale": 100, "count": 80, "representation": "person_lite_when_relevant", "deputy_policy": "normally_none"}
+        {"scale": 2000, "count": 4, "representation": "person_lite_when_relevant", "deputy_policy": "optional_useful"},
+        {"scale": 1000, "count": 8, "representation": "aggregate", "deputy_policy": "optional"},
+        {"scale": 500, "count": 16, "representation": "aggregate", "deputy_policy": "normally_none"},
+        {"scale": 100, "count": 80, "representation": "aggregate", "deputy_policy": "normally_none"}
       ],
-      "hierarchy_rule": "Four 2,000-man commands each contain two 1,000-man commands; each 1,000 contains two 500-man commands; each 500 contains five 100-man commands. All 108 subordinate command assignments are held by soldiers inside the same conserved 8,000 fighting establishment.",
+      "hierarchy_rule": "Four 2,000-man commands each contain two 1,000-man commands; each 1,000 contains two 500-man commands; each 500 contains five 100-man commands. All 108 subordinate command assignments are held by soldiers inside the same conserved 8,000 fighting establishment. They remain aggregate unless saved individual relevance or high-potential evidence warrants representation.",
       "external_support": {
         "per_500": {"command_personnel": 2, "signal": 2, "logistics": 3},
         "source_force_ref": "force_state_qin",
@@ -150,14 +213,16 @@
       "external_unit_command": {
         "commander_billets": 1,
         "deputy_billets": 1,
-        "representation": "full_character"
+        "source_force_ref": "force_tang_wei_personal",
+        "source_role": "command_personnel",
+        "representation": "full_character_when_appointed"
       },
       "internal_hierarchy": [
-        {"scale": 1000, "count": 3, "representation": "person_lite", "deputy_policy": "optional"},
-        {"scale": 200, "count": 15, "representation": "person_lite", "deputy_policy": "normally_none"}
+        {"scale": 1000, "count": 3, "representation": "person_lite_when_relevant", "deputy_policy": "optional"},
+        {"scale": 200, "count": 15, "representation": "aggregate", "deputy_policy": "normally_none"}
       ],
       "cohort_alignment": {"cohort_size": 200, "cohort_count": 15, "cohorts_per_1000_command": 5},
-      "officer_source_rule": "Internal Great Bow Guard commanders and the normal deputy candidate pool arise from the accepted conserved Great Bow Guard recruitment body. Sword Manor personnel are not transferred unless Tang Wei explicitly orders a lawful secondment.",
+      "officer_source_rule": "Internal Great Bow Guard commanders arise from the accepted conserved Great Bow Guard recruitment body. The formal unit commander/deputy may be appointed from that body or another lawfully transferred command source. Sword Manor personnel are not transferred automatically.",
       "temporary_100_rule": "A 200-man Great Bow Guard cohort may tactically divide into two temporary 100-man groups without changing persistent cohort conservation or unit-slot count."
     }
   },
@@ -181,6 +246,6 @@
     "formation_deputy_billets": 1,
     "support_personnel_outside_fighting_establishment": true,
     "officer_source": "accepted_great_bow_guard_recruits",
-    "rule": "The 3,000-fighter Great Bow Guard remains one persistent formation. Three 1,000-man command nodes and fifteen 200-man command nodes are internal assignments over the same 15 conserved 200-person cohorts. Their commanders consume existing Great Bow Guard bodies. The unit commander and formal deputy sit above fighting strength, and any support attachment is separately conserved outside fighting strength."
+    "rule": "The 3,000-fighter Great Bow Guard remains one persistent formation. Three 1,000-man command nodes and fifteen 200-man command nodes are internal assignments over the same 15 conserved 200-person cohorts. Their commanders consume existing Great Bow Guard bodies. The unit commander and formal deputy sit above fighting strength only when separately conserved or lawfully reclassified, and any support attachment is separately conserved outside fighting strength."
   }
 }
