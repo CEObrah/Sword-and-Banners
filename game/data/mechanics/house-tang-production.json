@@ -1,0 +1,51 @@
+{
+  "schema": "house-tang-production.v1",
+  "authority": "Static House Tang workshop, armory and remount production policy. Mutable stock remains in the equipment inventory; workers remain in Tang Manor population; purchased materials and cash remain in their existing economy and treasury owners.",
+  "cycle_seconds": 2592000,
+  "workforce": {
+    "forge_and_armory_workers": "forge_and_armory_workers",
+    "stable_remount_and_carriage_workers": "stable_remount_and_carriage_workers"
+  },
+  "procurement_regions": ["loc_tang_manor_training_ground", "loc_tang_manor_market_gate", "loc_tang_manor_inner_citadel_family_hall"],
+  "reserve_targets": {
+    "Tang Armor unissued reserve": 15000,
+    "Tang Helmet unissued reserve": 15000,
+    "Tang Shield unissued reserve": 15000,
+    "Tang Horse Armor reserve": 5000,
+    "Tang Tack reserve": 5000,
+    "Long Spear unissued reserve": 15000,
+    "One-Handed Long Sword unissued reserve": 15000,
+    "Cavalry Lance unissued reserve": 5000,
+    "Great War Bow armory reserve": 15000,
+    "Heavy War Bow armory reserve": 44900,
+    "Composite Bow armory reserve": 25000,
+    "Heavy Lamellar reserve": 25000,
+    "Lamellar Helmet reserve": 25000,
+    "Medium Shield reserve": 25000,
+    "Tang Heavy Warhorse reserve": 5000,
+    "Tang Swift Warhorse reserve": 2500,
+    "War Arrows strategic reserve": 177462000
+  },
+  "items": [
+    {"record_id":"tang_restricted_equipment","reserve_key":"Tang Armor unissued reserve","total_key":"Tang Armor total","workforce":"forge_and_armory_workers","units_per_worker_month":0.75,"material_units_per_batch":3,"batch_size":1,"silver_per_batch":12},
+    {"record_id":"tang_restricted_equipment","reserve_key":"Tang Helmet unissued reserve","total_key":"Tang Helmet total","workforce":"forge_and_armory_workers","units_per_worker_month":1.2,"material_units_per_batch":1,"batch_size":1,"silver_per_batch":5},
+    {"record_id":"tang_restricted_equipment","reserve_key":"Tang Shield unissued reserve","total_key":"Tang Shield total","workforce":"forge_and_armory_workers","units_per_worker_month":1.5,"material_units_per_batch":1,"batch_size":1,"silver_per_batch":4},
+    {"record_id":"tang_restricted_equipment","reserve_key":"Tang Horse Armor reserve","total_key":"Tang Horse Armor total","workforce":"forge_and_armory_workers","units_per_worker_month":0.5,"material_units_per_batch":4,"batch_size":1,"silver_per_batch":18},
+    {"record_id":"tang_restricted_equipment","reserve_key":"Tang Tack reserve","total_key":"Tang Tack total","workforce":"stable_remount_and_carriage_workers","units_per_worker_month":2.0,"material_units_per_batch":1,"batch_size":1,"silver_per_batch":3},
+    {"record_id":"tang_restricted_equipment","reserve_key":"Long Spear unissued reserve","total_key":"Long Spear total","workforce":"forge_and_armory_workers","units_per_worker_month":4.0,"material_units_per_batch":1,"batch_size":2,"silver_per_batch":4},
+    {"record_id":"tang_restricted_equipment","reserve_key":"One-Handed Long Sword unissued reserve","total_key":"One-Handed Long Sword total","workforce":"forge_and_armory_workers","units_per_worker_month":1.5,"material_units_per_batch":1,"batch_size":1,"silver_per_batch":6},
+    {"record_id":"tang_restricted_equipment","reserve_key":"Cavalry Lance unissued reserve","total_key":"Cavalry Lance total","workforce":"forge_and_armory_workers","units_per_worker_month":3.0,"material_units_per_batch":1,"batch_size":2,"silver_per_batch":4},
+    {"record_id":"bows","reserve_key":"Great War Bow armory reserve","total_key":"Great War Bow total","workforce":"forge_and_armory_workers","units_per_worker_month":1.5,"material_units_per_batch":1,"batch_size":1,"silver_per_batch":8},
+    {"record_id":"bows","reserve_key":"Heavy War Bow armory reserve","total_key":"Heavy War Bow total","workforce":"forge_and_armory_workers","units_per_worker_month":2.0,"material_units_per_batch":1,"batch_size":1,"silver_per_batch":6},
+    {"record_id":"bows","reserve_key":"Composite Bow armory reserve","total_key":"Composite Bow total","workforce":"forge_and_armory_workers","units_per_worker_month":2.5,"material_units_per_batch":1,"batch_size":1,"silver_per_batch":5},
+    {"record_id":"sword_manor_trainee_equipment","reserve_key":"Heavy Lamellar reserve","total_key":"Heavy Lamellar total","workforce":"forge_and_armory_workers","units_per_worker_month":2.0,"material_units_per_batch":2,"batch_size":1,"silver_per_batch":8},
+    {"record_id":"sword_manor_trainee_equipment","reserve_key":"Lamellar Helmet reserve","total_key":"Lamellar Helmet total","workforce":"forge_and_armory_workers","units_per_worker_month":3.0,"material_units_per_batch":1,"batch_size":1,"silver_per_batch":4},
+    {"record_id":"sword_manor_trainee_equipment","reserve_key":"Medium Shield reserve","total_key":"Medium Shield total","workforce":"forge_and_armory_workers","units_per_worker_month":4.0,"material_units_per_batch":1,"batch_size":2,"silver_per_batch":4},
+    {"record_id":"ammunition","reserve_key":"War Arrows strategic reserve","total_key":"War Arrows total","workforce":"forge_and_armory_workers","units_per_worker_month":1000.0,"material_units_per_batch":1,"batch_size":100,"silver_per_batch":5}
+  ],
+  "remounts": [
+    {"record_id":"mounts","reserve_key":"Tang Heavy Warhorse reserve","total_key":"Tang Heavy Warhorse total","workforce":"stable_remount_and_carriage_workers","units_per_worker_month":0.15,"private_horse_stock_per_mount":1,"silver_per_mount":30},
+    {"record_id":"mounts","reserve_key":"Tang Swift Warhorse reserve","total_key":"Tang Swift Warhorse total","workforce":"stable_remount_and_carriage_workers","units_per_worker_month":0.10,"private_horse_stock_per_mount":1,"silver_per_mount":22}
+  ],
+  "rule": "Each monthly close may replenish only shortages below registered reserve targets. Capacity scales from exact conserved Tang Manor workers. Physical material units or remount horses are removed from the registered nearby private economy and House silver is paid into that economy. If labor, materials, horses or cash are insufficient, production stops at the exact constraint. The one-time reserve scale correction is a separate OOC repair and is never repeated by this production cycle."
+}
