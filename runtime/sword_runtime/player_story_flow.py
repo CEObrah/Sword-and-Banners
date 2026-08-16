@@ -2,9 +2,8 @@
 
 The world simulation owns institutions, formations, operations, House development,
 family people, and chronology. This module joins exact current facts that should
-naturally produce a player-facing opportunity or message. It never lets narration
-create authority. The GM may stage the resulting human scene, while durable facts
-remain in exact runtime owners.
+naturally produce a player-facing opportunity or message. The causal event remains
+a strict delivery envelope; structured career truth stays in exact mutable owners.
 """
 from __future__ import annotations
 
@@ -38,6 +37,7 @@ _HISTORY_WINDOW = 512
 _QUALIFICATION_EVENT_REF = "event_ouki_preliminary_review_disposition_001"
 _NORTHERN_WEI_ARC = "arc_ryo_fui_northern_wei_campaign"
 _ACTIVE_OPERATION_STATES = frozenset({"active", "mobilizing", "advancing", "engaged"})
+_BASE_PLAYER_AUTHORITY = "House Tang heir; patron and commander of Tang Wei Personal Retinue; no state office"
 
 _FAMILY_ROTATION = (
     ("char_tang_ling", "Tang Ling", "asks you to come to the family hall for a House and Sword Manor review when you are free"),
@@ -51,24 +51,38 @@ def _story_digest(value: Any) -> str:
     return hashlib.sha256(encoded.encode("utf-8")).hexdigest()[:20]
 
 
-def _event_owner_write(planner: Any, event_ref: str, row: Mapping[str, Any], at: str) -> str:
+def _event_owner_write(
+    planner: Any,
+    event_ref: str,
+    row: Mapping[str, Any],
+    at: str,
+    *,
+    source_owner_ref: str,
+) -> str:
     existing = get_causal_event(planner, event_ref)
     if isinstance(existing, Mapping):
         return event_ref
+    payload = copy.deepcopy(dict(row))
+    payload["provenance"] = {
+        "kind": "causal_runtime_settlement",
+        "source_owner_ref": source_owner_ref,
+        "work_ref": event_ref,
+        "late_catch_up": False,
+    }
     _path, owner = read_causal_event_owner(planner)
-    owner["causal_events"][event_ref] = copy.deepcopy(dict(row))
+    owner["causal_events"][event_ref] = payload
     owner.setdefault("runtime", {})["last_settled_at"] = at
     write_causal_event_owner(planner, owner)
     return event_ref
 
 
-def _player_delivery(planner: Any) -> dict[str, Any]:
+def _player_delivery(planner: Any, route: str) -> dict[str, Any]:
     player = planner.read(_PLAYER_PATH)
     location = player.get("location") if isinstance(player, Mapping) else None
     return {
         "target_ref": "char_tang_wei",
         "location_ref": str(location or "loc_tang_manor_training_ground"),
-        "route": "ordinary House or Qin courier delivery",
+        "route": route[:1000],
     }
 
 
@@ -114,6 +128,17 @@ def _pending_offer_refs(player: Mapping[str, Any]) -> list[str]:
     return [str(value) for value in values if isinstance(value, str) and value]
 
 
+def _pending_offer_details(player: Mapping[str, Any], offer_ref: str) -> Mapping[str, Any] | None:
+    offers = _career_state(player).get("pending_qin_command_offers", {})
+    value = offers.get(offer_ref) if isinstance(offers, Mapping) else None
+    return value if isinstance(value, Mapping) else None
+
+
+def _declined_qin_formations(player: Mapping[str, Any]) -> set[str]:
+    values = _career_state(player).get("declined_qin_command_formation_refs", [])
+    return {str(value) for value in values if isinstance(value, str) and value}
+
+
 def _qin_field_appointments(player: Mapping[str, Any]) -> list[Mapping[str, Any]]:
     rows = _career_state(player).get("appointments", [])
     if not isinstance(rows, list):
@@ -136,7 +161,7 @@ def _operation_arc_ref(operation: Mapping[str, Any]) -> str:
     return ""
 
 
-def _find_qin_command_vacancy(planner: Any) -> dict[str, Any] | None:
+def _find_qin_command_vacancy(planner: Any, excluded_formations: set[str]) -> dict[str, Any] | None:
     state = planner.read(_QIN_PATH)
     administration = state.get("military_administration", {}) if isinstance(state, Mapping) else {}
     if max(0, int(administration.get("commander_vacancy_count", 0))) <= 0:
@@ -155,7 +180,7 @@ def _find_qin_command_vacancy(planner: Any) -> dict[str, Any] | None:
         priority = 0 if arc_ref == _NORTHERN_WEI_ARC else 1
         formation_refs = operation.get("formation_refs", [])
         for formation_ref in formation_refs if isinstance(formation_refs, list) else ():
-            if not isinstance(formation_ref, str):
+            if not isinstance(formation_ref, str) or formation_ref in excluded_formations:
                 continue
             try:
                 formation_path = planner.owner_path(formation_ref)
@@ -178,13 +203,14 @@ def _find_qin_command_vacancy(planner: Any) -> dict[str, Any] | None:
     operation = planner.read(operation_path)
     return {
         "operation_ref": operation_ref,
-        "operation_path": operation_path,
         "arc_ref": _operation_arc_ref(operation),
         "formation_ref": formation_ref,
-        "formation_path": formation_path,
         "formation_name": str(formation.get("name", formation_ref)),
         "personnel": int(formation.get("personnel", 0)),
         "location_ref": str(formation.get("location_ref", "")),
+        "candidate_score": _command_candidate_score(planner.read(_PLAYER_PATH)),
+        "state_ref": "state_qin",
+        "institution_ref": "inst_qin_military_bureau",
     }
 
 
@@ -210,20 +236,28 @@ def _career_offer(planner: Any, at: str) -> str | None:
     player = copy.deepcopy(planner.read(_PLAYER_PATH))
     if _pending_offer_refs(player) or _qin_field_appointments(player):
         return None
-    vacancy = _find_qin_command_vacancy(planner)
+    vacancy = _find_qin_command_vacancy(planner, _declined_qin_formations(player))
     if vacancy is None:
         return None
     offer_ref = _offer_event_ref(vacancy)
     if isinstance(get_causal_event(planner, offer_ref), Mapping):
         return None
-    score = _command_candidate_score(player)
+
+    career = player.setdefault("career_state", {})
+    pending_refs = career.setdefault("pending_qin_command_offer_refs", [])
+    pending_refs.append(offer_ref)
+    career["pending_qin_command_offer_refs"] = list(dict.fromkeys(str(value) for value in pending_refs if value))[-8:]
+    offers = career.setdefault("pending_qin_command_offers", {})
+    offers[offer_ref] = {**copy.deepcopy(dict(vacancy)), "offered_at": at}
+    planner.put(_PLAYER_PATH, player)
+
     summary = (
         f"A sealed Qin Military Bureau dispatch reaches Tang Wei. His completed command review is being acted on because Qin now has a real field-command vacancy. "
         f"The Bureau offers him appointment to command {vacancy['formation_name']}, an existing {vacancy['personnel']}-man Qin formation attached to the active northern Wei operation. "
         f"The formation is currently at {vacancy['location_ref']}; if Tang Wei accepts, he must report there before operational command is physically assumed. "
         "This is an offer, not an automatic appointment: no command authority, troop custody, march order, or allegiance changes unless Tang Wei accepts. The formation remains Qin property and the operation remains under Qin institutional authority."
     )
-    _event_owner_write(planner, offer_ref, {
+    return _event_owner_write(planner, offer_ref, {
         "event_ref": offer_ref,
         "kind": "institutional_response",
         "status": "triggered",
@@ -236,27 +270,8 @@ def _career_offer(planner: Any, at: str) -> str | None:
         "process_stage": "offer_pending",
         "source_event_ref": _QUALIFICATION_EVENT_REF,
         "summary": summary[:4000],
-        "delivery": _player_delivery(planner),
-        "appointment_offer": {
-            **copy.deepcopy(dict(vacancy)),
-            "candidate_ref": "char_tang_wei",
-            "candidate_score": score,
-            "state_ref": "state_qin",
-            "institution_ref": "inst_qin_military_bureau",
-        },
-        "provenance": {
-            "kind": "causal_runtime_opportunity_join",
-            "qualification_ref": _QUALIFICATION_EVENT_REF,
-            "vacancy_owner_ref": vacancy["formation_ref"],
-            "operation_ref": vacancy["operation_ref"],
-        },
-    }, at)
-    career = player.setdefault("career_state", {})
-    pending = career.setdefault("pending_qin_command_offer_refs", [])
-    pending.append(offer_ref)
-    career["pending_qin_command_offer_refs"] = list(dict.fromkeys(str(value) for value in pending if value))[-8:]
-    planner.put(_PLAYER_PATH, player)
-    return offer_ref
+        "delivery": _player_delivery(planner, "Qin Military Bureau sealed courier"),
+    }, at, source_owner_ref="inst_qin_military_bureau")
 
 
 def _house_digest_event(planner: Any, at: str) -> str | None:
@@ -292,8 +307,8 @@ def _house_digest_event(planner: Any, at: str) -> str | None:
     if isinstance(get_causal_event(planner, event_ref), Mapping):
         return None
     role_text = ", ".join(f"{role.replace('_', ' ')} {counts[role]}/{caps[role]}" for role in roles)
-    full = [role for role in roles if caps[role] > 0 and counts[role] >= caps[role]]
     positive_caps = [role for role in roles if caps[role] > 0]
+    full = [role for role in positive_caps if counts[role] >= caps[role]]
     if positive_caps and len(full) == len(positive_caps):
         bottleneck = "All current Sword Manor establishments are at their authorized ceilings, so new intake and upward promotions are capacity-bottlenecked until authorization expands or billets open."
     else:
@@ -323,14 +338,12 @@ def _house_digest_event(planner: Any, at: str) -> str | None:
         "process_kind": "house_development_digest",
         "process_stage": "delivered",
         "summary": summary[:4000],
-        "delivery": _player_delivery(planner),
-        "provenance": {"kind": "causal_runtime_house_digest", "signature": _story_digest(signature)},
-    }, at)
+        "delivery": _player_delivery(planner, "House Tang direct report"),
+    }, at, source_owner_ref="house_tang")
 
 
 def _family_invitation_event(planner: Any, at: str) -> str | None:
-    date = at.split("T", 1)[0]
-    bucket = date.rsplit("-", 1)[0]
+    bucket = at.split("T", 1)[0].rsplit("-", 1)[0]
     index = int(hashlib.sha256(bucket.encode("utf-8")).hexdigest()[:8], 16) % len(_FAMILY_ROTATION)
     person_ref, name, invitation = _FAMILY_ROTATION[index]
     event_ref = "event_story_family_invitation_" + _story_digest({"bucket": bucket, "person_ref": person_ref})
@@ -358,9 +371,8 @@ def _family_invitation_event(planner: Any, at: str) -> str | None:
         "process_kind": "family_initiative",
         "process_stage": "invitation_delivered",
         "summary": summary[:4000],
-        "delivery": _player_delivery(planner),
-        "provenance": {"kind": "causal_runtime_family_initiative", "calendar_bucket": bucket},
-    }, at)
+        "delivery": _player_delivery(planner, "House Tang household messenger"),
+    }, at, source_owner_ref=person_ref)
 
 
 def _appointment_row_mutable(player: dict[str, Any], office: str) -> dict[str, Any] | None:
@@ -411,6 +423,7 @@ def _assume_pending_qin_command(planner: Any, at: str) -> str | None:
             if row is not None:
                 row["status"] = "lapsed_before_assumption"
                 row["lapsed_at"] = at
+                player["authority"] = str(row.get("prior_authority", _BASE_PLAYER_AUTHORITY))
             qin = copy.deepcopy(planner.read(_QIN_PATH))
             qin_appointment = qin.setdefault("appointments", {}).get(office)
             if isinstance(qin_appointment, dict):
@@ -434,9 +447,8 @@ def _assume_pending_qin_command(planner: Any, at: str) -> str | None:
                 "process_stage": "lapsed_before_assumption",
                 "source_event_ref": offer_ref,
                 "summary": summary,
-                "delivery": _player_delivery(planner),
-                "provenance": {"kind": "causal_runtime_institutional_assumption", "offer_ref": offer_ref},
-            }, at)
+                "delivery": _player_delivery(planner, "Qin Military Bureau courier"),
+            }, at, source_owner_ref="inst_qin_military_bureau")
         if current_location != str(formation.get("location_ref", "")):
             continue
         event_ref = _assumption_event_ref(formation_ref, offer_ref)
@@ -464,6 +476,7 @@ def _assume_pending_qin_command(planner: Any, at: str) -> str | None:
             qin_appointment["status"] = "active"
             qin_appointment["assumed_at"] = at
         administration = qin.setdefault("military_administration", {})
+        administration["commander_vacancy_count"] = max(0, int(administration.get("commander_vacancy_count", 0)) - 1)
         administration["last_commander_assignment_at"] = at
         planner.put(_QIN_PATH, qin)
 
@@ -485,9 +498,8 @@ def _assume_pending_qin_command(planner: Any, at: str) -> str | None:
             "process_stage": "command_assumed",
             "source_event_ref": offer_ref,
             "summary": summary[:4000],
-            "delivery": _player_delivery(planner),
-            "provenance": {"kind": "causal_runtime_institutional_assumption", "offer_ref": offer_ref, "formation_ref": formation_ref},
-        }, at)
+            "delivery": _player_delivery(planner, "Qin field-command assumption record"),
+        }, at, source_owner_ref="inst_qin_military_bureau")
     return None
 
 
@@ -511,7 +523,6 @@ def settle_player_story_review(planner: Any, host: Mapping[str, Any], at: str) -
         "at": at,
         "campaign_event_ref": created[0],
         "reason": reason,
-        "story_event_refs": created,
     }
 
 
@@ -539,6 +550,9 @@ def _sync_appointment_replies(planner: Any, runtime: dict[str, Any]) -> None:
             continue
         offer = get_causal_event(planner, offer_ref)
         if not isinstance(offer, Mapping) or offer.get("process_kind") != "qin_field_command_offer":
+            continue
+        player = planner.read(_PLAYER_PATH)
+        if _pending_offer_details(player, offer_ref) is None:
             continue
         decision_ref = _decision_event_ref(offer_ref)
         if isinstance(get_causal_event(planner, decision_ref), Mapping):
@@ -570,12 +584,13 @@ def _sync_appointment_replies(planner: Any, runtime: dict[str, Any]) -> None:
         return
 
 
-def _remove_pending_offer(planner: Any, offer_ref: str) -> dict[str, Any]:
-    player = copy.deepcopy(planner.read(_PLAYER_PATH))
+def _pop_pending_offer(player: dict[str, Any], offer_ref: str) -> Mapping[str, Any] | None:
     career = player.setdefault("career_state", {})
     pending = career.setdefault("pending_qin_command_offer_refs", [])
     career["pending_qin_command_offer_refs"] = [str(value) for value in pending if str(value) != offer_ref]
-    return player
+    offers = career.setdefault("pending_qin_command_offers", {})
+    details = offers.pop(offer_ref, None) if isinstance(offers, dict) else None
+    return details if isinstance(details, Mapping) else None
 
 
 def settle_appointment_reply(planner: Any, host: Mapping[str, Any], at: str) -> dict[str, Any] | None:
@@ -586,21 +601,27 @@ def settle_appointment_reply(planner: Any, host: Mapping[str, Any], at: str) -> 
     offer = get_causal_event(planner, offer_ref)
     if not isinstance(offer, Mapping) or offer.get("process_kind") != "qin_field_command_offer":
         raise ValueError("Qin appointment reply lost its exact offer")
-    details = offer.get("appointment_offer") if isinstance(offer.get("appointment_offer"), Mapping) else None
-    if not isinstance(details, Mapping):
-        raise ValueError("Qin appointment offer lacks its exact vacancy envelope")
     action = str(host.get("player_action", ""))
-    player = _remove_pending_offer(planner, offer_ref)
+    player = copy.deepcopy(planner.read(_PLAYER_PATH))
+    details = _pop_pending_offer(player, offer_ref)
+    if not isinstance(details, Mapping):
+        raise ValueError("Qin appointment reply lost its exact pending offer owner")
+    formation_ref = str(details.get("formation_ref", ""))
+    operation_ref = str(details.get("operation_ref", ""))
     stage = "declined"
+
     if action == "decline":
+        career = player.setdefault("career_state", {})
+        declined = career.setdefault("declined_qin_command_formation_refs", [])
+        if formation_ref and formation_ref not in declined:
+            declined.append(formation_ref)
+        career["declined_qin_command_formation_refs"] = [str(value) for value in declined if value][-32:]
+        planner.put(_PLAYER_PATH, player)
         summary = (
             "The Qin Military Bureau receives Tang Wei's refusal and closes this command offer. "
             "No Qin rank, command authority, troop custody, deployment obligation, or allegiance change is created."
         )
-        planner.put(_PLAYER_PATH, player)
     elif action in {"proceed", "comply"}:
-        formation_ref = str(details.get("formation_ref", ""))
-        operation_ref = str(details.get("operation_ref", ""))
         formation_path = planner.owner_path(formation_ref)
         formation = planner.read(formation_path)
         operation_path = planner.read(_OPERATIONS_INDEX).get("operations", {}).get(operation_ref)
@@ -614,13 +635,14 @@ def settle_appointment_reply(planner: Any, host: Mapping[str, Any], at: str) -> 
         )
         if not still_open:
             stage = "lapsed"
+            planner.put(_PLAYER_PATH, player)
             summary = (
                 "The Qin Military Bureau receives Tang Wei's acceptance, but the exact command vacancy no longer exists when the reply is processed. "
                 "The offer therefore lapses without creating rank, command authority, troop custody, or deployment obligation."
             )
-            planner.put(_PLAYER_PATH, player)
         else:
             office = f"field_command:{formation_ref}"
+            prior_authority = str(player.get("authority", _BASE_PLAYER_AUTHORITY))
             appointment = {
                 "kind": "qin_field_command",
                 "office": office,
@@ -630,6 +652,7 @@ def settle_appointment_reply(planner: Any, host: Mapping[str, Any], at: str) -> 
                 "appointed_at": at,
                 "source_event_ref": offer_ref,
                 "report_to_location_ref": str(formation.get("location_ref", "")),
+                "prior_authority": prior_authority,
                 "status": "awaiting_assumption",
             }
             career = player.setdefault("career_state", {})
@@ -652,14 +675,12 @@ def settle_appointment_reply(planner: Any, host: Mapping[str, Any], at: str) -> 
                 "report_to_location_ref": str(formation.get("location_ref", "")),
                 "status": "awaiting_assumption",
             }
-            administration = qin.setdefault("military_administration", {})
-            administration["commander_vacancy_count"] = max(0, int(administration.get("commander_vacancy_count", 0)) - 1)
-            administration["last_commander_appointment_at"] = at
+            qin.setdefault("military_administration", {})["last_commander_appointment_at"] = at
             planner.put(_QIN_PATH, qin)
             stage = "accepted_awaiting_assumption"
             summary = (
                 f"The Qin Military Bureau receives Tang Wei's acceptance and confirms his appointment to command {formation.get('name', formation_ref)}, an existing {int(formation.get('personnel', 0))}-man Qin formation. "
-                f"The appointment is now reserved to him, but the formation is at {formation.get('location_ref')}; Tang Wei must report there before commander identity and operational command authority are transferred. "
+                f"The appointment is reserved to him, but the formation is at {formation.get('location_ref')}; Tang Wei must report there before commander identity and operational command authority are transferred. "
                 "Administrative ownership remains Qin's, and acceptance does not choose a march route, battle plan, allegiance change, or permanent strategy."
             )
     else:
@@ -678,9 +699,8 @@ def settle_appointment_reply(planner: Any, host: Mapping[str, Any], at: str) -> 
         "process_stage": stage,
         "source_event_ref": offer_ref,
         "summary": summary[:4000],
-        "delivery": _player_delivery(planner),
-        "provenance": {"kind": "causal_runtime_institutional_decision", "offer_ref": offer_ref, "request_id": host.get("request_id")},
-    }, at)
+        "delivery": _player_delivery(planner, "Qin Military Bureau sealed reply"),
+    }, at, source_owner_ref="inst_qin_military_bureau")
     digest = hashlib.sha256(f"{decision_ref}|{at}".encode("utf-8")).hexdigest()[:20]
     return {
         "wake_ref": f"wake.player_story.appointment.{digest}",
