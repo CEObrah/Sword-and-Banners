@@ -3,12 +3,13 @@ from collections.abc import Mapping, MutableMapping
 from copy import deepcopy
 from typing import Any
 from sword_runtime.cohort_personnel import add_recruits, advance_cohort_training, advance_service_months, append_formation_slices, ensure_cohort_ledger, ensure_formation_composition, record_recruitment_cohort, take_reserve_slices, validate_cohort_ledger
+from sword_runtime.military_career_loyalty import MilitaryCareerLoyaltyMixin
 
 P='game/data/mil/recruitment-cohort-profiles.json'; T='game/data/mechanics/training.json'; MONTH=30*86400
 
 def ac(v:Any)->int: return int(v.get('personnel',0)) if isinstance(v,Mapping) else int(v)
 
-class ForceCohortLivingWorldMixin:
+class ForceCohortLivingWorldMixin(MilitaryCareerLoyaltyMixin):
  def _fc_profiles(self): return self.read(P)
  def _fc_train(self,force:dict[str,Any],regimen:str,months:float,ref:str)->None:
   profiles=self._fc_profiles(); r=profiles.get('training_regimens',{}).get(regimen,{}); rp=profiles.get('role_training_profiles',{}); rules=self.read(T); ledger=ensure_cohort_ledger(force); whole=int(months); rem=max(0.,months-whole)
@@ -68,7 +69,6 @@ class ForceCohortLivingWorldMixin:
    wanted=min(short,cap); lots=(wanted+lot-1)//lot; affordable=int(balance//lot_price); lots=min(lots,affordable)
    if lots<=0: continue
    qty=lots*lot; cost=int(round(lots*lot_price)); qty=min(qty,cap if cap>0 else qty)
-   # If a non-lot cap truncates quantity, buy only complete lots.
    qty=(qty//lot)*lot; cost=int(round((qty//lot)*lot_price))
    if qty<=0 or cost>balance: continue
    stocks[resource]=int(stocks.get(resource,0))+qty; balance-=cost; spent+=cost; bought[resource]=qty
