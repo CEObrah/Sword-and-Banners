@@ -10,6 +10,8 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.world_arcs import _PLAYER_REPORTABLE_RESULTS
+
 
 def _mapping(value: Any) -> Mapping[str, Any]:
     return value if isinstance(value, Mapping) else {}
@@ -69,10 +71,18 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
         and isinstance(host.get("source_event_ref"), str)
     }
     visible_arc_activities_without_delivery_route = 0
+    suppressed_nonmaterial_visible_arc_activities = 0
     for event_ref, event in causal_head.items():
         if not isinstance(event_ref, str) or not isinstance(event, Mapping) or event.get("kind") != "world_arc_activity":
             continue
         if str(event.get("visibility_class", "hidden")) not in {"discoverable", "direct"}:
+            continue
+        # Keep the vitality diagnostic aligned with the actual world-arc
+        # propagation contract. Queue/intent records may be discoverable causal
+        # history, but PR72 deliberately made them non-reportable so they do not
+        # interrupt play before a material result or concrete block exists.
+        if str(event.get("result", "")) not in _PLAYER_REPORTABLE_RESULTS:
+            suppressed_nonmaterial_visible_arc_activities += 1
             continue
         if event_ref not in report_sources and event_ref not in routed_sources:
             visible_arc_activities_without_delivery_route += 1
@@ -117,6 +127,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
         "scheduled_world_arc_report_hosts": scheduled_arc_reports,
         "scheduled_player_relevant_hosts": scheduled_reports,
         "visible_arc_activities_without_delivery_route": visible_arc_activities_without_delivery_route,
+        "suppressed_nonmaterial_visible_arc_activities": suppressed_nonmaterial_visible_arc_activities,
         "institutional_process_routes": institutional_routes,
         "exact_causal_events": causal_events,
         "player_known_information_claims": known_claims,
