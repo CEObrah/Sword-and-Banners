@@ -1,0 +1,32 @@
+{
+  "schema": "warfare-organization.v1",
+  "authority": "Static organizational policy for persistent formations and autonomous combined-arms operations. Exact manpower, formations, commanders, casualties, operations, ownership and appointments remain in their native campaign owners.",
+  "formation_command_structure": {
+    "century_size": 100,
+    "company_size": 500,
+    "wing_size": 2000,
+    "deputy_billets": 1,
+    "staff_billets_per_500": 2,
+    "signal_billets_per_500": 2,
+    "logistics_billets_per_500": 3,
+    "minimum_aggregate_staffed_personnel": 500,
+    "rule": "Internal command billets are functions within the formation's already-conserved personnel unless separately represented by an attached formation or exact person. The organization record never creates extra bodies. A player-facing independent formation still requires lawful command authority; autonomous state formations may use aggregate staffed command when no named commander is individually relevant."
+  },
+  "operation_depth": {
+    "formation_count_by_threat": [
+      {"minimum_severity": 85, "formation_count": 5},
+      {"minimum_severity": 70, "formation_count": 4},
+      {"minimum_severity": 50, "formation_count": 3},
+      {"minimum_severity": 35, "formation_count": 2}
+    ],
+    "combined_arms_roles": ["line_infantry", "missile_crossbow", "archer", "cavalry", "chariot", "siege_engineering", "logistics", "signal", "command_personnel"],
+    "rule": "Major state operations should draw several complementary persistent formations when exact available formations and authority permit. The operation layer coordinates them but does not merge their manpower, casualties or ownership."
+  },
+  "great_bow_guard": {
+    "preferred_cohort_size": 100,
+    "fighters_per_internal_command_candidate": 100,
+    "field_officer_cadre_target": 25,
+    "sword_manor_officer_authorization_target": 250,
+    "rule": "The 2,500-fighter Great Bow Guard is organized around roughly 100-fighter conserved recruitment cohorts. Each cohort may expose one aggregate command candidate for later exact materialization or appointment; this does not create a twenty-sixth fighter. A separate Sword Manor officer cadre may be seconded when exact House authority and conserved manpower permit."
+  }
+}
