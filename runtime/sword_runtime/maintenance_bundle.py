@@ -11,11 +11,11 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from sword_runtime.warfare_house_scale_repair import apply_warfare_house_scale_repair
+from sword_runtime.warfare_command_roster_repair import apply_warfare_house_gbg_depth_v3
 
 _COMMAND = "repair_bundle"
 _REPAIRS = {
-    "warfare_house_gbg_depth_v1": apply_warfare_house_scale_repair,
+    "warfare_house_gbg_depth_v3": apply_warfare_house_gbg_depth_v3,
 }
 
 

@@ -1,20 +1,21 @@
 """Integrity overlay for the final command-depth lifecycle.
 
-This mixin owns no campaign state. It closes two composition edge cases around
-``WarfareDepthMixin``:
+This mixin owns no campaign state. It closes lifecycle and conservation edge cases
+around ``WarfareDepthMixin``:
 
-* secondary formation staff/support are released before a merge deletes their
-  formation owners, preventing orphaned external personnel allocations; and
-* mercenary companies assign enough of their already-conserved total headcount
-  to company command/support before reporting fighting establishment. This is an
-  aggregate duty assignment, not new manpower and not mass person materialization.
+* secondary formation staff/support are released before a merge deletes owners;
+* mercenary command/support duty is carved from existing company headcount; and
+* materialized officers embedded inside formation fighting strength are not counted
+  a second time by top-level force conservation.
 """
 from __future__ import annotations
 
 import copy
-import math
 from collections.abc import Mapping, MutableMapping
 from typing import Any
+
+from sword_runtime.cohort_personnel import validate_cohort_ledger
+from sword_runtime.warfare_depth import WarfareDepthMixin
 
 
 class WarfareDepthIntegrityMixin:
@@ -24,22 +25,13 @@ class WarfareDepthIntegrityMixin:
         if command.command_type == "formation_merge":
             refs = payload.get("formation_refs", [])
             if isinstance(refs, list):
-                # The baseline merge reducer deletes refs[1:] after folding their
-                # fighting cohorts into the primary. Return only their separate
-                # external staff/support first; the primary keeps its attachments.
                 for ref in refs[1:]:
                     if isinstance(ref, str) and ref:
                         self._release_formation_external_personnel(ref)
         return super()._dispatch(command, payload)
 
     def _ensure_mercenary_command_structure(self, mercenary_ref: str) -> Mapping[str, Any]:
-        """Carve aggregate command/support duty from existing company headcount.
-
-        Explicit support troop pools remain exactly what they are. If they are
-        insufficient for the generic command/support establishment, the remaining
-        billets are aggregate duty assignments from otherwise fighting company
-        bodies. No troop pool, person record or headcount is created.
-        """
+        """Carve aggregate command/support duty from existing company headcount."""
         base = super()._ensure_mercenary_command_structure(mercenary_ref)
         path = self.owner_path(mercenary_ref)
         company0 = self.read(path)
@@ -67,9 +59,6 @@ class WarfareDepthIntegrityMixin:
             else 0
         )
 
-        # Solve the small circularity between support target and resulting fighting
-        # establishment. The deterministic fixed point converges in at most a few
-        # iterations because only 500-person block boundaries can change.
         fighting = max(0, total - explicit_non_fighting)
         assigned = explicit_non_fighting
         support_target = 0
@@ -125,6 +114,85 @@ class WarfareDepthIntegrityMixin:
         company["command_structure"] = structure
         self.put(path, company)
         return structure
+
+    def _validate_invariants(self, overlay: Any, paths: Any) -> None:
+        """Validate external personnel and materialized formation slots exactly once."""
+
+        class _LegacyForceView:
+            def __init__(self, inner: Any) -> None:
+                self.inner = inner
+
+            def read_optional_bytes(self, path: str) -> Any:
+                return self.inner.read_optional_bytes(path)
+
+            def read_json(self, path: str) -> Any:
+                value = self.inner.read_json(path)
+                if not path.startswith("state/forces/") or not isinstance(value, Mapping):
+                    return value
+                external = value.get("external_personnel_allocations", {})
+                assignments = value.get("materialized_assignments", {})
+                assigned_refs = {
+                    str(person_ref)
+                    for person_ref, assignment in assignments.items()
+                    if isinstance(assignments, Mapping)
+                    and isinstance(assignment, Mapping)
+                    and str(assignment.get("formation_ref", ""))
+                } if isinstance(assignments, Mapping) else set()
+                if (not isinstance(external, Mapping) or not external) and not assigned_refs:
+                    return value
+                adapted = copy.deepcopy(value)
+                people = adapted.get("materialized_people", {})
+                if isinstance(people, MutableMapping):
+                    for person_ref in assigned_refs:
+                        people.pop(person_ref, None)
+                if isinstance(external, Mapping) and external:
+                    roles = adapted.setdefault("available_by_role", {})
+                    locations = adapted.setdefault("available_by_location", {})
+                    default_location = str(adapted.get("source_location_ref", ""))
+                    if not default_location:
+                        default_location = next(iter(locations), "validation_external_allocation")
+                    local = locations.setdefault(default_location, {})
+                    for by_role in external.values():
+                        if not isinstance(by_role, Mapping):
+                            continue
+                        for role, raw_count in by_role.items():
+                            count = max(0, int(raw_count))
+                            roles[str(role)] = int(roles.get(str(role), 0)) + count
+                            local[str(role)] = int(local.get(str(role), 0)) + count
+                return adapted
+
+        super(WarfareDepthMixin, self)._validate_invariants(_LegacyForceView(overlay), paths)
+
+        for path in paths:
+            if not str(path).startswith("state/forces/") or overlay.read_optional_bytes(path) is None:
+                continue
+            force = overlay.read_json(path)
+            if not isinstance(force, Mapping):
+                continue
+            available = sum(max(0, int(v)) for v in force.get("available_by_role", {}).values()) if isinstance(force.get("available_by_role"), Mapping) else 0
+            fighting = sum(int(v.get("personnel", 0)) if isinstance(v, Mapping) else int(v) for v in force.get("allocated_to_formations", {}).values()) if isinstance(force.get("allocated_to_formations"), Mapping) else 0
+            raw_external = force.get("external_personnel_allocations", {})
+            external = sum(
+                max(0, int(count))
+                for roles in raw_external.values()
+                if isinstance(raw_external, Mapping) and isinstance(roles, Mapping)
+                for count in roles.values()
+            ) if isinstance(raw_external, Mapping) else 0
+            assignments = force.get("materialized_assignments", {})
+            assigned_refs = {
+                str(person_ref)
+                for person_ref, assignment in assignments.items()
+                if isinstance(assignment, Mapping) and str(assignment.get("formation_ref", ""))
+            } if isinstance(assignments, Mapping) else set()
+            people = force.get("materialized_people", {})
+            materialized_unassigned = sum(
+                int(value.get("personnel", 1)) if isinstance(value, Mapping) else int(value)
+                for person_ref, value in people.items()
+                if str(person_ref) not in assigned_refs
+            ) if isinstance(people, Mapping) else 0
+            if available + fighting + external + materialized_unassigned != int(force.get("headcount", -1)):
+                raise ValueError("force conservation including external personnel failed")
+            validate_cohort_ledger(force)
 
 
 __all__ = ["WarfareDepthIntegrityMixin"]

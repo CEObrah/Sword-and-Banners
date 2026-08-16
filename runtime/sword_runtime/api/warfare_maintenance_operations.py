@@ -1,4 +1,4 @@
-"""Explicit OOC maintenance operation for the warfare/House/GBG scale repair."""
+"""Explicit OOC maintenance operation for the warfare/House/GBG command repair."""
 from __future__ import annotations
 
 from typing import Any, Optional
@@ -10,10 +10,11 @@ from sword_runtime.engine import RepositoryCommandPlanner
 from sword_runtime.tx.canonical import thaw_json
 from sword_runtime.tx.errors import StaleRevisionError
 
-_REPAIR_ID = "warfare_house_gbg_depth_v1"
+_REPAIR_ID = "warfare_house_gbg_depth_v3"
 _REPAIR_REASON = (
-    "OOC DEV: correct under-scaled state warfare depth, House Tang/Sword Manor reserve production/storage, "
-    "Great Bow Guard 300-person abstraction, conserved cohort granularity and officer/command pipeline"
+    "OOC DEV: complete the Great Bow Guard scale repair, split the Qin Border Detachment into four conserved "
+    "2,000-fighter persistent units, materialize conserved officer rosters, reconcile Qin support, and preserve "
+    "multi-formation briefing and command-assumption continuity"
 )
 
 

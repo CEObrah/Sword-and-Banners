@@ -1,10 +1,10 @@
 """Reconcile exact formation command staff when controlled formations move.
 
-The formation owner remains command-role authority. Named commander/deputy
-characters remain separate exact people, so movement must not leave their person
-records silently behind when they are physically with the formation. Detached
-staff are never teleported: only staff already at the formation origin (or
-already at the destination) are reconciled.
+The formation owner remains command-role authority. Named commander/deputy people
+remain separate exact owners, so movement must not leave their person records
+silently behind when they are physically with the formation. Detached staff are
+never teleported: only staff already at the formation origin (or already at the
+destination) are reconciled.
 """
 from __future__ import annotations
 
@@ -35,7 +35,7 @@ class CommandStaffMovementMixin:
             origin = str(formation.get("location_ref", ""))
             for field in ("commander_ref", "deputy_ref"):
                 person_ref = formation.get(field)
-                if not isinstance(person_ref, str) or not person_ref.startswith("char_"):
+                if not isinstance(person_ref, str) or not person_ref:
                     continue
                 path = owners.get(person_ref) if isinstance(owners, Mapping) else None
                 if not isinstance(path, str):
@@ -61,8 +61,6 @@ class CommandStaffMovementMixin:
             person = copy.deepcopy(dict(person0))
             current_location = self._person_location(person)
             changed = False
-            # A registered staff member at the departing formation travels with
-            # it. A person elsewhere is detached and must never be teleported.
             if current_location == origin:
                 self._set_person_location(person, destination)
                 changed = True
@@ -72,13 +70,70 @@ class CommandStaffMovementMixin:
                     changed = True
             if changed:
                 self.put(path, person)
-            # The inner movement reducer may already have moved a commander. A
-            # command-staff reconciliation receipt reports every exact staff member
-            # confirmed aligned with the moved formation, not only records this
-            # outer adapter happened to rewrite.
             if current_location in {origin, destination}:
                 reconciled.append(person_ref)
         return reconciled
+
+    def _autonomy_move_formation_step(self, formation_ref: str, destination: str, at: str) -> dict[str, Any]:
+        """Extend autonomous formation movement to exact deputies as well as commanders."""
+
+        try:
+            _path, formation_before = self._load_formation(formation_ref)
+        except (KeyError, ValueError, FileNotFoundError):
+            return super()._autonomy_move_formation_step(formation_ref, destination, at)
+        origin = str(formation_before.get("location_ref", ""))
+        deputy_ref = formation_before.get("deputy_ref")
+        deputy_path = None
+        deputy_origin = None
+        if isinstance(deputy_ref, str) and deputy_ref:
+            owners = self.read("state/index/owner-index.json").get("owners", {})
+            path = owners.get(deputy_ref) if isinstance(owners, Mapping) else None
+            if isinstance(path, str):
+                deputy_path = path
+                deputy = self.read(path)
+                if isinstance(deputy, Mapping):
+                    deputy_origin = self._person_location(deputy)
+
+        result = super()._autonomy_move_formation_step(formation_ref, destination, at)
+        if not deputy_path or not isinstance(deputy_ref, str):
+            return result
+        try:
+            formation_path, formation_after0 = self._load_formation(formation_ref)
+        except (KeyError, ValueError, FileNotFoundError):
+            return result
+        formation_after = copy.deepcopy(formation_after0)
+        reached = str(formation_after.get("location_ref", origin))
+        if reached == origin:
+            return result
+
+        person0 = self.read(deputy_path)
+        if not isinstance(person0, Mapping):
+            return result
+        person = copy.deepcopy(dict(person0))
+        changed_person = False
+        changed_formation = False
+        if deputy_origin == origin:
+            self._set_person_location(person, reached)
+            person["current_formation_id"] = formation_ref
+            changed_person = True
+        elif deputy_origin == reached:
+            if person.get("current_formation_id") != formation_ref:
+                person["current_formation_id"] = formation_ref
+                changed_person = True
+        else:
+            if formation_after.get("deputy_ref") == deputy_ref:
+                formation_after["deputy_ref"] = None
+                formation_after["deputy_detached_at"] = at
+                changed_formation = True
+        if changed_person:
+            self.put(deputy_path, person)
+        if changed_formation:
+            self.put(formation_path, formation_after)
+        if changed_person:
+            out = dict(result)
+            out["deputy_reconciled"] = deputy_ref
+            return out
+        return result
 
     def _dispatch(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
         refs = self._movement_formation_refs(command, payload)
