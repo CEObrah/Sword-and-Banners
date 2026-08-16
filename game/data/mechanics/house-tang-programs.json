@@ -36,7 +36,8 @@
     "preferred_recruitment_cohort_size": 200,
     "formation_commander_billets": 1,
     "formation_deputy_billets": 1,
-    "supporting_officer_cadre_target": 30,
+    "internal_command_candidate_source": "accepted_great_bow_guard_recruits",
+    "automatic_sword_manor_secondments": 0,
     "founder_title": "Founding Great Bow Guard",
     "training_requirements": [
       "Bow Order",
@@ -69,7 +70,7 @@
         "Awareness",
         "Composure"
       ],
-      "rule": "After registered regional and residential screening, retained candidates receive at most 56 deliberate training hours per seven-day review. Four completed review blocks are the minimum candidate-training phase before acceptance into Tang Wei's conserved personal force. House Tang remains sponsor and supplier. Acceptance does not create their field formation or equipment issue. The campaign preserves 15 recruitment/provenance cohorts at 200 fighters each; those cohorts do not create commander or deputy billets. The single 3,000-man formation has one commander and one deputy unless it is lawfully split into separate formations."
+      "rule": "After registered regional and residential screening, retained candidates receive at most 56 deliberate training hours per seven-day review. Four completed review blocks are the minimum candidate-training phase before acceptance into Tang Wei's conserved personal force. House Tang remains sponsor and supplier. Acceptance does not create their field formation or equipment issue. The campaign preserves 15 recruitment/provenance cohorts at 200 fighters each; those cohorts also provide the conserved internal command-candidate body. The single 3,000-man formation has one commander and one deputy unless it is lawfully split into separate formations."
     },
     "opening_rule": "Opening applicant intake creates no fighter headcount, formation, equipment issue, spending, or completed recruitment. Candidate screening, acceptance, training, equipment, officer appointment and formation creation remain separate conserved consequences."
   },
@@ -81,8 +82,8 @@
     "intake_rule": "House-requested intake may fill only an exact existing trainee vacancy and must consume conserved Qin population. It never grants training time. Existing trainees continue only through the normal Sword Manor training cycle."
   },
   "sword_manor_officer_cadre": {
-    "authorized_officer_target": 250,
-    "great_bow_guard_supporting_cadre_target": 30,
-    "rule": "Sword Manor officers are conserved military personnel, not decorative rank counts. A supporting cadre may be seconded for staff, signals, logistics, instruction, replacements or future formation command only through an exact force/formation allocation. It does not create extra commander/deputy billets inside an unsplit formation. New officers still require promotion gates and vacancies; raising authorization does not instantly create the additional bodies."
+    "authorized_officer_target": 50,
+    "great_bow_guard_default_secondment_target": 0,
+    "rule": "Sword Manor officers are conserved military personnel, not decorative rank counts. They are not the default source of Great Bow Guard internal commanders. A Sword Manor officer may be seconded only through an explicit lawful transfer for staff, instruction, replacement or a specific appointment. New officers still require promotion gates and vacancies; authorization never creates bodies."
   }
 }
