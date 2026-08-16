@@ -148,7 +148,8 @@ def _kai_age(kai: Mapping[str, Any], at: str) -> int:
     current = CampaignTime.parse(at)
     birth_year = int(year_text)
     age = birth_year - current.bce_year
-    birth_month = int(parts[0]); birth_day = int(parts[1])
+    birth_month = int(parts[0])
+    birth_day = int(parts[1])
     if (current.month, current.day) < (birth_month, birth_day):
         age -= 1
     return max(0, age)
@@ -173,7 +174,6 @@ def settle_house_field_preparation(planner: Any, host: Mapping[str, Any], at: st
 
     kai = copy.deepcopy(planner.read(_KAI_PATH))
     age = _kai_age(kai, at)
-    activity = kai.get("activity_contract", {}) if isinstance(kai.get("activity_contract"), Mapping) else {}
     orders = kai.setdefault("goal_state", {}).setdefault("current_orders", [])
     home_order = (
         "Remain at Tang Manor under verified age-appropriate household training: language, memory, arithmetic, supervised play, riding familiarity, route observation, and safe Sword Manor observation. No live weapons, battle-contact drill, adult workload, or independent command training before saved age eligibility."
@@ -203,8 +203,8 @@ def settle_house_field_preparation(planner: Any, host: Mapping[str, Any], at: st
             "tang_helmet_reserve": int(restricted.get("Tang Helmet unissued reserve", 0)),
             "tang_shield_reserve": int(restricted.get("Tang Shield unissued reserve", 0)),
             "great_war_bow_reserve": int(bows.get("Great War Bow armory reserve", 0)),
-            "tang_horse_armor_reserve": int(mounts.get("Tang Horse Armor reserve", 0)),
-            "tang_tack_reserve": int(mounts.get("Tang Tack reserve", 0)),
+            "tang_horse_armor_reserve": int(restricted.get("Tang Horse Armor reserve", 0)),
+            "tang_tack_reserve": int(restricted.get("Tang Tack reserve", 0)),
             "tang_heavy_warhorse_reserve": int(mounts.get("Tang Heavy Warhorse reserve", 0)),
             "war_arrows_strategic_reserve": int(ammunition.get("War Arrows strategic reserve", 0)),
             "food_kg": int(treasury.get("food_kg", 0)),
@@ -225,7 +225,7 @@ def settle_house_field_preparation(planner: Any, host: Mapping[str, Any], at: st
 
     summary = (
         f"Tang Ling and Tang Zhu answer Tang Wei's campaign-preparation request. They keep Tang Kai at Tang Manor for now: he is {age}, and his saved training contract permits rigorous age-appropriate learning, riding familiarity, route and camp observation, and safe Sword Manor exposure, but forbids live weapons, battle-contact drill and adult workload; protected battlefield service is not eligible until age 10. His home training order is now persisted and remains subject to the normal verified development clocks. "
-        f"For Wei's personal Great Bow Guard, the House ledger currently sees {gbg_count} accepted fighters. Exact unissued House reserves are Tang Armor {int(restricted.get('Tang Armor unissued reserve', 0))}, Tang Helmets {int(restricted.get('Tang Helmet unissued reserve', 0))}, Tang Shields {int(restricted.get('Tang Shield unissued reserve', 0))}, and Great War Bows {int(bows.get('Great War Bow armory reserve', 0))}; strategic war-arrow reserve is {int(ammunition.get('War Arrows strategic reserve', 0))}. Mount reserves are {int(mounts.get('Tang Heavy Warhorse reserve', 0))} Tang heavy warhorses, {int(mounts.get('Tang Horse Armor reserve', 0))} horse-armor sets and {int(mounts.get('Tang Tack reserve', 0))} tack sets. "
+        f"For Wei's personal Great Bow Guard, the House ledger currently sees {gbg_count} accepted fighters. Exact unissued House reserves are Tang Armor {int(restricted.get('Tang Armor unissued reserve', 0))}, Tang Helmets {int(restricted.get('Tang Helmet unissued reserve', 0))}, Tang Shields {int(restricted.get('Tang Shield unissued reserve', 0))}, and Great War Bows {int(bows.get('Great War Bow armory reserve', 0))}; strategic war-arrow reserve is {int(ammunition.get('War Arrows strategic reserve', 0))}. Mount reserves are {int(mounts.get('Tang Heavy Warhorse reserve', 0))} Tang heavy warhorses, {int(restricted.get('Tang Horse Armor reserve', 0))} horse-armor sets and {int(restricted.get('Tang Tack reserve', 0))} tack sets. "
         f"House campaign stores are food {int(treasury.get('food_kg', 0))} kg and fodder {int(treasury.get('fodder_kg', 0))} kg, with standing monthly deliveries of {food_contract} kg food and {fodder_contract} kg fodder. The Champions currently hold {int(champions.get('logistics', {}).get('war_arrows', 0))} war arrows but {int(champions.get('logistics', {}).get('food_kg', 0))} kg food and {int(champions.get('logistics', {}).get('fodder_kg', 0))} kg fodder. "
         "The parents order a field-preparation and shortfall review opened for Wei's departure. The ledger does not contain a House-owned monthly Tang-armor manufacturing owner, so it will not fabricate a production number: current restricted reserves are real stock, while long spears, long swords, expedition spares and any replacement mounts beyond exact reserves still require lawful issue or procurement before they are called prepared."
     )[:4000]
