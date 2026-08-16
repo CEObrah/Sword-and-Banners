@@ -13,7 +13,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.api.interaction_surface import parse_interaction_attempt_summary
-from sword_runtime.causal_event_store import read_causal_event_owner, write_causal_event_owner
+from sword_runtime.causal_event_store import get_causal_event_from_reader, read_causal_event_owner, write_causal_event_owner
 from sword_runtime.cohort_personnel import (
     add_recruits,
     consume_population_recruits,
@@ -43,11 +43,13 @@ _KIND_START = "recruitment_start"
 _KIND_NUMBERS = "recruitment_numbers"
 _KIND_CONSTRAINTS = "recruitment_parallel_constraints"
 _KIND_REPORTING = "recruitment_opening_report"
+_KIND_NORTHERN_WEI_REVIEW = "northern_wei_recruitment_review"
 _PRIORITY = {
     _KIND_START: 45,
     _KIND_NUMBERS: 50,
     _KIND_CONSTRAINTS: 51,
     _KIND_REPORTING: 52,
+    _KIND_NORTHERN_WEI_REVIEW: 53,
 }
 
 
@@ -66,7 +68,7 @@ def _response_ref(request_id: str) -> str:
     return f"event_household_response_{digest}"
 
 
-def _classify_request(attempt: Mapping[str, Any]) -> str | None:
+def _classify_request(planner: Any, attempt: Mapping[str, Any]) -> str | None:
     if attempt.get("actor_id") != "char_tang_wei" or attempt.get("target_ref") not in _PARENT_REFS:
         return None
     action = str(attempt.get("action", ""))
@@ -75,6 +77,26 @@ def _classify_request(attempt: Mapping[str, Any]) -> str | None:
     text = str(attempt.get("player_statement", "")).lower()
     if not text:
         return None
+
+    # A request to Tang Ling to investigate a delivered northern-operation report
+    # is owned by House administration, not by the report itself.  Bind the route
+    # to the exact player-visible source so this cannot turn arbitrary family talk
+    # into hidden intelligence or a second world-arc outcome authority.
+    process_ref = attempt.get("process_ref")
+    if attempt.get("target_ref") == "char_tang_ling" and isinstance(process_ref, str):
+        source = get_causal_event_from_reader(planner, process_ref)
+        investigation_terms = ("investigate", "look into", "find out", "learn more", "inquire")
+        planning_terms = ("recruit", "recruitment", "cost", "costs", "expense", "expenses", "hiring")
+        if (
+            isinstance(source, Mapping)
+            and source.get("kind") == "world_arc_report"
+            and source.get("status") == "triggered"
+            and source.get("arc_ref") == "arc_ryo_fui_northern_wei_campaign"
+            and any(term in text for term in investigation_terms)
+            and any(term in text for term in planning_terms)
+        ):
+            return _KIND_NORTHERN_WEI_REVIEW
+
     has_gbg = "great bow guard" in text
     has_sword = "sword manor" in text
     has_recruit = "recruit" in text or "intake" in text
@@ -357,6 +379,54 @@ def _settle_constraints(planner: Any, *, at: str, house: Mapping[str, Any]) -> t
     return summary, {"reviewed_at": at, "great_bow_guard_status": great_status, "sword_manor": sword, "constraints": constraints}
 
 
+def _settle_northern_wei_review(planner: Any, *, at: str, house: Mapping[str, Any], request: Mapping[str, Any]) -> tuple[str, dict[str, Any]]:
+    process_ref = request.get("process_ref")
+    if not isinstance(process_ref, str) or not process_ref:
+        raise ValueError("House Tang northern Wei review lost its source report")
+    source = get_causal_event_from_reader(planner, process_ref)
+    if (
+        not isinstance(source, Mapping)
+        or source.get("kind") != "world_arc_report"
+        or source.get("status") != "triggered"
+        or source.get("arc_ref") != "arc_ryo_fui_northern_wei_campaign"
+    ):
+        raise ValueError("House Tang northern Wei review source is not the committed player-visible report")
+    source_summary = source.get("summary")
+    if not isinstance(source_summary, str) or not source_summary:
+        raise ValueError("House Tang northern Wei review source report has no usable summary")
+
+    rules = planner.read(_RULES_PATH)
+    safety = _treasury_safe_ceiling(planner.read(_TREASURY_PATH), rules)
+    sword = _sword_manor_status(planner)
+    programs = house.get("administrative_programs", {}) if isinstance(house.get("administrative_programs"), Mapping) else {}
+    great = programs.get("great_bow_guard", {}) if isinstance(programs, Mapping) else {}
+    great_status = str(great.get("status", "not_open")) if isinstance(great, Mapping) else "not_open"
+    if great_status == "recruiting":
+        great_text = "Great Bow Guard applicant intake is open, but opening alone still creates no accepted fighter headcount or committed equipment spending."
+    else:
+        great_text = f"Great Bow Guard applicant intake is currently {great_status.replace('_', ' ')}."
+    if sword["current_vacancy"] > 0:
+        sword_text = f"Sword Manor has {sword['current_vacancy']} trainee vacancies and can admit at most {min(sword['current_vacancy'], sword['monthly_intake_capacity'])} through a House-requested intake review."
+    else:
+        sword_text = f"Sword Manor has no current trainee vacancy; its next normal review is {sword.get('next_review_at') or 'not presently scheduled'}."
+    summary = (
+        "Tang Ling completes the House review requested from the delivered northern-operation report. "
+        f"The military information available to this House review remains the report already received: {source_summary} "
+        f"House accounts place the current discretionary treasury-safe ceiling at {safety['treasury_safe_ceiling_silver']} silver after protecting {safety['protected_reserve_silver']} silver of stable expense reserve. "
+        f"{great_text} {sword_text} "
+        "This review establishes planning information only; it creates no Qin appointment or deployment order and does not claim enemy dispositions beyond the delivered report."
+    )
+    return summary, {
+        "reviewed_at": at,
+        "source_process_ref": process_ref,
+        "source_report_summary": source_summary[:4000],
+        "treasury": safety,
+        "great_bow_guard_status": great_status,
+        "sword_manor": sword,
+        "knowledge_boundary": "No enemy disposition is established beyond the committed player-visible source report.",
+    }
+
+
 def _ensure_report_watch(planner: Any, *, at: str, house: dict[str, Any], player_ref: str) -> None:
     reporting = house.setdefault("recruitment_reporting", {})
     subscription = reporting.setdefault(player_ref, {})
@@ -421,6 +491,8 @@ def _settle_household_request(planner: Any, host: Mapping[str, Any], at: str) ->
         summary, result = _settle_constraints(planner, at=at, house=house)
     elif kind == _KIND_REPORTING:
         summary, result = _settle_reporting(planner, at=at, house=house)
+    elif kind == _KIND_NORTHERN_WEI_REVIEW:
+        summary, result = _settle_northern_wei_review(planner, at=at, house=house, request=request)
     else:
         raise ValueError("unsupported House Tang administrative request kind")
     event_ref = _response_event(planner, request_id=request_id, at=at, summary=summary)
@@ -533,7 +605,7 @@ class HouseholdRequestFlowMixin:
             attempt = parse_interaction_attempt_summary(event.get("summary"))
             if not isinstance(attempt, Mapping):
                 continue
-            kind = _classify_request(attempt)
+            kind = _classify_request(self, attempt)
             request_id = attempt.get("request_id")
             at = event.get("at")
             if kind is None or not isinstance(request_id, str) or not request_id or not isinstance(at, str):
@@ -546,6 +618,7 @@ class HouseholdRequestFlowMixin:
                     "requested_at": at,
                     "source_event_id": event.get("event_id"),
                     "target_ref": attempt.get("target_ref"),
+                    "process_ref": attempt.get("process_ref"),
                     "action": attempt.get("action"),
                     "player_statement": str(attempt.get("player_statement", ""))[:2000],
                 }
