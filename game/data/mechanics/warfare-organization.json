@@ -370,8 +370,10 @@
         "representation": "preserve_existing_named_full_characters",
         "appointment_rule": "Preserve the exact existing campaign commander and deputy refs; static organization policy does not overwrite named appointments."
       },
-      "internal_hierarchy": [],
-      "hierarchy_rule": "The 100 Tang Champions are one persistent unit, not a Great Bow Guard subcommand. Their named unit commander and deputy remain campaign-owned appointments."
+      "internal_hierarchy": [
+        {"scale": 100, "count": 0, "representation": "none", "deputy_policy": "none", "suppressed": true}
+      ],
+      "hierarchy_rule": "The 100 Tang Champions are one persistent unit, not a Great Bow Guard subcommand. The zero-count sentinel suppresses generic subordinate command generation in the current projection runtime. Their named unit commander and deputy remain campaign-owned appointments."
     }
   },
   "operation_depth": {
