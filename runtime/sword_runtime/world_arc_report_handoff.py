@@ -21,6 +21,7 @@ from sword_runtime.causal_event_store import (
 from sword_runtime.world_arcs import settle_world_arc_report
 
 
+_RUNTIME_PATH = "state/runtime.json"
 _SAFE_EVIDENCE_KINDS = frozenset({"exact_operation_created"})
 
 
@@ -85,14 +86,15 @@ def _summary(planner: Any, host: Mapping[str, Any], source: Mapping[str, Any]) -
     raise ValueError("unsupported player-safe world-arc evidence kind")
 
 
-def _remove_report(planner: Any, report_ref: str) -> None:
-    _path, owner = read_causal_event_owner(planner)
-    causal = owner.get("causal_events") if isinstance(owner, Mapping) else None
-    if not isinstance(causal, dict) or report_ref not in causal:
-        return
-    updated = copy.deepcopy(owner)
-    updated.get("causal_events", {}).pop(report_ref, None)
-    write_causal_event_owner(planner, updated)
+def _terminate_opaque_route(planner: Any, host: Mapping[str, Any]) -> None:
+    """Retire a non-reportable route without fabricating or deleting history."""
+    runtime = copy.deepcopy(planner.read(_RUNTIME_PATH))
+    hosts = runtime.get("hosts")
+    runtime_host = hosts.get(host.get("host_id")) if isinstance(hosts, dict) else None
+    if not isinstance(runtime_host, dict):
+        raise ValueError("world arc report lost its scheduler host")
+    runtime_host["recurrence_seconds"] = 0
+    planner.put(_RUNTIME_PATH, runtime)
 
 
 def settle_player_safe_world_arc_report(
@@ -101,17 +103,24 @@ def settle_player_safe_world_arc_report(
     at: str,
 ) -> dict[str, Any] | None:
     """Settle one report route and retain only intelligible player-safe results."""
-    wake = settle_world_arc_report(planner, host, at)
     source_event_ref = host.get("source_event_ref")
     if not isinstance(source_event_ref, str):
+        raise ValueError("world arc report host is invalid")
+    source = get_causal_event(planner, source_event_ref)
+    if not isinstance(source, Mapping) or source.get("status") != "triggered":
+        raise ValueError("world arc report lost its source event")
+
+    # Do not even perform a delivery/exposure roll for material bookkeeping whose
+    # public meaning is undefined. Retire the transport route before it can create
+    # a vague report, a wake, or a searchable information claim.
+    if not source_has_player_safe_world_arc_report(source):
+        _terminate_opaque_route(planner, host)
         return None
+
+    wake = settle_world_arc_report(planner, host, at)
     report_ref = f"{source_event_ref}.report"
     report = get_causal_event(planner, report_ref)
     if not isinstance(report, Mapping):
-        return None
-    source = get_causal_event(planner, source_event_ref)
-    if not isinstance(source, Mapping) or not source_has_player_safe_world_arc_report(source):
-        _remove_report(planner, report_ref)
         return None
 
     summary = _summary(planner, host, source)
