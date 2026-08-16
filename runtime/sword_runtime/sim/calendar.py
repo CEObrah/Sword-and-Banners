@@ -70,3 +70,7 @@ class CampaignTime:
     def seconds_until(self,other:'CampaignTime')->int:
         if self.offset!=other.offset: raise ValueError('campaign offsets differ')
         return int((other._dt()-self._dt()).total_seconds())
+
+    def seconds_since(self,other:'CampaignTime')->int:
+        """Return elapsed seconds from ``other`` to this timestamp."""
+        return other.seconds_until(self)
