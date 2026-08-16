@@ -14,7 +14,7 @@
   },
   "great_bow_guard": {
     "program_ref": "program_house_tang_great_bow_guard",
-    "fighting_establishment_max": 2500,
+    "fighting_establishment_max": 3000,
     "formation_ref": "formation_tang_wei_great_bow_guard_first",
     "selection_profile": "wei_archery_trial",
     "recruitment_phase_on_open": "applicant_intake",
@@ -32,9 +32,11 @@
     "war_arrows_carried_per_fighter": 36,
     "initial_field_war_arrows_minimum": 450000,
     "support_personnel_outside_fighting_establishment": true,
-    "preferred_recruitment_cohort_size": 100,
-    "command_candidate_ratio": 100,
-    "field_officer_cadre_target": 25,
+    "conserved_recruitment_cohorts": 15,
+    "preferred_recruitment_cohort_size": 200,
+    "command_candidate_ratio": 200,
+    "cohort_command_candidate_target": 15,
+    "supporting_officer_cadre_target": 30,
     "founder_title": "Founding Great Bow Guard",
     "training_requirements": [
       "Bow Order",
@@ -67,7 +69,7 @@
         "Awareness",
         "Composure"
       ],
-      "rule": "After registered regional and residential screening, retained candidates receive at most 56 deliberate training hours per seven-day review. Four completed review blocks are the minimum candidate-training phase before acceptance into Tang Wei's conserved personal force. House Tang remains sponsor and supplier. Acceptance does not create their field formation or equipment issue. The approximately 100-fighter recruitment cohorts preserve provenance and provide an aggregate command-candidate pool; exact officers still require materialization or lawful appointment."
+      "rule": "After registered regional and residential screening, retained candidates receive at most 56 deliberate training hours per seven-day review. Four completed review blocks are the minimum candidate-training phase before acceptance into Tang Wei's conserved personal force. House Tang remains sponsor and supplier. Acceptance does not create their field formation or equipment issue. The 15 retained recruitment cohorts preserve provenance at 200 fighters each and provide one aggregate command-candidate slot per cohort; exact officers still require materialization or lawful appointment."
     },
     "opening_rule": "Opening applicant intake creates no fighter headcount, formation, equipment issue, spending, or completed recruitment. Candidate screening, acceptance, training, equipment, officer appointment and formation creation remain separate conserved consequences."
   },
@@ -80,7 +82,7 @@
   },
   "sword_manor_officer_cadre": {
     "authorized_officer_target": 250,
-    "great_bow_guard_field_cadre_target": 25,
+    "great_bow_guard_supporting_cadre_target": 30,
     "rule": "Sword Manor officers are conserved military personnel, not decorative rank counts. A field cadre may be seconded to Tang Wei only through an exact force/formation allocation, while the remaining officer pool continues institutional command, instruction and replacement duties. New officers still require promotion gates and vacancies; raising authorization does not instantly create the additional bodies."
   }
 }
