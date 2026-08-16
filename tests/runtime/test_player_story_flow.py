@@ -38,7 +38,12 @@ def _install_qualification(planner, at: str) -> None:
         "process_kind": "command_qualification_review",
         "process_stage": "preliminary_review_complete",
         "summary": "Tang Wei's preliminary command qualification review is complete.",
-        "provenance": {"kind": "test_fixture"},
+        "provenance": {
+            "kind": "causal_runtime_settlement",
+            "source_owner_ref": "events_messages_and_movement",
+            "work_ref": QUALIFICATION_REF,
+            "late_catch_up": False,
+        },
     }
     write_causal_event_owner(planner, owner)
 
@@ -47,7 +52,9 @@ def _offer(planner, at: str) -> str:
     _install_qualification(planner, at)
     wake = settle_player_story_review(planner, {"kind": "player_story_review"}, at)
     assert wake is not None
-    return next(ref for ref in wake["story_event_refs"] if ref.startswith("event_story_qin_command_offer_"))
+    offer_ref = str(wake["campaign_event_ref"])
+    assert offer_ref.startswith("event_story_qin_command_offer_")
+    return offer_ref
 
 
 def _accept(planner, offer_ref: str, at: str) -> str:
@@ -66,6 +73,14 @@ def _accept(planner, offer_ref: str, at: str) -> str:
     return decision_ref
 
 
+def _story_event_refs(planner) -> list[str]:
+    _path, owner = read_causal_event_owner(planner)
+    return sorted(
+        str(ref) for ref in owner.get("causal_events", {})
+        if str(ref).startswith("event_story_")
+    )
+
+
 def test_story_flow_schedules_a_near_term_player_relevant_host(campaign) -> None:
     planner = _planner(campaign)
     runtime = copy.deepcopy(planner.read("state/runtime.json"))
@@ -74,10 +89,7 @@ def test_story_flow_schedules_a_near_term_player_relevant_host(campaign) -> None
     host = runtime["hosts"]["host_player_story_flow_tang_wei"]
     assert host["kind"] == "player_story_review"
     assert host["next_due"] == now
-    assert any(
-        row.get("target_host") == "host_player_story_flow_tang_wei"
-        for row in runtime["events"]
-    )
+    assert any(row.get("target_host") == "host_player_story_flow_tang_wei" for row in runtime["events"])
 
 
 def test_story_review_joins_real_qin_vacancy_to_qualified_candidate(campaign) -> None:
@@ -92,10 +104,15 @@ def test_story_review_joins_real_qin_vacancy_to_qualified_candidate(campaign) ->
     assert offer is not None
     assert offer["process_kind"] == "qin_field_command_offer"
     assert offer["process_stage"] == "offer_pending"
-    assert offer["appointment_offer"]["formation_ref"] == FORMATION_REF
-    assert offer["appointment_offer"]["personnel"] == 8000
-    assert offer["appointment_offer"]["arc_ref"] == "arc_ryo_fui_northern_wei_campaign"
+    assert "appointment_offer" not in offer
+    assert offer["provenance"]["kind"] == "causal_runtime_settlement"
     assert "offer, not an automatic appointment" in offer["summary"]
+
+    player = planner.read("state/player.json")
+    details = player["career_state"]["pending_qin_command_offers"][offer_ref]
+    assert details["formation_ref"] == FORMATION_REF
+    assert details["personnel"] == 8000
+    assert details["arc_ref"] == "arc_ryo_fui_northern_wei_campaign"
 
     after = planner.read(formation_path)
     assert after.get("commander_ref") in {None, ""}
@@ -106,12 +123,12 @@ def test_accepting_qin_offer_reserves_appointment_but_does_not_teleport_command(
     planner = _planner(campaign)
     at = str(planner.read("state/runtime.json")["world_time"])
     offer_ref = _offer(planner, at)
+    before_vacancies = int(planner.read("state/states/qin.json")["military_administration"]["commander_vacancy_count"])
     decision_ref = _accept(planner, offer_ref, at)
 
     decision = get_causal_event(planner, decision_ref)
     assert decision is not None
     assert decision["process_stage"] == "accepted_awaiting_assumption"
-
     formation = planner.read(planner.owner_path(FORMATION_REF))
     assert formation.get("commander_ref") in {None, ""}
     assert formation["command_authority"] == "state_qin"
@@ -119,6 +136,7 @@ def test_accepting_qin_offer_reserves_appointment_but_does_not_teleport_command(
 
     player = planner.read("state/player.json")
     assert player["allegiance"] == "House Tang only"
+    assert offer_ref not in player.get("career_state", {}).get("pending_qin_command_offers", {})
     assert any(
         row.get("formation_ref") == FORMATION_REF and row.get("status") == "awaiting_assumption"
         for row in player.get("career_state", {}).get("appointments", [])
@@ -127,9 +145,9 @@ def test_accepting_qin_offer_reserves_appointment_but_does_not_teleport_command(
 
     qin = planner.read("state/states/qin.json")
     appointment = qin["appointments"][f"field_command:{FORMATION_REF}"]
-    assert appointment["person_ref"] == "char_tang_wei"
     assert appointment["status"] == "awaiting_assumption"
     assert appointment["report_to_location_ref"] == formation["location_ref"]
+    assert int(qin["military_administration"]["commander_vacancy_count"]) == before_vacancies
 
 
 def test_arriving_at_appointed_formation_activates_command_without_transferring_ownership(campaign) -> None:
@@ -137,6 +155,7 @@ def test_arriving_at_appointed_formation_activates_command_without_transferring_
     at = str(planner.read("state/runtime.json")["world_time"])
     offer_ref = _offer(planner, at)
     _accept(planner, offer_ref, at)
+    before_vacancies = int(planner.read("state/states/qin.json")["military_administration"]["commander_vacancy_count"])
 
     formation = planner.read(planner.owner_path(FORMATION_REF))
     player = copy.deepcopy(planner.read("state/player.json"))
@@ -145,13 +164,12 @@ def test_arriving_at_appointed_formation_activates_command_without_transferring_
 
     wake = settle_player_story_review(planner, {"kind": "player_story_review"}, at)
     assert wake is not None
-    assert any(ref.startswith("event_story_qin_command_assumed_") for ref in wake["story_event_refs"])
+    assert str(wake["campaign_event_ref"]).startswith("event_story_qin_command_assumed_")
 
     formation = planner.read(planner.owner_path(FORMATION_REF))
     assert formation["commander_ref"] == "char_tang_wei"
     assert formation["command_authority"] == "char_tang_wei"
     assert formation["administrative_owner"] == "state_qin"
-
     commander_index = planner.read("state/index/commander-formation-index.json")
     assert FORMATION_REF in commander_index["assignments"]["char_tang_wei"]
 
@@ -164,8 +182,36 @@ def test_arriving_at_appointed_formation_activates_command_without_transferring_
     assert "Qin field commander" in player["authority"]
 
     qin = planner.read("state/states/qin.json")
-    appointment = qin["appointments"][f"field_command:{FORMATION_REF}"]
-    assert appointment["status"] == "active"
+    assert qin["appointments"][f"field_command:{FORMATION_REF}"]["status"] == "active"
+    assert int(qin["military_administration"]["commander_vacancy_count"]) == max(0, before_vacancies - 1)
+
+
+def test_lapsed_unassumed_appointment_restores_prior_authority(campaign) -> None:
+    planner = _planner(campaign)
+    at = str(planner.read("state/runtime.json")["world_time"])
+    offer_ref = _offer(planner, at)
+    _accept(planner, offer_ref, at)
+    player = planner.read("state/player.json")
+    prior = next(
+        row["prior_authority"] for row in player["career_state"]["appointments"]
+        if row.get("formation_ref") == FORMATION_REF and row.get("status") == "awaiting_assumption"
+    )
+
+    operation_path = planner.read("state/operations/index.json")["operations"]["operation_arc_131572c4e8a2892bbc"]
+    operation = copy.deepcopy(planner.read(operation_path))
+    operation["status"] = "completed"
+    planner.put(operation_path, operation)
+
+    wake = settle_player_story_review(planner, {"kind": "player_story_review"}, at)
+    assert wake is not None
+    player = planner.read("state/player.json")
+    assert player["authority"] == prior
+    assert any(
+        row.get("formation_ref") == FORMATION_REF and row.get("status") == "lapsed_before_assumption"
+        for row in player["career_state"]["appointments"]
+    )
+    formation = planner.read(planner.owner_path(FORMATION_REF))
+    assert formation.get("commander_ref") in {None, ""}
 
 
 def test_story_review_surfaces_house_status_and_family_initiative(campaign) -> None:
@@ -174,8 +220,10 @@ def test_story_review_surfaces_house_status_and_family_initiative(campaign) -> N
     _install_qualification(planner, at)
     wake = settle_player_story_review(planner, {"kind": "player_story_review"}, at)
     assert wake is not None
-    events = [get_causal_event(planner, ref) for ref in wake["story_event_refs"]]
+    refs = _story_event_refs(planner)
+    events = [get_causal_event(planner, ref) for ref in refs]
     summaries = [str(row.get("summary", "")) for row in events if row is not None]
     assert any("Sword Manor has completed" in summary for summary in summaries)
     assert any("Great Bow Guard" in summary for summary in summaries)
     assert any("family hall" in summary for summary in summaries)
+    assert all(row.get("provenance", {}).get("kind") == "causal_runtime_settlement" for row in events if row is not None)
