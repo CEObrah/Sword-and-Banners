@@ -54,9 +54,11 @@ def test_reportable_material_activity_without_route_still_fails_vitality() -> No
     assert "player_visible_world_arc_activity_without_delivery_route" in summary["diagnostics"]
 
 
-def test_concretely_blocked_activity_remains_report_eligible() -> None:
+def test_blocked_internal_activity_is_not_a_missing_player_report() -> None:
     summary = summarize_playability_vitality(_Store(_activity("work_blocked")))
-    assert summary["visible_arc_activities_without_delivery_route"] == 1
+    assert summary["visible_arc_activities_without_delivery_route"] == 0
+    assert summary["suppressed_nonmaterial_visible_arc_activities"] == 1
+    assert "player_visible_world_arc_activity_without_delivery_route" not in summary["diagnostics"]
 
 
 def test_active_arcs_with_no_player_visible_route_are_diagnosed() -> None:
