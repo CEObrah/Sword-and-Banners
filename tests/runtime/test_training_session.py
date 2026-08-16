@@ -105,4 +105,4 @@ def test_only_training_above_normal_ceiling_adds_residual_overload() -> None:
     )
     assert result["excess_deliberate_hours"] == 14.0
     assert result["overload_fatigue_points"] == 7
-    assert result["fatigue_after"] == 0
+    assert result["fatigue_after"] == 7
