@@ -28,6 +28,7 @@ _RECENT_INITIATIVE_REFS = 16
 _ALLOWED_DRIVER_PREFIXES = ("char_", "state_", "polity_", "house_", "faction_", "inst_", "process_")
 _SAFE_TEXT = re.compile(r"[^a-z0-9]+")
 _EXPLICIT_REF = re.compile(r"\b(?:char|state|polity|house|faction|inst|process)_[a-z0-9_]+\b")
+_PLAYER_REPORTABLE_RESULTS = frozenset({"material_action_settled", "work_blocked"})
 
 
 def _slug(value: object) -> str:
@@ -110,7 +111,7 @@ def sync_world_arc_routes(planner: Any, runtime: dict[str, Any]) -> None:
         if isinstance(event, dict) and isinstance(event.get("event_id"), str)
     }
 
-    # The causal-event store is the durable report authority.  Prune terminal
+    # The causal-event store is the durable report authority. Prune terminal
     # one-shot delivery routes that predate the current eager-GC behavior, while
     # preserving a route that is still referenced by an unresolved player wake.
     protected_host_ids: set[str] = set()
@@ -362,8 +363,10 @@ def _evidence_stage_required(record: Mapping[str, Any]) -> str:
         return "domain_action"
     return "external_consequence"
 
+
 def _evidence_stage_rank(stage: str) -> int:
     return {"intent": 0, "commitment": 1, "domain_action": 2, "external_consequence": 3}.get(str(stage), 0)
+
 
 def _arc_review_seconds(record: Mapping[str, Any]) -> int:
     """Choose a domain cadence; arcs orchestrate work rather than polling every two days."""
@@ -375,8 +378,6 @@ def _arc_review_seconds(record: Mapping[str, Any]) -> int:
     if kind == "political_initiative":
         return 7 * 86400
     return 14 * 86400
-
-
 
 
 def _mission_opportunity_template(planner: Any, record: Mapping[str, Any], actor_ref: str, target_ref: str | None, goal: str, at: str) -> dict[str, Any] | None:
@@ -419,6 +420,7 @@ def _mission_opportunity_template(planner: Any, record: Mapping[str, Any], actor
         ],
         'authority': 'game/data/content/mission-archetypes.json',
     }
+
 
 def _visibility(record: Mapping[str, Any]) -> tuple[str, str | None]:
     facts = record.get("facts") if isinstance(record.get("facts"), Mapping) else {}
@@ -505,9 +507,9 @@ def settle_world_arc_review(planner: Any, host: Mapping[str, Any], at: str) -> N
     """Settle one arc review as orchestration over exact domain work.
 
     Arc pressure may select an actor and a saved goal, but it does not roll a
-    strategic outcome.  If the selected actor has a registered domain-action
+    strategic outcome. If the selected actor has a registered domain-action
     bridge, that subsystem performs the actual resource/knowledge/relationship
-    work.  Otherwise the arc records intent only.
+    work. Otherwise the arc records intent only.
     """
     arc_ref = host.get("arc_ref")
     if not isinstance(arc_ref, str):
@@ -539,7 +541,7 @@ def settle_world_arc_review(planner: Any, host: Mapping[str, Any], at: str) -> N
     if drivers:
         drivers.sort(key=lambda row: row[0])
         # First observe material work that an actor-owned causal host settled since
-        # the previous arc review.  This makes the arc a watcher of domain evidence,
+        # the previous arc review. This makes the arc a watcher of domain evidence,
         # not a scheduler that must randomly select the same actor twice before a
         # completed action can matter.
         completed = None
@@ -585,9 +587,9 @@ def settle_world_arc_review(planner: Any, host: Mapping[str, Any], at: str) -> N
         required_stage = _evidence_stage_required(record)
         if result == "material_action_settled" and not material_evidence:
             # Fail closed: a domain bridge may queue work freely, but it cannot make
-            # an arc stronger merely by *claiming* execution.  Concrete momentum
+            # an arc stronger merely by claiming execution. Concrete momentum
             # requires verifiable exact/resource evidence supplied by the owning
-            # subsystem.  This prevents saved priorities/attempt rows from becoming
+            # subsystem. This prevents saved priorities/attempt rows from becoming
             # a second narrative outcome authority.
             result = "work_queued"
             outcome = dict(outcome)
@@ -662,7 +664,10 @@ def settle_world_arc_review(planner: Any, host: Mapping[str, Any], at: str) -> N
         recent.append(event_ref)
         del recent[:-_RECENT_INITIATIVE_REFS]
 
-        if visibility in {"discoverable", "direct"} and route:
+        # Player-facing propagation is reserved for a materially settled action
+        # or a concrete blocked attempt. A queue/intention record remains valid
+        # world state but is not news and must not wake standing activity.
+        if result in _PLAYER_REPORTABLE_RESULTS and visibility in {"discoverable", "direct"} and route:
             _schedule_report_route(planner, arc_ref=arc_ref, source_event_ref=event_ref, at=at, route=route, origin_state=origin_state, pressure_stage=pressure_stage, visibility=visibility)
     else:
         momentum = max(0, momentum - 1)
@@ -743,7 +748,7 @@ def settle_world_arc_report(planner: Any, host: Mapping[str, Any], at: str) -> d
 
     document = _arc_document(planner)
     _index, record = _record_index(document, arc_ref)
-    owner_path, event_owner = _event_owner(planner)
+    _owner_path, event_owner = _event_owner(planner)
     source = get_causal_event(planner, source_event_ref)
     if not isinstance(source, Mapping) or source.get("status") != "triggered":
         raise ValueError("world arc report lost its source event")
@@ -752,6 +757,15 @@ def settle_world_arc_report(planner: Any, host: Mapping[str, Any], at: str) -> d
     runtime_host = runtime.get("hosts", {}).get(host.get("host_id"))
     if not isinstance(runtime_host, dict):
         raise ValueError("world arc report lost its scheduler host")
+
+    # Defensive migration for report routes created by older builds. Queue and
+    # intent records remain durable causal history, but they terminate here
+    # without emitting a player-facing report or interrupting standing activity.
+    if str(source.get("result", "")) not in _PLAYER_REPORTABLE_RESULTS:
+        runtime_host["recurrence_seconds"] = 0
+        planner.put(RUNTIME_PATH, runtime)
+        return None
+
     attempts = int(runtime_host.get("attempts", 0)) + 1
     runtime_host["attempts"] = attempts
 
