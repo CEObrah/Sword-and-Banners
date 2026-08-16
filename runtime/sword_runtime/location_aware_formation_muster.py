@@ -14,8 +14,10 @@ import copy
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.formation_armory_issue import FormationArmoryIssueMixin
 
-class LocationAwareFormationMusterMixin:
+
+class LocationAwareFormationMusterMixin(FormationArmoryIssueMixin):
     """Bridge legacy single-source muster logic to exact location-aware reserves."""
 
     def _dispatch(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
@@ -40,10 +42,6 @@ class LocationAwareFormationMusterMixin:
         if str(previous_source or "") == location:
             return super()._dispatch(command, payload)
 
-        # The base formation_create reducer already performs the authoritative
-        # role/location conservation transfer. Temporarily align its legacy
-        # source-location guard with the exact pool it is about to consume, then
-        # restore the force's ordinary default muster point afterwards.
         force["source_location_ref"] = location
         self.put(force_path, force)
         result = super()._dispatch(command, payload)
