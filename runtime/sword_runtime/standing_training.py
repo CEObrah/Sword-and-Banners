@@ -17,11 +17,13 @@ from collections.abc import Mapping
 from copy import deepcopy
 from typing import Any
 
-from sword_runtime.development import settle_skill_training
+from sword_runtime.cohort_personnel import ensure_formation_composition
 from sword_runtime.engine import _clamp
 from sword_runtime.sim.calendar import CampaignTime
+from sword_runtime.training_session import settle_training_session, standing_recovery_result
 
 _RUNTIME_PATH = "state/runtime.json"
+_SESSION_RULES_PATH = "game/data/mechanics/training-session.json"
 _WEEK_SECONDS = 7 * 86400
 
 
@@ -79,6 +81,7 @@ class StandingTrainingSettlementMixin:
         ds["standing_training_time_credit_hours"] = round(after, 6)
         if before <= 1e-9:
             ds["standing_training_credit_window_start"] = str(start)
+            ds.pop("standing_training_recovery_through", None)
         ds["standing_training_credit_window_end"] = str(end)
         history = ds.setdefault("standing_training_accrual_history", [])
         if not isinstance(history, list):
@@ -133,6 +136,7 @@ class StandingTrainingSettlementMixin:
         formation["standing_training_time_credit_hours"] = round(after, 6)
         if before <= 1e-9:
             formation["standing_training_credit_window_start"] = str(start)
+            formation.pop("standing_training_recovery_through", None)
         formation["standing_training_credit_window_end"] = str(end)
         history = formation.setdefault("standing_training_accrual_history", [])
         if not isinstance(history, list):
@@ -207,6 +211,35 @@ class StandingTrainingSettlementMixin:
                 return interval_start
         return current_text
 
+    def _standing_recovery(
+        self,
+        owner: Mapping[str, Any],
+        *,
+        fatigue: int,
+        current: CampaignTime,
+        completed_hours: float,
+        training: Mapping[str, Any],
+        session_rules: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        current_text = str(current)
+        start_text = owner.get("standing_training_recovery_through")
+        if not isinstance(start_text, str) or not start_text:
+            start_text = self._credit_window_start(owner, current_text)
+        start = CampaignTime.parse(start_text)
+        if start > current:
+            start = current
+        normal_weekly = float(
+            training.get("time_budget", {}).get("deliberate_training_hours_per_7d_normal_max", 56.0) or 0.0
+        )
+        return standing_recovery_result(
+            fatigue=fatigue,
+            started_at=start,
+            completed_at=current,
+            completed_deliberate_hours=completed_hours,
+            normal_deliberate_hours_per_7d=normal_weekly,
+            session_rules=session_rules,
+        )
+
     def _consume_player_standing_credit(self, current: CampaignTime, request_id: str) -> dict[str, Any]:
         player = deepcopy(self.read("state/player.json"))
         ds = player.setdefault("development_state", {})
@@ -219,6 +252,16 @@ class StandingTrainingSettlementMixin:
         if not focuses:
             raise ValueError("standing training plan has no trainable focus")
         training = self.read("game/data/mechanics/training.json")
+        session_rules = self.read(_SESSION_RULES_PATH)
+        recovery = self._standing_recovery(
+            ds,
+            fatigue=int(player.get("fatigue", 0) or 0),
+            current=current,
+            completed_hours=float(whole),
+            training=training,
+            session_rules=session_rules,
+        )
+        player["fatigue"] = int(recovery["fatigue_after"])
         cursor = max(0, int(ds.get("standing_training_focus_cursor", 0)))
         results: list[dict[str, Any]] = []
         count = len(focuses)
@@ -227,12 +270,13 @@ class StandingTrainingSettlementMixin:
             hours = 0 if offset >= whole else 1 + (whole - 1 - offset) // count
             if hours <= 0:
                 continue
-            results.append(settle_skill_training(player, focus, hours, current, training))
+            results.append(settle_training_session(player, focus, hours, current, training, session_rules))
         remainder = max(0.0, credit - whole)
         ds = player.setdefault("development_state", {})
         ds["standing_training_time_credit_hours"] = round(remainder, 6)
         ds["standing_training_focus_cursor"] = cursor + whole
         ds["standing_training_last_settled_at"] = str(current)
+        ds["standing_training_recovery_through"] = str(current)
         started_at = self._credit_window_start(ds, str(current))
         history = player.setdefault("training_history", [])
         if not isinstance(history, list):
@@ -245,18 +289,126 @@ class StandingTrainingSettlementMixin:
                 "hours": whole,
                 "request_id": request_id,
                 "development": results,
+                "recovery": recovery,
             }
         )
         player["training_history"] = history[-64:]
         if remainder <= 1e-9:
             ds.pop("standing_training_credit_window_start", None)
             ds.pop("standing_training_credit_window_end", None)
+            ds.pop("standing_training_recovery_through", None)
         self.put("state/player.json", player)
         return {
             "target_ref": self.PLAYER_ACTOR,
             "consumed_hours": whole,
             "remaining_credit_hours": round(remainder, 6),
+            "fatigue": int(player.get("fatigue", 0)),
+            "recovery": recovery,
             "focus_results": results,
+        }
+
+    def _formation_capability_snapshot(self, formation_ref: str) -> dict[str, Any]:
+        """Project trained cohort means and banked EDU for one controlled formation."""
+
+        _path, raw = self._load_formation(formation_ref)
+        formation = deepcopy(raw)
+        force_path = self.owner_path(str(formation["owner_force_ref"]))
+        force = deepcopy(self.read(force_path))
+        if hasattr(self, "_seed_force_baselines"):
+            self._seed_force_baselines(force)
+        ensure_formation_composition(force, formation)
+
+        ledger = force.get("cohort_ledger", {})
+        cohorts = ledger.get("cohorts", {}) if isinstance(ledger, Mapping) else {}
+        profiles = self.read("game/data/mil/recruitment-cohort-profiles.json")
+        role_profiles = profiles.get("role_training_profiles", {}) if isinstance(profiles, Mapping) else {}
+        if not isinstance(role_profiles, Mapping):
+            role_profiles = {}
+
+        represented = 0
+        verified_training_total = 0.0
+        verified_training_count = 0
+        sums: dict[str, dict[str, float]] = {
+            "attribute_means": {},
+            "attribute_edu_banks": {},
+            "skill_means": {},
+            "skill_edu_banks": {},
+        }
+        counts: dict[str, dict[str, int]] = {key: {} for key in sums}
+
+        for item in formation.get("cohort_composition", []):
+            if not isinstance(item, Mapping):
+                continue
+            count = max(0, int(item.get("count", 0)))
+            cohort = cohorts.get(str(item.get("cohort_id"))) if isinstance(cohorts, Mapping) else None
+            if count <= 0 or not isinstance(cohort, Mapping):
+                continue
+            represented += count
+            verified_training_total += float(cohort.get("verified_training_hours_per_person", 0.0) or 0.0) * count
+            verified_training_count += count
+            role = str(cohort.get("role") or next(iter(formation.get("composition", {})), "line_infantry"))
+            focus = role_profiles.get(role, {}) if isinstance(role_profiles, Mapping) else {}
+            skill_names = [str(x) for x in focus.get("skills", [])] if isinstance(focus, Mapping) else []
+            attribute_names = [str(x) for x in focus.get("attributes", [])] if isinstance(focus, Mapping) else []
+            for mean_key, bank_key, names in (
+                ("attribute_means", "attribute_edu_banks", attribute_names),
+                ("skill_means", "skill_edu_banks", skill_names),
+            ):
+                means = cohort.get(mean_key, {}) if isinstance(cohort.get(mean_key), Mapping) else {}
+                banks = cohort.get(bank_key, {}) if isinstance(cohort.get(bank_key), Mapping) else {}
+                for name in names:
+                    if name in means:
+                        sums[mean_key][name] = sums[mean_key].get(name, 0.0) + float(means[name]) * count
+                        counts[mean_key][name] = counts[mean_key].get(name, 0) + count
+                    if name in banks:
+                        sums[bank_key][name] = sums[bank_key].get(name, 0.0) + float(banks[name]) * count
+                        counts[bank_key][name] = counts[bank_key].get(name, 0) + count
+
+        def averaged(key: str) -> dict[str, float]:
+            return {
+                name: round(total / counts[key][name], 3)
+                for name, total in sorted(sums[key].items())
+                if counts[key].get(name, 0) > 0
+            }
+
+        return {
+            "represented_personnel": represented,
+            "verified_training_hours_per_person": round(
+                verified_training_total / verified_training_count, 3
+            ) if verified_training_count else 0.0,
+            "trained_attribute_means": averaged("attribute_means"),
+            "trained_skill_means": averaged("skill_means"),
+            "attribute_edu_banks": averaged("attribute_edu_banks"),
+            "skill_edu_banks": averaged("skill_edu_banks"),
+        }
+
+    @staticmethod
+    def _capability_development_delta(
+        before: Mapping[str, Any],
+        after: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        def changed(key: str) -> dict[str, float]:
+            old = before.get(key, {}) if isinstance(before.get(key), Mapping) else {}
+            new = after.get(key, {}) if isinstance(after.get(key), Mapping) else {}
+            result: dict[str, float] = {}
+            for name, value in sorted(new.items()):
+                delta = float(value) - float(old.get(name, value))
+                if abs(delta) > 1e-9:
+                    result[str(name)] = round(delta, 3)
+            return result
+
+        return {
+            "model": "cohort_means_with_banked_edu",
+            "represented_personnel": int(after.get("represented_personnel", 0) or 0),
+            "verified_training_hours_per_person": float(
+                after.get("verified_training_hours_per_person", 0.0) or 0.0
+            ),
+            "trained_attribute_means": dict(after.get("trained_attribute_means", {})),
+            "trained_skill_means": dict(after.get("trained_skill_means", {})),
+            "attribute_mean_changes": changed("trained_attribute_means"),
+            "skill_mean_changes": changed("trained_skill_means"),
+            "attribute_edu_banks": dict(after.get("attribute_edu_banks", {})),
+            "skill_edu_banks": dict(after.get("skill_edu_banks", {})),
         }
 
     def _consume_formation_standing_credit(
@@ -271,6 +423,18 @@ class StandingTrainingSettlementMixin:
         whole = max(0, int(credit + 1e-9))
         if whole < 1:
             raise ValueError("insufficient formation standing training credit")
+        training = self.read("game/data/mechanics/training.json")
+        session_rules = self.read(_SESSION_RULES_PATH)
+        capability_before = self._formation_capability_snapshot(formation_ref)
+        recovery = self._standing_recovery(
+            formation,
+            fatigue=int(formation.get("fatigue", 0) or 0),
+            current=current,
+            completed_hours=float(whole),
+            training=training,
+            session_rules=session_rules,
+        )
+        formation["fatigue"] = int(recovery["fatigue_after"])
         if formation.get("training_progress") is None:
             formation["training_progress"] = 0
         if formation.get("verified_training_hours") is None:
@@ -284,11 +448,9 @@ class StandingTrainingSettlementMixin:
         formation["readiness"] = _clamp(
             int(formation.get("readiness", 50)) + max(0, whole // 6)
         )
-        formation["fatigue"] = _clamp(
-            int(formation.get("fatigue", 0)) + max(1, whole // 5)
-        )
         formation["verified_training_hours"] = int(formation.get("verified_training_hours", 0)) + whole
         formation["last_training_at"] = str(current)
+        formation["standing_training_recovery_through"] = str(current)
         self.put(path, formation)
         if hasattr(self, "_ct_train_formation"):
             self._ct_train_formation(
@@ -296,10 +458,12 @@ class StandingTrainingSettlementMixin:
                 float(whole),
                 f"standing_training_settle:{request_id}:{formation_ref}",
             )
+        capability_after = self._formation_capability_snapshot(formation_ref)
         settled = deepcopy(self.read(path))
         remainder = max(0.0, credit - whole)
         settled["standing_training_time_credit_hours"] = round(remainder, 6)
         settled["standing_training_last_settled_at"] = str(current)
+        settled["standing_training_recovery_through"] = str(current)
         started_at = self._credit_window_start(settled, str(current))
         history = settled.setdefault("standing_training_history", [])
         if not isinstance(history, list):
@@ -311,12 +475,14 @@ class StandingTrainingSettlementMixin:
                 "completed_at": str(current),
                 "hours": whole,
                 "request_id": request_id,
+                "recovery": recovery,
             },
             32,
         )
         if remainder <= 1e-9:
             settled.pop("standing_training_credit_window_start", None)
             settled.pop("standing_training_credit_window_end", None)
+            settled.pop("standing_training_recovery_through", None)
         self.put(path, settled)
         return {
             "target_ref": formation_ref,
@@ -326,6 +492,11 @@ class StandingTrainingSettlementMixin:
             "cohesion": int(settled.get("cohesion", 0)),
             "readiness": int(settled.get("readiness", 0)),
             "fatigue": int(settled.get("fatigue", 0)),
+            "recovery": recovery,
+            "capability_development": self._capability_development_delta(
+                capability_before,
+                capability_after,
+            ),
         }
 
     def _dispatch(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
