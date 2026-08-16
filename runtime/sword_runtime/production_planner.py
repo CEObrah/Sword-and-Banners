@@ -20,7 +20,9 @@ from sword_runtime.great_bow_guard_personal_integrity import GreatBowGuardPerson
 from sword_runtime.great_bow_guard_readiness_event_schema import GreatBowGuardReadinessEventSchemaMixin
 from sword_runtime.great_bow_guard_readiness_flow import GreatBowGuardReadinessFlowMixin
 from sword_runtime.house_field_preparation_gate import ExplicitHouseFieldPreparationFlowMixin
+from sword_runtime.house_field_preparation_production import HouseFieldPreparationProductionProjectionMixin
 from sword_runtime.house_tang_development_integrity import HouseTangDevelopmentIntegrityMixin
+from sword_runtime.house_tang_production import HouseTangEquipmentProductionMixin
 from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
 from sword_runtime.location_aware_formation_muster import LocationAwareFormationMusterMixin
 from sword_runtime.qin_command_briefing_flow import QinCommandBriefingFlowMixin
@@ -29,6 +31,7 @@ from sword_runtime.player_story_flow import PlayerStoryFlowMixin
 from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.standing_training import StandingTrainingSettlementMixin
 from sword_runtime.training_session import settle_training_session
+from sword_runtime.warfare_depth import WarfareDepthMixin
 
 HOUSE_TANG_GARRISON_REF = "loc_tang_manor_garrison_yard"
 HOUSE_TANG_GARRISON: dict[str, Any] = {
@@ -43,6 +46,7 @@ HOUSE_TANG_GARRISON: dict[str, Any] = {
 
 
 class ProductionCampaignPlanner(
+    WarfareDepthMixin,
     GreatBowGuardCombatProfileMixin,
     CampaignDepthMixin,
     EnvironmentMechanicsMixin,
@@ -54,6 +58,7 @@ class ProductionCampaignPlanner(
     FamilyCounselMixin,
     GreatBowGuardReadinessEventSchemaMixin,
     GreatBowGuardReadinessFlowMixin,
+    HouseFieldPreparationProductionProjectionMixin,
     ExplicitHouseFieldPreparationFlowMixin,
     LocationAwareFormationMusterMixin,
     HouseholdRequestFlowMixin,
@@ -63,6 +68,7 @@ class ProductionCampaignPlanner(
     PlayerStoryFlowMixin,
     GreatBowGuardPersonalIntegrityMixin,
     GreatBowGuardFlowMixin,
+    HouseTangEquipmentProductionMixin,
     HouseTangDevelopmentIntegrityMixin,
     ForceCohortLivingWorldMixin,
     ActivityCampaignEventPlanner,
