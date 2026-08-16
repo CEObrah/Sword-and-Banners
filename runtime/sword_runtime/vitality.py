@@ -79,8 +79,8 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
             continue
         # Keep the vitality diagnostic aligned with the actual world-arc
         # propagation contract. Queue/intent records may be discoverable causal
-        # history, but PR72 deliberately made them non-reportable so they do not
-        # interrupt play before a material result or concrete block exists.
+        # history, but they are deliberately non-reportable until a material
+        # result or concrete block exists.
         if str(event.get("result", "")) not in _PLAYER_REPORTABLE_RESULTS:
             suppressed_nonmaterial_visible_arc_activities += 1
             continue
@@ -110,6 +110,9 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     if active_arcs and scheduled_world_arcs == 0:
         diagnostics.append("active_world_arcs_without_scheduled_progression")
         suggestions.append("review_world_arc_scheduler_routing")
+    if active_arcs and active_visible_arcs == 0:
+        diagnostics.append("active_world_arcs_have_no_player_visible_route")
+        suggestions.append("review_world_arc_visibility_and_handoff_routing")
     if visible_arc_activities_without_delivery_route:
         diagnostics.append("player_visible_world_arc_activity_without_delivery_route")
         suggestions.append("repair_world_arc_report_routing_before_increasing_arc_frequency")
@@ -119,6 +122,9 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     if active_arcs and not pending_wake and scheduled_world_arcs + scheduled_reports == 0:
         diagnostics.append("world_pressure_exists_but_no_near_term_causal_handoff_is_scheduled")
         suggestions.append("review_causal_throughput_before_treating_waiting_as_empty_time")
+    if active_arcs and causal_events and known_claims == 0 and scheduled_reports == 0 and not pending_wake:
+        diagnostics.append("world_pressure_exists_but_player_information_and_handoff_are_empty")
+        suggestions.append("bridge_delivered_reports_into_information_and_opportunity_routing")
 
     return {
         "active_world_arcs": active_arcs,
