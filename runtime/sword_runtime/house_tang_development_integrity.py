@@ -12,6 +12,7 @@ import copy
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.causal_callback_time import CausalCallbackWorldTimeMixin
 from sword_runtime.causal_event_store import get_causal_event, read_causal_event_owner, write_causal_event_owner
 from sword_runtime.cohort_personnel import role_count
 from sword_runtime.house_tang_development import (
@@ -22,7 +23,7 @@ from sword_runtime.house_tang_development import (
 from sword_runtime.sim.calendar import CampaignTime
 
 
-class HouseTangDevelopmentIntegrityMixin(HouseTangDevelopmentMixin):
+class HouseTangDevelopmentIntegrityMixin(CausalCallbackWorldTimeMixin, HouseTangDevelopmentMixin):
     """Close derived establishment/economy/chronology/report invariants after House development."""
 
     def _normalize_sword_manor_host(self, runtime: dict[str, Any]) -> None:
