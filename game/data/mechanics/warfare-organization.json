@@ -2,15 +2,16 @@
   "schema": "warfare-organization.v1",
   "authority": "Static organizational policy for persistent formations and autonomous combined-arms operations. Exact manpower, formations, commanders, casualties, operations, ownership and appointments remain in their native campaign owners.",
   "formation_command_structure": {
+    "commander_billets_per_formation": 1,
+    "deputy_billets_per_formation": 1,
     "century_size": 100,
     "company_size": 500,
     "wing_size": 2000,
-    "deputy_billets": 1,
     "staff_billets_per_500": 2,
     "signal_billets_per_500": 2,
     "logistics_billets_per_500": 3,
     "minimum_aggregate_staffed_personnel": 500,
-    "rule": "Internal command billets are functions within the formation's already-conserved personnel unless separately represented by an attached formation or exact person. The organization record never creates extra bodies. A player-facing independent formation still requires lawful command authority; autonomous state formations may use aggregate staffed command when no named commander is individually relevant."
+    "rule": "A persistent formation has exactly one commander billet and one deputy billet unless a different exact formation type explicitly overrides that rule. Century/company/wing counts are internal span-of-control markers only; they do not create extra command billets or independent units. New commander/deputy billets exist only after manpower is lawfully split into separate persistent formations. Staff, signal and logistics functions remain included inside the formation's conserved personnel and do not add bodies."
   },
   "operation_depth": {
     "formation_count_by_threat": [
@@ -26,10 +27,10 @@
     "fighting_establishment": 3000,
     "conserved_recruitment_cohorts": 15,
     "preferred_cohort_size": 200,
-    "fighters_per_internal_command_candidate": 200,
-    "cohort_command_candidate_target": 15,
+    "formation_commander_billets": 1,
+    "formation_deputy_billets": 1,
     "supporting_officer_cadre_target": 30,
     "sword_manor_officer_authorization_target": 250,
-    "rule": "The 3,000-fighter Great Bow Guard preserves the campaign's 15 conserved recruitment cohorts and normalizes each to 200 fighters. Each cohort exposes one aggregate internal command candidate for later exact materialization or appointment; this does not create a sixteenth cohort or any extra fighter. A separate Sword Manor officer cadre may provide deputies, staff, signals, logistics and replacement command when exact House authority and conserved manpower permit."
+    "rule": "The 3,000-fighter Great Bow Guard is one persistent formation with one commander billet and one deputy billet. Its 15 conserved recruitment cohorts are 200-fighter provenance/manpower slices only and create no command billets. If Tang Wei later splits the Great Bow Guard into multiple persistent formations, each lawful child formation receives its own commander/deputy pair. A separate Sword Manor officer pool may supply staff, signals, logistics, replacements or future commanders without becoming extra formation commanders by default."
   }
 }
