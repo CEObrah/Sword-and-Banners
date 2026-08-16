@@ -1,0 +1,38 @@
+{
+  "schema": "combat-role-profile.v1",
+  "authority": "Great Bow Guard battlefield aggregation profile. It maps saved cohort capability to the registered Tang Wei Great Bow Guard loadout; it never creates skill or attribute values.",
+  "role": "great_bow_guard",
+  "profile": {
+    "loadout_id": "loadout_tang_great_bow_guard",
+    "melee_skill_weights": {
+      "Spear": 0.2,
+      "Sword": 0.12,
+      "Shield": 0.14,
+      "Defense": 0.18,
+      "Formation Fighting": 0.2,
+      "Athletics": 0.06,
+      "Mass Combat": 0.04,
+      "Bow": 0.06
+    },
+    "attribute_weights": {
+      "Strength": 0.1,
+      "Agility": 0.1,
+      "Endurance": 0.14,
+      "Toughness": 0.08,
+      "Coordination": 0.22,
+      "Awareness": 0.18,
+      "Composure": 0.18
+    },
+    "ranged_skill_weights": {
+      "Bow": 0.62,
+      "Formation Fighting": 0.14,
+      "Defense": 0.08,
+      "Athletics": 0.06,
+      "Scouting": 0.04,
+      "Mass Combat": 0.06
+    },
+    "frontage_spacing_m": 1.0,
+    "depth_support_factor": 0.38,
+    "terrain_tags": ["missile", "infantry", "guard", "elite"]
+  }
+}
