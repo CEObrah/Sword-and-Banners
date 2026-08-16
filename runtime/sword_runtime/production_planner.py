@@ -15,8 +15,11 @@ from sword_runtime.equipment_planner import EquipmentStateProjectionMixin
 from sword_runtime.family_counsel import FamilyCounselMixin
 from sword_runtime.force_cohort_living_world import ForceCohortLivingWorldMixin
 from sword_runtime.great_bow_guard_flow import GreatBowGuardFlowMixin
+from sword_runtime.great_bow_guard_personal_integrity import GreatBowGuardPersonalIntegrityMixin
+from sword_runtime.house_field_preparation_flow import HouseFieldPreparationFlowMixin
 from sword_runtime.house_tang_development_integrity import HouseTangDevelopmentIntegrityMixin
 from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
+from sword_runtime.qin_command_briefing_flow import QinCommandBriefingFlowMixin
 from sword_runtime.qin_command_progression import QinCommandProgressionMixin
 from sword_runtime.player_story_flow import PlayerStoryFlowMixin
 from sword_runtime.sim.calendar import CampaignTime
@@ -44,10 +47,13 @@ class ProductionCampaignPlanner(
     EquipmentStateProjectionMixin,
     CivilWorldMixin,
     FamilyCounselMixin,
+    HouseFieldPreparationFlowMixin,
     HouseholdRequestFlowMixin,
     ContactRequestFlowMixin,
     QinCommandProgressionMixin,
+    QinCommandBriefingFlowMixin,
     PlayerStoryFlowMixin,
+    GreatBowGuardPersonalIntegrityMixin,
     GreatBowGuardFlowMixin,
     HouseTangDevelopmentIntegrityMixin,
     ForceCohortLivingWorldMixin,
@@ -85,7 +91,7 @@ class ProductionCampaignPlanner(
             base_hours = 1
         else:
             base_hours = super()._route_travel_hours(origin, destination, modes=modes)
-        return self._environment_adjusted_route_hours(origin, destination, int(base_hours))
+        return self._environment_adjusted_route_hours(origin, int(base_hours)) if False else self._environment_adjusted_route_hours(origin, destination, int(base_hours))
 
     def _find_route(self, origin: str, destination: str, *, mode: str | None = None) -> Mapping[str, Any]:
         """Honor the production local-route graph for ordinary personal movement.
