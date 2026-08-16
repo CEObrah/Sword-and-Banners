@@ -32,6 +32,7 @@ from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.standing_training import StandingTrainingSettlementMixin
 from sword_runtime.training_session import settle_training_session
 from sword_runtime.warfare_depth import WarfareDepthMixin
+from sword_runtime.warfare_depth_integrity import WarfareDepthIntegrityMixin
 
 HOUSE_TANG_GARRISON_REF = "loc_tang_manor_garrison_yard"
 HOUSE_TANG_GARRISON: dict[str, Any] = {
@@ -46,6 +47,7 @@ HOUSE_TANG_GARRISON: dict[str, Any] = {
 
 
 class ProductionCampaignPlanner(
+    WarfareDepthIntegrityMixin,
     WarfareDepthMixin,
     GreatBowGuardCombatProfileMixin,
     CampaignDepthMixin,
