@@ -6,18 +6,66 @@ causal events when officer interest concentrates around any commander.
 """
 from __future__ import annotations
 
-import copy
 import hashlib
 from collections.abc import Mapping
 from typing import Any
 
-from sword_runtime.military_career_loyalty import _PLAYER_REF
+from sword_runtime.military_career_loyalty import _PLAYER_REF, _clamp
 from sword_runtime.military_career_loyalty_integrity import MilitaryCareerLoyaltyIntegrityMixin
 from sword_runtime.player_story_flow import _event_owner_write, _player_delivery
 
 
 class MilitaryCareerLoyaltyPoliticsMixin(MilitaryCareerLoyaltyIntegrityMixin):
     """Turn excessive personal military attraction into institutional pressure."""
+
+    def _create_petition(
+        self,
+        person: dict[str, Any],
+        *,
+        state_ref: str,
+        desired_commander_ref: str | None,
+        request_kind: str,
+        attraction_milli: int,
+        evidence_refs: list[str],
+        at: str,
+    ) -> str | None:
+        petition_ref = super()._create_petition(
+            person,
+            state_ref=state_ref,
+            desired_commander_ref=desired_commander_ref,
+            request_kind=request_kind,
+            attraction_milli=attraction_milli,
+            evidence_refs=evidence_refs,
+            at=at,
+        )
+        if petition_ref is None or not desired_commander_ref:
+            return petition_ref
+        network = self._career_network()
+        interest = network.setdefault("career_interest", {}).setdefault(state_ref, {}).setdefault(desired_commander_ref, {})
+        interest["petition_count"] = int(interest.get("petition_count", 0)) + 1
+        interest["weighted_interest_milli"] = min(
+            50000,
+            int(interest.get("weighted_interest_milli", 0)) + max(100, int(attraction_milli) // 2),
+        )
+        interest["last_petition_at"] = at
+        recent = interest.setdefault("recent_petition_refs", [])
+        if petition_ref not in recent:
+            recent.append(petition_ref)
+        interest["recent_petition_refs"] = recent[-32:]
+        self.put("state/military/career-network/index.json", network)
+        return petition_ref
+
+    def _political_concentration(self, state_ref: str, commander_ref: str | None) -> int:
+        base = super()._political_concentration(state_ref, commander_ref)
+        if not commander_ref:
+            return base
+        network = self._career_network()
+        interest = network.get("career_interest", {}).get(state_ref, {}).get(commander_ref, {})
+        if not isinstance(interest, Mapping):
+            return base
+        cumulative = min(700, int(interest.get("weighted_interest_milli", 0)) // 4)
+        repeat = min(180, int(interest.get("petition_count", 0)) * 18)
+        return _clamp(base + cumulative + repeat)
 
     def _career_concentration_event(
         self,
@@ -80,16 +128,11 @@ class MilitaryCareerLoyaltyPoliticsMixin(MilitaryCareerLoyaltyIntegrityMixin):
 
     def _settle_petitions(self, state_ref: str, at: str) -> None:
         super()._settle_petitions(state_ref, at)
-        index = self._petition_index()
-        commander_refs: set[str] = set()
-        for petition_ref in index.get("pending_by_state", {}).get(state_ref, []):
-            petition = self.read_optional(self._petition_path(str(petition_ref)))
-            if not isinstance(petition, Mapping):
-                continue
-            desired = petition.get("desired_commander_ref")
-            if isinstance(desired, str) and desired:
-                commander_refs.add(desired)
         network = self._career_network()
+        commander_refs: set[str] = set()
+        for commander_ref in network.get("career_interest", {}).get(state_ref, {}):
+            if isinstance(commander_ref, str):
+                commander_refs.add(commander_ref)
         for commander_ref in network.get("public_commander_refs", []):
             if not isinstance(commander_ref, str):
                 continue
