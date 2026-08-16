@@ -28,7 +28,7 @@ _RECENT_INITIATIVE_REFS = 16
 _ALLOWED_DRIVER_PREFIXES = ("char_", "state_", "polity_", "house_", "faction_", "inst_", "process_")
 _SAFE_TEXT = re.compile(r"[^a-z0-9]+")
 _EXPLICIT_REF = re.compile(r"\b(?:char|state|polity|house|faction|inst|process)_[a-z0-9_]+\b")
-_PLAYER_REPORTABLE_RESULTS = frozenset({"material_action_settled", "work_blocked"})
+_PLAYER_REPORTABLE_RESULTS = frozenset({"material_action_settled"})
 
 
 def _slug(value: object) -> str:
@@ -664,9 +664,10 @@ def settle_world_arc_review(planner: Any, host: Mapping[str, Any], at: str) -> N
         recent.append(event_ref)
         del recent[:-_RECENT_INITIATIVE_REFS]
 
-        # Player-facing propagation is reserved for a materially settled action
-        # or a concrete blocked attempt. A queue/intention record remains valid
-        # world state but is not news and must not wake standing activity.
+        # Generic arc propagation is reserved for materially settled work. Domain
+        # prerequisite failures remain valid causal history, but without an
+        # observable consequence from the owning subsystem they are not player-
+        # facing news and must not interrupt standing activity.
         if result in _PLAYER_REPORTABLE_RESULTS and visibility in {"discoverable", "direct"} and route:
             _schedule_report_route(planner, arc_ref=arc_ref, source_event_ref=event_ref, at=at, route=route, origin_state=origin_state, pressure_stage=pressure_stage, visibility=visibility)
     else:
