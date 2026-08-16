@@ -47,10 +47,19 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
         1 for host in hosts.values()
         if isinstance(host, Mapping) and host.get("kind") == "world_arc_report" and host.get("next_due") is not None
     )
+    player_relevant_kinds = {
+        "world_arc_report",
+        "campaign_event",
+        "institutional_process",
+        "household_request",
+        "household_recruitment_watch",
+        "player_story_review",
+        "story_appointment_reply",
+        "house_gbg_lifecycle",
+    }
     scheduled_reports = sum(
         1 for host in hosts.values()
-        if isinstance(host, Mapping) and host.get("kind") in {"world_arc_report", "campaign_event", "institutional_process", "household_request", "household_recruitment_watch"}
-        and host.get("next_due") is not None
+        if isinstance(host, Mapping) and host.get("kind") in player_relevant_kinds and host.get("next_due") is not None
     )
     pending_wake = isinstance(runtime.get("pending_wake"), Mapping)
     causal_head = _mapping(events.get("causal_events"))
@@ -77,11 +86,6 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
             continue
         if str(event.get("visibility_class", "hidden")) not in {"discoverable", "direct"}:
             continue
-        # Keep diagnostics aligned with the production handoff rather than the
-        # coarse material/nonmaterial distinction. A domain result can be exact
-        # world truth without containing enough bounded public meaning to become
-        # a player report. Those sources are intentionally suppressed until an
-        # explicitly supported evidence shape exists.
         if not source_has_player_safe_world_arc_report(event):
             suppressed_nonmaterial_visible_arc_activities += 1
             continue
