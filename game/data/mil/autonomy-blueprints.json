@@ -1,163 +1,71 @@
 {
   "schema": "sword-autonomy-blueprints",
+  "authority": "Persistent state formation targets for autonomous military readiness. These are standing formations, not a single all-arms army blob; operations combine several formations according to threat and objective.",
   "states": {
     "chu": [
-      {
-        "commander_ref": "char_karin",
-        "doctrine_ref": null,
-        "key": "field_reserve",
-        "personnel": 9000,
-        "role": "line_infantry",
-        "training_ref": null
-      },
-      {
-        "commander_ref": "char_kanmei",
-        "doctrine_ref": null,
-        "key": "shock_reserve",
-        "personnel": 5000,
-        "role": "cavalry",
-        "training_ref": null
-      },
-      {
-        "commander_ref": "char_kouen",
-        "doctrine_ref": null,
-        "key": "siege_train",
-        "personnel": 3200,
-        "role": "siege_engineering",
-        "training_ref": null
-      }
+      {"commander_ref":"char_karin","doctrine_ref":null,"key":"field_reserve","personnel":9000,"role":"line_infantry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"missile_corps","personnel":6000,"role":"missile_crossbow","training_ref":null},
+      {"commander_ref":"char_kanmei","doctrine_ref":null,"key":"shock_reserve","personnel":5000,"role":"cavalry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"chariot_screen","personnel":2200,"role":"chariot","training_ref":null},
+      {"commander_ref":"char_kouen","doctrine_ref":null,"key":"siege_train","personnel":3200,"role":"siege_engineering","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_logistics","personnel":3600,"role":"logistics","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"signal_corps","personnel":1000,"role":"signal","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_headquarters","personnel":900,"role":"command_personnel","training_ref":null}
     ],
     "han": [
-      {
-        "commander_ref": "char_sei_kai",
-        "doctrine_ref": null,
-        "key": "fortress_reserve",
-        "personnel": 4200,
-        "role": "line_infantry",
-        "training_ref": null
-      },
-      {
-        "commander_ref": null,
-        "doctrine_ref": null,
-        "key": "mobile_screen",
-        "personnel": 2200,
-        "role": "cavalry",
-        "training_ref": null
-      }
+      {"commander_ref":"char_sei_kai","doctrine_ref":null,"key":"fortress_reserve","personnel":4200,"role":"line_infantry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"crossbow_reserve","personnel":3200,"role":"missile_crossbow","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"mobile_screen","personnel":2200,"role":"cavalry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"chariot_screen","personnel":1000,"role":"chariot","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"siege_support","personnel":1400,"role":"siege_engineering","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_logistics","personnel":1800,"role":"logistics","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"signal_corps","personnel":600,"role":"signal","training_ref":null}
     ],
     "qi": [
-      {
-        "commander_ref": "char_ou_ken",
-        "doctrine_ref": null,
-        "key": "coastal_reserve",
-        "personnel": 4200,
-        "role": "line_infantry",
-        "training_ref": null
-      },
-      {
-        "commander_ref": null,
-        "doctrine_ref": null,
-        "key": "mobile_guard",
-        "personnel": 2400,
-        "role": "cavalry",
-        "training_ref": null
-      }
+      {"commander_ref":"char_ou_ken","doctrine_ref":null,"key":"coastal_reserve","personnel":4200,"role":"line_infantry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"missile_reserve","personnel":3600,"role":"missile_crossbow","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"mobile_guard","personnel":2400,"role":"cavalry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"chariot_guard","personnel":1200,"role":"chariot","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_logistics","personnel":1800,"role":"logistics","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"signal_corps","personnel":600,"role":"signal","training_ref":null}
     ],
     "qin": [
-      {
-        "commander_ref": "char_ouki",
-        "doctrine_ref": "doc.house_tang_internal.standard",
-        "key": "border_line",
-        "personnel": 8000,
-        "role": "line_infantry",
-        "training_ref": "train.house_tang_internal.standard"
-      },
-      {
-        "commander_ref": "char_mou_bu",
-        "doctrine_ref": "doc.house_tang_internal.heavy_cavalry",
-        "key": "mobile_reserve",
-        "personnel": 5000,
-        "role": "cavalry",
-        "training_ref": "train.house_tang_internal.heavy_cavalry"
-      },
-      {
-        "commander_ref": "char_shou_hei_kun",
-        "doctrine_ref": null,
-        "key": "siege_train",
-        "personnel": 3000,
-        "role": "siege_engineering",
-        "training_ref": null
-      }
+      {"commander_ref":"char_ouki","doctrine_ref":"doc.house_tang_internal.standard","key":"border_line","personnel":8000,"role":"line_infantry","training_ref":"train.house_tang_internal.standard"},
+      {"commander_ref":null,"doctrine_ref":null,"key":"crossbow_corps","personnel":6000,"role":"missile_crossbow","training_ref":null},
+      {"commander_ref":"char_mou_bu","doctrine_ref":"doc.house_tang_internal.heavy_cavalry","key":"mobile_reserve","personnel":5000,"role":"cavalry","training_ref":"train.house_tang_internal.heavy_cavalry"},
+      {"commander_ref":null,"doctrine_ref":null,"key":"chariot_screen","personnel":2000,"role":"chariot","training_ref":null},
+      {"commander_ref":"char_shou_hei_kun","doctrine_ref":null,"key":"siege_train","personnel":3000,"role":"siege_engineering","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_logistics","personnel":4000,"role":"logistics","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"signal_corps","personnel":1200,"role":"signal","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_headquarters","personnel":1000,"role":"command_personnel","training_ref":null}
     ],
     "wei": [
-      {
-        "commander_ref": "char_go_hou_mei",
-        "doctrine_ref": null,
-        "key": "engineered_line",
-        "personnel": 6500,
-        "role": "line_infantry",
-        "training_ref": null
-      },
-      {
-        "commander_ref": "char_gai_mou",
-        "doctrine_ref": null,
-        "key": "mobile_reserve",
-        "personnel": 4200,
-        "role": "cavalry",
-        "training_ref": null
-      },
-      {
-        "commander_ref": "char_rei_ou",
-        "doctrine_ref": null,
-        "key": "reconstitution",
-        "personnel": 2800,
-        "role": "line_infantry",
-        "training_ref": null
-      }
+      {"commander_ref":"char_go_hou_mei","doctrine_ref":null,"key":"engineered_line","personnel":6500,"role":"line_infantry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"crossbow_corps","personnel":4800,"role":"missile_crossbow","training_ref":null},
+      {"commander_ref":"char_gai_mou","doctrine_ref":null,"key":"mobile_reserve","personnel":4200,"role":"cavalry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"chariot_screen","personnel":1800,"role":"chariot","training_ref":null},
+      {"commander_ref":"char_rei_ou","doctrine_ref":null,"key":"reconstitution","personnel":2800,"role":"line_infantry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"siege_support","personnel":2400,"role":"siege_engineering","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_logistics","personnel":3000,"role":"logistics","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"signal_corps","personnel":900,"role":"signal","training_ref":null}
     ],
     "yan": [
-      {
-        "commander_ref": "char_ordo",
-        "doctrine_ref": null,
-        "key": "frontier_army",
-        "personnel": 5200,
-        "role": "line_infantry",
-        "training_ref": null
-      },
-      {
-        "commander_ref": "char_geki_shin",
-        "doctrine_ref": null,
-        "key": "mobile_reserve",
-        "personnel": 3200,
-        "role": "cavalry",
-        "training_ref": null
-      }
+      {"commander_ref":"char_ordo","doctrine_ref":null,"key":"frontier_army","personnel":5200,"role":"line_infantry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"missile_reserve","personnel":3600,"role":"missile_crossbow","training_ref":null},
+      {"commander_ref":"char_geki_shin","doctrine_ref":null,"key":"mobile_reserve","personnel":3200,"role":"cavalry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"chariot_screen","personnel":1400,"role":"chariot","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_logistics","personnel":2200,"role":"logistics","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"signal_corps","personnel":700,"role":"signal","training_ref":null}
     ],
     "zhao": [
-      {
-        "commander_ref": "char_riboku",
-        "doctrine_ref": null,
-        "key": "border_line",
-        "personnel": 7500,
-        "role": "line_infantry",
-        "training_ref": null
-      },
-      {
-        "commander_ref": "char_bananji",
-        "doctrine_ref": null,
-        "key": "mobile_reserve",
-        "personnel": 5000,
-        "role": "cavalry",
-        "training_ref": null
-      },
-      {
-        "commander_ref": "char_kochou",
-        "doctrine_ref": null,
-        "key": "reconstitution",
-        "personnel": 3500,
-        "role": "line_infantry",
-        "training_ref": null
-      }
+      {"commander_ref":"char_riboku","doctrine_ref":null,"key":"border_line","personnel":7500,"role":"line_infantry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"crossbow_corps","personnel":5000,"role":"missile_crossbow","training_ref":null},
+      {"commander_ref":"char_bananji","doctrine_ref":null,"key":"mobile_reserve","personnel":5000,"role":"cavalry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"chariot_screen","personnel":2000,"role":"chariot","training_ref":null},
+      {"commander_ref":"char_kochou","doctrine_ref":null,"key":"reconstitution","personnel":3500,"role":"line_infantry","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_logistics","personnel":3400,"role":"logistics","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"signal_corps","personnel":1000,"role":"signal","training_ref":null},
+      {"commander_ref":null,"doctrine_ref":null,"key":"field_headquarters","personnel":900,"role":"command_personnel","training_ref":null}
     ]
   }
 }
