@@ -1,0 +1,93 @@
+{
+  "schema": "sword-military-career-loyalty-rules.v1",
+  "career_review": {
+    "cadence_seconds": 7776000,
+    "route_shard_size": 256,
+    "candidate_slice_per_review": 8,
+    "minimum_military_signal": 35,
+    "petition_threshold_milli": 620,
+    "independence_threshold_milli": 690,
+    "stagnation_review_months": 18,
+    "petition_review_delay_days": 14
+  },
+  "career_pressure_weights": {
+    "ambition": 180,
+    "advancement": 220,
+    "independent_command": 170,
+    "doctrine_compatibility": 120,
+    "professional_respect": 170,
+    "security": 80,
+    "state_allegiance": 160,
+    "current_commander_bond": 170,
+    "formation_bond": 120,
+    "resentment": -180,
+    "stagnation": -170
+  },
+  "commander_attractiveness": {
+    "professional_reputation": 210,
+    "command_scale": 80,
+    "promotion_record": 150,
+    "casualty_stewardship": 170,
+    "logistics_reliability": 120,
+    "doctrine_match": 120,
+    "political_risk": -130,
+    "known_failure": -170,
+    "known_abuse": -230
+  },
+  "institutional_response": {
+    "approve_at_milli": 610,
+    "delay_band_milli": 90,
+    "political_concentration_soft_milli": 620,
+    "political_concentration_hard_milli": 820,
+    "temporary_attachment_bias_milli": 70,
+    "independent_command_bias_milli": 45
+  },
+  "formation_loyalty": {
+    "axis_min": 0,
+    "axis_max": 1000,
+    "default_axes": {
+      "state_allegiance": 720,
+      "institutional_professional": 690,
+      "formation_identity": 500,
+      "legitimacy_confidence": 700,
+      "disaffection": 180
+    },
+    "default_commander_bond_milli": 250,
+    "service_month_gain_milli": 8,
+    "high_morale_gain_milli": 5,
+    "low_morale_loss_milli": 7,
+    "high_cohesion_identity_gain_milli": 6,
+    "fatigue_disaffection_gain_milli": 5,
+    "supply_shortage_disaffection_gain_milli": 8,
+    "recent_memory_limit": 32
+  },
+  "allegiance_resolution": {
+    "state_weight": 260,
+    "institution_weight": 170,
+    "formation_weight": 150,
+    "immediate_commander_weight": 260,
+    "legitimacy_weight": 220,
+    "disaffection_weight": -180,
+    "morale_weight": 80,
+    "cohesion_weight": 100,
+    "exhaustion_weight": -90
+  },
+  "knowledge": {
+    "institutional_dossier_confidence_milli": 780,
+    "public_reputation_confidence_milli": 690,
+    "shared_service_confidence_milli": 920,
+    "rule": "An officer may evaluate only information personally held, shared-service evidence, or a lawful military-institution dossier delivered to that officer. Hidden runtime facts are never attraction inputs."
+  },
+  "invariants": [
+    "No commander receives player-specific attraction logic.",
+    "Career preference and petition state never own office, formation, manpower, equipment, or administrative custody.",
+    "A state officer remains a state officer unless the existing authoritative allegiance or appointment mechanism changes that fact.",
+    "Career petitions request action; they do not teleport personnel or formations.",
+    "Formation loyalty is aggregate cohort-scale state on the persistent formation owner; named people retain exact personal state.",
+    "Administrative ownership and command authority never change merely because loyalty changes.",
+    "Legacy scalar loyalty fields are non-authoritative for military allegiance resolution.",
+    "Materialization must reclassify an existing conserved person or cohort member and never create manpower.",
+    "Routing pages bound work per wake but never cap total officers, commanders, petitions, formations, or career events.",
+    "Crisis allegiance resolves through immediate command relationships and competing loyalty axes rather than a single conversion threshold."
+  ]
+}
