@@ -160,7 +160,8 @@ def standing_recovery_result(
     excess_hours = max(0.0, float(completed_deliberate_hours) - normal_capacity)
     overload_points = int(math.ceil(excess_hours * excess_cost - 1e-9)) if excess_hours > 0 else 0
     before = max(0, min(100, int(fatigue)))
-    after = max(0, min(100, before - recovery_points + overload_points))
+    recovered = max(0, before - recovery_points)
+    after = max(0, min(100, recovered + overload_points))
     return {
         "fatigue_before": before,
         "fatigue_after": after,
