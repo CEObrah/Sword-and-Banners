@@ -19,14 +19,24 @@ class _Store:
         return self.docs[path]
 
 
-def _activity(result: str) -> dict:
-    return {
+def _activity(result: str, *, player_safe: bool = False) -> dict:
+    event = {
         "event_ref": "event_world_arc_test",
         "kind": "world_arc_activity",
         "status": "triggered",
         "visibility_class": "discoverable",
         "result": result,
     }
+    if player_safe:
+        event["provenance"] = {
+            "material_evidence": {
+                "kind": "exact_operation_created",
+                "operation_ref": "operation_test",
+                "formation_ref": "formation_test",
+                "evidence_stage": "domain_action",
+            }
+        }
+    return event
 
 
 def _active_unrouted_arc() -> dict:
@@ -47,11 +57,18 @@ def test_discoverable_queued_work_is_intentionally_not_a_missing_report_route() 
     assert "player_visible_world_arc_activity_without_delivery_route" not in summary["diagnostics"]
 
 
-def test_reportable_material_activity_without_route_still_fails_vitality() -> None:
-    summary = summarize_playability_vitality(_Store(_activity("material_action_settled")))
+def test_player_safe_material_activity_without_route_still_fails_vitality() -> None:
+    summary = summarize_playability_vitality(_Store(_activity("material_action_settled", player_safe=True)))
     assert summary["visible_arc_activities_without_delivery_route"] == 1
     assert summary["suppressed_nonmaterial_visible_arc_activities"] == 0
     assert "player_visible_world_arc_activity_without_delivery_route" in summary["diagnostics"]
+
+
+def test_opaque_material_activity_is_not_a_missing_player_report() -> None:
+    summary = summarize_playability_vitality(_Store(_activity("material_action_settled")))
+    assert summary["visible_arc_activities_without_delivery_route"] == 0
+    assert summary["suppressed_nonmaterial_visible_arc_activities"] == 1
+    assert "player_visible_world_arc_activity_without_delivery_route" not in summary["diagnostics"]
 
 
 def test_blocked_internal_activity_is_not_a_missing_player_report() -> None:
