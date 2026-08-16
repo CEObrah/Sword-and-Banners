@@ -14,7 +14,7 @@ from sword_runtime.environment import EnvironmentMechanicsMixin
 from sword_runtime.equipment_planner import EquipmentStateProjectionMixin
 from sword_runtime.family_counsel import FamilyCounselMixin
 from sword_runtime.force_cohort_living_world import ForceCohortLivingWorldMixin
-from sword_runtime.house_tang_development import HouseTangDevelopmentMixin
+from sword_runtime.house_tang_development_integrity import HouseTangDevelopmentIntegrityMixin
 from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
 from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.standing_training import StandingTrainingSettlementMixin
@@ -42,7 +42,7 @@ class ProductionCampaignPlanner(
     FamilyCounselMixin,
     HouseholdRequestFlowMixin,
     ContactRequestFlowMixin,
-    HouseTangDevelopmentMixin,
+    HouseTangDevelopmentIntegrityMixin,
     ForceCohortLivingWorldMixin,
     ActivityCampaignEventPlanner,
 ):
