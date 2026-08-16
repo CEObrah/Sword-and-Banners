@@ -17,6 +17,7 @@ from sword_runtime.force_cohort_living_world import ForceCohortLivingWorldMixin
 from sword_runtime.great_bow_guard_flow import GreatBowGuardFlowMixin
 from sword_runtime.house_tang_development_integrity import HouseTangDevelopmentIntegrityMixin
 from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
+from sword_runtime.qin_command_progression import QinCommandProgressionMixin
 from sword_runtime.player_story_flow import PlayerStoryFlowMixin
 from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.standing_training import StandingTrainingSettlementMixin
@@ -45,6 +46,7 @@ class ProductionCampaignPlanner(
     FamilyCounselMixin,
     HouseholdRequestFlowMixin,
     ContactRequestFlowMixin,
+    QinCommandProgressionMixin,
     PlayerStoryFlowMixin,
     GreatBowGuardFlowMixin,
     HouseTangDevelopmentIntegrityMixin,
