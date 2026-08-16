@@ -74,6 +74,7 @@ def test_unattested_report_does_not_create_new_player_knowledge(campaign):
     now = str(planner.read("state/runtime.json")["world_time"])
     source_ref = "event_world_arc_unattested_report"
     report_ref = source_ref + ".report"
+    before_index = copy.deepcopy(planner.read("state/information/index.json"))
     _path, owner = read_causal_event_owner(planner)
     owner.setdefault("causal_events", {})[report_ref] = {
         "event_ref": report_ref,
@@ -104,10 +105,7 @@ def test_unattested_report_does_not_create_new_player_knowledge(campaign):
     )
 
     assert result is None
-    assert all(
-        not str(ref).startswith("information.world_arc_report.")
-        for ref in planner.read("state/information/index.json").get("claims", {})
-    )
+    assert planner.read("state/information/index.json") == before_index
 
 
 def test_latest_report_subject_points_to_accumulated_arc_dossier(campaign):
