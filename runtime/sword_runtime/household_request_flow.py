@@ -79,13 +79,13 @@ def _classify_request(planner: Any, attempt: Mapping[str, Any]) -> str | None:
         return None
 
     # A request to Tang Ling to investigate a delivered northern-operation report
-    # is owned by House administration, not by the report itself.  Bind the route
+    # is owned by House administration, not by the report itself. Bind the route
     # to the exact player-visible source so this cannot turn arbitrary family talk
     # into hidden intelligence or a second world-arc outcome authority.
     process_ref = attempt.get("process_ref")
     if attempt.get("target_ref") == "char_tang_ling" and isinstance(process_ref, str):
         source = get_causal_event_from_reader(planner, process_ref)
-        investigation_terms = ("investigate", "look into", "find out", "learn more", "inquire")
+        investigation_terms = ("investigate", "verify", "look into", "find out", "learn more", "inquire")
         planning_terms = ("recruit", "recruitment", "cost", "costs", "expense", "expenses", "hiring")
         if (
             isinstance(source, Mapping)
@@ -401,8 +401,14 @@ def _settle_northern_wei_review(planner: Any, *, at: str, house: Mapping[str, An
     programs = house.get("administrative_programs", {}) if isinstance(house.get("administrative_programs"), Mapping) else {}
     great = programs.get("great_bow_guard", {}) if isinstance(programs, Mapping) else {}
     great_status = str(great.get("status", "not_open")) if isinstance(great, Mapping) else "not_open"
+    accepted_fighters = int(great.get("accepted_fighters", 0)) if isinstance(great, Mapping) and isinstance(great.get("accepted_fighters", 0), int) else 0
+    committed_spend = int(great.get("spending_committed_by_opening_silver", 0)) if isinstance(great, Mapping) and isinstance(great.get("spending_committed_by_opening_silver", 0), int) else 0
     if great_status == "recruiting":
-        great_text = "Great Bow Guard applicant intake is open, but opening alone still creates no accepted fighter headcount or committed equipment spending."
+        great_text = (
+            "Great Bow Guard applicant intake is open. The current House program record establishes "
+            f"{accepted_fighters} accepted fighters and {committed_spend} silver committed by the opening itself; "
+            "it does not yet register separate applicant, screened, or rejected totals, so those figures cannot be claimed from the records."
+        )
     else:
         great_text = f"Great Bow Guard applicant intake is currently {great_status.replace('_', ' ')}."
     if sword["current_vacancy"] > 0:
@@ -422,6 +428,14 @@ def _settle_northern_wei_review(planner: Any, *, at: str, house: Mapping[str, An
         "source_report_summary": source_summary[:4000],
         "treasury": safety,
         "great_bow_guard_status": great_status,
+        "great_bow_guard_accounting": {
+            "accepted_fighters": accepted_fighters,
+            "spending_committed_by_opening_silver": committed_spend,
+            "applicant_total": None,
+            "screened_total": None,
+            "rejected_total": None,
+            "missing_totals_status": "not_registered_by_current_program_owner",
+        },
         "sword_manor": sword,
         "knowledge_boundary": "No enemy disposition is established beyond the committed player-visible source report.",
     }
