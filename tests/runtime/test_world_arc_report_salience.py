@@ -91,7 +91,7 @@ def test_material_arc_activity_still_propagates_player_report(campaign) -> None:
     assert "material domain work that actually settled" in report["summary"]
 
 
-def test_concrete_blocked_arc_attempt_remains_reportable(campaign) -> None:
+def test_blocked_arc_attempt_route_terminates_without_player_report(campaign) -> None:
     planner = _planner(campaign)
     at = str(planner.read("state/runtime.json")["world_time"])
     source_ref = "event_test_arc_work_blocked"
@@ -99,6 +99,6 @@ def test_concrete_blocked_arc_attempt_remains_reportable(campaign) -> None:
     host = _scheduled_host(planner, source_ref, at)
 
     assert settle_world_arc_report(planner, host, at) is None
-    report = get_causal_event(planner, source_ref + ".report")
-    assert report is not None
-    assert "blocked by material, informational, or institutional constraints" in report["summary"]
+    runtime_host = planner.read("state/runtime.json")["hosts"][host["host_id"]]
+    assert runtime_host["recurrence_seconds"] == 0
+    assert get_causal_event(planner, source_ref + ".report") is None
