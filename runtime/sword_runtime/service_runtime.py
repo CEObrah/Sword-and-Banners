@@ -8,7 +8,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from sword_runtime.production_planner import ProductionCampaignPlanner
+from sword_runtime.production_runtime_planner import ProductionCampaignPlanner
 from sword_runtime.causal_living_world import _WAKE_RESPONSE_COMMANDS
 from sword_runtime.engine import SwordRuntime
 from sword_runtime.living_world import HighSalienceWakeRequired
