@@ -1,17 +1,110 @@
 {
-  "schema": "warfare-organization.v1",
-  "authority": "Static organizational policy for persistent formations and autonomous combined-arms operations. Exact manpower, formations, commanders, casualties, operations, ownership and appointments remain in their native campaign owners.",
+  "schema": "warfare-organization.v2",
+  "authority": "Static organizational policy for persistent formations, scale-bounded command effects, external command/support establishments and autonomous combined-arms operations. Exact manpower, formations, represented people, casualties, operations, ownership, appointments and support allocations remain in their native campaign owners.",
   "formation_command_structure": {
-    "commander_billets_per_formation": 1,
-    "deputy_billets_per_formation": 1,
-    "century_size": 100,
-    "company_size": 500,
-    "wing_size": 2000,
-    "staff_billets_per_500": 2,
-    "signal_billets_per_500": 2,
-    "logistics_billets_per_500": 3,
+    "fighting_establishment_field": "personnel",
+    "unit_slot_cost": 1,
+    "unit_command": {
+      "commander_billets_per_formation": 1,
+      "deputy_billets_per_formation": 1,
+      "outside_fighting_establishment": true,
+      "source_role": "command_personnel",
+      "rule": "The persistent unit commander and formal unit deputy are command-establishment personnel above the fighting-strength number. They must still be conserved real people from an owning or lawfully attached force and never arise from narration."
+    },
+    "deputy_policy": {
+      "field_army": "strongly_expected",
+      "persistent_unit": "strongly_expected",
+      "internal_2000_plus": "optional_useful",
+      "internal_1000": "optional",
+      "internal_500_and_below": "normally_none",
+      "succession_rule": "When an internal commander is lost and no formal deputy exists, the best lawful subordinate commander may become acting commander; promotion never creates a body."
+    },
+    "generic_internal_levels": [2000, 1000, 500, 100],
     "minimum_aggregate_staffed_personnel": 500,
-    "rule": "A persistent formation has exactly one commander billet and one deputy billet unless a different exact formation type explicitly overrides that rule. Century/company/wing counts are internal span-of-control markers only; they do not create extra command billets or independent units. New commander/deputy billets exist only after manpower is lawfully split into separate persistent formations. Staff, signal and logistics functions remain included inside the formation's conserved personnel and do not add bodies."
+    "external_support_per_500": {
+      "command_personnel": 2,
+      "signal": 2,
+      "logistics": 3
+    },
+    "external_support_function_map": {
+      "command_personnel": ["staff officers", "clerks/adjutants"],
+      "signal": ["signal officers", "scouts and messengers"],
+      "logistics": ["quartermasters", "medical staff", "supply and transport staff"]
+    },
+    "external_support_rule": "Support personnel are outside fighting establishment and must be allocated from conserved owner-force roles. They increase attached headcount but not the unit's fighting-strength number and never create another persistent unit slot.",
+    "internal_officer_rule": "Every internal command node is an assignment held by a soldier already inside the formation's fighting establishment. Materializing that commander converts one anonymous formation body into a represented person; it does not increase formation personnel.",
+    "temporary_subdivision_rule": "A persistent cohort or internal command may be divided temporarily for battlefield control without rewriting the conserved cohort ledger or creating another persistent formation."
+  },
+  "command_effect_scales": {
+    "local_100_200": {
+      "minimum_scale": 100,
+      "maximum_scale": 200,
+      "mechanical_domains": ["immediate_cohesion", "formation_keeping", "local_morale", "target_selection", "order_following", "small_tactical_reaction"],
+      "maximum_quality_delta": 0.05
+    },
+    "maneuver_500_1000": {
+      "minimum_scale": 500,
+      "maximum_scale": 1000,
+      "mechanical_domains": ["maneuver", "reserve_commitment", "broad_order_interpretation", "subordinate_coordination", "local_terrain_use", "formation_change"],
+      "maximum_quality_delta": 0.08
+    },
+    "operational_2000_plus": {
+      "minimum_scale": 2000,
+      "maximum_scale": 1000000,
+      "mechanical_domains": ["multi_thousand_coordination", "wing_maintenance", "large_redeployment", "upward_reporting", "delegation", "synchronization"],
+      "maximum_quality_delta": 0.07
+    },
+    "unit_command": {
+      "mechanical_domains": ["whole_unit_direction", "command_throughput", "continuity", "reporting", "delegation", "overload_management"],
+      "maximum_quality_delta": 0.12,
+      "deputy_rule": "A deputy primarily improves continuity and throughput. A deputy is not an unrestricted additive stat bonus and cannot duplicate the commander's scale effects."
+    }
+  },
+  "formation_profiles": {
+    "formation_qin_border_line": {
+      "label": "QIN Border Line",
+      "fighting_establishment": 8000,
+      "external_unit_command": {
+        "commander_billets": 1,
+        "deputy_billets": 1,
+        "source_force_ref": "force_state_qin",
+        "source_role": "command_personnel",
+        "representation": "full_character"
+      },
+      "internal_hierarchy": [
+        {"scale": 2000, "count": 4, "representation": "person_lite", "deputy_policy": "optional_useful"},
+        {"scale": 1000, "count": 8, "representation": "person_lite", "deputy_policy": "optional"},
+        {"scale": 500, "count": 16, "representation": "person_lite", "deputy_policy": "normally_none"},
+        {"scale": 100, "count": 80, "representation": "person_lite_when_relevant", "deputy_policy": "normally_none"}
+      ],
+      "hierarchy_rule": "Four 2,000-man commands each contain two 1,000-man commands; each 1,000 contains two 500-man commands; each 500 contains five 100-man commands. All 108 subordinate command assignments are held by soldiers inside the same conserved 8,000 fighting establishment.",
+      "external_support": {
+        "per_500": {"command_personnel": 2, "signal": 2, "logistics": 3},
+        "source_force_ref": "force_state_qin",
+        "outside_fighting_establishment": true,
+        "function_map": {
+          "command_personnel": ["staff officers", "clerks/adjutants"],
+          "signal": ["signal officers", "scouts and messengers"],
+          "logistics": ["quartermasters", "medical staff", "supply and transport staff"]
+        }
+      }
+    },
+    "formation_tang_wei_great_bow_guard_first": {
+      "label": "Great Bow Guard",
+      "fighting_establishment": 3000,
+      "external_unit_command": {
+        "commander_billets": 1,
+        "deputy_billets": 1,
+        "representation": "full_character"
+      },
+      "internal_hierarchy": [
+        {"scale": 1000, "count": 3, "representation": "person_lite", "deputy_policy": "optional"},
+        {"scale": 200, "count": 15, "representation": "person_lite", "deputy_policy": "normally_none"}
+      ],
+      "cohort_alignment": {"cohort_size": 200, "cohort_count": 15, "cohorts_per_1000_command": 5},
+      "officer_source_rule": "Internal Great Bow Guard commanders and the normal deputy candidate pool arise from the accepted conserved Great Bow Guard recruitment body. Sword Manor personnel are not transferred unless Tang Wei explicitly orders a lawful secondment.",
+      "temporary_100_rule": "A 200-man Great Bow Guard cohort may tactically divide into two temporary 100-man groups without changing persistent cohort conservation or unit-slot count."
+    }
   },
   "operation_depth": {
     "formation_count_by_threat": [
@@ -21,16 +114,18 @@
       {"minimum_severity": 35, "formation_count": 2}
     ],
     "combined_arms_roles": ["line_infantry", "missile_crossbow", "archer", "cavalry", "chariot", "siege_engineering", "logistics", "signal", "command_personnel"],
-    "rule": "Major state operations should draw several complementary persistent formations when exact available formations and authority permit. The operation layer coordinates them but does not merge their manpower, casualties or ownership."
+    "rule": "Major state operations should draw several complementary persistent formations when exact available formations and authority permit. The operation layer coordinates them but does not merge their manpower, casualties, officers, equipment or ownership."
   },
   "great_bow_guard": {
     "fighting_establishment": 3000,
     "conserved_recruitment_cohorts": 15,
     "preferred_cohort_size": 200,
+    "internal_thousand_commands": 3,
+    "internal_200_commands": 15,
     "formation_commander_billets": 1,
     "formation_deputy_billets": 1,
-    "supporting_officer_cadre_target": 30,
-    "sword_manor_officer_authorization_target": 250,
-    "rule": "The 3,000-fighter Great Bow Guard is one persistent formation with one commander billet and one deputy billet. Its 15 conserved recruitment cohorts are 200-fighter provenance/manpower slices only and create no command billets. If Tang Wei later splits the Great Bow Guard into multiple persistent formations, each lawful child formation receives its own commander/deputy pair. A separate Sword Manor officer pool may supply staff, signals, logistics, replacements or future commanders without becoming extra formation commanders by default."
+    "support_personnel_outside_fighting_establishment": true,
+    "officer_source": "accepted_great_bow_guard_recruits",
+    "rule": "The 3,000-fighter Great Bow Guard remains one persistent formation. Three 1,000-man command nodes and fifteen 200-man command nodes are internal assignments over the same 15 conserved 200-person cohorts. Their commanders consume existing Great Bow Guard bodies. The unit commander and formal deputy sit above fighting strength, and any support attachment is separately conserved outside fighting strength."
   }
 }
