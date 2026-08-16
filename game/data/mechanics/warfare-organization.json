@@ -1,5 +1,5 @@
 {
-  "schema": "warfare-organization.v4",
+  "schema": "warfare-organization.v5",
   "authority": "Static organizational policy for state, House, private, personal, polity, rebel and mercenary military organizations. Exact manpower, formations, represented people, casualties, operations, ownership, appointments, external-personnel allocations and support allocations remain in their native campaign owners.",
   "officer_representation_policy": {
     "default_representation": "aggregate",
@@ -178,24 +178,67 @@
     "minimum_fighting_loss_fraction_before_aggregate_attachment_loss": 0.02,
     "rule": "After a committed battle establishes fighting losses, aggregate attached personnel take deterministic bounded losses from that already-settled exposure. They are separate casualties and reduce their source force headcount exactly once; a later staffing review may replace them from real reserve bodies."
   },
+  "qin_border_detachment": {
+    "label": "Qin Border Detachment",
+    "field_commander_ref": "char_tang_wei",
+    "formation_refs": ["formation_qin_border_line", "formation_qin_border_line_second"],
+    "persistent_unit_slots": 2,
+    "fighting_establishment_per_unit": 4000,
+    "fighting_establishment_total": 8000,
+    "unit_command_bodies_per_unit": 2,
+    "unit_command_bodies_total": 4,
+    "attached_personnel_before_support": 8004,
+    "external_support_target_per_unit": 56,
+    "external_support_target_total": 112,
+    "fully_staffed_attached_personnel": 8116,
+    "rule": "Tang Wei commands the Qin detachment from the higher field-army command layer. Each 4,000-fighter persistent Qin unit has its own commander and deputy outside fighting strength. Those four senior unit-command bodies are conserved Qin command personnel and remain aggregate unless saved relevance or high-potential evidence warrants individual representation. Support remains separately conserved outside the user's 8,004 pre-support troop count."
+  },
   "formation_profiles": {
     "formation_qin_border_line": {
-      "label": "QIN Border Line",
-      "fighting_establishment": 8000,
+      "label": "QIN Border Line I",
+      "fighting_establishment": 4000,
       "external_unit_command": {
         "commander_billets": 1,
         "deputy_billets": 1,
         "source_force_ref": "force_state_qin",
         "source_role": "command_personnel",
-        "representation": "full_character_when_appointed"
+        "representation": "aggregate_until_relevant"
       },
       "internal_hierarchy": [
-        {"scale": 2000, "count": 4, "representation": "person_lite_when_relevant", "deputy_policy": "optional_useful"},
-        {"scale": 1000, "count": 8, "representation": "aggregate", "deputy_policy": "optional"},
-        {"scale": 500, "count": 16, "representation": "aggregate", "deputy_policy": "normally_none"},
-        {"scale": 100, "count": 80, "representation": "aggregate", "deputy_policy": "normally_none"}
+        {"scale": 2000, "count": 2, "representation": "person_lite_when_relevant", "deputy_policy": "optional_useful"},
+        {"scale": 1000, "count": 4, "representation": "aggregate", "deputy_policy": "optional"},
+        {"scale": 500, "count": 8, "representation": "aggregate", "deputy_policy": "normally_none"},
+        {"scale": 100, "count": 40, "representation": "aggregate", "deputy_policy": "normally_none"}
       ],
-      "hierarchy_rule": "Four 2,000-man commands each contain two 1,000-man commands; each 1,000 contains two 500-man commands; each 500 contains five 100-man commands. All 108 subordinate command assignments are held by soldiers inside the same conserved 8,000 fighting establishment. They remain aggregate unless saved individual relevance or high-potential evidence warrants representation.",
+      "hierarchy_rule": "Two 2,000-man commands each contain two 1,000-man commands; each 1,000 contains two 500-man commands; each 500 contains five 100-man commands. All 54 subordinate command assignments are held by soldiers inside this conserved 4,000 fighting establishment. They remain aggregate unless saved individual relevance or high-potential evidence warrants representation.",
+      "external_support": {
+        "per_500": {"command_personnel": 2, "signal": 2, "logistics": 3},
+        "source_force_ref": "force_state_qin",
+        "outside_fighting_establishment": true,
+        "function_map": {
+          "command_personnel": ["staff officers", "clerks/adjutants"],
+          "signal": ["signal officers", "scouts and messengers"],
+          "logistics": ["quartermasters", "medical staff", "supply and transport staff"]
+        }
+      }
+    },
+    "formation_qin_border_line_second": {
+      "label": "QIN Border Line II",
+      "fighting_establishment": 4000,
+      "external_unit_command": {
+        "commander_billets": 1,
+        "deputy_billets": 1,
+        "source_force_ref": "force_state_qin",
+        "source_role": "command_personnel",
+        "representation": "aggregate_until_relevant"
+      },
+      "internal_hierarchy": [
+        {"scale": 2000, "count": 2, "representation": "person_lite_when_relevant", "deputy_policy": "optional_useful"},
+        {"scale": 1000, "count": 4, "representation": "aggregate", "deputy_policy": "optional"},
+        {"scale": 500, "count": 8, "representation": "aggregate", "deputy_policy": "normally_none"},
+        {"scale": 100, "count": 40, "representation": "aggregate", "deputy_policy": "normally_none"}
+      ],
+      "hierarchy_rule": "Two 2,000-man commands each contain two 1,000-man commands; each 1,000 contains two 500-man commands; each 500 contains five 100-man commands. All 54 subordinate command assignments are held by soldiers inside this conserved 4,000 fighting establishment. They remain aggregate unless saved individual relevance or high-potential evidence warrants representation.",
       "external_support": {
         "per_500": {"command_personnel": 2, "signal": 2, "logistics": 3},
         "source_force_ref": "force_state_qin",
