@@ -1,6 +1,43 @@
 {
-  "schema": "warfare-organization.v2",
-  "authority": "Static organizational policy for persistent formations, scale-bounded command effects, external command/support establishments and autonomous combined-arms operations. Exact manpower, formations, represented people, casualties, operations, ownership, appointments and support allocations remain in their native campaign owners.",
+  "schema": "warfare-organization.v3",
+  "authority": "Static organizational policy for state, House, private, personal and mercenary military organizations. Exact manpower, formations, represented people, casualties, operations, ownership, appointments and support allocations remain in their native campaign owners.",
+  "officer_representation_policy": {
+    "default_representation": "aggregate",
+    "person_lite_triggers": [
+      "direct_player_interaction",
+      "recurring_command_responsibility",
+      "promotion_or_succession",
+      "operational_responsibility",
+      "individual_injury_capture_or_death",
+      "political_or_social_consequence",
+      "exceptional_saved_performance",
+      "saved_high_potential_evidence"
+    ],
+    "full_character_triggers": [
+      "major_recurring_npc",
+      "high_office_or_army_command",
+      "relationship_bearing_npc",
+      "major_political_or_social_actor"
+    ],
+    "high_potential_evidence_rule": "High potential is never inferred from holding a billet. It requires saved screening, cohort, progression, performance or other exact provenance before it can justify individual representation.",
+    "materialization_rule": "Materializing an internal officer reclassifies one already conserved body from the exact owning force or formation. Representation never adds manpower."
+  },
+  "accounting_modes": {
+    "persistent_formation": {
+      "scope": ["state", "house", "private", "personal", "polity", "rebel"],
+      "fighting_establishment_field": "personnel",
+      "support_storage": "external_attachment",
+      "rule": "formation.personnel is fighting establishment. Unit command and separately attached support may sit above fighting strength only when exact conserved owner-force allocations prove those bodies."
+    },
+    "mercenary_company": {
+      "scope": ["mercenary"],
+      "total_headcount_field": "headcount",
+      "troop_pools_field": "troop_pools",
+      "support_storage": "inside_total_company_headcount",
+      "non_fighting_role_tokens": ["support", "staff", "command", "signal", "messenger", "medical", "quartermaster", "logistics", "transport"],
+      "rule": "Mercenary headcount is total company personnel. Command and support are carved from that already conserved total by default. They do not increase company headcount unless a separate exact external attachment owner proves additional bodies."
+    }
+  },
   "formation_command_structure": {
     "fighting_establishment_field": "personnel",
     "unit_slot_cost": 1,
@@ -9,7 +46,8 @@
       "deputy_billets_per_formation": 1,
       "outside_fighting_establishment": true,
       "source_role": "command_personnel",
-      "rule": "The persistent unit commander and formal unit deputy are command-establishment personnel above the fighting-strength number. They must still be conserved real people from an owning or lawfully attached force and never arise from narration."
+      "default_representation": "aggregate",
+      "rule": "The persistent unit commander and formal unit deputy are command-establishment personnel above the fighting-strength number for normal formations. They must still be conserved real people from an owning or lawfully attached force and never arise from narration."
     },
     "deputy_policy": {
       "field_army": "strongly_expected",
@@ -20,6 +58,7 @@
       "succession_rule": "When an internal commander is lost and no formal deputy exists, the best lawful subordinate commander may become acting commander; promotion never creates a body."
     },
     "generic_internal_levels": [2000, 1000, 500, 100],
+    "generic_representation": "aggregate",
     "minimum_aggregate_staffed_personnel": 500,
     "external_support_per_500": {
       "command_personnel": 2,
@@ -31,9 +70,25 @@
       "signal": ["signal officers", "scouts and messengers"],
       "logistics": ["quartermasters", "medical staff", "supply and transport staff"]
     },
-    "external_support_rule": "Support personnel are outside fighting establishment and must be allocated from conserved owner-force roles. They increase attached headcount but not the unit's fighting-strength number and never create another persistent unit slot.",
+    "external_support_rule": "For normal persistent formations, support personnel are outside fighting establishment and must be allocated from conserved owner-force roles. They increase attached headcount but not fighting strength or persistent unit slots.",
     "internal_officer_rule": "Every internal command node is an assignment held by a soldier already inside the formation's fighting establishment. Materializing that commander converts one anonymous formation body into a represented person; it does not increase formation personnel.",
     "temporary_subdivision_rule": "A persistent cohort or internal command may be divided temporarily for battlefield control without rewriting the conserved cohort ledger or creating another persistent formation."
+  },
+  "mercenary_command_structure": {
+    "unit_command": {
+      "commander_billets_per_company": 1,
+      "deputy_billets_per_company": 1,
+      "inside_total_headcount": true,
+      "default_representation": "aggregate"
+    },
+    "generic_internal_levels": [2000, 1000, 500, 100],
+    "generic_representation": "aggregate",
+    "support_target_per_500_fighters": {
+      "command_personnel": 2,
+      "signal": 2,
+      "logistics": 3
+    },
+    "rule": "Mercenary command nodes use the same scale-aware hierarchy, but generic officers remain aggregate. Unit command and support come from the company's existing total headcount unless a separate lawful attachment is saved. Important, exceptional or provenance-backed high-potential officers may later be materialized without changing total company manpower."
   },
   "command_effect_scales": {
     "local_100_200": {
@@ -114,7 +169,7 @@
       {"minimum_severity": 35, "formation_count": 2}
     ],
     "combined_arms_roles": ["line_infantry", "missile_crossbow", "archer", "cavalry", "chariot", "siege_engineering", "logistics", "signal", "command_personnel"],
-    "rule": "Major state operations should draw several complementary persistent formations when exact available formations and authority permit. The operation layer coordinates them but does not merge their manpower, casualties, officers, equipment or ownership."
+    "rule": "Major operations may coordinate several complementary persistent formations when exact available formations and authority permit. The operation layer never merges their manpower, casualties, officers, equipment or ownership."
   },
   "great_bow_guard": {
     "fighting_establishment": 3000,
