@@ -10,7 +10,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from sword_runtime.world_arcs import _PLAYER_REPORTABLE_RESULTS
+from sword_runtime.world_arc_report_handoff import source_has_player_safe_world_arc_report
 
 
 def _mapping(value: Any) -> Mapping[str, Any]:
@@ -77,11 +77,12 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
             continue
         if str(event.get("visibility_class", "hidden")) not in {"discoverable", "direct"}:
             continue
-        # Keep the vitality diagnostic aligned with the actual world-arc
-        # propagation contract. Queue/intent records may be discoverable causal
-        # history, but they are deliberately non-reportable until a material
-        # result or concrete block exists.
-        if str(event.get("result", "")) not in _PLAYER_REPORTABLE_RESULTS:
+        # Keep diagnostics aligned with the production handoff rather than the
+        # coarse material/nonmaterial distinction. A domain result can be exact
+        # world truth without containing enough bounded public meaning to become
+        # a player report. Those sources are intentionally suppressed until an
+        # explicitly supported evidence shape exists.
+        if not source_has_player_safe_world_arc_report(event):
             suppressed_nonmaterial_visible_arc_activities += 1
             continue
         if event_ref not in report_sources and event_ref not in routed_sources:
