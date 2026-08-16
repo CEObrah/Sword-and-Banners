@@ -18,6 +18,7 @@ from sword_runtime.house_tang_development_integrity import HouseTangDevelopmentI
 from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
 from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.standing_training import StandingTrainingSettlementMixin
+from sword_runtime.training_session import settle_training_session
 
 HOUSE_TANG_GARRISON_REF = "loc_tang_manor_garrison_yard"
 HOUSE_TANG_GARRISON: dict[str, Any] = {
@@ -107,16 +108,7 @@ class ProductionCampaignPlanner(
             }
 
     def _advance_runtime(self, target_text: str) -> dict[str, Any]:
-        """Let personal travel persist a real wake instead of previewing it forever.
-
-        The causal scheduler normally permits only ``advance_time`` to commit a
-        newly reached high-salience wake. During one unescorted personal travel
-        reducer we temporarily give only the scheduler that permission. The
-        outer travel adapter below rolls back the travel after-image only when
-        the scheduler actually stops before arrival, while preserving the
-        committed causal time and wake. Escorted travel does not use this adapter
-        and remains fail-closed.
-        """
+        """Let personal travel persist a real wake instead of previewing it forever."""
 
         if self._interruptible_personal_travel and self._active_command_type == "travel":
             previous = self._active_command_type
@@ -128,15 +120,7 @@ class ProductionCampaignPlanner(
         return super()._advance_runtime(target_text)
 
     def _dispatch_event_bounded_advance(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
-        """Commit an event-bounded wait at the scheduler's actual reached time.
-
-        The historical base ``advance_time`` reducer assumes each scheduler call
-        reaches the outer requested step and only knows a battlefield-specific
-        interrupt flag. Event-bounded downtime deliberately may stop earlier on
-        an informational player-facing report, so this production adapter owns
-        that outer clock write while the causal scheduler still owns every event
-        and consequence underneath it.
-        """
+        """Commit an event-bounded wait at the scheduler's actual reached time."""
 
         runtime_before = self.read("state/runtime.json")
         start = CampaignTime.parse(str(runtime_before["world_time"]))
@@ -196,9 +180,44 @@ class ProductionCampaignPlanner(
             self.put(path, normalized)
         return super()._settle_formation_training(formation_ref, start, end, request_id)
 
+    def _dispatch_individual_training(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
+        """Production exact-person training with skill and attribute development."""
+
+        player = copy.deepcopy(self.read("state/player.json"))
+        hours = int(payload.get("hours", 1))
+        focus = str(payload.get("focus", "Training"))
+        if self._person_health(player) != "healthy":
+            raise ValueError("injured player requires recovery before deliberate training")
+        if int(player.get("fatigue", 0)) > 70:
+            raise ValueError("player is too fatigued for deliberate training")
+        if focus not in player.get("skills", {}):
+            raise ValueError("training focus must name an exact saved skill")
+        current = self._world_time()
+        target_time = current.add_seconds(hours * 3600)
+        target = str(target_time)
+        metrics = self._advance_runtime(target)
+        training = self.read("game/data/mechanics/training.json")
+        session_rules = self.read("game/data/mechanics/training-session.json")
+        development = settle_training_session(player, focus, hours, target_time, training, session_rules)
+        player["fatigue"] = max(0, min(100, int(round(float(player.get("fatigue", 0) or 0) + hours / 2.0))))
+        player.setdefault("training_history", []).append(
+            {
+                "started_at": str(current),
+                "completed_at": target,
+                "focus": focus,
+                "hours": hours,
+                "development": development,
+            }
+        )
+        self.put("state/player.json", player)
+        self._write_meta(command, target)
+        return self._result(focus=focus, hours=hours, world_time=target, development=development, **metrics)
+
     def _dispatch(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
         if command.command_type == "advance_time" and bool(payload.get("stop_on_player_event", False)):
             return self._dispatch_event_bounded_advance(command, payload)
+        if command.command_type == "individual_training":
+            return self._dispatch_individual_training(command, payload)
 
         personal_travel = command.command_type == "travel" and not payload.get("formation_refs")
         if not personal_travel:
