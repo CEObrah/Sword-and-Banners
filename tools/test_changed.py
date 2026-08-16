@@ -41,6 +41,7 @@ LONG_HORIZON_TESTS = {"tests/runtime/test_long_horizon.py"}
 PLAYER_STORY_TESTS = {"tests/runtime/test_player_story_flow.py"}
 GREAT_BOW_GUARD_TESTS = {"tests/runtime/test_great_bow_guard_flow.py"}
 QIN_COMMAND_TESTS = {"tests/runtime/test_qin_command_progression.py"}
+MILITARY_CAREER_LOYALTY_TESTS = {"tests/runtime/test_military_career_loyalty.py"}
 DEFAULT_TESTS = {"tests/runtime/test_architecture_service.py"}
 
 
@@ -72,6 +73,7 @@ def select(paths: list[str]) -> list[str]:
             selected.update(PLAYER_STORY_TESTS)
             selected.update(GREAT_BOW_GUARD_TESTS)
             selected.update(QIN_COMMAND_TESTS)
+            selected.update(MILITARY_CAREER_LOYALTY_TESTS)
         if path in {"runtime/sword_runtime/command_contracts.py", "game/data/mechanics/command-catalog.json", "game/data/mechanics/command-hostile-contracts.json"}:
             selected.update(COMMAND_TESTS)
             selected.update(V6_STRATEGIC_TESTS)
@@ -161,6 +163,17 @@ def select(paths: list[str]) -> list[str]:
             selected.update(COHORT_TESTS)
             selected.update(API_TESTS)
         if (
+            path.startswith("runtime/sword_runtime/military_career_loyalty.py")
+            or path.startswith("runtime/sword_runtime/military_career_loyalty_integrity.py")
+            or path.startswith("game/data/mechanics/military-career-loyalty.json")
+            or path.startswith("game/schemas/sword-military-career-petition.schema.json")
+        ):
+            selected.update(MILITARY_CAREER_LOYALTY_TESTS)
+            selected.update(LIVING_WORLD_TESTS)
+            selected.update(COHORT_TESTS)
+            selected.update(PERSON_TESTS)
+            selected.update(PLAYER_STORY_TESTS)
+        if (
             path.startswith("runtime/sword_runtime/cohort_personnel.py")
             or path.startswith("runtime/sword_runtime/cohort_tx_support.py")
             or path.startswith("runtime/sword_runtime/combat_capability.py")
@@ -172,6 +185,9 @@ def select(paths: list[str]) -> list[str]:
             or path.startswith("game/data/mechanics/economy.json")
         ):
             selected.update(COHORT_TESTS)
+            if path.startswith("runtime/sword_runtime/force_cohort_living_world.py"):
+                selected.update(MILITARY_CAREER_LOYALTY_TESTS)
+                selected.update(LIVING_WORLD_TESTS)
         if path.startswith("runtime/sword_runtime/recruitment_campaigns.py") or path.startswith("runtime/sword_runtime/cohort_personnel.py") or path.startswith("game/data/mil/recruitment-cohort-profiles.json"):
             selected.update(PERSON_TESTS)
             selected.update(V6_STRATEGIC_TESTS)
