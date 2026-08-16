@@ -1,5 +1,5 @@
 {
-  "schema": "warfare-organization.v5",
+  "schema": "warfare-organization.v6",
   "authority": "Static organizational policy for state, House, private, personal, polity, rebel and mercenary military organizations. Exact manpower, formations, represented people, casualties, operations, ownership, appointments, external-personnel allocations and support allocations remain in their native campaign owners.",
   "officer_representation_policy": {
     "default_representation": "aggregate",
@@ -21,7 +21,7 @@
     ],
     "high_potential_evidence_rule": "High potential is never inferred from holding a billet. It requires saved screening, cohort, progression, performance or other exact provenance before it can justify individual representation.",
     "materialization_rule": "Materializing an internal officer reclassifies one already conserved body from the exact owning force or formation. Representation never adds manpower.",
-    "scale_rule": "A command billet is an organizational assignment, not an instruction to create a character. Even a 2,000-man or 1,000-man commander remains aggregate until one of the saved relevance triggers applies."
+    "scale_rule": "A command billet is an organizational assignment, not an instruction to create a character. Generic officers remain aggregate until a saved relevance trigger applies, except where an explicit formation profile requires stronger representation."
   },
   "accounting_modes": {
     "persistent_formation": {
@@ -57,7 +57,8 @@
       "internal_2000_plus": "optional_useful",
       "internal_1000": "optional",
       "internal_500_and_below": "normally_none",
-      "succession_rule": "When a commander becomes dead, captured or incapacitated, a healthy formal deputy may act immediately without creating a new body. If no deputy is available, the best already-existing lawful subordinate may later be appointed or materialized from saved evidence; the system never mints a replacement officer."
+      "profile_override_rule": "Explicit formation profiles may prohibit internal deputies. Qin 2,000-fighter units and the Great Bow Guard use commander-only 1,000/500/100 subordinate echelons.",
+      "succession_rule": "When a commander becomes dead, captured or incapacitated, a healthy formal unit deputy may act immediately without creating a new body. Internal subcommands without deputies fall to the best already-existing lawful subordinate or later appointment; the system never mints a replacement officer."
     },
     "generic_internal_levels": [2000, 1000, 500, 100],
     "generic_representation": "aggregate",
@@ -181,36 +182,57 @@
   "qin_border_detachment": {
     "label": "Qin Border Detachment",
     "field_commander_ref": "char_tang_wei",
-    "formation_refs": ["formation_qin_border_line", "formation_qin_border_line_second"],
-    "persistent_unit_slots": 2,
-    "fighting_establishment_per_unit": 4000,
+    "formation_refs": [
+      "formation_qin_border_line",
+      "formation_qin_border_line_second",
+      "formation_qin_border_line_third",
+      "formation_qin_border_line_fourth"
+    ],
+    "persistent_unit_slots": 4,
+    "fighting_establishment_per_unit": 2000,
     "fighting_establishment_total": 8000,
     "unit_command_bodies_per_unit": 2,
-    "unit_command_bodies_total": 4,
-    "attached_personnel_before_support": 8004,
-    "external_support_target_per_unit": 56,
+    "unit_command_bodies_total": 8,
+    "unit_commander_representation": "full_character",
+    "unit_deputy_representation": "person_lite",
+    "internal_commanders_per_unit": 26,
+    "internal_commander_assignments_total": 104,
+    "internal_deputy_billets_total": 0,
+    "attached_personnel_before_support": 8008,
+    "external_support_target_per_unit": 28,
     "external_support_target_total": 112,
-    "fully_staffed_attached_personnel": 8116,
-    "rule": "Tang Wei commands the Qin detachment from the higher field-army command layer. Each 4,000-fighter persistent Qin unit has its own commander and deputy outside fighting strength. Those four senior unit-command bodies are conserved Qin command personnel and remain aggregate unless saved relevance or high-potential evidence warrants individual representation. Support remains separately conserved outside the user's 8,004 pre-support troop count."
+    "fully_staffed_attached_personnel": 8120,
+    "rule": "Tang Wei commands the Qin detachment from the higher field-army layer. The 8,000 Qin fighters are organized as four persistent 2,000-fighter units. Each unit has one full-character commander and one person-lite deputy outside fighting strength. Inside each unit are commander-only 1,000, 500 and 100 echelons: two 1,000 commanders, four 500 commanders and twenty 100 commanders, all person-lite and all drawn from conserved fighting bodies. Internal subcommands receive no formal deputies. Support remains separately conserved outside fighting strength."
+  },
+  "tang_wei_house_contingent": {
+    "label": "Tang Wei House Contingent",
+    "formation_refs": ["formation_tang_wei_great_bow_guard_first", "formation_tang_champions_first"],
+    "persistent_unit_slots": 2,
+    "fighting_establishment_total": 3100,
+    "great_bow_guard_fighting_establishment": 3000,
+    "tang_champions_fighting_establishment": 100,
+    "tang_champions_preserve_existing_named_command": true,
+    "rule": "The Great Bow Guard and Tang Champions are separate persistent units. The 100 Tang Champions remain their own unit and preserve their existing named commander/deputy from campaign truth; this static policy does not duplicate or overwrite those appointments. The Great Bow Guard receives its own separate generated commander and deputy when lawfully materialized."
   },
   "formation_profiles": {
     "formation_qin_border_line": {
-      "label": "QIN Border Line I",
-      "fighting_establishment": 4000,
+      "label": "QIN Border Unit I",
+      "fighting_establishment": 2000,
       "external_unit_command": {
         "commander_billets": 1,
         "deputy_billets": 1,
+        "commander_representation": "full_character",
+        "deputy_representation": "person_lite",
         "source_force_ref": "force_state_qin",
         "source_role": "command_personnel",
-        "representation": "aggregate_until_relevant"
+        "representation": "mixed_full_commander_person_lite_deputy"
       },
       "internal_hierarchy": [
-        {"scale": 2000, "count": 2, "representation": "person_lite_when_relevant", "deputy_policy": "optional_useful"},
-        {"scale": 1000, "count": 4, "representation": "aggregate", "deputy_policy": "optional"},
-        {"scale": 500, "count": 8, "representation": "aggregate", "deputy_policy": "normally_none"},
-        {"scale": 100, "count": 40, "representation": "aggregate", "deputy_policy": "normally_none"}
+        {"scale": 1000, "count": 2, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 500, "count": 4, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 100, "count": 20, "representation": "person_lite", "deputy_policy": "none"}
       ],
-      "hierarchy_rule": "Two 2,000-man commands each contain two 1,000-man commands; each 1,000 contains two 500-man commands; each 500 contains five 100-man commands. All 54 subordinate command assignments are held by soldiers inside this conserved 4,000 fighting establishment. They remain aggregate unless saved individual relevance or high-potential evidence warrants representation.",
+      "hierarchy_rule": "One 2,000-fighter persistent unit contains two 1,000 commands; each 1,000 contains two 500 commands; each 500 contains five 100 commands. All 26 subordinate commanders are person-lite assignments held by soldiers inside this conserved 2,000 fighting establishment. Internal subcommands have no deputy billets.",
       "external_support": {
         "per_500": {"command_personnel": 2, "signal": 2, "logistics": 3},
         "source_force_ref": "force_state_qin",
@@ -223,22 +245,81 @@
       }
     },
     "formation_qin_border_line_second": {
-      "label": "QIN Border Line II",
-      "fighting_establishment": 4000,
+      "label": "QIN Border Unit II",
+      "fighting_establishment": 2000,
       "external_unit_command": {
         "commander_billets": 1,
         "deputy_billets": 1,
+        "commander_representation": "full_character",
+        "deputy_representation": "person_lite",
         "source_force_ref": "force_state_qin",
         "source_role": "command_personnel",
-        "representation": "aggregate_until_relevant"
+        "representation": "mixed_full_commander_person_lite_deputy"
       },
       "internal_hierarchy": [
-        {"scale": 2000, "count": 2, "representation": "person_lite_when_relevant", "deputy_policy": "optional_useful"},
-        {"scale": 1000, "count": 4, "representation": "aggregate", "deputy_policy": "optional"},
-        {"scale": 500, "count": 8, "representation": "aggregate", "deputy_policy": "normally_none"},
-        {"scale": 100, "count": 40, "representation": "aggregate", "deputy_policy": "normally_none"}
+        {"scale": 1000, "count": 2, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 500, "count": 4, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 100, "count": 20, "representation": "person_lite", "deputy_policy": "none"}
       ],
-      "hierarchy_rule": "Two 2,000-man commands each contain two 1,000-man commands; each 1,000 contains two 500-man commands; each 500 contains five 100-man commands. All 54 subordinate command assignments are held by soldiers inside this conserved 4,000 fighting establishment. They remain aggregate unless saved individual relevance or high-potential evidence warrants representation.",
+      "hierarchy_rule": "One 2,000-fighter persistent unit contains two 1,000 commands; each 1,000 contains two 500 commands; each 500 contains five 100 commands. All 26 subordinate commanders are person-lite assignments held by soldiers inside this conserved 2,000 fighting establishment. Internal subcommands have no deputy billets.",
+      "external_support": {
+        "per_500": {"command_personnel": 2, "signal": 2, "logistics": 3},
+        "source_force_ref": "force_state_qin",
+        "outside_fighting_establishment": true,
+        "function_map": {
+          "command_personnel": ["staff officers", "clerks/adjutants"],
+          "signal": ["signal officers", "scouts and messengers"],
+          "logistics": ["quartermasters", "medical staff", "supply and transport staff"]
+        }
+      }
+    },
+    "formation_qin_border_line_third": {
+      "label": "QIN Border Unit III",
+      "fighting_establishment": 2000,
+      "external_unit_command": {
+        "commander_billets": 1,
+        "deputy_billets": 1,
+        "commander_representation": "full_character",
+        "deputy_representation": "person_lite",
+        "source_force_ref": "force_state_qin",
+        "source_role": "command_personnel",
+        "representation": "mixed_full_commander_person_lite_deputy"
+      },
+      "internal_hierarchy": [
+        {"scale": 1000, "count": 2, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 500, "count": 4, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 100, "count": 20, "representation": "person_lite", "deputy_policy": "none"}
+      ],
+      "hierarchy_rule": "One 2,000-fighter persistent unit contains two 1,000 commands; each 1,000 contains two 500 commands; each 500 contains five 100 commands. All 26 subordinate commanders are person-lite assignments held by soldiers inside this conserved 2,000 fighting establishment. Internal subcommands have no deputy billets.",
+      "external_support": {
+        "per_500": {"command_personnel": 2, "signal": 2, "logistics": 3},
+        "source_force_ref": "force_state_qin",
+        "outside_fighting_establishment": true,
+        "function_map": {
+          "command_personnel": ["staff officers", "clerks/adjutants"],
+          "signal": ["signal officers", "scouts and messengers"],
+          "logistics": ["quartermasters", "medical staff", "supply and transport staff"]
+        }
+      }
+    },
+    "formation_qin_border_line_fourth": {
+      "label": "QIN Border Unit IV",
+      "fighting_establishment": 2000,
+      "external_unit_command": {
+        "commander_billets": 1,
+        "deputy_billets": 1,
+        "commander_representation": "full_character",
+        "deputy_representation": "person_lite",
+        "source_force_ref": "force_state_qin",
+        "source_role": "command_personnel",
+        "representation": "mixed_full_commander_person_lite_deputy"
+      },
+      "internal_hierarchy": [
+        {"scale": 1000, "count": 2, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 500, "count": 4, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 100, "count": 20, "representation": "person_lite", "deputy_policy": "none"}
+      ],
+      "hierarchy_rule": "One 2,000-fighter persistent unit contains two 1,000 commands; each 1,000 contains two 500 commands; each 500 contains five 100 commands. All 26 subordinate commanders are person-lite assignments held by soldiers inside this conserved 2,000 fighting establishment. Internal subcommands have no deputy billets.",
       "external_support": {
         "per_500": {"command_personnel": 2, "signal": 2, "logistics": 3},
         "source_force_ref": "force_state_qin",
@@ -256,17 +337,41 @@
       "external_unit_command": {
         "commander_billets": 1,
         "deputy_billets": 1,
+        "commander_representation": "full_character",
+        "deputy_representation": "person_lite",
         "source_force_ref": "force_tang_wei_personal",
         "source_role": "command_personnel",
-        "representation": "full_character_when_appointed"
+        "representation": "mixed_generated_full_commander_person_lite_deputy",
+        "generation_policy": "Generate and conserve a distinct Great Bow Guard unit commander and deputy during lawful live materialization. Do not reuse Tang Champion command and do not auto-transfer Sword Manor officers."
       },
       "internal_hierarchy": [
-        {"scale": 1000, "count": 3, "representation": "person_lite_when_relevant", "deputy_policy": "optional"},
-        {"scale": 200, "count": 15, "representation": "aggregate", "deputy_policy": "normally_none"}
+        {"scale": 1000, "count": 3, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 500, "count": 6, "representation": "person_lite", "deputy_policy": "none"},
+        {"scale": 100, "count": 30, "representation": "person_lite", "deputy_policy": "none"}
       ],
-      "cohort_alignment": {"cohort_size": 200, "cohort_count": 15, "cohorts_per_1000_command": 5},
-      "officer_source_rule": "Internal Great Bow Guard commanders arise from the accepted conserved Great Bow Guard recruitment body. The formal unit commander/deputy may be appointed from that body or another lawfully transferred command source. Sword Manor personnel are not transferred automatically.",
-      "temporary_100_rule": "A 200-man Great Bow Guard cohort may tactically divide into two temporary 100-man groups without changing persistent cohort conservation or unit-slot count."
+      "cohort_alignment": {
+        "cohort_size": 200,
+        "cohort_count": 15,
+        "cohorts_per_1000_command": 5,
+        "purpose": "recruitment_and_manpower_provenance_not_tactical_command_level"
+      },
+      "hierarchy_rule": "The tactical command tree is three 1,000 commands, six 500 commands and thirty 100 commands, for 39 person-lite internal commanders. These are overlapping echelon assignments over the same conserved 3,000 fighters and do not add manpower or formation slots. Internal subcommands have no deputies.",
+      "officer_source_rule": "Internal Great Bow Guard commanders arise from the accepted conserved Great Bow Guard recruitment body. The formal unit commander/deputy are distinct from Tang Champion command and must be lawfully generated/materialized from conserved eligible bodies. Sword Manor personnel are not transferred automatically.",
+      "temporary_100_rule": "The thirty 100-man tactical commands are command assignments inside the 3,000-fighter formation. The fifteen 200-person recruitment cohorts remain conservation provenance and are not separate tactical command units."
+    },
+    "formation_tang_champions_first": {
+      "label": "Tang Champions",
+      "fighting_establishment": 100,
+      "external_unit_command": {
+        "commander_billets": 1,
+        "deputy_billets": 1,
+        "source_force_ref": "force_house_tang",
+        "source_role": "command_personnel",
+        "representation": "preserve_existing_named_full_characters",
+        "appointment_rule": "Preserve the exact existing campaign commander and deputy refs; static organization policy does not overwrite named appointments."
+      },
+      "internal_hierarchy": [],
+      "hierarchy_rule": "The 100 Tang Champions are one persistent unit, not a Great Bow Guard subcommand. Their named unit commander and deputy remain campaign-owned appointments."
     }
   },
   "operation_depth": {
@@ -284,11 +389,16 @@
     "conserved_recruitment_cohorts": 15,
     "preferred_cohort_size": 200,
     "internal_thousand_commands": 3,
-    "internal_200_commands": 15,
+    "internal_500_commands": 6,
+    "internal_100_commands": 30,
+    "internal_commander_assignments": 39,
+    "internal_deputy_billets": 0,
     "formation_commander_billets": 1,
     "formation_deputy_billets": 1,
+    "formation_commander_representation": "full_character",
+    "formation_deputy_representation": "person_lite",
     "support_personnel_outside_fighting_establishment": true,
-    "officer_source": "accepted_great_bow_guard_recruits",
-    "rule": "The 3,000-fighter Great Bow Guard remains one persistent formation. Three 1,000-man command nodes and fifteen 200-man command nodes are internal assignments over the same 15 conserved 200-person cohorts. Their commanders consume existing Great Bow Guard bodies. The unit commander and formal deputy sit above fighting strength only when separately conserved or lawfully reclassified, and any support attachment is separately conserved outside fighting strength."
+    "officer_source": "accepted_great_bow_guard_recruits_or_other_lawfully_conserved_eligible_command_body",
+    "rule": "The 3,000-fighter Great Bow Guard remains one persistent formation. Its tactical command tree is 3 x 1,000, 6 x 500 and 30 x 100 commander-only echelons over the same fighters. The fifteen 200-person cohorts remain recruitment/manpower provenance, not tactical command units. Internal commanders are person-lite conserved fighting bodies. The distinct Great Bow Guard unit commander is a full character and its unit deputy is person-lite; both are separate from Tang Champion command and require lawful conserved materialization."
   }
 }
