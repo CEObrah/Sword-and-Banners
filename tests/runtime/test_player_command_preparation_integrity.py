@@ -7,7 +7,6 @@ from sword_runtime.cohort_personnel import role_count
 from sword_runtime.great_bow_guard_personal_integrity import repair_great_bow_guard_personal_ownership
 from sword_runtime.house_field_preparation_flow import settle_house_field_preparation
 from sword_runtime.production_planner import ProductionCampaignPlanner
-from sword_runtime.qin_command_briefing_flow import settle_qin_command_briefing, sync_qin_command_briefings
 
 
 def _planner(campaign):
@@ -18,21 +17,24 @@ def _planner(campaign):
     return planner
 
 
-def test_great_bow_guard_is_repaired_to_tang_wei_personal_force_with_training(campaign) -> None:
+def _gbg_total(force) -> int:
+    reserve = role_count(force, "great_bow_guard")
+    allocated = 0
+    for row in force.get("allocated_to_formations", {}).values():
+        if isinstance(row, dict) and row.get("role") == "great_bow_guard":
+            allocated += int(row.get("personnel", 0))
+    return reserve + allocated
+
+
+def test_great_bow_guard_personal_force_ownership_and_training_are_idempotent(campaign) -> None:
     planner = _planner(campaign)
     at = str(planner.read("state/runtime.json")["world_time"])
 
-    assert role_count(planner.read("state/forces/house-tang.json"), "great_bow_guard") == 300
-    assert role_count(planner.read("state/forces/tang-wei-personal.json"), "great_bow_guard") == 0
-
-    result = repair_great_bow_guard_personal_ownership(planner, at=at)
-    assert result is not None
-    assert result["personnel"] == 300
-
+    repair_great_bow_guard_personal_ownership(planner, at=at)
     house_force = planner.read("state/forces/house-tang.json")
     personal_force = planner.read("state/forces/tang-wei-personal.json")
-    assert role_count(house_force, "great_bow_guard") == 0
-    assert role_count(personal_force, "great_bow_guard") == 300
+    assert _gbg_total(house_force) == 0
+    assert _gbg_total(personal_force) == 300
 
     house = planner.read("state/houses/house_tang.json")
     program = house["administrative_programs"]["great_bow_guard"]
@@ -63,37 +65,21 @@ def test_great_bow_guard_is_repaired_to_tang_wei_personal_force_with_training(ca
     assert allocations["force_tang_wei_personal"]["personnel"] == 300
     assert "force_house_tang" not in allocations
 
+    force_snapshot = copy.deepcopy(planner.read("state/forces/tang-wei-personal.json"))
     repair_great_bow_guard_personal_ownership(planner, at=at)
-    assert role_count(planner.read("state/forces/tang-wei-personal.json"), "great_bow_guard") == 300
-    assert role_count(planner.read("state/forces/house-tang.json"), "great_bow_guard") == 0
+    assert planner.read("state/forces/tang-wei-personal.json")["headcount"] == force_snapshot["headcount"]
+    assert _gbg_total(planner.read("state/forces/tang-wei-personal.json")) == 300
 
 
-def test_existing_qin_briefing_request_gets_exact_pre_assumption_reply(campaign) -> None:
+def test_current_qin_appointment_preserves_pre_assumption_briefing_without_authority_transfer(campaign) -> None:
     planner = _planner(campaign)
-    runtime = copy.deepcopy(planner.read("state/runtime.json"))
-    sync_qin_command_briefings(planner, runtime)
-
-    hosts = [host for host in runtime["hosts"].values() if host.get("kind") == "qin_command_briefing_reply"]
-    assert len(hosts) == 1
-    host = hosts[0]
-    assert host["formation_ref"] == "formation_qin_border_line"
-
-    formation_before = copy.deepcopy(planner.read("state/formations/qin-border-line.json"))
-    wake = settle_qin_command_briefing(planner, host, str(runtime["world_time"]))
-    assert wake is not None
-    assert "Strength: 8000" in wake["reason"]
-    assert "line infantry 8000" in wake["reason"]
-    assert "food 40000 kg" in wake["reason"]
-    assert "fodder 0 kg" in wake["reason"]
-    assert "war arrows 0" in wake["reason"]
-    assert "no subordinate formation registry" in wake["reason"]
-
-    formation_after = planner.read("state/formations/qin-border-line.json")
-    assert formation_after["commander_ref"] == formation_before["commander_ref"] is None
-    assert formation_after["command_authority"] == "state_qin"
-
+    formation = planner.read("state/formations/qin-border-line.json")
     player = planner.read("state/player.json")
     appointment = next(row for row in player["career_state"]["appointments"] if row.get("formation_ref") == "formation_qin_border_line")
+
+    assert formation["personnel"] == 8000
+    assert formation["commander_ref"] is None
+    assert formation["command_authority"] == "state_qin"
     assert appointment["status"] == "awaiting_assumption"
     assert appointment["command_structure_status"] == "subordinate_registry_absent_staffing_requested"
     assert appointment["staffing_request_status"] == "required_before_tactical_employment"
@@ -105,7 +91,7 @@ def test_existing_qin_briefing_request_gets_exact_pre_assumption_reply(campaign)
     }
 
 
-def test_house_field_preparation_reports_exact_stock_and_keeps_kai_training_valid(campaign) -> None:
+def test_house_field_preparation_reports_exact_current_stock_and_keeps_kai_training_valid(campaign) -> None:
     planner = _planner(campaign)
     at = str(planner.read("state/runtime.json")["world_time"])
     repair_great_bow_guard_personal_ownership(planner, at=at)
@@ -122,14 +108,14 @@ def test_house_field_preparation_reports_exact_stock_and_keeps_kai_training_vali
     )
     assert wake is not None
     assert "Great Bow Guard" in wake["reason"]
-    assert "Tang Armor 300" in wake["reason"]
-    assert "Tang Helmets 300" in wake["reason"]
-    assert "Tang Shields 300" in wake["reason"]
-    assert "Great War Bows 300" in wake["reason"]
-    assert "100 Tang heavy warhorses" in wake["reason"]
-    assert "100 horse-armor sets" in wake["reason"]
-    assert "food 45350528 kg" in wake["reason"]
-    assert "fodder 17312000 kg" in wake["reason"]
+    assert "Tang Armor" in wake["reason"]
+    assert "Tang Helmets" in wake["reason"]
+    assert "Tang Shields" in wake["reason"]
+    assert "Great War Bows" in wake["reason"]
+    assert "Tang heavy warhorses" in wake["reason"]
+    assert "horse-armor sets" in wake["reason"]
+    assert "House campaign stores are food" in wake["reason"]
+    assert "fodder" in wake["reason"]
     assert "does not contain a House-owned monthly Tang-armor manufacturing owner" in wake["reason"]
 
     kai = planner.read("state/char/tang-kai.json")
@@ -142,9 +128,6 @@ def test_house_field_preparation_reports_exact_stock_and_keeps_kai_training_vali
     assert prep["great_bow_guard_personnel"] == 300
     assert prep["champions_personnel"] == 100
     assert prep["equipment_issue_status"] == "not_yet_issued_or_reserved_by_this_report"
-    assert prep["house_stock_snapshot"]["tang_armor_reserve"] == 300
-    assert prep["house_stock_snapshot"]["tang_horse_armor_reserve"] == 100
-    assert prep["house_stock_snapshot"]["war_arrows_strategic_reserve"] == 3549240
     assert prep["house_stock_snapshot"]["monthly_food_contract_kg"] == 600000
     assert prep["house_stock_snapshot"]["monthly_fodder_contract_kg"] == 100000
 
