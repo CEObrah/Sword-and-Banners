@@ -4,7 +4,8 @@ Causal events own occurrence truth.  The information ledger owns what exact
 people know and what investigations may lawfully search.  A delivered report
 must therefore create a knowledge claim without copying hidden world truth from
 its source event.  This module records only the already player-visible report
-summary and delivery provenance.
+summary and holder provenance. The causal report remains the sole owner of the
+actual delivery journey.
 """
 from __future__ import annotations
 
@@ -32,10 +33,11 @@ def record_delivered_world_arc_report_information(
 ) -> str | None:
     """Persist one delivered world-arc report as player-known information.
 
-    The causal report remains the authority for what was delivered.  The claim
+    The causal report remains the authority for what was delivered. The claim
     deliberately stores only its public summary, never hidden source-event
-    fields or material evidence.  Subject aliases let an investigation opened
-    from the latest report search the report dossier accumulated for that arc.
+    fields, material evidence, or a second invented transport record. Subject
+    aliases let an investigation opened from the latest report search the report
+    dossier accumulated for that arc.
     """
 
     source_event_ref = host.get("source_event_ref")
@@ -93,16 +95,6 @@ def record_delivered_world_arc_report_information(
                 "learned_at": at,
             }
         },
-        "deliveries": [
-            {
-                "source_ref": report_ref,
-                "target_ref": _PLAYER_REF,
-                "arrived_at": at,
-                "target_location_ref": location_ref,
-                "channel": route,
-                "confidence_milli": confidence,
-            }
-        ],
         "created_at": at,
     }
     planner.put(path, claim)
