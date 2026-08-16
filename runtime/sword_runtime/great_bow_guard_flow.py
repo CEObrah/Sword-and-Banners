@@ -357,6 +357,118 @@ def settle_great_bow_guard_review(planner: Any, host: Mapping[str, Any], at: str
     return None
 
 
+def _required_lifecycle_reviews(training_cfg: Mapping[str, Any]) -> int:
+    hours = max(1, int(training_cfg.get("deliberate_hours_per_review", 56)))
+    minimum = max(hours, int(training_cfg.get("minimum_verified_training_hours", 224)))
+    return 1 + max(1, int(math.ceil(minimum / hours)))
+
+
+def _completed_lifecycle_reviews(campaign: Mapping[str, Any], training_cfg: Mapping[str, Any]) -> int:
+    status = str(campaign.get("status", ""))
+    required = _required_lifecycle_reviews(training_cfg)
+    if status == "screening":
+        return 0
+    if status not in {"training_candidate", "accepted_equipment_pending"}:
+        return required
+    hours_per_review = max(1, int(training_cfg.get("deliberate_hours_per_review", 56)))
+    trained_hours = max(0.0, float(campaign.get("verified_training_hours_per_person", 0.0) or 0.0))
+    completed = 1 + int(trained_hours // hours_per_review)
+    if status == "accepted_equipment_pending":
+        return required
+    return min(required, completed)
+
+
+def _eligible_lifecycle_reviews(campaign: Mapping[str, Any], training_cfg: Mapping[str, Any], at: str) -> tuple[int, str | None]:
+    required = _required_lifecycle_reviews(training_cfg)
+    recurrence = max(86400, int(training_cfg.get("review_seconds", 7 * 86400)))
+    started_raw = campaign.get("started_at")
+    if not isinstance(started_raw, str) or not started_raw:
+        return 1, None
+    started = CampaignTime.parse(started_raw)
+    current = CampaignTime.parse(at)
+    if current < started:
+        raise ValueError("Great Bow Guard lifecycle cannot precede candidate campaign start")
+    elapsed_reviews = started.seconds_until(current) // recurrence
+    # Preserve the established immediate first review for newly opened campaigns,
+    # while allowing campaigns that pre-date this scheduler route to consume the
+    # review opportunities that actually elapsed on the campaign calendar.
+    return min(required, max(1, int(elapsed_reviews))), started_raw
+
+
+def _campaign_progress_signature(campaign: Mapping[str, Any]) -> tuple[str, int, float, int]:
+    return (
+        str(campaign.get("status", "")),
+        max(0, int(campaign.get("remaining_candidates", 0) or 0)),
+        round(max(0.0, float(campaign.get("verified_training_hours_per_person", 0.0) or 0.0)), 3),
+        max(0, int(campaign.get("accepted_count", 0) or 0)),
+    )
+
+
+def settle_great_bow_guard_due_reviews(planner: Any, host: Mapping[str, Any], at: str) -> dict[str, Any] | None:
+    """Settle only the lifecycle reviews that the campaign calendar has earned.
+
+    This closes a late-initialization defect: an existing recruitment campaign may
+    already be months old when this autonomous host is first installed.  Catch-up
+    consumes the same registered screening costs, food, selection rules and cohort
+    training as ordinary weekly reviews; it never grants resources or skips a real
+    blocker merely because calendar time elapsed.
+    """
+    house, great = _program(planner)
+    campaign_ref = str(great.get("candidate_campaign_ref", ""))
+    if not campaign_ref:
+        return None
+    _great_rules, training_cfg = _rules(planner)
+    _registry, campaign = _campaign(planner, campaign_ref)
+    if campaign is None:
+        return None
+
+    eligible, started_raw = _eligible_lifecycle_reviews(campaign, training_cfg, at)
+    completed_before = _completed_lifecycle_reviews(campaign, training_cfg)
+    budget = max(0, eligible - completed_before)
+    if budget <= 0:
+        return None
+
+    last_wake: dict[str, Any] | None = None
+    settled = 0
+    for _ in range(budget):
+        _registry, before = _campaign(planner, campaign_ref)
+        if before is None or str(before.get("status", "")) not in {"screening", "training_candidate"}:
+            break
+        before_signature = _campaign_progress_signature(before)
+        wake = settle_great_bow_guard_review(planner, host, at)
+        if isinstance(wake, dict):
+            last_wake = wake
+        _registry, after = _campaign(planner, campaign_ref)
+        if after is None:
+            break
+        after_signature = _campaign_progress_signature(after)
+        if after_signature == before_signature:
+            # A treasury/food blocker may legitimately emit a report without
+            # advancing the campaign.  Stop rather than repeatedly charging or
+            # generating duplicate blocked work inside one callback.
+            break
+        settled += 1
+        if str(after.get("status", "")) not in {"screening", "training_candidate"}:
+            break
+
+    if settled > 0 and (eligible > 1 or settled > 1):
+        registry, campaign = _campaign(planner, campaign_ref)
+        if campaign is not None:
+            history = campaign.setdefault("lifecycle_catchup_history", [])
+            history.append({
+                "kind": "elapsed_review_catchup",
+                "at": at,
+                "campaign_started_at": started_raw,
+                "eligible_reviews": eligible,
+                "completed_reviews_before": completed_before,
+                "reviews_settled": settled,
+                "rule": "elapsed calendar opportunity only; ordinary resource and conservation gates still apply",
+            })
+            campaign["lifecycle_catchup_history"] = history[-16:]
+            planner.put(REGISTRY_PATH, registry)
+    return last_wake
+
+
 def sync_great_bow_guard_flow(planner: Any, runtime: dict[str, Any]) -> None:
     hosts = runtime.get("hosts")
     events = runtime.get("events")
@@ -418,7 +530,7 @@ class GreatBowGuardFlowMixin:
 
     def _run_due_host(self, host: Mapping[str, Any], due_text: str) -> None:
         if host.get("kind") == "house_gbg_lifecycle":
-            wake = settle_great_bow_guard_review(self, host, due_text)
+            wake = settle_great_bow_guard_due_reviews(self, host, due_text)
             if isinstance(wake, dict):
                 wake["target_host"] = self._active_host_id
                 wake["event_id"] = self._active_event_id
@@ -429,6 +541,7 @@ class GreatBowGuardFlowMixin:
 
 __all__ = [
     "GreatBowGuardFlowMixin",
+    "settle_great_bow_guard_due_reviews",
     "settle_great_bow_guard_review",
     "sync_great_bow_guard_flow",
 ]
