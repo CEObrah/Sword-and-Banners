@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 
 from sword_runtime.causal_event_store import get_causal_event
+from sword_runtime.history_store import write_history_index
 from sword_runtime.production_planner import ProductionCampaignPlanner
 from sword_runtime.sim.calendar import CampaignTime
 
@@ -79,6 +80,90 @@ def test_transfer_interest_creates_petition_and_never_teleports_officer(campaign
     assert after_review.get("current_formation_id") == before_formation
 
 
+def test_resolved_petition_reference_does_not_permanently_latch_officer(campaign):
+    planner = _planner(campaign)
+    at = str(planner.read("state/runtime.json")["world_time"])
+    path, original = planner._exact_person("char_ouki", active=False)
+    person = copy.deepcopy(dict(original))
+    petition_ref = planner._create_petition(
+        person,
+        state_ref="state_qin",
+        desired_commander_ref="char_tang_wei",
+        request_kind="campaign_attachment",
+        attraction_milli=900,
+        evidence_refs=[],
+        at=at,
+    )
+    assert petition_ref
+    planner.put(path, person)
+    petition_path = planner._petition_path(petition_ref)
+    petition = copy.deepcopy(planner.read(petition_path))
+    petition["status"] = "rejected"
+    planner.put(petition_path, petition)
+    persisted = planner.read(path)
+    assert petition_ref in persisted["military_career_state"]["active_petition_refs"]
+    assert planner._active_petition_refs(persisted) == []
+
+
+def test_cross_state_service_is_not_treated_as_ordinary_transfer(campaign):
+    planner = _planner(campaign)
+    at = str(planner.read("state/runtime.json")["world_time"])
+    network = planner._career_network()
+    dossier_path = "state/military/career-network/commanders/char_test_zhao_general.json"
+    planner.put(dossier_path, {
+        "schema": "sword-commander-career-dossier.v1",
+        "authority": False,
+        "commander_ref": "char_test_zhao_general",
+        "state_ref": "state_zhao",
+        "formation_ref": None,
+        "command_scale": 10000,
+        "public_reputation_milli": 900,
+        "institutional_reputation_milli": 900,
+        "casualty_stewardship_milli": 800,
+        "logistics_reliability_milli": 800,
+        "promotion_opportunity_milli": 800,
+        "political_risk_milli": 200,
+        "evidence_refs": [],
+        "published_at": at,
+        "public_summary": "A distinguished Zhao general.",
+    })
+    network.setdefault("commanders", {})["char_test_zhao_general"] = dossier_path
+    planner.put("state/military/career-network/index.json", network)
+
+    person_path, original = planner._exact_person("char_ouki", active=False)
+    person = copy.deepcopy(dict(original))
+    person["military_loyalty_state"] = {
+        "schema": "sword-named-military-loyalty.v1",
+        "state_ref": "state_qin",
+        "state_allegiance_milli": 900,
+        "institutional_professional_milli": 900,
+        "formation_bond_milli": 500,
+        "legitimacy_belief_milli": 800,
+        "commander_bonds": {},
+        "house_patron_bonds": {},
+        "resentment_by_person": {},
+        "recent_memory": [],
+    }
+    petition_ref = planner._create_petition(
+        person,
+        state_ref="state_qin",
+        desired_commander_ref="char_test_zhao_general",
+        request_kind="permanent_transfer",
+        attraction_milli=900,
+        evidence_refs=[],
+        at=at,
+    )
+    assert petition_ref
+    planner.put(person_path, person)
+    review_at = str(CampaignTime.parse(at).add_days(15))
+    planner._settle_petitions("state_qin", review_at)
+    petition = planner.read(planner._petition_path(petition_ref))
+    assert petition["request_kind"] == "foreign_service_request"
+    assert petition["desired_state_ref"] == "state_zhao"
+    assert petition["attraction_milli"] == 540
+    assert planner.read(person_path).get("state") == original.get("state")
+
+
 def test_formation_loyalty_is_cohort_scale_and_preserves_ownership_and_manpower(campaign):
     planner = _planner(campaign)
     path, original = planner._load_formation("formation_qin_border_line")
@@ -95,9 +180,42 @@ def test_formation_loyalty_is_cohort_scale_and_preserves_ownership_and_manpower(
     assert "commander_bonds" in loyalty and "char_ouki" in loyalty["commander_bonds"]
     assert "state_allegiance" in loyalty["axes"]
     assert "formation_identity" in loyalty["axes"]
+    assert "allegiance_distribution" in loyalty
     assert int(settled["personnel"]) == before_personnel
     assert settled["administrative_owner"] == before_owner
     assert "soldiers" not in loyalty
+
+
+def test_causal_battle_memory_changes_loyalty_without_changing_manpower(campaign):
+    planner = _planner(campaign)
+    path, original = planner._load_formation("formation_qin_border_line")
+    formation = copy.deepcopy(dict(original))
+    formation["commander_ref"] = "char_ouki"
+    planner.put(path, formation)
+    at = str(planner.read("state/runtime.json")["world_time"])
+    planner._update_formation_loyalty("formation_qin_border_line", at)
+    before = copy.deepcopy(planner.read(path))
+    before_loyalty = before["military_loyalty_state"]
+    before_bond = int(before_loyalty["commander_bonds"]["char_ouki"])
+    before_disaffection = int(before_loyalty["axes"]["disaffection"])
+
+    history = copy.deepcopy(planner.read("state/history/events/index.json"))
+    history["events"].append({
+        "at": at,
+        "event_id": "event_test_loyalty_catastrophic_loss",
+        "kind": "battle_result",
+        "summary": "formation_qin_border_line suffered catastrophic mass casualty losses after being sacrificed in a failed withdrawal.",
+    })
+    write_history_index(planner, history)
+    planner._update_formation_loyalty("formation_qin_border_line", at)
+    after = planner.read(path)
+    after_loyalty = after["military_loyalty_state"]
+    assert int(after_loyalty["commander_bonds"]["char_ouki"]) < before_bond
+    assert int(after_loyalty["axes"]["disaffection"]) > before_disaffection
+    assert any(row.get("event_ref") == "event_test_loyalty_catastrophic_loss" for row in after_loyalty["recent_memory"])
+    assert after["personnel"] == before["personnel"]
+    assert after["administrative_owner"] == before["administrative_owner"]
+    assert after["owner_force_ref"] == before["owner_force_ref"]
 
 
 def test_crisis_allegiance_uses_immediate_officers_and_never_changes_ownership(campaign):
