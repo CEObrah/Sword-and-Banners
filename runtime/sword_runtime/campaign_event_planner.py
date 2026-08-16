@@ -23,8 +23,8 @@ from sword_runtime.systems.campaign_events import (
     settle_campaign_work_target,
     sync_campaign_work_routes,
 )
+from sword_runtime.world_arc_report_handoff import settle_player_safe_world_arc_report
 from sword_runtime.world_arcs import (
-    settle_world_arc_report,
     settle_world_arc_review,
     sync_world_arc_routes,
 )
@@ -154,11 +154,12 @@ class CampaignEventPlayerGroupActionPlanner(PlayerGroupActionPlanner):
             self._pending_wake_created = None
             return
         if kind == "world_arc_report":
-            wake = settle_world_arc_report(self, host, due_text)
+            wake = settle_player_safe_world_arc_report(self, host, due_text)
             # Delivery is occurrence truth in the causal event owner. Mirror only
             # the already-visible report into the information ledger so later
             # investigation and intelligence mechanics can lawfully search what
-            # Tang Wei actually received.
+            # Tang Wei actually received. Opaque material bookkeeping is removed
+            # before this point by the player-safe report handoff.
             record_delivered_world_arc_report_information(self, host, due_text)
             if wake is not None:
                 wake["target_host"] = self._active_host_id

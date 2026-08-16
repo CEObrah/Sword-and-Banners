@@ -60,7 +60,18 @@ def record_delivered_world_arc_report_information(
     index = copy.deepcopy(planner.read(_INFO_INDEX_PATH))
     existing_path = index.get("claims", {}).get(information_ref) if isinstance(index, Mapping) else None
     if isinstance(existing_path, str):
+        # Preserve idempotency for historical claims that were already committed
+        # before the player-safe handoff marker existed. This gate controls new
+        # knowledge creation; it does not rewrite previously committed knowledge.
         return information_ref
+
+    report_provenance = report.get("provenance") if isinstance(report.get("provenance"), Mapping) else {}
+    safe_evidence_kind = report_provenance.get("player_safe_evidence_kind")
+    if not isinstance(safe_evidence_kind, str) or not safe_evidence_kind.strip():
+        # A causal `.report` row alone is no longer sufficient to create player
+        # knowledge. Production report settlement must first attest that its
+        # public meaning passed the bounded player-safe evidence policy.
+        return None
 
     route = str(delivery.get("route", "world_arc_report"))
     location_ref = delivery.get("location_ref")

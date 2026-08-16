@@ -22,7 +22,7 @@ def test_delivered_world_arc_report_becomes_player_known_information(campaign):
         "triggered_at": now,
         "arc_ref": "arc_ryo_fui_northern_wei_campaign",
         "source_event_ref": source_ref,
-        "summary": "Reports establish only that Qin has committed material military work; tactical particulars remain unavailable.",
+        "summary": "Reports establish that the campaign has produced an active military operation; tactical particulars remain unavailable.",
         "delivery": {
             "target_ref": "char_tang_wei",
             "location_ref": "loc_tang_manor_training_ground",
@@ -32,6 +32,7 @@ def test_delivered_world_arc_report_becomes_player_known_information(campaign):
             "kind": "world_arc_information_propagation",
             "exposure_roll": 10,
             "exposure_chance": 70,
+            "player_safe_evidence_kind": "exact_operation_created",
         },
     }
     write_causal_event_owner(planner, owner)
@@ -67,6 +68,46 @@ def test_delivered_world_arc_report_becomes_player_known_information(campaign):
     assert information_ref in subjects["arc_ryo_fui_northern_wei_campaign"]
 
 
+def test_unattested_report_does_not_create_new_player_knowledge(campaign):
+    planner = ProductionCampaignPlanner(campaign)
+    planner._reset()
+    now = str(planner.read("state/runtime.json")["world_time"])
+    source_ref = "event_world_arc_unattested_report"
+    report_ref = source_ref + ".report"
+    before_index = copy.deepcopy(planner.read("state/information/index.json"))
+    _path, owner = read_causal_event_owner(planner)
+    owner.setdefault("causal_events", {})[report_ref] = {
+        "event_ref": report_ref,
+        "kind": "world_arc_report",
+        "status": "triggered",
+        "due_at": now,
+        "triggered_at": now,
+        "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+        "source_event_ref": source_ref,
+        "summary": "Generic material work settled.",
+        "delivery": {
+            "target_ref": "char_tang_wei",
+            "location_ref": "loc_tang_manor_training_ground",
+            "route": "military dispatches and merchant reports",
+        },
+        "provenance": {"kind": "world_arc_information_propagation"},
+    }
+    write_causal_event_owner(planner, owner)
+
+    result = record_delivered_world_arc_report_information(
+        planner,
+        {
+            "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+            "source_event_ref": source_ref,
+            "visibility": "discoverable",
+        },
+        now,
+    )
+
+    assert result is None
+    assert planner.read("state/information/index.json") == before_index
+
+
 def test_latest_report_subject_points_to_accumulated_arc_dossier(campaign):
     planner = ProductionCampaignPlanner(campaign)
     planner._reset()
@@ -92,7 +133,10 @@ def test_latest_report_subject_points_to_accumulated_arc_dossier(campaign):
                 "location_ref": "loc_tang_manor_training_ground",
                 "route": "military dispatch",
             },
-            "provenance": {"kind": "world_arc_information_propagation"},
+            "provenance": {
+                "kind": "world_arc_information_propagation",
+                "player_safe_evidence_kind": "exact_operation_created",
+            },
         }
         write_causal_event_owner(planner, owner)
         ref = record_delivered_world_arc_report_information(
