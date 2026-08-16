@@ -12,6 +12,7 @@ from typing import Any
 
 from sword_runtime.autonomy_routing import select_formations_fair
 from sword_runtime.civil_world import sync_faction_routes, sync_polity_routes
+from sword_runtime.information_handoff import record_delivered_world_arc_report_information
 from sword_runtime.institutional_processes import (
     settle_institutional_process_followup,
     sync_institutional_process_routes,
@@ -154,6 +155,11 @@ class CampaignEventPlayerGroupActionPlanner(PlayerGroupActionPlanner):
             return
         if kind == "world_arc_report":
             wake = settle_world_arc_report(self, host, due_text)
+            # Delivery is occurrence truth in the causal event owner. Mirror only
+            # the already-visible report into the information ledger so later
+            # investigation and intelligence mechanics can lawfully search what
+            # Tang Wei actually received.
+            record_delivered_world_arc_report_information(self, host, due_text)
             if wake is not None:
                 wake["target_host"] = self._active_host_id
                 wake["event_id"] = self._active_event_id
