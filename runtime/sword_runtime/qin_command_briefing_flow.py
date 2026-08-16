@@ -192,7 +192,6 @@ def settle_qin_command_briefing(planner: Any, host: Mapping[str, Any], at: str) 
         "basis_goal": "Provide the exact current order of battle, stores and command-readiness deficiencies for an appointed formation before assumption",
         "process_kind": "qin_field_command_briefing",
         "process_stage": "briefing_delivered_staffing_requirement_open",
-        "formation_ref": formation_ref,
         "summary": summary,
         "delivery": {
             "target_ref": "char_tang_wei",
