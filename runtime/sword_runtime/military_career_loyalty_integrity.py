@@ -2,7 +2,7 @@
 
 Keeps the base career network focused on ownership/routing while hardening
 long-campaign petition reuse, foreign-service authority, bounded loyalty memory,
-and officer knowledge boundaries.
+officer knowledge boundaries, and service-versus-allegiance separation.
 """
 from __future__ import annotations
 
@@ -11,13 +11,191 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.history_store import recent_history_events
-from sword_runtime.military_career_loyalty import MilitaryCareerLoyaltyMixin, _clamp, _event_kind, _event_mentions
+from sword_runtime.military_career_loyalty import (
+    MilitaryCareerLoyaltyMixin,
+    _PLAYER_REF,
+    _RUNTIME_PATH,
+    _clamp,
+    _event_kind,
+    _event_mentions,
+    _is_alive_adult,
+    _is_commander_candidate,
+    _military_score,
+    _state_ref,
+)
+from sword_runtime.sim.calendar import CampaignTime
 
 _ACTIVE_PETITION_STATES = {"submitted", "delayed", "awaiting_commander_response"}
 
 
+def _service_state_ref(person: Mapping[str, Any]) -> str | None:
+    """Return current military service state without asserting personal allegiance."""
+    state_ref = _state_ref(person)
+    if state_ref:
+        return state_ref
+    career = person.get("career_state")
+    appointments = career.get("appointments", []) if isinstance(career, Mapping) else []
+    if isinstance(appointments, list):
+        for row in reversed(appointments):
+            if not isinstance(row, Mapping):
+                continue
+            if str(row.get("status", "")) not in {"active", "awaiting_assumption", "campaign_attachment"}:
+                continue
+            value = row.get("state_ref")
+            if isinstance(value, str) and value.startswith("state_"):
+                return value
+    return None
+
+
 class MilitaryCareerLoyaltyIntegrityMixin(MilitaryCareerLoyaltyMixin):
     """Fail-closed hardening for career/petition/formation loyalty state."""
+
+    def _ensure_military_career_routes(self) -> None:
+        """Also route state-appointed officers whose personal allegiance is not state-owned."""
+        super()._ensure_military_career_routes()
+        runtime = copy.deepcopy(self.read(_RUNTIME_PATH))
+        hosts = runtime.get("hosts")
+        if not isinstance(hosts, dict):
+            raise ValueError("runtime causal hosts are invalid")
+        now = CampaignTime.parse(str(runtime["world_time"]))
+        rules = self._military_rules()["career_review"]
+        shard_size = int(rules["route_shard_size"])
+        network = self._career_network()
+        changed = False
+        for _host_id, host in sorted(hosts.items()):
+            if not isinstance(host, dict) or host.get("kind") != "person":
+                continue
+            route = host.get("military_career_route")
+            if isinstance(route, Mapping) and route.get("status") == "routed":
+                continue
+            person_ref = host.get("owner_ref")
+            if not isinstance(person_ref, str):
+                continue
+            try:
+                person_path, person = self._exact_person(person_ref, active=False)
+            except ValueError:
+                continue
+            if not isinstance(person, Mapping) or not _is_alive_adult(person):
+                continue
+            state_ref = _service_state_ref(person)
+            if not state_ref or _military_score(person) < int(rules["minimum_military_signal"]):
+                continue
+            rows = [
+                row for row in hosts.values()
+                if isinstance(row, dict) and row.get("kind") == "military_career" and row.get("state_ref") == state_ref
+            ]
+            rows.sort(key=lambda row: int(row.get("route_shard", 0)))
+            target = next((row for row in rows if len(row.get("routed_person_refs", [])) < shard_size), None)
+            if target is None:
+                target = self._ensure_route_shard(runtime, state_ref=state_ref, shard_index=len(rows), now=now)
+            refs = target.setdefault("routed_person_refs", [])
+            if person_ref not in refs:
+                refs.append(person_ref)
+                refs.sort()
+            network.setdefault("people", {})[person_ref] = {
+                "state_ref": state_ref,
+                "person_path": person_path,
+                "basis": "current_military_service",
+            }
+            if _is_commander_candidate(person):
+                public = network.setdefault("public_commander_refs", [])
+                if person_ref not in public:
+                    public.append(person_ref)
+                    public.sort()
+            host["military_career_route"] = {
+                "version": 1,
+                "status": "routed",
+                "classified_at": str(now),
+                "basis": "current_military_service",
+            }
+            changed = True
+        if changed:
+            network["last_route_sync_at"] = str(now)
+            network["routed_person_count"] = len(network.get("people", {}))
+            self.put("state/military/career-network/index.json", network)
+            self.put(_RUNTIME_PATH, runtime)
+
+    def _commander_dossier(self, commander_ref: str, person: Mapping[str, Any], at: str) -> dict[str, Any]:
+        dossier = super()._commander_dossier(commander_ref, person, at)
+        if dossier.get("state_ref") is None:
+            dossier["state_ref"] = _service_state_ref(person)
+            dossier["state_context_kind"] = "current_military_service"
+        else:
+            dossier["state_context_kind"] = "personal_or_institutional_state"
+        return dossier
+
+    def _settle_person_career(self, person_ref: str, at: str) -> None:
+        """Preserve player agency and support service-state officers without inventing allegiance."""
+        try:
+            path, original = self._exact_person(person_ref, active=False)
+        except ValueError:
+            return
+        if not isinstance(original, Mapping) or not _is_alive_adult(original):
+            return
+        service_state = _service_state_ref(original)
+        if not service_state:
+            return
+        if person_ref == _PLAYER_REF:
+            self._publish_commander_dossier(person_ref, original, at)
+            return
+        if _state_ref(original):
+            super()._settle_person_career(person_ref, at)
+            return
+
+        person = copy.deepcopy(dict(original))
+        loyalty = self._personal_loyalty(person, service_state)
+        loyalty["state_context_kind"] = "current_military_service"
+        formation_ref, formation = self._person_current_formation(person)
+        if formation_ref:
+            self._update_formation_loyalty(formation_ref, at)
+            if isinstance(formation, Mapping):
+                commander = formation.get("commander_ref")
+                if isinstance(commander, str) and commander:
+                    bonds = loyalty.setdefault("commander_bonds", {})
+                    bonds[commander] = _clamp(int(bonds.get(commander, 300)) + 4)
+                    loyalty["formation_bond_milli"] = _clamp(int(loyalty.get("formation_bond_milli", 400)) + 3)
+        career = person.setdefault("military_career_state", {})
+        if not isinstance(career, dict):
+            raise ValueError("exact person military career state is invalid")
+        career.setdefault("schema", "sword-military-career-state.v1")
+        career["derived_preferences"] = self._career_preferences(person)
+        career["last_review_at"] = at
+        career["review_count"] = int(career.get("review_count", 0)) + 1
+        self._publish_commander_dossier(person_ref, person, at)
+        if not self._active_petition_refs(person):
+            candidates = self._candidate_slice(person, service_state, at)
+            best: tuple[int, str, str] | None = None
+            for dossier, info_ref in candidates:
+                score = self._attraction_score(person, dossier, service_state)
+                commander_ref = str(dossier["commander_ref"])
+                if best is None or score > best[0] or (score == best[0] and commander_ref < best[1]):
+                    best = (score, commander_ref, info_ref)
+            prefs = career["derived_preferences"]
+            threshold = int(self._military_rules()["career_review"]["petition_threshold_milli"])
+            if best and best[0] >= threshold:
+                current_commander = formation.get("commander_ref") if isinstance(formation, Mapping) else None
+                if best[1] != current_commander:
+                    request_kind = "campaign_attachment" if prefs["risk_appetite"] < 470 else "permanent_transfer"
+                    self._create_petition(
+                        person,
+                        state_ref=service_state,
+                        desired_commander_ref=best[1],
+                        request_kind=request_kind,
+                        attraction_milli=best[0],
+                        evidence_refs=[best[2]],
+                        at=at,
+                    )
+            elif prefs["independence"] >= int(self._military_rules()["career_review"]["independence_threshold_milli"]) and _military_score(person) >= 105:
+                self._create_petition(
+                    person,
+                    state_ref=service_state,
+                    desired_commander_ref=None,
+                    request_kind="independent_command",
+                    attraction_milli=prefs["independence"],
+                    evidence_refs=[],
+                    at=at,
+                )
+        self.put(path, person)
 
     def _active_petition_refs(self, person: Mapping[str, Any]) -> list[str]:
         refs = super()._active_petition_refs(person)
