@@ -19,6 +19,7 @@ from sword_runtime.great_bow_guard_personal_integrity import GreatBowGuardPerson
 from sword_runtime.house_field_preparation_gate import ExplicitHouseFieldPreparationFlowMixin
 from sword_runtime.house_tang_development_integrity import HouseTangDevelopmentIntegrityMixin
 from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
+from sword_runtime.location_aware_formation_muster import LocationAwareFormationMusterMixin
 from sword_runtime.qin_command_briefing_flow import QinCommandBriefingFlowMixin
 from sword_runtime.qin_command_progression import QinCommandProgressionMixin
 from sword_runtime.player_story_flow import PlayerStoryFlowMixin
@@ -48,6 +49,7 @@ class ProductionCampaignPlanner(
     CivilWorldMixin,
     FamilyCounselMixin,
     ExplicitHouseFieldPreparationFlowMixin,
+    LocationAwareFormationMusterMixin,
     HouseholdRequestFlowMixin,
     ContactRequestFlowMixin,
     QinCommandProgressionMixin,
