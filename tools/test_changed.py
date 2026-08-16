@@ -40,6 +40,7 @@ REFERENCE_TESTS = {"tests/runtime/test_world_reference_search.py"}
 LONG_HORIZON_TESTS = {"tests/runtime/test_long_horizon.py"}
 PLAYER_STORY_TESTS = {"tests/runtime/test_player_story_flow.py"}
 GREAT_BOW_GUARD_TESTS = {"tests/runtime/test_great_bow_guard_flow.py"}
+QIN_COMMAND_TESTS = {"tests/runtime/test_qin_command_progression.py"}
 DEFAULT_TESTS = {"tests/runtime/test_architecture_service.py"}
 
 
@@ -70,6 +71,7 @@ def select(paths: list[str]) -> list[str]:
             selected.update(COHORT_TESTS)
             selected.update(PLAYER_STORY_TESTS)
             selected.update(GREAT_BOW_GUARD_TESTS)
+            selected.update(QIN_COMMAND_TESTS)
         if path in {"runtime/sword_runtime/command_contracts.py", "game/data/mechanics/command-catalog.json", "game/data/mechanics/command-hostile-contracts.json"}:
             selected.update(COMMAND_TESTS)
             selected.update(V6_STRATEGIC_TESTS)
@@ -149,6 +151,15 @@ def select(paths: list[str]) -> list[str]:
         if path.startswith("runtime/sword_runtime/great_bow_guard_flow.py") or path.startswith("game/data/mechanics/house-tang-programs.json"):
             selected.update(GREAT_BOW_GUARD_TESTS)
             selected.update(COHORT_TESTS)
+        if (
+            path.startswith("runtime/sword_runtime/qin_command_progression.py")
+            or path.startswith("game/data/mechanics/career-progression.json")
+            or path.startswith("runtime/sword_runtime/api/maintenance_operations.py")
+        ):
+            selected.update(QIN_COMMAND_TESTS)
+            selected.update(PLAYER_STORY_TESTS)
+            selected.update(COHORT_TESTS)
+            selected.update(API_TESTS)
         if (
             path.startswith("runtime/sword_runtime/cohort_personnel.py")
             or path.startswith("runtime/sword_runtime/cohort_tx_support.py")
