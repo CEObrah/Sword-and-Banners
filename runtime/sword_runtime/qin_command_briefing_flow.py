@@ -1,10 +1,9 @@
 """Durable pre-assumption Qin field-command briefing lifecycle.
 
 A confirmed field-command appointee may request the exact current order of battle,
-command structure and logistics before physically assuming the formation. The
-briefing reads the existing formation owner and records deficiencies honestly. It
-does not transfer command authority, create subunits, invent officers or refill
-stores by narration.
+command establishment and logistics before physically assuming the formation.
+The briefing reads the existing formation owner, projects registered command depth,
+and distinguishes fighting strength from separately conserved attached staff.
 """
 from __future__ import annotations
 
@@ -17,10 +16,12 @@ from sword_runtime.api.interaction_surface import parse_interaction_attempt_summ
 from sword_runtime.causal_event_store import get_causal_event, read_causal_event_owner, write_causal_event_owner
 from sword_runtime.history_store import recent_history_events
 from sword_runtime.sim.calendar import CampaignTime
+from sword_runtime.warfare_depth import build_formation_command_structure
 
 _RUNTIME_PATH = "state/runtime.json"
 _PLAYER_PATH = "state/player.json"
 _QIN_PATH = "state/states/qin.json"
+_RULES_PATH = "game/data/mechanics/warfare-organization.json"
 _HISTORY_WINDOW = 512
 _PRIORITY = 44
 
@@ -123,18 +124,49 @@ def sync_qin_command_briefings(planner: Any, runtime: dict[str, Any]) -> None:
         return
 
 
-def _formation_briefing_summary(formation: Mapping[str, Any]) -> str:
+def _hierarchy_text(structure: Mapping[str, Any]) -> str:
+    rows = structure.get("internal_hierarchy", [])
+    parts = []
+    for row in rows if isinstance(rows, list) else []:
+        if isinstance(row, Mapping):
+            parts.append(f"{int(row.get('count', 0))} x {int(row.get('scale', 0))}-man commanders")
+    return ", ".join(parts) or "no internal command hierarchy registered"
+
+
+def _support_text(structure: Mapping[str, Any]) -> str:
+    support = structure.get("external_support", {})
+    targets = support.get("targets_by_role", {}) if isinstance(support, Mapping) else {}
+    labels = {
+        "command_personnel": "command staff and clerks/adjutants",
+        "signal": "signal officers, scouts and messengers",
+        "logistics": "quartermaster, medical and logistics personnel",
+    }
+    if not isinstance(targets, Mapping) or not targets:
+        return "no external support target registered"
+    return ", ".join(f"{int(count)} {labels.get(str(role), str(role))}" for role, count in targets.items())
+
+
+def _formation_briefing_summary(formation: Mapping[str, Any], structure: Mapping[str, Any]) -> str:
     composition = formation.get("composition", {}) if isinstance(formation.get("composition"), Mapping) else {}
     comp_text = ", ".join(f"{str(role).replace('_', ' ')} {int(count)}" for role, count in sorted(composition.items())) or "no registered composition"
     logistics = formation.get("logistics", {}) if isinstance(formation.get("logistics"), Mapping) else {}
     mounts = formation.get("mounts", {}) if isinstance(formation.get("mounts"), Mapping) else {}
     mount_text = ", ".join(f"{key} {int(value)}" for key, value in sorted(mounts.items())) or "none registered"
     completeness = formation.get("equipment_completeness", "unknown")
+    fighting = int(structure.get("fighting_establishment", formation.get("personnel", 0)))
+    unit_command = structure.get("unit_command", {}) if isinstance(structure.get("unit_command"), Mapping) else {}
+    senior = int(unit_command.get("commander_billets", 0)) + int(unit_command.get("deputy_billets", 0))
+    support = structure.get("external_support", {}) if isinstance(structure.get("external_support"), Mapping) else {}
+    support_total = int(support.get("target_total", 0))
+    attached = int(structure.get("attached_personnel_target", fighting + senior + support_total))
     return (
         f"The Qin Military Bureau sends Tang Wei the current pre-assumption command ledger for {formation.get('name', formation.get('formation_ref'))}. "
-        f"Strength: {int(formation.get('personnel', 0))}. Composition: {comp_text}. Readiness {int(formation.get('readiness', 0))}, morale {int(formation.get('morale', 0))}, cohesion {int(formation.get('cohesion', 0))}, training progress {int(formation.get('training_progress', 0))}, fatigue {int(formation.get('fatigue', 0))}, experience {formation.get('experience', 'unknown')}. "
-        f"Equipment completeness is {completeness}; the formation owner currently registers mounts as {mount_text}. Current stores: food {int(logistics.get('food_kg', 0))} kg, fodder {int(logistics.get('fodder_kg', 0))} kg, war arrows {int(logistics.get('war_arrows', 0))}, war bolts {int(logistics.get('war_bolts', 0))}. "
-        "The current formation record contains no subordinate formation registry, no deputy commander, and no named subordinate commander or officer billets. Qin therefore cannot truthfully provide names or smaller-unit commanders that are not registered. Tang Wei's request to establish qualified subordinate command and deputy coverage is recorded as a command-readiness requirement, not treated as already completed. "
+        f"Fighting strength is {fighting}: {comp_text}. Senior unit command is outside that fighting-strength count: one acting senior officer and one deputy when fully staffed, making {fighting + senior} before support. "
+        f"Inside the conserved {fighting} fighting troops are {_hierarchy_text(structure)}. These commanders are soldiers already counted in the fighting establishment; their command nodes do not add bodies or persistent unit slots. "
+        f"External support is separately conserved outside fighting strength: {_support_text(structure)}. Fully staffed support adds {support_total}, for {attached} attached people while fighting strength remains {fighting}. "
+        f"Readiness {int(formation.get('readiness', 0))}, morale {int(formation.get('morale', 0))}, cohesion {int(formation.get('cohesion', 0))}, training progress {int(formation.get('training_progress', 0))}, fatigue {int(formation.get('fatigue', 0))}, experience {formation.get('experience', 'unknown')}. "
+        f"Equipment completeness is {completeness}; mounts: {mount_text}. Current stores: food {int(logistics.get('food_kg', 0))} kg, fodder {int(logistics.get('fodder_kg', 0))} kg, war arrows {int(logistics.get('war_arrows', 0))}, war bolts {int(logistics.get('war_bolts', 0))}. "
+        "The hierarchy is a registered establishment, not permission to invent names. Senior officers, materialized subordinate commanders and attached support must each be conserved from their lawful source before being represented as real people. "
         "This briefing transfers no troop custody or command authority; Tang Wei still assumes the formation only by reporting to its exact location."
     )[:4000]
 
@@ -145,9 +177,13 @@ def settle_qin_command_briefing(planner: Any, host: Mapping[str, Any], at: str) 
         return None
     formation_ref = str(host.get("formation_ref", ""))
     formation_path = planner.owner_path(formation_ref)
-    formation = planner.read(formation_path)
+    formation = copy.deepcopy(planner.read(formation_path))
     if not isinstance(formation, Mapping) or str(formation.get("administrative_owner", "")) != "state_qin":
         raise ValueError("Qin command briefing lost its exact Qin formation")
+    structure = build_formation_command_structure(formation, planner.read(_RULES_PATH))
+    formation["command_structure"] = copy.deepcopy(structure)
+    planner.put(formation_path, formation)
+
     player = copy.deepcopy(planner.read(_PLAYER_PATH))
     office = str(host.get("office", ""))
     appointment = None
@@ -159,11 +195,12 @@ def settle_qin_command_briefing(planner: Any, host: Mapping[str, Any], at: str) 
     if appointment is None:
         raise ValueError("Qin command briefing lost Tang Wei's current appointment")
 
-    summary = _formation_briefing_summary(formation)
+    summary = _formation_briefing_summary(formation, structure)
     appointment["briefed_at"] = at
     appointment["briefing_event_ref"] = response_ref
-    appointment["command_structure_status"] = "subordinate_registry_absent_staffing_requested"
-    appointment["staffing_request_status"] = "required_before_tactical_employment"
+    appointment["command_structure_status"] = "scale_aware_command_establishment_registered"
+    appointment["staffing_request_status"] = "conserved_named_command_and_support_required"
+    appointment["briefed_command_structure"] = copy.deepcopy(structure)
     appointment["briefed_logistics"] = {
         "food_kg": int(formation.get("logistics", {}).get("food_kg", 0)) if isinstance(formation.get("logistics"), Mapping) else 0,
         "fodder_kg": int(formation.get("logistics", {}).get("fodder_kg", 0)) if isinstance(formation.get("logistics"), Mapping) else 0,
@@ -177,8 +214,9 @@ def settle_qin_command_briefing(planner: Any, host: Mapping[str, Any], at: str) 
     if isinstance(qin_appointment, MutableMapping):
         qin_appointment["briefed_at"] = at
         qin_appointment["briefing_event_ref"] = response_ref
-        qin_appointment["command_structure_status"] = "subordinate_registry_absent_staffing_requested"
-        qin_appointment["staffing_request_status"] = "required_before_tactical_employment"
+        qin_appointment["command_structure_status"] = "scale_aware_command_establishment_registered"
+        qin_appointment["staffing_request_status"] = "conserved_named_command_and_support_required"
+        qin_appointment["briefed_command_structure"] = copy.deepcopy(structure)
         planner.put(_QIN_PATH, qin)
 
     _event_owner_write(planner, response_ref, {
@@ -189,9 +227,9 @@ def settle_qin_command_briefing(planner: Any, host: Mapping[str, Any], at: str) 
         "triggered_at": at,
         "actor_ref": "inst_qin_military_bureau",
         "target_ref": "char_tang_wei",
-        "basis_goal": "Provide the exact current order of battle, stores and command-readiness deficiencies for an appointed formation before assumption",
+        "basis_goal": "Provide exact current fighting strength, command establishment, attached support targets and stores before assumption",
         "process_kind": "qin_field_command_briefing",
-        "process_stage": "briefing_delivered_staffing_requirement_open",
+        "process_stage": "briefing_delivered_scale_aware_establishment",
         "summary": summary,
         "delivery": {
             "target_ref": "char_tang_wei",
