@@ -7,23 +7,40 @@ from sword_runtime.production_planner import ProductionCampaignPlanner
 from sword_runtime.sim.calendar import CampaignTime
 
 
-def _write_player_credit(planner: ProductionCampaignPlanner, credit: float) -> None:
+def _write_player_credit(
+    planner: ProductionCampaignPlanner,
+    credit: float,
+    *,
+    started_at: CampaignTime | None = None,
+) -> None:
     player = deepcopy(planner.read("state/player.json"))
     contract = player.setdefault("activity_contract", {})
     contract["verified_hours_per_7d"] = 42
     state = player.setdefault("development_state", {})
     state["standing_training_time_credit_hours"] = credit
-    state["standing_training_credit_window_start"] = str(planner.read("state/runtime.json")["world_time"])
+    current = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
+    state["standing_training_credit_window_start"] = str(started_at or current)
+    state.pop("standing_training_recovery_through", None)
     planner.put("state/player.json", player)
 
 
-def _write_formation_credit(planner: ProductionCampaignPlanner, credit: float) -> None:
+def _write_formation_credit(
+    planner: ProductionCampaignPlanner,
+    credit: float,
+    *,
+    started_at: CampaignTime | None = None,
+    fatigue: int | None = None,
+) -> None:
     path, raw = planner._load_formation("formation_tang_champions_first")
     formation = deepcopy(raw)
+    current = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
     formation["standing_training_time_credit_hours"] = credit
-    formation["standing_training_credit_window_start"] = str(planner.read("state/runtime.json")["world_time"])
+    formation["standing_training_credit_window_start"] = str(started_at or current)
+    formation.pop("standing_training_recovery_through", None)
     formation["training_progress"] = None
     formation.pop("verified_training_hours", None)
+    if fatigue is not None:
+        formation["fatigue"] = fatigue
     planner.put(path, formation)
 
 
@@ -88,6 +105,8 @@ def test_player_credit_settlement_consumes_whole_hours_without_time(campaign):
     assert after["skills"]["Formation Command"] == before["skills"]["Formation Command"]
     assert after["development_state"]["settled_training_hours"] == int(before.get("development_state", {}).get("settled_training_hours", 0)) + 1
     assert after["development_state"]["skill_edu_banks"]["Formation Command"] > 0
+    assert result["focus_results"][0]["attribute_development"]
+    assert after["development_state"]["attribute_edu_banks"]
     assert str(planner.read("state/runtime.json")["world_time"]) == current_text
 
 
@@ -111,6 +130,66 @@ def test_formation_credit_settlement_consumes_whole_hours_without_time(campaign)
     assert int(after["training_progress"]) == 1
     assert int(after["cohesion"]) == int(before["cohesion"]) + 1
     assert int(after["readiness"]) == int(before["readiness"])
-    assert int(after["fatigue"]) == int(before["fatigue"]) + 1
+    assert int(after["fatigue"]) == int(before["fatigue"])
     assert int(after["verified_training_hours"]) == 2
+    capability = result["capability_development"]
+    assert capability["model"] == "cohort_means_with_banked_edu"
+    assert capability["represented_personnel"] == 100
+    assert capability["verified_training_hours_per_person"] >= 2.0
+    assert "Sword" in capability["trained_skill_means"]
+    assert "Strength" in capability["trained_attribute_means"]
+    assert capability["skill_edu_banks"]["Sword"] > 0
+    assert capability["attribute_edu_banks"]["Strength"] > 0
     assert str(planner.read("state/runtime.json")["world_time"]) == current_text
+
+
+def test_multiday_sustainable_training_nets_nightly_recovery(campaign):
+    planner = ProductionCampaignPlanner(campaign)
+    planner._reset()
+    current = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
+    started = current.add_hours(-11 * 24)
+    _write_formation_credit(planner, 88.761111, started_at=started, fatigue=62)
+
+    result = planner._consume_formation_standing_credit(
+        "formation_tang_champions_first",
+        current,
+        "test-multiday-standing-recovery",
+    )
+    _path, after = planner._load_formation("formation_tang_champions_first")
+
+    assert result["consumed_hours"] == 88
+    assert result["recovery"]["normal_deliberate_capacity_hours"] == 88.0
+    assert result["recovery"]["excess_deliberate_hours"] == 0.0
+    assert result["recovery"]["recovery_points"] == 88
+    assert int(after["fatigue"]) == 0
+
+
+def test_standing_recovery_cursor_prevents_double_recovery(campaign):
+    planner = ProductionCampaignPlanner(campaign)
+    planner._reset()
+    current = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
+    started = current.add_hours(-11 * 24)
+    _write_formation_credit(planner, 88.761111, started_at=started, fatigue=100)
+
+    first = planner._consume_formation_standing_credit(
+        "formation_tang_champions_first",
+        current,
+        "test-recovery-cursor-first",
+    )
+    assert first["fatigue"] == 12
+
+    end = current.add_hours(24)
+    planner._accrue_formation_standing_credit(
+        "formation_tang_champions_first",
+        current,
+        end,
+        "test-recovery-cursor-accrual",
+    )
+    second = planner._consume_formation_standing_credit(
+        "formation_tang_champions_first",
+        end,
+        "test-recovery-cursor-second",
+    )
+    assert second["recovery"]["elapsed_recovery_hours"] == 24.0
+    assert second["recovery"]["recovery_points"] == 8
+    assert second["fatigue"] == 4
