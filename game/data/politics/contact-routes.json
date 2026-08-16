@@ -31,5 +31,34 @@
         }
       ]
     }
+  ],
+  "followup_requests": [
+    {
+      "followup_ref": "qin_northern_wei_appointment_request_answer",
+      "source_process_kind": "institutional_disposition",
+      "source_process_stage": "recommended",
+      "source_actor_ref": "inst_qin_military_bureau",
+      "actions": ["ask", "request", "petition"],
+      "statement_any_terms": ["appoint", "appointment", "command", "service", "post"],
+      "delay_seconds": 21600,
+      "source_owner_ref": "inst_qin_military_bureau",
+      "actor_ref": "inst_qin_military_bureau",
+      "delivery_route": "Qin Military Bureau receiving office in Kanyou",
+      "response_stage": "answered",
+      "response_summary": "The Qin Military Bureau acknowledges Tang Wei's request for an appointment connected to the northern Wei operation. The prior recommendation remains the Bureau's established disposition, but this channel has no current appointment, rank, command, troop custody, or deployment authority to issue. Any later appointment requires a separate lawful Qin decision."
+    },
+    {
+      "followup_ref": "ouki_preliminary_review_appointment_request_answer",
+      "source_event_ref": "event_ouki_preliminary_review_disposition_001",
+      "source_process_kind": "command_qualification_review",
+      "source_process_stage": "preliminary_review_complete",
+      "actions": ["ask", "request", "petition"],
+      "statement_any_terms": ["appoint", "appointment", "command", "service", "post"],
+      "delay_seconds": 21600,
+      "source_owner_ref": "events_messages_and_movement",
+      "delivery_route": "Ouki staff-review channel",
+      "response_stage": "answered",
+      "response_summary": "Ouki's staff acknowledges Tang Wei's request for appointment. His completed preliminary review remains on file, but the staff has no current field-command vacancy or Qin appointment to issue through this review channel. No rank, command, private-unit acceptance, or deployment authority is created."
+    }
   ]
 }
