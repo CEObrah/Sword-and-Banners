@@ -13,12 +13,13 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.campaign_event_planner import CampaignEventPlayerGroupActionPlanner
-from sword_runtime.development import settle_skill_training
 from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.training_rates import verified_activity_hours_per_cycle
+from sword_runtime.training_session import settle_training_session
 
 _RUNTIME_PATH = "state/runtime.json"
 _PROFILES_PATH = "game/data/mil/recruitment-cohort-profiles.json"
+_SESSION_RULES_PATH = "game/data/mechanics/training-session.json"
 _ACTIVITY_ROUTING_VERSION = 2
 _ACTIVITY_HOST_ID = "host_named_person_activity"
 _ACTIVITY_EVENT_ID = "event_host_named_person_activity_review"
@@ -273,6 +274,7 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
             raise ValueError("named-person activity shard exceeds its routing page size")
         due = CampaignTime.parse(due_text)
         training = self.read("game/data/mechanics/training.json")
+        session_rules = self.read(_SESSION_RULES_PATH)
         profiles = self.read(_PROFILES_PATH)
         for person_ref in refs:
             if not isinstance(person_ref, str) or person_ref == self.PLAYER_ACTOR:
@@ -323,13 +325,13 @@ class ActivityCampaignEventPlanner(CampaignEventPlayerGroupActionPlanner):
                 reason = self._activity_skip_reason(person, contract)
                 cycle_at = str(next_due)
                 if reason is None:
-                    development = settle_skill_training(person, focus, settlement_hours, next_due, training)
+                    development = settle_training_session(person, focus, settlement_hours, next_due, training, session_rules)
                     person.setdefault("autonomous_development_history", []).append({
                         "at": cycle_at,
                         "focus": focus,
                         "hours": settlement_hours,
                         "development": development,
-                        "verification_basis": "structured_causal_activity_cycle_v2",
+                        "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
                         "planned_opportunity_hours_used": False,
                     })
                     person["autonomous_development_history"] = person["autonomous_development_history"][-_ACTIVITY_HISTORY_LIMIT:]
