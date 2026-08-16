@@ -9,6 +9,7 @@ from sword_runtime.house_tang_development import (
     _is_expansion_request,
 )
 from sword_runtime.production_planner import ProductionCampaignPlanner
+from sword_runtime.sim.calendar import CampaignTime
 
 
 def _planner(campaign):
@@ -37,6 +38,11 @@ def test_exact_expansion_intent_is_classified() -> None:
 def test_sword_manor_scheduler_is_migrated_to_monthly_development(campaign) -> None:
     planner = _planner(campaign)
     runtime = copy.deepcopy(planner.read("state/runtime.json"))
+    now = CampaignTime.parse(str(runtime["world_time"]))
+    progression = planner.read("state/prog/sword-manor-progression.json")
+    last = CampaignTime.parse(str(progression["runtime"]["last_settled_at"]))
+    lawful_next = last.add_seconds(MONTH_SECONDS)
+    expected_due = now if lawful_next <= now else lawful_next
     planner._normalize_sword_manor_host(runtime)
     matches = [
         (host_id, host)
@@ -47,6 +53,7 @@ def test_sword_manor_scheduler_is_migrated_to_monthly_development(campaign) -> N
     host_id, host = matches[0]
     assert host["kind"] == "sword_manor"
     assert host["recurrence_seconds"] == MONTH_SECONDS
+    assert host["next_due"] == str(expected_due)
     event = next(row for row in runtime["events"] if row.get("target_host") == host_id)
     assert event["due_at"] == host["next_due"]
 
@@ -148,15 +155,15 @@ def test_great_bow_guard_candidate_pool_conserves_population_and_books_contact_c
     house = planner.read("state/houses/house_tang.json")
     great = house["administrative_programs"]["great_bow_guard"]
     registry = planner.read("state/recruitment/candidate-pools.json")
-    campaign = registry["campaigns"][great["candidate_campaign_ref"]]
+    candidate_campaign = registry["campaigns"][great["candidate_campaign_ref"]]
     after_pop = planner.read("state/population/qin.json")
     after_total = sum(int(v) for v in after_pop["strata"].values())
     assert great["applicants_registered"] == 1200
     assert great["screened_candidates"] == 0
     assert great["rejected_candidates"] == 0
     assert great["accepted_fighters"] == 0
-    assert campaign["initial_applicants"] == campaign["remaining_candidates"] == 1200
-    assert sum(int(s["count"]) for s in campaign["slices"]) == 1200
+    assert candidate_campaign["initial_applicants"] == candidate_campaign["remaining_candidates"] == 1200
+    assert sum(int(s["count"]) for s in candidate_campaign["slices"]) == 1200
     assert before_total == after_total
     spent = int(great["recruitment_spending_silver"])
     assert spent > 0
