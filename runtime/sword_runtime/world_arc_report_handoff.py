@@ -47,6 +47,13 @@ def _safe_material_evidence(source: Mapping[str, Any]) -> Mapping[str, Any] | No
         return None
     if str(evidence.get("kind", "")) not in _SAFE_EVIDENCE_KINDS:
         return None
+    if str(evidence.get("kind")) == "exact_operation_created":
+        operation_ref = evidence.get("operation_ref")
+        formation_ref = evidence.get("formation_ref")
+        if not isinstance(operation_ref, str) or not operation_ref.startswith("operation_"):
+            return None
+        if not isinstance(formation_ref, str) or not formation_ref.startswith("formation_"):
+            return None
     return evidence
 
 
