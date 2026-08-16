@@ -2,12 +2,19 @@
 
 Normal persistent formations store fighting establishment in ``personnel``.
 Internal command nodes are assignments over bodies already counted in that
-fighting strength. State, House, private and personal formations therefore share
-one command model without creating another manpower authority.
+fighting strength. State, House, private, personal, polity and rebel formations
+therefore share one command model without creating another manpower authority.
+
+Unit command and support above fighting strength are real force bodies. Their
+source force keeps them in ``external_personnel_allocations`` and its cohort
+ledger keeps the same bodies in ``allocated_external_by_formation``. This lets
+staff move with a formation, take casualties and return to reserve without ever
+inflating fighting personnel.
 
 Mercenary owners are different: their saved ``headcount`` is total company
 personnel and their troop pools already include support. Their command/support
-projection is carved from that conserved total and never adds bodies by default.
+projection is carved from that conserved total. Quarterly mercenary reviews use
+the same aggregate diminishing-return development law as other military cohorts.
 
 Officer representation is sparse. Generic billets remain aggregate until exact
 saved relevance, exceptional performance or provenance-backed high potential
@@ -16,13 +23,23 @@ requires an individual person owner.
 from __future__ import annotations
 
 import copy
+import math
 from collections.abc import Mapping, MutableMapping
 from typing import Any
 
+from sword_runtime.cohort_personnel import (
+    ATTRIBUTE_ORDER,
+    SKILL_ORDER,
+    advance_cohort_training,
+    ensure_cohort_ledger,
+    stable_fraction,
+    validate_cohort_ledger,
+)
 from sword_runtime.living_world import LivingWorldSwordPlanner, OPERATIONAL_MEMORY_PATH
 
 _RULES_PATH = "game/data/mechanics/warfare-organization.json"
 _ACTIVE_REVIEW_STATES = frozenset({"planned", "mobilizing", "active"})
+_MERCENARY_SCHEMAS = frozenset({"mercenary", "mercenary-company"})
 
 
 def _profile_for(formation: Mapping[str, Any], rules: Mapping[str, Any]) -> Mapping[str, Any]:
@@ -40,6 +57,16 @@ def _support_targets(personnel: int, support: Mapping[str, Any]) -> dict[str, in
         for role, count in per.items()
         if int(count) > 0
     } if isinstance(per, Mapping) else {}
+
+
+def _clean_role_counts(raw: Any) -> dict[str, int]:
+    if not isinstance(raw, Mapping):
+        return {}
+    return {
+        str(role): max(0, int(count))
+        for role, count in raw.items()
+        if max(0, int(count)) > 0
+    }
 
 
 def _generic_hierarchy(
@@ -72,6 +99,12 @@ def _generic_hierarchy(
 
 
 def build_formation_command_structure(formation: Mapping[str, Any], rules: Mapping[str, Any]) -> dict[str, Any]:
+    """Pure projection of one normal formation's command establishment.
+
+    Targets and actual conserved attachments are intentionally separate. A target
+    never grants command or support benefit until exact source-force allocations
+    have produced the corresponding ``attached_*`` fields on the formation.
+    """
     cfg = rules.get("formation_command_structure", {}) if isinstance(rules, Mapping) else {}
     policy = rules.get("officer_representation_policy", {}) if isinstance(rules, Mapping) else {}
     n = max(0, int(formation.get("personnel", 0)))
@@ -109,7 +142,9 @@ def build_formation_command_structure(formation: Mapping[str, Any], rules: Mappi
         generic_unit = {}
     commander_billets = max(0, int(unit_command.get("commander_billets", generic_unit.get("commander_billets_per_formation", 1 if n else 0))))
     deputy_billets = max(0, int(unit_command.get("deputy_billets", generic_unit.get("deputy_billets_per_formation", 1 if n else 0))))
-    external_command_bodies = commander_billets + deputy_billets
+    external_command_target = commander_billets + deputy_billets
+    allocated_unit_command = _clean_role_counts(formation.get("attached_unit_command_by_role", {}))
+    allocated_unit_command_total = sum(allocated_unit_command.values())
 
     support = profile.get("external_support", {}) if isinstance(profile, Mapping) else {}
     if not isinstance(support, Mapping) or not support:
@@ -117,30 +152,46 @@ def build_formation_command_structure(formation: Mapping[str, Any], rules: Mappi
         support = {"per_500": per_500, "outside_fighting_establishment": True}
     support_targets = _support_targets(n, support)
     support_total = sum(support_targets.values())
-    allocated_support_raw = formation.get("attached_support_by_role", {})
-    allocated_support = {
-        str(role): max(0, int(count))
-        for role, count in allocated_support_raw.items()
-    } if isinstance(allocated_support_raw, Mapping) else {}
+    allocated_support = _clean_role_counts(formation.get("attached_support_by_role", {}))
     allocated_support_total = sum(allocated_support.values())
 
     commander_ref = formation.get("commander_ref")
     deputy_ref = formation.get("deputy_ref")
-    minimum = max(1, int(cfg.get("minimum_aggregate_staffed_personnel", 500))) if isinstance(cfg, Mapping) else 500
     exact_commander = isinstance(commander_ref, str) and bool(commander_ref)
     exact_deputy = isinstance(deputy_ref, str) and bool(deputy_ref)
+    exact_named_billets = min(external_command_target, int(exact_commander) + int(exact_deputy))
+    effective_unit_staffed = min(external_command_target, exact_named_billets + allocated_unit_command_total)
+    unit_shortfall = max(0, external_command_target - effective_unit_staffed)
     default_representation = str(generic_unit.get("default_representation", policy.get("default_representation", "aggregate")))
+    if exact_commander:
+        staffing = "named_unit_command"
+    elif effective_unit_staffed >= max(1, commander_billets):
+        staffing = "aggregate_unit_command"
+    elif n > 0:
+        staffing = "internal_leadership_only"
+    else:
+        staffing = "empty"
+    actual_external = allocated_unit_command_total + allocated_support_total
     return {
-        "projection_kind": "formation_command_structure_v3",
-        "accounting_mode": "fighting_establishment_plus_external_attachments",
+        "projection_kind": "formation_command_structure_v4",
+        "accounting_mode": "fighting_establishment_plus_conserved_external_attachments",
         "fighting_establishment": n,
         "persistent_unit_slots": 1 if n else 0,
-        "attached_personnel_target": n + external_command_bodies + support_total,
-        "personnel_conservation_rule": "internal commanders occupy conserved fighting-establishment bodies; unit command and support require separately conserved attached bodies and never create phantom manpower",
+        "attached_personnel_target": n + external_command_target + support_total,
+        "attached_personnel_actual_from_force_allocations": n + actual_external,
+        "external_attachment_target": external_command_target + support_total,
+        "external_attachment_allocated": actual_external,
+        "personnel_conservation_rule": "internal commanders occupy conserved fighting-establishment bodies; unit command and support above fighting strength require source-force external allocations and never create phantom manpower",
         "representation_policy": "aggregate_by_default_materialize_only_on_saved_relevance_or_exceptional_evidence",
         "unit_command": {
             "commander_billets": commander_billets,
             "deputy_billets": deputy_billets,
+            "target_bodies": external_command_target,
+            "allocated_aggregate_by_role": allocated_unit_command,
+            "allocated_aggregate_bodies": allocated_unit_command_total,
+            "named_billets_present": exact_named_billets,
+            "effective_billets_staffed": effective_unit_staffed,
+            "staffing_shortfall": unit_shortfall,
             "outside_fighting_establishment": True,
             "source_force_ref": unit_command.get("source_force_ref", formation.get("owner_force_ref")),
             "source_role": unit_command.get("source_role", generic_unit.get("source_role", "command_personnel")),
@@ -164,19 +215,14 @@ def build_formation_command_structure(formation: Mapping[str, Any], rules: Mappi
             },
             "function_map": copy.deepcopy(support.get("function_map", cfg.get("external_support_function_map", {}))) if isinstance(cfg, Mapping) else copy.deepcopy(support.get("function_map", {})),
         },
-        "staffing_status": "named_unit_command" if exact_commander else ("aggregate_staffed" if n >= minimum else "small_unit_internal_leadership"),
+        "staffing_status": staffing,
         "subordinate_registry_kind": "internal_command_assignments",
         "subordinate_registry_rule": "internal command nodes guide scale-bounded command, succession and temporary battlefield subdivision; they are not independent formations or casualty owners unless lawfully detached",
     }
 
 
 def build_mercenary_command_structure(company: Mapping[str, Any], rules: Mapping[str, Any]) -> dict[str, Any]:
-    """Project command depth from one conserved mercenary-company owner.
-
-    Mercenary ``headcount`` is total company manpower. Support and command remain
-    inside that total unless an exact external attachment is separately saved.
-    This function is pure and never materializes an officer or changes headcount.
-    """
+    """Project command depth from one conserved mercenary-company owner."""
     accounting = rules.get("accounting_modes", {}).get("mercenary_company", {}) if isinstance(rules, Mapping) else {}
     cfg = rules.get("mercenary_command_structure", {}) if isinstance(rules, Mapping) else {}
     policy = rules.get("officer_representation_policy", {}) if isinstance(rules, Mapping) else {}
@@ -221,7 +267,7 @@ def build_mercenary_command_structure(company: Mapping[str, Any], rules: Mapping
     target_fighting_if_rebalanced = max(0, total - max(non_fighting, non_fighting_target))
 
     return {
-        "projection_kind": "mercenary_command_structure_v1",
+        "projection_kind": "mercenary_command_structure_v2",
         "accounting_mode": "total_company_headcount_includes_command_and_support",
         "company_headcount": total,
         "troop_pool_headcount": pool_total,
@@ -267,6 +313,283 @@ class WarfareDepthMixin:
         self._warfare_depth_rules_cache = value
         return value
 
+    @staticmethod
+    def _external_allocations(force: MutableMapping[str, Any]) -> MutableMapping[str, Any]:
+        value = force.setdefault("external_personnel_allocations", {})
+        if not isinstance(value, MutableMapping):
+            raise ValueError("force external personnel allocations must be an object")
+        return value
+
+    @staticmethod
+    def _formation_external_roles(force: Mapping[str, Any], formation_ref: str) -> dict[str, int]:
+        raw = force.get("external_personnel_allocations", {})
+        row = raw.get(formation_ref, {}) if isinstance(raw, Mapping) else {}
+        return _clean_role_counts(row)
+
+    def _adjust_external_role_allocation(
+        self,
+        force: MutableMapping[str, Any],
+        *,
+        formation_ref: str,
+        role: str,
+        desired: int,
+        location_ref: str,
+    ) -> int:
+        """Reconcile one source-force external role against real reserve bodies."""
+        target = max(0, int(desired))
+        allocations = self._external_allocations(force)
+        row = allocations.setdefault(formation_ref, {})
+        if not isinstance(row, MutableMapping):
+            raise ValueError("formation external personnel allocation must be an object")
+        current = max(0, int(row.get(role, 0)))
+        ledger = ensure_cohort_ledger(force)
+        cohorts = ledger.get("cohorts", {})
+        if not isinstance(cohorts, MutableMapping):
+            raise ValueError("force cohort ledger is invalid")
+        roles = force.setdefault("available_by_role", {})
+        by_location = force.setdefault("available_by_location", {})
+        local = by_location.setdefault(location_ref, {})
+        if not isinstance(roles, MutableMapping) or not isinstance(local, MutableMapping):
+            raise ValueError("force reserve counters are invalid")
+
+        if target > current:
+            need = target - current
+            available = min(max(0, int(roles.get(role, 0))), max(0, int(local.get(role, 0))))
+            take_total = min(need, available)
+            remaining = take_total
+            candidates: list[tuple[str, MutableMapping[str, Any]]] = []
+            for cid, cohort in cohorts.items():
+                if not isinstance(cohort, MutableMapping) or str(cohort.get("role", "")) != role:
+                    continue
+                if int(cohort.get("reserve_by_location", {}).get(location_ref, 0)) > 0:
+                    candidates.append((str(cid), cohort))
+            candidates.sort(key=lambda item: (str(item[1].get("origin", {}).get("recruited_at") or ""), item[0]))
+            for _cid, cohort in candidates:
+                if remaining <= 0:
+                    break
+                reserve = cohort.setdefault("reserve_by_location", {})
+                take = min(remaining, max(0, int(reserve.get(location_ref, 0))))
+                if take <= 0:
+                    continue
+                reserve[location_ref] = int(reserve.get(location_ref, 0)) - take
+                if reserve[location_ref] == 0:
+                    reserve.pop(location_ref, None)
+                ext = cohort.setdefault("allocated_external_by_formation", {})
+                ext[formation_ref] = int(ext.get(formation_ref, 0)) + take
+                remaining -= take
+            if remaining:
+                raise ValueError("external personnel allocation exceeded conserved cohort reserve")
+            roles[role] = max(0, int(roles.get(role, 0)) - take_total)
+            local[role] = max(0, int(local.get(role, 0)) - take_total)
+            current += take_total
+        elif target < current:
+            release = current - target
+            remaining = release
+            candidates = []
+            for cid, cohort in cohorts.items():
+                if not isinstance(cohort, MutableMapping) or str(cohort.get("role", "")) != role:
+                    continue
+                held = int(cohort.get("allocated_external_by_formation", {}).get(formation_ref, 0))
+                if held > 0:
+                    candidates.append((str(cid), cohort))
+            candidates.sort(key=lambda item: item[0], reverse=True)
+            for _cid, cohort in candidates:
+                if remaining <= 0:
+                    break
+                ext = cohort.setdefault("allocated_external_by_formation", {})
+                held = max(0, int(ext.get(formation_ref, 0)))
+                give = min(remaining, held)
+                if give <= 0:
+                    continue
+                if held == give:
+                    ext.pop(formation_ref, None)
+                else:
+                    ext[formation_ref] = held - give
+                reserve = cohort.setdefault("reserve_by_location", {})
+                reserve[location_ref] = int(reserve.get(location_ref, 0)) + give
+                remaining -= give
+            if remaining:
+                raise ValueError("external personnel release exceeded conserved allocation")
+            roles[role] = int(roles.get(role, 0)) + release
+            local[role] = int(local.get(role, 0)) + release
+            current -= release
+
+        if current > 0:
+            row[role] = current
+        else:
+            row.pop(role, None)
+        if not row:
+            allocations.pop(formation_ref, None)
+        validate_cohort_ledger(force)
+        return current
+
+    def _kill_external_role_allocation(
+        self,
+        force: MutableMapping[str, Any],
+        *,
+        formation_ref: str,
+        role: str,
+        losses: int,
+        evidence_ref: str,
+    ) -> int:
+        """Remove killed attached personnel from force headcount exactly once."""
+        requested = max(0, int(losses))
+        if requested <= 0:
+            return 0
+        allocations = self._external_allocations(force)
+        row = allocations.get(formation_ref)
+        if not isinstance(row, MutableMapping):
+            return 0
+        held_total = max(0, int(row.get(role, 0)))
+        killed = min(requested, held_total)
+        if killed <= 0:
+            return 0
+        ledger = ensure_cohort_ledger(force)
+        cohorts = ledger.get("cohorts", {})
+        if not isinstance(cohorts, MutableMapping):
+            raise ValueError("force cohort ledger is invalid")
+        remaining = killed
+        candidates: list[tuple[str, MutableMapping[str, Any]]] = []
+        for cid, cohort in cohorts.items():
+            if not isinstance(cohort, MutableMapping) or str(cohort.get("role", "")) != role:
+                continue
+            if int(cohort.get("allocated_external_by_formation", {}).get(formation_ref, 0)) > 0:
+                candidates.append((str(cid), cohort))
+        candidates.sort(key=lambda item: item[0])
+        for _cid, cohort in candidates:
+            if remaining <= 0:
+                break
+            ext = cohort.setdefault("allocated_external_by_formation", {})
+            held = max(0, int(ext.get(formation_ref, 0)))
+            take = min(remaining, held)
+            if take <= 0:
+                continue
+            if held == take:
+                ext.pop(formation_ref, None)
+            else:
+                ext[formation_ref] = held - take
+            cohort.setdefault("casualty_history", []).append({
+                "ref": evidence_ref,
+                "count": take,
+                "kind": "external_formation_attachment",
+                "formation_ref": formation_ref,
+                "role": role,
+            })
+            cohort["casualty_history"] = cohort["casualty_history"][-24:]
+            remaining -= take
+        if remaining:
+            raise ValueError("external personnel casualties exceeded cohort allocation")
+        new_held = held_total - killed
+        if new_held:
+            row[role] = new_held
+        else:
+            row.pop(role, None)
+        if not row:
+            allocations.pop(formation_ref, None)
+        force["headcount"] = max(0, int(force.get("headcount", 0)) - killed)
+        validate_cohort_ledger(force)
+        return killed
+
+    @staticmethod
+    def _named_unit_command_count(formation: Mapping[str, Any], target: int) -> int:
+        refs = {
+            str(formation.get(key))
+            for key in ("commander_ref", "deputy_ref")
+            if isinstance(formation.get(key), str) and str(formation.get(key))
+        }
+        return min(max(0, int(target)), len(refs))
+
+    def _reconcile_formation_external_personnel(self, formation_ref: str, *, refill: bool = True) -> Mapping[str, Any]:
+        """Staff one formation from its exact source force without changing fighters."""
+        path, formation0 = self._load_formation(formation_ref)
+        formation = copy.deepcopy(formation0)
+        structure = build_formation_command_structure(formation, self._warfare_depth_rules())
+        unit = structure.get("unit_command", {}) if isinstance(structure, Mapping) else {}
+        support = structure.get("external_support", {}) if isinstance(structure, Mapping) else {}
+        unit_source = str(unit.get("source_force_ref") or formation.get("owner_force_ref") or "") if isinstance(unit, Mapping) else ""
+        support_source = str(support.get("source_force_ref") or formation.get("owner_force_ref") or "") if isinstance(support, Mapping) else ""
+        if not unit_source or not support_source or unit_source != support_source:
+            formation["command_structure"] = structure
+            self.put(path, formation)
+            return structure
+        try:
+            force_path = self.owner_path(unit_source)
+            force0 = self.read(force_path)
+        except (KeyError, ValueError, FileNotFoundError):
+            formation["command_structure"] = structure
+            self.put(path, formation)
+            return structure
+        if not isinstance(force0, Mapping):
+            return structure
+        force = copy.deepcopy(force0)
+        location_ref = str(formation.get("location_ref", ""))
+        if not location_ref:
+            formation["command_structure"] = structure
+            self.put(path, formation)
+            return structure
+
+        unit_target = max(0, int(unit.get("target_bodies", 0))) if isinstance(unit, Mapping) else 0
+        named = self._named_unit_command_count(formation, unit_target)
+        aggregate_unit_need = max(0, unit_target - named)
+        unit_role = str(unit.get("source_role", "command_personnel")) if isinstance(unit, Mapping) else "command_personnel"
+        support_targets = _clean_role_counts(support.get("targets_by_role", {})) if isinstance(support, Mapping) else {}
+        desired_by_role = dict(support_targets)
+        desired_by_role[unit_role] = int(desired_by_role.get(unit_role, 0)) + aggregate_unit_need
+        existing_roles = self._formation_external_roles(force, formation_ref)
+        all_roles = sorted(set(existing_roles) | set(desired_by_role))
+        actual_by_role: dict[str, int] = {}
+        for role in all_roles:
+            desired = int(desired_by_role.get(role, 0))
+            if not refill and desired > int(existing_roles.get(role, 0)):
+                desired = int(existing_roles.get(role, 0))
+            actual_by_role[role] = self._adjust_external_role_allocation(
+                force,
+                formation_ref=formation_ref,
+                role=role,
+                desired=desired,
+                location_ref=location_ref,
+            )
+        actual_by_role = {role: count for role, count in actual_by_role.items() if count > 0}
+
+        command_actual = min(aggregate_unit_need, int(actual_by_role.get(unit_role, 0)))
+        support_actual = dict(actual_by_role)
+        if command_actual:
+            support_actual[unit_role] = max(0, int(support_actual.get(unit_role, 0)) - command_actual)
+        support_actual = {role: min(int(support_targets.get(role, 0)), count) for role, count in support_actual.items() if count > 0 and int(support_targets.get(role, 0)) > 0}
+        formation["attached_unit_command_by_role"] = ({unit_role: command_actual} if command_actual else {})
+        formation["attached_support_by_role"] = support_actual
+        formation["command_attachment_source_force_ref"] = unit_source
+        formation["command_structure"] = build_formation_command_structure(formation, self._warfare_depth_rules())
+        self.put(force_path, force)
+        self.put(path, formation)
+        return formation["command_structure"]
+
+    def _release_formation_external_personnel(self, formation_ref: str) -> None:
+        try:
+            path, formation0 = self._load_formation(formation_ref)
+        except (KeyError, ValueError, FileNotFoundError):
+            return
+        formation = copy.deepcopy(formation0)
+        source_ref = str(formation.get("command_attachment_source_force_ref") or formation.get("owner_force_ref") or "")
+        if not source_ref:
+            return
+        try:
+            force_path = self.owner_path(source_ref)
+            force = copy.deepcopy(self.read(force_path))
+        except (KeyError, ValueError, FileNotFoundError):
+            return
+        location = str(formation.get("location_ref", ""))
+        if not location:
+            return
+        existing = self._formation_external_roles(force, formation_ref)
+        for role in sorted(existing):
+            self._adjust_external_role_allocation(force, formation_ref=formation_ref, role=role, desired=0, location_ref=location)
+        formation["attached_unit_command_by_role"] = {}
+        formation["attached_support_by_role"] = {}
+        formation["command_structure"] = build_formation_command_structure(formation, self._warfare_depth_rules())
+        self.put(force_path, force)
+        self.put(path, formation)
+
     def _ensure_formation_command_structure(self, formation_ref: str) -> Mapping[str, Any]:
         path, formation0 = self._load_formation(formation_ref)
         formation = copy.deepcopy(formation0)
@@ -276,7 +599,7 @@ class WarfareDepthMixin:
             self.put(path, formation)
         return desired
 
-    def _ensure_force_command_structures(self, force_ref: str) -> None:
+    def _ensure_force_command_structures(self, force_ref: str, *, refill: bool = True) -> None:
         try:
             force = self.read(self.owner_path(force_ref))
         except (KeyError, ValueError, FileNotFoundError):
@@ -286,14 +609,14 @@ class WarfareDepthMixin:
             return
         for formation_ref in sorted(str(ref) for ref in allocated):
             try:
-                self._ensure_formation_command_structure(formation_ref)
+                self._reconcile_formation_external_personnel(formation_ref, refill=refill)
             except (KeyError, ValueError, FileNotFoundError):
                 continue
 
     def _ensure_mercenary_command_structure(self, mercenary_ref: str) -> Mapping[str, Any]:
         path = self.owner_path(mercenary_ref)
         company0 = self.read(path)
-        if not isinstance(company0, Mapping) or str(company0.get("schema", "")) != "mercenary":
+        if not isinstance(company0, Mapping) or str(company0.get("schema", "")) not in _MERCENARY_SCHEMAS:
             raise ValueError("mercenary command projection requires an exact mercenary owner")
         company = copy.deepcopy(company0)
         desired = build_mercenary_command_structure(company, self._warfare_depth_rules())
@@ -301,6 +624,150 @@ class WarfareDepthMixin:
             company["command_structure"] = desired
             self.put(path, company)
         return desired
+
+    @staticmethod
+    def _mercenary_age_mean(company: Mapping[str, Any], capability: Mapping[str, Any]) -> float:
+        for source in (capability.get("body_distribution"), company.get("body_distribution")):
+            if not isinstance(source, Mapping):
+                continue
+            direct = source.get("age_mean")
+            if isinstance(direct, (int, float)) and not isinstance(direct, bool):
+                return float(direct)
+            bands = source.get("age_distribution_pct")
+            if isinstance(bands, Mapping):
+                mids = {"15_19": 17.0, "20_29": 24.5, "30_39": 34.5, "40_plus": 45.0}
+                weighted = sum(max(0.0, float(bands.get(key, 0))) * mid for key, mid in mids.items())
+                total = sum(max(0.0, float(bands.get(key, 0))) for key in mids)
+                if total > 0:
+                    return weighted / total
+        return 28.0
+
+    @staticmethod
+    def _mercenary_focus(pool: Mapping[str, Any], cfg: Mapping[str, Any]) -> tuple[list[str], list[str]]:
+        text = " ".join(str(pool.get(key, "")) for key in ("role", "troop_type", "specialty", "display")).lower()
+        profiles = cfg.get("focus_profiles", []) if isinstance(cfg, Mapping) else []
+        for row in profiles if isinstance(profiles, list) else []:
+            if not isinstance(row, Mapping):
+                continue
+            tokens = [str(token).lower() for token in row.get("tokens", []) if str(token)]
+            if any(token in text for token in tokens):
+                return ([str(x) for x in row.get("skills", [])], [str(x) for x in row.get("attributes", [])])
+        return ([str(x) for x in cfg.get("default_skills", [])], [str(x) for x in cfg.get("default_attributes", [])])
+
+    def _settle_mercenary_training(self, mercenary_ref: str, occurrences: int, at: str) -> None:
+        """Advance exact aggregate mercenary capability owners on quarterly review."""
+        if occurrences <= 0:
+            return
+        path = self.owner_path(mercenary_ref)
+        company0 = self.read(path)
+        if not isinstance(company0, Mapping) or str(company0.get("schema", "")) not in _MERCENARY_SCHEMAS:
+            return
+        company = copy.deepcopy(company0)
+        if str(company.get("status", "")).lower() in {"destroyed", "dissolved"}:
+            return
+        cfg = self._warfare_depth_rules().get("mercenary_training", {})
+        if not isinstance(cfg, Mapping):
+            return
+        contracted_defense = (
+            str(company.get("contract_ref", "")) == "contract_tang_contracted_defense"
+            or str(company.get("contracting_household_ref", "")) in {"house_tang", "institution_house_tang"}
+        )
+        status_key = "contracted_defense" if contracted_defense else str(company.get("status", "available")).lower()
+        hours_table = cfg.get("hours_per_review_by_status", {})
+        per_review = max(0.0, float(hours_table.get(status_key, hours_table.get("available", 0))) if isinstance(hours_table, Mapping) else 0.0)
+        deliberate = per_review * max(0, int(occurrences))
+        exposure = deliberate * max(0.0, min(1.0, float(cfg.get("role_exposure_fraction", 0.35))))
+        if deliberate <= 0 and exposure <= 0:
+            return
+        stat_registry = self.read("game/data/mechanics/stat-orders.json")
+        stat_profile = stat_registry.get("profiles", {}).get("military_person", {}) if isinstance(stat_registry, Mapping) else {}
+        attr_order = [str(x) for x in stat_profile.get("attribute_order", ATTRIBUTE_ORDER)] if isinstance(stat_profile, Mapping) else list(ATTRIBUTE_ORDER)
+        skill_order = [str(x) for x in stat_profile.get("skill_order", SKILL_ORDER)] if isinstance(stat_profile, Mapping) else list(SKILL_ORDER)
+        training_rules = self.read("game/data/mechanics/training.json")
+        updated_pools: list[str] = []
+        total_personnel = 0
+        for pool in company.get("troop_pools", []) if isinstance(company.get("troop_pools"), list) else []:
+            if not isinstance(pool, Mapping):
+                continue
+            capability_path = str(pool.get("capability_ref", ""))
+            if not capability_path:
+                continue
+            capability0 = self.read_optional(capability_path)
+            if not isinstance(capability0, Mapping):
+                continue
+            capability = copy.deepcopy(capability0)
+            caps = capability.get("capabilities")
+            if not isinstance(caps, MutableMapping):
+                continue
+            attr_values = caps.get("attribute_values", [])
+            skill_values = caps.get("skill_values", [])
+            if not isinstance(attr_values, list) or not isinstance(skill_values, list):
+                continue
+            attr_means = {name: float(attr_values[i]) for i, name in enumerate(attr_order) if i < len(attr_values)}
+            skill_means = {name: float(skill_values[i]) for i, name in enumerate(skill_order) if i < len(skill_values)}
+            aptitude = capability.get("aptitude_distribution", {})
+            apt_mean = float(aptitude.get("mean", 100.0)) if isinstance(aptitude, Mapping) else 100.0
+            cohort: dict[str, Any] = {
+                "attribute_means": attr_means,
+                "skill_means": skill_means,
+                "aptitude_means": {
+                    "physical_learning": apt_mean,
+                    "tactical_learning": apt_mean,
+                    "technical_learning": apt_mean,
+                    "social_learning": apt_mean,
+                    "academic_learning": apt_mean,
+                },
+                "age_distribution": {"mean": self._mercenary_age_mean(company, capability)},
+                "skill_edu_banks": copy.deepcopy(capability.get("training_runtime", {}).get("skill_edu_banks", {})) if isinstance(capability.get("training_runtime"), Mapping) else {},
+                "attribute_edu_banks": copy.deepcopy(capability.get("training_runtime", {}).get("attribute_edu_banks", {})) if isinstance(capability.get("training_runtime"), Mapping) else {},
+                "verified_training_hours_per_person": float(capability.get("training_runtime", {}).get("verified_training_hours_per_person", 0.0)) if isinstance(capability.get("training_runtime"), Mapping) else 0.0,
+                "verified_role_exposure_hours_per_person": float(capability.get("training_runtime", {}).get("verified_role_exposure_hours_per_person", 0.0)) if isinstance(capability.get("training_runtime"), Mapping) else 0.0,
+                "training_history": copy.deepcopy(capability.get("training_runtime", {}).get("history", [])) if isinstance(capability.get("training_runtime"), Mapping) else [],
+            }
+            skills, attrs = self._mercenary_focus(pool, cfg)
+            evidence = f"mercenary_training:{mercenary_ref}:{pool.get('pool_id', capability_path)}:{at}"
+            advance_cohort_training(
+                cohort,
+                deliberate_hours=deliberate,
+                role_exposure_hours=exposure,
+                skill_focuses=skills,
+                attribute_focuses=attrs,
+                training_rules=training_rules,
+                facility_grade=str(cfg.get("facility_grade", "adequate")),
+                equipment_grade=str(cfg.get("equipment_grade", "adequate")),
+                recovery_grade=str(cfg.get("recovery_grade", "adequate")),
+                practice_mode="drill",
+                evidence_ref=evidence,
+            )
+            caps["attribute_values"] = [round(float(cohort["attribute_means"].get(name, attr_means.get(name, 0.0))), 3) for name in attr_order]
+            caps["skill_values"] = [round(float(cohort["skill_means"].get(name, skill_means.get(name, 0.0))), 3) for name in skill_order]
+            capability["training_runtime"] = {
+                "last_review": at,
+                "verified_training_hours_per_person": cohort["verified_training_hours_per_person"],
+                "verified_role_exposure_hours_per_person": cohort["verified_role_exposure_hours_per_person"],
+                "skill_edu_banks": cohort["skill_edu_banks"],
+                "attribute_edu_banks": cohort["attribute_edu_banks"],
+                "history": cohort["training_history"][-max(1, int(cfg.get("training_history_limit", 24))):],
+                "source": "mercenary_quarterly_autonomy",
+            }
+            self.put(capability_path, capability)
+            updated_pools.append(str(pool.get("pool_id", capability_path)))
+            total_personnel += max(0, int(pool.get("count", 0)))
+        if not updated_pools:
+            return
+        familiarity_gain = max(0, int(cfg.get("doctrine_familiarity_gain_per_review", 0))) * max(0, int(occurrences))
+        cap = max(0, int(cfg.get("doctrine_familiarity_cap", 100)))
+        company["doctrine_familiarity"] = min(cap, max(0, int(company.get("doctrine_familiarity", 0))) + familiarity_gain)
+        runtime = company.setdefault("training_runtime", {})
+        runtime["completed_training_reviews"] = int(runtime.get("completed_training_reviews", 0)) + max(0, int(occurrences))
+        runtime["last_review"] = at
+        runtime["last_status_basis"] = status_key
+        runtime["deliberate_hours_per_person"] = round(deliberate, 3)
+        runtime["role_exposure_hours_per_person"] = round(exposure, 3)
+        runtime["updated_pool_refs"] = updated_pools
+        runtime["personnel_covered"] = total_personnel
+        runtime["rule"] = "aggregate troop-pool capability advances under canonical diminishing-return training; no character or headcount is created"
+        self.put(path, company)
 
     @staticmethod
     def _objective_role_bonus(role: str, objective_text: str) -> int:
@@ -312,16 +779,19 @@ class WarfareDepthMixin:
         if isinstance(commander_ref, str) and commander_ref:
             return super()._formation_score(formation_ref, formation, objective_text, memory, reserved)
         structure = build_formation_command_structure(formation, self._warfare_depth_rules())
-        if structure.get("staffing_status") != "aggregate_staffed":
+        unit = structure.get("unit_command", {}) if isinstance(structure, Mapping) else {}
+        if not isinstance(unit, Mapping) or int(unit.get("effective_billets_staffed", 0)) <= 0:
             return super()._formation_score(formation_ref, formation, objective_text, memory, reserved)
         if formation_ref in reserved:
             return -(10**9)
         base = LivingWorldSwordPlanner._formation_score(self, formation_ref, formation, objective_text, memory, reserved)
+        support = structure.get("external_support", {})
+        target = int(support.get("target_total", 0)) if isinstance(support, Mapping) else 0
+        allocated = int(support.get("allocated_total", 0)) if isinstance(support, Mapping) else 0
+        support_ratio = 1.0 if target <= 0 else min(1.0, allocated / max(1, target))
         hierarchy = structure.get("internal_hierarchy", [])
         internal = sum(max(0, int(row.get("count", 0))) for row in hierarchy if isinstance(row, Mapping)) if isinstance(hierarchy, list) else 0
-        external_support = structure.get("external_support", {})
-        allocated_support = int(external_support.get("allocated_total", 0)) if isinstance(external_support, Mapping) else 0
-        return base + min(120, 25 + internal // 2 + allocated_support // 8)
+        return base + min(100, 20 + internal // 3 + int(round(45 * support_ratio)))
 
     def _desired_operation_formation_count(self, severity: int) -> int:
         cfg = self._warfare_depth_rules().get("operation_depth", {})
@@ -372,20 +842,20 @@ class WarfareDepthMixin:
         foreign_used: set[str] = set()
         own: list[tuple[str, str]] = []
         own_prefix = f"operation_auto_{state}_"
-        for op_ref, path in sorted(operations.items()):
-            if not isinstance(op_ref, str) or not isinstance(path, str):
+        for op_ref, op_path in sorted(operations.items()):
+            if not isinstance(op_ref, str) or not isinstance(op_path, str):
                 continue
-            operation = self.read(path)
+            operation = self.read(op_path)
             if str(operation.get("status", "")) not in {"planned", "mobilizing", "active", "engaged", "occupied"}:
                 continue
             refs = {str(ref) for ref in operation.get("formation_refs", []) if isinstance(ref, str)}
             if bool(operation.get("autonomous")) and op_ref.startswith(own_prefix):
-                own.append((op_ref, path))
+                own.append((op_ref, op_path))
             else:
                 foreign_used.update(refs)
         used = set(foreign_used)
-        for op_ref, path in own:
-            operation = copy.deepcopy(self.read(path))
+        for _op_ref, op_path in own:
+            operation = copy.deepcopy(self.read(op_path))
             if str(operation.get("status", "")) not in _ACTIVE_REVIEW_STATES:
                 used.update(str(ref) for ref in operation.get("formation_refs", []) if isinstance(ref, str))
                 continue
@@ -408,7 +878,7 @@ class WarfareDepthMixin:
                 if isinstance(supply, MutableMapping):
                     supply["formation_logistics_at_review"] = self._operation_supply_snapshot(selected)
                 operation["updated_at"] = at
-                self.put(path, operation)
+                self.put(op_path, operation)
             used.update(selected)
 
     def _autonomy_house(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
@@ -421,10 +891,38 @@ class WarfareDepthMixin:
         if isinstance(force_ref, str) and force_ref:
             self._ensure_force_command_structures(force_ref)
 
+    def _autonomy_polity(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
+        super()._autonomy_polity(host, occurrences, at)
+        try:
+            polity = self.read(self.owner_path(str(host["owner_ref"])))
+        except (KeyError, ValueError, FileNotFoundError):
+            return
+        if not isinstance(polity, Mapping):
+            return
+        for key in ("military_force_ref", "force_ref"):
+            force_ref = polity.get(key)
+            if isinstance(force_ref, str) and force_ref:
+                self._ensure_force_command_structures(force_ref)
+                return
+
+    def _autonomy_faction(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
+        super()._autonomy_faction(host, occurrences, at)
+        try:
+            faction = self.read(self.owner_path(str(host["owner_ref"])))
+        except (KeyError, ValueError, FileNotFoundError):
+            return
+        if not isinstance(faction, Mapping):
+            return
+        force_ref = faction.get("force_ref")
+        if isinstance(force_ref, str) and force_ref:
+            self._ensure_force_command_structures(force_ref)
+
     def _autonomy_mercenary(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
         super()._autonomy_mercenary(host, occurrences, at)
+        ref = str(host["owner_ref"])
         try:
-            self._ensure_mercenary_command_structure(str(host["owner_ref"]))
+            self._settle_mercenary_training(ref, occurrences, at)
+            self._ensure_mercenary_command_structure(ref)
         except (KeyError, ValueError, FileNotFoundError):
             return
 
@@ -432,18 +930,100 @@ class WarfareDepthMixin:
         super()._run_due_host(host, due_text)
         if host.get("kind") == "great_bow_guard_field_readiness":
             try:
-                self._ensure_formation_command_structure("formation_tang_wei_great_bow_guard_first")
+                self._reconcile_formation_external_personnel("formation_tang_wei_great_bow_guard_first")
             except ValueError:
                 pass
 
+    def _settle_attachment_casualties(self, before: Mapping[str, int], evidence_ref: str) -> None:
+        cfg = self._warfare_depth_rules().get("command_casualty_exposure", {})
+        if not isinstance(cfg, Mapping):
+            return
+        minimum = max(0.0, min(1.0, float(cfg.get("minimum_fighting_loss_fraction_before_aggregate_attachment_loss", 0.02))))
+        for formation_ref, old_n in before.items():
+            if old_n <= 0:
+                continue
+            try:
+                formation_path, formation0 = self._load_formation(formation_ref)
+            except (KeyError, ValueError, FileNotFoundError):
+                continue
+            formation = copy.deepcopy(formation0)
+            new_n = max(0, int(formation.get("personnel", 0)))
+            fighting_losses = max(0, old_n - new_n)
+            loss_fraction = fighting_losses / max(1, old_n)
+            if fighting_losses <= 0 or loss_fraction < minimum:
+                continue
+            source_ref = str(formation.get("command_attachment_source_force_ref") or formation.get("owner_force_ref") or "")
+            if not source_ref:
+                continue
+            try:
+                force_path = self.owner_path(source_ref)
+                force = copy.deepcopy(self.read(force_path))
+            except (KeyError, ValueError, FileNotFoundError):
+                continue
+            unit_roles = _clean_role_counts(formation.get("attached_unit_command_by_role", {}))
+            support_roles = _clean_role_counts(formation.get("attached_support_by_role", {}))
+            losses_by_role: dict[str, int] = {}
+            for role, count in unit_roles.items():
+                exposure = max(0.0, float(cfg.get("unit_command", 0.2)))
+                exact = count * loss_fraction * exposure
+                lost = min(count, int(math.floor(exact)) + int(stable_fraction(evidence_ref, formation_ref, role, "unit") < exact - math.floor(exact)))
+                if lost:
+                    losses_by_role[role] = losses_by_role.get(role, 0) + lost
+                    unit_roles[role] = count - lost
+            for role, count in support_roles.items():
+                exposure = max(0.0, float(cfg.get(role, cfg.get("command_personnel", 0.3))))
+                exact = count * loss_fraction * exposure
+                lost = min(count, int(math.floor(exact)) + int(stable_fraction(evidence_ref, formation_ref, role, "support") < exact - math.floor(exact)))
+                if lost:
+                    losses_by_role[role] = losses_by_role.get(role, 0) + lost
+                    support_roles[role] = count - lost
+            for role, count in sorted(losses_by_role.items()):
+                self._kill_external_role_allocation(force, formation_ref=formation_ref, role=role, losses=count, evidence_ref=evidence_ref)
+            if not losses_by_role:
+                continue
+            formation["attached_unit_command_by_role"] = {k: v for k, v in unit_roles.items() if v > 0}
+            formation["attached_support_by_role"] = {k: v for k, v in support_roles.items() if v > 0}
+            formation.setdefault("command_attachment_casualty_history", []).append({
+                "at": str(self.read("state/runtime.json").get("world_time", "")),
+                "evidence_ref": evidence_ref,
+                "fighting_losses": fighting_losses,
+                "fighting_loss_fraction": round(loss_fraction, 6),
+                "attachment_losses_by_role": losses_by_role,
+                "rule": "separate conserved external personnel casualties; no automatic same-battle replacement",
+            })
+            formation["command_attachment_casualty_history"] = formation["command_attachment_casualty_history"][-16:]
+            formation["command_structure"] = build_formation_command_structure(formation, self._warfare_depth_rules())
+            self.put(force_path, force)
+            self.put(formation_path, formation)
+
     def _dispatch(self, command: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
+        if command.command_type == "formation_dissolve":
+            ref = payload.get("formation_ref")
+            if isinstance(ref, str) and ref:
+                self._release_formation_external_personnel(ref)
+
+        battle_before: dict[str, int] = {}
+        if command.command_type == "battle_resolve":
+            for key in ("attacker_formation_refs", "defender_formation_refs"):
+                for ref in payload.get(key, []) if isinstance(payload.get(key), list) else []:
+                    if not isinstance(ref, str) or not ref:
+                        continue
+                    try:
+                        battle_before[ref] = max(0, int(self._load_formation(ref)[1].get("personnel", 0)))
+                    except (KeyError, ValueError, FileNotFoundError):
+                        continue
+
         result = super()._dispatch(command, payload)
+        if battle_before:
+            evidence = str(result.get("battle_ref") or result.get("event_ref") or getattr(command, "request_id", "battle")) if isinstance(result, Mapping) else str(getattr(command, "request_id", "battle"))
+            self._settle_attachment_casualties(battle_before, evidence)
+
         refs: set[str] = set()
         if command.command_type == "formation_create":
             ref = result.get("formation_ref") if isinstance(result, Mapping) else None
             if isinstance(ref, str) and ref:
                 refs.add(ref)
-        elif command.command_type == "formation_reconstitute":
+        elif command.command_type in {"formation_reconstitute", "formation_move", "command_assign", "command_transfer"}:
             ref = payload.get("formation_ref")
             if isinstance(ref, str) and ref:
                 refs.add(ref)
@@ -461,16 +1041,67 @@ class WarfareDepthMixin:
                 if isinstance(ref, str) and ref:
                     refs.add(ref)
         elif command.command_type == "battle_resolve":
-            for key in ("attacker_formation_refs", "defender_formation_refs"):
-                for ref in payload.get(key, []) if isinstance(payload.get(key), list) else []:
-                    if isinstance(ref, str) and ref:
-                        refs.add(ref)
+            refs.update(battle_before)
         for ref in sorted(refs):
             try:
+                # Player-owned formation actions must not silently consume extra
+                # reserve manpower beyond their declared command. Projection is
+                # refreshed immediately; autonomous House/state/faction reviews
+                # perform lawful establishment staffing later.
                 self._ensure_formation_command_structure(ref)
             except (KeyError, ValueError, FileNotFoundError):
                 continue
         return result
+
+    def _validate_invariants(self, overlay: Any, paths: Any) -> None:
+        """Bridge legacy top-level force arithmetic while validating new truth exactly."""
+        class _LegacyForceView:
+            def __init__(self, inner: Any) -> None:
+                self.inner = inner
+
+            def read_optional_bytes(self, path: str) -> Any:
+                return self.inner.read_optional_bytes(path)
+
+            def read_json(self, path: str) -> Any:
+                value = self.inner.read_json(path)
+                if not path.startswith("state/forces/") or not isinstance(value, Mapping):
+                    return value
+                external = value.get("external_personnel_allocations", {})
+                if not isinstance(external, Mapping) or not external:
+                    return value
+                adapted = copy.deepcopy(value)
+                roles = adapted.setdefault("available_by_role", {})
+                locations = adapted.setdefault("available_by_location", {})
+                default_location = str(adapted.get("source_location_ref", ""))
+                if not default_location:
+                    default_location = next(iter(locations), "validation_external_allocation")
+                local = locations.setdefault(default_location, {})
+                for by_role in external.values():
+                    if not isinstance(by_role, Mapping):
+                        continue
+                    for role, raw_count in by_role.items():
+                        count = max(0, int(raw_count))
+                        roles[str(role)] = int(roles.get(str(role), 0)) + count
+                        local[str(role)] = int(local.get(str(role), 0)) + count
+                return adapted
+
+        super()._validate_invariants(_LegacyForceView(overlay), paths)
+        for path in paths:
+            if not str(path).startswith("state/forces/") or overlay.read_optional_bytes(path) is None:
+                continue
+            force = overlay.read_json(path)
+            if not isinstance(force, Mapping):
+                continue
+            available = sum(max(0, int(v)) for v in force.get("available_by_role", {}).values()) if isinstance(force.get("available_by_role"), Mapping) else 0
+            fighting = sum(int(v.get("personnel", 0)) if isinstance(v, Mapping) else int(v) for v in force.get("allocated_to_formations", {}).values()) if isinstance(force.get("allocated_to_formations"), Mapping) else 0
+            external = 0
+            raw_external = force.get("external_personnel_allocations", {})
+            if isinstance(raw_external, Mapping):
+                external = sum(max(0, int(count)) for roles in raw_external.values() if isinstance(roles, Mapping) for count in roles.values())
+            materialized = sum(int(v.get("personnel", 1)) if isinstance(v, Mapping) else int(v) for v in force.get("materialized_people", {}).values()) if isinstance(force.get("materialized_people"), Mapping) else 0
+            if available + fighting + external + materialized != int(force.get("headcount", -1)):
+                raise ValueError("force conservation including external personnel failed")
+            validate_cohort_ledger(force)
 
 
 __all__ = ["WarfareDepthMixin", "build_formation_command_structure", "build_mercenary_command_structure"]
