@@ -5,9 +5,17 @@
     "discretionary_program_fraction_basis_points": 1000,
     "rule": "A new discretionary House program may receive at most the registered fraction of cash remaining after the protected stable-expense reserve. Opening a program reserves no money and spends nothing by itself."
   },
+  "field_preparation": {
+    "minimum_staging_hours": 2,
+    "departure_reserve_days": 7,
+    "food_kg_per_person_day": 1.5,
+    "fodder_kg_per_mount_day": 4.0,
+    "rule": "An explicitly requested House Tang campaign-preparation stage may load at most seven days of departure food and fodder from exact House stores. It may form already-conserved Tang Wei personal-force manpower and issue only exact registered stock. Missing equipment remains a persisted shortfall rather than being manufactured by narration."
+  },
   "great_bow_guard": {
     "program_ref": "program_house_tang_great_bow_guard",
     "fighting_establishment_max": 300,
+    "formation_ref": "formation_tang_wei_great_bow_guard_first",
     "selection_profile": "wei_archery_trial",
     "recruitment_phase_on_open": "applicant_intake",
     "standards_rule": "Selection standards are never lowered merely to fill the establishment.",
@@ -20,6 +28,7 @@
       "armor_tang",
       "helmet_tang"
     ],
+    "loadout_ref": "loadout_tang_great_bow_guard",
     "war_arrows_carried_per_fighter": 36,
     "initial_field_war_arrows_minimum": 54000,
     "support_personnel_outside_fighting_establishment": true,
@@ -55,7 +64,7 @@
         "Awareness",
         "Composure"
       ],
-      "rule": "After registered archery screening, retained candidates receive at most 56 deliberate training hours per seven-day review. Four completed review blocks are the minimum candidate-training phase before House acceptance. Acceptance transfers conserved candidates into the House force but does not create their field formation or equipment issue."
+      "rule": "After registered archery screening, retained candidates receive at most 56 deliberate training hours per seven-day review. Four completed review blocks are the minimum candidate-training phase before acceptance into Tang Wei's conserved personal force. House Tang remains sponsor and supplier. Acceptance does not create their field formation or equipment issue."
     },
     "opening_rule": "Opening applicant intake creates no fighter headcount, formation, equipment issue, spending, or completed recruitment. Candidate screening, acceptance, training, equipment, and formation creation remain separate conserved consequences."
   },
