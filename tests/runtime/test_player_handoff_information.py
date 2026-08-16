@@ -57,6 +57,10 @@ def test_delivered_world_arc_report_becomes_player_known_information(campaign):
     assert claim["knowers"] == ["char_tang_wei"]
     assert claim["fact"] == owner["causal_events"][report_ref]["summary"]
     assert "material_evidence" not in claim
+    # The causal report already owns the actual journey. Duplicating a partial
+    # information delivery would either violate the information schema or invent
+    # transport details that the report bridge does not know.
+    assert "deliveries" not in claim
 
     subjects = planner.read("state/information/subject-index.json")["subjects"]
     assert information_ref in subjects[report_ref]
