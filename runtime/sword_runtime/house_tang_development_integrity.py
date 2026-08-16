@@ -99,6 +99,9 @@ class HouseTangDevelopmentIntegrityMixin(CausalCallbackWorldTimeMixin, HouseTang
         )
         host_id, event_id = self._gbg_mass_ids(campaign_ref)
         if not active:
+            pending = runtime.get("pending_wake")
+            if isinstance(pending, Mapping) and pending.get("target_host") == host_id:
+                return
             hosts.pop(host_id, None)
             events[:] = [
                 row for row in events
@@ -172,10 +175,19 @@ class HouseTangDevelopmentIntegrityMixin(CausalCallbackWorldTimeMixin, HouseTang
         configured_shortlist = max(1, int(cfg.get("residential_trial_shortlist", current)))
         if current > configured_shortlist:
             raise ValueError("Great Bow Guard residential candidate cohort exceeds the registered mass-screen shortlist")
-        regional_target = max(current, int(cfg.get("regional_application_target", 120000)))
-        selection_ref = str(cfg.get("selection_profile_ref", great.get("selection_profile", "wei_archery_trial")))
 
         profile_registry = self.read(CANDIDATE_PROFILE_PATH)
+        source_mix = profile_registry.get("candidate_campaign_source_mix", {}) if isinstance(profile_registry, Mapping) else {}
+        pop = self.read("state/population/qin.json")
+        strata = pop.get("strata", {}) if isinstance(pop, Mapping) else {}
+        eligible_total = current + sum(
+            max(0, int(strata.get(source, 0)))
+            for source in source_mix
+        ) if isinstance(source_mix, Mapping) else current
+        configured_target = max(current, int(cfg.get("regional_application_target", 120000)))
+        regional_target = max(current, min(configured_target, eligible_total))
+        selection_ref = str(cfg.get("selection_profile_ref", great.get("selection_profile", "wei_archery_trial")))
+
         selections = profile_registry.get("selection_profiles", {}) if isinstance(profile_registry, Mapping) else {}
         selection = selections.get(selection_ref) if isinstance(selections, Mapping) else None
         if not isinstance(selection, Mapping):
