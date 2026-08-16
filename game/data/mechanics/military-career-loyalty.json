@@ -75,8 +75,9 @@
   "knowledge": {
     "institutional_dossier_confidence_milli": 780,
     "public_reputation_confidence_milli": 690,
+    "public_discovery_threshold_milli": 650,
     "shared_service_confidence_milli": 920,
-    "rule": "An officer may evaluate only information personally held, shared-service evidence, or a lawful military-institution dossier delivered to that officer. Hidden runtime facts are never attraction inputs."
+    "rule": "An officer may evaluate only information personally held, shared-service evidence, or a lawful military-institution dossier delivered to that officer. Cross-state discovery requires sufficiently propagated public reputation, and hidden dossier details are not attraction inputs."
   },
   "invariants": [
     "No commander receives player-specific attraction logic.",
