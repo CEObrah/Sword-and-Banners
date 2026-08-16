@@ -1,7 +1,8 @@
 """Integrity overlay for military career autonomy and loyalty.
 
 Keeps the base career network focused on ownership/routing while hardening
-long-campaign petition reuse, foreign-service authority, and bounded loyalty memory.
+long-campaign petition reuse, foreign-service authority, bounded loyalty memory,
+and officer knowledge boundaries.
 """
 from __future__ import annotations
 
@@ -138,9 +139,65 @@ class MilitaryCareerLoyaltyIntegrityMixin(MilitaryCareerLoyaltyMixin):
             raise ValueError("loyalty settlement attempted to change formation ownership")
         self.put(path, formation)
 
+    def _candidate_slice(self, person: dict[str, Any], state_ref: str, at: str) -> list[tuple[Mapping[str, Any], str]]:
+        """Return only commander signals that have lawfully reached this officer."""
+        network = self._career_network()
+        refs = [ref for ref in network.get("public_commander_refs", []) if isinstance(ref, str)]
+        career = person.setdefault("military_career_state", {})
+        cursor = max(0, int(career.get("commander_discovery_cursor", 0)))
+        width = max(1, int(self._military_rules()["career_review"]["candidate_slice_per_review"]))
+        if not refs:
+            return []
+        selected = [refs[(cursor + offset) % len(refs)] for offset in range(min(width, len(refs)))]
+        career["commander_discovery_cursor"] = (cursor + len(selected)) % len(refs)
+        public_threshold = int(self._military_rules()["knowledge"]["public_discovery_threshold_milli"])
+        officer_ref = str(person.get("owner_id"))
+        result: list[tuple[Mapping[str, Any], str]] = []
+        for commander_ref in selected:
+            if commander_ref == officer_ref:
+                continue
+            dossier_path = network.get("commanders", {}).get(commander_ref)
+            dossier = self.read_optional(dossier_path) if isinstance(dossier_path, str) else None
+            if not isinstance(dossier, Mapping):
+                continue
+            same_state = dossier.get("state_ref") == state_ref
+            public_reputation = int(dossier.get("public_reputation_milli", 0))
+            if not same_state and public_reputation < public_threshold:
+                continue
+            info_ref = self._record_officer_dossier_knowledge(officer_ref, dossier, at, institutional=same_state)
+            if same_state:
+                known = copy.deepcopy(dict(dossier))
+                known["knowledge_scope"] = "institutional_dossier"
+            else:
+                command_scale = max(0, int(dossier.get("command_scale", 0)))
+                approximate_scale = int(round(command_scale / 1000.0)) * 1000 if command_scale else 0
+                known = {
+                    "schema": "sword-commander-career-dossier.v1",
+                    "authority": False,
+                    "commander_ref": commander_ref,
+                    "state_ref": dossier.get("state_ref"),
+                    "formation_ref": None,
+                    "command_scale": approximate_scale,
+                    "public_reputation_milli": public_reputation,
+                    "institutional_reputation_milli": public_reputation,
+                    "casualty_stewardship_milli": 500,
+                    "logistics_reliability_milli": 500,
+                    "promotion_opportunity_milli": 500,
+                    "political_risk_milli": 350,
+                    "evidence_refs": list(dossier.get("evidence_refs", []))[-4:],
+                    "published_at": dossier.get("published_at"),
+                    "public_summary": dossier.get("public_summary"),
+                    "knowledge_scope": "public_reputation_only",
+                }
+            known["knowledge_ref"] = info_ref
+            result.append((known, info_ref))
+        return result
+
     def _attraction_score(self, person: Mapping[str, Any], dossier: Mapping[str, Any], state_ref: str) -> int:
         score = super()._attraction_score(person, dossier, state_ref)
-        current_ref, current = self._person_current_formation(person)
+        if dossier.get("knowledge_scope") != "institutional_dossier":
+            return score
+        _current_ref, current = self._person_current_formation(person)
         target = None
         target_ref = dossier.get("formation_ref")
         if isinstance(target_ref, str):
