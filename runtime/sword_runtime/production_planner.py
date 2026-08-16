@@ -14,8 +14,10 @@ from sword_runtime.environment import EnvironmentMechanicsMixin
 from sword_runtime.equipment_planner import EquipmentStateProjectionMixin
 from sword_runtime.family_counsel import FamilyCounselMixin
 from sword_runtime.force_cohort_living_world import ForceCohortLivingWorldMixin
+from sword_runtime.great_bow_guard_combat import GreatBowGuardCombatProfileMixin
 from sword_runtime.great_bow_guard_flow import GreatBowGuardFlowMixin
 from sword_runtime.great_bow_guard_personal_integrity import GreatBowGuardPersonalIntegrityMixin
+from sword_runtime.great_bow_guard_readiness_flow import GreatBowGuardReadinessFlowMixin
 from sword_runtime.house_field_preparation_gate import ExplicitHouseFieldPreparationFlowMixin
 from sword_runtime.house_tang_development_integrity import HouseTangDevelopmentIntegrityMixin
 from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
@@ -40,6 +42,7 @@ HOUSE_TANG_GARRISON: dict[str, Any] = {
 
 
 class ProductionCampaignPlanner(
+    GreatBowGuardCombatProfileMixin,
     CampaignDepthMixin,
     EnvironmentMechanicsMixin,
     CommandStaffMovementMixin,
@@ -48,6 +51,7 @@ class ProductionCampaignPlanner(
     EquipmentStateProjectionMixin,
     CivilWorldMixin,
     FamilyCounselMixin,
+    GreatBowGuardReadinessFlowMixin,
     ExplicitHouseFieldPreparationFlowMixin,
     LocationAwareFormationMusterMixin,
     HouseholdRequestFlowMixin,
