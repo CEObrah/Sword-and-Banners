@@ -131,6 +131,20 @@ def ensure_cohort_ledger(force: MutableMapping[str, Any], *, at: str | None = No
         cohorts[cid]["allocated_by_formation"] = {str(formation_ref): count}
         cohorts[cid]["origin"]["kind"] = "baseline_formation_allocation"
 
+    external = force.get("external_personnel_allocations", {})
+    if isinstance(external, Mapping):
+        for formation_ref, roles in sorted(external.items()):
+            if not isinstance(roles, Mapping):
+                continue
+            for role, raw_count in sorted(roles.items()):
+                count = max(0, int(raw_count))
+                if not count:
+                    continue
+                cid = _cohort_id(force, "baseline_external_allocation", formation_ref, role)
+                cohorts[cid] = _baseline_cohort(cid, str(role), 0, None, at)
+                cohorts[cid]["allocated_external_by_formation"] = {str(formation_ref): count}
+                cohorts[cid]["origin"]["kind"] = "baseline_external_personnel_allocation"
+
     ledger["last_reconciled_at"] = at
     validate_cohort_ledger(force)
     return ledger
@@ -151,6 +165,7 @@ def _baseline_cohort(cid: str, role: str, reserve: int, location_ref: str | None
         },
         "reserve_by_location": ({str(location_ref): int(reserve)} if location_ref and reserve else {}),
         "allocated_by_formation": {},
+        "allocated_external_by_formation": {},
         "age_distribution": {},
         "aptitude_means": {},
         "attribute_means": {},
@@ -178,16 +193,23 @@ def validate_cohort_ledger(force: Mapping[str, Any]) -> None:
     total = 0
     reserve_by_role: dict[str, int] = {}
     allocations: dict[str, int] = {}
+    external_allocations: dict[str, dict[str, int]] = {}
     for cid, cohort in cohorts.items():
         if not isinstance(cohort, Mapping):
             raise ValueError(f"invalid cohort record: {cid}")
         role = str(cohort.get("role", "unknown"))
         reserve = sum(max(0, int(v)) for v in cohort.get("reserve_by_location", {}).values())
         allocated = sum(max(0, int(v)) for v in cohort.get("allocated_by_formation", {}).values())
-        total += reserve + allocated
+        external = sum(max(0, int(v)) for v in cohort.get("allocated_external_by_formation", {}).values())
+        total += reserve + allocated + external
         reserve_by_role[role] = reserve_by_role.get(role, 0) + reserve
         for ref, value in cohort.get("allocated_by_formation", {}).items():
             allocations[str(ref)] = allocations.get(str(ref), 0) + max(0, int(value))
+        for ref, value in cohort.get("allocated_external_by_formation", {}).items():
+            count = max(0, int(value))
+            if count:
+                row = external_allocations.setdefault(str(ref), {})
+                row[role] = row.get(role, 0) + count
 
     materialized = sum(
         int(v.get("personnel", 1)) if isinstance(v, Mapping) else int(v)
@@ -218,6 +240,18 @@ def validate_cohort_ledger(force: Mapping[str, Any]) -> None:
     top_alloc = {str(k): _allocation_count(v) for k, v in force.get("allocated_to_formations", {}).items()}
     if allocations != top_alloc:
         raise ValueError("cohort formation allocation mismatch")
+
+    top_external: dict[str, dict[str, int]] = {}
+    raw_external = force.get("external_personnel_allocations", {})
+    if isinstance(raw_external, Mapping):
+        for ref, roles in raw_external.items():
+            if not isinstance(roles, Mapping):
+                raise ValueError("external personnel allocation roles must be an object")
+            normalized = {str(role): max(0, int(count)) for role, count in roles.items() if max(0, int(count)) > 0}
+            if normalized:
+                top_external[str(ref)] = normalized
+    if external_allocations != top_external:
+        raise ValueError("cohort external personnel allocation mismatch")
 
 
 def _profile_for_background(
@@ -396,6 +430,7 @@ def record_recruitment_cohort(
         },
         "reserve_by_location": {str(location_ref): n},
         "allocated_by_formation": {},
+        "allocated_external_by_formation": {},
         "age_distribution": deepcopy(dict(age)),
         "aptitude_means": _mean_map(source, "aptitude_means"),
         "attribute_means": _mean_map(source, "attribute_means"),
@@ -473,8 +508,10 @@ def add_recruits(force: MutableMapping[str, Any], role: str, count: int, *, loca
 
 
 def _cohort_total(cohort: Mapping[str, Any]) -> int:
-    return sum(int(v) for v in cohort.get("reserve_by_location", {}).values()) + sum(
-        int(v) for v in cohort.get("allocated_by_formation", {}).values()
+    return (
+        sum(int(v) for v in cohort.get("reserve_by_location", {}).values())
+        + sum(int(v) for v in cohort.get("allocated_by_formation", {}).values())
+        + sum(int(v) for v in cohort.get("allocated_external_by_formation", {}).values())
     )
 
 
@@ -789,6 +826,7 @@ def transfer_role(
         promoted["role"] = destination_role
         promoted["reserve_by_location"] = {location_ref: take}
         promoted["allocated_by_formation"] = {}
+        promoted["allocated_external_by_formation"] = {}
         promoted["service_months_mean"] = 0.0
         promoted.setdefault("promotion_history", []).append({"from_cohort_id": cid, "from_role": source_role, "to_role": destination_role, "count": take, "evidence_ref": evidence_ref})
         promoted["promotion_history"] = promoted["promotion_history"][-24:]
@@ -847,6 +885,7 @@ def transfer_between_forces(
         moved["role"] = destination_role
         moved["reserve_by_location"] = {destination_location_ref: take}
         moved["allocated_by_formation"] = {}
+        moved["allocated_external_by_formation"] = {}
         moved["service_months_mean"] = 0.0
         moved.setdefault("transfer_history", []).append({"from_force": source_force.get("owner_id"), "from_cohort_id": cid, "from_role": source_role, "to_force": destination_force.get("owner_id"), "to_role": destination_role, "count": take, "evidence_ref": evidence_ref})
         moved["transfer_history"] = moved["transfer_history"][-24:]
