@@ -92,6 +92,30 @@ def test_mass_screening_examines_120000_records_without_reserving_120000_bodies(
     assert sum(mass_costs) > 0
 
 
+def test_completed_mass_host_is_retained_while_its_player_wake_is_pending(campaign) -> None:
+    planner = _planner(campaign)
+    runtime = copy.deepcopy(planner.read("state/runtime.json"))
+    campaign_ref = _campaign_ref(planner)
+    planner._sync_great_bow_guard_mass_screening(runtime)
+    host_id, event_id = planner._gbg_mass_ids(campaign_ref)
+    assert host_id in runtime["hosts"]
+    assert any(row.get("event_id") == event_id for row in runtime["events"])
+
+    planner._great_bow_guard_mass_screening(
+        {"kind": "house_gbg_mass_screening", "campaign_ref": campaign_ref},
+        str(runtime["world_time"]),
+    )
+    runtime["pending_wake"] = {
+        "wake_ref": "wake.test.mass",
+        "kind": "campaign_event",
+        "target_host": host_id,
+        "event_id": event_id,
+    }
+    planner._sync_great_bow_guard_mass_screening(runtime)
+    assert host_id in runtime["hosts"]
+    assert any(row.get("event_id") == event_id for row in runtime["events"])
+
+
 def test_mass_funnel_then_final_trial_selects_300_and_preserves_mass_history(campaign) -> None:
     planner = _planner(campaign)
     start = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
