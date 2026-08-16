@@ -27,6 +27,16 @@ Use causal chronology until one of these occurs:
 
 Do not manufacture menus every day merely because time passed. Do not silently add unrelated commitments.
 
+## Actionability-filtered standing waits
+
+A runtime-delivered player-facing event is a causal handoff, not automatically the endpoint of the player's standing wait. When the player's declared threshold is `until I can act`, `until something actionable happens`, `until there is a real decision`, or an equivalent actionability condition, inspect the newly delivered player-visible facts before ending the wait.
+
+Treat the event as **interim** and carry the same standing policy forward when it establishes only background movement, broad material activity, confirmation of already-known facts, or incomplete information that gives Wei no materially distinct action, commitment, authority choice, information-gathering choice, resource tradeoff, or protected decision beyond continuing the existing wait. Do not end the turn merely because `advance_time` stopped at such an event, and do not fabricate a menu to justify the stop.
+
+Treat the event as a **terminal handoff** for that wait when player-visible facts establish at least one concrete course Wei can now choose among, a new protected decision, a hard authority/resource/safety boundary, or a materially different information-gathering opportunity. At that point, if the player's current message has not already supplied the response, load `choices.md`, narrate the decision-relevant facts first, and provide grounded choice scaffolding before ending.
+
+This actionability filter never suppresses a protected high-salience wake such as direct hostile contact, surrender, a new command/office offer, irreversible family or political commitment, or another event whose consequence requires Wei before time may lawfully continue. It only prevents non-decision reports from becoming artificial turn boundaries.
+
 ## Choice wording must include physical implications
 
 A menu option is authorization only for what it actually says. Never write `Withdraw and wait for formal direction` and later treat it as authorization to remain in the current city, return home, relocate an escort, or begin a new routine.
