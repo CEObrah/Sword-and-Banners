@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.api.operations import OperationError
 from sword_runtime.api.standing_training_operations import StandingTrainingCampaignOperations
 from sword_runtime.environment import environment_snapshot
 
@@ -58,6 +59,37 @@ def _project_equipment_state(
 
 class EquipmentAwareCampaignOperations(StandingTrainingCampaignOperations):
     """Stable player surface with exact, bounded owned-equipment identifiers."""
+
+    def __init__(self, runtime) -> None:
+        super().__init__(runtime)
+        # OOC-development diagnostic only. This is process memory, never campaign
+        # truth, and is exposed only through the read-only ooc_audit surface.
+        self._last_command_rejection: dict[str, Any] | None = None
+
+    def execute_command(self, command):
+        try:
+            result = super().execute_command(command)
+        except OperationError as exc:
+            cause = exc.__cause__
+            if exc.code == "command_rejected" and cause is not None:
+                self._last_command_rejection = {
+                    "request_id": getattr(command, "request_id", None),
+                    "command_type": getattr(command, "command_type", None),
+                    "exception_type": type(cause).__name__,
+                    "message": str(cause)[:1000],
+                }
+            raise
+        self._last_command_rejection = None
+        return result
+
+    def ooc_audit(self, focus=None, observations=None):
+        result = super().ooc_audit(focus=focus, observations=observations)
+        result["last_command_rejection"] = (
+            dict(self._last_command_rejection)
+            if isinstance(self._last_command_rejection, Mapping)
+            else None
+        )
+        return result
 
     def _owned_equipment_view(self) -> list[dict[str, Any]]:
         try:
