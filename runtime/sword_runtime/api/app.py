@@ -176,9 +176,11 @@ def create_app_from_env() -> FastAPI:
     if any(os.environ.get(name) for name in mcp_environment):
         from sword_runtime.api.mcp import McpOAuthSettings, create_mcp_server, mount_mcp
         from sword_runtime.api.mcp_extensions import install_extended_tools
+        from sword_runtime.api.mcp_warfare_maintenance import install_warfare_maintenance_tools
         oauth = McpOAuthSettings.from_env()
         server = create_mcp_server(app.state.campaign_operations, oauth)
         install_extended_tools(server, app.state.campaign_operations, oauth)
+        install_warfare_maintenance_tools(server, app.state.campaign_operations, oauth)
         mount_mcp(
             app,
             server,
