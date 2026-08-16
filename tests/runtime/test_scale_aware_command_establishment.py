@@ -23,76 +23,135 @@ def _hierarchy(structure: dict) -> dict[int, int]:
     return {int(row["scale"]): int(row["count"]) for row in structure["internal_hierarchy"]}
 
 
-def test_qin_border_line_separates_fighting_strength_from_real_command_and_support():
-    formation = {
-        "formation_ref": "formation_qin_border_line",
-        "owner_force_ref": "force_state_qin",
-        "personnel": 8000,
-    }
-    structure = build_formation_command_structure(formation, _rules())
+def test_qin_border_detachment_is_four_real_two_thousand_units():
+    cfg = _rules()["qin_border_detachment"]
+    assert cfg["persistent_unit_slots"] == 4
+    assert cfg["fighting_establishment_per_unit"] == 2000
+    assert cfg["fighting_establishment_total"] == 8000
+    assert cfg["unit_command_bodies_total"] == 8
+    assert cfg["unit_commander_representation"] == "full_character"
+    assert cfg["unit_deputy_representation"] == "person_lite"
+    assert cfg["internal_commanders_per_unit"] == 26
+    assert cfg["internal_commander_assignments_total"] == 104
+    assert cfg["internal_deputy_billets_total"] == 0
+    assert cfg["external_support_target_total"] == 112
+    assert cfg["fully_staffed_attached_personnel"] == 8120
+    assert len(cfg["formation_refs"]) == 4
 
-    assert structure["projection_kind"] == "formation_command_structure_v4"
-    assert "schema" not in structure
-    assert structure["fighting_establishment"] == 8000
-    assert structure["persistent_unit_slots"] == 1
-    assert structure["unit_command"]["commander_billets"] == 1
-    assert structure["unit_command"]["deputy_billets"] == 1
-    assert structure["unit_command"]["target_bodies"] == 2
-    assert structure["unit_command"]["effective_billets_staffed"] == 0
-    assert structure["unit_command"]["staffing_shortfall"] == 2
-    assert _hierarchy(structure) == {2000: 4, 1000: 8, 500: 16, 100: 80}
-    assert structure["internal_commander_assignments"] == 108
-    assert structure["internal_commanders_inside_fighting_establishment"] == 108
-    assert structure["external_support"]["targets_by_role"] == {
-        "command_personnel": 32,
-        "signal": 32,
-        "logistics": 48,
-    }
-    assert structure["external_support"]["target_total"] == 112
-    assert structure["external_support"]["allocated_total"] == 0
-    assert structure["attached_personnel_target"] == 8114
-    assert structure["attached_personnel_actual_from_force_allocations"] == 8000
-    assert structure["staffing_status"] == "internal_leadership_only"
+
+def test_each_qin_unit_separates_fighting_strength_from_real_command_and_support():
+    rules = _rules()
+    for ref in rules["qin_border_detachment"]["formation_refs"]:
+        formation = {
+            "formation_ref": ref,
+            "owner_force_ref": "force_state_qin",
+            "personnel": 2000,
+        }
+        structure = build_formation_command_structure(formation, rules)
+
+        assert structure["projection_kind"] == "formation_command_structure_v4"
+        assert "schema" not in structure
+        assert structure["fighting_establishment"] == 2000
+        assert structure["persistent_unit_slots"] == 1
+        assert structure["unit_command"]["commander_billets"] == 1
+        assert structure["unit_command"]["deputy_billets"] == 1
+        assert structure["unit_command"]["target_bodies"] == 2
+        assert structure["unit_command"]["effective_billets_staffed"] == 0
+        assert structure["unit_command"]["staffing_shortfall"] == 2
+        assert _hierarchy(structure) == {1000: 2, 500: 4, 100: 20}
+        assert structure["internal_commander_assignments"] == 26
+        assert structure["internal_commanders_inside_fighting_establishment"] == 26
+        assert all(row["representation"] == "person_lite" for row in structure["internal_hierarchy"])
+        assert all(row["deputy_policy"] == "none" for row in structure["internal_hierarchy"])
+        assert structure["external_support"]["targets_by_role"] == {
+            "command_personnel": 8,
+            "signal": 8,
+            "logistics": 12,
+        }
+        assert structure["external_support"]["target_total"] == 28
+        assert structure["external_support"]["allocated_total"] == 0
+        assert structure["attached_personnel_target"] == 2030
+        assert structure["attached_personnel_actual_from_force_allocations"] == 2000
+        assert structure["staffing_status"] == "internal_leadership_only"
+
+        profile = rules["formation_profiles"][ref]["external_unit_command"]
+        assert profile["commander_representation"] == "full_character"
+        assert profile["deputy_representation"] == "person_lite"
 
 
 def test_qin_full_external_staffing_is_counted_only_when_allocated():
     formation = {
         "formation_ref": "formation_qin_border_line",
         "owner_force_ref": "force_state_qin",
-        "personnel": 8000,
+        "personnel": 2000,
         "attached_unit_command_by_role": {"command_personnel": 2},
-        "attached_support_by_role": {"command_personnel": 32, "signal": 32, "logistics": 48},
+        "attached_support_by_role": {"command_personnel": 8, "signal": 8, "logistics": 12},
     }
     structure = build_formation_command_structure(formation, _rules())
     assert structure["unit_command"]["effective_billets_staffed"] == 2
     assert structure["unit_command"]["staffing_shortfall"] == 0
-    assert structure["external_support"]["allocated_total"] == 112
+    assert structure["external_support"]["allocated_total"] == 28
     assert set(structure["external_support"]["shortfall_by_role"].values()) == {0}
-    assert structure["attached_personnel_actual_from_force_allocations"] == 8114
+    assert structure["attached_personnel_actual_from_force_allocations"] == 2030
     assert structure["staffing_status"] == "aggregate_unit_command"
 
 
-def test_gbg_command_nodes_align_to_fifteen_conserved_two_hundred_cohorts():
+def test_gbg_command_tree_is_three_six_thirty_while_cohorts_remain_fifteen_by_two_hundred():
     formation = {
         "formation_ref": "formation_tang_wei_great_bow_guard_first",
         "owner_force_ref": "force_tang_wei_personal",
         "personnel": 3000,
     }
-    structure = build_formation_command_structure(formation, _rules())
+    rules = _rules()
+    structure = build_formation_command_structure(formation, rules)
 
     assert structure["fighting_establishment"] == 3000
     assert structure["persistent_unit_slots"] == 1
-    assert _hierarchy(structure) == {1000: 3, 200: 15}
-    assert structure["internal_commander_assignments"] == 18
+    assert _hierarchy(structure) == {1000: 3, 500: 6, 100: 30}
+    assert structure["internal_commander_assignments"] == 39
     assert all(bool(row["inside_fighting_establishment"]) for row in structure["internal_hierarchy"])
-    by_scale = {int(row["scale"]): row for row in structure["internal_hierarchy"]}
-    assert by_scale[1000]["representation"] == "person_lite_when_relevant"
-    assert by_scale[200]["representation"] == "aggregate"
-    assert _rules()["formation_profiles"]["formation_tang_wei_great_bow_guard_first"]["cohort_alignment"] == {
-        "cohort_size": 200,
-        "cohort_count": 15,
-        "cohorts_per_1000_command": 5,
+    assert all(row["representation"] == "person_lite" for row in structure["internal_hierarchy"])
+    assert all(row["deputy_policy"] == "none" for row in structure["internal_hierarchy"])
+    assert structure["external_support"]["target_total"] == 42
+    assert structure["attached_personnel_target"] == 3044
+
+    profile = rules["formation_profiles"]["formation_tang_wei_great_bow_guard_first"]
+    assert profile["external_unit_command"]["commander_representation"] == "full_character"
+    assert profile["external_unit_command"]["deputy_representation"] == "person_lite"
+    alignment = profile["cohort_alignment"]
+    assert alignment["cohort_size"] == 200
+    assert alignment["cohort_count"] == 15
+    assert alignment["cohorts_per_1000_command"] == 5
+    assert alignment["purpose"] == "recruitment_and_manpower_provenance_not_tactical_command_level"
+    assert rules["great_bow_guard"]["internal_commander_assignments"] == 39
+    assert rules["great_bow_guard"]["internal_deputy_billets"] == 0
+
+
+def test_tang_champions_are_separate_unit_and_preserve_named_command():
+    rules = _rules()
+    contingent = rules["tang_wei_house_contingent"]
+    assert contingent["persistent_unit_slots"] == 2
+    assert contingent["fighting_establishment_total"] == 3100
+    assert set(contingent["formation_refs"]) == {
+        "formation_tang_wei_great_bow_guard_first",
+        "formation_tang_champions_first",
     }
+
+    formation = {
+        "formation_ref": "formation_tang_champions_first",
+        "owner_force_ref": "force_house_tang",
+        "personnel": 100,
+        "commander_ref": "char_duan_jin",
+        "deputy_ref": "char_shen_rui",
+    }
+    structure = build_formation_command_structure(formation, rules)
+    assert structure["fighting_establishment"] == 100
+    assert structure["persistent_unit_slots"] == 1
+    assert structure["internal_commander_assignments"] == 0
+    assert structure["unit_command"]["named_commander_ref"] == "char_duan_jin"
+    assert structure["unit_command"]["named_deputy_ref"] == "char_shen_rui"
+    assert structure["unit_command"]["effective_billets_staffed"] == 2
+    assert structure["staffing_status"] == "named_unit_command"
 
 
 def test_generic_state_army_uses_same_hierarchy_without_materializing_officers():
@@ -203,7 +262,7 @@ def test_house_tang_mercenaries_have_role_specific_quarterly_training_rules():
     assert cfg["doctrine_familiarity_gain_per_review"] > 0
     tokens = {token for row in cfg["focus_profiles"] for token in row["tokens"]}
     assert {"countermining", "artillery", "heavy_infantry", "signal", "logistics"}.issubset(tokens)
-    assert "canonical diminishing-return training" in cfg["rule"]
+    assert "diminishing-return training" in cfg["rule"]
 
 
 def test_command_combat_effects_are_scale_bounded_and_actual_support_gated():
@@ -241,7 +300,7 @@ def test_command_combat_effects_are_scale_bounded_and_actual_support_gated():
     assert missing["support"] == 1.0
 
 
-def test_incapacitated_commander_yields_to_healthy_deputy_without_minting_replacement():
+def test_incapacitated_gbg_unit_commander_yields_to_healthy_deputy_without_minting_replacement():
     class Harness(CombatCapabilityMixin):
         def read(self, path: str):
             if path == "game/data/mechanics/warfare-organization.json":
@@ -253,7 +312,11 @@ def test_incapacitated_commander_yields_to_healthy_deputy_without_minting_replac
         "training_progress": 70,
         "cohesion": 70,
         "command_structure": {
-            "internal_hierarchy": [{"scale": 1000, "count": 3}, {"scale": 200, "count": 15}],
+            "internal_hierarchy": [
+                {"scale": 1000, "count": 3},
+                {"scale": 500, "count": 6},
+                {"scale": 100, "count": 30},
+            ],
             "unit_command": {"target_bodies": 2, "effective_billets_staffed": 2},
             "external_support": {"target_total": 42, "allocated_total": 0},
         },
