@@ -378,8 +378,7 @@ def _appointment_row_mutable(player: dict[str, Any], office: str) -> dict[str, A
 def _assume_pending_qin_command(planner: Any, at: str) -> str | None:
     player = copy.deepcopy(planner.read(_PLAYER_PATH))
     current_location = str(player.get("location", ""))
-    appointments = _qin_field_appointments(player)
-    pending = [row for row in appointments if str(row.get("status", "")) == "awaiting_assumption"]
+    pending = [row for row in _qin_field_appointments(player) if str(row.get("status", "")) == "awaiting_assumption"]
     if not pending:
         return None
     index = planner.read(_OPERATIONS_INDEX)
@@ -470,7 +469,7 @@ def _assume_pending_qin_command(planner: Any, at: str) -> str | None:
 
         summary = (
             f"Tang Wei reports to {formation.get('location_ref')} and formally assumes the Qin field command already accepted. "
-            f"Command authority over {formation.get('name', formation_ref')}, an existing {int(formation.get('personnel', 0))}-man Qin formation, is now active under Tang Wei. "
+            f"Command authority over {formation.get('name', formation_ref)}, an existing {int(formation.get('personnel', 0))}-man Qin formation, is now active under Tang Wei. "
             "Administrative ownership remains Qin's, and the appointment does not itself choose a march route, battle plan, sovereign allegiance, or permanent strategy."
         )
         return _event_owner_write(planner, event_ref, {
