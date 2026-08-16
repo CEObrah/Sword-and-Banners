@@ -2,8 +2,9 @@
 
 The underlying HouseTangDevelopmentMixin remains the semantic owner of Sword Manor
 training, promotion, recruitment, expansion, and Great Bow Guard applicant work.
-This production composition layer keeps aggregate establishment totals and House
-recurring expense summaries synchronized after those exact owner mutations.
+This production composition layer keeps aggregate establishment totals, scheduler
+chronology, and House recurring expense summaries synchronized after those exact
+owner mutations.
 """
 from __future__ import annotations
 
@@ -12,11 +13,42 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.cohort_personnel import role_count
-from sword_runtime.house_tang_development import HouseTangDevelopmentMixin
+from sword_runtime.house_tang_development import HouseTangDevelopmentMixin, MONTH_SECONDS
+from sword_runtime.sim.calendar import CampaignTime
 
 
 class HouseTangDevelopmentIntegrityMixin(HouseTangDevelopmentMixin):
-    """Close derived establishment/economy invariants after House development."""
+    """Close derived establishment/economy/chronology invariants after House development."""
+
+    def _normalize_sword_manor_host(self, runtime: dict[str, Any]) -> None:
+        hosts = runtime.get("hosts")
+        events = runtime.get("events")
+        if not isinstance(hosts, dict) or not isinstance(events, list):
+            raise ValueError("runtime causal queue is invalid")
+        now = CampaignTime.parse(str(runtime["world_time"]))
+        progression = self.read("state/prog/sword-manor-progression.json")
+        prog_runtime = progression.get("runtime", {}) if isinstance(progression, Mapping) else {}
+        last_settled = prog_runtime.get("last_settled_at") if isinstance(prog_runtime, Mapping) else None
+        desired = now.add_seconds(MONTH_SECONDS)
+        if isinstance(last_settled, str) and last_settled:
+            lawful_next = CampaignTime.parse(last_settled).add_seconds(MONTH_SECONDS)
+            desired = now if lawful_next <= now else lawful_next
+        for host_id, host in hosts.items():
+            if not isinstance(host_id, str) or not isinstance(host, dict):
+                continue
+            if host.get("owner_ref") != "institution_sword_manor" and host_id != "host_sword_manor":
+                continue
+            host["kind"] = "sword_manor"
+            host["recurrence_seconds"] = MONTH_SECONDS
+            current_due = CampaignTime.parse(str(host["next_due"])) if isinstance(host.get("next_due"), str) else desired
+            if current_due != desired:
+                host["next_due"] = str(desired)
+                host["safe_through"] = str(desired.add_seconds(-1))
+                for event in events:
+                    if isinstance(event, dict) and event.get("target_host") == host_id:
+                        event["due_at"] = str(desired)
+                        break
+            break
 
     def _sync_sword_manor_derived_state(self) -> None:
         sword = copy.deepcopy(self.read("state/forces/sword-manor.json"))
