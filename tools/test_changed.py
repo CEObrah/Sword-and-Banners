@@ -38,6 +38,8 @@ PERSON_TESTS = {"tests/runtime/test_exact_aggregate_conservation.py", "tests/run
 TRANSACTION_TESTS = {"tests/runtime/test_transactions.py"}
 REFERENCE_TESTS = {"tests/runtime/test_world_reference_search.py"}
 LONG_HORIZON_TESTS = {"tests/runtime/test_long_horizon.py"}
+PLAYER_STORY_TESTS = {"tests/runtime/test_player_story_flow.py"}
+GREAT_BOW_GUARD_TESTS = {"tests/runtime/test_great_bow_guard_flow.py"}
 DEFAULT_TESTS = {"tests/runtime/test_architecture_service.py"}
 
 
@@ -66,6 +68,8 @@ def select(paths: list[str]) -> list[str]:
             selected.update(GROUP_ACTION_TESTS)
             selected.update(CIVIL_WORLD_TESTS)
             selected.update(COHORT_TESTS)
+            selected.update(PLAYER_STORY_TESTS)
+            selected.update(GREAT_BOW_GUARD_TESTS)
         if path in {"runtime/sword_runtime/command_contracts.py", "game/data/mechanics/command-catalog.json", "game/data/mechanics/command-hostile-contracts.json"}:
             selected.update(COMMAND_TESTS)
             selected.update(V6_STRATEGIC_TESTS)
@@ -139,6 +143,12 @@ def select(paths: list[str]) -> list[str]:
             selected.add("tests/runtime/test_world_arcs.py")
         if path.startswith("runtime/sword_runtime/player_group_actions.py"):
             selected.update(GROUP_ACTION_TESTS)
+        if path.startswith("runtime/sword_runtime/player_story_flow.py") or path.startswith("runtime/sword_runtime/vitality.py"):
+            selected.update(PLAYER_STORY_TESTS)
+            selected.update(LIVING_WORLD_TESTS)
+        if path.startswith("runtime/sword_runtime/great_bow_guard_flow.py") or path.startswith("game/data/mechanics/house-tang-programs.json"):
+            selected.update(GREAT_BOW_GUARD_TESTS)
+            selected.update(COHORT_TESTS)
         if (
             path.startswith("runtime/sword_runtime/cohort_personnel.py")
             or path.startswith("runtime/sword_runtime/cohort_tx_support.py")
@@ -171,9 +181,6 @@ def main(argv: list[str]) -> int:
         raise SystemExit("usage: python tools/test_changed.py <changed paths...>")
     tests = select(argv)
     print("test_changed: " + " ".join(tests))
-    # Run each selected module in its own pytest process. This preserves the same
-    # focused selection while preventing one cumulative plugin teardown or long
-    # module from obscuring which regression actually failed or stalled.
     for test_path in tests:
         print(f"test_changed: running {test_path}", flush=True)
         subprocess.run(
