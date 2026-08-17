@@ -1,8 +1,9 @@
 """Player-facing MCP contract guidance that depends on composed runtime behavior.
 
-Static command guidance covers ordinary payload ranges.  This module adds the
+Static command guidance covers ordinary payload ranges. This module adds the
 cross-command sequencing rules that are easy to lose when a natural-language
-wait also carries an explicit standing activity.
+wait carries standing activity or a military travel order carries exact command
+staff with the selected formations.
 """
 from __future__ import annotations
 
@@ -47,15 +48,36 @@ _ADVANCE_TIME_ACTIVITY_POLICY: Mapping[str, Any] = {
     ),
 }
 
+_TRAVEL_ESCORT_RULE = (
+    "optional exact controlled escort formations; all formations must be mobilized and co-located with the player. "
+    "Selecting a formation for travel implicitly includes its saved exact commander and deputy plus its aggregate officer structure. "
+    "An assigned exact commander/deputy who is detached at another routable location physically musters to the formation before departure; "
+    "those muster routes run in parallel and consume the slowest route time once, never teleporting staff. "
+    "The column then advances time once and draws only minimum route grain/fodder from a co-located lawful material depot when carried supply is short."
+)
+
 
 def enrich_command_contract(command_type: str, contract: Mapping[str, Any]) -> dict[str, Any]:
     """Return a copy of one public contract with cross-command guidance attached."""
     result = dict(contract)
-    if command_type != "advance_time":
-        return result
     guidance = dict(result.get("input_guidance", {})) if isinstance(result.get("input_guidance"), Mapping) else {}
-    guidance["activity_policy"] = dict(_ADVANCE_TIME_ACTIVITY_POLICY)
-    result["input_guidance"] = guidance
+
+    if command_type == "advance_time":
+        guidance["activity_policy"] = dict(_ADVANCE_TIME_ACTIVITY_POLICY)
+        result["input_guidance"] = guidance
+        return result
+
+    if command_type == "travel":
+        formation_guidance = (
+            dict(guidance.get("formation_refs", {}))
+            if isinstance(guidance.get("formation_refs"), Mapping)
+            else {}
+        )
+        formation_guidance["rule"] = _TRAVEL_ESCORT_RULE
+        guidance["formation_refs"] = formation_guidance
+        result["input_guidance"] = guidance
+        return result
+
     return result
 
 
