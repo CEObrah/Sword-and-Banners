@@ -11,6 +11,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.world_arc_report_handoff import source_has_player_safe_world_arc_report
+from sword_runtime.world_arcs import _visibility as _world_arc_visibility
 
 
 def _mapping(value: Any) -> Mapping[str, Any]:
@@ -33,8 +34,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
         status = str(facts.get("status", "")).lower()
         if status.startswith("active"):
             active_arcs += 1
-            visibility = str(facts.get("visibility_to_tang_wei", row.get("visibility_to_tang_wei", "hidden"))).lower()
-            route = facts.get("information_path", row.get("information_path"))
+            visibility, route = _world_arc_visibility(row)
             if visibility in {"discoverable", "direct"} and isinstance(route, str) and route:
                 active_visible_arcs += 1
 
