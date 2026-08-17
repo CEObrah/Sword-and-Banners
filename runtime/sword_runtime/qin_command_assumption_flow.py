@@ -151,8 +151,6 @@ def _write_receiving_event(planner: Any, host: Mapping[str, Any], at: str) -> st
         "process_kind": "qin_field_command_assumption",
         "process_stage": "receiver_ready",
         "source_event_ref": str(appointment.get("source_event_ref", "")),
-        "appointment_office": str(appointment.get("office", "")),
-        "request_id": str(host.get("request_id", "")),
         "summary": summary,
         "delivery": _player_delivery(planner, "Qin Military Bureau receiving authority at the saved report site"),
     }, at, source_owner_ref=_INSTITUTION_REF)
