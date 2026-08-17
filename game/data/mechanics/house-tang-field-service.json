@@ -2,9 +2,10 @@
   "schema": "house-tang-field-service.v1",
   "authority": "Static House Tang departure-issue policy. Mutable food, fodder and ammunition remain owned by the House garrison depot; mutable equipment remains owned by the House armory inventory until exact formation issue.",
   "field_service_preparation": {
-    "reserve_days": 7,
-    "arrow_loads_total": 2,
-    "spare_equipment_basis_points": 500,
+    "reserve_days": 120,
+    "arrow_loads_total": 30,
+    "spare_equipment_basis_points": 5000,
+    "logistics_mode": "campaign_wagon_train",
     "spare_loadout_fields": [
       "body_armor",
       "helmet",
@@ -16,6 +17,6 @@
       "horse_armor"
     ],
     "replacement_mounts_included": false,
-    "rule": "When Tang Wei has explicitly ordered campaign preparation for all of his House-controlled field formations and those formations are physically at the Tang Manor garrison depot, House quartermasters issue a seven-day carried reserve of food and mount fodder, raise formation arrow custody to two standard 36-arrow loads per fighter whose registered loadout uses that quiver, and stage spare registered loadout equipment equal to five percent of formation personnel from exact on-hand armory reserve. Missing stock becomes an explicit shortfall for normal production or later lawful procurement; it is never created on demand. Replacement mounts require a separate explicit order."
+    "rule": "When Tang Wei has explicitly ordered campaign preparation for all of his House-controlled field formations and those formations are physically at the Tang Manor garrison depot, House quartermasters form a campaign wagon train carrying a one-hundred-twenty-day food and mount-fodder reserve, raise formation arrow custody to thirty standard 36-arrow loads per fighter whose registered loadout uses that quiver, and stage spare registered loadout equipment equal to fifty percent of formation personnel from exact on-hand armory reserve. This is campaign-train logistics rather than a personal carried load. Missing stock becomes an explicit shortfall for normal production or later lawful procurement; it is never created on demand. Replacement mounts require a separate explicit order."
   }
 }
