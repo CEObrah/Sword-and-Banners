@@ -304,13 +304,15 @@ class GitRemoteDurability:
         This method runs under the coordinator's campaign single-writer lock.
         It never adopts campaign state, executable runtime, game/rule data,
         dependencies, deployment files, or unknown paths. Those continue to
-        require normal deployment or deliberate reconciliation.
+        require normal deployment or deliberate reconciliation. A strict
+        descendant with no net tree change is also safe because it changes only
+        commit history, not campaign or executable bytes.
         """
 
         if not self._is_ancestor(local_head, remote_head):
             return False
         changed_paths = self._changed_paths(local_head, remote_head)
-        if not changed_paths or not all(_runtime_neutral_path(p) for p in changed_paths):
+        if changed_paths and not all(_runtime_neutral_path(p) for p in changed_paths):
             return False
         try:
             self.git.assert_pristine()
