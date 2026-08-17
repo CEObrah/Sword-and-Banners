@@ -284,7 +284,8 @@ def issue_house_field_preparation_package(
     event = owner.get("causal_events", {}).get(response_event_ref)
     if isinstance(event, MutableMapping):
         event["process_stage"] = status
-        event["material_issue"] = copy.deepcopy(report)
+        # Exact material truth remains on the House preparation program and the
+        # depot/formation owners. The causal event carries presentation only.
         event["summary"] = _format_issue_summary(report)
         write_causal_event_owner(planner, owner)
 
