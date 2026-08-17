@@ -26,6 +26,7 @@ from sword_runtime.house_tang_economy import HouseTangEconomyMixin
 from sword_runtime.house_tang_production import HouseTangEquipmentProductionMixin
 from sword_runtime.household_request_flow import HouseholdRequestFlowMixin
 from sword_runtime.location_aware_formation_muster import LocationAwareFormationMusterMixin
+from sword_runtime.qin_command_assumption_flow import QinCommandAssumptionFlowMixin
 from sword_runtime.qin_command_briefing_flow import QinCommandBriefingFlowMixin
 from sword_runtime.qin_command_progression import QinCommandProgressionMixin
 from sword_runtime.player_story_flow import PlayerStoryFlowMixin
@@ -66,6 +67,7 @@ class ProductionCampaignPlanner(
     LocationAwareFormationMusterMixin,
     HouseholdRequestFlowMixin,
     ContactRequestFlowMixin,
+    QinCommandAssumptionFlowMixin,
     QinCommandProgressionMixin,
     QinCommandBriefingFlowMixin,
     PlayerStoryFlowMixin,
