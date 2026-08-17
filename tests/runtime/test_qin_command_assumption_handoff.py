@@ -12,12 +12,21 @@ from sword_runtime.qin_command_assumption_flow import (
     sync_qin_command_assumption_flow,
 )
 from sword_runtime.production_planner import ProductionCampaignPlanner
+from sword_runtime.vitality import summarize_playability_vitality
 
 PARENT_REF = "formation_qin_border_line"
 OPERATION_REF = "operation_arc_131572c4e8a2892bbc"
 CHILD_REF = "formation_test_qin_assumption_detachment"
 OFFICE = f"field_command:{CHILD_REF}"
 SOURCE_REF = "event_test_qin_assumption_offer"
+
+
+class _PlannerStore:
+    def __init__(self, planner):
+        self.planner = planner
+
+    def read_json(self, path):
+        return self.planner.read(path)
 
 
 def _planner(campaign):
@@ -34,11 +43,7 @@ def _seed_awaiting(planner, *, at_location=True):
     player = copy.deepcopy(planner.read("state/player.json"))
     player["location"] = report_to if at_location else "loc_tang_manor_training_ground"
     career = player.setdefault("career_state", {})
-    career["appointments"] = [
-        row for row in career.get("appointments", [])
-        if not (isinstance(row, dict) and row.get("office") == OFFICE)
-    ]
-    career["appointments"].append({
+    career["appointments"] = [{
         "kind": "qin_field_command",
         "offer_kind": "qin_probationary_detachment_command",
         "office": OFFICE,
@@ -53,7 +58,7 @@ def _seed_awaiting(planner, *, at_location=True):
         "report_to_location_ref": report_to,
         "prior_authority": "House Tang heir",
         "status": "awaiting_assumption",
-    })
+    }]
     planner.put("state/player.json", player)
 
     op_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
@@ -197,3 +202,26 @@ def test_duplicate_report_attempts_collapse_to_one_appointment_receiving_host(ca
     runtime = copy.deepcopy(planner.read("state/runtime.json"))
     sync_qin_command_assumption_flow(planner, runtime)
     assert len(_receiving_hosts(runtime)) == 1
+
+
+def test_vitality_flags_awaiting_command_at_report_site_until_receiving_path_exists(campaign):
+    planner = _planner(campaign)
+    report_to = _seed_awaiting(planner)
+    runtime = copy.deepcopy(planner.read("state/runtime.json"))
+    runtime["hosts"] = {
+        key: value for key, value in runtime.get("hosts", {}).items()
+        if value.get("kind") not in {"qin_command_receiving", "qin_command_assumption"}
+    }
+    planner.put("state/runtime.json", runtime)
+
+    before = summarize_playability_vitality(_PlannerStore(planner))
+    assert before["blocked_awaiting_qin_command_assumptions"] == 1
+    assert "awaiting_qin_command_at_report_site_without_receiving_path" in before["diagnostics"]
+
+    _record_attempt(planner, target_ref=report_to)
+    routed = copy.deepcopy(planner.read("state/runtime.json"))
+    sync_qin_command_assumption_flow(planner, routed)
+    planner.put("state/runtime.json", routed)
+    after = summarize_playability_vitality(_PlannerStore(planner))
+    assert after["blocked_awaiting_qin_command_assumptions"] == 0
+    assert "awaiting_qin_command_at_report_site_without_receiving_path" not in after["diagnostics"]
