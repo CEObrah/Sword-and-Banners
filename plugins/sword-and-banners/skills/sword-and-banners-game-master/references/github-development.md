@@ -10,6 +10,12 @@ Prefer an uploaded or local repository workspace when one is available for broad
 
 Never read GitHub to answer current campaign-state questions. Use the live Sword Runtime for those.
 
+### Live-state hard guard
+
+Never edit `state/` on the live/default branch merely to change prose, labels, aliases, formatting, UI wording, or another presentation-only concern. Presentation belongs in the Skill or another non-authoritative presentation owner. A real campaign-truth correction requires an explicit repair/migration with provenance and validation; an ordinary gameplay change must use the live semantic-command transaction path.
+
+Before any direct GitHub write touching `state/`, state the exact campaign-truth defect being repaired and verify that a presentation, source, rules, or runtime owner cannot solve it instead. If that defect cannot be established, do not write `state/`.
+
 ## Classify connector failures before retrying
 
 A failed connector call changed nothing unless its result explicitly proves a write committed.
