@@ -1,1 +1,111 @@
-{"name":"Institutional Equipment and Issue Inventories","owner_id":"equipment_inventories","owner_type":"inventory_registry","records":[{"label":"Overview","record_id":"overview"},{"facts":{"Tang Armor issued":4859,"Tang Armor total":5159,"Tang Armor unissued reserve":300,"Tang Helmet issued":4859,"Tang Helmet total":5159,"Tang Helmet unissued reserve":300,"Tang Horse Armor issued":509,"Tang Horse Armor reserve":100,"Tang Horse Armor total":609,"Tang Shield issued":4859,"Tang Shield total":5159,"Tang Shield unissued reserve":300,"Tang Tack issued":509,"Tang Tack reserve":100,"Tang Tack total":609,"issued Tang body-set calculation":"250 anonymous House Guardian Cavalry + Zhao Fen + 700 anonymous House Guards + Qiu Ren + 3800 permanent anonymous Sword Manor personnel + Wei Jian + 100 Tang Champions + Duan Jin + Shen Rui + Tang Wei + Tang Zhu + Tang Ling + Tang Kai = 4859"},"label":"Tang restricted equipment","record_id":"tang_restricted_equipment"},{"facts":{"Heavy Lamellar issued":5000,"Heavy Lamellar reserve":500,"Heavy Lamellar total":5500,"Lamellar Helmet issued":5000,"Lamellar Helmet reserve":500,"Lamellar Helmet total":5500,"Medium Shield issued":5000,"Medium Shield reserve":500,"Medium Shield total":5500},"label":"Sword Manor trainee equipment","notes":["trainee equipment remains Sword Manor property and is returned on departure, rejection, or promotion into a different loadout"],"record_id":"sword_manor_trainee_equipment"},{"facts":{"Tang Heavy Warhorse assigned":409,"Tang Heavy Warhorse reserve":100,"Tang Heavy Warhorse total":509,"Tang Swift Warhorse assigned":100,"Tang Swift Warhorse reserve":50,"Tang Swift Warhorse total":150,"assigned mount calculation":"250 anonymous House Guardian Cavalry + Zhao Fen + 100 Tang Champions + 50 anonymous Sword Manor officers + Wei Jian + Duan Jin + Shen Rui + Tang Wei + Tang Zhu + Tang Ling + Qiu Ren + Tang Kai = 409 Tang Heavy Warhorses; 50 scouts/couriers + 50 medical/support = 100 Tang Swift Warhorses","breeding_stock_export_allowed":false,"external_sale_or_lease_allowed":false,"external_stud_service_allowed":false},"label":"Mounts","record_id":"mounts"},{"facts":{"Cavalry Lance issued":409,"Long One-Handed Sword issued":9858},"label":"Other issued weapons","record_id":"other_issued_weapons"},{"facts":{"Bow conservation":"1259 active Great War + 3600 active Heavy War + 5000 active Composite = 9859 active named, adult, and trainee bow loadouts.","Composite Bow active issued":5000,"Composite Bow armory reserve":500,"Composite Bow calculation":"5000 Sword Manor trainees.","Composite Bow total":5500,"Great War Bow active issued":1259,"Great War Bow armory reserve":300,"Great War Bow calculation":"250 anonymous House Guardian Cavalry + Zhao Fen + 700 anonymous House Guards + Qiu Ren + 100 Tang Champions + 50 anonymous Sword Manor officers + Wei Jian + 150 senior disciples + Duan Jin + Shen Rui + Tang Wei + Tang Zhu + Tang Ling + Tang Kai = 1259.","Great War Bow separately assigned in storage to Tang Kai":0,"Great War Bow total":1559,"Heavy War Bow active issued":3600,"Heavy War Bow armory reserve":898,"Heavy War Bow calculation":"1500 general disciples + 2000 junior disciples + 50 scouts/couriers + 50 medical/support = 3600.","Heavy War Bow total":4498,"active named, adult, and trainee bow loadouts":9859,"separate child storage-only bow loadouts":0},"label":"Bows","record_id":"bows"},{"facts":{"Arrow Quivers issued or assigned":9859,"War Arrows carried or assigned":354924,"War Arrows strategic reserve":3549240,"War Arrows total":3904164,"calculation":"9859 active named, adult, and trainee bow loadouts x 36","quiver_capacity_each":36},"label":"Ammunition","notes":["Every active or stored assigned bow has exactly one 36-arrow quiver. Reserve arrows are physically separate and do not count as carried ammunition."],"record_id":"ammunition"},{"facts":{"exact_owner":"owner:tang_manor_siege_inventory","runtime_state_owner":"owner:tang_manor_artillery"},"label":"Defensive siege inventory","record_id":"defensive_siege_inventory"}],"runtime":{"last_settled_at":"245-BCE-12-02T06:00:00+08:00"},"schema":"inventory-registry"}
+{
+  "name": "Institutional Equipment and Issue Inventories",
+  "owner_id": "equipment_inventories",
+  "owner_type": "inventory_registry",
+  "records": [
+    {
+      "label": "Overview",
+      "record_id": "overview",
+      "notes": [
+        "OOC DEV armory rebaseline effective 244-BCE-07-23T10:22:48+08:00. Standing House Tang and Sword Manor fighting establishments are the aggregate issue baseline; exact named personal manifests remain separately owned.",
+        "Obsolete Sword Manor trainee heavy-lamellar, lamellar-helmet and medium-shield inventory was removed by explicit player-directed campaign rebaseline rather than treated as an in-world production or destruction event."
+      ]
+    },
+    {
+      "facts": {
+        "Tang Armor issued": 60000,
+        "Tang Armor total": 515900,
+        "Tang Armor unissued reserve": 455900,
+        "Tang Helmet issued": 60000,
+        "Tang Helmet total": 515900,
+        "Tang Helmet unissued reserve": 455900,
+        "Tang Horse Armor issued": 12000,
+        "Tang Horse Armor reserve": 48900,
+        "Tang Horse Armor total": 60900,
+        "Tang Shield issued": 60000,
+        "Tang Shield total": 515900,
+        "Tang Shield unissued reserve": 455900,
+        "Tang Tack issued": 12000,
+        "Tang Tack reserve": 48900,
+        "Tang Tack total": 60900,
+        "Long Spear issued": 48000,
+        "Long Spear unissued reserve": 4752000,
+        "Long Spear total": 4800000,
+        "Cavalry Lance issued": 12000,
+        "Cavalry Lance unissued reserve": 1188000,
+        "Cavalry Lance total": 1200000,
+        "One-Handed Long Sword issued": 60000,
+        "One-Handed Long Sword unissued reserve": 5940000,
+        "One-Handed Long Sword total": 6000000,
+        "issued aggregate calculation": "House Tang fighting establishment 30,000 + Sword Manor fighting establishment 30,000. House Guard and all four Sword Manor ranks use long spear; Guardian Cavalry and Tang Champions use cavalry lance. Exact named personal manifests are separate custody owners and are not duplicated here."
+      },
+      "label": "Tang restricted equipment",
+      "record_id": "tang_restricted_equipment"
+    },
+    {
+      "facts": {
+        "Tang Heavy Warhorse assigned": 409,
+        "Tang Heavy Warhorse reserve": 100,
+        "Tang Heavy Warhorse total": 509,
+        "Tang Swift Warhorse assigned": 100,
+        "Tang Swift Warhorse reserve": 50,
+        "Tang Swift Warhorse total": 150,
+        "assigned mount calculation": "Mount stock remains under its exact mount authorities and is not multiplied by this armory-only OOC rebalance.",
+        "breeding_stock_export_allowed": false,
+        "external_sale_or_lease_allowed": false,
+        "external_stud_service_allowed": false
+      },
+      "label": "Mounts",
+      "record_id": "mounts"
+    },
+    {
+      "facts": {
+        "Bow conservation": "20,000 Composite Bow trainee loadouts + 5,000 Heavy War Bow junior-disciple loadouts + 35,000 Great War Bow House Tang/general/senior loadouts = 60,000 aggregate standing fighting loadouts; exact named personal manifests remain separate.",
+        "Composite Bow active issued": 20000,
+        "Composite Bow armory reserve": 530000,
+        "Composite Bow calculation": "20,000 Sword Manor Initiates/trainees retain Composite Bows under the Tang-standard protective-kit rebaseline.",
+        "Composite Bow total": 550000,
+        "Great War Bow active issued": 35000,
+        "Great War Bow armory reserve": 120900,
+        "Great War Bow calculation": "30,000 House Tang fighting establishment + 3,500 General Disciples + 1,500 Senior Disciples.",
+        "Great War Bow separately assigned in storage to Tang Kai": 0,
+        "Great War Bow total": 155900,
+        "Heavy War Bow active issued": 5000,
+        "Heavy War Bow armory reserve": 444800,
+        "Heavy War Bow calculation": "5,000 Sword Manor Junior Disciples.",
+        "Heavy War Bow total": 449800,
+        "active aggregate standing bow loadouts": 60000,
+        "separate exact-person bow manifests": "owned by exact person/equipment custody records"
+      },
+      "label": "Bows",
+      "record_id": "bows"
+    },
+    {
+      "facts": {
+        "Arrow Quivers issued or assigned": 60000,
+        "War Arrows carried or assigned": 2160000,
+        "War Arrows strategic reserve": 2500000000,
+        "War Arrows total": 2502160000,
+        "calculation": "60,000 aggregate standing bow loadouts x 36 carried arrows; strategic reserve mirrors the House Tang garrison-depot war-arrow stock and is not an additional second pile.",
+        "quiver_capacity_each": 36
+      },
+      "label": "Ammunition",
+      "notes": [
+        "Every aggregate standing bow loadout has one 36-arrow quiver. Reserve arrows are physically separate in the garrison depot and do not count as carried ammunition."
+      ],
+      "record_id": "ammunition"
+    },
+    {
+      "facts": {
+        "exact_owner": "owner:tang_manor_siege_inventory",
+        "runtime_state_owner": "owner:tang_manor_artillery"
+      },
+      "label": "Defensive siege inventory",
+      "record_id": "defensive_siege_inventory"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "inventory-registry"
+}
