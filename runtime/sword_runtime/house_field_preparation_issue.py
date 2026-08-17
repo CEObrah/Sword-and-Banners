@@ -18,7 +18,7 @@ from sword_runtime.formation_armory_issue import (
     issue_house_armory_to_formation,
 )
 
-_RULES_PATH = "game/data/mechanics/house-tang-production.json"
+_RULES_PATH = "game/data/mechanics/house-tang-field-service.json"
 _DEPOT_PATH = "state/depots/house-tang.json"
 _HOUSE_PATH = "state/houses/house_tang.json"
 _LOADOUT_INDEX_PATH = "game/data/loadouts.json"
