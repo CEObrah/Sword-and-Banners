@@ -35,11 +35,47 @@ def _is_explicit_field_preparation_attempt(attempt: Mapping[str, Any]) -> bool:
     has_kai = "kai" in statement
     has_guard = "house guard" in statement or "guard contingent" in statement
     has_champions = "champion" in statement
+    has_all_personal_forces = any(
+        phrase in statement
+        for phrase in (
+            "all my troops",
+            "all of my troops",
+            "my troops",
+            "all my forces",
+            "all of my forces",
+            "personal force",
+            "personal forces",
+        )
+    )
+    has_formation_scope = (has_guard and has_champions) or has_all_personal_forces
     has_food = "food" in statement
     has_fodder = "fodder" in statement
-    has_equipment = any(term in statement for term in ("equipment", "armor", "armour", "weapons", "bows", "shields"))
-    has_preparation = any(term in statement for term in ("prepare", "preparation", "campaign", "battlefield", "field service", "departure"))
-    return all((has_kai, has_guard, has_champions, has_food, has_fodder, has_equipment, has_preparation))
+    has_equipment = any(
+        term in statement
+        for term in (
+            "equipment",
+            "armor",
+            "armour",
+            "weapons",
+            "bows",
+            "shields",
+            "tack",
+            "arrows",
+        )
+    )
+    has_preparation = any(
+        term in statement
+        for term in (
+            "prepare",
+            "preparation",
+            "campaign",
+            "battlefield",
+            "field service",
+            "departure",
+            "going to war",
+        )
+    )
+    return all((has_kai, has_formation_scope, has_food, has_fodder, has_equipment, has_preparation))
 
 
 def sync_explicit_house_field_preparation(planner: Any, runtime: dict[str, Any]) -> None:

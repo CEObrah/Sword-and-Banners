@@ -121,3 +121,7 @@ def test_escorted_travel_physically_musters_detached_commander_and_deputy(campai
         person = runtime.store.read_json(person_path)
         assert person["current_location"] == destination
         assert person["current_formation_id"] == "formation_tang_champions_first"
+
+    meta_after = runtime.store.read_json("state/meta.json")
+    runtime_after = runtime.store.read_json("state/runtime.json")
+    assert meta_after["time"] == runtime_after["world_time"] == result["world_time"]

@@ -9,12 +9,17 @@ from sword_runtime.civil_world import CivilWorldMixin
 from sword_runtime.campaign_depth import CampaignDepthMixin
 from sword_runtime.command_staff_movement import CommandStaffMovementMixin
 from sword_runtime.contact_request_flow import ContactRequestFlowMixin
+from sword_runtime.departure_preparation import (
+    CommandStaffMusterChronologyMixin,
+    HouseFieldDeparturePreflightMixin,
+)
 from sword_runtime.downtime import DowntimeAdvanceMixin
 from sword_runtime.environment import EnvironmentMechanicsMixin
 from sword_runtime.equipment_planner import EquipmentStateProjectionMixin
 from sword_runtime.family_counsel import FamilyCounselMixin
 from sword_runtime.force_cohort_living_world import ForceCohortLivingWorldMixin
 from sword_runtime.house_field_preparation_gate import ExplicitHouseFieldPreparationFlowMixin
+from sword_runtime.house_field_preparation_issue import HouseFieldPreparationIssueMixin
 from sword_runtime.house_field_preparation_production import HouseFieldPreparationProductionProjectionMixin
 from sword_runtime.house_tang_development_integrity import HouseTangDevelopmentIntegrityMixin
 from sword_runtime.house_tang_economy import HouseTangEconomyMixin
@@ -47,6 +52,8 @@ class ProductionCampaignPlanner(
     WarfareDepthMixin,
     CampaignDepthMixin,
     EnvironmentMechanicsMixin,
+    HouseFieldDeparturePreflightMixin,
+    CommandStaffMusterChronologyMixin,
     CommandStaffMovementMixin,
     StandingTrainingSettlementMixin,
     DowntimeAdvanceMixin,
@@ -54,6 +61,7 @@ class ProductionCampaignPlanner(
     CivilWorldMixin,
     FamilyCounselMixin,
     HouseFieldPreparationProductionProjectionMixin,
+    HouseFieldPreparationIssueMixin,
     ExplicitHouseFieldPreparationFlowMixin,
     LocationAwareFormationMusterMixin,
     HouseholdRequestFlowMixin,
