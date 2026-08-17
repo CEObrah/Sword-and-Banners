@@ -109,7 +109,8 @@ def _schedule_one_shot(
     if not isinstance(hosts, dict) or not isinstance(events, list):
         raise ValueError("runtime causal queue is invalid")
     existing_host = hosts.get(host_id)
-    if not isinstance(existing_host, dict) or existing_host.get("next_due") is None:
+    rescheduled = not isinstance(existing_host, dict) or existing_host.get("next_due") is None
+    if rescheduled:
         row.update({
             "host_id": host_id,
             "kind": kind,
@@ -119,7 +120,20 @@ def _schedule_one_shot(
             "safe_through": str(due.add_seconds(-1)),
         })
         hosts[host_id] = row
-    if not any(isinstance(event, Mapping) and event.get("event_id") == event_id and event.get("due_at") == str(due) for event in events):
+    existing_event = next(
+        (event for event in events if isinstance(event, dict) and event.get("event_id") == event_id),
+        None,
+    )
+    if isinstance(existing_event, dict):
+        if rescheduled:
+            existing_event.update({
+                "kind": kind,
+                "priority": priority,
+                "target_host": host_id,
+                "due_at": str(due),
+            })
+            existing_event.pop("suspended", None)
+    else:
         events.append({
             "event_id": event_id,
             "kind": kind,
