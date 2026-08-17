@@ -1,0 +1,58 @@
+{
+  "schema": "generic-object.v1",
+  "owner_id": "migration_tang_armory_campaign_rebaseline_20260817",
+  "kind": "current_campaign_repair_provenance",
+  "authority": false,
+  "effective_at": "244-BCE-07-23T10:22:48+08:00",
+  "campaign_time_advanced": false,
+  "baseline_revision_reset": false,
+  "requested_by": "player_explicit_ooc_dev",
+  "scope": [
+    "House Tang and Sword Manor armory strategic-stock rebaseline",
+    "Sword Manor Initiate/trainee protective-loadout standardization",
+    "retirement of obsolete trainee heavy-lamellar, lamellar-helmet and medium-shield House inventory/production",
+    "House Tang garrison war-arrow reserve expansion",
+    "campaign-scale Tang Wei field-service departure policy"
+  ],
+  "population_basis": {
+    "house_tang_fighting_establishment": 30000,
+    "sword_manor_fighting_establishment": 30000,
+    "sword_manor_rank_authorizations": {
+      "trainee": 20000,
+      "junior_disciple": 5000,
+      "general_disciple": 3500,
+      "senior_disciple": 1500
+    },
+    "rule": "No bodies are created or removed by this equipment/logistics rebaseline."
+  },
+  "trainee_loadout_after": {
+    "body_armor": "armor_tang",
+    "helmet": "helmet_tang",
+    "ranged_weapon": "weapon_bow_composite",
+    "primary_melee_weapon": "weapon_spear_long",
+    "shield": "shield_tang",
+    "sidearm": "weapon_sword_one_hand_long"
+  },
+  "retired_house_inventory": [
+    "armor_lamellar_heavy trainee stock",
+    "helmet_lamellar trainee stock",
+    "shield_medium trainee stock"
+  ],
+  "retired_inventory_rule": "These obsolete trainee equipment lines are removed from House Tang/Sword Manor current campaign truth by explicit OOC rebaseline, not sold, salvaged, destroyed, or converted through an in-world transaction. Generic item definitions remain available to other world actors.",
+  "armory_rebaseline_rule": "Issued equipment is not multiplied into extra soldiers. Aggregate issued counts are aligned to the current 60,000-man House Tang plus Sword Manor fighting establishments; strategic unissued reserves are massively expanded, and missing prior reserve ledgers for long spear, cavalry lance and one-handed long sword are established explicitly.",
+  "garrison_arrow_rebaseline": {
+    "before": 25000000,
+    "after": 2500000000,
+    "multiplier": 100
+  },
+  "departure_policy_after": {
+    "reserve_days": 120,
+    "arrow_loads_total": 30,
+    "spare_equipment_basis_points": 5000,
+    "logistics_mode": "campaign_wagon_train"
+  },
+  "treasury_effect": "none; explicit OOC campaign rebaseline rather than in-world procurement",
+  "manpower_effect": "none",
+  "territory_effect": "none",
+  "chronology_effect": "none"
+}
