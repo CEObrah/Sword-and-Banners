@@ -10,12 +10,18 @@ from sword_runtime.api.interaction_surface import parse_interaction_attempt_summ
 from sword_runtime.causal_event_store import get_causal_event, get_causal_event_from_reader
 from sword_runtime.history_store import recent_history_events
 from sword_runtime.player_story_flow import (
+    _ACTIVE_OPERATION_STATES,
+    _BASE_PLAYER_AUTHORITY,
+    _OPERATIONS_INDEX,
+    _QIN_PATH,
+    _appointment_row_mutable,
+    _assumption_event_ref,
     _career_offer,
+    _event_owner_write,
     _family_invitation_event,
     _house_digest_event,
     _pending_offer_refs,
     _player_delivery,
-    _assume_pending_qin_command,
 )
 from sword_runtime.qin_command_progression import (
     assume_probationary_command,
@@ -102,7 +108,8 @@ def _schedule_one_shot(
     hosts, events = runtime.get("hosts"), runtime.get("events")
     if not isinstance(hosts, dict) or not isinstance(events, list):
         raise ValueError("runtime causal queue is invalid")
-    if host_id not in hosts:
+    existing_host = hosts.get(host_id)
+    if not isinstance(existing_host, dict) or existing_host.get("next_due") is None:
         row.update({
             "host_id": host_id,
             "kind": kind,
@@ -112,7 +119,7 @@ def _schedule_one_shot(
             "safe_through": str(due.add_seconds(-1)),
         })
         hosts[host_id] = row
-    if not any(isinstance(event, Mapping) and event.get("event_id") == event_id for event in events):
+    if not any(isinstance(event, Mapping) and event.get("event_id") == event_id and event.get("due_at") == str(due) for event in events):
         events.append({
             "event_id": event_id,
             "kind": kind,
@@ -134,7 +141,6 @@ def _write_receiving_event(planner: Any, host: Mapping[str, Any], at: str) -> st
     _host_id, _event_id, response_ref = _receiving_ids(appointment)
     if isinstance(get_causal_event_from_reader(planner, response_ref), Mapping):
         return response_ref
-    from sword_runtime.player_story_flow import _event_owner_write
     summary = (
         "At the saved Qin reporting site, the Qin Military Bureau receiving authority accepts Tang Wei's already-declared report for his pending field command. "
         "A lawful receiver and assumption process are now established. This handoff does not itself transfer command authority, troop custody, ownership, deployment authority, or manpower."
@@ -153,6 +159,130 @@ def _write_receiving_event(planner: Any, host: Mapping[str, Any], at: str) -> st
         "source_event_ref": str(appointment.get("source_event_ref", "")),
         "summary": summary,
         "delivery": _player_delivery(planner, "Qin Military Bureau receiving authority at the saved report site"),
+    }, at, source_owner_ref=_INSTITUTION_REF)
+
+
+def _assume_direct_qin_command(planner: Any, appointment: Mapping[str, Any], at: str) -> str | None:
+    """Settle one exact Qin unit command at its saved institutional report site."""
+    player = copy.deepcopy(planner.read(_PLAYER_PATH))
+    formation_ref = str(appointment.get("formation_ref", ""))
+    operation_ref = str(appointment.get("operation_ref", ""))
+    offer_ref = str(appointment.get("source_event_ref", ""))
+    office = str(appointment.get("office", f"field_command:{formation_ref}"))
+    report_to = str(appointment.get("report_to_location_ref", ""))
+    if not formation_ref or not operation_ref or not offer_ref or not report_to:
+        return None
+    if str(player.get("location", "")) != report_to:
+        return None
+
+    try:
+        formation_path = planner.owner_path(formation_ref)
+        formation = copy.deepcopy(planner.read(formation_path))
+    except (KeyError, ValueError, FileNotFoundError):
+        return None
+    index = planner.read(_OPERATIONS_INDEX)
+    operation_path = index.get("operations", {}).get(operation_ref) if isinstance(index, Mapping) else None
+    operation = planner.read(operation_path) if isinstance(operation_path, str) else None
+    still_open = (
+        isinstance(operation, Mapping)
+        and str(operation.get("status", "")) in _ACTIVE_OPERATION_STATES
+        and formation.get("commander_ref") in {None, ""}
+        and str(formation.get("administrative_owner", "")) == "state_qin"
+        and formation_ref in operation.get("formation_refs", [])
+    )
+    event_ref = _assumption_event_ref(formation_ref, offer_ref)
+    if not still_open:
+        if isinstance(get_causal_event(planner, event_ref), Mapping):
+            return event_ref
+        row = _appointment_row_mutable(player, office)
+        if row is not None:
+            row["status"] = "lapsed_before_assumption"
+            row["lapsed_at"] = at
+            player["authority"] = str(row.get("prior_authority", _BASE_PLAYER_AUTHORITY))
+        qin = copy.deepcopy(planner.read(_QIN_PATH))
+        qin_appointment = qin.setdefault("appointments", {}).get(office)
+        if isinstance(qin_appointment, dict):
+            qin_appointment["status"] = "lapsed_before_assumption"
+            qin_appointment["lapsed_at"] = at
+        planner.put(_PLAYER_PATH, player)
+        planner.put(_QIN_PATH, qin)
+        summary = (
+            "A Qin Military Bureau courier reports that the field-command appointment could not be assumed because the exact vacancy or operation ceased to be available before Tang Wei reported in. "
+            "No formation command authority or troop custody transfers from the lapsed appointment."
+        )
+        return _event_owner_write(planner, event_ref, {
+            "event_ref": event_ref,
+            "kind": "institutional_response",
+            "status": "triggered",
+            "due_at": at,
+            "triggered_at": at,
+            "actor_ref": _INSTITUTION_REF,
+            "target_ref": "char_tang_wei",
+            "process_kind": "qin_field_command_offer",
+            "process_stage": "lapsed_before_assumption",
+            "source_event_ref": offer_ref,
+            "summary": summary,
+            "delivery": _player_delivery(planner, "Qin Military Bureau courier"),
+        }, at, source_owner_ref=_INSTITUTION_REF)
+
+    if isinstance(get_causal_event(planner, event_ref), Mapping):
+        return event_ref
+    personnel_before = int(formation.get("personnel", 0))
+    administrative_owner = str(formation.get("administrative_owner", ""))
+    planner._assign_commander_index("char_tang_wei", formation_ref)
+    formation["commander_ref"] = "char_tang_wei"
+    formation["command_authority"] = "char_tang_wei"
+    formation["command_last_changed_at"] = at
+    formation["command_assignment_source_ref"] = offer_ref
+    if int(formation.get("personnel", 0)) != personnel_before or str(formation.get("administrative_owner", "")) != administrative_owner:
+        raise ValueError("Qin command assumption must conserve formation manpower and administrative ownership")
+    planner.put(formation_path, formation)
+
+    row = _appointment_row_mutable(player, office)
+    if row is not None:
+        row["status"] = "active"
+        row["assumed_at"] = at
+    player["authority"] = (
+        f"House Tang heir; patron and commander of Tang Wei Personal Retinue; Qin field commander of {formation.get('name', formation_ref)}"
+    )
+    planner.put(_PLAYER_PATH, player)
+
+    qin = copy.deepcopy(planner.read(_QIN_PATH))
+    qin_appointment = qin.setdefault("appointments", {}).get(office)
+    if isinstance(qin_appointment, dict):
+        qin_appointment["status"] = "active"
+        qin_appointment["assumed_at"] = at
+    administration = qin.setdefault("military_administration", {})
+    administration["commander_vacancy_count"] = max(0, int(administration.get("commander_vacancy_count", 0)) - 1)
+    administration["last_commander_assignment_at"] = at
+    planner.put(_QIN_PATH, qin)
+
+    staffing_status = str(appointment.get("staffing_request_status", ""))
+    staffing_note = (
+        " The saved staffing requirement remains outstanding and must be satisfied before tactical employment."
+        if staffing_status == "required_before_tactical_employment"
+        else ""
+    )
+    summary = (
+        f"Tang Wei reports through the lawful Qin receiving authority at {report_to} and formally assumes the Qin field command already accepted. "
+        f"Command authority over {formation.get('name', formation_ref)}, an existing {personnel_before}-man Qin formation, is now active under Tang Wei. "
+        "Administrative ownership and existing manpower remain Qin's; the appointment does not itself move the formation, choose a march route, battle plan, sovereign allegiance, or permanent strategy."
+        + staffing_note
+    )
+    return _event_owner_write(planner, event_ref, {
+        "event_ref": event_ref,
+        "kind": "institutional_response",
+        "status": "triggered",
+        "due_at": at,
+        "triggered_at": at,
+        "actor_ref": _INSTITUTION_REF,
+        "target_ref": "char_tang_wei",
+        "basis_goal": "Assume an already-accepted Qin field command at its exact registered report location",
+        "process_kind": "qin_field_command_offer",
+        "process_stage": "command_assumed",
+        "source_event_ref": offer_ref,
+        "summary": summary[:4000],
+        "delivery": _player_delivery(planner, "Qin field-command assumption record"),
     }, at, source_owner_ref=_INSTITUTION_REF)
 
 
@@ -179,7 +309,7 @@ def _settle_assumption(planner: Any, host: Mapping[str, Any], at: str) -> str | 
     formation_refs = appointment.get("formation_refs")
     if isinstance(formation_refs, list) and formation_refs:
         return assume_registered_qin_detachment_command(planner, at)
-    return _assume_pending_qin_command(planner, at)
+    return _assume_direct_qin_command(planner, appointment, at)
 
 
 def _safe_story_review(planner: Any, at: str) -> dict[str, Any] | None:
