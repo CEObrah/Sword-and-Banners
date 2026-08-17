@@ -22,6 +22,10 @@ If the runtime cannot represent a persistent action, explain the limitation OOC 
 
 Normal gameplay must never ask the player to edit campaign JSON. Persistent mutations belong to the runtime's semantic command/transaction systems. OOC DEV repairs also avoid casual direct state edits; confirmed bad campaign truth uses an explicit repair or migration path with provenance.
 
+A player-facing wording preference is not campaign truth. Do not edit a formation, person, House, place, or other mutable owner merely to change how the GM labels it in prose. Keep presentation aliases in the presentation layer unless the player explicitly requests a real in-world rename and the runtime supports that consequential change.
+
+For this campaign, render `formation_tang_wei_house_guard_first` as **House Guard** in player-facing narration and choices. The exact formation ref, owner record, command authority, manpower, and canonical stored name remain untouched unless a separate lawful in-world rename is committed.
+
 ## Read tools
 
 Use `get_play_context` first for every live turn. It is the bounded entry point for current state and capability.
