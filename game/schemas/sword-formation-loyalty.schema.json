@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Formation cohort-scale military loyalty",
+  "type": "object",
+  "required": ["schema", "axes", "commander_bonds", "immediate_officer_bonds", "house_patron_bonds", "shared_service", "doctrine_familiarity", "command_familiarity", "recent_memory", "last_review_at"],
+  "properties": {
+    "schema": {"const": "sword-formation-loyalty.v1"},
+    "axes": {
+      "type": "object",
+      "required": ["state_allegiance", "institutional_professional", "formation_identity", "legitimacy_confidence", "disaffection"],
+      "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}
+    },
+    "commander_bonds": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "immediate_officer_bonds": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "house_patron_bonds": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "shared_service": {"type": "object", "additionalProperties": {"type": "object"}},
+    "doctrine_familiarity": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "command_familiarity": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "recent_memory": {"type": "array", "items": {"type": "object"}},
+    "allegiance_distribution": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "political_state_ref": {"type": "string"},
+    "patron_ref": {"type": "string"},
+    "last_commander_ref": {"type": ["string", "null"]},
+    "last_autonomous_crisis_at": {"type": "string"},
+    "last_review_at": {"type": "string"}
+  },
+  "additionalProperties": true
+}

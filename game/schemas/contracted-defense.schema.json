@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Current canonical schema: contracted defense v38",
+  "type": "object",
+  "required": [
+    "anonymous_total",
+    "combined_total",
+    "contract_start_key",
+    "contracting_household_id",
+    "member_force_ids",
+    "named_marshal_id",
+    "owner_id",
+    "owner_type",
+    "review_period",
+    "runtime",
+    "schema"
+  ],
+  "properties": {
+    "anonymous_total": {
+      "type": "integer"
+    },
+    "combined_total": {
+      "type": "integer"
+    },
+    "contract_start_key": {
+      "type": "integer"
+    },
+    "contracting_household_id": {
+      "type": "string"
+    },
+    "member_force_ids": {
+      "type": "array"
+    },
+    "named_marshal_id": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "review_period": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "object"
+    },
+    "schema": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current contracted-defense authority. Runtime settlement is routed through current causal hosts and exact contract state."
+}

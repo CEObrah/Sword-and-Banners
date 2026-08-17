@@ -1,0 +1,107 @@
+{
+  "schema": "manpower-capability.v1",
+  "id": "capability.merc_ashen_wall:pool_veteran",
+  "pool_id": "merc_ashen_wall:pool_veteran",
+  "source_owner": "merc_ashen_wall",
+  "capabilities": {
+    "attribute_values": [
+      98,
+      82,
+      106,
+      104,
+      88,
+      90,
+      104,
+      72,
+      82
+    ],
+    "skill_values": [
+      96,
+      100,
+      70,
+      82,
+      88,
+      72,
+      72,
+      58,
+      46,
+      104,
+      112,
+      102,
+      92,
+      84,
+      80,
+      42,
+      108,
+      74,
+      46,
+      58,
+      54,
+      34,
+      52,
+      62,
+      58,
+      64,
+      44,
+      62,
+      40,
+      54,
+      36,
+      34,
+      40,
+      36,
+      36
+    ]
+  },
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 170,
+      "sd": 5.8
+    },
+    "weight_kg": {
+      "mean": 64,
+      "sd": 7.3
+    },
+    "individual_records_required": false
+  },
+  "aptitude_distribution": {
+    "mean": 105,
+    "sd": 16,
+    "low_pct": 12,
+    "normal_pct": 62,
+    "high_pct": 22,
+    "exceptional_pct": 4,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "combat_tendencies": {
+    "aggression": 55,
+    "initiative": 50,
+    "caution": 50,
+    "adaptability": 50,
+    "flank_bias": 45,
+    "counterattack_bias": 55,
+    "pursuit_bias": 45,
+    "reserve_bias": 55,
+    "withdrawal_willingness": 45,
+    "casualty_tolerance": 60,
+    "objective_focus": 70,
+    "ally_support": 60,
+    "formation_discipline": 70,
+    "commander_dependence": 60
+  },
+  "experience_distribution": {
+    "field-tested": 5318
+  },
+  "qualification_multiplier_applied_to_stats": false,
+  "authority": false,
+  "source_owner_kind": "exact_current_owner",
+  "current_owner_required": true,
+  "manpower_semantics": "capability only; this document never proves current soldiers exist",
+  "current_pool_count": 5318
+}

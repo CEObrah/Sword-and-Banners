@@ -1,0 +1,53 @@
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[2]
+SKILL = ROOT / 'plugins/sword-and-banners/skills/sword-and-banners-game-master'
+
+
+def test_sword_skill_is_self_contained():
+    texts = '\n'.join(
+        path.read_text(encoding='utf-8', errors='ignore')
+        for path in SKILL.rglob('*.md')
+    ).lower()
+    assert 'shinobi' not in texts
+
+
+def test_skill_runtime_paths_and_default_verification_exist():
+    ooc = (SKILL / 'references/ooc-dev.md').read_text(encoding='utf-8')
+    repo_map = (SKILL / 'references/repository-map.md').read_text(encoding='utf-8')
+    architecture = (SKILL / 'references/runtime-architecture.md').read_text(encoding='utf-8')
+    interface = (SKILL / 'references/player-interface.md').read_text(encoding='utf-8')
+
+    for path in (
+        'runtime/sword_runtime/api/interaction_surface.py',
+        'runtime/sword_runtime/api/mcp_extensions.py',
+        'runtime/sword_runtime/api/stable_operations.py',
+        'state/index/owner-index.json',
+        'state/index/location-formation-index.json',
+        'state/index/commander-formation-index.json',
+        'state/information/index.json',
+        'tools/quick_check.py',
+        'tools/test_changed.py',
+    ):
+        assert (ROOT / path).exists(), path
+        assert path in repo_map or path in ooc
+
+    assert 'python tools/quick_check.py' in ooc
+    assert 'python tools/test_changed.py <changed paths>' in ooc
+    assert 'interaction_action' in architecture and 'interaction_action' in interface
+    assert 'scene_consequence' in architecture and 'scene_consequence' in interface
+
+
+def test_railway_watch_policy_matches_runtime_neutral_boundary():
+    railway = (ROOT / 'railway.toml').read_text(encoding='utf-8')
+    for pattern in (
+        '!/state/**',
+        '!/plugins/**',
+        '!/docs/**',
+        '!/tests/**',
+        '!/tools/**',
+        '!/.github/**',
+        '!/README.md',
+    ):
+        assert f'"{pattern}"' in railway

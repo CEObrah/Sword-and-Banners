@@ -1,0 +1,910 @@
+{
+  "schema": "generic-object.v1",
+  "owner_id": "migration_world_geography_overhaul_v1",
+  "authority": false,
+  "kind": "current_campaign_repair_provenance",
+  "campaign_time_advanced": false,
+  "baseline_revision_reset": false,
+  "scope": [
+    "location taxonomy/containment",
+    "strategic route topology",
+    "local population/economy repartition",
+    "regional force/mount disposition",
+    "private force geography",
+    "mercenary deployment",
+    "fortification integration",
+    "capability-reference classification"
+  ],
+  "conservation": [
+    "national population totals/strata unchanged",
+    "state/private/mercenary force headcounts unchanged",
+    "mount type totals unchanged",
+    "private economy aggregate cash/goods unchanged",
+    "treasury/depot stock not minted by migration"
+  ],
+  "history_policy": "lawful semantic history retained; stable refs preserved wherever possible; current invalid topology/projections migrated without rewriting historical events",
+  "conservation_snapshot_before": {
+    "meta": {
+      "revision": 1,
+      "time": "244-BCE-07-23T01:22:48+08:00",
+      "campaign_id": "sword-banner-tang-wei-main",
+      "seed": null
+    },
+    "national_population": {
+      "qin": 9000000,
+      "zhao": 7200000,
+      "chu": 12000000,
+      "wei": 4800000,
+      "han": 2400000,
+      "yan": 4200000,
+      "qi": 5500000
+    },
+    "national_population_strata": {
+      "qin": {
+        "active_military": 675000,
+        "administration_and_education": 179992,
+        "agricultural": 4497782,
+        "camp_medical_support": 45000,
+        "craft_and_industry": 719967,
+        "dependents_children_elderly": 2100000,
+        "household_and_service": 327621,
+        "merchant_and_transport": 449978,
+        "private_household_military": 4660,
+        "recruitment_candidates_reserved": 0
+      },
+      "zhao": {
+        "active_military": 527500,
+        "administration_and_education": 140000,
+        "agricultural": 3650000,
+        "camp_medical_support": 32500,
+        "craft_and_industry": 520000,
+        "dependents_children_elderly": 1750000,
+        "household_and_service": 249380,
+        "merchant_and_transport": 330000,
+        "private_household_military": 620
+      },
+      "chu": {
+        "active_military": 850000,
+        "administration_and_education": 180000,
+        "agricultural": 6400000,
+        "camp_medical_support": 50000,
+        "craft_and_industry": 900000,
+        "dependents_children_elderly": 2600000,
+        "household_and_service": 419180,
+        "merchant_and_transport": 600000,
+        "private_household_military": 820
+      },
+      "wei": {
+        "active_military": 340000,
+        "administration_and_education": 100000,
+        "agricultural": 2450000,
+        "camp_medical_support": 20000,
+        "craft_and_industry": 400000,
+        "dependents_children_elderly": 1100000,
+        "household_and_service": 139640,
+        "merchant_and_transport": 250000,
+        "private_household_military": 360
+      },
+      "han": {
+        "active_military": 151000,
+        "administration_and_education": 60000,
+        "agricultural": 1220000,
+        "camp_medical_support": 9000,
+        "craft_and_industry": 180000,
+        "dependents_children_elderly": 580000,
+        "household_and_service": 80000,
+        "merchant_and_transport": 120000
+      },
+      "yan": {
+        "active_military": 282500,
+        "administration_and_education": 80000,
+        "agricultural": 2150000,
+        "camp_medical_support": 17500,
+        "craft_and_industry": 300000,
+        "dependents_children_elderly": 1070000,
+        "household_and_service": 120000,
+        "merchant_and_transport": 180000
+      },
+      "qi": {
+        "active_military": 275000,
+        "administration_and_education": 120000,
+        "agricultural": 2650000,
+        "camp_medical_support": 25000,
+        "craft_and_industry": 500000,
+        "dependents_children_elderly": 1400000,
+        "household_and_service": 180000,
+        "merchant_and_transport": 350000
+      }
+    },
+    "state_force_headcount": {
+      "qin": 675000,
+      "zhao": 527500,
+      "chu": 850000,
+      "wei": 340000,
+      "han": 151000,
+      "yan": 282500,
+      "qi": 275000
+    },
+    "house_private_force_headcount": {
+      "house-tang": 30000,
+      "house_go_military_house": 360,
+      "house_kanki_retinue_house": 760,
+      "house_karin_house": 820,
+      "house_mou_family": 280,
+      "house_ou_family": 320,
+      "house_ouki_household": 520,
+      "house_riboku_household": 620,
+      "house_shou_bun_kun_household": 180,
+      "house_tou_household": 220,
+      "sword-manor": 30000,
+      "tang-wei-personal": 0
+    },
+    "state_mount_totals": {
+      "qin": {
+        "total": 85000,
+        "types": {
+          "horse_chariot_trained": 15000,
+          "horse_frontier_trained": 15000,
+          "horse_riding_common": 20000,
+          "horse_war_heavy": 10000,
+          "horse_war_military": 25000
+        }
+      },
+      "zhao": {
+        "total": 70000,
+        "types": {
+          "horse_chariot_trained": 10000,
+          "horse_frontier_trained": 25000,
+          "horse_riding_common": 10000,
+          "horse_war_heavy": 5000,
+          "horse_war_military": 20000
+        }
+      },
+      "chu": {
+        "total": 55000,
+        "types": {
+          "horse_chariot_trained": 7000,
+          "horse_frontier_trained": 8000,
+          "horse_riding_common": 20000,
+          "horse_war_heavy": 5000,
+          "horse_war_military": 15000
+        }
+      },
+      "wei": {
+        "total": 42000,
+        "types": {
+          "horse_chariot_trained": 8000,
+          "horse_frontier_trained": 6000,
+          "horse_riding_common": 12000,
+          "horse_war_heavy": 4000,
+          "horse_war_military": 12000
+        }
+      },
+      "han": {
+        "total": 18000,
+        "types": {
+          "horse_chariot_trained": 3000,
+          "horse_frontier_trained": 2000,
+          "horse_riding_common": 6000,
+          "horse_war_heavy": 2000,
+          "horse_war_military": 5000
+        }
+      },
+      "yan": {
+        "total": 38000,
+        "types": {
+          "horse_chariot_trained": 4000,
+          "horse_frontier_trained": 15000,
+          "horse_riding_common": 8000,
+          "horse_war_heavy": 2000,
+          "horse_war_military": 9000
+        }
+      },
+      "qi": {
+        "total": 24000,
+        "types": {
+          "horse_chariot_trained": 3000,
+          "horse_frontier_trained": 3000,
+          "horse_riding_common": 10000,
+          "horse_war_heavy": 2000,
+          "horse_war_military": 6000
+        }
+      }
+    },
+    "private_economy_aggregates": {
+      "qin": {
+        "cash_silver": 33784766,
+        "commodity_stock": {
+          "construction_material_units": 100772,
+          "fodder_kg": 124536746,
+          "grain_kg": 94287227,
+          "horse_stock": 1512
+        },
+        "finished_goods": {
+          "arrows_20": 2464,
+          "common_sword": 196,
+          "helmet": 105,
+          "lamellar_cuirass": 56,
+          "military_bow": 168,
+          "military_spear": 455,
+          "military_sword": 56,
+          "padded_coat": 315,
+          "shield": 168
+        }
+      },
+      "zhao": {
+        "cash_silver": 23140528,
+        "commodity_stock": {
+          "construction_material_units": 72793,
+          "fodder_kg": 101031997,
+          "grain_kg": 80891215,
+          "horse_stock": 1233
+        },
+        "finished_goods": {
+          "arrows_20": 1799,
+          "common_sword": 154,
+          "helmet": 98,
+          "lamellar_cuirass": 49,
+          "military_bow": 112,
+          "military_spear": 329,
+          "military_sword": 49,
+          "padded_coat": 224,
+          "shield": 112
+        }
+      },
+      "chu": {
+        "cash_silver": 24853604,
+        "commodity_stock": {
+          "construction_material_units": 126000,
+          "fodder_kg": 177152000,
+          "grain_kg": 172702420,
+          "horse_stock": 2203
+        },
+        "finished_goods": {
+          "arrows_20": 3129,
+          "common_sword": 301,
+          "helmet": 175,
+          "lamellar_cuirass": 98,
+          "military_bow": 224,
+          "military_spear": 616,
+          "military_sword": 98,
+          "padded_coat": 427,
+          "shield": 224
+        }
+      },
+      "wei": {
+        "cash_silver": 18833182,
+        "commodity_stock": {
+          "construction_material_units": 56000,
+          "fodder_kg": 67815998,
+          "grain_kg": 55304664,
+          "horse_stock": 823
+        },
+        "finished_goods": {
+          "arrows_20": 1372,
+          "common_sword": 105,
+          "helmet": 56,
+          "lamellar_cuirass": 49,
+          "military_bow": 98,
+          "military_spear": 252,
+          "military_sword": 49,
+          "padded_coat": 168,
+          "shield": 98
+        }
+      },
+      "han": {
+        "cash_silver": 8931564,
+        "commodity_stock": {
+          "construction_material_units": 25207,
+          "fodder_kg": 33769607,
+          "grain_kg": 25891709,
+          "horse_stock": 404
+        },
+        "finished_goods": {
+          "arrows_20": 609,
+          "common_sword": 42,
+          "helmet": 7,
+          "lamellar_cuirass": 7,
+          "military_bow": 42,
+          "military_spear": 98,
+          "military_sword": 7,
+          "padded_coat": 77,
+          "shield": 42
+        }
+      },
+      "yan": {
+        "cash_silver": 15547772,
+        "commodity_stock": {
+          "construction_material_units": 42000,
+          "fodder_kg": 59511997,
+          "grain_kg": 48296500,
+          "horse_stock": 713
+        },
+        "finished_goods": {
+          "arrows_20": 1029,
+          "common_sword": 84,
+          "helmet": 42,
+          "lamellar_cuirass": 14,
+          "military_bow": 56,
+          "military_spear": 182,
+          "military_sword": 14,
+          "padded_coat": 126,
+          "shield": 56
+        }
+      },
+      "qi": {
+        "cash_silver": 23380520,
+        "commodity_stock": {
+          "construction_material_units": 70014,
+          "fodder_kg": 73351999,
+          "grain_kg": 39908998,
+          "horse_stock": 903
+        },
+        "finished_goods": {
+          "arrows_20": 1722,
+          "common_sword": 168,
+          "helmet": 84,
+          "lamellar_cuirass": 42,
+          "military_bow": 119,
+          "military_spear": 336,
+          "military_sword": 42,
+          "padded_coat": 217,
+          "shield": 119
+        }
+      }
+    },
+    "state_depot_stocks": {
+      "qin": {
+        "carts": 42000,
+        "fodder_kg": 119600000,
+        "grain_kg": 447647500,
+        "iron_tonnes": 85000,
+        "medicine_lots": 80000,
+        "timber_tonnes": 320000,
+        "war_arrows": 30000000,
+        "war_bolts": 18000000
+      },
+      "zhao": {
+        "carts": 30000,
+        "fodder_kg": 104990000,
+        "grain_kg": 330047500,
+        "iron_tonnes": 52000,
+        "medicine_lots": 52000,
+        "timber_tonnes": 210000,
+        "war_arrows": 23820000,
+        "war_bolts": 9000000
+      },
+      "chu": {
+        "carts": 48000,
+        "fodder_kg": 94990000,
+        "grain_kg": 590041500,
+        "iron_tonnes": 70000,
+        "medicine_lots": 68000,
+        "timber_tonnes": 420000,
+        "war_arrows": 31820000,
+        "war_bolts": 10000000
+      },
+      "wei": {
+        "carts": 22000,
+        "fodder_kg": 61991600,
+        "grain_kg": 220060000,
+        "iron_tonnes": 62000,
+        "medicine_lots": 35000,
+        "timber_tonnes": 190000,
+        "war_arrows": 13848800,
+        "war_bolts": 15000000
+      },
+      "han": {
+        "carts": 12000,
+        "fodder_kg": 27000000,
+        "grain_kg": 105095500,
+        "iron_tonnes": 30000,
+        "medicine_lots": 18000,
+        "timber_tonnes": 90000,
+        "war_arrows": 8000000,
+        "war_bolts": 12000000
+      },
+      "yan": {
+        "carts": 18000,
+        "fodder_kg": 67993600,
+        "grain_kg": 185085500,
+        "iron_tonnes": 35000,
+        "medicine_lots": 30000,
+        "timber_tonnes": 160000,
+        "war_arrows": 15884800,
+        "war_bolts": 7000000
+      },
+      "qi": {
+        "carts": 26000,
+        "fodder_kg": 48000000,
+        "grain_kg": 300052000,
+        "iron_tonnes": 50000,
+        "medicine_lots": 46000,
+        "timber_tonnes": 200000,
+        "war_arrows": 13000000,
+        "war_bolts": 8000000
+      }
+    },
+    "mercenary_headcount": {
+      "ashen-wall": 2200,
+      "black-banner": 3000,
+      "copper-falcon": 1200,
+      "deep-earth": 5124,
+      "golden-axle": 1500,
+      "grey-wolf": 2400,
+      "iron-rampart": 14346,
+      "local": null,
+      "major-01": 3000,
+      "major-02": 2800,
+      "major-03": 2600,
+      "major-04": 2500,
+      "major-05": 2400,
+      "major-06": 2300,
+      "major-07": 2200,
+      "major-08": 2100,
+      "major-09": 2000,
+      "major-10": 1800,
+      "major-11": 1600,
+      "major-12": 1400,
+      "night-heron": 700,
+      "red-crane": 42629,
+      "regional": null,
+      "river-reed": 1000,
+      "stone-ox": 1800,
+      "white-lantern": 12901
+    },
+    "tang_manor_population_total": 90000,
+    "treasury_silver": {
+      "treasury-house-tang": 250000000
+    },
+    "house_tang_depot_stocks": {
+      "grain_kg": 450000000,
+      "fodder_kg": 180000000,
+      "war_arrows": 25000000,
+      "war_bolts": 2500000
+    }
+  },
+  "conservation_snapshot_after": {
+    "meta": {
+      "revision": 1,
+      "time": "244-BCE-07-23T01:22:48+08:00",
+      "campaign_id": "sword-banner-tang-wei-main",
+      "seed": null
+    },
+    "national_population": {
+      "qin": 9000000,
+      "zhao": 7200000,
+      "chu": 12000000,
+      "wei": 4800000,
+      "han": 2400000,
+      "yan": 4200000,
+      "qi": 5500000
+    },
+    "national_population_strata": {
+      "qin": {
+        "active_military": 675000,
+        "administration_and_education": 179992,
+        "agricultural": 4497782,
+        "camp_medical_support": 45000,
+        "craft_and_industry": 719967,
+        "dependents_children_elderly": 2100000,
+        "household_and_service": 327621,
+        "merchant_and_transport": 449978,
+        "private_household_military": 4660,
+        "recruitment_candidates_reserved": 0
+      },
+      "zhao": {
+        "active_military": 527500,
+        "administration_and_education": 140000,
+        "agricultural": 3650000,
+        "camp_medical_support": 32500,
+        "craft_and_industry": 520000,
+        "dependents_children_elderly": 1750000,
+        "household_and_service": 249380,
+        "merchant_and_transport": 330000,
+        "private_household_military": 620
+      },
+      "chu": {
+        "active_military": 850000,
+        "administration_and_education": 180000,
+        "agricultural": 6400000,
+        "camp_medical_support": 50000,
+        "craft_and_industry": 900000,
+        "dependents_children_elderly": 2600000,
+        "household_and_service": 419180,
+        "merchant_and_transport": 600000,
+        "private_household_military": 820
+      },
+      "wei": {
+        "active_military": 340000,
+        "administration_and_education": 100000,
+        "agricultural": 2450000,
+        "camp_medical_support": 20000,
+        "craft_and_industry": 400000,
+        "dependents_children_elderly": 1100000,
+        "household_and_service": 139640,
+        "merchant_and_transport": 250000,
+        "private_household_military": 360
+      },
+      "han": {
+        "active_military": 151000,
+        "administration_and_education": 60000,
+        "agricultural": 1220000,
+        "camp_medical_support": 9000,
+        "craft_and_industry": 180000,
+        "dependents_children_elderly": 580000,
+        "household_and_service": 80000,
+        "merchant_and_transport": 120000
+      },
+      "yan": {
+        "active_military": 282500,
+        "administration_and_education": 80000,
+        "agricultural": 2150000,
+        "camp_medical_support": 17500,
+        "craft_and_industry": 300000,
+        "dependents_children_elderly": 1070000,
+        "household_and_service": 120000,
+        "merchant_and_transport": 180000
+      },
+      "qi": {
+        "active_military": 275000,
+        "administration_and_education": 120000,
+        "agricultural": 2650000,
+        "camp_medical_support": 25000,
+        "craft_and_industry": 500000,
+        "dependents_children_elderly": 1400000,
+        "household_and_service": 180000,
+        "merchant_and_transport": 350000
+      }
+    },
+    "state_force_headcount": {
+      "qin": 675000,
+      "zhao": 527500,
+      "chu": 850000,
+      "wei": 340000,
+      "han": 151000,
+      "yan": 282500,
+      "qi": 275000
+    },
+    "house_private_force_headcount": {
+      "house-tang": 30000,
+      "house_go_military_house": 360,
+      "house_kanki_retinue_house": 760,
+      "house_karin_house": 820,
+      "house_mou_family": 280,
+      "house_ou_family": 320,
+      "house_ouki_household": 520,
+      "house_riboku_household": 620,
+      "house_shou_bun_kun_household": 180,
+      "house_tou_household": 220,
+      "sword-manor": 30000,
+      "tang-wei-personal": 0
+    },
+    "state_mount_totals": {
+      "qin": {
+        "total": 85000,
+        "types": {
+          "horse_chariot_trained": 15000,
+          "horse_frontier_trained": 15000,
+          "horse_riding_common": 20000,
+          "horse_war_heavy": 10000,
+          "horse_war_military": 25000
+        }
+      },
+      "zhao": {
+        "total": 70000,
+        "types": {
+          "horse_chariot_trained": 10000,
+          "horse_frontier_trained": 25000,
+          "horse_riding_common": 10000,
+          "horse_war_heavy": 5000,
+          "horse_war_military": 20000
+        }
+      },
+      "chu": {
+        "total": 55000,
+        "types": {
+          "horse_chariot_trained": 7000,
+          "horse_frontier_trained": 8000,
+          "horse_riding_common": 20000,
+          "horse_war_heavy": 5000,
+          "horse_war_military": 15000
+        }
+      },
+      "wei": {
+        "total": 42000,
+        "types": {
+          "horse_chariot_trained": 8000,
+          "horse_frontier_trained": 6000,
+          "horse_riding_common": 12000,
+          "horse_war_heavy": 4000,
+          "horse_war_military": 12000
+        }
+      },
+      "han": {
+        "total": 18000,
+        "types": {
+          "horse_chariot_trained": 3000,
+          "horse_frontier_trained": 2000,
+          "horse_riding_common": 6000,
+          "horse_war_heavy": 2000,
+          "horse_war_military": 5000
+        }
+      },
+      "yan": {
+        "total": 38000,
+        "types": {
+          "horse_chariot_trained": 4000,
+          "horse_frontier_trained": 15000,
+          "horse_riding_common": 8000,
+          "horse_war_heavy": 2000,
+          "horse_war_military": 9000
+        }
+      },
+      "qi": {
+        "total": 24000,
+        "types": {
+          "horse_chariot_trained": 3000,
+          "horse_frontier_trained": 3000,
+          "horse_riding_common": 10000,
+          "horse_war_heavy": 2000,
+          "horse_war_military": 6000
+        }
+      }
+    },
+    "private_economy_aggregates": {
+      "qin": {
+        "cash_silver": 33784766,
+        "commodity_stock": {
+          "construction_material_units": 100772,
+          "fodder_kg": 124536746,
+          "grain_kg": 94287227,
+          "horse_stock": 1512
+        },
+        "finished_goods": {
+          "arrows_20": 2464,
+          "common_sword": 196,
+          "helmet": 105,
+          "lamellar_cuirass": 56,
+          "military_bow": 168,
+          "military_spear": 455,
+          "military_sword": 56,
+          "padded_coat": 315,
+          "shield": 168
+        }
+      },
+      "zhao": {
+        "cash_silver": 23140528,
+        "commodity_stock": {
+          "construction_material_units": 72793,
+          "fodder_kg": 101031997,
+          "grain_kg": 80891215,
+          "horse_stock": 1233
+        },
+        "finished_goods": {
+          "arrows_20": 1799,
+          "common_sword": 154,
+          "helmet": 98,
+          "lamellar_cuirass": 49,
+          "military_bow": 112,
+          "military_spear": 329,
+          "military_sword": 49,
+          "padded_coat": 224,
+          "shield": 112
+        }
+      },
+      "chu": {
+        "cash_silver": 24853604,
+        "commodity_stock": {
+          "construction_material_units": 126000,
+          "fodder_kg": 177152000,
+          "grain_kg": 172702420,
+          "horse_stock": 2203
+        },
+        "finished_goods": {
+          "arrows_20": 3129,
+          "common_sword": 301,
+          "helmet": 175,
+          "lamellar_cuirass": 98,
+          "military_bow": 224,
+          "military_spear": 616,
+          "military_sword": 98,
+          "padded_coat": 427,
+          "shield": 224
+        }
+      },
+      "wei": {
+        "cash_silver": 18833182,
+        "commodity_stock": {
+          "construction_material_units": 56000,
+          "fodder_kg": 67815998,
+          "grain_kg": 55304664,
+          "horse_stock": 823
+        },
+        "finished_goods": {
+          "arrows_20": 1372,
+          "common_sword": 105,
+          "helmet": 56,
+          "lamellar_cuirass": 49,
+          "military_bow": 98,
+          "military_spear": 252,
+          "military_sword": 49,
+          "padded_coat": 168,
+          "shield": 98
+        }
+      },
+      "han": {
+        "cash_silver": 8931564,
+        "commodity_stock": {
+          "construction_material_units": 25207,
+          "fodder_kg": 33769607,
+          "grain_kg": 25891709,
+          "horse_stock": 404
+        },
+        "finished_goods": {
+          "arrows_20": 609,
+          "common_sword": 42,
+          "helmet": 7,
+          "lamellar_cuirass": 7,
+          "military_bow": 42,
+          "military_spear": 98,
+          "military_sword": 7,
+          "padded_coat": 77,
+          "shield": 42
+        }
+      },
+      "yan": {
+        "cash_silver": 15547772,
+        "commodity_stock": {
+          "construction_material_units": 42000,
+          "fodder_kg": 59511997,
+          "grain_kg": 48296500,
+          "horse_stock": 713
+        },
+        "finished_goods": {
+          "arrows_20": 1029,
+          "common_sword": 84,
+          "helmet": 42,
+          "lamellar_cuirass": 14,
+          "military_bow": 56,
+          "military_spear": 182,
+          "military_sword": 14,
+          "padded_coat": 126,
+          "shield": 56
+        }
+      },
+      "qi": {
+        "cash_silver": 23380520,
+        "commodity_stock": {
+          "construction_material_units": 70014,
+          "fodder_kg": 73351999,
+          "grain_kg": 39908998,
+          "horse_stock": 903
+        },
+        "finished_goods": {
+          "arrows_20": 1722,
+          "common_sword": 168,
+          "helmet": 84,
+          "lamellar_cuirass": 42,
+          "military_bow": 119,
+          "military_spear": 336,
+          "military_sword": 42,
+          "padded_coat": 217,
+          "shield": 119
+        }
+      }
+    },
+    "state_depot_stocks": {
+      "qin": {
+        "carts": 42000,
+        "fodder_kg": 119600000,
+        "grain_kg": 447647500,
+        "iron_tonnes": 85000,
+        "medicine_lots": 80000,
+        "timber_tonnes": 320000,
+        "war_arrows": 30000000,
+        "war_bolts": 18000000
+      },
+      "zhao": {
+        "carts": 30000,
+        "fodder_kg": 104990000,
+        "grain_kg": 330047500,
+        "iron_tonnes": 52000,
+        "medicine_lots": 52000,
+        "timber_tonnes": 210000,
+        "war_arrows": 23820000,
+        "war_bolts": 9000000
+      },
+      "chu": {
+        "carts": 48000,
+        "fodder_kg": 94990000,
+        "grain_kg": 590041500,
+        "iron_tonnes": 70000,
+        "medicine_lots": 68000,
+        "timber_tonnes": 420000,
+        "war_arrows": 31820000,
+        "war_bolts": 10000000
+      },
+      "wei": {
+        "carts": 22000,
+        "fodder_kg": 61991600,
+        "grain_kg": 220060000,
+        "iron_tonnes": 62000,
+        "medicine_lots": 35000,
+        "timber_tonnes": 190000,
+        "war_arrows": 13848800,
+        "war_bolts": 15000000
+      },
+      "han": {
+        "carts": 12000,
+        "fodder_kg": 27000000,
+        "grain_kg": 105095500,
+        "iron_tonnes": 30000,
+        "medicine_lots": 18000,
+        "timber_tonnes": 90000,
+        "war_arrows": 8000000,
+        "war_bolts": 12000000
+      },
+      "yan": {
+        "carts": 18000,
+        "fodder_kg": 67993600,
+        "grain_kg": 185085500,
+        "iron_tonnes": 35000,
+        "medicine_lots": 30000,
+        "timber_tonnes": 160000,
+        "war_arrows": 15884800,
+        "war_bolts": 7000000
+      },
+      "qi": {
+        "carts": 26000,
+        "fodder_kg": 48000000,
+        "grain_kg": 300052000,
+        "iron_tonnes": 50000,
+        "medicine_lots": 46000,
+        "timber_tonnes": 200000,
+        "war_arrows": 13000000,
+        "war_bolts": 8000000
+      }
+    },
+    "mercenary_headcount": {
+      "ashen-wall": 2200,
+      "black-banner": 3000,
+      "copper-falcon": 1200,
+      "deep-earth": 5124,
+      "golden-axle": 1500,
+      "grey-wolf": 2400,
+      "iron-rampart": 14346,
+      "local": null,
+      "major-01": 3000,
+      "major-02": 2800,
+      "major-03": 2600,
+      "major-04": 2500,
+      "major-05": 2400,
+      "major-06": 2300,
+      "major-07": 2200,
+      "major-08": 2100,
+      "major-09": 2000,
+      "major-10": 1800,
+      "major-11": 1600,
+      "major-12": 1400,
+      "night-heron": 700,
+      "red-crane": 42629,
+      "regional": null,
+      "river-reed": 1000,
+      "stone-ox": 1800,
+      "white-lantern": 12901
+    },
+    "tang_manor_population_total": 90000,
+    "treasury_silver": {
+      "treasury-house-tang": 250000000
+    },
+    "house_tang_depot_stocks": {
+      "grain_kg": 450000000,
+      "fodder_kg": 180000000,
+      "war_arrows": 25000000,
+      "war_bolts": 2500000
+    }
+  },
+  "conservation_snapshot_equal": true,
+  "source_baseline": "Sword-and-Banners-clean-rebaseline.zip"
+}

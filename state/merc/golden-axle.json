@@ -1,0 +1,177 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "central caravan roads",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 174,
+      "sd": 5.8
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 59,
+      "sd": 7.4
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "contracts": [
+    {
+      "contract_ref": "market_seed_merc_golden_axle",
+      "employer_ref": "state_qi",
+      "status": "active",
+      "amount_silver": 140000,
+      "term_days": 120,
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "engagement_kind": "fortress_contract",
+      "basis": "mercenary_ecology_v2 seeded current obligation; contract organizes employment but owns zero bodies"
+    }
+  ],
+  "doctrine": "doc.merc_golden_axle.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 667,
+    "assigned_war_arrows": 132000,
+    "assigned_war_bolts": 24000,
+    "issued_loadouts": [
+      {
+        "count": 3000,
+        "loadout_id": "loadout_mercenary_line"
+      },
+      {
+        "count": 1333,
+        "loadout_id": "loadout_mercenary_engineer"
+      },
+      {
+        "count": 667,
+        "loadout_id": "loadout_mercenary_scout"
+      }
+    ],
+    "reserve_mounts": 67,
+    "reserve_war_arrows": 132000,
+    "reserve_war_bolts": 24000
+  },
+  "food_stock_kg": 480000,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 5000,
+  "home_establishment_ref": "establishment.merc_golden_axle",
+  "name": "Golden Axle Company",
+  "owner_id": "merc_golden_axle",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "Independent",
+  "status": "contracted",
+  "subprocess_id": "process_merc_golden_axle",
+  "training": "train.merc_golden_axle.standard",
+  "treasury_silver": 400000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-golden-axle-pool-wagon-guard.json",
+      "condition": {
+        "fit": 3000
+      },
+      "count": 3000,
+      "display": "Wagon Guards",
+      "doctrine": "doc.merc_golden_axle.wagon_guard",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_line",
+      "mount_type": null,
+      "pool_id": "merc_golden_axle:pool_wagon_guard",
+      "pool_kind": "unit_manpower",
+      "role": "wagon_guard",
+      "specialty": "wagon_guard",
+      "training": "train.merc_golden_axle.wagon_guard",
+      "troop_type": "guard_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-golden-axle-pool-engineer-drivers.json",
+      "condition": {
+        "fit": 1333
+      },
+      "count": 1333,
+      "display": "Drivers and Engineers",
+      "doctrine": "doc.merc_golden_axle.engineer_drivers",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_engineer",
+      "mount_type": null,
+      "pool_id": "merc_golden_axle:pool_engineer_drivers",
+      "pool_kind": "unit_manpower",
+      "role": "engineer_drivers",
+      "specialty": "engineer_drivers",
+      "training": "train.merc_golden_axle.engineer_drivers",
+      "troop_type": "engineer"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-golden-axle-pool-scout.json",
+      "condition": {
+        "fit": 667
+      },
+      "count": 667,
+      "display": "Scouts",
+      "doctrine": "doc.merc_golden_axle.scout",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_scout",
+      "mount_type": "horse_riding_common",
+      "pool_id": "merc_golden_axle:pool_scout",
+      "pool_kind": "unit_manpower",
+      "role": "scout",
+      "training": "train.merc_golden_axle.scout",
+      "troop_type": "scout"
+    }
+  ],
+  "home_location_ref": "loc_qin_regional_01",
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "geographic_provenance": {
+    "migration": "world_geography_overhaul_v1",
+    "rule": "company remains exact manpower owner; contract/employer does not own duplicate bodies"
+  },
+  "establishment_strength": 5000,
+  "market_scale_provenance": {
+    "migration": "mercenary_ecology_v2",
+    "previous_headcount": 1500,
+    "rule": "existing company identity/specialty preserved; expansion is current-world baseline content, not duplicated manpower"
+  },
+  "market_tier": "specialist",
+  "market_engagement": {
+    "kind": "fortress_contract",
+    "short_notice_available": false,
+    "seeded_at": "244-BCE-07-23T01:22:48+08:00",
+    "rule": "current commercial/military employment affects availability without changing company manpower ownership"
+  }
+}

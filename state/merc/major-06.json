@@ -1,0 +1,150 @@
+{
+  "accounting_only": true,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 167,
+      "sd": 6.7
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 58,
+      "sd": 7.2
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 62,
+    "aggression": 58,
+    "casualty_tolerance": 55,
+    "caution": 48,
+    "initiative": 54,
+    "objective_focus": 68,
+    "pursuit_bias": 50
+  },
+  "composition_rule": "company is persistent combined force, not one generic blob",
+  "contracts": [
+    {
+      "contract_ref": "market_seed_merc_major_06",
+      "employer_ref": "state_han",
+      "status": "active",
+      "amount_silver": 266000,
+      "term_days": 120,
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "engagement_kind": "fortress_contract",
+      "basis": "mercenary_ecology_v2 seeded current obligation; contract organizes employment but owns zero bodies"
+    }
+  ],
+  "doctrine": "doc.merc.major.06",
+  "doctrine_familiarity": 75,
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 9500,
+  "home_establishment_ref": "establishment.merc.major.06",
+  "name": "Silent Pine",
+  "owner_id": "merc.major.06",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "mercenary",
+  "specialty": "scout",
+  "status": "contracted",
+  "training": "train.merc.regular",
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-major-06-scouts.json",
+      "count": 4275,
+      "doctrine": "doc.merc.major.06",
+      "id": "merc.major.06.scouts",
+      "loadout": "loadout_mercenary_scout",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "scouts",
+      "schema": "troop_pool.v1",
+      "specialty": "scouts",
+      "training": "train.merc.regular",
+      "troop_type": "scout"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-06-light-infantry.json",
+      "count": 3325,
+      "doctrine": "doc.merc.major.06",
+      "id": "merc.major.06.light_infantry",
+      "loadout": "loadout_mercenary_light",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "light_infantry",
+      "schema": "troop_pool.v1",
+      "training": "train.merc.regular",
+      "troop_type": "light_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-06-crossbow.json",
+      "count": 950,
+      "doctrine": "doc.merc.major.06",
+      "id": "merc.major.06.crossbow",
+      "loadout": "loadout_mercenary_crossbow",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "crossbow",
+      "schema": "troop_pool.v1",
+      "specialty": "crossbow",
+      "training": "train.merc.regular",
+      "troop_type": "crossbow_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-06-support.json",
+      "count": 950,
+      "doctrine": "doc.merc.major.06",
+      "id": "merc.major.06.support",
+      "loadout": "loadout_mercenary_support",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "support",
+      "schema": "troop_pool.v1",
+      "specialty": "support",
+      "training": "train.merc.regular",
+      "troop_type": "support_staff"
+    }
+  ],
+  "home_location_ref": "loc_qin_regional_01",
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "geographic_provenance": {
+    "migration": "world_geography_overhaul_v1",
+    "rule": "company remains exact manpower owner; contract/employer does not own duplicate bodies"
+  },
+  "establishment_strength": 9500,
+  "market_scale_provenance": {
+    "migration": "mercenary_ecology_v2",
+    "previous_headcount": 2300,
+    "rule": "existing company identity/specialty preserved; expansion is current-world baseline content, not duplicated manpower"
+  },
+  "market_tier": "major_famous",
+  "market_engagement": {
+    "kind": "fortress_contract",
+    "short_notice_available": false,
+    "seeded_at": "244-BCE-07-23T01:22:48+08:00",
+    "rule": "current commercial/military employment affects availability without changing company manpower ownership"
+  }
+}

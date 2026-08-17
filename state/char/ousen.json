@@ -1,0 +1,591 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "attributes": {
+    "Agility": 125,
+    "Awareness": 185,
+    "Composure": 195,
+    "Coordination": 145,
+    "Endurance": 155,
+    "Intelligence": 195,
+    "Presence": 175,
+    "Strength": 130,
+    "Toughness": 150
+  },
+  "career_state": {
+    "career_changes": 0,
+    "office_or_command": "saved profile role",
+    "revision": 1
+  },
+  "development_state": {
+    "completed_months": 0,
+    "maintenance_credit": 0.0,
+    "training_credit": 0.0,
+    "skill_edu_banks": {
+      "Navigation": 28.534,
+      "Survival": 14.277,
+      "Athletics": 0.006,
+      "Defense": 13.409,
+      "Governance": 9.797,
+      "Leadership": 4.898
+    },
+    "settled_training_hours": 392,
+    "completed_reviews": 7,
+    "attribute_edu_banks": {
+      "Awareness": 3.369,
+      "Intelligence": 2.426,
+      "Endurance": 0.459,
+      "Toughness": 0.459,
+      "Strength": 0.738,
+      "Agility": 1.82,
+      "Coordination": 0.134,
+      "Composure": 1.287,
+      "Presence": 0.834
+    },
+    "attribute_stimulus_hours_milli": 137200
+  },
+  "health_status": "healthy",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 44,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_qin_unresolved",
+  "name": "Ousen",
+  "owner_id": "char_ousen",
+  "owner_type": "character",
+  "role_archetype": "strategist_general",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 53,
+    "Axe": 13,
+    "Bow": 16,
+    "Crossbow": 17,
+    "Dagger": 15,
+    "Defense": 132,
+    "Diplomacy": 24,
+    "Engineering": 17,
+    "Formation Command": 195,
+    "Formation Fighting": 14,
+    "Glaive": 17,
+    "Governance": 165,
+    "Grappling": 14,
+    "Intelligence Operations": 185,
+    "Intrigue": 13,
+    "Law": 22,
+    "Leadership": 175,
+    "Logistics": 185,
+    "Mace": 17,
+    "Mass Combat": 175,
+    "Medicine": 21,
+    "Navigation": 31,
+    "Riding": 17,
+    "Scouting": 15,
+    "Shield": 16,
+    "Spear": 13,
+    "Staff": 13,
+    "Stealth": 16,
+    "Strategy": 195,
+    "Survival": 39,
+    "Sword": 13,
+    "Tactics": 190,
+    "Trade": 24,
+    "Training": 23,
+    "Unarmed": 17
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_c2e28eac29faee027e8f",
+  "state": "Qin",
+  "birth_date": "289-BCE-03-21",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 185.0,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 81.1,
+    "frame": "athletic",
+    "source": "simulation_assigned"
+  },
+  "appearance": 83,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 151,
+    "technical_learning": 136,
+    "tactical_learning": 185,
+    "academic_learning": 185,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability"
+  },
+  "goal_state": {
+    "long_term_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Qin authority and resources"
+    ],
+    "current_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Qin authority and resources"
+    ],
+    "current_orders": [],
+    "personal_desires": [
+      "win only where the strategic return justifies exposure"
+    ],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ]
+  },
+  "background": {
+    "origin": "Qin"
+  },
+  "equipment_loadout_id": "loadout_named_court",
+  "behavior": {
+    "core_traits": [
+      "opaque",
+      "calculating",
+      "self-preserving"
+    ],
+    "decision_style": "values competence more than ceremony",
+    "stress_response": "withdraws from bad odds rather than performing loyalty theatrics",
+    "personal_preferences": [
+      "honest after-action criticism",
+      "familiar training partners"
+    ],
+    "ambition_or_orientation": "win only where the strategic return justifies exposure",
+    "trust_style": "slow and evidence-based",
+    "failure_response": "reviews the mistake and changes procedure",
+    "temperament": "opaque, calculating, patient",
+    "values": [
+      "preserve his army",
+      "win through superior position",
+      "pursue long-range political advantage"
+    ],
+    "humor_style": "minimal and unreadable",
+    "source": "curated_canon_characterization_plus_campaign_state"
+  },
+  "relationship_refs": [
+    "rel.char_ousen.char_ou_hon.father"
+  ],
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "autonomous_activity_state": {
+    "version": 3,
+    "enabled": true,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "cadence_seconds": 2592000,
+    "verified_hours_per_cycle": 56.0,
+    "focus_cursor": 7,
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "repair_provenance": {
+      "kind": "ooc_dev_stale_development_repair_v1",
+      "basis": "saved process_named_character_life_monthly coverage plus established named-person activity clock",
+      "repair_through": "244-BCE-07-02T06:22:48+08:00",
+      "campaign_time_advanced": false
+    },
+    "completed_cycles": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00"
+  },
+  "autonomous_development_history": [
+    {
+      "at": "244-BCE-01-04T06:22:48+08:00",
+      "focus": "Navigation",
+      "hours": 56.0,
+      "development": {
+        "skill": "Navigation",
+        "hours": 56,
+        "age": 44,
+        "aptitude": 136,
+        "effective_edu_milli": 54793,
+        "skill_points_gained": 1,
+        "skill_score": 30,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 14713,
+        "attribute_development": [
+          {
+            "attribute": "Awareness",
+            "age": 44,
+            "aptitude": 185,
+            "stimulus_hours_milli": 9800,
+            "raw_edu_milli": 13043,
+            "attribute_points_gained": 0,
+            "attribute_score": 185,
+            "edu_bank_milli": 809
+          },
+          {
+            "attribute": "Intelligence",
+            "age": 44,
+            "aptitude": 185,
+            "stimulus_hours_milli": 9800,
+            "raw_edu_milli": 13043,
+            "attribute_points_gained": 0,
+            "attribute_score": 195,
+            "edu_bank_milli": 809
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-02-03T06:22:48+08:00",
+      "focus": "Survival",
+      "hours": 56.0,
+      "development": {
+        "skill": "Survival",
+        "hours": 56,
+        "age": 44,
+        "aptitude": 151,
+        "effective_edu_milli": 62685,
+        "skill_points_gained": 1,
+        "skill_score": 39,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 14277,
+        "attribute_development": [
+          {
+            "attribute": "Endurance",
+            "age": 44,
+            "aptitude": 151,
+            "stimulus_hours_milli": 6533,
+            "raw_edu_milli": 4684,
+            "attribute_points_gained": 0,
+            "attribute_score": 155,
+            "edu_bank_milli": 262
+          },
+          {
+            "attribute": "Toughness",
+            "age": 44,
+            "aptitude": 151,
+            "stimulus_hours_milli": 6533,
+            "raw_edu_milli": 4684,
+            "attribute_points_gained": 0,
+            "attribute_score": 150,
+            "edu_bank_milli": 262
+          },
+          {
+            "attribute": "Awareness",
+            "age": 44,
+            "aptitude": 185,
+            "stimulus_hours_milli": 6533,
+            "raw_edu_milli": 8696,
+            "attribute_points_gained": 0,
+            "attribute_score": 185,
+            "edu_bank_milli": 1348
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-03-04T06:22:48+08:00",
+      "focus": "Athletics",
+      "hours": 56.0,
+      "development": {
+        "skill": "Athletics",
+        "hours": 56,
+        "age": 44,
+        "aptitude": 151,
+        "effective_edu_milli": 62685,
+        "skill_points_gained": 1,
+        "skill_score": 53,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 6,
+        "attribute_development": [
+          {
+            "attribute": "Strength",
+            "age": 44,
+            "aptitude": 151,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 3513,
+            "attribute_points_gained": 0,
+            "attribute_score": 130,
+            "edu_bank_milli": 738
+          },
+          {
+            "attribute": "Agility",
+            "age": 44,
+            "aptitude": 151,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 3513,
+            "attribute_points_gained": 0,
+            "attribute_score": 125,
+            "edu_bank_milli": 1082
+          },
+          {
+            "attribute": "Endurance",
+            "age": 44,
+            "aptitude": 151,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 3513,
+            "attribute_points_gained": 0,
+            "attribute_score": 155,
+            "edu_bank_milli": 459
+          },
+          {
+            "attribute": "Toughness",
+            "age": 44,
+            "aptitude": 151,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 3513,
+            "attribute_points_gained": 0,
+            "attribute_score": 150,
+            "edu_bank_milli": 459
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-04-03T06:22:48+08:00",
+      "focus": "Defense",
+      "hours": 56.0,
+      "development": {
+        "skill": "Defense",
+        "hours": 56,
+        "age": 45,
+        "aptitude": 151,
+        "effective_edu_milli": 13409,
+        "skill_points_gained": 0,
+        "skill_score": 132,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 13409,
+        "attribute_development": [
+          {
+            "attribute": "Agility",
+            "age": 45,
+            "aptitude": 151,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 2395,
+            "attribute_points_gained": 0,
+            "attribute_score": 125,
+            "edu_bank_milli": 1820
+          },
+          {
+            "attribute": "Coordination",
+            "age": 45,
+            "aptitude": 151,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 2395,
+            "attribute_points_gained": 0,
+            "attribute_score": 145,
+            "edu_bank_milli": 134
+          },
+          {
+            "attribute": "Awareness",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6522,
+            "attribute_points_gained": 0,
+            "attribute_score": 185,
+            "edu_bank_milli": 1752
+          },
+          {
+            "attribute": "Composure",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6913,
+            "attribute_points_gained": 0,
+            "attribute_score": 195,
+            "edu_bank_milli": 429
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-05-03T06:22:48+08:00",
+      "focus": "Governance",
+      "hours": 56.0,
+      "development": {
+        "skill": "Governance",
+        "hours": 56,
+        "age": 45,
+        "aptitude": 185,
+        "effective_edu_milli": 9797,
+        "skill_points_gained": 0,
+        "skill_score": 165,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 9797,
+        "attribute_development": [
+          {
+            "attribute": "Intelligence",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6522,
+            "attribute_points_gained": 0,
+            "attribute_score": 195,
+            "edu_bank_milli": 1213
+          },
+          {
+            "attribute": "Presence",
+            "age": 45,
+            "aptitude": 180,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6726,
+            "attribute_points_gained": 0,
+            "attribute_score": 175,
+            "edu_bank_milli": 417
+          },
+          {
+            "attribute": "Composure",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6913,
+            "attribute_points_gained": 0,
+            "attribute_score": 195,
+            "edu_bank_milli": 858
+          },
+          {
+            "attribute": "Awareness",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6522,
+            "attribute_points_gained": 0,
+            "attribute_score": 185,
+            "edu_bank_milli": 2156
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-06-02T06:22:48+08:00",
+      "focus": "Leadership",
+      "hours": 56.0,
+      "development": {
+        "skill": "Leadership",
+        "hours": 56,
+        "age": 45,
+        "aptitude": 185,
+        "effective_edu_milli": 4898,
+        "skill_points_gained": 0,
+        "skill_score": 175,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 4898,
+        "attribute_development": [
+          {
+            "attribute": "Presence",
+            "age": 45,
+            "aptitude": 180,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6726,
+            "attribute_points_gained": 0,
+            "attribute_score": 175,
+            "edu_bank_milli": 834
+          },
+          {
+            "attribute": "Composure",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6913,
+            "attribute_points_gained": 0,
+            "attribute_score": 195,
+            "edu_bank_milli": 1287
+          },
+          {
+            "attribute": "Awareness",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6522,
+            "attribute_points_gained": 0,
+            "attribute_score": 185,
+            "edu_bank_milli": 2560
+          },
+          {
+            "attribute": "Intelligence",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 4900,
+            "raw_edu_milli": 6522,
+            "attribute_points_gained": 0,
+            "attribute_score": 195,
+            "edu_bank_milli": 1617
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-07-02T06:22:48+08:00",
+      "focus": "Navigation",
+      "hours": 56.0,
+      "development": {
+        "skill": "Navigation",
+        "hours": 56,
+        "age": 45,
+        "aptitude": 136,
+        "effective_edu_milli": 54793,
+        "skill_points_gained": 1,
+        "skill_score": 31,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 28534,
+        "attribute_development": [
+          {
+            "attribute": "Awareness",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 9800,
+            "raw_edu_milli": 13043,
+            "attribute_points_gained": 0,
+            "attribute_score": 185,
+            "edu_bank_milli": 3369
+          },
+          {
+            "attribute": "Intelligence",
+            "age": 45,
+            "aptitude": 185,
+            "stimulus_hours_milli": 9800,
+            "raw_edu_milli": 13043,
+            "attribute_points_gained": 0,
+            "attribute_score": 195,
+            "edu_bank_milli": 2426
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "cash_close_rule": "opening balance + realized revenue + transfers in - paid expenses - transfers out; unpaid obligations become exact arrears",
+  "civil_finance": {
+    "last_close": "244-BCE-07-23T01:22:48+08:00",
+    "months": 1,
+    "revenue_due_silver": 14000000,
+    "revenue_collected_silver": 14000000,
+    "revenue_arrears_silver": 0,
+    "defense_due_silver": 3600000,
+    "defense_paid_silver": 3600000,
+    "defense_arrears_silver": 0,
+    "operating_due_silver": 5000000,
+    "operating_paid_silver": 5000000,
+    "operating_arrears_silver": 0,
+    "cash_close_rule": "Rebaselined House estate revenue and operating costs are exact monthly flows; unpaid obligations become arrears."
+  },
+  "fodder_kg": 180000000,
+  "food_kg": 450000000,
+  "monthly_flow_components": {
+    "cash": {
+      "contracted_outer_defense_expense_silver": 3600000,
+      "facility_equipment_artillery_maintenance_expense_silver": 1000000,
+      "house_tang_expense_silver": 800000,
+      "sword_manor_core_expense_silver": 1200000,
+      "food_fodder_estate_operations_silver": 1200000
+    },
+    "food": {
+      "house_tang_regular_requirement_kg": 1440000,
+      "sword_manor_requirement_kg": 1440000,
+      "contracted_defense_requirement_kg": 3600000,
+      "permanent_civilian_population_requirement_kg": 2160000,
+      "internal_production_kg": 14000000,
+      "contracted_delivery_kg": 0,
+      "spoilage_kg": 280000
+    },
+    "fodder": {
+      "house_tang_mount_requirement_kg": 1440000,
+      "remount_and_draft_requirement_kg": 360000,
+      "internal_production_kg": 4000000,
+      "contracted_delivery_kg": 0,
+      "spoilage_kg": 120000
+    }
+  },
+  "owner_id": "treasury_house_tang",
+  "owner_type": "treasury",
+  "runtime": {
+    "completed_monthly_closes": 0,
+    "last_monthly_close_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "schema": "treasury",
+  "silver": 250000000,
+  "stable_monthly_flows": {
+    "revenue_silver": 14000000,
+    "expense_silver": 7800000,
+    "food_net_change_kg": 5080000,
+    "fodder_net_change_kg": 2080000,
+    "net_silver_change": 6200000
+  },
+  "siege_endurance": {
+    "food_stock_months_at_full_supported_burden": 52,
+    "fodder_stock_months_at_full_mount_burden": 100,
+    "rule": "Stockpile is in addition to positive internal monthly farm/fodder output; a long siege must exhaust both protected production and strategic reserve."
+  },
+  "stable_four_month_fixture": {
+    "silver": 250000000,
+    "food_kg": 450000000,
+    "fodder_kg": 180000000,
+    "rule": "Clean rebaseline anchor. Future stable closes accumulate from this current estate/logistics baseline; no pre-rebaseline repair months are replayed."
+  },
+  "accounting_repairs": [
+    {
+      "kind": "sword_manor_double_burden_removed",
+      "at_revision": 1,
+      "rule": "30,000-person Sword Manor core expense already includes trainees; no separate trainee operating charge on future closes",
+      "cash_fixture_changed": false
+    }
+  ]
+}

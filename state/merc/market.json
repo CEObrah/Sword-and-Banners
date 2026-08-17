@@ -1,0 +1,28 @@
+{
+  "schema": "mercenary-market-index.v1",
+  "owner_id": "mercenary_market_index",
+  "authority": false,
+  "represented_total": 450000,
+  "category_totals": {
+    "major_famous": 115000,
+    "specialist": 115000,
+    "regional_professional": 140000,
+    "local_seasonal": 80000
+  },
+  "house_tang_contracted_total": 75000,
+  "short_notice_available_target_band": [
+    100000,
+    180000
+  ],
+  "short_notice_available_total": 135100,
+  "rule": "projection over exact company/local-pool owners only; availability never creates bodies and House Tang's contract remains 75,000",
+  "quality_ladder": [
+    "legendary",
+    "major_professional",
+    "specialist",
+    "regional_professional",
+    "veteran_local",
+    "seasonal"
+  ],
+  "geographic_rule": "companies are distributed by state/frontier/trade geography; employer contracts and travel can make bodies unavailable without changing ownership"
+}

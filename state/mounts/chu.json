@@ -1,0 +1,73 @@
+{
+  "allocated_to_formations": {
+    "formation_chu_shock_reserve": {
+      "horse_war_military": 5000
+    }
+  },
+  "health": {
+    "fit": 52475,
+    "limited": 1650,
+    "recovering": 875,
+    "unfit": 0
+  },
+  "owner_id": "mount_pool_chu",
+  "schema": "sword-mount-pool",
+  "state": "chu",
+  "total": 55000,
+  "types": {
+    "horse_chariot_trained": 7000,
+    "horse_frontier_trained": 8000,
+    "horse_riding_common": 20000,
+    "horse_war_heavy": 5000,
+    "horse_war_military": 15000
+  },
+  "regional_reserve": {
+    "loc_shintei": {
+      "horse_chariot_trained": 1120,
+      "horse_frontier_trained": 1280,
+      "horse_riding_common": 3200,
+      "horse_war_heavy": 800,
+      "horse_war_military": 1600
+    },
+    "loc_chu_regional_01": {
+      "horse_chariot_trained": 1120,
+      "horse_frontier_trained": 1280,
+      "horse_riding_common": 3200,
+      "horse_war_heavy": 800,
+      "horse_war_military": 1600
+    },
+    "loc_chu_regional_02": {
+      "horse_chariot_trained": 1400,
+      "horse_frontier_trained": 1600,
+      "horse_riding_common": 4000,
+      "horse_war_heavy": 1000,
+      "horse_war_military": 2000
+    },
+    "loc_chu_regional_03": {
+      "horse_chariot_trained": 1400,
+      "horse_frontier_trained": 1600,
+      "horse_riding_common": 4000,
+      "horse_war_heavy": 1000,
+      "horse_war_military": 2000
+    },
+    "loc_chu_regional_04": {
+      "horse_chariot_trained": 1120,
+      "horse_frontier_trained": 1280,
+      "horse_riding_common": 3200,
+      "horse_war_heavy": 800,
+      "horse_war_military": 1600
+    },
+    "loc_chu_north_fort": {
+      "horse_chariot_trained": 840,
+      "horse_frontier_trained": 960,
+      "horse_riding_common": 2400,
+      "horse_war_heavy": 600,
+      "horse_war_military": 1200
+    }
+  },
+  "geographic_disposition": {
+    "authority": true,
+    "migration": "world_geography_overhaul_v1",
+    "rule": "regional_reserve + formation allocations = exact type totals; health is a condition view, not another horse owner"
+  }
+}

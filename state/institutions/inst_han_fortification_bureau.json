@@ -1,0 +1,60 @@
+{
+  "backlog": 0,
+  "capacity": 70,
+  "fortification_review": {
+    "at": "244-BCE-07-02T07:22:48+08:00",
+    "priorities": [
+      {
+        "location_ref": "loc_han_capital",
+        "already_fortified": true,
+        "priority_score": 40
+      },
+      {
+        "location_ref": "loc_han_frontier_fort",
+        "already_fortified": true,
+        "priority_score": 40
+      }
+    ],
+    "project_started_ref": null,
+    "rule": "bureau may start one funded local-material/local-labor fortification project when exact treasury, materials and workers exist",
+    "migration_note": "world_geography_overhaul_v1: derived review cache re-routed from generic region placeholders to exact fortified sites"
+  },
+  "kind": "fortification_bureau",
+  "last_review": "244-BCE-07-02T07:22:48+08:00",
+  "name": "HAN Fortification Bureau",
+  "operating_contract": {
+    "authority": "exact existing owners only",
+    "conservation_rule": "no people, money, mounts, food, equipment, materials, office, or territory may be created by review prose alone",
+    "outputs": [
+      "fortification_review",
+      "project_pipeline",
+      "material_requirements"
+    ]
+  },
+  "owner_id": "inst_han_fortification_bureau",
+  "policy": "HAN: review controlled fortified sites and material-funded fortification projects; never create construction without reserved inputs",
+  "projects": [],
+  "resources": {},
+  "schema": "sword-institution",
+  "staffing": "aggregate",
+  "state": "han",
+  "location_ref": "loc_han_capital",
+  "service_region_refs": [
+    "loc_han_regional_01",
+    "loc_han_regional_02",
+    "loc_han_regional_03",
+    "loc_han_regional_04"
+  ],
+  "geography": {
+    "headquarters_location_ref": "loc_han_capital",
+    "service_region_refs": [
+      "loc_han_regional_01",
+      "loc_han_regional_02",
+      "loc_han_regional_03",
+      "loc_han_regional_04"
+    ],
+    "owns_local_population": false,
+    "rule": "institutional authority is routed through exact regional owners; headquarters does not become a demographic region or manpower owner"
+  },
+  "fortification_profile_authority": "game/data/world/fortification-profiles.json"
+}

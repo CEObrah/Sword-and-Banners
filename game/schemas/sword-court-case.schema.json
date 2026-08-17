@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sword sovereign court case",
+  "type": "object",
+  "required": ["schema", "owner_id", "case_ref", "polity_ref", "kind", "subject_ref", "status", "stage", "opened_at", "history"],
+  "properties": {
+    "schema": {"const": "sword-court-case"},
+    "owner_id": {"type": "string", "pattern": "^court_case_"},
+    "case_ref": {"type": "string", "pattern": "^court_case_"},
+    "polity_ref": {"type": "string", "pattern": "^polity_"},
+    "kind": {"enum": ["petition", "investigation", "legal_dispute", "corruption", "office_competition", "succession_recognition"]},
+    "subject_ref": {"type": "string"},
+    "status": {"enum": ["open", "investigating", "hearing", "decision_required", "decided", "dismissed", "remanded"]},
+    "stage": {"type": "string"},
+    "opened_at": {"type": "string"},
+    "next_review_at": {"type": "string"},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "history": {"type": "array", "items": {"type": "object"}},
+    "decision": {"type": "object"}
+  },
+  "additionalProperties": true
+}

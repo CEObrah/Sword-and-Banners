@@ -1,0 +1,107 @@
+{
+  "schema": "manpower-capability.v1",
+  "id": "capability.merc_stone_ox:pool_engineer",
+  "pool_id": "merc_stone_ox:pool_engineer",
+  "source_owner": "merc_stone_ox",
+  "capabilities": {
+    "attribute_values": [
+      78,
+      72,
+      104,
+      94,
+      88,
+      94,
+      102,
+      92,
+      80
+    ],
+    "skill_values": [
+      62,
+      66,
+      48,
+      72,
+      64,
+      68,
+      62,
+      48,
+      60,
+      72,
+      82,
+      92,
+      76,
+      68,
+      62,
+      36,
+      84,
+      72,
+      60,
+      72,
+      68,
+      42,
+      118,
+      78,
+      82,
+      88,
+      74,
+      96,
+      62,
+      88,
+      48,
+      52,
+      50,
+      48,
+      54
+    ]
+  },
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 169,
+      "sd": 5.9
+    },
+    "weight_kg": {
+      "mean": 66,
+      "sd": 7.6
+    },
+    "individual_records_required": false
+  },
+  "aptitude_distribution": {
+    "mean": 107,
+    "sd": 16,
+    "low_pct": 12,
+    "normal_pct": 62,
+    "high_pct": 22,
+    "exceptional_pct": 4,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "combat_tendencies": {
+    "aggression": 55,
+    "initiative": 50,
+    "caution": 50,
+    "adaptability": 50,
+    "flank_bias": 45,
+    "counterattack_bias": 55,
+    "pursuit_bias": 45,
+    "reserve_bias": 55,
+    "withdrawal_willingness": 45,
+    "casualty_tolerance": 60,
+    "objective_focus": 70,
+    "ally_support": 60,
+    "formation_discipline": 70,
+    "commander_dependence": 60
+  },
+  "experience_distribution": {
+    "field-tested": 417
+  },
+  "qualification_multiplier_applied_to_stats": false,
+  "authority": false,
+  "source_owner_kind": "exact_current_owner",
+  "current_owner_required": true,
+  "manpower_semantics": "capability only; this document never proves current soldiers exist",
+  "current_pool_count": 417
+}

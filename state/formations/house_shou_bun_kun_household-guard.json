@@ -1,0 +1,51 @@
+{
+  "administrative_owner": "house_shou_bun_kun_household",
+  "autonomous_orders": [
+    {
+      "action_ref": "house_arc_16218118ec7da2c648",
+      "arc_ref": "arc_shin_hyou_departure",
+      "at": "245-BCE-12-23T06:22:48+08:00",
+      "goal": "act within current Qin political and military obligations",
+      "kind": "house_world_arc_operation",
+      "target_ref": "char_shin"
+    }
+  ],
+  "cohesion": 74,
+  "command_authority": "char_shou_bun_kun",
+  "commander_ref": "char_shou_bun_kun",
+  "composition": {
+    "household_retainer": 180
+  },
+  "doctrine_behavior": {
+    "extraction_priority": 80,
+    "primary_success_condition": "protect household principal and assets"
+  },
+  "doctrine_ref": "household_guard",
+  "equipment_completeness": "0.8500",
+  "equipment_units_by_role": {
+    "household_retainer": 153
+  },
+  "experience": "trained",
+  "fatigue": 0,
+  "formation_ref": "formation_house_shou_bun_kun_household_guard",
+  "location_ref": "loc_kanyou",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 78,
+  "mounts": {},
+  "name": "House Shou Bun Kun Household Guard",
+  "owner_force_ref": "force_house_shou_bun_kun_household",
+  "personnel": 180,
+  "readiness": 72,
+  "schema": "sword-formation",
+  "status": "mobilized",
+  "training_ref": "household_retainer",
+  "geographic_provenance": {
+    "migration": "world_geography_overhaul_v1"
+  }
+}

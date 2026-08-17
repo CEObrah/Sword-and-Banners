@@ -1,0 +1,33 @@
+{
+  "schema": "generic-object.v1",
+  "owner_id": "travel_geography_mechanics",
+  "authority": true,
+  "base_hours_interpretation": "route hours are a deterministic foot-equivalent strategic cost, not a claimed historical survey measurement",
+  "mode_factors": {
+    "foot": 1.0,
+    "horse": 0.65,
+    "courier": 0.5,
+    "formation": 1.35,
+    "convoy": 1.6
+  },
+  "terrain_factors": {
+    "plain": 1.0,
+    "mixed_plain": 1.05,
+    "river_plain": 1.05,
+    "cultivated_plain": 1.0,
+    "coastal_plain": 1.05,
+    "corridor": 1.0,
+    "upland": 1.15,
+    "hills": 1.2,
+    "river_hills": 1.2,
+    "steppe_edge": 1.1,
+    "mountain": 1.45
+  },
+  "road_quality_factors": {
+    "military_road": 0.9,
+    "maintained": 1.0,
+    "estate_road": 1.0,
+    "rough": 1.2
+  },
+  "rule": "final edge cost = base hours * mode * terrain * road quality; aggregate formations and convoys remain slower than individual riders"
+}

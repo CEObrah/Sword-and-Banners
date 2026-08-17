@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "attribute_order",
+    "skill_order",
+    "records"
+  ],
+  "properties": {
+    "schema": {
+      "const": "cohort-capability-baselines.v1"
+    },
+    "authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attribute_order": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "skill_order": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "records": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "attribute_values",
+          "skill_values",
+          "attribute_sd",
+          "skill_sd",
+          "service_months_mean",
+          "aptitude"
+        ],
+        "properties": {
+          "attribute_values": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0
+            },
+            "minItems": 1
+          },
+          "skill_values": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0
+            },
+            "minItems": 1
+          },
+          "attribute_sd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "skill_sd": {
+            "type": "number",
+            "minimum": 0
+          },
+          "service_months_mean": {
+            "type": "number",
+            "minimum": 0
+          },
+          "aptitude": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

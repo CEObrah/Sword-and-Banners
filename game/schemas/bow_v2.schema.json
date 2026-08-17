@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "mass_kg",
+    "effective_range_m",
+    "maximum_direct_range_m",
+    "draw_power_index",
+    "handling"
+  ],
+  "properties": {
+    "schema": {
+      "const": "bow_v2"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mass_kg": {},
+    "effective_range_m": {},
+    "maximum_direct_range_m": {},
+    "draw_power_index": {},
+    "handling": {}
+  },
+  "additionalProperties": true
+}

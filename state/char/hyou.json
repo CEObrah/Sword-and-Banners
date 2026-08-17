@@ -1,0 +1,798 @@
+{
+  "age_basis": "exact_profile",
+  "age_stage": "adolescent",
+  "appearance": 85,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 107,
+    "physical_learning": 103,
+    "social_learning": 94,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 91,
+    "technical_learning": 86
+  },
+  "attributes": {
+    "Agility": 90,
+    "Awareness": 90,
+    "Composure": 98,
+    "Coordination": 94,
+    "Endurance": 105,
+    "Intelligence": 92,
+    "Presence": 90,
+    "Strength": 76,
+    "Toughness": 100
+  },
+  "background": {
+    "origin": "Qin"
+  },
+  "behavior": {
+    "decision_style": "pursues concrete openings to train, prove himself, protect his shared path with Shin, and enter consequential service rather than waiting passively for status",
+    "evidence_boundary": "This anchor is derived only from the saved current role, goal and opening-campaign obligations. Do not infer unrelated private traits, future development or later-series behavior from it.",
+    "pressure_behavior": "under pressure, favors action that preserves the shared objective and a future path forward rather than prestige for its own sake",
+    "priority_order": [
+      "survive and protect the immediate opportunity",
+      "train and improve through real experience",
+      "seize lawful openings that move him toward the battlefield world he seeks"
+    ],
+    "source": "current_campaign_role_goal_anchor"
+  },
+  "birth_date": "259-BCE-10-10",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 179.0,
+    "current_weight_kg": 55.2,
+    "frame": "average",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "career_changes": 0,
+    "office_or_command": "saved profile role",
+    "revision": 1
+  },
+  "development_state": {
+    "completed_months": 0,
+    "maintenance_credit": 0.0,
+    "training_credit": 0.0,
+    "skill_edu_banks": {
+      "Governance": 26.903,
+      "Trade": 25.709,
+      "Strategy": 24.889,
+      "Training": 24.889,
+      "Navigation": 26.729,
+      "Tactics": 24.889
+    },
+    "settled_training_hours": 336,
+    "completed_reviews": 7,
+    "attribute_edu_banks": {
+      "Intelligence": 3.996,
+      "Presence": 1.828,
+      "Composure": 0.617,
+      "Awareness": 4.177
+    },
+    "attribute_stimulus_hours_milli": 117600
+  },
+  "equipment_loadout_id": "loadout_named_sword",
+  "goal_state": {
+    "current_goals": [
+      "train beside Shin and seize the first lawful opportunity to enter the world of generals"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": true,
+  "life_course_age_index": 14,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_qin_unresolved",
+  "name": "Hyou",
+  "owner_id": "char_hyou",
+  "owner_type": "character",
+  "role_archetype": "youth_leader",
+  "runtime": {
+    "autonomous_action_attempts": [
+      {
+        "action_ref": "person_arc_16df2cbfd4aa8dd768",
+        "arc_observed": true,
+        "arc_observed_at": "244-BCE-01-04T06:22:48+08:00",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "245-BCE-12-28T06:22:48+08:00",
+        "capability_basis": [
+          {
+            "score": 65,
+            "skill": "Leadership"
+          },
+          {
+            "score": 55,
+            "skill": "Diplomacy"
+          },
+          {
+            "score": 25,
+            "skill": "Strategy"
+          }
+        ],
+        "evidence_stage": "commitment",
+        "goal": "train beside Shin and seize the first lawful opportunity to enter the world of generals",
+        "kind": "world_arc_personal_initiative",
+        "material_evidence": {
+          "action_ref": "person_arc_16df2cbfd4aa8dd768",
+          "evidence_stage": "commitment",
+          "history_event_ref": "autonomous_domain_66860c999a2f02897a",
+          "kind": "exact_person_commitment",
+          "person_ref": "char_hyou"
+        },
+        "outcome_rule": "this exact-person action attempt creates no consent, appointment, movement, injury, relationship change, or external result by itself",
+        "settled_at": "245-BCE-12-30T06:22:48+08:00",
+        "status": "commitment_settled",
+        "target_ref": "char_shin"
+      },
+      {
+        "action_ref": "person_arc_544ce10e27e7cfac49",
+        "arc_observed": true,
+        "arc_observed_at": "244-BCE-03-14T06:22:48+08:00",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "244-BCE-03-07T06:22:48+08:00",
+        "capability_basis": [
+          {
+            "score": 65,
+            "skill": "Leadership"
+          },
+          {
+            "score": 55,
+            "skill": "Diplomacy"
+          },
+          {
+            "score": 19,
+            "skill": "Governance"
+          }
+        ],
+        "evidence_stage": "commitment",
+        "goal": "act within current Qin political and military obligations",
+        "kind": "world_arc_personal_initiative",
+        "material_evidence": {
+          "action_ref": "person_arc_544ce10e27e7cfac49",
+          "evidence_stage": "commitment",
+          "history_event_ref": "autonomous_domain_39cc1db3338fedf7f6",
+          "kind": "exact_person_commitment",
+          "person_ref": "char_hyou"
+        },
+        "outcome_rule": "this exact-person action attempt creates no consent, appointment, movement, injury, relationship change, or external result by itself",
+        "settled_at": "244-BCE-03-09T06:22:48+08:00",
+        "status": "commitment_settled",
+        "target_ref": "char_shou_bun_kun"
+      },
+      {
+        "action_ref": "person_arc_f434bdcc8b8f0c51e6",
+        "arc_observed": true,
+        "arc_observed_at": "244-BCE-04-18T06:22:48+08:00",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "244-BCE-04-11T06:22:48+08:00",
+        "capability_basis": [
+          {
+            "score": 65,
+            "skill": "Leadership"
+          },
+          {
+            "score": 55,
+            "skill": "Diplomacy"
+          },
+          {
+            "score": 19,
+            "skill": "Governance"
+          }
+        ],
+        "evidence_stage": "commitment",
+        "goal": "act within current Qin political and military obligations",
+        "kind": "world_arc_personal_initiative",
+        "material_evidence": {
+          "action_ref": "person_arc_f434bdcc8b8f0c51e6",
+          "evidence_stage": "commitment",
+          "history_event_ref": "autonomous_domain_f57c03fd38b25ca2c1",
+          "kind": "exact_person_commitment",
+          "person_ref": "char_hyou"
+        },
+        "outcome_rule": "this exact-person action attempt creates no consent, appointment, movement, injury, relationship change, or external result by itself",
+        "settled_at": "244-BCE-04-13T06:22:48+08:00",
+        "status": "commitment_settled",
+        "target_ref": "char_shin"
+      },
+      {
+        "action_ref": "person_arc_f434bdcc8b8f0c51e6",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "244-BCE-05-02T06:22:48+08:00",
+        "capability_basis": [
+          {
+            "score": 65,
+            "skill": "Leadership"
+          },
+          {
+            "score": 55,
+            "skill": "Diplomacy"
+          },
+          {
+            "score": 19,
+            "skill": "Governance"
+          }
+        ],
+        "goal": "act within current Qin political and military obligations",
+        "kind": "world_arc_personal_initiative",
+        "outcome_rule": "this exact-person action attempt creates no consent, appointment, movement, injury, relationship change, or external result by itself",
+        "status": "queued",
+        "target_ref": "char_shin"
+      },
+      {
+        "action_ref": "person_arc_544ce10e27e7cfac49",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "244-BCE-05-16T06:22:48+08:00",
+        "capability_basis": [
+          {
+            "score": 65,
+            "skill": "Leadership"
+          },
+          {
+            "score": 55,
+            "skill": "Diplomacy"
+          },
+          {
+            "score": 19,
+            "skill": "Governance"
+          }
+        ],
+        "goal": "act within current Qin political and military obligations",
+        "kind": "world_arc_personal_initiative",
+        "last_reaffirmed_at": "244-BCE-07-04T06:22:48+08:00",
+        "outcome_rule": "this exact-person action attempt creates no consent, appointment, movement, injury, relationship change, or external result by itself",
+        "status": "queued",
+        "target_ref": "char_shou_bun_kun"
+      },
+      {
+        "action_ref": "person_arc_b888b07ef8434652eb",
+        "arc_observed": true,
+        "arc_observed_at": "244-BCE-07-18T06:22:48+08:00",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "244-BCE-07-11T06:22:48+08:00",
+        "capability_basis": [
+          {
+            "score": 65,
+            "skill": "Leadership"
+          },
+          {
+            "score": 55,
+            "skill": "Diplomacy"
+          },
+          {
+            "score": 25,
+            "skill": "Strategy"
+          }
+        ],
+        "evidence_stage": "commitment",
+        "goal": "train beside Shin and seize the first lawful opportunity to enter the world of generals",
+        "kind": "world_arc_personal_initiative",
+        "material_evidence": {
+          "action_ref": "person_arc_b888b07ef8434652eb",
+          "evidence_stage": "commitment",
+          "history_event_ref": "autonomous_domain_c474a3755dc2cf5853",
+          "kind": "exact_person_commitment",
+          "person_ref": "char_hyou"
+        },
+        "outcome_rule": "this exact-person action attempt creates no consent, appointment, movement, injury, relationship change, or external result by itself",
+        "settled_at": "244-BCE-07-13T06:22:48+08:00",
+        "status": "commitment_settled",
+        "target_ref": "char_shou_bun_kun"
+      }
+    ],
+    "autonomous_material_actions": [
+      {
+        "action_ref": "person_arc_16df2cbfd4aa8dd768",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "245-BCE-12-30T06:22:48+08:00",
+        "goal": "train beside Shin and seize the first lawful opportunity to enter the world of generals",
+        "kind": "personal_commitment",
+        "rule": "self-owned commitment only; external consequences require their own subsystem",
+        "target_ref": "char_shin"
+      },
+      {
+        "action_ref": "person_arc_544ce10e27e7cfac49",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "244-BCE-03-09T06:22:48+08:00",
+        "goal": "act within current Qin political and military obligations",
+        "kind": "personal_commitment",
+        "rule": "self-owned commitment only; external consequences require their own subsystem",
+        "target_ref": "char_shou_bun_kun"
+      },
+      {
+        "action_ref": "person_arc_f434bdcc8b8f0c51e6",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "244-BCE-04-13T06:22:48+08:00",
+        "goal": "act within current Qin political and military obligations",
+        "kind": "personal_commitment",
+        "rule": "self-owned commitment only; external consequences require their own subsystem",
+        "target_ref": "char_shin"
+      },
+      {
+        "action_ref": "person_arc_b888b07ef8434652eb",
+        "arc_ref": "arc_shin_hyou_departure",
+        "at": "244-BCE-07-13T06:22:48+08:00",
+        "goal": "train beside Shin and seize the first lawful opportunity to enter the world of generals",
+        "kind": "personal_commitment",
+        "rule": "self-owned commitment only; external consequences require their own subsystem",
+        "target_ref": "char_shou_bun_kun"
+      }
+    ],
+    "last_autonomous_action_at": "244-BCE-07-11T06:22:48+08:00"
+  },
+  "runtime_status": "active_shared_process_participant",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 98,
+    "Axe": 14,
+    "Bow": 0,
+    "Crossbow": 17,
+    "Dagger": 13,
+    "Defense": 80,
+    "Diplomacy": 55,
+    "Engineering": 14,
+    "Formation Command": 0,
+    "Formation Fighting": 0,
+    "Glaive": 0,
+    "Governance": 20,
+    "Grappling": 15,
+    "Intelligence Operations": 13,
+    "Intrigue": 14,
+    "Law": 19,
+    "Leadership": 65,
+    "Logistics": 0,
+    "Mace": 15,
+    "Mass Combat": 0,
+    "Medicine": 18,
+    "Navigation": 28,
+    "Riding": 0,
+    "Scouting": 13,
+    "Shield": 17,
+    "Spear": 15,
+    "Staff": 15,
+    "Stealth": 14,
+    "Strategy": 25,
+    "Survival": 42,
+    "Sword": 86,
+    "Tactics": 35,
+    "Trade": 24,
+    "Training": 26,
+    "Unarmed": 15
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_a5483f5315333e05f6fa",
+  "state": "Qin",
+  "autonomous_activity_state": {
+    "version": 3,
+    "enabled": true,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "cadence_seconds": 2592000,
+    "verified_hours_per_cycle": 48.0,
+    "focus_cursor": 7,
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "repair_provenance": {
+      "kind": "ooc_dev_stale_development_repair_v1",
+      "basis": "saved process_named_character_life_monthly coverage plus established named-person activity clock",
+      "repair_through": "244-BCE-07-02T06:22:48+08:00",
+      "campaign_time_advanced": false
+    },
+    "completed_cycles": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00"
+  },
+  "autonomous_development_history": [
+    {
+      "at": "244-BCE-01-04T06:22:48+08:00",
+      "focus": "Governance",
+      "hours": 48.0,
+      "development": {
+        "skill": "Governance",
+        "hours": 48,
+        "age": 14,
+        "aptitude": 107,
+        "effective_edu_milli": 29265,
+        "skill_points_gained": 0,
+        "skill_score": 19,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 29265,
+        "attribute_development": [
+          {
+            "attribute": "Intelligence",
+            "age": 14,
+            "aptitude": 107,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 3233,
+            "attribute_points_gained": 0,
+            "attribute_score": 92,
+            "edu_bank_milli": 444
+          },
+          {
+            "attribute": "Presence",
+            "age": 14,
+            "aptitude": 94,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 2500,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 422
+          },
+          {
+            "attribute": "Composure",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 2420,
+            "attribute_points_gained": 0,
+            "attribute_score": 98,
+            "edu_bank_milli": 109
+          },
+          {
+            "attribute": "Awareness",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 2750,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 464
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-02-03T06:22:48+08:00",
+      "focus": "Trade",
+      "hours": 48.0,
+      "development": {
+        "skill": "Trade",
+        "hours": 48,
+        "age": 14,
+        "aptitude": 94,
+        "effective_edu_milli": 25709,
+        "skill_points_gained": 0,
+        "skill_score": 24,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 25709,
+        "attribute_development": [
+          {
+            "attribute": "Intelligence",
+            "age": 14,
+            "aptitude": 107,
+            "stimulus_hours_milli": 5600,
+            "raw_edu_milli": 4311,
+            "attribute_points_gained": 0,
+            "attribute_score": 92,
+            "edu_bank_milli": 1036
+          },
+          {
+            "attribute": "Presence",
+            "age": 14,
+            "aptitude": 94,
+            "stimulus_hours_milli": 5600,
+            "raw_edu_milli": 3333,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 984
+          },
+          {
+            "attribute": "Awareness",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 5600,
+            "raw_edu_milli": 3666,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 1083
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-03-04T06:22:48+08:00",
+      "focus": "Strategy",
+      "hours": 48.0,
+      "development": {
+        "skill": "Strategy",
+        "hours": 48,
+        "age": 14,
+        "aptitude": 91,
+        "effective_edu_milli": 24889,
+        "skill_points_gained": 0,
+        "skill_score": 25,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 24889,
+        "attribute_development": [
+          {
+            "attribute": "Intelligence",
+            "age": 14,
+            "aptitude": 107,
+            "stimulus_hours_milli": 5600,
+            "raw_edu_milli": 4311,
+            "attribute_points_gained": 0,
+            "attribute_score": 92,
+            "edu_bank_milli": 1628
+          },
+          {
+            "attribute": "Awareness",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 5600,
+            "raw_edu_milli": 3666,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 1702
+          },
+          {
+            "attribute": "Composure",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 5600,
+            "raw_edu_milli": 3226,
+            "attribute_points_gained": 0,
+            "attribute_score": 98,
+            "edu_bank_milli": 254
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-04-03T06:22:48+08:00",
+      "focus": "Training",
+      "hours": 48.0,
+      "development": {
+        "skill": "Training",
+        "hours": 48,
+        "age": 14,
+        "aptitude": 91,
+        "effective_edu_milli": 24889,
+        "skill_points_gained": 0,
+        "skill_score": 26,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 24889,
+        "attribute_development": [
+          {
+            "attribute": "Intelligence",
+            "age": 14,
+            "aptitude": 107,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 3233,
+            "attribute_points_gained": 0,
+            "attribute_score": 92,
+            "edu_bank_milli": 2072
+          },
+          {
+            "attribute": "Awareness",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 2750,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 2166
+          },
+          {
+            "attribute": "Presence",
+            "age": 14,
+            "aptitude": 94,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 2500,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 1406
+          },
+          {
+            "attribute": "Composure",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 2420,
+            "attribute_points_gained": 0,
+            "attribute_score": 98,
+            "edu_bank_milli": 363
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-05-03T06:22:48+08:00",
+      "focus": "Navigation",
+      "hours": 48.0,
+      "development": {
+        "skill": "Navigation",
+        "hours": 48,
+        "age": 14,
+        "aptitude": 86,
+        "effective_edu_milli": 26729,
+        "skill_points_gained": 0,
+        "skill_score": 28,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 26729,
+        "attribute_development": [
+          {
+            "attribute": "Awareness",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 8400,
+            "raw_edu_milli": 5499,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 3094
+          },
+          {
+            "attribute": "Intelligence",
+            "age": 14,
+            "aptitude": 107,
+            "stimulus_hours_milli": 8400,
+            "raw_edu_milli": 6466,
+            "attribute_points_gained": 0,
+            "attribute_score": 92,
+            "edu_bank_milli": 2960
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-06-02T06:22:48+08:00",
+      "focus": "Tactics",
+      "hours": 48.0,
+      "development": {
+        "skill": "Tactics",
+        "hours": 48,
+        "age": 14,
+        "aptitude": 91,
+        "effective_edu_milli": 24889,
+        "skill_points_gained": 0,
+        "skill_score": 35,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 24889,
+        "attribute_development": [
+          {
+            "attribute": "Intelligence",
+            "age": 14,
+            "aptitude": 107,
+            "stimulus_hours_milli": 5600,
+            "raw_edu_milli": 4311,
+            "attribute_points_gained": 0,
+            "attribute_score": 92,
+            "edu_bank_milli": 3552
+          },
+          {
+            "attribute": "Awareness",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 5600,
+            "raw_edu_milli": 3666,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 3713
+          },
+          {
+            "attribute": "Composure",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 5600,
+            "raw_edu_milli": 3226,
+            "attribute_points_gained": 0,
+            "attribute_score": 98,
+            "edu_bank_milli": 508
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-07-02T06:22:48+08:00",
+      "focus": "Governance",
+      "hours": 48.0,
+      "development": {
+        "skill": "Governance",
+        "hours": 48,
+        "age": 14,
+        "aptitude": 107,
+        "effective_edu_milli": 29265,
+        "skill_points_gained": 1,
+        "skill_score": 20,
+        "routine_training_ceiling": 180,
+        "capability_reference_value": 200,
+        "skill_hard_cap": null,
+        "exceptional_progression_required": false,
+        "edu_bank_milli": 26903,
+        "attribute_development": [
+          {
+            "attribute": "Intelligence",
+            "age": 14,
+            "aptitude": 107,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 3233,
+            "attribute_points_gained": 0,
+            "attribute_score": 92,
+            "edu_bank_milli": 3996
+          },
+          {
+            "attribute": "Presence",
+            "age": 14,
+            "aptitude": 94,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 2500,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 1828
+          },
+          {
+            "attribute": "Composure",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 2420,
+            "attribute_points_gained": 0,
+            "attribute_score": 98,
+            "edu_bank_milli": 617
+          },
+          {
+            "attribute": "Awareness",
+            "age": 14,
+            "aptitude": 91,
+            "stimulus_hours_milli": 4200,
+            "raw_edu_milli": 2750,
+            "attribute_points_gained": 0,
+            "attribute_score": 90,
+            "edu_bank_milli": 4177
+          }
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    }
+  ]
+}

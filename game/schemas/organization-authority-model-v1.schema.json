@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Organization authority model v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "layers",
+    "unit_invariant",
+    "commander_rule",
+    "formation_rule",
+    "support_rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "organization-authority-model.v1"
+    },
+    "authority": {
+      "type": "string"
+    },
+    "layers": {
+      "type": "object"
+    },
+    "unit_invariant": {
+      "type": "string"
+    },
+    "commander_rule": {
+      "type": "string"
+    },
+    "formation_rule": {
+      "type": "string"
+    },
+    "support_rule": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

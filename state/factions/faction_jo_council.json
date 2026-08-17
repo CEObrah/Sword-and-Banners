@@ -1,0 +1,42 @@
+{
+  "schema": "sword-faction-agenda",
+  "owner_id": "faction_jo_council",
+  "name": "Jo Council",
+  "goals": [
+    "preserve Jo independence",
+    "maintain protected neutrality",
+    "sustain the information brokerage network"
+  ],
+  "pressure": 12,
+  "resources": {
+    "influence": 48,
+    "agents": 36,
+    "information_access": 88,
+    "muster_readiness": 52,
+    "warband_capacity": 0
+  },
+  "relationships": {
+    "state_wei": {
+      "kind": "protector_neighbor",
+      "strength": 58
+    },
+    "state_zhao": {
+      "kind": "protector_neighbor",
+      "strength": 58
+    },
+    "state_chu": {
+      "kind": "protector_neighbor",
+      "strength": 58
+    }
+  },
+  "pending_information_refs": [],
+  "commitments": [],
+  "profile_ref": "game/data/politics/faction-profiles.json#faction_jo_council",
+  "force_ref": "force_jo",
+  "polity_ref": "polity_jo",
+  "manpower_semantics": "faction owns zero bodies; force_jo owns the exact 1,500-person standing defense",
+  "provenance": {
+    "kind": "game_seed_from_verified_setting"
+  },
+  "knowledge": []
+}

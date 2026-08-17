@@ -1,0 +1,393 @@
+{
+  "schema": "role-slot-registry",
+  "owner_id": "institution_role_slots",
+  "owner_type": "role_slot_registry",
+  "roles": {
+    "role.house_tang.agricultural_director": {
+      "institution_ref": "institution_house_tang",
+      "role": "Agricultural Director",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "crop plan, labor allocation, irrigation requests, reserve plots, and harvest reporting under Tang Ling",
+      "location_ref": "loc_tang_manor_northern_grain_ward_office",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 43,
+        "capability_bands": {
+          "governance": "expert",
+          "logistics": "expert",
+          "survival": "expert",
+          "engineering": "experienced",
+          "trade": "experienced",
+          "leadership": "experienced",
+          "training": "experienced"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.armorer": {
+      "institution_ref": "institution_house_tang",
+      "role": "armorer",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "Routine delegated authority within this House Tang specialty; no independent strategic commitment.",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 42,
+        "capability_bands": {
+          "engineering": "basic",
+          "training": "basic",
+          "logistics": "basic",
+          "trade": "basic",
+          "defense": "basic"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.caravan_broker": {
+      "institution_ref": "institution_house_tang",
+      "role": "caravan broker",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "Routine delegated authority within this House Tang specialty; no independent strategic commitment.",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 25,
+        "capability_bands": {
+          "diplomacy": "competent",
+          "trade": "competent",
+          "law": "basic",
+          "logistics": "basic",
+          "navigation": "basic",
+          "intelligence_operations": "basic"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.chief_administrator": {
+      "institution_ref": "institution_house_tang",
+      "role": "Chief Administrator",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "routine administration under Tang Ling; no independent strategic commitment",
+      "location_ref": "loc_tang_manor_inner_citadel_administration_office",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 46,
+        "capability_bands": {
+          "governance": "master",
+          "law": "expert",
+          "logistics": "expert",
+          "diplomacy": "expert",
+          "trade": "expert",
+          "intelligence_operations": "experienced",
+          "leadership": "experienced"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.chief_physician": {
+      "institution_ref": "institution_house_tang",
+      "role": "Chief Physician",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "treatment priority, quarantine recommendation, medical release, and casualty-care reporting; no punishment authority",
+      "location_ref": "loc_tang_manor_central_infirmary",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 37,
+        "capability_bands": {
+          "medicine": "master",
+          "training": "experienced",
+          "logistics": "expert",
+          "leadership": "experienced",
+          "governance": "experienced",
+          "diplomacy": "experienced"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.estate_accountant": {
+      "institution_ref": "institution_house_tang",
+      "role": "estate accountant",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "Routine delegated authority within this House Tang specialty; no independent strategic commitment.",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 33,
+        "capability_bands": {
+          "governance": "experienced",
+          "law": "competent",
+          "trade": "basic",
+          "logistics": "basic",
+          "training": "basic"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.forge_master": {
+      "institution_ref": "institution_house_tang",
+      "role": "Tang Forge Master",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "forge production, repair assignment, quality rejection, and armory reporting under Tang Zhu and Tang Ling",
+      "location_ref": "loc_tang_manor_forge_and_armory",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 52,
+        "capability_bands": {
+          "engineering": "master",
+          "training": "expert",
+          "logistics": "expert",
+          "trade": "experienced",
+          "leadership": "experienced",
+          "governance": "experienced"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.intelligence_contact_manager": {
+      "institution_ref": "institution_house_tang",
+      "role": "intelligence contact manager",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "Routine delegated authority within this House Tang specialty; no independent strategic commitment.",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 34,
+        "capability_bands": {
+          "intelligence_operations": "experienced",
+          "intrigue": "basic",
+          "diplomacy": "basic",
+          "trade": "basic",
+          "law": "basic",
+          "stealth": "basic"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.physician_assistant": {
+      "institution_ref": "institution_house_tang",
+      "role": "physician assistant",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "Routine delegated authority within this House Tang specialty; no independent strategic commitment.",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 25,
+        "capability_bands": {
+          "medicine": "experienced",
+          "logistics": "basic",
+          "training": "basic",
+          "diplomacy": "basic",
+          "governance": "basic"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.senior_scribe": {
+      "institution_ref": "institution_house_tang",
+      "role": "senior scribe",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "Routine delegated authority within this House Tang specialty; no independent strategic commitment.",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 40,
+        "capability_bands": {
+          "governance": "competent",
+          "law": "competent",
+          "diplomacy": "basic",
+          "training": "basic",
+          "intelligence_operations": "basic"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.stable_deputy": {
+      "institution_ref": "institution_house_tang",
+      "role": "stable deputy",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "Routine delegated authority within this House Tang specialty; no independent strategic commitment.",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 44,
+        "capability_bands": {
+          "riding": "basic",
+          "logistics": "basic",
+          "medicine": "basic",
+          "training": "basic",
+          "survival": "basic",
+          "navigation": "basic"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.stable_remount_master": {
+      "institution_ref": "institution_house_tang",
+      "role": "Stable and Remount Master",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "animal allocation, remount readiness, carriage assignment, and stable safety under Tang Ling",
+      "location_ref": "loc_tang_manor_stable_remount_and_carriage_yard",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 39,
+        "capability_bands": {
+          "riding": "master",
+          "logistics": "expert",
+          "training": "expert",
+          "leadership": "experienced",
+          "medicine": "competent",
+          "engineering": "experienced",
+          "trade": "experienced"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.warehouse_granary_chief": {
+      "institution_ref": "institution_house_tang",
+      "role": "Warehouse and Granary Chief",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "custody, rotation, issue receipts, loss investigation, and stock reporting under Tang Ling",
+      "location_ref": "loc_tang_manor_central_warehouse_and_granary",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 48,
+        "capability_bands": {
+          "logistics": "master",
+          "trade": "expert",
+          "governance": "expert",
+          "law": "experienced",
+          "intelligence_operations": "experienced",
+          "leadership": "experienced"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.house_tang.works_planner": {
+      "institution_ref": "institution_house_tang",
+      "role": "architect and works planner",
+      "status": "occupied",
+      "position_count": 1,
+      "authority_summary": "Routine delegated authority within this House Tang specialty; no independent strategic commitment.",
+      "source_population_ref": "population_tang_manor",
+      "included_in_population": true,
+      "incumbent": {
+        "representation": "anonymous_role_incumbent",
+        "age_years": 42,
+        "capability_bands": {
+          "engineering": "competent",
+          "logistics": "basic",
+          "governance": "basic",
+          "trade": "basic",
+          "navigation": "basic",
+          "training": "basic"
+        },
+        "health_availability": "fit",
+        "service_development_credit": 0.0,
+        "retirement_status": "active",
+        "materialized_character_id": null,
+        "settled_through": "245-BCE-12-04T07:22:48+08:00"
+      }
+    },
+    "role.sword_manor.escort_captain": {
+      "institution_ref": "institution_sword_manor",
+      "role": "escort captain",
+      "status": "capacity_only",
+      "position_count": 20,
+      "authority_summary": "Defined escort-command capacity; an incumbent must be lawfully assigned before the position can exercise authority."
+    },
+    "role.sword_manor.senior_instructor": {
+      "institution_ref": "institution_sword_manor",
+      "role": "senior instructor",
+      "status": "capacity_only",
+      "position_count": 10,
+      "authority_summary": "Defined senior-instructor capacity; only lawfully assigned and available instructors contribute instruction."
+    }
+  },
+  "runtime": {
+    "last_settled_at": "245-BCE-12-04T07:22:48+08:00"
+  }
+}

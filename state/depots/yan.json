@@ -1,0 +1,24 @@
+{
+  "location_ref": "loc_yan_regional_01",
+  "owner_id": "state_depot_yan",
+  "schema": "sword-depot",
+  "state": "yan",
+  "stocks": {
+    "carts": 18000,
+    "fodder_kg": 67993600,
+    "grain_kg": 185085500,
+    "iron_tonnes": 35000,
+    "medicine_lots": 30000,
+    "timber_tonnes": 160000,
+    "war_arrows": 15884800,
+    "war_bolts": 7000000
+  },
+  "region_ref": "loc_yan_regional_01",
+  "geography": {
+    "location_ref": "loc_yan_regional_01",
+    "region_ref": "loc_yan_regional_01",
+    "access_node_ref": "loc_yan_regional_01",
+    "owns_local_population": false,
+    "rule": "depot owns stock only; surrounding population/economy remain with their exact demographic/economic owners"
+  }
+}

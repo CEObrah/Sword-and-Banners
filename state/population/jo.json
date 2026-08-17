@@ -1,0 +1,97 @@
+{
+  "schema": "sword-population",
+  "owner_id": "population_jo",
+  "state": "jo",
+  "population_total": 32000,
+  "strata": {
+    "active_military": 1500,
+    "administration_and_education": 1500,
+    "agricultural": 16000,
+    "craft_and_industry": 2500,
+    "dependents_children_elderly": 4500,
+    "household_and_service": 1000,
+    "merchant_and_transport": 5000
+  },
+  "local_population": {
+    "version": 3,
+    "authority": true,
+    "representation": "demographic-owner-only local-origin partition inside exact Jo population owner",
+    "sites": {
+      "loc_jo_city": {
+        "location_ref": "loc_jo_city",
+        "initial_population": 14500,
+        "civilian_strata": {
+          "administration_and_education": 1200,
+          "agricultural": 3000,
+          "craft_and_industry": 1800,
+          "dependents_children_elderly": 3500,
+          "household_and_service": 700,
+          "merchant_and_transport": 3500
+        },
+        "service_allocations": {
+          "force_jo": {
+            "personnel": 800,
+            "service_class": "native_military",
+            "source_stratum": "active_military"
+          }
+        },
+        "candidate_reservations": {},
+        "displaced": 0,
+        "deaths_cumulative": 0,
+        "civilian_population": 13700,
+        "agricultural_available": 3000,
+        "serving_native_military": 800,
+        "serving_foreign_military": 0,
+        "rebel_military": 0,
+        "private_household_military": 0,
+        "service_population": 800,
+        "candidates_reserved": 0,
+        "reserved_candidates": 0
+      },
+      "loc_jo_mountain_region": {
+        "location_ref": "loc_jo_mountain_region",
+        "initial_population": 17500,
+        "civilian_strata": {
+          "administration_and_education": 300,
+          "agricultural": 13000,
+          "craft_and_industry": 700,
+          "dependents_children_elderly": 1000,
+          "household_and_service": 300,
+          "merchant_and_transport": 1500
+        },
+        "service_allocations": {
+          "force_jo": {
+            "personnel": 700,
+            "service_class": "native_military",
+            "source_stratum": "active_military"
+          }
+        },
+        "candidate_reservations": {},
+        "displaced": 0,
+        "deaths_cumulative": 0,
+        "civilian_population": 16800,
+        "agricultural_available": 13000,
+        "serving_native_military": 700,
+        "serving_foreign_military": 0,
+        "rebel_military": 0,
+        "private_household_military": 0,
+        "service_population": 700,
+        "candidates_reserved": 0,
+        "reserved_candidates": 0
+      }
+    },
+    "initialized_from_population_total": 32000,
+    "basis": "non-canonical game-scale Jo seed; exact total conserved between city and mountain territory",
+    "migration_provenance": "jo_minor_polity_seed_v1"
+  },
+  "demography": {
+    "birth_rate_per_thousand": "24.0",
+    "death_rate_per_thousand": "18.0",
+    "closes": 0,
+    "last_close": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "provenance": {
+    "kind": "game_seed_noncanonical",
+    "source_basis": "verified setting places Jo/Xu as a small independent mountain state; exact population is a conservative simulation seed, not a manga/historical claim"
+  }
+}

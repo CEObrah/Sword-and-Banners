@@ -1,0 +1,196 @@
+{
+  "activity_anchor": "245-BCE-12-05T06:22:48+08:00",
+  "authority": false,
+  "baseline_revision_reset": false,
+  "campaign_time_advanced": false,
+  "conservation": "training/capability repair changes development evidence and current standing capability only; no people, force manpower, equipment, money, territory, or campaign time created",
+  "force_capability_baselines_seeded": [
+    "force_house_go_military_house",
+    "force_house_kanki_retinue_house",
+    "force_house_karin_house",
+    "force_house_mou_family",
+    "force_house_ou_family",
+    "force_house_ouki_household",
+    "force_house_riboku_household",
+    "force_house_shou_bun_kun_household",
+    "force_house_tou_household",
+    "force_jo"
+  ],
+  "force_capability_baselines_seeded_count": 10,
+  "force_capability_repair_details": [
+    {
+      "cohort_refs": [
+        "cohort_force_house_go_military_house_5541c08787ab"
+      ],
+      "force_ref": "force_house_go_military_house",
+      "path": "state/forces/house_go_military_house.json"
+    },
+    {
+      "cohort_refs": [
+        "cohort_force_house_kanki_retinue_house_b42e3381fb0b"
+      ],
+      "force_ref": "force_house_kanki_retinue_house",
+      "path": "state/forces/house_kanki_retinue_house.json"
+    },
+    {
+      "cohort_refs": [
+        "cohort_force_house_karin_house_13db09a1ed2d"
+      ],
+      "force_ref": "force_house_karin_house",
+      "path": "state/forces/house_karin_house.json"
+    },
+    {
+      "cohort_refs": [
+        "cohort_force_house_mou_family_6d6d9dabe11d"
+      ],
+      "force_ref": "force_house_mou_family",
+      "path": "state/forces/house_mou_family.json"
+    },
+    {
+      "cohort_refs": [
+        "cohort_force_house_ou_family_b1ad72aaa149"
+      ],
+      "force_ref": "force_house_ou_family",
+      "path": "state/forces/house_ou_family.json"
+    },
+    {
+      "cohort_refs": [
+        "cohort_force_house_ouki_household_b6951004fb97"
+      ],
+      "force_ref": "force_house_ouki_household",
+      "path": "state/forces/house_ouki_household.json"
+    },
+    {
+      "cohort_refs": [
+        "cohort_force_house_riboku_household_11ebe0282f59"
+      ],
+      "force_ref": "force_house_riboku_household",
+      "path": "state/forces/house_riboku_household.json"
+    },
+    {
+      "cohort_refs": [
+        "cohort_force_house_shou_bun_kun_household_ab168f5bb38a"
+      ],
+      "force_ref": "force_house_shou_bun_kun_household",
+      "path": "state/forces/house_shou_bun_kun_household.json"
+    },
+    {
+      "cohort_refs": [
+        "cohort_force_house_tou_household_4238f0dd3027"
+      ],
+      "force_ref": "force_house_tou_household",
+      "path": "state/forces/house_tou_household.json"
+    },
+    {
+      "cohort_refs": [
+        "cohort_jo_city_guard",
+        "cohort_jo_mountain_guard",
+        "cohort_jo_scout",
+        "cohort_jo_logistics"
+      ],
+      "force_ref": "force_jo",
+      "path": "state/forces/jo.json"
+    }
+  ],
+  "force_capability_repair_policy": "seed current standing capability from registered role baselines only; legacy unknown roles are resolved only from exact force/location/formation role evidence; existing verified training/exposure hours are preserved as historical evidence and are not replayed",
+  "force_owned_person_lite_future_training_repaired": {
+    "force_house_tang": 88,
+    "force_state_qin": 28,
+    "institution_sword_manor": 89
+  },
+  "force_owned_person_lite_retroactive_policy": "force-owned person-lite officers now train on the same exact force clock as their conserved parent force. No historical force hours are replayed into these individual-lite records because their existing current stats were materialized from the already-developed current force baseline and the repository does not preserve a separate safe individual materialization interval; replay would double-credit capability.",
+  "history_policy": "catch-up is limited to actors already named by the saved monthly named-character coverage owner and to the established activity-clock interval; no pre-system development invented",
+  "kind": "current_campaign_repair_provenance",
+  "missing_person_hosts_added": [
+    "char_gao_yun",
+    "char_he_shan",
+    "char_qin_wei_unit_01_commander",
+    "char_qin_wei_unit_02_commander",
+    "char_qin_wei_unit_03_commander",
+    "char_qin_wei_unit_04_commander",
+    "char_ren_qiao"
+  ],
+  "named_person_lite_staff_newly_routed_without_retroactive_credit": [
+    "officer.house_tang.wei_guard.deputy"
+  ],
+  "named_person_lite_staff_routing_policy": "newly discovered named command staff are routed at current campaign time when no safe prior activity anchor exists; no retroactive training is fabricated",
+  "owner_id": "migration_stale_development_repair_v1",
+  "repair_through": "244-BCE-07-02T06:22:48+08:00",
+  "schema": "generic-object.v1",
+  "scope": [
+    "missing annual causal hosts for current exact named people with explicit activity contracts",
+    "stale named-person monthly development routing",
+    "named person-lite command-staff development routing",
+    "stale active force cohorts with no trainable capability baseline",
+    "legacy release-baseline household cohorts whose exact saved role was lost as unknown"
+  ],
+  "stale_covered_people_caught_up": [
+    "char_gyouun",
+    "char_hakurei",
+    "char_kisui",
+    "char_hyou",
+    "char_riboku",
+    "char_mou_ki",
+    "char_heki",
+    "char_shun_shin_kun",
+    "char_ri_shi",
+    "char_karyoten",
+    "char_houken",
+    "char_shou_bun_kun",
+    "char_yotanwa",
+    "char_renpa",
+    "char_bananji",
+    "char_kouen",
+    "char_ei_sei",
+    "char_shunsuiju",
+    "char_keisha",
+    "char_sei_kyou",
+    "char_ou_ken",
+    "char_karin",
+    "char_kan_pishi",
+    "char_ouki",
+    "char_gai_mou",
+    "char_kyoukai",
+    "char_tou",
+    "char_go_hou_mei",
+    "char_ketsu_shi",
+    "char_shibashou",
+    "char_go_kei",
+    "char_rankai",
+    "char_kanmei",
+    "char_rei_ou",
+    "char_ordo",
+    "char_kouyoku",
+    "char_kansaro",
+    "char_tajifu",
+    "char_prince_ka",
+    "char_kaku_kai",
+    "char_mou_gou",
+    "char_bajio",
+    "char_geki_shin",
+    "char_duke_hyou",
+    "char_kochou",
+    "char_ji_aga",
+    "char_ousen",
+    "char_chou_ga_ryuu",
+    "char_mou_bu",
+    "char_earl_shi",
+    "char_shin",
+    "char_tou_jou",
+    "char_kanki",
+    "char_sei_kai",
+    "char_rin_bu_kun",
+    "char_ou_hon",
+    "char_ryo_fui",
+    "char_sai_taku",
+    "char_futei",
+    "char_kaine",
+    "char_shou_hei_kun",
+    "char_batei",
+    "char_shunmen",
+    "char_mou_ten",
+    "staff.chu.karin.chu_yan",
+    "staff.chu.karin.lan_qi"
+  ],
+  "stale_covered_people_count": 66
+}

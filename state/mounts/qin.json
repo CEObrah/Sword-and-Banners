@@ -1,0 +1,94 @@
+{
+  "allocated_to_formations": {
+    "formation_qin_mobile_reserve": {
+      "horse_war_military": 5000
+    }
+  },
+  "health": {
+    "fit": 80975,
+    "limited": 2550,
+    "recovering": 1475,
+    "unfit": 0
+  },
+  "owner_id": "mount_pool_qin",
+  "schema": "sword-mount-pool",
+  "state": "qin",
+  "total": 85000,
+  "types": {
+    "horse_chariot_trained": 15000,
+    "horse_frontier_trained": 15000,
+    "horse_riding_common": 20000,
+    "horse_war_heavy": 10000,
+    "horse_war_military": 25000
+  },
+  "regional_reserve": {
+    "loc_kanyou": {
+      "horse_chariot_trained": 2700,
+      "horse_frontier_trained": 2700,
+      "horse_riding_common": 3600,
+      "horse_war_heavy": 1800,
+      "horse_war_military": 3600
+    },
+    "loc_qin_regional_01": {
+      "horse_chariot_trained": 1800,
+      "horse_frontier_trained": 1800,
+      "horse_riding_common": 2400,
+      "horse_war_heavy": 1200,
+      "horse_war_military": 2400
+    },
+    "loc_qin_regional_02": {
+      "horse_chariot_trained": 2700,
+      "horse_frontier_trained": 2700,
+      "horse_riding_common": 3600,
+      "horse_war_heavy": 1800,
+      "horse_war_military": 3600
+    },
+    "loc_qin_regional_03": {
+      "horse_chariot_trained": 2100,
+      "horse_frontier_trained": 2100,
+      "horse_riding_common": 2800,
+      "horse_war_heavy": 1400,
+      "horse_war_military": 2800
+    },
+    "loc_qin_regional_04": {
+      "horse_chariot_trained": 1800,
+      "horse_frontier_trained": 1800,
+      "horse_riding_common": 2400,
+      "horse_war_heavy": 1200,
+      "horse_war_military": 2400
+    },
+    "loc_kankoku_pass": {
+      "horse_chariot_trained": 1500,
+      "horse_frontier_trained": 1500,
+      "horse_riding_common": 2000,
+      "horse_war_heavy": 1000,
+      "horse_war_military": 2000
+    },
+    "loc_sai": {
+      "horse_chariot_trained": 900,
+      "horse_frontier_trained": 900,
+      "horse_riding_common": 1200,
+      "horse_war_heavy": 600,
+      "horse_war_military": 1200
+    },
+    "loc_qin_western_fort": {
+      "horse_chariot_trained": 750,
+      "horse_frontier_trained": 750,
+      "horse_riding_common": 1000,
+      "horse_war_heavy": 500,
+      "horse_war_military": 1000
+    },
+    "loc_qin_eastern_depot": {
+      "horse_chariot_trained": 750,
+      "horse_frontier_trained": 750,
+      "horse_riding_common": 1000,
+      "horse_war_heavy": 500,
+      "horse_war_military": 1000
+    }
+  },
+  "geographic_disposition": {
+    "authority": true,
+    "migration": "world_geography_overhaul_v1",
+    "rule": "regional_reserve + formation allocations = exact type totals; health is a condition view, not another horse owner"
+  }
+}

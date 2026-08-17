@@ -1,0 +1,267 @@
+{
+  "administrative_owner": "state_qin",
+  "autonomous_orders": [
+    {
+      "action_ref": "state_arc_19526b9a7b7f3e192c",
+      "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+      "at": "245-BCE-12-20T06:22:48+08:00",
+      "goal": "maintain military readiness",
+      "kind": "state_world_arc_operation",
+      "target_ref": "state_wei"
+    }
+  ],
+  "cohesion": 72,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qin_8a2df4bf8f86",
+      "count": 7976
+    }
+  ],
+  "command_authority": "state_qin",
+  "commander_ref": null,
+  "composition": {
+    "line_infantry": 8000
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 50,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.house_tang_internal.standard",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "line_infantry": 8000
+  },
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_qin_border_line",
+  "location_ref": "loc_qin_regional_02",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 40000,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 70,
+  "mounts": {},
+  "name": "QIN Border Line",
+  "owner_force_ref": "force_state_qin",
+  "personnel": 8000,
+  "readiness": 72,
+  "schema": "sword-formation",
+  "status": "formed",
+  "training_progress": 29,
+  "training_ref": "train.house_tang_internal.standard",
+  "embedded_person_refs": [
+    "officer.qin.wei_designated.1000.001",
+    "officer.qin.wei_designated.1000.002",
+    "officer.qin.wei_designated.1000.003",
+    "officer.qin.wei_designated.1000.004",
+    "officer.qin.wei_designated.1000.005",
+    "officer.qin.wei_designated.1000.006",
+    "officer.qin.wei_designated.1000.007",
+    "officer.qin.wei_designated.1000.008",
+    "officer.qin.wei_designated.500.001",
+    "officer.qin.wei_designated.500.002",
+    "officer.qin.wei_designated.500.003",
+    "officer.qin.wei_designated.500.004",
+    "officer.qin.wei_designated.500.005",
+    "officer.qin.wei_designated.500.006",
+    "officer.qin.wei_designated.500.007",
+    "officer.qin.wei_designated.500.008",
+    "officer.qin.wei_designated.500.009",
+    "officer.qin.wei_designated.500.010",
+    "officer.qin.wei_designated.500.011",
+    "officer.qin.wei_designated.500.012",
+    "officer.qin.wei_designated.500.013",
+    "officer.qin.wei_designated.500.014",
+    "officer.qin.wei_designated.500.015",
+    "officer.qin.wei_designated.500.016"
+  ],
+  "command_structure": {
+    "higher_command_status": "Qin-owned 8,000 formation; prepared for a future lawful Tang Wei field assignment but not transferred by this OOC rebaseline",
+    "unit_cells": [
+      {
+        "unit_index": 1,
+        "fighting_personnel": 2000,
+        "commander_ref": "char_qin_wei_unit_01_commander",
+        "deputy_ref": "officer.qin.wei_designated.unit_01.deputy",
+        "commander_loadout_ref": "loadout_house_champion",
+        "deputy_loadout_ref": "loadout_house_champion",
+        "internal_1000_commander_refs": [
+          "officer.qin.wei_designated.1000.001",
+          "officer.qin.wei_designated.1000.002"
+        ],
+        "internal_500_commander_refs": [
+          "officer.qin.wei_designated.500.001",
+          "officer.qin.wei_designated.500.002",
+          "officer.qin.wei_designated.500.003",
+          "officer.qin.wei_designated.500.004"
+        ],
+        "aggregate_100_man_commanders": 20,
+        "ownership": "state_qin",
+        "future_assignment": "Tang Wei higher field command only when lawfully committed"
+      },
+      {
+        "unit_index": 2,
+        "fighting_personnel": 2000,
+        "commander_ref": "char_qin_wei_unit_02_commander",
+        "deputy_ref": "officer.qin.wei_designated.unit_02.deputy",
+        "commander_loadout_ref": "loadout_house_champion",
+        "deputy_loadout_ref": "loadout_house_champion",
+        "internal_1000_commander_refs": [
+          "officer.qin.wei_designated.1000.003",
+          "officer.qin.wei_designated.1000.004"
+        ],
+        "internal_500_commander_refs": [
+          "officer.qin.wei_designated.500.005",
+          "officer.qin.wei_designated.500.006",
+          "officer.qin.wei_designated.500.007",
+          "officer.qin.wei_designated.500.008"
+        ],
+        "aggregate_100_man_commanders": 20,
+        "ownership": "state_qin",
+        "future_assignment": "Tang Wei higher field command only when lawfully committed"
+      },
+      {
+        "unit_index": 3,
+        "fighting_personnel": 2000,
+        "commander_ref": "char_qin_wei_unit_03_commander",
+        "deputy_ref": "officer.qin.wei_designated.unit_03.deputy",
+        "commander_loadout_ref": "loadout_house_champion",
+        "deputy_loadout_ref": "loadout_house_champion",
+        "internal_1000_commander_refs": [
+          "officer.qin.wei_designated.1000.005",
+          "officer.qin.wei_designated.1000.006"
+        ],
+        "internal_500_commander_refs": [
+          "officer.qin.wei_designated.500.009",
+          "officer.qin.wei_designated.500.010",
+          "officer.qin.wei_designated.500.011",
+          "officer.qin.wei_designated.500.012"
+        ],
+        "aggregate_100_man_commanders": 20,
+        "ownership": "state_qin",
+        "future_assignment": "Tang Wei higher field command only when lawfully committed"
+      },
+      {
+        "unit_index": 4,
+        "fighting_personnel": 2000,
+        "commander_ref": "char_qin_wei_unit_04_commander",
+        "deputy_ref": "officer.qin.wei_designated.unit_04.deputy",
+        "commander_loadout_ref": "loadout_house_champion",
+        "deputy_loadout_ref": "loadout_house_champion",
+        "internal_1000_commander_refs": [
+          "officer.qin.wei_designated.1000.007",
+          "officer.qin.wei_designated.1000.008"
+        ],
+        "internal_500_commander_refs": [
+          "officer.qin.wei_designated.500.013",
+          "officer.qin.wei_designated.500.014",
+          "officer.qin.wei_designated.500.015",
+          "officer.qin.wei_designated.500.016"
+        ],
+        "aggregate_100_man_commanders": 20,
+        "ownership": "state_qin",
+        "future_assignment": "Tang Wei higher field command only when lawfully committed"
+      }
+    ],
+    "internal_person_lite_total": 24,
+    "aggregate_100_man_commanders_total": 80,
+    "unit_command_external_to_fighting_strength": true,
+    "internal_commanders_from_fighting_strength": true,
+    "loadout_rule": "unit commander/deputy use House Champion command kit; internal 1,000/500 commanders use House Guard for infantry or House Champion when a future Wei-assigned Qin unit is cavalry."
+  },
+  "deputy_ref": null,
+  "unit_command_cells": [
+    {
+      "unit_index": 1,
+      "fighting_personnel": 2000,
+      "commander_ref": "char_qin_wei_unit_01_commander",
+      "deputy_ref": "officer.qin.wei_designated.unit_01.deputy",
+      "commander_loadout_ref": "loadout_house_champion",
+      "deputy_loadout_ref": "loadout_house_champion",
+      "internal_1000_commander_refs": [
+        "officer.qin.wei_designated.1000.001",
+        "officer.qin.wei_designated.1000.002"
+      ],
+      "internal_500_commander_refs": [
+        "officer.qin.wei_designated.500.001",
+        "officer.qin.wei_designated.500.002",
+        "officer.qin.wei_designated.500.003",
+        "officer.qin.wei_designated.500.004"
+      ],
+      "aggregate_100_man_commanders": 20,
+      "ownership": "state_qin",
+      "future_assignment": "Tang Wei higher field command only when lawfully committed"
+    },
+    {
+      "unit_index": 2,
+      "fighting_personnel": 2000,
+      "commander_ref": "char_qin_wei_unit_02_commander",
+      "deputy_ref": "officer.qin.wei_designated.unit_02.deputy",
+      "commander_loadout_ref": "loadout_house_champion",
+      "deputy_loadout_ref": "loadout_house_champion",
+      "internal_1000_commander_refs": [
+        "officer.qin.wei_designated.1000.003",
+        "officer.qin.wei_designated.1000.004"
+      ],
+      "internal_500_commander_refs": [
+        "officer.qin.wei_designated.500.005",
+        "officer.qin.wei_designated.500.006",
+        "officer.qin.wei_designated.500.007",
+        "officer.qin.wei_designated.500.008"
+      ],
+      "aggregate_100_man_commanders": 20,
+      "ownership": "state_qin",
+      "future_assignment": "Tang Wei higher field command only when lawfully committed"
+    },
+    {
+      "unit_index": 3,
+      "fighting_personnel": 2000,
+      "commander_ref": "char_qin_wei_unit_03_commander",
+      "deputy_ref": "officer.qin.wei_designated.unit_03.deputy",
+      "commander_loadout_ref": "loadout_house_champion",
+      "deputy_loadout_ref": "loadout_house_champion",
+      "internal_1000_commander_refs": [
+        "officer.qin.wei_designated.1000.005",
+        "officer.qin.wei_designated.1000.006"
+      ],
+      "internal_500_commander_refs": [
+        "officer.qin.wei_designated.500.009",
+        "officer.qin.wei_designated.500.010",
+        "officer.qin.wei_designated.500.011",
+        "officer.qin.wei_designated.500.012"
+      ],
+      "aggregate_100_man_commanders": 20,
+      "ownership": "state_qin",
+      "future_assignment": "Tang Wei higher field command only when lawfully committed"
+    },
+    {
+      "unit_index": 4,
+      "fighting_personnel": 2000,
+      "commander_ref": "char_qin_wei_unit_04_commander",
+      "deputy_ref": "officer.qin.wei_designated.unit_04.deputy",
+      "commander_loadout_ref": "loadout_house_champion",
+      "deputy_loadout_ref": "loadout_house_champion",
+      "internal_1000_commander_refs": [
+        "officer.qin.wei_designated.1000.007",
+        "officer.qin.wei_designated.1000.008"
+      ],
+      "internal_500_commander_refs": [
+        "officer.qin.wei_designated.500.013",
+        "officer.qin.wei_designated.500.014",
+        "officer.qin.wei_designated.500.015",
+        "officer.qin.wei_designated.500.016"
+      ],
+      "aggregate_100_man_commanders": 20,
+      "ownership": "state_qin",
+      "future_assignment": "Tang Wei higher field command only when lawfully committed"
+    }
+  ],
+  "geographic_provenance": {
+    "migration": "world_geography_overhaul_v1",
+    "basis": "replaced arbitrary seed parking with meaningful current regional disposition; ownership/personnel unchanged"
+  }
+}

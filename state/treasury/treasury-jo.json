@@ -1,0 +1,42 @@
+{
+  "schema": "treasury",
+  "owner_id": "treasury_jo",
+  "owner_type": "treasury",
+  "silver": 900000,
+  "food_kg": 1200000,
+  "fodder_kg": 180000,
+  "monthly_flow_components": {
+    "cash": {
+      "local_tax_and_information_trade_revenue_silver": 120000,
+      "administration_and_defense_expense_silver": 85000
+    },
+    "food": {
+      "local_production_kg": 320000,
+      "civilian_and_force_requirement_kg": 256000
+    },
+    "fodder": {
+      "local_production_kg": 70000,
+      "pack_and_messenger_requirement_kg": 45000
+    }
+  },
+  "stable_monthly_flows": {
+    "revenue_silver": 120000,
+    "expense_silver": 85000,
+    "food_net_change_kg": 64000,
+    "fodder_net_change_kg": 25000
+  },
+  "cash_close_rule": "realized local economy revenue - administration/defense expense; no great-state treasury privileges",
+  "runtime": {
+    "completed_monthly_closes": 0,
+    "last_monthly_close_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "stable_four_month_fixture": {
+    "silver": 900000,
+    "food_kg": 1200000,
+    "fodder_kg": 180000,
+    "rule": "non-canonical Jo simulation seed; future closes settle causally"
+  },
+  "provenance": {
+    "kind": "game_seed_noncanonical"
+  }
+}

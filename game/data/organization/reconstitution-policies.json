@@ -1,0 +1,192 @@
+{
+  "schema": "reconstitution-policies.v1",
+  "policies": {
+    "reconstitution.state_army": {
+      "return_behavior": "restore_home_chain",
+      "preserve": [
+        "casualties",
+        "injuries",
+        "captures",
+        "missing",
+        "experience",
+        "cohesion",
+        "morale",
+        "valid_promotions",
+        "equipment_and_horse_losses",
+        "unit_history",
+        "doctrine_familiarity"
+      ],
+      "actions": [
+        "muster_survivors",
+        "recover_injured",
+        "fill_from_real_replacement_pool",
+        "appoint_replacements",
+        "reissue_from_real_depots",
+        "replace_horses_from_real_pools",
+        "integrate_and_drill_replacements",
+        "merge_or_disband_understrength_units_when_policy_requires"
+      ],
+      "no_reset": true
+    },
+    "reconstitution.mercenary": {
+      "return_behavior": "restore_company_chain",
+      "preserve": [
+        "casualties",
+        "injuries",
+        "experience",
+        "cohesion",
+        "institutional_track_record_index",
+        "equipment_losses",
+        "contract_history"
+      ],
+      "actions": [
+        "recover",
+        "recruit_if_treasury_and_market_allow",
+        "replace_equipment_if_affordable",
+        "retrain"
+      ],
+      "no_reset": true
+    },
+    "reconstitution.escort": {
+      "return_behavior": "restore_bureau_company",
+      "preserve": [
+        "casualties",
+        "injuries",
+        "experience",
+        "institutional_track_record_index",
+        "equipment_losses",
+        "contract_history"
+      ],
+      "actions": [
+        "recover",
+        "hire_or_promote_replacements",
+        "replace_equipment",
+        "requalify_company"
+      ],
+      "no_reset": true
+    },
+    "reconstitution.school": {
+      "return_behavior": "restore_training_hall",
+      "preserve": [
+        "injuries",
+        "experience",
+        "student_progress",
+        "equipment_losses"
+      ],
+      "actions": [
+        "stand_down_mobilized_students",
+        "recover",
+        "resume_instruction",
+        "replace staff only through real hiring/promotion"
+      ],
+      "no_reset": true
+    },
+    "reconstitution.house_tang": {
+      "return_behavior": "restore_house_institutional_unit",
+      "preserve": [
+        "casualties",
+        "injuries",
+        "experience",
+        "cohesion",
+        "equipment_losses",
+        "unit_history"
+      ],
+      "actions": [
+        "recover",
+        "replace_from_real_house_manpower",
+        "retrain"
+      ],
+      "no_reset": true
+    },
+    "reconstitution.irregular": {
+      "return_behavior": "restore_warband_or_home_cluster",
+      "preserve": [
+        "casualties",
+        "injuries",
+        "experience",
+        "cohesion",
+        "equipment_losses"
+      ],
+      "actions": [
+        "recover",
+        "recruit_from real available population",
+        "redistribute survivors under actual leadership"
+      ],
+      "no_reset": true
+    },
+    "reconstitution.steppe": {
+      "return_behavior": "restore_tribal_or_confederation_home_chain",
+      "preserve": [
+        "casualties",
+        "injuries",
+        "experience",
+        "cohesion",
+        "mount_losses",
+        "equipment_losses",
+        "unit_history"
+      ],
+      "actions": [
+        "recover_riders",
+        "replace_mounts_from_real_herds",
+        "refill_from_real_clan_or_confederation_manpower",
+        "replace weapons from real stock/trade",
+        "retrain replacements"
+      ],
+      "no_reset": true
+    },
+    "reconstitution.mountain": {
+      "return_behavior": "restore_tribal_or_highland_home_chain",
+      "preserve": [
+        "casualties",
+        "injuries",
+        "experience",
+        "cohesion",
+        "equipment_losses",
+        "unit_history"
+      ],
+      "actions": [
+        "recover",
+        "replace from real community/tribal manpower",
+        "reappoint leaders",
+        "retrain replacements"
+      ],
+      "no_reset": true
+    },
+    "reconstitution.local_defense": {
+      "return_behavior": "restore_local_home_chain",
+      "preserve": [
+        "casualties",
+        "injuries",
+        "experience",
+        "equipment_losses",
+        "unit_history"
+      ],
+      "actions": [
+        "recover",
+        "replace only from actual local manpower",
+        "repair local equipment/defenses"
+      ],
+      "no_reset": true
+    },
+    "reconstitution.raider": {
+      "return_behavior": "restore_band_home_chain",
+      "preserve": [
+        "casualties",
+        "injuries",
+        "experience",
+        "cohesion",
+        "equipment_losses",
+        "loot_state",
+        "band_history"
+      ],
+      "actions": [
+        "recover",
+        "recruit only through actual band recruitment",
+        "replace equipment through actual loot/trade",
+        "replace leaders if necessary"
+      ],
+      "no_reset": true
+    }
+  },
+  "reputation_rule": "Audience-specific reputation is external state under state/reputation/ and is never reset by unit return/reconstitution. Institution track-record indices are factual operational history, not reputation profiles."
+}

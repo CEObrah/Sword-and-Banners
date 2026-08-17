@@ -1,0 +1,64 @@
+{
+  "accounting_only": true,
+  "accounting_scale": "operational_100",
+  "aptitude_distribution": {
+    "exceptional_pct": 4,
+    "high_pct": 22,
+    "low_pct": 12,
+    "mean": 102,
+    "normal_pct": 62,
+    "sd": 16,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "composition": "deterministic template from specialty, registered before contract or combat",
+  "contracts": [
+    {
+      "contract_ref": "market_seed_regional_15",
+      "employer_ref": "regional_client_qin",
+      "status": "active",
+      "amount_silver": 28800,
+      "term_days": 90,
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "expires_at": "244-BCE-09-30T07:22:48+08:00",
+      "deployment_location_ref": "loc_qin_regional_02",
+      "engagement_kind": "house_contract",
+      "basis": "mercenary_ecology_v2 current regional obligation; owns zero bodies"
+    }
+  ],
+  "count": 1200,
+  "doctrine": "doc.merc.regional.15",
+  "id": "merc.regional.15",
+  "name": "Dust Road Veterans",
+  "owner_id": "merc.regional.15",
+  "owner_type": "regional_mercenary_company",
+  "quality": "regional_professional",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "regional-mercenary-company.v1",
+  "specialty": "crossbow",
+  "status": "contracted",
+  "tendencies": {
+    "adaptability": 61,
+    "aggression": 62,
+    "caution": 47,
+    "initiative": 53
+  },
+  "training": "train.merc.regional",
+  "home_location_ref": "loc_qin_regional_02",
+  "current_location_ref": "loc_qin_regional_02",
+  "deployment_status": "house_contract",
+  "geographic_provenance": {
+    "migration": "mercenary_ecology_v2",
+    "rule": "exact company remains manpower owner; state_market/location describe geography only"
+  },
+  "establishment_strength": 1200,
+  "state_market": "qin",
+  "market_tier": "regional_professional",
+  "market_engagement": {
+    "kind": "house_contract",
+    "short_notice_available": false,
+    "seeded_at": "244-BCE-07-23T01:22:48+08:00"
+  }
+}

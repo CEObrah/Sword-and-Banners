@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "armor",
+    "ratio_to_severity",
+    "base_impairment",
+    "substructure_adjustment",
+    "bleeding_units_per_minute",
+    "formulas",
+    "shock_resolution",
+    "death_rule",
+    "physiology"
+  ],
+  "properties": {
+    "schema": {
+      "const": "injury-mechanics.v38"
+    },
+    "armor": {},
+    "ratio_to_severity": {},
+    "base_impairment": {},
+    "substructure_adjustment": {},
+    "bleeding_units_per_minute": {},
+    "formulas": {},
+    "shock_resolution": {},
+    "death_rule": {},
+    "physiology": {}
+  }
+}

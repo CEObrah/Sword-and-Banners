@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "core_invariants",
+    "aggregate_combat_authority",
+    "command_authority"
+  ],
+  "properties": {
+    "schema": {
+      "const": "unit_model.v2"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,73 @@
+{
+  "allocated_to_formations": {
+    "formation_han_mobile_screen": {
+      "horse_war_military": 2200
+    }
+  },
+  "health": {
+    "fit": 17325,
+    "limited": 540,
+    "recovering": 135,
+    "unfit": 0
+  },
+  "owner_id": "mount_pool_han",
+  "schema": "sword-mount-pool",
+  "state": "han",
+  "total": 18000,
+  "types": {
+    "horse_chariot_trained": 3000,
+    "horse_frontier_trained": 2000,
+    "horse_riding_common": 6000,
+    "horse_war_heavy": 2000,
+    "horse_war_military": 5000
+  },
+  "regional_reserve": {
+    "loc_han_capital": {
+      "horse_chariot_trained": 600,
+      "horse_frontier_trained": 400,
+      "horse_riding_common": 1200,
+      "horse_war_heavy": 400,
+      "horse_war_military": 560
+    },
+    "loc_han_regional_01": {
+      "horse_chariot_trained": 540,
+      "horse_frontier_trained": 360,
+      "horse_riding_common": 1080,
+      "horse_war_heavy": 360,
+      "horse_war_military": 504
+    },
+    "loc_han_regional_02": {
+      "horse_chariot_trained": 600,
+      "horse_frontier_trained": 400,
+      "horse_riding_common": 1200,
+      "horse_war_heavy": 400,
+      "horse_war_military": 560
+    },
+    "loc_han_regional_03": {
+      "horse_chariot_trained": 480,
+      "horse_frontier_trained": 320,
+      "horse_riding_common": 960,
+      "horse_war_heavy": 320,
+      "horse_war_military": 448
+    },
+    "loc_han_regional_04": {
+      "horse_chariot_trained": 480,
+      "horse_frontier_trained": 320,
+      "horse_riding_common": 960,
+      "horse_war_heavy": 320,
+      "horse_war_military": 448
+    },
+    "loc_han_frontier_fort": {
+      "horse_chariot_trained": 300,
+      "horse_frontier_trained": 200,
+      "horse_riding_common": 600,
+      "horse_war_heavy": 200,
+      "horse_war_military": 280
+    }
+  },
+  "geographic_disposition": {
+    "authority": true,
+    "migration": "world_geography_overhaul_v1",
+    "rule": "regional_reserve + formation allocations = exact type totals; health is a condition view, not another horse owner"
+  }
+}

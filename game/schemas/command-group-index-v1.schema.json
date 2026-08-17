@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "count",
+    "path_template"
+  ],
+  "properties": {
+    "schema": {
+      "const": "command-group-index.v1"
+    },
+    "authority": {
+      "const": false
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "path_template": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

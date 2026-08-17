@@ -1,0 +1,40 @@
+{
+  "anonymous_total": 75000,
+  "combined_total": 75002,
+  "contract_start_key": 28965600,
+  "contracting_household_id": "institution_house_tang",
+  "member_force_ids": [
+    "merc_deep_earth",
+    "merc_iron_rampart",
+    "merc_red_crane",
+    "merc_white_lantern"
+  ],
+  "named_marshal_id": "char_mu_zhen",
+  "owner_id": "contract_tang_contracted_defense",
+  "owner_type": "defense_contract",
+  "review_period": "monthly plus immediate breach, nonpayment, casualty, access, or loyalty events",
+  "runtime": {
+    "last_payment": {
+      "months": 1,
+      "due_silver": 3600000,
+      "paid_silver": 3600000,
+      "arrears_silver": 0,
+      "payer_ref": "treasury_house_tang"
+    },
+    "last_settled_at": "244-BCE-06-04T07:22:48+08:00",
+    "material_event_count": 0,
+    "status": "active"
+  },
+  "schema": "contracted-defense",
+  "named_deputy_id": "char_he_shan",
+  "troop_count_rule": "75,000 is anonymous contracted fighting/support troop headcount. Mu Zhen and He Shan are command-establishment characters outside that troop number.",
+  "manpower_authority": {
+    "owns_bodies": false,
+    "rule": "contract references exact independent mercenary company owners; assignment/payment/deployment never transfers manpower ownership"
+  },
+  "geographic_assignment": {
+    "defended_site_ref": "loc_tang_manor",
+    "deployment_location_ref": "loc_tang_manor_defense_camp",
+    "access_node_ref": "loc_tang_manor_outer_gate"
+  }
+}

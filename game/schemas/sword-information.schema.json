@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Epistemic information claim",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "information_ref",
+    "fact",
+    "knowers"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-information"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "information_ref": {
+      "type": "string"
+    },
+    "subject_ref": {
+      "type": "string"
+    },
+    "fact": {
+      "type": "string"
+    },
+    "claim": {
+      "type": "string"
+    },
+    "epistemic_kind": {
+      "type": "string"
+    },
+    "confidence_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "confidence": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "classification": {
+      "type": "string"
+    },
+    "location_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "discoverability_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "world_truth_authority": {
+      "type": "boolean"
+    },
+    "claim_status": {
+      "type": "string"
+    },
+    "knowers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "holder_states": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "epistemic_kind",
+          "confidence_milli",
+          "source_ref",
+          "learned_at"
+        ],
+        "properties": {
+          "epistemic_kind": {
+            "type": "string"
+          },
+          "confidence_milli": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "source_ref": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "learned_at": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "deliveries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_ref",
+          "target_ref",
+          "departed_at",
+          "arrived_at",
+          "source_location_ref",
+          "target_location_ref",
+          "channel",
+          "travel_hours",
+          "confidence_milli"
+        ],
+        "properties": {
+          "source_ref": {
+            "type": "string"
+          },
+          "target_ref": {
+            "type": "string"
+          },
+          "departed_at": {
+            "type": "string"
+          },
+          "arrived_at": {
+            "type": "string"
+          },
+          "source_location_ref": {
+            "type": "string"
+          },
+          "target_location_ref": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "travel_hours": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "confidence_milli": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "origin_authority": {
+      "enum": [
+        "player_assertion",
+        "runtime_established"
+      ]
+    },
+    "investigation_discoverable": {
+      "type": "boolean"
+    }
+  }
+}

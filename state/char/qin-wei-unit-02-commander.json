@@ -1,0 +1,178 @@
+{
+  "schema": "sab_character",
+  "owner_id": "char_qin_wei_unit_02_commander",
+  "owner_type": "character",
+  "name": "Shen Ning",
+  "birth_date": "282-BCE-12-19",
+  "birth_date_source": "ooc_rebaseline_deterministic_generation",
+  "body": {
+    "adult_height_cm": 181.6,
+    "growth_end_age": 18,
+    "current_weight_kg": 71.1,
+    "frame": "athletic",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "appearance": 68,
+  "appearance_source": "simulation_assigned",
+  "attributes": {
+    "Strength": 88,
+    "Agility": 88,
+    "Endurance": 88,
+    "Toughness": 90,
+    "Coordination": 93,
+    "Awareness": 86,
+    "Composure": 90,
+    "Intelligence": 87,
+    "Presence": 86
+  },
+  "skills": {
+    "Sword": 85,
+    "Spear": 82,
+    "Glaive": 83,
+    "Axe": 84,
+    "Mace": 82,
+    "Staff": 86,
+    "Dagger": 80,
+    "Bow": 86,
+    "Crossbow": 89,
+    "Shield": 90,
+    "Defense": 83,
+    "Athletics": 91,
+    "Mass Combat": 78,
+    "Grappling": 83,
+    "Unarmed": 90,
+    "Riding": 88,
+    "Formation Fighting": 90,
+    "Survival": 78,
+    "Stealth": 90,
+    "Scouting": 80,
+    "Navigation": 78,
+    "Medicine": 80,
+    "Engineering": 83,
+    "Leadership": 141,
+    "Formation Command": 141,
+    "Tactics": 141,
+    "Strategy": 141,
+    "Logistics": 141,
+    "Intelligence Operations": 82,
+    "Training": 80,
+    "Diplomacy": 87,
+    "Law": 79,
+    "Trade": 89,
+    "Intrigue": 81,
+    "Governance": 81
+  },
+  "aptitude": {
+    "physical_learning": 135,
+    "technical_learning": 135,
+    "tactical_learning": 150,
+    "academic_learning": 135,
+    "social_learning": 135,
+    "source": "ooc_rebaseline_command_profile"
+  },
+  "role": "Qin Border Detachment Unit 2 Commander",
+  "authority": "Qin unit commander designated for the 8,000-person formation intended for Tang Wei field assignment",
+  "affiliation": [
+    "state_qin"
+  ],
+  "current_location": "loc_qin_eastern_depot",
+  "life_status": "active",
+  "health_status": "fit",
+  "fatigue": 0,
+  "equipment_loadout_id": "loadout_house_champion",
+  "equipment_manifest": {
+    "loadout_id": "loadout_house_champion",
+    "individual_custody": true,
+    "carried_ammunition": 36,
+    "items": {
+      "body_armor": "armor_tang",
+      "helmet": "helmet_tang",
+      "ranged_weapon": "weapon_bow_great_war",
+      "ammunition_item": "ammo_arrow_war",
+      "primary_melee_weapon": "weapon_lance_cavalry",
+      "shield": "shield_tang",
+      "shield_state_when_shooting": "slung",
+      "sidearm": "weapon_sword_one_hand_long",
+      "mount": "horse_tang_heavy_war",
+      "tack": "tack_tang",
+      "horse_armor": "horse_armor_tang",
+      "shield_state_with_lance": "ready_offhand"
+    }
+  },
+  "equipment_description": "Individual command equipment held under the assigned standard; 36 war arrows when the loadout includes a bow.",
+  "background": "Qin command-personnel officer designated to lead one 2,000-person unit inside the 8,000 troops intended for future assignment under Tang Wei. Qin ownership and allegiance remain unchanged.",
+  "source_class": "ooc_rebaseline_named_command",
+  "stable_seed": "seed_c56f83b90085e5c884b6",
+  "development_state": {
+    "skill_edu_banks": {},
+    "settled_training_hours": 0,
+    "training_credit": 0.0,
+    "maintenance_credit": 0.0,
+    "completed_reviews": 0
+  },
+  "career_state": {
+    "office_or_command": "Qin Border Detachment Unit 2 Commander",
+    "career_changes": 0,
+    "revision": 1
+  },
+  "runtime": {
+    "last_settled_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "knowledge_boundary": "role-local military knowledge unless separately established",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "goal_state": {
+    "current_goals": [
+      "perform assigned command duty"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "Qin Border Detachment Unit 2 Commander"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "behavior": {
+    "core_traits": "disciplined, professional, accountable",
+    "conflict_style": "keeps formation and mission ahead of personal display",
+    "speech_pattern": "concise military reports",
+    "values": "duty, readiness, conserved lives, clear orders"
+  },
+  "relationship_refs": [],
+  "autonomous_activity_state": {
+    "enabled": true,
+    "verified_hours_per_cycle": 240.0,
+    "cadence_seconds": 2592000,
+    "version": 3,
+    "routed_at": "244-BCE-07-23T01:22:48+08:00",
+    "focus_cursor": 0,
+    "next_due": "244-BCE-08-22T01:22:48+08:00",
+    "verification_rule": "structured causal cycles derive standard House Tang adult hours from the canonical training regimen; planned_opportunity prose is capacity context only and is never converted into training hours"
+  },
+  "autonomous_development_history": [],
+  "life_course_state": {
+    "annual_reviews": 0,
+    "career_changes": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "status_history": []
+  },
+  "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+  "military_command": {
+    "formation_scope": "formation_qin_border_line",
+    "unit_cell": 2,
+    "level": "unit",
+    "external_to_fighting_strength": true,
+    "future_higher_commander_ref": "char_tang_wei"
+  },
+  "activity_contract": {
+    "mode": "standing_role_training",
+    "training_regimen_ref": "house_tang_max_sustainable",
+    "autonomous_enabled": true,
+    "growth_rule": "verified elapsed training only; smart rotation prioritizes legal next-rank deficits, current loadout skills, command/logistics needs, and weakest useful stats; no free progress",
+    "focus": "Bow, Spear, Sword, Shield, Defense, Formation Fighting, Riding, Leadership, Formation Command, Tactics, Strategy, Logistics, Training, Athletics",
+    "smart_rotation": "weakest_useful_then_promotion_gate_then_role_and_loadout; deterministic rotation avoids overtraining already-high skills",
+    "planned_opportunity": "maximum-sustainable deliberate training when health, duty, recovery, travel, command workload, instructors, facilities and equipment permit; real elapsed hours and diminishing returns remain authoritative"
+  }
+}

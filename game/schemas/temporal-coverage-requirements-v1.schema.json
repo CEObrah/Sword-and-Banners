@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "required_owner_ids",
+    "required_coverage_groups"
+  ],
+  "properties": {
+    "schema": {
+      "const": "temporal-coverage-requirements.v1"
+    },
+    "required_owner_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_coverage_groups": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

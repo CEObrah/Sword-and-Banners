@@ -1,0 +1,64 @@
+{
+  "accounting_only": true,
+  "accounting_scale": "operational_100",
+  "aptitude_distribution": {
+    "exceptional_pct": 4,
+    "high_pct": 22,
+    "low_pct": 12,
+    "mean": 110,
+    "normal_pct": 62,
+    "sd": 16,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "composition": "deterministic template from specialty, registered before contract or combat",
+  "contracts": [
+    {
+      "contract_ref": "market_seed_regional_08",
+      "employer_ref": "regional_client_wei",
+      "status": "active",
+      "amount_silver": 38400,
+      "term_days": 90,
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "expires_at": "244-BCE-09-30T07:22:48+08:00",
+      "deployment_location_ref": "loc_wei_regional_04",
+      "engagement_kind": "city_security",
+      "basis": "mercenary_ecology_v2 current regional obligation; owns zero bodies"
+    }
+  ],
+  "count": 1600,
+  "doctrine": "doc.merc.regional.08",
+  "id": "merc.regional.08",
+  "name": "Eastern Gate Veterans",
+  "owner_id": "merc.regional.08",
+  "owner_type": "regional_mercenary_company",
+  "quality": "regional_professional",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "regional-mercenary-company.v1",
+  "specialty": "river_guard",
+  "status": "contracted",
+  "tendencies": {
+    "adaptability": 58,
+    "aggression": 56,
+    "caution": 51,
+    "initiative": 57
+  },
+  "training": "train.merc.regional",
+  "home_location_ref": "loc_wei_regional_04",
+  "current_location_ref": "loc_wei_regional_04",
+  "deployment_status": "city_security",
+  "geographic_provenance": {
+    "migration": "mercenary_ecology_v2",
+    "rule": "exact company remains manpower owner; state_market/location describe geography only"
+  },
+  "establishment_strength": 1600,
+  "state_market": "wei",
+  "market_tier": "regional_professional",
+  "market_engagement": {
+    "kind": "city_security",
+    "short_notice_available": false,
+    "seeded_at": "244-BCE-07-23T01:22:48+08:00"
+  }
+}

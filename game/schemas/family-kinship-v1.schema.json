@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "kinship_id",
+    "authority",
+    "participants",
+    "kinship_type",
+    "relation_roles",
+    "recognition",
+    "source_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "family-kinship.v1"
+    },
+    "kinship_id": {
+      "type": "string"
+    },
+    "authority": {
+      "const": true
+    },
+    "participants": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "string"
+      }
+    },
+    "kinship_type": {
+      "enum": [
+        "sibling",
+        "grandparent_grandchild",
+        "in_law",
+        "extended_kin",
+        "recognized_kin"
+      ]
+    },
+    "relation_roles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "active",
+        "historical",
+        "disputed"
+      ]
+    },
+    "recognition": {
+      "type": "object",
+      "required": [
+        "recognized",
+        "basis"
+      ],
+      "properties": {
+        "recognized": {
+          "type": "boolean"
+        },
+        "basis": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

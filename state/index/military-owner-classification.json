@@ -1,0 +1,2834 @@
+{
+  "schema": "generic-object.v1",
+  "owner_id": "military_owner_classification_index",
+  "authority": false,
+  "generated_from_current_source": true,
+  "representation_rule": "routing/classification only; exact bodies remain in listed exact owners",
+  "classes": {
+    "exact_state_force": [
+      {
+        "ref": "force_state_chu",
+        "path": "state/forces/state-chu.json",
+        "headcount": 850000
+      },
+      {
+        "ref": "force_state_han",
+        "path": "state/forces/state-han.json",
+        "headcount": 151000
+      },
+      {
+        "ref": "force_state_qi",
+        "path": "state/forces/state-qi.json",
+        "headcount": 275000
+      },
+      {
+        "ref": "force_state_qin",
+        "path": "state/forces/state-qin.json",
+        "headcount": 675000
+      },
+      {
+        "ref": "force_state_wei",
+        "path": "state/forces/state-wei.json",
+        "headcount": 340000
+      },
+      {
+        "ref": "force_state_yan",
+        "path": "state/forces/state-yan.json",
+        "headcount": 282500
+      },
+      {
+        "ref": "force_state_zhao",
+        "path": "state/forces/state-zhao.json",
+        "headcount": 527500
+      }
+    ],
+    "exact_house_private_force": [
+      {
+        "ref": "force_house_go_military_house",
+        "path": "state/forces/house_go_military_house.json",
+        "headcount": 360
+      },
+      {
+        "ref": "force_house_kanki_retinue_house",
+        "path": "state/forces/house_kanki_retinue_house.json",
+        "headcount": 760
+      },
+      {
+        "ref": "force_house_karin_house",
+        "path": "state/forces/house_karin_house.json",
+        "headcount": 820
+      },
+      {
+        "ref": "force_house_mou_family",
+        "path": "state/forces/house_mou_family.json",
+        "headcount": 280
+      },
+      {
+        "ref": "force_house_ou_family",
+        "path": "state/forces/house_ou_family.json",
+        "headcount": 320
+      },
+      {
+        "ref": "force_house_ouki_household",
+        "path": "state/forces/house_ouki_household.json",
+        "headcount": 520
+      },
+      {
+        "ref": "force_house_riboku_household",
+        "path": "state/forces/house_riboku_household.json",
+        "headcount": 620
+      },
+      {
+        "ref": "force_house_shou_bun_kun_household",
+        "path": "state/forces/house_shou_bun_kun_household.json",
+        "headcount": 180
+      },
+      {
+        "ref": "force_house_tang",
+        "path": "state/forces/house-tang.json",
+        "headcount": 30000
+      },
+      {
+        "ref": "force_house_tou_household",
+        "path": "state/forces/house_tou_household.json",
+        "headcount": 220
+      }
+    ],
+    "exact_personal_force": [
+      {
+        "ref": "force_tang_wei_personal",
+        "path": "state/forces/tang-wei-personal.json",
+        "headcount": 0
+      }
+    ],
+    "exact_institutional_manpower": [
+      {
+        "ref": "institution_sword_manor",
+        "path": "state/forces/sword-manor.json",
+        "headcount": 30000
+      }
+    ],
+    "exact_mercenary_owner": [
+      {
+        "ref": "merc_ashen_wall",
+        "path": "state/merc/ashen-wall.json",
+        "headcount": 6500,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc_black_banner",
+        "path": "state/merc/black-banner.json",
+        "headcount": 7000,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc_copper_falcon",
+        "path": "state/merc/copper-falcon.json",
+        "headcount": 5000,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc_deep_earth",
+        "path": "state/merc/deep-earth.json",
+        "headcount": 5124,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc_golden_axle",
+        "path": "state/merc/golden-axle.json",
+        "headcount": 5000,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc_grey_wolf",
+        "path": "state/merc/grey-wolf.json",
+        "headcount": 5500,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc_iron_rampart",
+        "path": "state/merc/iron-rampart.json",
+        "headcount": 14346,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc.local.pool",
+        "path": "state/merc/local.json",
+        "headcount": 80000,
+        "record_schema": "mercenary_local_pool"
+      },
+      {
+        "ref": "merc.major.01",
+        "path": "state/merc/major-01.json",
+        "headcount": 12000,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.02",
+        "path": "state/merc/major-02.json",
+        "headcount": 11000,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.03",
+        "path": "state/merc/major-03.json",
+        "headcount": 10500,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.04",
+        "path": "state/merc/major-04.json",
+        "headcount": 10000,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.05",
+        "path": "state/merc/major-05.json",
+        "headcount": 10000,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.06",
+        "path": "state/merc/major-06.json",
+        "headcount": 9500,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.07",
+        "path": "state/merc/major-07.json",
+        "headcount": 9500,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.08",
+        "path": "state/merc/major-08.json",
+        "headcount": 9000,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.09",
+        "path": "state/merc/major-09.json",
+        "headcount": 8500,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.10",
+        "path": "state/merc/major-10.json",
+        "headcount": 8500,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.11",
+        "path": "state/merc/major-11.json",
+        "headcount": 8500,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc.major.12",
+        "path": "state/merc/major-12.json",
+        "headcount": 8000,
+        "record_schema": "mercenary"
+      },
+      {
+        "ref": "merc_night_heron",
+        "path": "state/merc/night-heron.json",
+        "headcount": 2500,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc_red_crane",
+        "path": "state/merc/red-crane.json",
+        "headcount": 42629,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc.regional.01",
+        "path": "state/merc/regional/merc-regional-01.json",
+        "headcount": 1000,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.02",
+        "path": "state/merc/regional/merc-regional-02.json",
+        "headcount": 1100,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.03",
+        "path": "state/merc/regional/merc-regional-03.json",
+        "headcount": 1200,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.04",
+        "path": "state/merc/regional/merc-regional-04.json",
+        "headcount": 1300,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.05",
+        "path": "state/merc/regional/merc-regional-05.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.06",
+        "path": "state/merc/regional/merc-regional-06.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.07",
+        "path": "state/merc/regional/merc-regional-07.json",
+        "headcount": 1500,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.08",
+        "path": "state/merc/regional/merc-regional-08.json",
+        "headcount": 1600,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.09",
+        "path": "state/merc/regional/merc-regional-09.json",
+        "headcount": 1700,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.10",
+        "path": "state/merc/regional/merc-regional-10.json",
+        "headcount": 1800,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.100",
+        "path": "state/merc/regional/merc-regional-100.json",
+        "headcount": 900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.11",
+        "path": "state/merc/regional/merc-regional-11.json",
+        "headcount": 1900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.12",
+        "path": "state/merc/regional/merc-regional-12.json",
+        "headcount": 900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.13",
+        "path": "state/merc/regional/merc-regional-13.json",
+        "headcount": 1000,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.14",
+        "path": "state/merc/regional/merc-regional-14.json",
+        "headcount": 1100,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.15",
+        "path": "state/merc/regional/merc-regional-15.json",
+        "headcount": 1200,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.16",
+        "path": "state/merc/regional/merc-regional-16.json",
+        "headcount": 1300,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.17",
+        "path": "state/merc/regional/merc-regional-17.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.18",
+        "path": "state/merc/regional/merc-regional-18.json",
+        "headcount": 1500,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.19",
+        "path": "state/merc/regional/merc-regional-19.json",
+        "headcount": 1600,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.20",
+        "path": "state/merc/regional/merc-regional-20.json",
+        "headcount": 1700,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.21",
+        "path": "state/merc/regional/merc-regional-21.json",
+        "headcount": 1800,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.22",
+        "path": "state/merc/regional/merc-regional-22.json",
+        "headcount": 1900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.23",
+        "path": "state/merc/regional/merc-regional-23.json",
+        "headcount": 900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.24",
+        "path": "state/merc/regional/merc-regional-24.json",
+        "headcount": 1000,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.25",
+        "path": "state/merc/regional/merc-regional-25.json",
+        "headcount": 1100,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.26",
+        "path": "state/merc/regional/merc-regional-26.json",
+        "headcount": 1200,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.27",
+        "path": "state/merc/regional/merc-regional-27.json",
+        "headcount": 1300,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.28",
+        "path": "state/merc/regional/merc-regional-28.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.29",
+        "path": "state/merc/regional/merc-regional-29.json",
+        "headcount": 1500,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.30",
+        "path": "state/merc/regional/merc-regional-30.json",
+        "headcount": 1600,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.31",
+        "path": "state/merc/regional/merc-regional-31.json",
+        "headcount": 1700,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.32",
+        "path": "state/merc/regional/merc-regional-32.json",
+        "headcount": 1800,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.33",
+        "path": "state/merc/regional/merc-regional-33.json",
+        "headcount": 1900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.34",
+        "path": "state/merc/regional/merc-regional-34.json",
+        "headcount": 900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.35",
+        "path": "state/merc/regional/merc-regional-35.json",
+        "headcount": 1000,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.36",
+        "path": "state/merc/regional/merc-regional-36.json",
+        "headcount": 1100,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.37",
+        "path": "state/merc/regional/merc-regional-37.json",
+        "headcount": 1200,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.38",
+        "path": "state/merc/regional/merc-regional-38.json",
+        "headcount": 1300,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.39",
+        "path": "state/merc/regional/merc-regional-39.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.40",
+        "path": "state/merc/regional/merc-regional-40.json",
+        "headcount": 1500,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.41",
+        "path": "state/merc/regional/merc-regional-41.json",
+        "headcount": 1600,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.42",
+        "path": "state/merc/regional/merc-regional-42.json",
+        "headcount": 1700,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.43",
+        "path": "state/merc/regional/merc-regional-43.json",
+        "headcount": 1800,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.44",
+        "path": "state/merc/regional/merc-regional-44.json",
+        "headcount": 1900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.45",
+        "path": "state/merc/regional/merc-regional-45.json",
+        "headcount": 900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.46",
+        "path": "state/merc/regional/merc-regional-46.json",
+        "headcount": 1000,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.47",
+        "path": "state/merc/regional/merc-regional-47.json",
+        "headcount": 1100,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.48",
+        "path": "state/merc/regional/merc-regional-48.json",
+        "headcount": 1200,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.49",
+        "path": "state/merc/regional/merc-regional-49.json",
+        "headcount": 1300,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.50",
+        "path": "state/merc/regional/merc-regional-50.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.51",
+        "path": "state/merc/regional/merc-regional-51.json",
+        "headcount": 1500,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.52",
+        "path": "state/merc/regional/merc-regional-52.json",
+        "headcount": 1600,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.53",
+        "path": "state/merc/regional/merc-regional-53.json",
+        "headcount": 1700,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.54",
+        "path": "state/merc/regional/merc-regional-54.json",
+        "headcount": 1800,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.55",
+        "path": "state/merc/regional/merc-regional-55.json",
+        "headcount": 1900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.56",
+        "path": "state/merc/regional/merc-regional-56.json",
+        "headcount": 900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.57",
+        "path": "state/merc/regional/merc-regional-57.json",
+        "headcount": 1000,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.58",
+        "path": "state/merc/regional/merc-regional-58.json",
+        "headcount": 1100,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.59",
+        "path": "state/merc/regional/merc-regional-59.json",
+        "headcount": 1200,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.60",
+        "path": "state/merc/regional/merc-regional-60.json",
+        "headcount": 1300,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.61",
+        "path": "state/merc/regional/merc-regional-61.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.62",
+        "path": "state/merc/regional/merc-regional-62.json",
+        "headcount": 1500,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.63",
+        "path": "state/merc/regional/merc-regional-63.json",
+        "headcount": 1600,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.64",
+        "path": "state/merc/regional/merc-regional-64.json",
+        "headcount": 1700,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.65",
+        "path": "state/merc/regional/merc-regional-65.json",
+        "headcount": 1800,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.66",
+        "path": "state/merc/regional/merc-regional-66.json",
+        "headcount": 1900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.67",
+        "path": "state/merc/regional/merc-regional-67.json",
+        "headcount": 900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.68",
+        "path": "state/merc/regional/merc-regional-68.json",
+        "headcount": 1000,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.69",
+        "path": "state/merc/regional/merc-regional-69.json",
+        "headcount": 1100,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.70",
+        "path": "state/merc/regional/merc-regional-70.json",
+        "headcount": 1200,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.71",
+        "path": "state/merc/regional/merc-regional-71.json",
+        "headcount": 1300,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.72",
+        "path": "state/merc/regional/merc-regional-72.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.73",
+        "path": "state/merc/regional/merc-regional-73.json",
+        "headcount": 1500,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.74",
+        "path": "state/merc/regional/merc-regional-74.json",
+        "headcount": 1600,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.75",
+        "path": "state/merc/regional/merc-regional-75.json",
+        "headcount": 1700,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.76",
+        "path": "state/merc/regional/merc-regional-76.json",
+        "headcount": 1800,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.77",
+        "path": "state/merc/regional/merc-regional-77.json",
+        "headcount": 1900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.78",
+        "path": "state/merc/regional/merc-regional-78.json",
+        "headcount": 900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.79",
+        "path": "state/merc/regional/merc-regional-79.json",
+        "headcount": 1000,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.80",
+        "path": "state/merc/regional/merc-regional-80.json",
+        "headcount": 1100,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.81",
+        "path": "state/merc/regional/merc-regional-81.json",
+        "headcount": 1200,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.82",
+        "path": "state/merc/regional/merc-regional-82.json",
+        "headcount": 1300,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.83",
+        "path": "state/merc/regional/merc-regional-83.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.84",
+        "path": "state/merc/regional/merc-regional-84.json",
+        "headcount": 1500,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.85",
+        "path": "state/merc/regional/merc-regional-85.json",
+        "headcount": 1600,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.86",
+        "path": "state/merc/regional/merc-regional-86.json",
+        "headcount": 1700,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.87",
+        "path": "state/merc/regional/merc-regional-87.json",
+        "headcount": 1800,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.88",
+        "path": "state/merc/regional/merc-regional-88.json",
+        "headcount": 1900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.89",
+        "path": "state/merc/regional/merc-regional-89.json",
+        "headcount": 900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.90",
+        "path": "state/merc/regional/merc-regional-90.json",
+        "headcount": 1000,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.91",
+        "path": "state/merc/regional/merc-regional-91.json",
+        "headcount": 1100,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.92",
+        "path": "state/merc/regional/merc-regional-92.json",
+        "headcount": 1200,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.93",
+        "path": "state/merc/regional/merc-regional-93.json",
+        "headcount": 1300,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.94",
+        "path": "state/merc/regional/merc-regional-94.json",
+        "headcount": 1400,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.95",
+        "path": "state/merc/regional/merc-regional-95.json",
+        "headcount": 1500,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.96",
+        "path": "state/merc/regional/merc-regional-96.json",
+        "headcount": 1600,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.97",
+        "path": "state/merc/regional/merc-regional-97.json",
+        "headcount": 1700,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.98",
+        "path": "state/merc/regional/merc-regional-98.json",
+        "headcount": 1800,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc.regional.99",
+        "path": "state/merc/regional/merc-regional-99.json",
+        "headcount": 1900,
+        "record_schema": "regional-mercenary-company.v1"
+      },
+      {
+        "ref": "merc_river_reed",
+        "path": "state/merc/river-reed.json",
+        "headcount": 3500,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc_stone_ox",
+        "path": "state/merc/stone-ox.json",
+        "headcount": 5000,
+        "record_schema": "mercenary-company"
+      },
+      {
+        "ref": "merc_white_lantern",
+        "path": "state/merc/white-lantern.json",
+        "headcount": 12901,
+        "record_schema": "mercenary-company"
+      }
+    ],
+    "mercenary_registry_zero_bodies": [
+      {
+        "ref": "mercenary_market_index",
+        "path": "state/merc/market.json",
+        "projected_total": 450000,
+        "authority": false
+      },
+      {
+        "ref": "merc.regional.pool",
+        "path": "state/merc/regional.json",
+        "projected_total": 140000,
+        "authority": false
+      }
+    ],
+    "military_contract_zero_bodies": [
+      {
+        "ref": "contract_tang_contracted_defense",
+        "path": "state/contract/tang-contracted-defense.json"
+      }
+    ],
+    "command_group_zero_bodies": [
+      {
+        "ref": "cmdgrp.duan_jin.tang_champions_first",
+        "path": "state/cmd/command-groups/cmdgrp.duan_jin.tang_champions_first.json"
+      },
+      {
+        "ref": "cmdgrp.tang_wei.personal_force",
+        "path": "state/cmd/command-groups/cmdgrp.tang_wei.personal_force.json"
+      }
+    ],
+    "capability_profile_zero_bodies": [
+      {
+        "ref": "capability.escort_chu:pool_escort_captain",
+        "path": "state/manpower-capability/escort-chu-pool-escort-captain.json",
+        "source_owner": "escort_chu",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_chu:pool_escort_guard",
+        "path": "state/manpower-capability/escort-chu-pool-escort-guard.json",
+        "source_owner": "escort_chu",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_chu:pool_escort_scout",
+        "path": "state/manpower-capability/escort-chu-pool-escort-scout.json",
+        "source_owner": "escort_chu",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_chu:pool_escort_support",
+        "path": "state/manpower-capability/escort-chu-pool-escort-support.json",
+        "source_owner": "escort_chu",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_han:pool_escort_captain",
+        "path": "state/manpower-capability/escort-han-pool-escort-captain.json",
+        "source_owner": "escort_han",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_han:pool_escort_guard",
+        "path": "state/manpower-capability/escort-han-pool-escort-guard.json",
+        "source_owner": "escort_han",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_han:pool_escort_scout",
+        "path": "state/manpower-capability/escort-han-pool-escort-scout.json",
+        "source_owner": "escort_han",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_han:pool_escort_support",
+        "path": "state/manpower-capability/escort-han-pool-escort-support.json",
+        "source_owner": "escort_han",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_qi:pool_escort_captain",
+        "path": "state/manpower-capability/escort-qi-pool-escort-captain.json",
+        "source_owner": "escort_qi",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_qi:pool_escort_guard",
+        "path": "state/manpower-capability/escort-qi-pool-escort-guard.json",
+        "source_owner": "escort_qi",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_qi:pool_escort_scout",
+        "path": "state/manpower-capability/escort-qi-pool-escort-scout.json",
+        "source_owner": "escort_qi",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_qi:pool_escort_support",
+        "path": "state/manpower-capability/escort-qi-pool-escort-support.json",
+        "source_owner": "escort_qi",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_qin:pool_escort_captain",
+        "path": "state/manpower-capability/escort-qin-pool-escort-captain.json",
+        "source_owner": "escort_qin",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_qin:pool_escort_guard",
+        "path": "state/manpower-capability/escort-qin-pool-escort-guard.json",
+        "source_owner": "escort_qin",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_qin:pool_escort_scout",
+        "path": "state/manpower-capability/escort-qin-pool-escort-scout.json",
+        "source_owner": "escort_qin",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_qin:pool_escort_support",
+        "path": "state/manpower-capability/escort-qin-pool-escort-support.json",
+        "source_owner": "escort_qin",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_wei:pool_escort_captain",
+        "path": "state/manpower-capability/escort-wei-pool-escort-captain.json",
+        "source_owner": "escort_wei",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_wei:pool_escort_guard",
+        "path": "state/manpower-capability/escort-wei-pool-escort-guard.json",
+        "source_owner": "escort_wei",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_wei:pool_escort_scout",
+        "path": "state/manpower-capability/escort-wei-pool-escort-scout.json",
+        "source_owner": "escort_wei",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_wei:pool_escort_support",
+        "path": "state/manpower-capability/escort-wei-pool-escort-support.json",
+        "source_owner": "escort_wei",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_yan:pool_escort_captain",
+        "path": "state/manpower-capability/escort-yan-pool-escort-captain.json",
+        "source_owner": "escort_yan",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_yan:pool_escort_guard",
+        "path": "state/manpower-capability/escort-yan-pool-escort-guard.json",
+        "source_owner": "escort_yan",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_yan:pool_escort_scout",
+        "path": "state/manpower-capability/escort-yan-pool-escort-scout.json",
+        "source_owner": "escort_yan",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_yan:pool_escort_support",
+        "path": "state/manpower-capability/escort-yan-pool-escort-support.json",
+        "source_owner": "escort_yan",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_zhao:pool_escort_captain",
+        "path": "state/manpower-capability/escort-zhao-pool-escort-captain.json",
+        "source_owner": "escort_zhao",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_zhao:pool_escort_guard",
+        "path": "state/manpower-capability/escort-zhao-pool-escort-guard.json",
+        "source_owner": "escort_zhao",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_zhao:pool_escort_scout",
+        "path": "state/manpower-capability/escort-zhao-pool-escort-scout.json",
+        "source_owner": "escort_zhao",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.escort_zhao:pool_escort_support",
+        "path": "state/manpower-capability/escort-zhao-pool-escort-support.json",
+        "source_owner": "escort_zhao",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.force_pool_chu_cavalry",
+        "path": "state/manpower-capability/force-pool-chu-cavalry.json",
+        "source_owner": "force_state_chu",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_chu_chariot",
+        "path": "state/manpower-capability/force-pool-chu-chariot.json",
+        "source_owner": "force_state_chu",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_chu_line_infantry",
+        "path": "state/manpower-capability/force-pool-chu-line-infantry.json",
+        "source_owner": "force_state_chu",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_chu_logistics",
+        "path": "state/manpower-capability/force-pool-chu-logistics.json",
+        "source_owner": "force_state_chu",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_chu_medical",
+        "path": "state/manpower-capability/force-pool-chu-medical.json",
+        "source_owner": "force_state_chu",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_chu_missile_crossbow",
+        "path": "state/manpower-capability/force-pool-chu-missile-crossbow.json",
+        "source_owner": "force_state_chu",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_chu_siege_engineering",
+        "path": "state/manpower-capability/force-pool-chu-siege-engineering.json",
+        "source_owner": "force_state_chu",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_chu_signal",
+        "path": "state/manpower-capability/force-pool-chu-signal.json",
+        "source_owner": "force_state_chu",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_han_cavalry",
+        "path": "state/manpower-capability/force-pool-han-cavalry.json",
+        "source_owner": "force_state_han",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_han_chariot",
+        "path": "state/manpower-capability/force-pool-han-chariot.json",
+        "source_owner": "force_state_han",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_han_line_infantry",
+        "path": "state/manpower-capability/force-pool-han-line-infantry.json",
+        "source_owner": "force_state_han",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_han_logistics",
+        "path": "state/manpower-capability/force-pool-han-logistics.json",
+        "source_owner": "force_state_han",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_han_medical",
+        "path": "state/manpower-capability/force-pool-han-medical.json",
+        "source_owner": "force_state_han",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_han_missile_crossbow",
+        "path": "state/manpower-capability/force-pool-han-missile-crossbow.json",
+        "source_owner": "force_state_han",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_han_siege_engineering",
+        "path": "state/manpower-capability/force-pool-han-siege-engineering.json",
+        "source_owner": "force_state_han",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_han_signal",
+        "path": "state/manpower-capability/force-pool-han-signal.json",
+        "source_owner": "force_state_han",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qi_cavalry",
+        "path": "state/manpower-capability/force-pool-qi-cavalry.json",
+        "source_owner": "force_state_qi",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qi_chariot",
+        "path": "state/manpower-capability/force-pool-qi-chariot.json",
+        "source_owner": "force_state_qi",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qi_line_infantry",
+        "path": "state/manpower-capability/force-pool-qi-line-infantry.json",
+        "source_owner": "force_state_qi",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qi_logistics",
+        "path": "state/manpower-capability/force-pool-qi-logistics.json",
+        "source_owner": "force_state_qi",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qi_medical",
+        "path": "state/manpower-capability/force-pool-qi-medical.json",
+        "source_owner": "force_state_qi",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qi_missile_crossbow",
+        "path": "state/manpower-capability/force-pool-qi-missile-crossbow.json",
+        "source_owner": "force_state_qi",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qi_siege_engineering",
+        "path": "state/manpower-capability/force-pool-qi-siege-engineering.json",
+        "source_owner": "force_state_qi",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qi_signal",
+        "path": "state/manpower-capability/force-pool-qi-signal.json",
+        "source_owner": "force_state_qi",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qin_cavalry",
+        "path": "state/manpower-capability/force-pool-qin-cavalry.json",
+        "source_owner": "force_state_qin",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qin_chariot",
+        "path": "state/manpower-capability/force-pool-qin-chariot.json",
+        "source_owner": "force_state_qin",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qin_line_infantry",
+        "path": "state/manpower-capability/force-pool-qin-line-infantry.json",
+        "source_owner": "force_state_qin",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qin_logistics",
+        "path": "state/manpower-capability/force-pool-qin-logistics.json",
+        "source_owner": "force_state_qin",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qin_medical",
+        "path": "state/manpower-capability/force-pool-qin-medical.json",
+        "source_owner": "force_state_qin",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qin_missile_crossbow",
+        "path": "state/manpower-capability/force-pool-qin-missile-crossbow.json",
+        "source_owner": "force_state_qin",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qin_siege_engineering",
+        "path": "state/manpower-capability/force-pool-qin-siege-engineering.json",
+        "source_owner": "force_state_qin",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_qin_signal",
+        "path": "state/manpower-capability/force-pool-qin-signal.json",
+        "source_owner": "force_state_qin",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_wei_cavalry",
+        "path": "state/manpower-capability/force-pool-wei-cavalry.json",
+        "source_owner": "force_state_wei",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_wei_chariot",
+        "path": "state/manpower-capability/force-pool-wei-chariot.json",
+        "source_owner": "force_state_wei",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_wei_line_infantry",
+        "path": "state/manpower-capability/force-pool-wei-line-infantry.json",
+        "source_owner": "force_state_wei",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_wei_logistics",
+        "path": "state/manpower-capability/force-pool-wei-logistics.json",
+        "source_owner": "force_state_wei",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_wei_medical",
+        "path": "state/manpower-capability/force-pool-wei-medical.json",
+        "source_owner": "force_state_wei",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_wei_missile_crossbow",
+        "path": "state/manpower-capability/force-pool-wei-missile-crossbow.json",
+        "source_owner": "force_state_wei",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_wei_siege_engineering",
+        "path": "state/manpower-capability/force-pool-wei-siege-engineering.json",
+        "source_owner": "force_state_wei",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_wei_signal",
+        "path": "state/manpower-capability/force-pool-wei-signal.json",
+        "source_owner": "force_state_wei",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_yan_cavalry",
+        "path": "state/manpower-capability/force-pool-yan-cavalry.json",
+        "source_owner": "force_state_yan",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_yan_chariot",
+        "path": "state/manpower-capability/force-pool-yan-chariot.json",
+        "source_owner": "force_state_yan",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_yan_line_infantry",
+        "path": "state/manpower-capability/force-pool-yan-line-infantry.json",
+        "source_owner": "force_state_yan",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_yan_logistics",
+        "path": "state/manpower-capability/force-pool-yan-logistics.json",
+        "source_owner": "force_state_yan",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_yan_medical",
+        "path": "state/manpower-capability/force-pool-yan-medical.json",
+        "source_owner": "force_state_yan",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_yan_missile_crossbow",
+        "path": "state/manpower-capability/force-pool-yan-missile-crossbow.json",
+        "source_owner": "force_state_yan",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_yan_siege_engineering",
+        "path": "state/manpower-capability/force-pool-yan-siege-engineering.json",
+        "source_owner": "force_state_yan",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_yan_signal",
+        "path": "state/manpower-capability/force-pool-yan-signal.json",
+        "source_owner": "force_state_yan",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_zhao_cavalry",
+        "path": "state/manpower-capability/force-pool-zhao-cavalry.json",
+        "source_owner": "force_state_zhao",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_zhao_chariot",
+        "path": "state/manpower-capability/force-pool-zhao-chariot.json",
+        "source_owner": "force_state_zhao",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_zhao_line_infantry",
+        "path": "state/manpower-capability/force-pool-zhao-line-infantry.json",
+        "source_owner": "force_state_zhao",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_zhao_logistics",
+        "path": "state/manpower-capability/force-pool-zhao-logistics.json",
+        "source_owner": "force_state_zhao",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_zhao_medical",
+        "path": "state/manpower-capability/force-pool-zhao-medical.json",
+        "source_owner": "force_state_zhao",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_zhao_missile_crossbow",
+        "path": "state/manpower-capability/force-pool-zhao-missile-crossbow.json",
+        "source_owner": "force_state_zhao",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_zhao_siege_engineering",
+        "path": "state/manpower-capability/force-pool-zhao-siege-engineering.json",
+        "source_owner": "force_state_zhao",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.force_pool_zhao_signal",
+        "path": "state/manpower-capability/force-pool-zhao-signal.json",
+        "source_owner": "force_state_zhao",
+        "source_owner_kind": "exact_force",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.01.crossbow",
+        "path": "state/manpower-capability/merc-major-01-crossbow.json",
+        "source_owner": "merc.major.01",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.01.engineers",
+        "path": "state/manpower-capability/merc-major-01-engineers.json",
+        "source_owner": "merc.major.01",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.01.heavy_line",
+        "path": "state/manpower-capability/merc-major-01-heavy-line.json",
+        "source_owner": "merc.major.01",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.01.scouts",
+        "path": "state/manpower-capability/merc-major-01-scouts.json",
+        "source_owner": "merc.major.01",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.01.support",
+        "path": "state/manpower-capability/merc-major-01-support.json",
+        "source_owner": "merc.major.01",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.02.crossbow",
+        "path": "state/manpower-capability/merc-major-02-crossbow.json",
+        "source_owner": "merc.major.02",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.02.scouts",
+        "path": "state/manpower-capability/merc-major-02-scouts.json",
+        "source_owner": "merc.major.02",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.02.spear_line",
+        "path": "state/manpower-capability/merc-major-02-spear-line.json",
+        "source_owner": "merc.major.02",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.02.support",
+        "path": "state/manpower-capability/merc-major-02-support.json",
+        "source_owner": "merc.major.02",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.03.cavalry",
+        "path": "state/manpower-capability/merc-major-03-cavalry.json",
+        "source_owner": "merc.major.03",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.03.dismounted_line",
+        "path": "state/manpower-capability/merc-major-03-dismounted-line.json",
+        "source_owner": "merc.major.03",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.03.mounted_scouts",
+        "path": "state/manpower-capability/merc-major-03-mounted-scouts.json",
+        "source_owner": "merc.major.03",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.03.support",
+        "path": "state/manpower-capability/merc-major-03-support.json",
+        "source_owner": "merc.major.03",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.04.boat_engineers",
+        "path": "state/manpower-capability/merc-major-04-boat-engineers.json",
+        "source_owner": "merc.major.04",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.04.crossbow",
+        "path": "state/manpower-capability/merc-major-04-crossbow.json",
+        "source_owner": "merc.major.04",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.04.light_line",
+        "path": "state/manpower-capability/merc-major-04-light-line.json",
+        "source_owner": "merc.major.04",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.04.support",
+        "path": "state/manpower-capability/merc-major-04-support.json",
+        "source_owner": "merc.major.04",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.05.heavy_line",
+        "path": "state/manpower-capability/merc-major-05-heavy-line.json",
+        "source_owner": "merc.major.05",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.05.sappers",
+        "path": "state/manpower-capability/merc-major-05-sappers.json",
+        "source_owner": "merc.major.05",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.05.scouts",
+        "path": "state/manpower-capability/merc-major-05-scouts.json",
+        "source_owner": "merc.major.05",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.05.support",
+        "path": "state/manpower-capability/merc-major-05-support.json",
+        "source_owner": "merc.major.05",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.06.crossbow",
+        "path": "state/manpower-capability/merc-major-06-crossbow.json",
+        "source_owner": "merc.major.06",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.06.light_infantry",
+        "path": "state/manpower-capability/merc-major-06-light-infantry.json",
+        "source_owner": "merc.major.06",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.06.scouts",
+        "path": "state/manpower-capability/merc-major-06-scouts.json",
+        "source_owner": "merc.major.06",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.06.support",
+        "path": "state/manpower-capability/merc-major-06-support.json",
+        "source_owner": "merc.major.06",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.07.crossbow",
+        "path": "state/manpower-capability/merc-major-07-crossbow.json",
+        "source_owner": "merc.major.07",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.07.scouts",
+        "path": "state/manpower-capability/merc-major-07-scouts.json",
+        "source_owner": "merc.major.07",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.07.spear_screen",
+        "path": "state/manpower-capability/merc-major-07-spear-screen.json",
+        "source_owner": "merc.major.07",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.07.support",
+        "path": "state/manpower-capability/merc-major-07-support.json",
+        "source_owner": "merc.major.07",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.08.crossbow",
+        "path": "state/manpower-capability/merc-major-08-crossbow.json",
+        "source_owner": "merc.major.08",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.08.line",
+        "path": "state/manpower-capability/merc-major-08-line.json",
+        "source_owner": "merc.major.08",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.08.scouts",
+        "path": "state/manpower-capability/merc-major-08-scouts.json",
+        "source_owner": "merc.major.08",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.08.spear",
+        "path": "state/manpower-capability/merc-major-08-spear.json",
+        "source_owner": "merc.major.08",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.08.support",
+        "path": "state/manpower-capability/merc-major-08-support.json",
+        "source_owner": "merc.major.08",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.09.crossbow",
+        "path": "state/manpower-capability/merc-major-09-crossbow.json",
+        "source_owner": "merc.major.09",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.09.engineers",
+        "path": "state/manpower-capability/merc-major-09-engineers.json",
+        "source_owner": "merc.major.09",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.09.heavy_line",
+        "path": "state/manpower-capability/merc-major-09-heavy-line.json",
+        "source_owner": "merc.major.09",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.09.support",
+        "path": "state/manpower-capability/merc-major-09-support.json",
+        "source_owner": "merc.major.09",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.10.crossbow",
+        "path": "state/manpower-capability/merc-major-10-crossbow.json",
+        "source_owner": "merc.major.10",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.10.light_line",
+        "path": "state/manpower-capability/merc-major-10-light-line.json",
+        "source_owner": "merc.major.10",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.10.scouts",
+        "path": "state/manpower-capability/merc-major-10-scouts.json",
+        "source_owner": "merc.major.10",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.10.support",
+        "path": "state/manpower-capability/merc-major-10-support.json",
+        "source_owner": "merc.major.10",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.11.crossbow",
+        "path": "state/manpower-capability/merc-major-11-crossbow.json",
+        "source_owner": "merc.major.11",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.11.engineer_drivers",
+        "path": "state/manpower-capability/merc-major-11-engineer-drivers.json",
+        "source_owner": "merc.major.11",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.11.line_guards",
+        "path": "state/manpower-capability/merc-major-11-line-guards.json",
+        "source_owner": "merc.major.11",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.11.support",
+        "path": "state/manpower-capability/merc-major-11-support.json",
+        "source_owner": "merc.major.11",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.12.cavalry",
+        "path": "state/manpower-capability/merc-major-12-cavalry.json",
+        "source_owner": "merc.major.12",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.12.light_line",
+        "path": "state/manpower-capability/merc-major-12-light-line.json",
+        "source_owner": "merc.major.12",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.12.scouts",
+        "path": "state/manpower-capability/merc-major-12-scouts.json",
+        "source_owner": "merc.major.12",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc.major.12.support",
+        "path": "state/manpower-capability/merc-major-12-support.json",
+        "source_owner": "merc.major.12",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_ashen_wall:pool_crossbow",
+        "path": "state/manpower-capability/merc-ashen-wall-pool-crossbow.json",
+        "source_owner": "merc_ashen_wall",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_ashen_wall:pool_support",
+        "path": "state/manpower-capability/merc-ashen-wall-pool-support.json",
+        "source_owner": "merc_ashen_wall",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_ashen_wall:pool_veteran",
+        "path": "state/manpower-capability/merc-ashen-wall-pool-veteran.json",
+        "source_owner": "merc_ashen_wall",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_black_banner:pool_line",
+        "path": "state/manpower-capability/merc-black-banner-pool-line.json",
+        "source_owner": "merc_black_banner",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_black_banner:pool_scout",
+        "path": "state/manpower-capability/merc-black-banner-pool-scout.json",
+        "source_owner": "merc_black_banner",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_black_banner:pool_support",
+        "path": "state/manpower-capability/merc-black-banner-pool-support.json",
+        "source_owner": "merc_black_banner",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_copper_falcon:pool_riders",
+        "path": "state/manpower-capability/merc-copper-falcon-pool-riders.json",
+        "source_owner": "merc_copper_falcon",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_copper_falcon:pool_support",
+        "path": "state/manpower-capability/merc-copper-falcon-pool-support.json",
+        "source_owner": "merc_copper_falcon",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_deep_earth:pool_countermining_engineers",
+        "path": "state/manpower-capability/merc-deep-earth-pool-countermining-engineers.json",
+        "source_owner": "merc_deep_earth",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_golden_axle:pool_engineer_drivers",
+        "path": "state/manpower-capability/merc-golden-axle-pool-engineer-drivers.json",
+        "source_owner": "merc_golden_axle",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_golden_axle:pool_scout",
+        "path": "state/manpower-capability/merc-golden-axle-pool-scout.json",
+        "source_owner": "merc_golden_axle",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_golden_axle:pool_wagon_guard",
+        "path": "state/manpower-capability/merc-golden-axle-pool-wagon-guard.json",
+        "source_owner": "merc_golden_axle",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_grey_wolf:pool_spears",
+        "path": "state/manpower-capability/merc-grey-wolf-pool-spears.json",
+        "source_owner": "merc_grey_wolf",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_grey_wolf:pool_support",
+        "path": "state/manpower-capability/merc-grey-wolf-pool-support.json",
+        "source_owner": "merc_grey_wolf",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_iron_rampart:pool_outer_wall_guard",
+        "path": "state/manpower-capability/merc-iron-rampart-pool-outer-wall-guard.json",
+        "source_owner": "merc_iron_rampart",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_night_heron:pool_scout",
+        "path": "state/manpower-capability/merc-night-heron-pool-scout.json",
+        "source_owner": "merc_night_heron",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_night_heron:pool_support",
+        "path": "state/manpower-capability/merc-night-heron-pool-support.json",
+        "source_owner": "merc_night_heron",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_red_crane:pool_bed_crossbow_corps",
+        "path": "state/manpower-capability/merc-red-crane-pool-bed-crossbow-corps.json",
+        "source_owner": "merc_red_crane",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_red_crane:pool_trebuchet_corps",
+        "path": "state/manpower-capability/merc-red-crane-pool-trebuchet-corps.json",
+        "source_owner": "merc_red_crane",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_river_reed:pool_light",
+        "path": "state/manpower-capability/merc-river-reed-pool-light.json",
+        "source_owner": "merc_river_reed",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_river_reed:pool_scout",
+        "path": "state/manpower-capability/merc-river-reed-pool-scout.json",
+        "source_owner": "merc_river_reed",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_river_reed:pool_support",
+        "path": "state/manpower-capability/merc-river-reed-pool-support.json",
+        "source_owner": "merc_river_reed",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_stone_ox:pool_engineer",
+        "path": "state/manpower-capability/merc-stone-ox-pool-engineer.json",
+        "source_owner": "merc_stone_ox",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_stone_ox:pool_heavy",
+        "path": "state/manpower-capability/merc-stone-ox-pool-heavy.json",
+        "source_owner": "merc_stone_ox",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_stone_ox:pool_support",
+        "path": "state/manpower-capability/merc-stone-ox-pool-support.json",
+        "source_owner": "merc_stone_ox",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_white_lantern:pool_logistics",
+        "path": "state/manpower-capability/merc-white-lantern-pool-logistics.json",
+        "source_owner": "merc_white_lantern",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_white_lantern:pool_medical",
+        "path": "state/manpower-capability/merc-white-lantern-pool-medical.json",
+        "source_owner": "merc_white_lantern",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_white_lantern:pool_signals",
+        "path": "state/manpower-capability/merc-white-lantern-pool-signals.json",
+        "source_owner": "merc_white_lantern",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.merc_white_lantern:pool_stone_fire_corps",
+        "path": "state/manpower-capability/merc-white-lantern-pool-stone-fire-corps.json",
+        "source_owner": "merc_white_lantern",
+        "source_owner_kind": "exact_current_owner",
+        "current_owner_required": true
+      },
+      {
+        "ref": "capability.ordo.mountain_elite",
+        "path": "state/manpower-capability/ordo-mountain-elite.json",
+        "source_owner": "army.yan.ordo",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.ordo.yan_cavalry",
+        "path": "state/manpower-capability/ordo-yan-cavalry.json",
+        "source_owner": "army.yan.ordo",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.ordo.yan_regulars",
+        "path": "state/manpower-capability/ordo-yan-regulars.json",
+        "source_owner": "army.yan.ordo",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.quanrong.champion_guard",
+        "path": "state/manpower-capability/quanrong-champion-guard.json",
+        "source_owner": "force.quanrong.ryouyou",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.quanrong.clan_reserve",
+        "path": "state/manpower-capability/quanrong-clan-reserve.json",
+        "source_owner": "force.quanrong.ryouyou",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.quanrong.major_warband_a",
+        "path": "state/manpower-capability/quanrong-major-warband-a.json",
+        "source_owner": "force.quanrong.ryouyou",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.quanrong.major_warband_b",
+        "path": "state/manpower-capability/quanrong-major-warband-b.json",
+        "source_owner": "force.quanrong.ryouyou",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.quanrong.major_warband_c",
+        "path": "state/manpower-capability/quanrong-major-warband-c.json",
+        "source_owner": "force.quanrong.ryouyou",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.quanrong.royal_core",
+        "path": "state/manpower-capability/quanrong-royal-core.json",
+        "source_owner": "force.quanrong.ryouyou",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.quanrong.tracking_clans",
+        "path": "state/manpower-capability/quanrong-tracking-clans.json",
+        "source_owner": "force.quanrong.ryouyou",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_chu:pool_school_general",
+        "path": "state/manpower-capability/school-chu-pool-school-general.json",
+        "source_owner": "school_chu",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_chu:pool_school_instructor",
+        "path": "state/manpower-capability/school-chu-pool-school-instructor.json",
+        "source_owner": "school_chu",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_chu:pool_school_junior",
+        "path": "state/manpower-capability/school-chu-pool-school-junior.json",
+        "source_owner": "school_chu",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_chu:pool_school_senior",
+        "path": "state/manpower-capability/school-chu-pool-school-senior.json",
+        "source_owner": "school_chu",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_chu:pool_school_support",
+        "path": "state/manpower-capability/school-chu-pool-school-support.json",
+        "source_owner": "school_chu",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_han:pool_school_general",
+        "path": "state/manpower-capability/school-han-pool-school-general.json",
+        "source_owner": "school_han",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_han:pool_school_instructor",
+        "path": "state/manpower-capability/school-han-pool-school-instructor.json",
+        "source_owner": "school_han",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_han:pool_school_junior",
+        "path": "state/manpower-capability/school-han-pool-school-junior.json",
+        "source_owner": "school_han",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_han:pool_school_senior",
+        "path": "state/manpower-capability/school-han-pool-school-senior.json",
+        "source_owner": "school_han",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_han:pool_school_support",
+        "path": "state/manpower-capability/school-han-pool-school-support.json",
+        "source_owner": "school_han",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qi:pool_school_general",
+        "path": "state/manpower-capability/school-qi-pool-school-general.json",
+        "source_owner": "school_qi",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qi:pool_school_instructor",
+        "path": "state/manpower-capability/school-qi-pool-school-instructor.json",
+        "source_owner": "school_qi",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qi:pool_school_junior",
+        "path": "state/manpower-capability/school-qi-pool-school-junior.json",
+        "source_owner": "school_qi",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qi:pool_school_senior",
+        "path": "state/manpower-capability/school-qi-pool-school-senior.json",
+        "source_owner": "school_qi",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qi:pool_school_support",
+        "path": "state/manpower-capability/school-qi-pool-school-support.json",
+        "source_owner": "school_qi",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qin:pool_school_general",
+        "path": "state/manpower-capability/school-qin-pool-school-general.json",
+        "source_owner": "school_qin",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qin:pool_school_instructor",
+        "path": "state/manpower-capability/school-qin-pool-school-instructor.json",
+        "source_owner": "school_qin",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qin:pool_school_junior",
+        "path": "state/manpower-capability/school-qin-pool-school-junior.json",
+        "source_owner": "school_qin",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qin:pool_school_senior",
+        "path": "state/manpower-capability/school-qin-pool-school-senior.json",
+        "source_owner": "school_qin",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_qin:pool_school_support",
+        "path": "state/manpower-capability/school-qin-pool-school-support.json",
+        "source_owner": "school_qin",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_wei:pool_school_general",
+        "path": "state/manpower-capability/school-wei-pool-school-general.json",
+        "source_owner": "school_wei",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_wei:pool_school_instructor",
+        "path": "state/manpower-capability/school-wei-pool-school-instructor.json",
+        "source_owner": "school_wei",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_wei:pool_school_junior",
+        "path": "state/manpower-capability/school-wei-pool-school-junior.json",
+        "source_owner": "school_wei",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_wei:pool_school_senior",
+        "path": "state/manpower-capability/school-wei-pool-school-senior.json",
+        "source_owner": "school_wei",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_wei:pool_school_support",
+        "path": "state/manpower-capability/school-wei-pool-school-support.json",
+        "source_owner": "school_wei",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_yan:pool_school_general",
+        "path": "state/manpower-capability/school-yan-pool-school-general.json",
+        "source_owner": "school_yan",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_yan:pool_school_instructor",
+        "path": "state/manpower-capability/school-yan-pool-school-instructor.json",
+        "source_owner": "school_yan",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_yan:pool_school_junior",
+        "path": "state/manpower-capability/school-yan-pool-school-junior.json",
+        "source_owner": "school_yan",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_yan:pool_school_senior",
+        "path": "state/manpower-capability/school-yan-pool-school-senior.json",
+        "source_owner": "school_yan",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_yan:pool_school_support",
+        "path": "state/manpower-capability/school-yan-pool-school-support.json",
+        "source_owner": "school_yan",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_zhao:pool_school_general",
+        "path": "state/manpower-capability/school-zhao-pool-school-general.json",
+        "source_owner": "school_zhao",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_zhao:pool_school_instructor",
+        "path": "state/manpower-capability/school-zhao-pool-school-instructor.json",
+        "source_owner": "school_zhao",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_zhao:pool_school_junior",
+        "path": "state/manpower-capability/school-zhao-pool-school-junior.json",
+        "source_owner": "school_zhao",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_zhao:pool_school_senior",
+        "path": "state/manpower-capability/school-zhao-pool-school-senior.json",
+        "source_owner": "school_zhao",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      },
+      {
+        "ref": "capability.school_zhao:pool_school_support",
+        "path": "state/manpower-capability/school-zhao-pool-school-support.json",
+        "source_owner": "school_zhao",
+        "source_owner_kind": "cold_or_template_reference",
+        "current_owner_required": false
+      }
+    ],
+    "faction_readiness_zero_bodies": [
+      {
+        "ref": "faction_central_merchant_houses",
+        "path": "state/factions/faction_central_merchant_houses.json"
+      },
+      {
+        "ref": "faction_chu_karin_network",
+        "path": "state/factions/faction_chu_karin_network.json"
+      },
+      {
+        "ref": "faction_jo_council",
+        "path": "state/factions/faction_jo_council.json",
+        "force_ref": "force_jo",
+        "rule": "political/readiness owner owns zero bodies; linked force_jo is separate exact manpower authority"
+      },
+      {
+        "ref": "faction_martial_school_networks",
+        "path": "state/factions/faction_martial_school_networks.json"
+      },
+      {
+        "ref": "faction_mercenary_brokers",
+        "path": "state/factions/faction_mercenary_brokers.json"
+      },
+      {
+        "ref": "faction_northern_steppe_confederation",
+        "path": "state/factions/faction_northern_steppe_confederation.json"
+      },
+      {
+        "ref": "faction_qin_court_reform",
+        "path": "state/factions/faction_qin_court_reform.json"
+      },
+      {
+        "ref": "faction_qin_ryofui_network",
+        "path": "state/factions/faction_qin_ryofui_network.json"
+      },
+      {
+        "ref": "faction_quanrong_polity",
+        "path": "state/factions/faction_quanrong_polity.json"
+      },
+      {
+        "ref": "faction_river_transport_leagues",
+        "path": "state/factions/faction_river_transport_leagues.json"
+      },
+      {
+        "ref": "faction_tang_household",
+        "path": "state/factions/faction_tang_household.json"
+      },
+      {
+        "ref": "faction_tang_merchant_partners",
+        "path": "state/factions/faction_tang_merchant_partners.json"
+      },
+      {
+        "ref": "faction_wei_engineering_command",
+        "path": "state/factions/faction_wei_engineering_command.json"
+      },
+      {
+        "ref": "faction_yan_frontier_command",
+        "path": "state/factions/faction_yan_frontier_command.json"
+      },
+      {
+        "ref": "faction_yotanwa_confederation",
+        "path": "state/factions/faction_yotanwa_confederation.json"
+      },
+      {
+        "ref": "faction_zhao_court_conservatives",
+        "path": "state/factions/faction_zhao_court_conservatives.json"
+      },
+      {
+        "ref": "faction_zhao_riboku_network",
+        "path": "state/factions/faction_zhao_riboku_network.json"
+      }
+    ],
+    "persistent_formation_assignment": [
+      {
+        "ref": "formation_chu_field_reserve",
+        "path": "state/formations/chu-field-reserve.json",
+        "personnel": 9000,
+        "owner_force_ref": "force_state_chu"
+      },
+      {
+        "ref": "formation_chu_shock_reserve",
+        "path": "state/formations/chu-shock-reserve.json",
+        "personnel": 5000,
+        "owner_force_ref": "force_state_chu"
+      },
+      {
+        "ref": "formation_chu_siege_train",
+        "path": "state/formations/chu-siege-train.json",
+        "personnel": 3200,
+        "owner_force_ref": "force_state_chu"
+      },
+      {
+        "ref": "formation_han_fortress_reserve",
+        "path": "state/formations/han-fortress-reserve.json",
+        "personnel": 4200,
+        "owner_force_ref": "force_state_han"
+      },
+      {
+        "ref": "formation_han_mobile_screen",
+        "path": "state/formations/han-mobile-screen.json",
+        "personnel": 2200,
+        "owner_force_ref": "force_state_han"
+      },
+      {
+        "ref": "formation_house_go_military_house_guard",
+        "path": "state/formations/house_go_military_house-guard.json",
+        "personnel": 360,
+        "owner_force_ref": "force_house_go_military_house"
+      },
+      {
+        "ref": "formation_house_kanki_retinue_house_guard",
+        "path": "state/formations/house_kanki_retinue_house-guard.json",
+        "personnel": 760,
+        "owner_force_ref": "force_house_kanki_retinue_house"
+      },
+      {
+        "ref": "formation_house_karin_house_guard",
+        "path": "state/formations/house_karin_house-guard.json",
+        "personnel": 820,
+        "owner_force_ref": "force_house_karin_house"
+      },
+      {
+        "ref": "formation_house_mou_family_guard",
+        "path": "state/formations/house_mou_family-guard.json",
+        "personnel": 280,
+        "owner_force_ref": "force_house_mou_family"
+      },
+      {
+        "ref": "formation_house_ou_family_guard",
+        "path": "state/formations/house_ou_family-guard.json",
+        "personnel": 320,
+        "owner_force_ref": "force_house_ou_family"
+      },
+      {
+        "ref": "formation_house_ouki_household_guard",
+        "path": "state/formations/house_ouki_household-guard.json",
+        "personnel": 520,
+        "owner_force_ref": "force_house_ouki_household"
+      },
+      {
+        "ref": "formation_house_riboku_household_guard",
+        "path": "state/formations/house_riboku_household-guard.json",
+        "personnel": 620,
+        "owner_force_ref": "force_house_riboku_household"
+      },
+      {
+        "ref": "formation_house_shou_bun_kun_household_guard",
+        "path": "state/formations/house_shou_bun_kun_household-guard.json",
+        "personnel": 180,
+        "owner_force_ref": "force_house_shou_bun_kun_household"
+      },
+      {
+        "ref": "formation_house_tou_household_guard",
+        "path": "state/formations/house_tou_household-guard.json",
+        "personnel": 220,
+        "owner_force_ref": "force_house_tou_household"
+      },
+      {
+        "ref": "formation_qi_coastal_reserve",
+        "path": "state/formations/qi-coastal-reserve.json",
+        "personnel": 4200,
+        "owner_force_ref": "force_state_qi"
+      },
+      {
+        "ref": "formation_qi_mobile_guard",
+        "path": "state/formations/qi-mobile-guard.json",
+        "personnel": 2400,
+        "owner_force_ref": "force_state_qi"
+      },
+      {
+        "ref": "formation_qin_border_line",
+        "path": "state/formations/qin-border-line.json",
+        "personnel": 8000,
+        "owner_force_ref": "force_state_qin"
+      },
+      {
+        "ref": "formation_qin_mobile_reserve",
+        "path": "state/formations/qin-mobile-reserve.json",
+        "personnel": 5000,
+        "owner_force_ref": "force_state_qin"
+      },
+      {
+        "ref": "formation_qin_siege_train",
+        "path": "state/formations/qin-siege-train.json",
+        "personnel": 3000,
+        "owner_force_ref": "force_state_qin"
+      },
+      {
+        "ref": "formation_tang_champions_first",
+        "path": "state/formations/tang-champions-first.json",
+        "personnel": 500,
+        "owner_force_ref": "force_house_tang"
+      },
+      {
+        "ref": "formation_tang_wei_house_guard_first",
+        "path": "state/formations/tang-wei-house-guard-first.json",
+        "personnel": 3000,
+        "owner_force_ref": "force_house_tang"
+      },
+      {
+        "ref": "formation_wei_engineered_line",
+        "path": "state/formations/wei-engineered-line.json",
+        "personnel": 6500,
+        "owner_force_ref": "force_state_wei"
+      },
+      {
+        "ref": "formation_wei_mobile_reserve",
+        "path": "state/formations/wei-mobile-reserve.json",
+        "personnel": 4200,
+        "owner_force_ref": "force_state_wei"
+      },
+      {
+        "ref": "formation_wei_reconstitution",
+        "path": "state/formations/wei-reconstitution.json",
+        "personnel": 2800,
+        "owner_force_ref": "force_state_wei"
+      },
+      {
+        "ref": "formation_yan_frontier_army",
+        "path": "state/formations/yan-frontier-army.json",
+        "personnel": 5200,
+        "owner_force_ref": "force_state_yan"
+      },
+      {
+        "ref": "formation_yan_mobile_reserve",
+        "path": "state/formations/yan-mobile-reserve.json",
+        "personnel": 3200,
+        "owner_force_ref": "force_state_yan"
+      },
+      {
+        "ref": "formation_zhao_border_line",
+        "path": "state/formations/zhao-border-line.json",
+        "personnel": 7500,
+        "owner_force_ref": "force_state_zhao"
+      },
+      {
+        "ref": "formation_zhao_mobile_reserve",
+        "path": "state/formations/zhao-mobile-reserve.json",
+        "personnel": 5000,
+        "owner_force_ref": "force_state_zhao"
+      },
+      {
+        "ref": "formation_zhao_reconstitution",
+        "path": "state/formations/zhao-reconstitution.json",
+        "personnel": 3500,
+        "owner_force_ref": "force_state_zhao"
+      }
+    ],
+    "operation_zero_bodies": [
+      {
+        "ref": "operation_arc_131572c4e8a2892bbc",
+        "path": "state/operations/operation_arc_131572c4e8a2892bbc.json",
+        "formation_refs": [
+          "formation_qin_border_line"
+        ]
+      },
+      {
+        "ref": "operation_arc_39ecaa510c1c2c45d6",
+        "path": "state/operations/operation_arc_39ecaa510c1c2c45d6.json",
+        "formation_refs": [
+          "formation_zhao_mobile_reserve"
+        ]
+      },
+      {
+        "ref": "operation_arc_73745d7ca38d929e0e",
+        "path": "state/operations/operation_arc_73745d7ca38d929e0e.json",
+        "formation_refs": [
+          "formation_qin_mobile_reserve"
+        ]
+      },
+      {
+        "ref": "operation_arc_87a653abea8db6349c",
+        "path": "state/operations/operation_arc_87a653abea8db6349c.json",
+        "formation_refs": [
+          "formation_wei_mobile_reserve"
+        ]
+      },
+      {
+        "ref": "operation_arc_b4f7c0501b036cdaec",
+        "path": "state/operations/operation_arc_b4f7c0501b036cdaec.json",
+        "formation_refs": [
+          "formation_wei_reconstitution"
+        ]
+      },
+      {
+        "ref": "operation_arc_b73ff5ed48f31f22b4",
+        "path": "state/operations/operation_arc_b73ff5ed48f31f22b4.json",
+        "formation_refs": [
+          "formation_wei_engineered_line"
+        ]
+      },
+      {
+        "ref": "operation_arc_b888ff1557d97a8fa4",
+        "path": "state/operations/operation_arc_b888ff1557d97a8fa4.json",
+        "formation_refs": [
+          "formation_qin_siege_train"
+        ]
+      },
+      {
+        "ref": "operation_arc_eca7a3fb58d49920a5",
+        "path": "state/operations/operation_arc_eca7a3fb58d49920a5.json",
+        "formation_refs": [
+          "formation_zhao_border_line"
+        ]
+      },
+      {
+        "ref": "operation_arc_fcab65e5171cb24d9f",
+        "path": "state/operations/operation_arc_fcab65e5171cb24d9f.json",
+        "formation_refs": [
+          "formation_house_shou_bun_kun_household_guard"
+        ]
+      }
+    ],
+    "siege_zero_bodies": [],
+    "mount_pool": [
+      {
+        "ref": "mount_pool_chu",
+        "path": "state/mounts/chu.json",
+        "total": 55000
+      },
+      {
+        "ref": "mount_pool_han",
+        "path": "state/mounts/han.json",
+        "total": 18000
+      },
+      {
+        "ref": "mount_pool_qi",
+        "path": "state/mounts/qi.json",
+        "total": 24000
+      },
+      {
+        "ref": "mount_pool_qin",
+        "path": "state/mounts/qin.json",
+        "total": 85000
+      },
+      {
+        "ref": "mount_pool_wei",
+        "path": "state/mounts/wei.json",
+        "total": 42000
+      },
+      {
+        "ref": "mount_pool_yan",
+        "path": "state/mounts/yan.json",
+        "total": 38000
+      },
+      {
+        "ref": "mount_pool_zhao",
+        "path": "state/mounts/zhao.json",
+        "total": 70000
+      }
+    ],
+    "population_owner": [
+      {
+        "ref": "population_chu",
+        "path": "state/population/chu.json",
+        "population_total": 12000000
+      },
+      {
+        "ref": "population_han",
+        "path": "state/population/han.json",
+        "population_total": 2400000
+      },
+      {
+        "ref": "population_jo",
+        "path": "state/population/jo.json",
+        "population_total": 32000
+      },
+      {
+        "ref": "population_qi",
+        "path": "state/population/qi.json",
+        "population_total": 5500000
+      },
+      {
+        "ref": "population_qin",
+        "path": "state/population/qin.json",
+        "population_total": 9000000
+      },
+      {
+        "ref": "population_tang_manor",
+        "path": "state/population/tang-manor.json",
+        "population_total": 90000
+      },
+      {
+        "ref": "population_wei",
+        "path": "state/population/wei.json",
+        "population_total": 4800000
+      },
+      {
+        "ref": "population_yan",
+        "path": "state/population/yan.json",
+        "population_total": 4200000
+      },
+      {
+        "ref": "population_zhao",
+        "path": "state/population/zhao.json",
+        "population_total": 7200000
+      }
+    ],
+    "recruitment_pipeline": [
+      {
+        "ref": "recruitment_candidate_pools",
+        "path": "state/recruitment/candidate-pools.json"
+      }
+    ],
+    "depot_stock_owner": [
+      {
+        "ref": "depot_house_tang",
+        "path": "state/depots/house-tang.json",
+        "location_ref": "loc_tang_manor_garrison_yard"
+      },
+      {
+        "ref": "state_depot_chu",
+        "path": "state/depots/chu.json",
+        "location_ref": "loc_chu_regional_01"
+      },
+      {
+        "ref": "state_depot_han",
+        "path": "state/depots/han.json",
+        "location_ref": "loc_han_regional_01"
+      },
+      {
+        "ref": "state_depot_qi",
+        "path": "state/depots/qi.json",
+        "location_ref": "loc_qi_regional_01"
+      },
+      {
+        "ref": "state_depot_qin",
+        "path": "state/depots/qin.json",
+        "location_ref": "loc_qin_eastern_depot"
+      },
+      {
+        "ref": "state_depot_wei",
+        "path": "state/depots/wei.json",
+        "location_ref": "loc_wei_regional_01"
+      },
+      {
+        "ref": "state_depot_yan",
+        "path": "state/depots/yan.json",
+        "location_ref": "loc_yan_regional_01"
+      },
+      {
+        "ref": "state_depot_zhao",
+        "path": "state/depots/zhao.json",
+        "location_ref": "loc_zhao_regional_01"
+      }
+    ],
+    "exact_minor_polity_force": [
+      {
+        "ref": "force_jo",
+        "path": "state/forces/jo.json",
+        "headcount": 1500,
+        "polity_ref": "polity_jo"
+      }
+    ]
+  },
+  "counts": {
+    "exact_state_force": 7,
+    "exact_house_private_force": 10,
+    "exact_personal_force": 1,
+    "exact_institutional_manpower": 1,
+    "exact_mercenary_owner": 125,
+    "mercenary_registry_zero_bodies": 2,
+    "military_contract_zero_bodies": 1,
+    "command_group_zero_bodies": 2,
+    "capability_profile_zero_bodies": 208,
+    "faction_readiness_zero_bodies": 17,
+    "persistent_formation_assignment": 29,
+    "operation_zero_bodies": 9,
+    "siege_zero_bodies": 0,
+    "mount_pool": 7,
+    "population_owner": 9,
+    "recruitment_pipeline": 1,
+    "depot_stock_owner": 8,
+    "exact_minor_polity_force": 1
+  },
+  "universe_notes": [
+    "state/merc/regional.json is a zero-body registry over exact regional child companies",
+    "Sword Manor is conserved institutional manpower and not automatically synonymous with immediate field deployment",
+    "Tang Wei personal-force wrapper and command groups do not duplicate House-assigned formations",
+    "faction readiness/capability profiles do not prove current soldiers exist",
+    "Jo added as an exact minor-polity population/force pair; council readiness remains zero-body political authority.",
+    "Mercenary ecology v2: exact owners total 450,000; market and regional registries are authority:false projections; House Tang contract remains a 75,000-body grouping over four exact companies."
+  ]
+}

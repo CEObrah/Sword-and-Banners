@@ -1,0 +1,93 @@
+{
+  "fortifications": {},
+  "owner_id": "fortifications",
+  "schema": "sword-fortification-index",
+  "static_profiles": {
+    "loc_kanyou": {
+      "profile_id": "fort_profile_kanyou",
+      "authority": false
+    },
+    "loc_kankoku_pass": {
+      "profile_id": "fort_profile_kankoku_pass",
+      "authority": false
+    },
+    "loc_bu_pass": {
+      "profile_id": "fort_profile_bu_pass",
+      "authority": false
+    },
+    "loc_sai": {
+      "profile_id": "fort_profile_sai",
+      "authority": false
+    },
+    "loc_qin_western_fort": {
+      "profile_id": "fort_profile_qin_western_fort",
+      "authority": false
+    },
+    "loc_kantan": {
+      "profile_id": "fort_profile_kantan",
+      "authority": false
+    },
+    "loc_gyou": {
+      "profile_id": "fort_profile_gyou",
+      "authority": false
+    },
+    "loc_zhao_border_fort": {
+      "profile_id": "fort_profile_zhao_border_fort",
+      "authority": false
+    },
+    "loc_shintei": {
+      "profile_id": "fort_profile_shintei",
+      "authority": false
+    },
+    "loc_chu_north_fort": {
+      "profile_id": "fort_profile_chu_north_fort",
+      "authority": false
+    },
+    "loc_dairyou": {
+      "profile_id": "fort_profile_dairyou",
+      "authority": false
+    },
+    "loc_keiyou": {
+      "profile_id": "fort_profile_keiyou",
+      "authority": false
+    },
+    "loc_wei_west_fort": {
+      "profile_id": "fort_profile_wei_west_fort",
+      "authority": false
+    },
+    "loc_han_capital": {
+      "profile_id": "fort_profile_han_capital",
+      "authority": false
+    },
+    "loc_han_frontier_fort": {
+      "profile_id": "fort_profile_han_frontier_fort",
+      "authority": false
+    },
+    "loc_ji": {
+      "profile_id": "fort_profile_ji",
+      "authority": false
+    },
+    "loc_yan_south_fort": {
+      "profile_id": "fort_profile_yan_south_fort",
+      "authority": false
+    },
+    "loc_ei": {
+      "profile_id": "fort_profile_ei",
+      "authority": false
+    },
+    "loc_qi_west_fort": {
+      "profile_id": "fort_profile_qi_west_fort",
+      "authority": false
+    },
+    "loc_tang_manor": {
+      "profile_id": "fort_profile_tang_manor",
+      "authority": false
+    },
+    "loc_jo_city": {
+      "profile_id": "fort_profile_jo_city",
+      "authority": false
+    }
+  },
+  "static_profiles_authority": false,
+  "rule": "fortifications map is exact materialized state only; static_profiles is a discovery projection and never overwrites materialized condition"
+}

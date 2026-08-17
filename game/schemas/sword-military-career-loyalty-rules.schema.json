@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Military career and loyalty mechanics rules",
+  "type": "object",
+  "required": ["schema", "career_review", "commander_attractiveness", "institutional_response", "personnel_transfer", "formation_loyalty", "allegiance_resolution", "knowledge", "invariants"],
+  "properties": {
+    "schema": {"const": "sword-military-career-loyalty-rules.v1"},
+    "career_review": {"type": "object"},
+    "career_pressure_weights": {"type": "object"},
+    "commander_attractiveness": {"type": "object"},
+    "institutional_response": {"type": "object"},
+    "personnel_transfer": {"type": "object"},
+    "officer_emergence": {"type": "object"},
+    "autonomous_crisis": {"type": "object"},
+    "formation_loyalty": {"type": "object"},
+    "allegiance_resolution": {"type": "object"},
+    "knowledge": {"type": "object"},
+    "invariants": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

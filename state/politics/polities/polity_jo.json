@@ -1,0 +1,77 @@
+{
+  "schema": "sword-polity",
+  "owner_id": "polity_jo",
+  "polity_ref": "polity_jo",
+  "name": "Jo",
+  "sovereign_authority_ref": "faction_jo_council",
+  "administration_mode": "minor_polity",
+  "status": "recognized_state",
+  "recognition_status": "recognized",
+  "recognized_by": [
+    "state_wei",
+    "state_zhao",
+    "state_chu"
+  ],
+  "treasury_ref": "treasury_jo",
+  "population_ref": "population_jo",
+  "economy_ref": "private_economy_jo",
+  "faction_ref": "faction_jo_council",
+  "military_force_refs": [
+    "force_jo"
+  ],
+  "military_authority_refs": [
+    "faction_jo_council"
+  ],
+  "occupied_site_refs": [
+    "loc_jo_mountain_region",
+    "loc_jo_city"
+  ],
+  "administrative_capacity": 42,
+  "seat_claim_ref": "loc_jo_city",
+  "communication_origin_state": null,
+  "known_threats": {},
+  "diplomacy": {
+    "protected_by": [
+      "state_wei",
+      "state_zhao",
+      "state_chu"
+    ],
+    "posture": "armed neutrality and information brokerage"
+  },
+  "strategic_goals": [
+    "preserve independence among larger neighbors",
+    "protect information-broker neutrality",
+    "keep mountain approaches open without becoming a great-state dependency"
+  ],
+  "market_access_refs": [],
+  "minor_polity_monthly_flow": {
+    "revenue_silver": 120000,
+    "expense_silver": 85000,
+    "food_kg_per_civilian_per_month": 8
+  },
+  "state_integration": {
+    "mode": "minor_polity",
+    "monthly_autonomy": true,
+    "territorial_taxation": false,
+    "territorial_recruitment": false,
+    "shared_interstate_theaters": true,
+    "shared_treaty_registry": true,
+    "world_arc_actor": true,
+    "population_authority_rule": "exact Jo population is its own owner; readiness/capability does not create bodies"
+  },
+  "provenance": {
+    "kind": "game_seed_from_verified_setting",
+    "canonical_claims": [
+      "small independent mountain state",
+      "located between Wei, Zhao and Chu",
+      "survival tied to protection/relations with those powers",
+      "noted information-broker role"
+    ],
+    "noncanonical_game_seeds": [
+      "population total",
+      "force strength",
+      "treasury/economy quantities",
+      "route travel costs"
+    ]
+  }
+}

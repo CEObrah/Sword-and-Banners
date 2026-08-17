@@ -1,0 +1,34 @@
+{
+  "location_ref": "loc_tang_manor_garrison_yard",
+  "mounts": {
+    "horse_tang_heavy_war": 6000
+  },
+  "owner_id": "depot_house_tang",
+  "procurement_history": [],
+  "schema": "sword-depot",
+  "source": "House Tang military food/fodder stocks are held at the garrison and muster yard; the Family Hall remains residential.",
+  "state": "house_tang",
+  "stocks": {
+    "grain_kg": 450000000,
+    "fodder_kg": 180000000,
+    "war_arrows": 25000000,
+    "war_bolts": 2500000
+  },
+  "infrastructure_capacity": {
+    "grain_storage_capacity_kg": 500000000,
+    "fodder_storage_capacity_kg": 220000000,
+    "arrow_storage_capacity": 40000000,
+    "bolt_storage_capacity": 5000000,
+    "covered_wagon_staging": 12000,
+    "water_reserve_person_days": 9000000,
+    "siege_reserve_rule": "stocks are physical strategic reserve, not generated on demand"
+  },
+  "region_ref": "loc_qin_regional_01",
+  "geography": {
+    "location_ref": "loc_tang_manor_garrison_yard",
+    "region_ref": "loc_qin_regional_01",
+    "access_node_ref": "loc_tang_manor_outer_gate",
+    "owns_local_population": false,
+    "rule": "depot owns stock only; surrounding population/economy remain with their exact demographic/economic owners"
+  }
+}

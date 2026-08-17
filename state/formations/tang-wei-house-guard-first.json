@@ -1,0 +1,96 @@
+{
+  "schema": "sword-formation",
+  "formation_ref": "formation_tang_wei_house_guard_first",
+  "name": "Tang Wei's First House Guard",
+  "owner_force_ref": "force_house_tang",
+  "administrative_owner": "house_tang",
+  "command_authority": "char_tang_wei",
+  "commander_ref": "char_gao_yun",
+  "deputy_ref": "officer.house_tang.wei_guard.deputy",
+  "personnel": 3000,
+  "composition": {
+    "house_guard": 3000
+  },
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_house_tang_house_guard_baseline_v2",
+      "count": 2991
+    }
+  ],
+  "embedded_person_refs": [
+    "officer.house_tang.house_guard.1000.001",
+    "officer.house_tang.house_guard.1000.002",
+    "officer.house_tang.house_guard.1000.003",
+    "officer.house_tang.house_guard.500.001",
+    "officer.house_tang.house_guard.500.002",
+    "officer.house_tang.house_guard.500.003",
+    "officer.house_tang.house_guard.500.004",
+    "officer.house_tang.house_guard.500.005",
+    "officer.house_tang.house_guard.500.006"
+  ],
+  "location_ref": "loc_tang_manor_garrison_yard",
+  "doctrine_ref": "doc.house_tang_internal.house_guard",
+  "training_ref": "train.house_tang_internal.house_guard",
+  "training_progress": 95,
+  "readiness": 95,
+  "morale": 92,
+  "cohesion": 94,
+  "fatigue": 0,
+  "experience": "veteran",
+  "mobilized": true,
+  "status": "deployed",
+  "equipment_units_by_role": {
+    "house_guard": 3000
+  },
+  "equipment_completeness": "1.0000",
+  "registered_loadout_ref": "loadout_house_guard",
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 108000,
+    "war_bolts": 0
+  },
+  "mounts": {},
+  "command_structure": {
+    "unit_command": {
+      "commander_ref": "char_gao_yun",
+      "deputy_ref": "officer.house_tang.wei_guard.deputy",
+      "external_to_fighting_establishment": true,
+      "loadout_ref": "loadout_house_champion"
+    },
+    "internal_hierarchy": [
+      {
+        "scale": 1000,
+        "count": 3,
+        "representation": "person_lite",
+        "loadout_ref": "loadout_house_guard"
+      },
+      {
+        "scale": 500,
+        "count": 6,
+        "representation": "person_lite",
+        "loadout_ref": "loadout_house_guard"
+      },
+      {
+        "scale": 100,
+        "count": 30,
+        "representation": "aggregate"
+      }
+    ],
+    "internal_person_refs": [
+      "officer.house_tang.house_guard.1000.001",
+      "officer.house_tang.house_guard.1000.002",
+      "officer.house_tang.house_guard.1000.003",
+      "officer.house_tang.house_guard.500.001",
+      "officer.house_tang.house_guard.500.002",
+      "officer.house_tang.house_guard.500.003",
+      "officer.house_tang.house_guard.500.004",
+      "officer.house_tang.house_guard.500.005",
+      "officer.house_tang.house_guard.500.006"
+    ],
+    "representation_rule": "1,000/500 commanders are conserved formation bodies; 100-man commanders are aggregate."
+  },
+  "geographic_provenance": {
+    "migration": "world_geography_overhaul_v1"
+  }
+}

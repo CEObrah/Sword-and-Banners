@@ -1,0 +1,80 @@
+{
+  "allocated_to_formations": {
+    "formation_zhao_mobile_reserve": {
+      "horse_war_military": 5000
+    }
+  },
+  "health": {
+    "fit": 66725,
+    "limited": 2100,
+    "recovering": 1175,
+    "unfit": 0
+  },
+  "owner_id": "mount_pool_zhao",
+  "schema": "sword-mount-pool",
+  "state": "zhao",
+  "total": 70000,
+  "types": {
+    "horse_chariot_trained": 10000,
+    "horse_frontier_trained": 25000,
+    "horse_riding_common": 10000,
+    "horse_war_heavy": 5000,
+    "horse_war_military": 20000
+  },
+  "regional_reserve": {
+    "loc_kantan": {
+      "horse_chariot_trained": 1500,
+      "horse_frontier_trained": 3750,
+      "horse_riding_common": 1500,
+      "horse_war_heavy": 750,
+      "horse_war_military": 2250
+    },
+    "loc_zhao_regional_01": {
+      "horse_chariot_trained": 1000,
+      "horse_frontier_trained": 2500,
+      "horse_riding_common": 1000,
+      "horse_war_heavy": 500,
+      "horse_war_military": 1500
+    },
+    "loc_zhao_regional_02": {
+      "horse_chariot_trained": 1800,
+      "horse_frontier_trained": 4500,
+      "horse_riding_common": 1800,
+      "horse_war_heavy": 900,
+      "horse_war_military": 2700
+    },
+    "loc_zhao_regional_03": {
+      "horse_chariot_trained": 2400,
+      "horse_frontier_trained": 6000,
+      "horse_riding_common": 2400,
+      "horse_war_heavy": 1200,
+      "horse_war_military": 3600
+    },
+    "loc_zhao_regional_04": {
+      "horse_chariot_trained": 1300,
+      "horse_frontier_trained": 3250,
+      "horse_riding_common": 1300,
+      "horse_war_heavy": 650,
+      "horse_war_military": 1950
+    },
+    "loc_gyou": {
+      "horse_chariot_trained": 1000,
+      "horse_frontier_trained": 2500,
+      "horse_riding_common": 1000,
+      "horse_war_heavy": 500,
+      "horse_war_military": 1500
+    },
+    "loc_zhao_border_fort": {
+      "horse_chariot_trained": 1000,
+      "horse_frontier_trained": 2500,
+      "horse_riding_common": 1000,
+      "horse_war_heavy": 500,
+      "horse_war_military": 1500
+    }
+  },
+  "geographic_disposition": {
+    "authority": true,
+    "migration": "world_geography_overhaul_v1",
+    "rule": "regional_reserve + formation allocations = exact type totals; health is a condition view, not another horse owner"
+  }
+}

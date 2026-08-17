@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "assignments"],
+  "properties": {
+    "schema": {"const": "sword-commander-formation-index"},
+    "authority": {"type": "boolean"},
+    "assignments": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+    "rule": {"type": "string"}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,41 @@
+{
+  "backlog": 0,
+  "capacity": 75,
+  "kind": "horse_administration",
+  "last_review": "244-BCE-07-02T07:22:48+08:00",
+  "name": "ZHAO Horse Administration",
+  "operating_contract": {
+    "authority": "exact existing owners only",
+    "conservation_rule": "no people, money, mounts, food, equipment, materials, office, or territory may be created by review prose alone",
+    "outputs": [
+      "mount_recovery",
+      "custody_accounting"
+    ]
+  },
+  "owner_id": "inst_zhao_horse_administration",
+  "policy": "ZHAO: recover existing state mounts and account for fit/recovering custody without creating horses",
+  "projects": [],
+  "resources": {},
+  "schema": "sword-institution",
+  "staffing": "aggregate",
+  "state": "zhao",
+  "location_ref": "loc_kantan",
+  "service_region_refs": [
+    "loc_zhao_regional_01",
+    "loc_zhao_regional_02",
+    "loc_zhao_regional_03",
+    "loc_zhao_regional_04"
+  ],
+  "geography": {
+    "headquarters_location_ref": "loc_kantan",
+    "service_region_refs": [
+      "loc_zhao_regional_01",
+      "loc_zhao_regional_02",
+      "loc_zhao_regional_03",
+      "loc_zhao_regional_04"
+    ],
+    "owns_local_population": false,
+    "rule": "institutional authority is routed through exact regional owners; headquarters does not become a demographic region or manpower owner"
+  },
+  "linked_mount_pool_ref": "mount_pool_zhao"
+}

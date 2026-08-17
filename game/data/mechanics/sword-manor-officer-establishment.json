@@ -1,0 +1,41 @@
+{
+  "schema": "sword-manor-officer-establishment.v2",
+  "institution_ref": "institution_sword_manor",
+  "army_command": {
+    "commander_ref": "char_wei_jian",
+    "deputy_ref": "char_ren_qiao",
+    "external_to_fighting_strength": true,
+    "loadout_ref": "loadout_house_champion"
+  },
+  "fighting_establishment": 30000,
+  "rank_internal_commanders": {
+    "trainee": {
+      "personnel": 20000,
+      "commanders_1000": 20,
+      "commanders_500": 40,
+      "aggregate_100_man_commanders": 200
+    },
+    "junior_disciple": {
+      "personnel": 5000,
+      "commanders_1000": 5,
+      "commanders_500": 10,
+      "aggregate_100_man_commanders": 50
+    },
+    "general_disciple": {
+      "personnel": 3500,
+      "commanders_1000": 3,
+      "commanders_500": 7,
+      "aggregate_100_man_commanders": 35
+    },
+    "senior_disciple": {
+      "personnel": 1500,
+      "commanders_1000": 1,
+      "commanders_500": 3,
+      "aggregate_100_man_commanders": 15
+    }
+  },
+  "automatic_person_lite_total": 89,
+  "mounted_scout_category_removed": true,
+  "officer_manpower_category_removed": true,
+  "internal_loadout_rule": "all current Sword Manor ranks are non-cavalry, so their 1,000/500 commanders use House Guard loadout; future cavalry officer billets use House Champion loadout."
+}

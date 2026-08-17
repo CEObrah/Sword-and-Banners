@@ -1,0 +1,498 @@
+{
+  "schema": "person-lite",
+  "id": "staff.chu.karin.lan_qi",
+  "name": "Lan Qi",
+  "resolution": "individual_lite",
+  "owner": "army.karin_army",
+  "family_id": "fam.lan_qi",
+  "origin": "Chu",
+  "rank": "named_staff_officer",
+  "role": "logistics officer",
+  "stats": {
+    "attributes": {
+      "Strength": 99.0,
+      "Agility": 77.0,
+      "Endurance": 104.0,
+      "Toughness": 76.0,
+      "Coordination": 86.0,
+      "Awareness": 94.0,
+      "Composure": 80.0,
+      "Intelligence": 93.0,
+      "Presence": 83.0
+    },
+    "skills": {
+      "Sword": 73,
+      "Spear": 101,
+      "Glaive": 73,
+      "Axe": 99,
+      "Mace": 99,
+      "Staff": 102,
+      "Dagger": 72,
+      "Bow": 83,
+      "Crossbow": 73,
+      "Shield": 72,
+      "Defense": 101,
+      "Athletics": 90,
+      "Mass Combat": 105.0,
+      "Grappling": 96,
+      "Unarmed": 90,
+      "Riding": 100,
+      "Formation Fighting": 124,
+      "Survival": 89,
+      "Stealth": 68,
+      "Scouting": 74,
+      "Navigation": 100.0,
+      "Medicine": 100.0,
+      "Engineering": 88.0,
+      "Leadership": 109.0,
+      "Formation Command": 100.0,
+      "Tactics": 112.0,
+      "Strategy": 82.0,
+      "Logistics": 137.0,
+      "Intelligence Operations": 100,
+      "Training": 85.0,
+      "Diplomacy": 100,
+      "Law": 93,
+      "Trade": 93.0,
+      "Intrigue": 100,
+      "Governance": 91
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Chu",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Rose through Chu field logistics by keeping grain, replacement weapons, draft animals, and casualty evacuation moving during repeated high-tempo deployments.",
+      "Earned Karin's staff confidence after reorganizing a delayed supply column without stripping frontline formations of their reserve stores."
+    ],
+    "promotion": []
+  },
+  "birth_date": "271-BCE-11-24",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 174.6,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 71.5,
+    "frame": "lean",
+    "source": "simulation_assigned"
+  },
+  "appearance": 53,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 132,
+    "technical_learning": 109,
+    "tactical_learning": 139,
+    "academic_learning": 148,
+    "social_learning": 149,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "pragmatic",
+      "dry-humored",
+      "unyielding about preparation"
+    ],
+    "preferences": [
+      "accurate consumption reports",
+      "redundant supply routes",
+      "commanders who declare priorities early"
+    ],
+    "dislikes": [
+      "prestige requisitions",
+      "last-minute route changes",
+      "officers who hide losses from the supply staff"
+    ],
+    "decision_tendency": "protects operational tempo by building redundancy before crisis; will challenge an aggressive timetable when the supply calculation does not support it"
+  },
+  "relationships": [
+    {
+      "target_id": "army.karin_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 72,
+      "respect": 74,
+      "duty": 82
+    },
+    {
+      "target_id": "char_karin",
+      "relationship_type": "direct professional relationship",
+      "trust": 63,
+      "respect": 81,
+      "duty": 78
+    },
+    {
+      "target_id": "staff.chu.karin.chu_yan",
+      "relationship_type": "staff_peer",
+      "trust": 68,
+      "respect": 71,
+      "duty": 66
+    }
+  ],
+  "current_goal": "build enough supply redundancy for Karin's army to sustain an aggressive campaign without depending on a single road, depot, or local harvest",
+  "background": "Persistent named logistics officer on Karin's staff. Lan Qi specializes in route redundancy, consumption forecasting, remount and wagon replacement, and keeping operational plans honest about supply limits. He remains an individual person attached through a command-staff appointment and never becomes part of a unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.chu.karin.lan_qi.json",
+  "autonomous_activity_state": {
+    "version": 3,
+    "enabled": true,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "cadence_seconds": 2592000,
+    "verified_hours_per_cycle": 56.0,
+    "focus_cursor": 7,
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "verification_rule": "named person-lite command staff use verified elapsed role development only; force-owned materialized officers remain on their force training clock",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "repair_provenance": {
+      "kind": "ooc_dev_stale_development_repair_v1",
+      "basis": "saved process_named_character_life_monthly coverage plus established named-person activity clock",
+      "repair_through": "244-BCE-07-02T06:22:48+08:00",
+      "campaign_time_advanced": false
+    },
+    "completed_cycles": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00"
+  },
+  "development_state": {
+    "skill_edu_banks": {
+      "Strategy": 14.413,
+      "Training": 98.917,
+      "Engineering": 25.571,
+      "Formation Command": 51.611,
+      "Trade": 78.988,
+      "Leadership": 9.584,
+      "Medicine": 1.179,
+      "Navigation": 1.179,
+      "Tactics": 3.932,
+      "Mass Combat": 5.939,
+      "Logistics": 0.819
+    },
+    "attribute_edu_banks": {
+      "Toughness": 63.518,
+      "Agility": 61.719,
+      "Composure": 8.047,
+      "Presence": 7.278,
+      "Coordination": 6.508,
+      "Intelligence": 4.712,
+      "Awareness": 4.455,
+      "Strength": 3.546,
+      "Endurance": 2.729
+    },
+    "smart_training_cursor": 7,
+    "verified_training_hours": 392.0,
+    "verified_role_exposure_hours": 336.0,
+    "training_history": [
+      {
+        "evidence_ref": "named_activity:244-BCE-01-04T06:22:48+08:00:staff.chu.karin.lan_qi",
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Leadership"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Composure"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-02-03T06:22:48+08:00:staff.chu.karin.lan_qi",
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Medicine"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Presence"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-03-04T06:22:48+08:00:staff.chu.karin.lan_qi",
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Navigation"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Coordination"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-04-03T06:22:48+08:00:staff.chu.karin.lan_qi",
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Tactics"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Intelligence"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-05-03T06:22:48+08:00:staff.chu.karin.lan_qi",
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Mass Combat"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Awareness"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-06-02T06:22:48+08:00:staff.chu.karin.lan_qi",
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Logistics"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Strength"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-07-02T06:22:48+08:00:staff.chu.karin.lan_qi",
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Leadership"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Endurance"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      }
+    ]
+  },
+  "autonomous_development_history": [
+    {
+      "at": "244-BCE-01-04T06:22:48+08:00",
+      "focus": "Logistics",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Leadership"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Composure"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-02-03T06:22:48+08:00",
+      "focus": "Formation Fighting",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Medicine"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Presence"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-03-04T06:22:48+08:00",
+      "focus": "Tactics",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Navigation"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Coordination"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-04-03T06:22:48+08:00",
+      "focus": "Leadership",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Tactics"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Intelligence"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-05-03T06:22:48+08:00",
+      "focus": "Mass Combat",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Mass Combat"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Awareness"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-06-02T06:22:48+08:00",
+      "focus": "Staff",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Logistics"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Strength"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-07-02T06:22:48+08:00",
+      "focus": "Defense",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Strategy",
+          "Training",
+          "Engineering",
+          "Formation Command",
+          "Trade",
+          "Leadership"
+        ],
+        "attribute_focuses": [
+          "Toughness",
+          "Agility",
+          "Endurance"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    }
+  ]
+}

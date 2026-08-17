@@ -1,0 +1,64 @@
+{
+  "accounting_only": true,
+  "accounting_scale": "operational_100",
+  "aptitude_distribution": {
+    "exceptional_pct": 4,
+    "high_pct": 22,
+    "low_pct": 12,
+    "mean": 108,
+    "normal_pct": 62,
+    "sd": 16,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "composition": "deterministic template from specialty, registered before contract or combat",
+  "contracts": [
+    {
+      "contract_ref": "market_seed_regional_20",
+      "employer_ref": "regional_client_chu",
+      "status": "active",
+      "amount_silver": 40800,
+      "term_days": 90,
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "expires_at": "244-BCE-09-30T07:22:48+08:00",
+      "deployment_location_ref": "loc_chu_regional_04",
+      "engagement_kind": "reconstitution",
+      "basis": "mercenary_ecology_v2 current regional obligation; owns zero bodies"
+    }
+  ],
+  "count": 1700,
+  "doctrine": "doc.merc.regional.20",
+  "id": "merc.regional.20",
+  "name": "Autumn Crow Crossbows",
+  "owner_id": "merc.regional.20",
+  "owner_type": "regional_mercenary_company",
+  "quality": "regional_professional",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "regional-mercenary-company.v1",
+  "specialty": "river_guard",
+  "status": "contracted",
+  "tendencies": {
+    "adaptability": 58,
+    "aggression": 62,
+    "caution": 51,
+    "initiative": 57
+  },
+  "training": "train.merc.regional",
+  "home_location_ref": "loc_chu_regional_04",
+  "current_location_ref": "loc_chu_regional_04",
+  "deployment_status": "reconstitution",
+  "geographic_provenance": {
+    "migration": "mercenary_ecology_v2",
+    "rule": "exact company remains manpower owner; state_market/location describe geography only"
+  },
+  "establishment_strength": 1700,
+  "state_market": "chu",
+  "market_tier": "regional_professional",
+  "market_engagement": {
+    "kind": "reconstitution",
+    "short_notice_available": false,
+    "seeded_at": "244-BCE-07-23T01:22:48+08:00"
+  }
+}

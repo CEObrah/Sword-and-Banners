@@ -1,0 +1,18 @@
+{
+  "schema": "doctrine-record.v1",
+  "id": "doc.house_tang_internal.standard",
+  "doctrine": {
+    "inherits": "doc.world_force.standard",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#line_infantry",
+    "institution_overlay_ref": "game/data/mil/institution-doctrine-overlays.json#house_tang",
+    "principles": [
+      "Fight at range first. Use the assigned bow and preserve spacing while the enemy crosses the killing ground.",
+      "Do not abandon bows merely because the enemy begins advancing; continue shooting until another volley would compromise ordered preparation for contact.",
+      "Before contact: bows away, long spear and shield ready, close ordered ranks, overlap shields, exploit spear reach, receive rather than rush, and counterthrust without breaking frontage.",
+      "If the spear is broken, lost, trapped by close penetration, unsuitable in confined ground, or formation depth collapses: pass back or discard the spear and fight with one-handed long sword and shield.",
+      "Core progression: BOW -> LONG SPEAR + SHIELD -> ONE-HANDED LONG SWORD + SHIELD.",
+      "Kill at distance. Deny entry with spear and shield. If the enemy penetrates the spear line, finish the fight with sword and shield."
+    ],
+    "weapon_transition_rule": "Core progression: BOW -> LONG SPEAR + SHIELD -> ONE-HANDED LONG SWORD + SHIELD."
+  }
+}

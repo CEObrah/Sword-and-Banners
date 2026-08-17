@@ -1,0 +1,1560 @@
+{
+  "schema": "sword-world-routes",
+  "authority_model": "one strategic route registry; aliases resolve into it; local_routes are internal access edges and never independent geographic owners",
+  "routes": [
+    {
+      "ref": "route_kanyou_kankoku",
+      "a": "loc_kanyou",
+      "b": "loc_kankoku_pass",
+      "hours": 24,
+      "base_distance_units": 24,
+      "road_quality": "military_road",
+      "terrain": "corridor",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_kankoku_pass"
+    },
+    {
+      "ref": "route_kanyou_qin_east_depot",
+      "a": "loc_kanyou",
+      "b": "loc_qin_eastern_depot",
+      "hours": 18,
+      "base_distance_units": 18,
+      "road_quality": "military_road",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_kanyou_sai",
+      "a": "loc_kanyou",
+      "b": "loc_sai",
+      "hours": 20,
+      "base_distance_units": 20,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_kanyou_qin_west_fort",
+      "a": "loc_kanyou",
+      "b": "loc_qin_western_fort",
+      "hours": 26,
+      "base_distance_units": 26,
+      "road_quality": "military_road",
+      "terrain": "upland",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qin_capital_basin_kanyou",
+      "a": "loc_qin_regional_01",
+      "b": "loc_kanyou",
+      "hours": 6,
+      "base_distance_units": 6,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qin_capital_east",
+      "a": "loc_qin_regional_01",
+      "b": "loc_qin_regional_02",
+      "hours": 18,
+      "base_distance_units": 18,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qin_capital_north",
+      "a": "loc_qin_regional_01",
+      "b": "loc_qin_regional_03",
+      "hours": 22,
+      "base_distance_units": 22,
+      "road_quality": "maintained",
+      "terrain": "upland",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qin_capital_south",
+      "a": "loc_qin_regional_01",
+      "b": "loc_qin_regional_04",
+      "hours": 20,
+      "base_distance_units": 20,
+      "road_quality": "maintained",
+      "terrain": "hills",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qin_east_sai",
+      "a": "loc_qin_regional_02",
+      "b": "loc_sai",
+      "hours": 8,
+      "base_distance_units": 8,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qin_east_kankoku",
+      "a": "loc_qin_regional_02",
+      "b": "loc_kankoku_pass",
+      "hours": 10,
+      "base_distance_units": 10,
+      "road_quality": "military_road",
+      "terrain": "corridor",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_kankoku_pass"
+    },
+    {
+      "ref": "route_qin_south_bu",
+      "a": "loc_qin_regional_04",
+      "b": "loc_bu_pass",
+      "hours": 8,
+      "base_distance_units": 8,
+      "road_quality": "military_road",
+      "terrain": "hills",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_bu_pass"
+    },
+    {
+      "ref": "route_qin_north_west_fort",
+      "a": "loc_qin_regional_03",
+      "b": "loc_qin_western_fort",
+      "hours": 8,
+      "base_distance_units": 8,
+      "road_quality": "military_road",
+      "terrain": "upland",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_gyou_kantan",
+      "a": "loc_gyou",
+      "b": "loc_kantan",
+      "hours": 20,
+      "base_distance_units": 20,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_zhao_heartland_kantan",
+      "a": "loc_zhao_regional_01",
+      "b": "loc_kantan",
+      "hours": 6,
+      "base_distance_units": 6,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_zhao_heartland_gyou_plain",
+      "a": "loc_zhao_regional_01",
+      "b": "loc_zhao_regional_02",
+      "hours": 18,
+      "base_distance_units": 18,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_zhao_heartland_north",
+      "a": "loc_zhao_regional_01",
+      "b": "loc_zhao_regional_03",
+      "hours": 24,
+      "base_distance_units": 24,
+      "road_quality": "maintained",
+      "terrain": "steppe_edge",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_zhao_heartland_west",
+      "a": "loc_zhao_regional_01",
+      "b": "loc_zhao_regional_04",
+      "hours": 20,
+      "base_distance_units": 20,
+      "road_quality": "maintained",
+      "terrain": "hills",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_zhao_gyou_plain_city",
+      "a": "loc_zhao_regional_02",
+      "b": "loc_gyou",
+      "hours": 7,
+      "base_distance_units": 7,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_zhao_south_fort",
+      "a": "loc_zhao_regional_02",
+      "b": "loc_zhao_border_fort",
+      "hours": 8,
+      "base_distance_units": 8,
+      "road_quality": "military_road",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_zhao_border_fort"
+    },
+    {
+      "ref": "route_chu_capital_heartland",
+      "a": "loc_chu_regional_01",
+      "b": "loc_shintei",
+      "hours": 7,
+      "base_distance_units": 7,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_chu_heartland_north",
+      "a": "loc_chu_regional_01",
+      "b": "loc_chu_regional_02",
+      "hours": 24,
+      "base_distance_units": 24,
+      "road_quality": "maintained",
+      "terrain": "mixed_plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_chu_heartland_east",
+      "a": "loc_chu_regional_01",
+      "b": "loc_chu_regional_03",
+      "hours": 22,
+      "base_distance_units": 22,
+      "road_quality": "maintained",
+      "terrain": "river_plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_chu_heartland_west",
+      "a": "loc_chu_regional_01",
+      "b": "loc_chu_regional_04",
+      "hours": 26,
+      "base_distance_units": 26,
+      "road_quality": "rough",
+      "terrain": "hills",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_chu_north_fort",
+      "a": "loc_chu_regional_02",
+      "b": "loc_chu_north_fort",
+      "hours": 9,
+      "base_distance_units": 9,
+      "road_quality": "military_road",
+      "terrain": "mixed_plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_chu_north_fort"
+    },
+    {
+      "ref": "route_wei_capital_heartland",
+      "a": "loc_wei_regional_01",
+      "b": "loc_dairyou",
+      "hours": 6,
+      "base_distance_units": 6,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_wei_heartland_west",
+      "a": "loc_wei_regional_01",
+      "b": "loc_wei_regional_02",
+      "hours": 16,
+      "base_distance_units": 16,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_wei_heartland_south",
+      "a": "loc_wei_regional_01",
+      "b": "loc_wei_regional_03",
+      "hours": 18,
+      "base_distance_units": 18,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_wei_heartland_east",
+      "a": "loc_wei_regional_01",
+      "b": "loc_wei_regional_04",
+      "hours": 16,
+      "base_distance_units": 16,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_keiyou_dairyou",
+      "a": "loc_keiyou",
+      "b": "loc_dairyou",
+      "hours": 18,
+      "base_distance_units": 18,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_wei_west_keiyou",
+      "a": "loc_wei_regional_02",
+      "b": "loc_keiyou",
+      "hours": 6,
+      "base_distance_units": 6,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_wei_west_fort",
+      "a": "loc_wei_regional_02",
+      "b": "loc_wei_west_fort",
+      "hours": 7,
+      "base_distance_units": 7,
+      "road_quality": "military_road",
+      "terrain": "corridor",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_wei_west_fort"
+    },
+    {
+      "ref": "route_han_capital_heartland",
+      "a": "loc_han_regional_01",
+      "b": "loc_han_capital",
+      "hours": 6,
+      "base_distance_units": 6,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_han_heartland_west",
+      "a": "loc_han_regional_01",
+      "b": "loc_han_regional_02",
+      "hours": 15,
+      "base_distance_units": 15,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_han_heartland_south",
+      "a": "loc_han_regional_01",
+      "b": "loc_han_regional_03",
+      "hours": 17,
+      "base_distance_units": 17,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_han_heartland_east",
+      "a": "loc_han_regional_01",
+      "b": "loc_han_regional_04",
+      "hours": 15,
+      "base_distance_units": 15,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_han_west_fort",
+      "a": "loc_han_regional_02",
+      "b": "loc_han_frontier_fort",
+      "hours": 6,
+      "base_distance_units": 6,
+      "road_quality": "military_road",
+      "terrain": "hills",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_han_frontier_fort"
+    },
+    {
+      "ref": "route_yan_capital_heartland",
+      "a": "loc_yan_regional_01",
+      "b": "loc_ji",
+      "hours": 6,
+      "base_distance_units": 6,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_yan_heartland_south",
+      "a": "loc_yan_regional_01",
+      "b": "loc_yan_regional_02",
+      "hours": 22,
+      "base_distance_units": 22,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_yan_heartland_north",
+      "a": "loc_yan_regional_01",
+      "b": "loc_yan_regional_03",
+      "hours": 24,
+      "base_distance_units": 24,
+      "road_quality": "rough",
+      "terrain": "steppe_edge",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_yan_heartland_east",
+      "a": "loc_yan_regional_01",
+      "b": "loc_yan_regional_04",
+      "hours": 18,
+      "base_distance_units": 18,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_yan_south_fort",
+      "a": "loc_yan_regional_02",
+      "b": "loc_yan_south_fort",
+      "hours": 8,
+      "base_distance_units": 8,
+      "road_quality": "military_road",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_yan_south_fort"
+    },
+    {
+      "ref": "route_qi_capital_heartland",
+      "a": "loc_qi_regional_01",
+      "b": "loc_ei",
+      "hours": 6,
+      "base_distance_units": 6,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qi_heartland_west",
+      "a": "loc_qi_regional_01",
+      "b": "loc_qi_regional_02",
+      "hours": 20,
+      "base_distance_units": 20,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qi_heartland_north",
+      "a": "loc_qi_regional_01",
+      "b": "loc_qi_regional_03",
+      "hours": 18,
+      "base_distance_units": 18,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qi_heartland_coast",
+      "a": "loc_qi_regional_01",
+      "b": "loc_qi_regional_04",
+      "hours": 16,
+      "base_distance_units": 16,
+      "road_quality": "maintained",
+      "terrain": "coastal_plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_qi_west_fort",
+      "a": "loc_qi_regional_02",
+      "b": "loc_qi_west_fort",
+      "hours": 7,
+      "base_distance_units": 7,
+      "road_quality": "military_road",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_qi_west_fort"
+    },
+    {
+      "ref": "route_qin_zhao_gyou_corridor",
+      "a": "loc_qin_regional_02",
+      "b": "loc_gyou",
+      "hours": 32,
+      "base_distance_units": 32,
+      "road_quality": "military_road",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "qin",
+        "to": "zhao"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_kankoku_keiyou",
+      "a": "loc_kankoku_pass",
+      "b": "loc_keiyou",
+      "hours": 22,
+      "base_distance_units": 22,
+      "road_quality": "military_road",
+      "terrain": "corridor",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "qin",
+        "to": "wei"
+      },
+      "control_site_ref": "loc_kankoku_pass",
+      "frontier": true
+    },
+    {
+      "ref": "route_qin_bu_chu_north",
+      "a": "loc_bu_pass",
+      "b": "loc_chu_north_fort",
+      "hours": 30,
+      "base_distance_units": 30,
+      "road_quality": "rough",
+      "terrain": "hills",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "qin",
+        "to": "chu"
+      },
+      "control_site_ref": "loc_bu_pass",
+      "frontier": true
+    },
+    {
+      "ref": "route_wei_han_frontier",
+      "a": "loc_wei_west_fort",
+      "b": "loc_han_frontier_fort",
+      "hours": 14,
+      "base_distance_units": 14,
+      "road_quality": "military_road",
+      "terrain": "hills",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "wei",
+        "to": "han"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_han_chu_southern_corridor",
+      "a": "loc_han_regional_03",
+      "b": "loc_chu_regional_02",
+      "hours": 28,
+      "base_distance_units": 28,
+      "road_quality": "maintained",
+      "terrain": "mixed_plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "han",
+        "to": "chu"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_yan_qi_frontier",
+      "a": "loc_yan_south_fort",
+      "b": "loc_qi_west_fort",
+      "hours": 30,
+      "base_distance_units": 30,
+      "road_quality": "military_road",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "yan",
+        "to": "qi"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_han_qi_trade_corridor",
+      "a": "loc_han_regional_04",
+      "b": "loc_qi_regional_02",
+      "hours": 40,
+      "base_distance_units": 40,
+      "road_quality": "maintained",
+      "terrain": "plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "han",
+        "to": "qi"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_zhao_yan_northern_corridor",
+      "a": "loc_zhao_regional_03",
+      "b": "loc_yan_regional_03",
+      "hours": 38,
+      "base_distance_units": 38,
+      "road_quality": "rough",
+      "terrain": "steppe_edge",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "zhao",
+        "to": "yan"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_zhao_wei_western_corridor",
+      "a": "loc_zhao_regional_04",
+      "b": "loc_wei_regional_02",
+      "hours": 30,
+      "base_distance_units": 30,
+      "road_quality": "maintained",
+      "terrain": "hills",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "zhao",
+        "to": "wei"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_kanyou_tang_manor_gate",
+      "a": "loc_kanyou",
+      "b": "loc_tang_manor_outer_gate",
+      "hours": 6,
+      "base_distance_units": 6,
+      "road_quality": "estate_road",
+      "terrain": "cultivated_plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "route_role": "estate_approach"
+    },
+    {
+      "ref": "route_tang_gate_capital_basin",
+      "a": "loc_tang_manor_outer_gate",
+      "b": "loc_qin_regional_01",
+      "hours": 7,
+      "base_distance_units": 7,
+      "road_quality": "estate_road",
+      "terrain": "cultivated_plain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "route_role": "estate_approach"
+    },
+    {
+      "ref": "route_qin_north_quanrong_highlands",
+      "a": "loc_qin_regional_03",
+      "b": "loc_quanrong_highlands",
+      "hours": 36,
+      "base_distance_units": 36,
+      "road_quality": "rough",
+      "terrain": "mountain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "qin",
+        "to": "minor_polity_quanrong"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_quanrong_highlands_ryouyou",
+      "a": "loc_quanrong_highlands",
+      "b": "loc_ryouyou",
+      "hours": 16,
+      "base_distance_units": 16,
+      "road_quality": "rough",
+      "terrain": "mountain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "control_site_ref": "loc_ryouyou"
+    },
+    {
+      "ref": "route_jo_city_mountain_region",
+      "a": "loc_jo_city",
+      "b": "loc_jo_mountain_region",
+      "hours": 4,
+      "base_distance_units": 4,
+      "road_quality": "maintained",
+      "terrain": "mountain_basin",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic"
+    },
+    {
+      "ref": "route_jo_zhao_western_trail",
+      "a": "loc_jo_mountain_region",
+      "b": "loc_zhao_regional_04",
+      "hours": 20,
+      "base_distance_units": 20,
+      "road_quality": "mountain_trail",
+      "terrain": "mountain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "jo",
+        "to": "zhao"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_jo_wei_southern_trail",
+      "a": "loc_jo_mountain_region",
+      "b": "loc_wei_regional_03",
+      "hours": 18,
+      "base_distance_units": 18,
+      "road_quality": "mountain_trail",
+      "terrain": "mountain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "jo",
+        "to": "wei"
+      },
+      "frontier": true
+    },
+    {
+      "ref": "route_jo_chu_northern_trail",
+      "a": "loc_jo_mountain_region",
+      "b": "loc_chu_regional_02",
+      "hours": 22,
+      "base_distance_units": 22,
+      "road_quality": "mountain_trail",
+      "terrain": "mountain",
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "strategic",
+      "border_crossing": {
+        "from": "jo",
+        "to": "chu"
+      },
+      "frontier": true
+    }
+  ],
+  "local_routes": [
+    {
+      "ref": "local_tang_gate_estate",
+      "a": "loc_tang_manor_outer_gate",
+      "b": "loc_tang_manor",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "local",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node"
+    },
+    {
+      "ref": "local_tang_estate_garrison",
+      "a": "loc_tang_manor",
+      "b": "loc_tang_manor_garrison_yard",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "local",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node"
+    },
+    {
+      "ref": "local_tang_estate_defense_camp",
+      "a": "loc_tang_manor",
+      "b": "loc_tang_manor_defense_camp",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "scope": "local",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node"
+    },
+    {
+      "ref": "local_tang_estate_training",
+      "a": "loc_tang_manor",
+      "b": "loc_tang_manor_training_ground",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node"
+    },
+    {
+      "ref": "local_tang_estate_market",
+      "a": "loc_tang_manor",
+      "b": "loc_tang_manor_market_gate",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "convoy"
+      ],
+      "scope": "local",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node"
+    },
+    {
+      "ref": "local_tang_estate_family_hall",
+      "a": "loc_tang_manor",
+      "b": "loc_tang_manor_inner_citadel_family_hall",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "courier"
+      ],
+      "scope": "local",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node"
+    },
+    {
+      "ref": "local_kanyou_officer_bureau",
+      "a": "loc_kanyou",
+      "b": "loc_kanyou_officer_bureau",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_01",
+      "a": "loc_qin_regional_01",
+      "b": "loc_flavor_01",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_02",
+      "a": "loc_zhao_regional_01",
+      "b": "loc_flavor_02",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_03",
+      "a": "loc_chu_regional_01",
+      "b": "loc_flavor_03",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_04",
+      "a": "loc_wei_regional_01",
+      "b": "loc_flavor_04",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_05",
+      "a": "loc_han_regional_01",
+      "b": "loc_flavor_05",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_06",
+      "a": "loc_yan_regional_01",
+      "b": "loc_flavor_06",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_07",
+      "a": "loc_qi_regional_01",
+      "b": "loc_flavor_07",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_08",
+      "a": "loc_qin_regional_02",
+      "b": "loc_flavor_08",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_09",
+      "a": "loc_zhao_regional_02",
+      "b": "loc_flavor_09",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_10",
+      "a": "loc_chu_regional_02",
+      "b": "loc_flavor_10",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_11",
+      "a": "loc_wei_regional_02",
+      "b": "loc_flavor_11",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_12",
+      "a": "loc_han_regional_02",
+      "b": "loc_flavor_12",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_13",
+      "a": "loc_yan_regional_02",
+      "b": "loc_flavor_13",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_14",
+      "a": "loc_qi_regional_02",
+      "b": "loc_flavor_14",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_15",
+      "a": "loc_qin_regional_03",
+      "b": "loc_flavor_15",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_16",
+      "a": "loc_zhao_regional_03",
+      "b": "loc_flavor_16",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_17",
+      "a": "loc_chu_regional_03",
+      "b": "loc_flavor_17",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_18",
+      "a": "loc_wei_regional_03",
+      "b": "loc_flavor_18",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_19",
+      "a": "loc_han_regional_03",
+      "b": "loc_flavor_19",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_20",
+      "a": "loc_yan_regional_03",
+      "b": "loc_flavor_20",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_21",
+      "a": "loc_qi_regional_03",
+      "b": "loc_flavor_21",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_22",
+      "a": "loc_qin_regional_04",
+      "b": "loc_flavor_22",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_23",
+      "a": "loc_zhao_regional_04",
+      "b": "loc_flavor_23",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    },
+    {
+      "ref": "local_flavor_24",
+      "a": "loc_chu_regional_04",
+      "b": "loc_flavor_24",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "scope": "local"
+    }
+  ],
+  "aliases": {
+    "road_kanyou_tang_main_gate": "route_kanyou_tang_manor_gate",
+    "route_local_tang_manor_kanyou": "route_kanyou_tang_manor_gate"
+  },
+  "movement_modes": {
+    "foot": "individual",
+    "horse": "individual_mounted",
+    "courier": "priority_mounted",
+    "formation": "organized_military",
+    "convoy": "loaded_transport"
+  },
+  "migration": "world_geography_overhaul_v1"
+}

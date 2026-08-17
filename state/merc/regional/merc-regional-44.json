@@ -1,0 +1,65 @@
+{
+  "accounting_only": true,
+  "accounting_scale": "operational_100",
+  "aptitude_distribution": {
+    "exceptional_pct": 4,
+    "high_pct": 22,
+    "low_pct": 12,
+    "mean": 100,
+    "normal_pct": 62,
+    "sd": 16,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "composition": "deterministic regional professional company; exact aggregate owner",
+  "contracts": [
+    {
+      "contract_ref": "market_seed_regional_44",
+      "employer_ref": "faction_central_merchant_houses",
+      "status": "active",
+      "amount_silver": 45600,
+      "term_days": 90,
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "expires_at": "244-BCE-09-30T07:22:48+08:00",
+      "deployment_location_ref": "loc_qin_regional_04",
+      "engagement_kind": "merchant_escort",
+      "basis": "mercenary_ecology_v2 current regional obligation; owns zero bodies"
+    }
+  ],
+  "doctrine": "doc.merc.regional.44",
+  "id": "merc.regional.44",
+  "name": "Grey Free Blades",
+  "owner_id": "merc.regional.44",
+  "owner_type": "regional_mercenary_company",
+  "quality": "regional_professional",
+  "runtime": {
+    "completed_quarterly_reviews": 0,
+    "last_settled_at": null
+  },
+  "schema": "regional-mercenary-company.v1",
+  "tendencies": {
+    "adaptability": 55,
+    "aggression": 50,
+    "caution": 55,
+    "objective_focus": 65,
+    "formation_discipline": 62
+  },
+  "count": 1900,
+  "establishment_strength": 1900,
+  "specialty": "river_guard",
+  "training": "train.merc.regional",
+  "home_location_ref": "loc_qin_regional_04",
+  "current_location_ref": "loc_qin_regional_04",
+  "state_market": "qin",
+  "market_tier": "regional_professional",
+  "deployment_status": "merchant_escort",
+  "market_engagement": {
+    "kind": "merchant_escort",
+    "short_notice_available": false,
+    "seeded_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "status": "contracted",
+  "geographic_provenance": {
+    "migration": "mercenary_ecology_v2",
+    "rule": "exact company remains manpower owner; state_market/location describe geography only"
+  }
+}

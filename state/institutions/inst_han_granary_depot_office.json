@@ -1,0 +1,68 @@
+{
+  "backlog": 0,
+  "capacity": 85,
+  "kind": "granary_depot_office",
+  "last_review": "244-BCE-07-02T07:22:48+08:00",
+  "name": "HAN Granary and Depot Office",
+  "operating_contract": {
+    "authority": "exact existing owners only",
+    "conservation_rule": "no people, money, mounts, food, equipment, materials, office, or territory may be created by review prose alone",
+    "outputs": [
+      "grain_procurement",
+      "depot_stock",
+      "treasury_cost"
+    ]
+  },
+  "owner_id": "inst_han_granary_depot_office",
+  "policy": "HAN: procure physical grain into exact state depots from the private economy using state treasury funds",
+  "procurement_history": [
+    {
+      "at": "244-BCE-03-04T07:22:48+08:00",
+      "destination_ref": "state_depot_han",
+      "grain_kg": 42500,
+      "regional_source_ref": "loc_han_regional_01",
+      "silver": 3400,
+      "source_ref": "private_economy_han"
+    },
+    {
+      "at": "244-BCE-05-03T07:22:48+08:00",
+      "destination_ref": "state_depot_han",
+      "grain_kg": 42500,
+      "regional_source_ref": "loc_han_regional_01",
+      "silver": 3400,
+      "source_ref": "private_economy_han"
+    },
+    {
+      "at": "244-BCE-07-02T07:22:48+08:00",
+      "destination_ref": "state_depot_han",
+      "grain_kg": 42500,
+      "regional_source_ref": "loc_han_regional_01",
+      "silver": 3400,
+      "source_ref": "private_economy_han"
+    }
+  ],
+  "projects": [],
+  "resources": {},
+  "schema": "sword-institution",
+  "staffing": "aggregate",
+  "state": "han",
+  "location_ref": "loc_han_capital",
+  "service_region_refs": [
+    "loc_han_regional_01",
+    "loc_han_regional_02",
+    "loc_han_regional_03",
+    "loc_han_regional_04"
+  ],
+  "geography": {
+    "headquarters_location_ref": "loc_han_capital",
+    "service_region_refs": [
+      "loc_han_regional_01",
+      "loc_han_regional_02",
+      "loc_han_regional_03",
+      "loc_han_regional_04"
+    ],
+    "owns_local_population": false,
+    "rule": "institutional authority is routed through exact regional owners; headquarters does not become a demographic region or manpower owner"
+  },
+  "linked_depot_ref": "state_depot_han"
+}

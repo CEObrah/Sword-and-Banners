@@ -1,0 +1,96 @@
+{
+  "schema": "mercenary_local_pool",
+  "owner_id": "merc.local.pool",
+  "owner_type": "mercenary_pool",
+  "armed_total": 80000,
+  "classes": [
+    {
+      "role": "caravan_guard",
+      "count": 18000
+    },
+    {
+      "role": "veteran_band",
+      "count": 13000
+    },
+    {
+      "role": "engineer_sapper",
+      "count": 9000
+    },
+    {
+      "role": "river_crew",
+      "count": 8000
+    },
+    {
+      "role": "scout",
+      "count": 10000
+    },
+    {
+      "role": "seasonal_contract",
+      "count": 22000
+    }
+  ],
+  "mechanical_profiles": {
+    "caravan_guard": {
+      "quality_band": "42-58",
+      "loadout": "loadout_mercenary_line"
+    },
+    "veteran_band": {
+      "quality_band": "50-68",
+      "loadout": "loadout_mercenary_line"
+    },
+    "engineer_sapper": {
+      "quality_band": "45-64",
+      "loadout": "loadout_mercenary_engineer"
+    },
+    "river_crew": {
+      "quality_band": "42-60",
+      "loadout": "loadout_mercenary_light"
+    },
+    "scout": {
+      "quality_band": "48-66",
+      "loadout": "loadout_mercenary_scout"
+    },
+    "seasonal_contract": {
+      "quality_band": "32-50",
+      "loadout": "load.merc.regular"
+    }
+  },
+  "determinism_rule": "profile must be selected from pre-registered class before opponent-aware combat resolution",
+  "home_location_ref": null,
+  "current_location_ref": null,
+  "deployment_status": "distributed_market",
+  "geographic_provenance": {
+    "migration": "mercenary_ecology_v2",
+    "basis": "exact aggregate pool partitioned across Seven States and Jo/frontier geography",
+    "rule": "regional distribution partitions the same 80,000 bodies; short-notice availability is a subset, not extra manpower"
+  },
+  "manpower_authority": {
+    "owns_bodies": true,
+    "count_field": "armed_total",
+    "rule": "exact aggregate local mercenary pool; class counts partition the same bodies and capability profiles do not add bodies"
+  },
+  "regional_distribution": {
+    "loc_qin_regional_02": 15000,
+    "loc_zhao_regional_04": 13000,
+    "loc_chu_regional_02": 17000,
+    "loc_wei_regional_04": 10000,
+    "loc_han_regional_02": 7000,
+    "loc_yan_regional_03": 8000,
+    "loc_qi_regional_04": 8000,
+    "loc_jo_mountain_region": 2000
+  },
+  "short_notice_available_by_location": {
+    "loc_qin_regional_02": 11000,
+    "loc_zhao_regional_04": 9000,
+    "loc_chu_regional_02": 11000,
+    "loc_wei_regional_04": 7000,
+    "loc_han_regional_02": 4500,
+    "loc_yan_regional_03": 5000,
+    "loc_qi_regional_04": 5500,
+    "loc_jo_mountain_region": 2000
+  },
+  "short_notice_available_total": 55000,
+  "reserved_reconstitution_total": 0,
+  "reconstitution_reservations": {},
+  "market_tier": "local_seasonal"
+}

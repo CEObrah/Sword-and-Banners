@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Military career petition routing index",
+  "type": "object",
+  "required": ["schema", "authority", "pending_by_state", "resolved_count"],
+  "properties": {
+    "schema": {"const": "sword-military-career-petition-index.v1"},
+    "authority": {"const": false},
+    "pending_by_state": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}},
+    "resolved_count": {"type": "integer", "minimum": 0}
+  },
+  "additionalProperties": false
+}

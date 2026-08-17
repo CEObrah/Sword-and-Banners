@@ -1,0 +1,51 @@
+{
+  "schema": "generic-object.v1",
+  "owner_id": "minor_polity_reference_registry",
+  "authority": false,
+  "polities": {
+    "minor_polity_quanrong": {
+      "name": "Quanrong / Ryouyou political complex",
+      "faction_ref": "faction_quanrong_polity",
+      "territory_refs": [
+        "loc_quanrong_highlands",
+        "loc_ryouyou"
+      ],
+      "representation": "current political/readiness + cold capability; exact conserved population/force not materialized in current source",
+      "exact_population_ref": null,
+      "exact_force_ref": null,
+      "rule": "warband_capacity and muster_readiness do not create bodies; later exact materialization requires a conserved population/manpower source"
+    },
+    "minor_polity_yotanwa_confederation": {
+      "name": "Yotanwa-associated mountain confederation",
+      "faction_ref": "faction_yotanwa_confederation",
+      "representation": "faction/political capability unless exact owners are separately present",
+      "rule": "faction readiness does not create bodies"
+    },
+    "minor_polity_northern_steppe": {
+      "name": "Northern Steppe Confederation",
+      "faction_ref": "faction_northern_steppe_confederation",
+      "representation": "faction/political capability unless exact owners are separately present",
+      "rule": "faction readiness does not create bodies"
+    },
+    "minor_polity_jo": {
+      "name": "Jo / Xu",
+      "polity_ref": "polity_jo",
+      "faction_ref": "faction_jo_council",
+      "territory_refs": [
+        "loc_jo_mountain_region",
+        "loc_jo_city"
+      ],
+      "representation": "living exact minor polity",
+      "exact_population_ref": "population_jo",
+      "exact_force_ref": "force_jo",
+      "exact_treasury_ref": "treasury_jo",
+      "economy_ref": "private_economy_jo",
+      "rule": "exact force is conserved inside exact Jo population active_military stratum; information-network capability never creates soldiers",
+      "provenance": {
+        "canonical_basis": "verified Kingdom setting",
+        "game_seed_note": "quantitative values are explicitly non-canonical simulation seeds"
+      }
+    }
+  },
+  "jo_policy": "promoted to living minor polity by explicit OOC DEV request; quantitative simulation values remain provenance-marked non-canonical seeds"
+}

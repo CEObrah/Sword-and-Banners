@@ -1,0 +1,86 @@
+{
+  "administrative_owner": "house_tang",
+  "cohesion": 100,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_house_tang_tang_champion_baseline_v2",
+      "count": 500
+    }
+  ],
+  "command_authority": "char_tang_wei",
+  "commander_ref": "char_duan_jin",
+  "composition": {
+    "tang_champion": 500
+  },
+  "deputy_ref": "char_shen_rui",
+  "doctrine_behavior": {
+    "casualty_tolerance": "low",
+    "deep_pursuit": "prohibited_without_compatible_order",
+    "frontline_follow": true,
+    "protected_principal_ref": "char_tang_wei",
+    "ranged_priority": "exposed commanders, officers, missile leaders, enemy champions, and immediate threats to Tang Wei",
+    "reserve_commitment": 55,
+    "survival_bias": "preserve Champions, Tang horses, ammunition, cohesion, extraction lanes and command continuity while aggressively intercepting immediate threats",
+    "withdrawal_threshold": 55
+  },
+  "doctrine_last_reformed_at": "245-BCE-12-06T07:00:48+08:00",
+  "doctrine_ref": "doc.tang_wei.household_champions",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "tang_champion": 500
+  },
+  "experience": "veteran",
+  "fatigue": 79,
+  "formation_ref": "formation_tang_champions_first",
+  "last_moved_at": "245-BCE-12-08T00:20:48+08:00",
+  "last_training_at": "244-BCE-02-17T18:22:48+08:00",
+  "location_ref": "loc_tang_manor_garrison_yard",
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 18000,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "mobilized_at": "245-BCE-12-04T11:22:48+08:00",
+  "morale": 92,
+  "mounts": {
+    "horse_tang_heavy_war": 500
+  },
+  "name": "Tang Wei's Tang Champions",
+  "owner_force_ref": "force_house_tang",
+  "personnel": 500,
+  "readiness": 100,
+  "schema": "sword-formation",
+  "standing_training_credit_window_end": "244-BCE-02-17T18:22:48+08:00",
+  "standing_training_last_settled_at": "244-BCE-02-17T18:22:48+08:00",
+  "standing_training_time_credit_hours": 0.761111,
+  "status": "deployed",
+  "training_progress": 97,
+  "training_ref": "train.tang_wei.household_champions",
+  "verified_training_hours": 389,
+  "registered_loadout_ref": "loadout_house_champion",
+  "command_structure": {
+    "unit_command": {
+      "commander_ref": "char_duan_jin",
+      "deputy_ref": "char_shen_rui",
+      "external_to_fighting_establishment": true,
+      "loadout_ref": "loadout_house_champion"
+    },
+    "internal_hierarchy": [
+      {
+        "scale": 100,
+        "count": 5,
+        "representation": "aggregate"
+      }
+    ],
+    "representation_rule": "Duan Jin and Shen Rui are external unit command establishment; five 100-man command billets remain aggregate unless salient."
+  },
+  "standing_training_history_summary": {
+    "verified_training_hours": 389,
+    "rebaseline_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "geographic_provenance": {
+    "migration": "world_geography_overhaul_v1"
+  }
+}

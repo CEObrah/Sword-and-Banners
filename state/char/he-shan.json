@@ -1,0 +1,170 @@
+{
+  "schema": "sab_character",
+  "owner_id": "char_he_shan",
+  "owner_type": "character",
+  "name": "He Shan",
+  "birth_date": "292-BCE-03-24",
+  "birth_date_source": "ooc_rebaseline_deterministic_generation",
+  "body": {
+    "adult_height_cm": 177.4,
+    "growth_end_age": 18,
+    "current_weight_kg": 69.3,
+    "frame": "athletic",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "appearance": 71,
+  "appearance_source": "simulation_assigned",
+  "attributes": {
+    "Agility": 98,
+    "Awareness": 123,
+    "Composure": 128,
+    "Coordination": 110,
+    "Endurance": 119,
+    "Intelligence": 129,
+    "Presence": 124,
+    "Strength": 114,
+    "Toughness": 108
+  },
+  "skills": {
+    "Athletics": 114,
+    "Axe": 86,
+    "Bow": 103,
+    "Crossbow": 136,
+    "Dagger": 96,
+    "Defense": 129,
+    "Diplomacy": 113,
+    "Engineering": 136,
+    "Formation Command": 149,
+    "Formation Fighting": 135,
+    "Glaive": 95,
+    "Governance": 108,
+    "Grappling": 87,
+    "Intelligence Operations": 111,
+    "Intrigue": 95,
+    "Law": 96,
+    "Leadership": 156,
+    "Logistics": 161,
+    "Mace": 91,
+    "Mass Combat": 139,
+    "Medicine": 83,
+    "Navigation": 99,
+    "Riding": 97,
+    "Scouting": 105,
+    "Shield": 125,
+    "Spear": 116,
+    "Staff": 82,
+    "Stealth": 75,
+    "Strategy": 149,
+    "Survival": 100,
+    "Sword": 129,
+    "Tactics": 149,
+    "Trade": 122,
+    "Training": 135,
+    "Unarmed": 76
+  },
+  "aptitude": {
+    "physical_learning": 135,
+    "technical_learning": 135,
+    "tactical_learning": 150,
+    "academic_learning": 135,
+    "social_learning": 135,
+    "source": "ooc_rebaseline_command_profile"
+  },
+  "role": "Deputy Contract Marshal of Tang Manor Outer Defense",
+  "authority": "Deputy commander under Mu Zhen",
+  "affiliation": [
+    "contract_tang_contracted_defense"
+  ],
+  "current_location": "loc_tang_manor_outer_contract_barracks",
+  "life_status": "active",
+  "health_status": "fit",
+  "fatigue": 0,
+  "equipment_loadout_id": "loadout_named_crossbow",
+  "equipment_manifest": {
+    "loadout_id": "loadout_named_crossbow",
+    "individual_custody": true,
+    "carried_ammunition": 30,
+    "items": {
+      "body_armor": "armor_lamellar_military",
+      "helmet": "helmet_lamellar",
+      "ranged_weapon": "weapon_crossbow",
+      "ammunition_item": "ammo_bolt_war",
+      "sidearm": "weapon_sword_one_hand",
+      "shield": "shield_small"
+    }
+  },
+  "equipment_description": "Individual command equipment held under the assigned standard; 36 war arrows when the loadout includes a bow.",
+  "background": "Veteran mercenary officer raised to named deputy command of House Tang's contracted host. He remains outside the 75,000 anonymous contracted troop count.",
+  "source_class": "ooc_rebaseline_named_command",
+  "stable_seed": "seed_964fbfc33d257388481d",
+  "development_state": {
+    "skill_edu_banks": {},
+    "settled_training_hours": 0,
+    "training_credit": 0.0,
+    "maintenance_credit": 0.0,
+    "completed_reviews": 0
+  },
+  "career_state": {
+    "office_or_command": "Deputy Contract Marshal of Tang Manor Outer Defense",
+    "career_changes": 0,
+    "revision": 1
+  },
+  "runtime": {
+    "last_settled_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "knowledge_boundary": "role-local military knowledge unless separately established",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "goal_state": {
+    "current_goals": [
+      "perform assigned command duty"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "Deputy Contract Marshal of Tang Manor Outer Defense"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "behavior": {
+    "core_traits": "disciplined, professional, accountable",
+    "conflict_style": "keeps formation and mission ahead of personal display",
+    "speech_pattern": "concise military reports",
+    "values": "duty, readiness, conserved lives, clear orders"
+  },
+  "relationship_refs": [],
+  "autonomous_activity_state": {
+    "enabled": true,
+    "verified_hours_per_cycle": 240.0,
+    "cadence_seconds": 2592000,
+    "version": 3,
+    "routed_at": "244-BCE-07-23T01:22:48+08:00",
+    "focus_cursor": 0,
+    "next_due": "244-BCE-08-22T01:22:48+08:00",
+    "verification_rule": "structured causal cycles derive standard House Tang adult hours from the canonical training regimen; planned_opportunity prose is capacity context only and is never converted into training hours"
+  },
+  "autonomous_development_history": [],
+  "life_course_state": {
+    "annual_reviews": 0,
+    "career_changes": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "status_history": []
+  },
+  "military_command": {
+    "formation_scope": "contract_tang_contracted_defense",
+    "level": "army_deputy",
+    "external_to_fighting_strength": true,
+    "commander_ref": "char_mu_zhen"
+  },
+  "activity_contract": {
+    "mode": "standing_role_training",
+    "training_regimen_ref": "house_tang_max_sustainable",
+    "autonomous_enabled": true,
+    "growth_rule": "verified elapsed training only; smart rotation prioritizes legal next-rank deficits, current loadout skills, command/logistics needs, and weakest useful stats; no free progress",
+    "focus": "Bow, Spear, Sword, Shield, Defense, Formation Fighting, Riding, Leadership, Formation Command, Tactics, Strategy, Logistics, Training, Athletics",
+    "smart_rotation": "weakest_useful_then_promotion_gate_then_role_and_loadout; deterministic rotation avoids overtraining already-high skills",
+    "planned_opportunity": "maximum-sustainable deliberate training when health, duty, recovery, travel, command workload, instructors, facilities and equipment permit; real elapsed hours and diminishing returns remain authoritative"
+  }
+}

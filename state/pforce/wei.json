@@ -1,0 +1,31 @@
+{
+  "schema": "personal_force",
+  "id": "pforce.tang_wei",
+  "kind": "personal_force",
+  "owner": "char_tang_wei",
+  "name": "Tang Wei Personal Retinue",
+  "members": [
+    "char_duan_jin",
+    "char_shen_rui",
+    "char_gao_yun",
+    "officer.house_tang.wei_guard.deputy"
+  ],
+  "permanent_units": [],
+  "unassigned_members": [],
+  "policy": {
+    "institutional_formation_representation": "aggregate_cohort",
+    "personal_recruits_representation": "cohort_first_selective_individualization",
+    "personal_recruit_conservation": "personal recruits enter the conserved personal-force cohort ledger; individual materialization consumes one existing cohort body and never changes force headcount",
+    "institutional_owner": "house_tang",
+    "assignment_authority": "char_tang_wei",
+    "player_controls_assigned_formation_names_roles_doctrine_loadouts_commanders": true,
+    "standout_materialization_policy": "personal and institutional soldiers remain aggregate until named, exceptional, command-relevant, specialist, socially relevant, or otherwise causally important; materialization never duplicates headcount",
+    "command_establishment_rule": "army/unit commander and deputy are outside fighting-strength troop numbers; 1,000/500 internal commanders are conserved fighting bodies."
+  },
+  "home": "Tang Manor",
+  "assigned_formations": [
+    "formation_tang_wei_house_guard_first",
+    "formation_tang_champions_first"
+  ],
+  "owned_force_ref": "force_tang_wei_personal"
+}

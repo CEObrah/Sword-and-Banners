@@ -1,0 +1,1137 @@
+{
+  "schema": "generic-object.v1",
+  "owner_id": "geography_index",
+  "authority": false,
+  "migration": "world_geography_overhaul_v1",
+  "parents": {
+    "loc_kanyou": "loc_qin_regional_01",
+    "loc_kankoku_pass": "loc_qin_regional_02",
+    "loc_bu_pass": "loc_qin_regional_04",
+    "loc_sai": "loc_qin_regional_02",
+    "loc_qin_eastern_depot": "loc_qin_regional_02",
+    "loc_qin_western_fort": "loc_qin_regional_03",
+    "loc_kantan": "loc_zhao_regional_01",
+    "loc_gyou": "loc_zhao_regional_02",
+    "loc_zhao_border_fort": "loc_zhao_regional_02",
+    "loc_shintei": "loc_chu_regional_01",
+    "loc_chu_north_fort": "loc_chu_regional_02",
+    "loc_dairyou": "loc_wei_regional_01",
+    "loc_keiyou": "loc_wei_regional_02",
+    "loc_wei_west_fort": "loc_wei_regional_02",
+    "loc_han_capital": "loc_han_regional_01",
+    "loc_han_frontier_fort": "loc_han_regional_02",
+    "loc_ji": "loc_yan_regional_01",
+    "loc_yan_south_fort": "loc_yan_regional_02",
+    "loc_ei": "loc_qi_regional_01",
+    "loc_qi_west_fort": "loc_qi_regional_02",
+    "loc_tang_manor_inner_citadel_family_hall": "loc_tang_manor",
+    "loc_tang_manor_training_ground": "loc_tang_manor",
+    "loc_tang_manor_market_gate": "loc_tang_manor",
+    "loc_kanyou_officer_bureau": "loc_kanyou",
+    "loc_qin_regional_01": "state_qin",
+    "loc_qin_regional_02": "state_qin",
+    "loc_qin_regional_03": "state_qin",
+    "loc_qin_regional_04": "state_qin",
+    "loc_zhao_regional_01": "state_zhao",
+    "loc_zhao_regional_02": "state_zhao",
+    "loc_zhao_regional_03": "state_zhao",
+    "loc_zhao_regional_04": "state_zhao",
+    "loc_chu_regional_01": "state_chu",
+    "loc_chu_regional_02": "state_chu",
+    "loc_chu_regional_03": "state_chu",
+    "loc_chu_regional_04": "state_chu",
+    "loc_wei_regional_01": "state_wei",
+    "loc_wei_regional_02": "state_wei",
+    "loc_wei_regional_03": "state_wei",
+    "loc_wei_regional_04": "state_wei",
+    "loc_han_regional_01": "state_han",
+    "loc_han_regional_02": "state_han",
+    "loc_han_regional_03": "state_han",
+    "loc_han_regional_04": "state_han",
+    "loc_yan_regional_01": "state_yan",
+    "loc_yan_regional_02": "state_yan",
+    "loc_yan_regional_03": "state_yan",
+    "loc_yan_regional_04": "state_yan",
+    "loc_qi_regional_01": "state_qi",
+    "loc_qi_regional_02": "state_qi",
+    "loc_qi_regional_03": "state_qi",
+    "loc_qi_regional_04": "state_qi",
+    "loc_flavor_01": "loc_qin_regional_01",
+    "loc_flavor_02": "loc_zhao_regional_01",
+    "loc_flavor_03": "loc_chu_regional_01",
+    "loc_flavor_04": "loc_wei_regional_01",
+    "loc_flavor_05": "loc_han_regional_01",
+    "loc_flavor_06": "loc_yan_regional_01",
+    "loc_flavor_07": "loc_qi_regional_01",
+    "loc_flavor_08": "loc_qin_regional_02",
+    "loc_flavor_09": "loc_zhao_regional_02",
+    "loc_flavor_10": "loc_chu_regional_02",
+    "loc_flavor_11": "loc_wei_regional_02",
+    "loc_flavor_12": "loc_han_regional_02",
+    "loc_flavor_13": "loc_yan_regional_02",
+    "loc_flavor_14": "loc_qi_regional_02",
+    "loc_flavor_15": "loc_qin_regional_03",
+    "loc_flavor_16": "loc_zhao_regional_03",
+    "loc_flavor_17": "loc_chu_regional_03",
+    "loc_flavor_18": "loc_wei_regional_03",
+    "loc_flavor_19": "loc_han_regional_03",
+    "loc_flavor_20": "loc_yan_regional_03",
+    "loc_flavor_21": "loc_qi_regional_03",
+    "loc_flavor_22": "loc_qin_regional_04",
+    "loc_flavor_23": "loc_zhao_regional_04",
+    "loc_flavor_24": "loc_chu_regional_04",
+    "loc_tang_manor": "loc_qin_regional_01",
+    "loc_tang_manor_outer_gate": "loc_tang_manor",
+    "loc_tang_manor_garrison_yard": "loc_tang_manor",
+    "loc_tang_manor_defense_camp": "loc_tang_manor",
+    "loc_quanrong_highlands": "minor_polity_quanrong",
+    "loc_ryouyou": "loc_quanrong_highlands"
+  },
+  "access_nodes": {
+    "loc_tang_manor_inner_citadel_family_hall": "loc_tang_manor_outer_gate",
+    "loc_tang_manor_training_ground": "loc_tang_manor_outer_gate",
+    "loc_tang_manor_market_gate": "loc_tang_manor_outer_gate",
+    "loc_kanyou_officer_bureau": "loc_kanyou",
+    "loc_flavor_01": "loc_qin_regional_01",
+    "loc_flavor_02": "loc_zhao_regional_01",
+    "loc_flavor_03": "loc_chu_regional_01",
+    "loc_flavor_04": "loc_wei_regional_01",
+    "loc_flavor_05": "loc_han_regional_01",
+    "loc_flavor_06": "loc_yan_regional_01",
+    "loc_flavor_07": "loc_qi_regional_01",
+    "loc_flavor_08": "loc_qin_regional_02",
+    "loc_flavor_09": "loc_zhao_regional_02",
+    "loc_flavor_10": "loc_chu_regional_02",
+    "loc_flavor_11": "loc_wei_regional_02",
+    "loc_flavor_12": "loc_han_regional_02",
+    "loc_flavor_13": "loc_yan_regional_02",
+    "loc_flavor_14": "loc_qi_regional_02",
+    "loc_flavor_15": "loc_qin_regional_03",
+    "loc_flavor_16": "loc_zhao_regional_03",
+    "loc_flavor_17": "loc_chu_regional_03",
+    "loc_flavor_18": "loc_wei_regional_03",
+    "loc_flavor_19": "loc_han_regional_03",
+    "loc_flavor_20": "loc_yan_regional_03",
+    "loc_flavor_21": "loc_qi_regional_03",
+    "loc_flavor_22": "loc_qin_regional_04",
+    "loc_flavor_23": "loc_zhao_regional_04",
+    "loc_flavor_24": "loc_chu_regional_04",
+    "loc_tang_manor": "loc_tang_manor_outer_gate",
+    "loc_tang_manor_garrison_yard": "loc_tang_manor_outer_gate",
+    "loc_tang_manor_defense_camp": "loc_tang_manor_outer_gate"
+  },
+  "fortification_containment": {
+    "loc_tang_manor_inner_citadel_family_hall": "loc_tang_manor",
+    "loc_tang_manor_training_ground": "loc_tang_manor",
+    "loc_tang_manor_market_gate": "loc_tang_manor",
+    "loc_tang_manor_outer_gate": "loc_tang_manor",
+    "loc_tang_manor_garrison_yard": "loc_tang_manor",
+    "loc_tang_manor_defense_camp": "loc_tang_manor"
+  },
+  "route_aliases": {
+    "road_kanyou_tang_main_gate": "route_kanyou_tang_manor_gate",
+    "route_local_tang_manor_kanyou": "route_kanyou_tang_manor_gate"
+  },
+  "adjacency": {
+    "loc_kanyou": [
+      {
+        "to": "loc_kankoku_pass",
+        "route_ref": "route_kanyou_kankoku"
+      },
+      {
+        "to": "loc_qin_eastern_depot",
+        "route_ref": "route_kanyou_qin_east_depot"
+      },
+      {
+        "to": "loc_qin_regional_01",
+        "route_ref": "route_qin_capital_basin_kanyou"
+      },
+      {
+        "to": "loc_qin_western_fort",
+        "route_ref": "route_kanyou_qin_west_fort"
+      },
+      {
+        "to": "loc_sai",
+        "route_ref": "route_kanyou_sai"
+      },
+      {
+        "to": "loc_tang_manor_outer_gate",
+        "route_ref": "route_kanyou_tang_manor_gate"
+      }
+    ],
+    "loc_kankoku_pass": [
+      {
+        "to": "loc_kanyou",
+        "route_ref": "route_kanyou_kankoku"
+      },
+      {
+        "to": "loc_keiyou",
+        "route_ref": "route_kankoku_keiyou"
+      },
+      {
+        "to": "loc_qin_regional_02",
+        "route_ref": "route_qin_east_kankoku"
+      }
+    ],
+    "loc_qin_eastern_depot": [
+      {
+        "to": "loc_kanyou",
+        "route_ref": "route_kanyou_qin_east_depot"
+      }
+    ],
+    "loc_sai": [
+      {
+        "to": "loc_kanyou",
+        "route_ref": "route_kanyou_sai"
+      },
+      {
+        "to": "loc_qin_regional_02",
+        "route_ref": "route_qin_east_sai"
+      }
+    ],
+    "loc_qin_western_fort": [
+      {
+        "to": "loc_kanyou",
+        "route_ref": "route_kanyou_qin_west_fort"
+      },
+      {
+        "to": "loc_qin_regional_03",
+        "route_ref": "route_qin_north_west_fort"
+      }
+    ],
+    "loc_qin_regional_01": [
+      {
+        "to": "loc_kanyou",
+        "route_ref": "route_qin_capital_basin_kanyou"
+      },
+      {
+        "to": "loc_qin_regional_02",
+        "route_ref": "route_qin_capital_east"
+      },
+      {
+        "to": "loc_qin_regional_03",
+        "route_ref": "route_qin_capital_north"
+      },
+      {
+        "to": "loc_qin_regional_04",
+        "route_ref": "route_qin_capital_south"
+      },
+      {
+        "to": "loc_tang_manor_outer_gate",
+        "route_ref": "route_tang_gate_capital_basin"
+      }
+    ],
+    "loc_qin_regional_02": [
+      {
+        "to": "loc_gyou",
+        "route_ref": "route_qin_zhao_gyou_corridor"
+      },
+      {
+        "to": "loc_kankoku_pass",
+        "route_ref": "route_qin_east_kankoku"
+      },
+      {
+        "to": "loc_qin_regional_01",
+        "route_ref": "route_qin_capital_east"
+      },
+      {
+        "to": "loc_sai",
+        "route_ref": "route_qin_east_sai"
+      }
+    ],
+    "loc_qin_regional_03": [
+      {
+        "to": "loc_qin_regional_01",
+        "route_ref": "route_qin_capital_north"
+      },
+      {
+        "to": "loc_qin_western_fort",
+        "route_ref": "route_qin_north_west_fort"
+      },
+      {
+        "to": "loc_quanrong_highlands",
+        "route_ref": "route_qin_north_quanrong_highlands"
+      }
+    ],
+    "loc_qin_regional_04": [
+      {
+        "to": "loc_bu_pass",
+        "route_ref": "route_qin_south_bu"
+      },
+      {
+        "to": "loc_qin_regional_01",
+        "route_ref": "route_qin_capital_south"
+      }
+    ],
+    "loc_bu_pass": [
+      {
+        "to": "loc_chu_north_fort",
+        "route_ref": "route_qin_bu_chu_north"
+      },
+      {
+        "to": "loc_qin_regional_04",
+        "route_ref": "route_qin_south_bu"
+      }
+    ],
+    "loc_gyou": [
+      {
+        "to": "loc_kantan",
+        "route_ref": "route_gyou_kantan"
+      },
+      {
+        "to": "loc_qin_regional_02",
+        "route_ref": "route_qin_zhao_gyou_corridor"
+      },
+      {
+        "to": "loc_zhao_regional_02",
+        "route_ref": "route_zhao_gyou_plain_city"
+      }
+    ],
+    "loc_kantan": [
+      {
+        "to": "loc_gyou",
+        "route_ref": "route_gyou_kantan"
+      },
+      {
+        "to": "loc_zhao_regional_01",
+        "route_ref": "route_zhao_heartland_kantan"
+      }
+    ],
+    "loc_zhao_regional_01": [
+      {
+        "to": "loc_kantan",
+        "route_ref": "route_zhao_heartland_kantan"
+      },
+      {
+        "to": "loc_zhao_regional_02",
+        "route_ref": "route_zhao_heartland_gyou_plain"
+      },
+      {
+        "to": "loc_zhao_regional_03",
+        "route_ref": "route_zhao_heartland_north"
+      },
+      {
+        "to": "loc_zhao_regional_04",
+        "route_ref": "route_zhao_heartland_west"
+      }
+    ],
+    "loc_zhao_regional_02": [
+      {
+        "to": "loc_gyou",
+        "route_ref": "route_zhao_gyou_plain_city"
+      },
+      {
+        "to": "loc_zhao_border_fort",
+        "route_ref": "route_zhao_south_fort"
+      },
+      {
+        "to": "loc_zhao_regional_01",
+        "route_ref": "route_zhao_heartland_gyou_plain"
+      }
+    ],
+    "loc_zhao_regional_03": [
+      {
+        "to": "loc_yan_regional_03",
+        "route_ref": "route_zhao_yan_northern_corridor"
+      },
+      {
+        "to": "loc_zhao_regional_01",
+        "route_ref": "route_zhao_heartland_north"
+      }
+    ],
+    "loc_zhao_regional_04": [
+      {
+        "to": "loc_wei_regional_02",
+        "route_ref": "route_zhao_wei_western_corridor"
+      },
+      {
+        "to": "loc_zhao_regional_01",
+        "route_ref": "route_zhao_heartland_west"
+      }
+    ],
+    "loc_zhao_border_fort": [
+      {
+        "to": "loc_zhao_regional_02",
+        "route_ref": "route_zhao_south_fort"
+      }
+    ],
+    "loc_chu_regional_01": [
+      {
+        "to": "loc_chu_regional_02",
+        "route_ref": "route_chu_heartland_north"
+      },
+      {
+        "to": "loc_chu_regional_03",
+        "route_ref": "route_chu_heartland_east"
+      },
+      {
+        "to": "loc_chu_regional_04",
+        "route_ref": "route_chu_heartland_west"
+      },
+      {
+        "to": "loc_shintei",
+        "route_ref": "route_chu_capital_heartland"
+      }
+    ],
+    "loc_shintei": [
+      {
+        "to": "loc_chu_regional_01",
+        "route_ref": "route_chu_capital_heartland"
+      }
+    ],
+    "loc_chu_regional_02": [
+      {
+        "to": "loc_chu_north_fort",
+        "route_ref": "route_chu_north_fort"
+      },
+      {
+        "to": "loc_chu_regional_01",
+        "route_ref": "route_chu_heartland_north"
+      },
+      {
+        "to": "loc_han_regional_03",
+        "route_ref": "route_han_chu_southern_corridor"
+      }
+    ],
+    "loc_chu_regional_03": [
+      {
+        "to": "loc_chu_regional_01",
+        "route_ref": "route_chu_heartland_east"
+      }
+    ],
+    "loc_chu_regional_04": [
+      {
+        "to": "loc_chu_regional_01",
+        "route_ref": "route_chu_heartland_west"
+      }
+    ],
+    "loc_chu_north_fort": [
+      {
+        "to": "loc_bu_pass",
+        "route_ref": "route_qin_bu_chu_north"
+      },
+      {
+        "to": "loc_chu_regional_02",
+        "route_ref": "route_chu_north_fort"
+      }
+    ],
+    "loc_wei_regional_01": [
+      {
+        "to": "loc_dairyou",
+        "route_ref": "route_wei_capital_heartland"
+      },
+      {
+        "to": "loc_wei_regional_02",
+        "route_ref": "route_wei_heartland_west"
+      },
+      {
+        "to": "loc_wei_regional_03",
+        "route_ref": "route_wei_heartland_south"
+      },
+      {
+        "to": "loc_wei_regional_04",
+        "route_ref": "route_wei_heartland_east"
+      }
+    ],
+    "loc_dairyou": [
+      {
+        "to": "loc_keiyou",
+        "route_ref": "route_keiyou_dairyou"
+      },
+      {
+        "to": "loc_wei_regional_01",
+        "route_ref": "route_wei_capital_heartland"
+      }
+    ],
+    "loc_wei_regional_02": [
+      {
+        "to": "loc_keiyou",
+        "route_ref": "route_wei_west_keiyou"
+      },
+      {
+        "to": "loc_wei_regional_01",
+        "route_ref": "route_wei_heartland_west"
+      },
+      {
+        "to": "loc_wei_west_fort",
+        "route_ref": "route_wei_west_fort"
+      },
+      {
+        "to": "loc_zhao_regional_04",
+        "route_ref": "route_zhao_wei_western_corridor"
+      }
+    ],
+    "loc_wei_regional_03": [
+      {
+        "to": "loc_wei_regional_01",
+        "route_ref": "route_wei_heartland_south"
+      }
+    ],
+    "loc_wei_regional_04": [
+      {
+        "to": "loc_wei_regional_01",
+        "route_ref": "route_wei_heartland_east"
+      }
+    ],
+    "loc_keiyou": [
+      {
+        "to": "loc_dairyou",
+        "route_ref": "route_keiyou_dairyou"
+      },
+      {
+        "to": "loc_kankoku_pass",
+        "route_ref": "route_kankoku_keiyou"
+      },
+      {
+        "to": "loc_wei_regional_02",
+        "route_ref": "route_wei_west_keiyou"
+      }
+    ],
+    "loc_wei_west_fort": [
+      {
+        "to": "loc_han_frontier_fort",
+        "route_ref": "route_wei_han_frontier"
+      },
+      {
+        "to": "loc_wei_regional_02",
+        "route_ref": "route_wei_west_fort"
+      }
+    ],
+    "loc_han_regional_01": [
+      {
+        "to": "loc_han_capital",
+        "route_ref": "route_han_capital_heartland"
+      },
+      {
+        "to": "loc_han_regional_02",
+        "route_ref": "route_han_heartland_west"
+      },
+      {
+        "to": "loc_han_regional_03",
+        "route_ref": "route_han_heartland_south"
+      },
+      {
+        "to": "loc_han_regional_04",
+        "route_ref": "route_han_heartland_east"
+      }
+    ],
+    "loc_han_capital": [
+      {
+        "to": "loc_han_regional_01",
+        "route_ref": "route_han_capital_heartland"
+      }
+    ],
+    "loc_han_regional_02": [
+      {
+        "to": "loc_han_frontier_fort",
+        "route_ref": "route_han_west_fort"
+      },
+      {
+        "to": "loc_han_regional_01",
+        "route_ref": "route_han_heartland_west"
+      }
+    ],
+    "loc_han_regional_03": [
+      {
+        "to": "loc_chu_regional_02",
+        "route_ref": "route_han_chu_southern_corridor"
+      },
+      {
+        "to": "loc_han_regional_01",
+        "route_ref": "route_han_heartland_south"
+      }
+    ],
+    "loc_han_regional_04": [
+      {
+        "to": "loc_han_regional_01",
+        "route_ref": "route_han_heartland_east"
+      },
+      {
+        "to": "loc_qi_regional_02",
+        "route_ref": "route_han_qi_trade_corridor"
+      }
+    ],
+    "loc_han_frontier_fort": [
+      {
+        "to": "loc_han_regional_02",
+        "route_ref": "route_han_west_fort"
+      },
+      {
+        "to": "loc_wei_west_fort",
+        "route_ref": "route_wei_han_frontier"
+      }
+    ],
+    "loc_yan_regional_01": [
+      {
+        "to": "loc_ji",
+        "route_ref": "route_yan_capital_heartland"
+      },
+      {
+        "to": "loc_yan_regional_02",
+        "route_ref": "route_yan_heartland_south"
+      },
+      {
+        "to": "loc_yan_regional_03",
+        "route_ref": "route_yan_heartland_north"
+      },
+      {
+        "to": "loc_yan_regional_04",
+        "route_ref": "route_yan_heartland_east"
+      }
+    ],
+    "loc_ji": [
+      {
+        "to": "loc_yan_regional_01",
+        "route_ref": "route_yan_capital_heartland"
+      }
+    ],
+    "loc_yan_regional_02": [
+      {
+        "to": "loc_yan_regional_01",
+        "route_ref": "route_yan_heartland_south"
+      },
+      {
+        "to": "loc_yan_south_fort",
+        "route_ref": "route_yan_south_fort"
+      }
+    ],
+    "loc_yan_regional_03": [
+      {
+        "to": "loc_yan_regional_01",
+        "route_ref": "route_yan_heartland_north"
+      },
+      {
+        "to": "loc_zhao_regional_03",
+        "route_ref": "route_zhao_yan_northern_corridor"
+      }
+    ],
+    "loc_yan_regional_04": [
+      {
+        "to": "loc_yan_regional_01",
+        "route_ref": "route_yan_heartland_east"
+      }
+    ],
+    "loc_yan_south_fort": [
+      {
+        "to": "loc_qi_west_fort",
+        "route_ref": "route_yan_qi_frontier"
+      },
+      {
+        "to": "loc_yan_regional_02",
+        "route_ref": "route_yan_south_fort"
+      }
+    ],
+    "loc_qi_regional_01": [
+      {
+        "to": "loc_ei",
+        "route_ref": "route_qi_capital_heartland"
+      },
+      {
+        "to": "loc_qi_regional_02",
+        "route_ref": "route_qi_heartland_west"
+      },
+      {
+        "to": "loc_qi_regional_03",
+        "route_ref": "route_qi_heartland_north"
+      },
+      {
+        "to": "loc_qi_regional_04",
+        "route_ref": "route_qi_heartland_coast"
+      }
+    ],
+    "loc_ei": [
+      {
+        "to": "loc_qi_regional_01",
+        "route_ref": "route_qi_capital_heartland"
+      }
+    ],
+    "loc_qi_regional_02": [
+      {
+        "to": "loc_han_regional_04",
+        "route_ref": "route_han_qi_trade_corridor"
+      },
+      {
+        "to": "loc_qi_regional_01",
+        "route_ref": "route_qi_heartland_west"
+      },
+      {
+        "to": "loc_qi_west_fort",
+        "route_ref": "route_qi_west_fort"
+      }
+    ],
+    "loc_qi_regional_03": [
+      {
+        "to": "loc_qi_regional_01",
+        "route_ref": "route_qi_heartland_north"
+      }
+    ],
+    "loc_qi_regional_04": [
+      {
+        "to": "loc_qi_regional_01",
+        "route_ref": "route_qi_heartland_coast"
+      }
+    ],
+    "loc_qi_west_fort": [
+      {
+        "to": "loc_qi_regional_02",
+        "route_ref": "route_qi_west_fort"
+      },
+      {
+        "to": "loc_yan_south_fort",
+        "route_ref": "route_yan_qi_frontier"
+      }
+    ],
+    "loc_tang_manor_outer_gate": [
+      {
+        "to": "loc_kanyou",
+        "route_ref": "route_kanyou_tang_manor_gate"
+      },
+      {
+        "to": "loc_qin_regional_01",
+        "route_ref": "route_tang_gate_capital_basin"
+      }
+    ],
+    "loc_quanrong_highlands": [
+      {
+        "to": "loc_qin_regional_03",
+        "route_ref": "route_qin_north_quanrong_highlands"
+      },
+      {
+        "to": "loc_ryouyou",
+        "route_ref": "route_quanrong_highlands_ryouyou"
+      }
+    ],
+    "loc_ryouyou": [
+      {
+        "to": "loc_quanrong_highlands",
+        "route_ref": "route_quanrong_highlands_ryouyou"
+      }
+    ]
+  },
+  "local_adjacency": {
+    "loc_tang_manor_outer_gate": [
+      {
+        "to": "loc_tang_manor",
+        "route_ref": "local_tang_gate_estate",
+        "access_control_ref": "loc_tang_manor"
+      }
+    ],
+    "loc_tang_manor": [
+      {
+        "to": "loc_tang_manor_defense_camp",
+        "route_ref": "local_tang_estate_defense_camp",
+        "access_control_ref": "loc_tang_manor"
+      },
+      {
+        "to": "loc_tang_manor_garrison_yard",
+        "route_ref": "local_tang_estate_garrison",
+        "access_control_ref": "loc_tang_manor"
+      },
+      {
+        "to": "loc_tang_manor_inner_citadel_family_hall",
+        "route_ref": "local_tang_estate_family_hall",
+        "access_control_ref": "loc_tang_manor"
+      },
+      {
+        "to": "loc_tang_manor_market_gate",
+        "route_ref": "local_tang_estate_market",
+        "access_control_ref": "loc_tang_manor"
+      },
+      {
+        "to": "loc_tang_manor_outer_gate",
+        "route_ref": "local_tang_gate_estate",
+        "access_control_ref": "loc_tang_manor"
+      },
+      {
+        "to": "loc_tang_manor_training_ground",
+        "route_ref": "local_tang_estate_training",
+        "access_control_ref": "loc_tang_manor"
+      }
+    ],
+    "loc_tang_manor_garrison_yard": [
+      {
+        "to": "loc_tang_manor",
+        "route_ref": "local_tang_estate_garrison",
+        "access_control_ref": "loc_tang_manor"
+      }
+    ],
+    "loc_tang_manor_defense_camp": [
+      {
+        "to": "loc_tang_manor",
+        "route_ref": "local_tang_estate_defense_camp",
+        "access_control_ref": "loc_tang_manor"
+      }
+    ],
+    "loc_tang_manor_training_ground": [
+      {
+        "to": "loc_tang_manor",
+        "route_ref": "local_tang_estate_training",
+        "access_control_ref": "loc_tang_manor"
+      }
+    ],
+    "loc_tang_manor_market_gate": [
+      {
+        "to": "loc_tang_manor",
+        "route_ref": "local_tang_estate_market",
+        "access_control_ref": "loc_tang_manor"
+      }
+    ],
+    "loc_tang_manor_inner_citadel_family_hall": [
+      {
+        "to": "loc_tang_manor",
+        "route_ref": "local_tang_estate_family_hall",
+        "access_control_ref": "loc_tang_manor"
+      }
+    ],
+    "loc_kanyou": [
+      {
+        "to": "loc_kanyou_officer_bureau",
+        "route_ref": "local_kanyou_officer_bureau",
+        "access_control_ref": null
+      }
+    ],
+    "loc_kanyou_officer_bureau": [
+      {
+        "to": "loc_kanyou",
+        "route_ref": "local_kanyou_officer_bureau",
+        "access_control_ref": null
+      }
+    ],
+    "loc_qin_regional_01": [
+      {
+        "to": "loc_flavor_01",
+        "route_ref": "local_flavor_01",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_01": [
+      {
+        "to": "loc_qin_regional_01",
+        "route_ref": "local_flavor_01",
+        "access_control_ref": null
+      }
+    ],
+    "loc_zhao_regional_01": [
+      {
+        "to": "loc_flavor_02",
+        "route_ref": "local_flavor_02",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_02": [
+      {
+        "to": "loc_zhao_regional_01",
+        "route_ref": "local_flavor_02",
+        "access_control_ref": null
+      }
+    ],
+    "loc_chu_regional_01": [
+      {
+        "to": "loc_flavor_03",
+        "route_ref": "local_flavor_03",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_03": [
+      {
+        "to": "loc_chu_regional_01",
+        "route_ref": "local_flavor_03",
+        "access_control_ref": null
+      }
+    ],
+    "loc_wei_regional_01": [
+      {
+        "to": "loc_flavor_04",
+        "route_ref": "local_flavor_04",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_04": [
+      {
+        "to": "loc_wei_regional_01",
+        "route_ref": "local_flavor_04",
+        "access_control_ref": null
+      }
+    ],
+    "loc_han_regional_01": [
+      {
+        "to": "loc_flavor_05",
+        "route_ref": "local_flavor_05",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_05": [
+      {
+        "to": "loc_han_regional_01",
+        "route_ref": "local_flavor_05",
+        "access_control_ref": null
+      }
+    ],
+    "loc_yan_regional_01": [
+      {
+        "to": "loc_flavor_06",
+        "route_ref": "local_flavor_06",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_06": [
+      {
+        "to": "loc_yan_regional_01",
+        "route_ref": "local_flavor_06",
+        "access_control_ref": null
+      }
+    ],
+    "loc_qi_regional_01": [
+      {
+        "to": "loc_flavor_07",
+        "route_ref": "local_flavor_07",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_07": [
+      {
+        "to": "loc_qi_regional_01",
+        "route_ref": "local_flavor_07",
+        "access_control_ref": null
+      }
+    ],
+    "loc_qin_regional_02": [
+      {
+        "to": "loc_flavor_08",
+        "route_ref": "local_flavor_08",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_08": [
+      {
+        "to": "loc_qin_regional_02",
+        "route_ref": "local_flavor_08",
+        "access_control_ref": null
+      }
+    ],
+    "loc_zhao_regional_02": [
+      {
+        "to": "loc_flavor_09",
+        "route_ref": "local_flavor_09",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_09": [
+      {
+        "to": "loc_zhao_regional_02",
+        "route_ref": "local_flavor_09",
+        "access_control_ref": null
+      }
+    ],
+    "loc_chu_regional_02": [
+      {
+        "to": "loc_flavor_10",
+        "route_ref": "local_flavor_10",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_10": [
+      {
+        "to": "loc_chu_regional_02",
+        "route_ref": "local_flavor_10",
+        "access_control_ref": null
+      }
+    ],
+    "loc_wei_regional_02": [
+      {
+        "to": "loc_flavor_11",
+        "route_ref": "local_flavor_11",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_11": [
+      {
+        "to": "loc_wei_regional_02",
+        "route_ref": "local_flavor_11",
+        "access_control_ref": null
+      }
+    ],
+    "loc_han_regional_02": [
+      {
+        "to": "loc_flavor_12",
+        "route_ref": "local_flavor_12",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_12": [
+      {
+        "to": "loc_han_regional_02",
+        "route_ref": "local_flavor_12",
+        "access_control_ref": null
+      }
+    ],
+    "loc_yan_regional_02": [
+      {
+        "to": "loc_flavor_13",
+        "route_ref": "local_flavor_13",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_13": [
+      {
+        "to": "loc_yan_regional_02",
+        "route_ref": "local_flavor_13",
+        "access_control_ref": null
+      }
+    ],
+    "loc_qi_regional_02": [
+      {
+        "to": "loc_flavor_14",
+        "route_ref": "local_flavor_14",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_14": [
+      {
+        "to": "loc_qi_regional_02",
+        "route_ref": "local_flavor_14",
+        "access_control_ref": null
+      }
+    ],
+    "loc_qin_regional_03": [
+      {
+        "to": "loc_flavor_15",
+        "route_ref": "local_flavor_15",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_15": [
+      {
+        "to": "loc_qin_regional_03",
+        "route_ref": "local_flavor_15",
+        "access_control_ref": null
+      }
+    ],
+    "loc_zhao_regional_03": [
+      {
+        "to": "loc_flavor_16",
+        "route_ref": "local_flavor_16",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_16": [
+      {
+        "to": "loc_zhao_regional_03",
+        "route_ref": "local_flavor_16",
+        "access_control_ref": null
+      }
+    ],
+    "loc_chu_regional_03": [
+      {
+        "to": "loc_flavor_17",
+        "route_ref": "local_flavor_17",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_17": [
+      {
+        "to": "loc_chu_regional_03",
+        "route_ref": "local_flavor_17",
+        "access_control_ref": null
+      }
+    ],
+    "loc_wei_regional_03": [
+      {
+        "to": "loc_flavor_18",
+        "route_ref": "local_flavor_18",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_18": [
+      {
+        "to": "loc_wei_regional_03",
+        "route_ref": "local_flavor_18",
+        "access_control_ref": null
+      }
+    ],
+    "loc_han_regional_03": [
+      {
+        "to": "loc_flavor_19",
+        "route_ref": "local_flavor_19",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_19": [
+      {
+        "to": "loc_han_regional_03",
+        "route_ref": "local_flavor_19",
+        "access_control_ref": null
+      }
+    ],
+    "loc_yan_regional_03": [
+      {
+        "to": "loc_flavor_20",
+        "route_ref": "local_flavor_20",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_20": [
+      {
+        "to": "loc_yan_regional_03",
+        "route_ref": "local_flavor_20",
+        "access_control_ref": null
+      }
+    ],
+    "loc_qi_regional_03": [
+      {
+        "to": "loc_flavor_21",
+        "route_ref": "local_flavor_21",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_21": [
+      {
+        "to": "loc_qi_regional_03",
+        "route_ref": "local_flavor_21",
+        "access_control_ref": null
+      }
+    ],
+    "loc_qin_regional_04": [
+      {
+        "to": "loc_flavor_22",
+        "route_ref": "local_flavor_22",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_22": [
+      {
+        "to": "loc_qin_regional_04",
+        "route_ref": "local_flavor_22",
+        "access_control_ref": null
+      }
+    ],
+    "loc_zhao_regional_04": [
+      {
+        "to": "loc_flavor_23",
+        "route_ref": "local_flavor_23",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_23": [
+      {
+        "to": "loc_zhao_regional_04",
+        "route_ref": "local_flavor_23",
+        "access_control_ref": null
+      }
+    ],
+    "loc_chu_regional_04": [
+      {
+        "to": "loc_flavor_24",
+        "route_ref": "local_flavor_24",
+        "access_control_ref": null
+      }
+    ],
+    "loc_flavor_24": [
+      {
+        "to": "loc_chu_regional_04",
+        "route_ref": "local_flavor_24",
+        "access_control_ref": null
+      }
+    ]
+  }
+}

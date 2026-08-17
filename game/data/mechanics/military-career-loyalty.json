@@ -1,0 +1,123 @@
+{
+  "schema": "sword-military-career-loyalty-rules.v1",
+  "career_review": {
+    "cadence_seconds": 7776000,
+    "route_shard_size": 256,
+    "candidate_slice_per_review": 8,
+    "minimum_military_signal": 35,
+    "petition_threshold_milli": 620,
+    "independence_threshold_milli": 540,
+    "stagnation_review_months": 18,
+    "petition_review_delay_days": 14
+  },
+  "career_pressure_weights": {
+    "ambition": 180,
+    "advancement": 220,
+    "independent_command": 170,
+    "doctrine_compatibility": 120,
+    "professional_respect": 170,
+    "security": 80,
+    "state_allegiance": 160,
+    "current_commander_bond": 170,
+    "formation_bond": 120,
+    "resentment": -180,
+    "stagnation": -170
+  },
+  "commander_attractiveness": {
+    "professional_reputation": 210,
+    "command_scale": 80,
+    "promotion_record": 150,
+    "casualty_stewardship": 170,
+    "logistics_reliability": 120,
+    "doctrine_match": 120,
+    "political_risk": -130,
+    "known_failure": -170,
+    "known_abuse": -230
+  },
+  "institutional_response": {
+    "approve_at_milli": 610,
+    "delay_band_milli": 90,
+    "political_concentration_soft_milli": 620,
+    "political_concentration_hard_milli": 820,
+    "temporary_attachment_bias_milli": 70,
+    "independent_command_bias_milli": 45
+  },
+  "personnel_transfer": {
+    "attachment_review_days": 90,
+    "same_location_minimum_handling_hours": 1,
+    "rule": "Approved petitions create physical personnel movement. A materialized officer remains one conserved force body; intra-force reassignment changes formation allocation only, while cross-force, foreign-service, allegiance, and ownership changes require their separate authorities."
+  },
+  "officer_emergence": {
+    "minimum_battle_reviews": 2,
+    "materialization_pressure_threshold_milli": 430,
+    "base_battle_pressure_gain_milli": 70,
+    "survival_gain_divisor": 20,
+    "quality_gain_divisor": 25,
+    "rule": "Battle performance accumulates relevance on the exact persistent formation. Crossing the relevance threshold may materialize one already-conserved formation member; pressure is reduced rather than globally capped so later generations can still emerge."
+  },
+  "autonomous_crisis": {
+    "disaffection_attention_milli": 760,
+    "state_allegiance_attention_max_milli": 430,
+    "institutional_loyalty_attention_max_milli": 460,
+    "review_slice_per_state_wake": 32,
+    "cooldown_days": 180,
+    "rule": "Only formations already routed into instability attention are reviewed. State and House wakes page their exact owner indexes; they never scan every formation in the world."
+  },
+  "formation_loyalty": {
+    "axis_min": 0,
+    "axis_max": 1000,
+    "default_axes": {
+      "state_allegiance": 720,
+      "institutional_professional": 690,
+      "formation_identity": 500,
+      "legitimacy_confidence": 700,
+      "disaffection": 180
+    },
+    "default_commander_bond_milli": 250,
+    "default_patron_bond_milli": 350,
+    "service_month_gain_milli": 8,
+    "patron_service_month_gain_milli": 6,
+    "well_supported_patron_gain_milli": 4,
+    "severe_disaffection_patron_loss_milli": 8,
+    "high_morale_gain_milli": 5,
+    "low_morale_loss_milli": 7,
+    "high_cohesion_identity_gain_milli": 6,
+    "fatigue_disaffection_gain_milli": 5,
+    "supply_shortage_disaffection_gain_milli": 8,
+    "field_supply_penalty_statuses": ["mobilized", "marching", "deployed", "engaged", "active", "supply_blocked", "besieging", "besieged"],
+    "recent_memory_limit": 32
+  },
+  "allegiance_resolution": {
+    "state_weight": 260,
+    "institution_weight": 170,
+    "formation_weight": 150,
+    "immediate_commander_weight": 260,
+    "patron_weight": 180,
+    "legitimacy_weight": 220,
+    "disaffection_weight": -180,
+    "morale_weight": 80,
+    "cohesion_weight": 100,
+    "exhaustion_weight": -90
+  },
+  "knowledge": {
+    "institutional_dossier_confidence_milli": 780,
+    "public_reputation_confidence_milli": 690,
+    "public_discovery_threshold_milli": 650,
+    "shared_service_confidence_milli": 920,
+    "rule": "An officer may evaluate only information personally held, shared-service evidence, or a lawful military-institution dossier delivered to that officer. Cross-state discovery requires sufficiently propagated public reputation, and hidden dossier details are not attraction inputs."
+  },
+  "invariants": [
+    "No commander receives player-specific attraction logic.",
+    "Career preference and petition state never own office, formation, manpower, equipment, or administrative custody.",
+    "State allegiance and House/patron loyalty remain separate pressures; neither silently rewrites the other.",
+    "A state officer remains a state officer unless the existing authoritative allegiance or appointment mechanism changes that fact.",
+    "Career petitions request action; approved movement executes through physical transfer orders and conserved force/formation accounting.",
+    "Formation loyalty is aggregate cohort-scale state on the persistent formation owner; named people retain exact personal state.",
+    "Carried field ration shortages affect loyalty only in field/mobilized postures; explicit starvation or supply-collapse evidence remains authoritative everywhere.",
+    "Administrative ownership never changes merely because loyalty or effective command allegiance changes.",
+    "Legacy scalar loyalty fields are non-authoritative for military allegiance resolution.",
+    "Materialization must reclassify an existing conserved person or cohort member and never create manpower.",
+    "Routing pages bound work per wake but never cap total officers, commanders, petitions, formations, career events, emergent officers, or allegiance crises.",
+    "Crisis allegiance resolves through state, institution, House/patron, immediate command relationships, named officers, aggregate internal officers, and formation identity rather than a single conversion threshold."
+  ]
+}

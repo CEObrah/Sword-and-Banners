@@ -1,0 +1,157 @@
+{
+  "action_history": [
+    {
+      "at": "244-BCE-01-25T01:22:48+08:00",
+      "duty": "Investigate the assigned Qin formation: commander, strength, route, mission, supply, and any concrete need for additional officers or troops.",
+      "kind": "assign_duty",
+      "subject_ref": "char_tang_ling"
+    }
+  ],
+  "autonomous_reviews": [
+    {
+      "at": "244-BCE-06-04T07:22:48+08:00",
+      "kind": "estate_and_retainer_review",
+      "projects_settled": 0,
+      "source": "autonomous_house_policy"
+    }
+  ],
+  "coordination_runtime": {
+    "last_review": "244-BCE-07-04T00:00:48+08:00",
+    "reviews": 7
+  },
+  "development_requests": {
+    "wei-order-sword-manor-expansion-training-promotion-r98-20260816": {
+      "kind": "sword_manor_infrastructure_expansion",
+      "player_statement": "Mother, Father: start expanding Sword Manor's infrastructure and authorized intake so we can recruit more Initiates. Keep Sword Manor and our House troops training, and promote those who qualify as openings become available. Do not lower our existing standards to fill places.",
+      "request_id": "wei-order-sword-manor-expansion-training-promotion-r98-20260816",
+      "requested_at": "245-BCE-12-25T19:22:48+08:00",
+      "response_event_ref": "event_household_response_221646fe94f55f028a88",
+      "response_summary": "Tang Ling and Tang Zhu start the first Sword Manor expansion tranche for 1800000 silver. They immediately raise the authorized trainee establishment by 1000 places, allowing 500 new Initiates to be admitted now from conserved Qin population using existing spare housing. Construction is due to complete at 244-BCE-02-23T20:22:48+08:00; when complete it will add 2000 trainee housing places, 1000 further authorized trainee places, and 250 monthly intake capacity. The ordinary Sword Manor training and promotion ladder remains in force and now runs on its intended monthly causal review; standards are unchanged.",
+      "result": {
+        "completion_due_at": "244-BCE-02-23T20:22:48+08:00",
+        "completion_housing_add": 2000,
+        "completion_monthly_intake_add": 250,
+        "completion_trainee_authorization_add": 1000,
+        "initial_intake_count": 500,
+        "initial_status": {
+          "authorized": 6000,
+          "current": 5500,
+          "current_vacancy": 500,
+          "housing_capacity": 6000,
+          "monthly_intake_capacity": 500,
+          "next_review_at": "244-BCE-01-01T06:00:00+08:00",
+          "role": "trainee",
+          "selection_profile": "sword_manor_screened_initiate"
+        },
+        "initial_trainee_authorization_add": 1000,
+        "project_ref": "project_house_tang_sword_manor_expansion_i",
+        "standards_rule": "expansion changes capacity only; recruitment and promotion standards remain unchanged",
+        "start_cost_silver": 1800000,
+        "started_at": "245-BCE-12-25T20:22:48+08:00",
+        "status": "active",
+        "sword_manor": {
+          "authorized": 6000,
+          "current": 5500,
+          "current_vacancy": 500,
+          "housing_capacity": 6000,
+          "monthly_intake_capacity": 500,
+          "next_review_at": "244-BCE-01-01T06:00:00+08:00",
+          "role": "trainee",
+          "selection_profile": "sword_manor_screened_initiate"
+        },
+        "treasury_safe_ceiling_before_start_silver": 4370388,
+        "treasury_silver_after_start": 52439880
+      },
+      "settled_at": "245-BCE-12-25T20:22:48+08:00",
+      "source_event_id": "scene_7509a26d953b2005",
+      "status": "settled",
+      "target_ref": "char_tang_ling"
+    }
+  },
+  "duty_assignments": {
+    "char_tang_ling": {
+      "assigned_at": "244-BCE-01-25T01:22:48+08:00",
+      "duty": "Investigate the assigned Qin formation: commander, strength, route, mission, supply, and any concrete need for additional officers or troops.",
+      "grantor_ref": "char_tang_wei",
+      "house_ref": "house_tang"
+    }
+  },
+  "goals": [
+    "preserve household",
+    "improve standing"
+  ],
+  "house_ref": "house_tang",
+  "last_review": "244-BCE-06-04T07:22:48+08:00",
+  "leader_ref": "char_tang_zhu",
+  "lineage_cohort": {
+    "adults": 3,
+    "children": 1,
+    "elders": 0,
+    "exact_member_refs": [
+      "char_tang_kai",
+      "char_tang_ling",
+      "char_tang_wei",
+      "char_tang_zhu"
+    ],
+    "last_close": "244-BCE-06-04T07:22:48+08:00",
+    "marriages": 1,
+    "projection_basis": "state/family/index.json exact people"
+  },
+  "military_force_ref": "force_house_tang",
+  "owner_id": "house_tang",
+  "projects": [],
+  "recruitment_reporting": {
+    "char_tang_wei": {
+      "active": false,
+      "reported_sword_manor_intake_at": "245-BCE-12-25T23:05:48+08:00",
+      "subscribed_at": "245-BCE-12-07T11:05:48+08:00"
+    }
+  },
+  "repair_history": [
+    {
+      "at": "245-BCE-12-07T12:05:48+08:00",
+      "duplicate_response_event_ref": "event_household_response_8dd428f4cfb025220bb0",
+      "effect": "Corrected only House administrative request classification and attribution. No chronology, treasury balance, headcount, equipment, formation, recruitment acceptance, or spending changed.",
+      "repair_ref": "repair_house_request_classifier_r35_20260815",
+      "source_defect": "Pre-PR45 household request classifier treated Tang Ling's recruitment numbers/timing ask as a recruitment-start request because the question contained generic opening language.",
+      "source_fix_commit": "f6477dd7d61591593399a081c825f07157de7a6d",
+      "superseding_request_id": "wei-reask-ling-numbers-after-classifier-fix-r33-20260815b",
+      "superseding_response_event_ref": "event_household_response_9b66ad06df3b2ea3ece7"
+    }
+  ],
+  "schema": "sword-house",
+  "state": "qin",
+  "threat_level": "0.1",
+  "treasury_ref": "treasury_house_tang",
+  "estate_support": {
+    "population_ref": "population_tang_manor",
+    "treasury_ref": "treasury_house_tang",
+    "depot_ref": "depot_house_tang",
+    "supported_fighting_personnel": 135000,
+    "house_mounts": 12000,
+    "food_monthly_output_kg": 14000000,
+    "fodder_monthly_output_kg": 4000000,
+    "strategic_food_reserve_kg": 450000000,
+    "strategic_fodder_reserve_kg": 180000000,
+    "infrastructure_rule": "Sword Manor is part of House Tang permanent support burden, not an external client."
+  },
+  "military_command": {
+    "army_commander_ref": "char_tang_zhu",
+    "army_deputy_ref": "char_tang_ling",
+    "force_ref": "force_house_tang"
+  },
+  "force_employment_policy_ref": "game/data/mechanics/house-tang-force-policy.json",
+  "administrative_programs": {
+    "sword_manor_private_service": {
+      "policy_ref": "game/data/mechanics/house-tang-force-policy.json#sword_manor_private_work",
+      "contract_registry_ref": "contract_sword_manor_private_service",
+      "status": "standing",
+      "outsider_training_allowed": false
+    },
+    "mercenary_first_force_employment": {
+      "policy_ref": "game/data/mechanics/house-tang-force-policy.json#force_employment",
+      "standing_contract_ref": "contract_tang_contracted_defense",
+      "status": "standing"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "states"
+  ],
+  "properties": {
+    "schema": {
+      "const": "state-military-identities.v38"
+    },
+    "states": {
+      "type": "object",
+      "minProperties": 7
+    }
+  },
+  "additionalProperties": true
+}

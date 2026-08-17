@@ -1,0 +1,24 @@
+{
+  "location_ref": "loc_wei_regional_01",
+  "owner_id": "state_depot_wei",
+  "schema": "sword-depot",
+  "state": "wei",
+  "stocks": {
+    "carts": 22000,
+    "fodder_kg": 61991600,
+    "grain_kg": 220060000,
+    "iron_tonnes": 62000,
+    "medicine_lots": 35000,
+    "timber_tonnes": 190000,
+    "war_arrows": 13848800,
+    "war_bolts": 15000000
+  },
+  "region_ref": "loc_wei_regional_01",
+  "geography": {
+    "location_ref": "loc_wei_regional_01",
+    "region_ref": "loc_wei_regional_01",
+    "access_node_ref": "loc_wei_regional_01",
+    "owns_local_population": false,
+    "rule": "depot owns stock only; surrounding population/economy remain with their exact demographic/economic owners"
+  }
+}

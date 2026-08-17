@@ -1,0 +1,138 @@
+{
+  "accounting_only": true,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 6.1
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 61,
+      "sd": 7.5
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 62,
+    "aggression": 58,
+    "casualty_tolerance": 55,
+    "caution": 48,
+    "initiative": 54,
+    "objective_focus": 68,
+    "pursuit_bias": 50
+  },
+  "composition_rule": "company is persistent combined force, not one generic blob",
+  "contracts": [],
+  "doctrine": "doc.merc.major.11",
+  "doctrine_familiarity": 75,
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 8500,
+  "home_establishment_ref": "establishment.merc.major.11",
+  "name": "Amber Wheel",
+  "owner_id": "merc.major.11",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "mercenary",
+  "specialty": "wagon",
+  "status": "available",
+  "training": "train.merc.regular",
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-11-line-guards.json",
+      "count": 3570,
+      "doctrine": "doc.merc.major.11",
+      "id": "merc.major.11.line_guards",
+      "loadout": "loadout_mercenary_line",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "line_guards",
+      "schema": "troop_pool.v1",
+      "specialty": "line_guards",
+      "training": "train.merc.regular",
+      "troop_type": "guard_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-11-crossbow.json",
+      "count": 1530,
+      "doctrine": "doc.merc.major.11",
+      "id": "merc.major.11.crossbow",
+      "loadout": "loadout_mercenary_crossbow",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "crossbow",
+      "schema": "troop_pool.v1",
+      "specialty": "crossbow",
+      "training": "train.merc.regular",
+      "troop_type": "crossbow_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-11-engineer-drivers.json",
+      "count": 2125,
+      "doctrine": "doc.merc.major.11",
+      "id": "merc.major.11.engineer_drivers",
+      "loadout": "loadout_mercenary_engineer",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "engineer_drivers",
+      "schema": "troop_pool.v1",
+      "specialty": "engineer_drivers",
+      "training": "train.merc.regular",
+      "troop_type": "engineer"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-11-support.json",
+      "count": 1275,
+      "doctrine": "doc.merc.major.11",
+      "id": "merc.major.11.support",
+      "loadout": "loadout_mercenary_support",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "support",
+      "schema": "troop_pool.v1",
+      "specialty": "support",
+      "training": "train.merc.regular",
+      "troop_type": "support_staff"
+    }
+  ],
+  "home_location_ref": "loc_qin_regional_01",
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "geographic_provenance": {
+    "migration": "world_geography_overhaul_v1",
+    "rule": "company remains exact manpower owner; contract/employer does not own duplicate bodies"
+  },
+  "establishment_strength": 8500,
+  "market_scale_provenance": {
+    "migration": "mercenary_ecology_v2",
+    "previous_headcount": 1600,
+    "rule": "existing company identity/specialty preserved; expansion is current-world baseline content, not duplicated manpower"
+  },
+  "market_tier": "major_famous",
+  "market_engagement": {
+    "kind": "available",
+    "short_notice_available": true,
+    "seeded_at": "244-BCE-07-23T01:22:48+08:00",
+    "rule": "current commercial/military employment affects availability without changing company manpower ownership"
+  }
+}

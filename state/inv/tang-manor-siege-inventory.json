@@ -1,0 +1,84 @@
+{
+  "name": "Tang Manor Siege Defense Inventory",
+  "owner_id": "tang_manor_siege_inventory",
+  "owner_type": "siege_inventory",
+  "records": [
+    {
+      "label": "Overview",
+      "notes": [
+        "Tang Manor is an apex private fortress and a direct assault is expected to be catastrophically expensive. The fortress has no plot armor: starvation, disease, betrayal, internal collapse, political isolation, successful mining, prolonged bombardment, or overwhelming force can still produce lawful defeat."
+      ],
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "Defensive Traction Trebuchets installed": 48,
+        "Defensive Traction Trebuchets reserve": 12,
+        "Defensive Traction Trebuchets total": 60,
+        "Prepared Firepots": 20000,
+        "Prepared Wall Drop Stones 20 kg": 64000,
+        "Tang Bed Crossbow Bolts": 300000,
+        "Tang Defensive Firepot Cauldrons installed": 128,
+        "Tang Wall Bed Crossbows installed": 320,
+        "Tang Wall Bed Crossbows reserve": 80,
+        "Tang Wall Bed Crossbows total": 400,
+        "Tang Wall Stone-Drop Cranes installed": 128,
+        "Trebuchet Stones 50 kg": 12000
+      },
+      "items": [
+        "outer wall and towers: 256",
+        "inner citadel wall and towers: 48",
+        "main gate complex: 16",
+        "outer wall and towers: 32",
+        "inner citadel wall and towers: 12",
+        "main gate complex: 4"
+      ],
+      "label": "Installed artillery",
+      "record_id": "installed_artillery"
+    },
+    {
+      "facts": {
+        "Cut stone repair blocks tonnes": 12000,
+        "Heavy Battering Rams for controlled counterassault or gate recovery": 8,
+        "Heavy repair timber cubic meters": 8000,
+        "Large Mantlets": 300,
+        "Rope and hauling sets": 600,
+        "Shielded Siege Galleries": 40,
+        "Siege Mining and Countermining Tool Sets": 120
+      },
+      "label": "Counter-siege engineering",
+      "record_id": "counter_siege_engineering"
+    },
+    {
+      "facts": {
+        "General disciples bed-crossbow qualified": 1000,
+        "General disciples countermining qualified": 300,
+        "General disciples trebuchet-crew qualified": 300,
+        "House Guards bed-crossbow qualified": 500,
+        "House Guards countermining qualified": 150,
+        "House Guards trebuchet-specialist qualified": 100,
+        "Junior disciples ammunition-and-firepot qualified": 1000,
+        "Junior disciples bed-crossbow qualified": 300,
+        "Senior disciples bed-crossbow qualified": 150,
+        "Senior disciples trebuchet-specialist qualified": 50,
+        "Sword Manor anonymous officers artillery-command qualified": 50,
+        "bed_crossbow_minimum_crew_if_all_320_operate": 1280,
+        "full_simultaneous_operation_requires_exact_manning_plan": true,
+        "monthly_owner": "process_tang_manor_siege_defense",
+        "no_free_crew_rule": "artillery operation removes the exact people from other wall, reserve, medical, escort, or field duties for the same interval",
+        "qualification_counts_are_nonexclusive": true,
+        "trebuchet_minimum_crew_if_all_48_operate": 2880,
+        "trebuchet_trained_specialists_if_all_48_operate": 384
+      },
+      "label": "Crew qualifications",
+      "record_id": "crew_qualifications"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "siege-inventory",
+  "fortification_site_ref": "loc_tang_manor",
+  "fortification_profile_ref": "fort_profile_tang_manor",
+  "containment_rule": "inventory belongs to the Tang Manor defensive complex; it is not duplicated into generic fortification state"
+}

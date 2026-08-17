@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sword interstate treaty registry",
+  "type": "object",
+  "required": ["schema", "owner_id", "authority", "records"],
+  "properties": {
+    "schema": {"const": "sword-treaty-registry"},
+    "owner_id": {"const": "interstate_treaties"},
+    "authority": {"const": true},
+    "records": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["treaty_ref", "kind", "parties", "status", "signed_at", "terms"],
+        "properties": {
+          "treaty_ref": {"type": "string", "minLength": 1, "maxLength": 160},
+          "kind": {"type": "string", "minLength": 1, "maxLength": 96},
+          "parties": {"type": "array", "minItems": 2, "maxItems": 8, "items": {"type": "string"}, "uniqueItems": true},
+          "status": {"enum": ["active", "expired", "superseded", "broken"]},
+          "signed_at": {"type": "string"},
+          "theater_ref": {"type": "string"},
+          "war_result": {"type": ["string", "null"]},
+          "truce_until": {"type": "string"},
+          "terms": {"type": "object"},
+          "provenance": {"type": "object"}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

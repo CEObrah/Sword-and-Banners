@@ -1,0 +1,36 @@
+{
+  "schema": "manpower-capability.v1",
+  "id": "capability.force_pool_wei_cavalry",
+  "pool_id": "force_pool_wei_cavalry",
+  "source_owner": "force_state_wei",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 164,
+      "sd": 6.6
+    },
+    "weight_kg": {
+      "mean": 62,
+      "sd": 7.2
+    },
+    "individual_records_required": false
+  },
+  "aptitude_distribution": {
+    "mean": 105,
+    "sd": 16,
+    "low_pct": 12,
+    "normal_pct": 62,
+    "high_pct": 22,
+    "exceptional_pct": 4,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "source_owner_kind": "exact_force",
+  "current_owner_required": true,
+  "authority": false,
+  "manpower_semantics": "capability only; this document never proves current soldiers exist"
+}

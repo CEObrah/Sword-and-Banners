@@ -1,0 +1,59 @@
+{
+  "administrative_owner": "state_zhao",
+  "autonomous_orders": [
+    {
+      "action_ref": "state_arc_841766204bb346e786",
+      "arc_ref": "arc_northern_steppe_ganmon_pressure",
+      "at": "244-BCE-01-27T06:22:48+08:00",
+      "goal": "protect core territory",
+      "kind": "state_world_arc_operation",
+      "target_ref": "faction_northern_steppe_confederation"
+    }
+  ],
+  "cohesion": 71,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_zhao_0819e8d48f95",
+      "count": 5000
+    }
+  ],
+  "command_authority": "state_zhao",
+  "commander_ref": "char_bananji",
+  "composition": {
+    "cavalry": 5000
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 70,
+    "withdrawal_threshold": 35
+  },
+  "doctrine_ref": null,
+  "equipment_completeness": "0.9",
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_zhao_mobile_reserve",
+  "location_ref": "loc_zhao_regional_03",
+  "logistics": {
+    "fodder_kg": 10000,
+    "food_kg": 25000,
+    "war_arrows": 180000,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 70,
+  "mounts": {
+    "horse_war_military": 5000
+  },
+  "name": "ZHAO Mobile Reserve",
+  "owner_force_ref": "force_state_zhao",
+  "personnel": 5000,
+  "readiness": 71,
+  "schema": "sword-formation",
+  "status": "mobilized",
+  "training_progress": 27,
+  "training_ref": null,
+  "geographic_provenance": {
+    "migration": "world_geography_overhaul_v1",
+    "basis": "replaced arbitrary seed parking with meaningful current regional disposition; ownership/personnel unchanged"
+  }
+}

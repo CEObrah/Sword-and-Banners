@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Military personnel transfer routing index",
+  "type": "object",
+  "required": ["schema", "authority", "orders", "active_by_state", "active_attachments_by_state", "completed_count"],
+  "properties": {
+    "schema": {"const": "sword-military-personnel-transfer-index.v1"},
+    "authority": {"const": false},
+    "orders": {"type": "object", "additionalProperties": {"type": "string"}},
+    "active_by_state": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}},
+    "active_attachments_by_state": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}},
+    "completed_count": {"type": "integer", "minimum": 0}
+  },
+  "additionalProperties": false
+}

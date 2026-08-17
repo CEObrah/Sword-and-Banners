@@ -1,0 +1,54 @@
+{
+  "backlog": 0,
+  "capacity": 80,
+  "kind": "military_bureau",
+  "last_review": "244-BCE-07-02T07:22:48+08:00",
+  "military_review": {
+    "at": "244-BCE-07-02T07:22:48+08:00",
+    "commander_vacancies": [
+      "formation_qi_coastal_reserve",
+      "formation_qi_mobile_guard"
+    ],
+    "formation_count": 2,
+    "low_readiness": [],
+    "rule": "bureau spends exact treasury silver into the formation locality to improve non-player formation readiness; command appointments and stock transfers remain separately owned",
+    "trained_formations": [],
+    "undersupplied": []
+  },
+  "name": "QI Military Bureau",
+  "operating_contract": {
+    "authority": "exact existing owners only",
+    "conservation_rule": "no people, money, mounts, food, equipment, materials, office, or territory may be created by review prose alone",
+    "outputs": [
+      "formation_readiness",
+      "command_vacancies",
+      "operational_priorities"
+    ]
+  },
+  "owner_id": "inst_qi_military_bureau",
+  "policy": "QI: review exact formations, commander vacancies, readiness, supply and operational commitments; recommend priorities without inventing commanders or equipment",
+  "projects": [],
+  "resources": {},
+  "schema": "sword-institution",
+  "staffing": "aggregate",
+  "state": "qi",
+  "location_ref": "loc_ei",
+  "service_region_refs": [
+    "loc_qi_regional_01",
+    "loc_qi_regional_02",
+    "loc_qi_regional_03",
+    "loc_qi_regional_04"
+  ],
+  "geography": {
+    "headquarters_location_ref": "loc_ei",
+    "service_region_refs": [
+      "loc_qi_regional_01",
+      "loc_qi_regional_02",
+      "loc_qi_regional_03",
+      "loc_qi_regional_04"
+    ],
+    "owns_local_population": false,
+    "rule": "institutional authority is routed through exact regional owners; headquarters does not become a demographic region or manpower owner"
+  },
+  "linked_force_ref": "force_state_qi"
+}

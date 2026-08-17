@@ -1,0 +1,63 @@
+{
+  "schema": "house-tang-force-policy.v1",
+  "authority": "Static House Tang force-employment, recruiting, training and private-service policy. Exact people, manpower, contracts, money and operations remain in their existing mutable owners.",
+  "recruitment": {
+    "exclusive_entrypoint": "institution_sword_manor:trainee",
+    "monthly_maximum_intake": 2000,
+    "source_population_ref": "population_qin",
+    "selection_profile": "sword_manor_screened_initiate",
+    "ladder": [
+      "trainee",
+      "junior_disciple",
+      "general_disciple",
+      "senior_disciple",
+      "house_guard",
+      "guardian_cavalry",
+      "tang_champion"
+    ],
+    "rule": "House Tang creates no direct autonomous regular recruits. Every new regular fighting body enters through a real Sword Manor trainee vacancy, conserved Qin population, screening and elapsed training, then advances only through registered promotion gates, vacancies, mounts and equipment."
+  },
+  "training": {
+    "regimen_ref": "house_tang_max_sustainable",
+    "smart_rotation": "prioritize next lawful promotion deficits; then current loadout and troop-type skills; then command/logistics needs; then the weakest useful registered stats; rotate deterministically so one already-high stat cannot monopolize training",
+    "named_people": "eligible requested adult House Tang/Sword Manor/Tang Wei/Qin-assigned commanders use the same max-sustainable regimen through exact-person activity contracts; Tang Kai remains age-appropriate only",
+    "person_lite": "House Tang, Sword Manor and Wei-designated Qin 1,000/500 officers train as conserved person-lite bodies through their exact force owners",
+    "no_free_progress": true
+  },
+  "force_employment": {
+    "priority": [
+      "standing_contracted_mercenaries",
+      "additional_hired_mercenaries",
+      "sword_manor_mobilization",
+      "house_tang_regulars"
+    ],
+    "principle": "Spend replaceable money before scarce long-trained House lives when a lawful available mercenary solution can accomplish the mission.",
+    "constraints": [
+      "Mercenary preference never overrides a direct protected-life emergency, explicit sovereign duty, exact command order, route impossibility, company refusal, insolvency, or lack of suitable available contractors.",
+      "Mercenary contracts organize service only and never transfer body ownership to House Tang.",
+      "Sword Manor is a private House institution; it does not train outsiders for tuition or public enrollment.",
+      "House regulars remain available when the mission genuinely requires their quality, loyalty, speed, command integration or political authority."
+    ]
+  },
+  "contingency_mercenary_procurement": {
+    "review": "House causal review plus material threat/war wake",
+    "minimum_threat_severity": 45,
+    "desired_additional_headcount_by_severity": [
+      {"minimum": 80, "headcount": 50000},
+      {"minimum": 65, "headcount": 30000},
+      {"minimum": 45, "headcount": 15000}
+    ],
+    "term_days": 90,
+    "offer_premium_basis_points": 11500,
+    "preferred_deployment_location_ref": "loc_tang_manor_defense_camp",
+    "rule": "Offers are made only to exact available short-notice companies and must pass fair-pay and House treasury checks; accepted contracts are funded from treasury_house_tang and remain independent manpower owners."
+  },
+  "sword_manor_private_work": {
+    "allowed": ["merchant_escort", "caravan_security", "route_security", "high_value_courier_guard", "private_site_security"],
+    "forbidden": ["outsider_training_for_fee", "public_martial_school_tuition", "sale_of_house_training_curriculum"],
+    "maximum_duty_personnel": 600,
+    "eligible_roles": ["general_disciple", "senior_disciple"],
+    "monthly_service_fee_silver_per_person": 60,
+    "rule": "Completed private jobs use only unallocated eligible disciples, are zero-body service contracts, and transfer real market cash to House Tang. Duty is a bounded assignment, not extra manpower or free training."
+  }
+}

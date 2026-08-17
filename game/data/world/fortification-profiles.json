@@ -1,0 +1,447 @@
+{
+  "profiles": [
+    {
+      "defense_class": "major",
+      "materialization_required": true,
+      "profile_id": "fort_profile_kanyou",
+      "site_ref": "loc_kanyou",
+      "physical_baseline": {
+        "perimeter_class": "deep_fortified_complex",
+        "wall_system": "multi_line_masonry_and_earthworks",
+        "gate_system": "layered_controlled_gates",
+        "tower_system": "dense_watch_and_fighting_towers",
+        "defensive_depth": "multiple_defensive_zones",
+        "storage_class": "campaign_siege_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "major",
+      "materialization_required": true,
+      "profile_id": "fort_profile_kankoku_pass",
+      "site_ref": "loc_kankoku_pass",
+      "physical_baseline": {
+        "perimeter_class": "deep_fortified_complex",
+        "wall_system": "multi_line_masonry_and_earthworks",
+        "gate_system": "layered_controlled_gates",
+        "tower_system": "dense_watch_and_fighting_towers",
+        "defensive_depth": "multiple_defensive_zones",
+        "storage_class": "campaign_siege_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [
+        "route_kanyou_kankoku",
+        "route_qin_east_kankoku",
+        "route_kankoku_keiyou"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "fortified corridor",
+        "mountain/defile approaches"
+      ],
+      "bypass_policy": "alternatives must exist as separate strategic route edges; none are implied by the pass label"
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_bu_pass",
+      "site_ref": "loc_bu_pass",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [
+        "route_qin_south_bu",
+        "route_qin_bu_chu_north"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_sai",
+      "site_ref": "loc_sai",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_qin_western_fort",
+      "site_ref": "loc_qin_western_fort",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "major",
+      "materialization_required": true,
+      "profile_id": "fort_profile_kantan",
+      "site_ref": "loc_kantan",
+      "physical_baseline": {
+        "perimeter_class": "deep_fortified_complex",
+        "wall_system": "multi_line_masonry_and_earthworks",
+        "gate_system": "layered_controlled_gates",
+        "tower_system": "dense_watch_and_fighting_towers",
+        "defensive_depth": "multiple_defensive_zones",
+        "storage_class": "campaign_siege_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_gyou",
+      "site_ref": "loc_gyou",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_zhao_border_fort",
+      "site_ref": "loc_zhao_border_fort",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [
+        "route_zhao_south_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_shintei",
+      "site_ref": "loc_shintei",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_chu_north_fort",
+      "site_ref": "loc_chu_north_fort",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [
+        "route_chu_north_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_dairyou",
+      "site_ref": "loc_dairyou",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_keiyou",
+      "site_ref": "loc_keiyou",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_wei_west_fort",
+      "site_ref": "loc_wei_west_fort",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [
+        "route_wei_west_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_han_capital",
+      "site_ref": "loc_han_capital",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_han_frontier_fort",
+      "site_ref": "loc_han_frontier_fort",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [
+        "route_han_west_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_ji",
+      "site_ref": "loc_ji",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_yan_south_fort",
+      "site_ref": "loc_yan_south_fort",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [
+        "route_yan_south_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_ei",
+      "site_ref": "loc_ei",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_qi_west_fort",
+      "site_ref": "loc_qi_west_fort",
+      "physical_baseline": {
+        "perimeter_class": "fortified_enclosure",
+        "wall_system": "masonry_or_compacted_earth_wall",
+        "gate_system": "controlled_main_gates",
+        "tower_system": "regular_watch_towers",
+        "defensive_depth": "single_primary_perimeter_with_inner_fallback",
+        "storage_class": "regional_garrison_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [
+        "route_qi_west_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "site-specific strategic approach from route topology"
+      ]
+    },
+    {
+      "defense_class": "major_private_estate",
+      "materialization_required": true,
+      "profile_id": "fort_profile_tang_manor",
+      "site_ref": "loc_tang_manor",
+      "physical_baseline": {
+        "perimeter_class": "deep_fortified_complex",
+        "wall_system": "multi_line_masonry_and_earthworks",
+        "gate_system": "layered_controlled_gates",
+        "tower_system": "dense_watch_and_fighting_towers",
+        "defensive_depth": "multiple_defensive_zones",
+        "storage_class": "campaign_siege_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical meter values"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "siege_inventory_ref": "state/inv/tang-manor-siege-inventory.json",
+      "child_containment": "Tang Manor facilities inherit enclosure from this parent without duplicate wall ownership"
+    },
+    {
+      "defense_class": "local",
+      "materialization_required": true,
+      "profile_id": "fort_profile_jo_city",
+      "site_ref": "loc_jo_city",
+      "physical_baseline": {
+        "perimeter_class": "mountain_city_enclosure",
+        "wall_system": "compacted_earth_and_stone_defenses",
+        "gate_system": "controlled_mountain_approach_gates",
+        "tower_system": "ridge_and_gate_watch_posts",
+        "defensive_depth": "single_primary_perimeter_with_terrain_fallback",
+        "storage_class": "local_siege_reserve",
+        "measurement_policy": "qualitative game baseline; no unsupported pseudo-historical measurements"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Jo's defensive advantage derives from mountain approach topology and the city perimeter; the city does not magically block all three external trails.",
+      "approach_constraints": [
+        "narrow mountain approaches",
+        "limited convoy throughput"
+      ]
+    }
+  ],
+  "schema": "sword-fortification-profiles",
+  "blueprint_authority": "static physical baselines seed first materialization only; materialized damage/repairs remain persistent state and are never reset from profile"
+}

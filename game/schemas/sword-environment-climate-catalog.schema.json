@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sword & Banners deterministic environment climate catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "version", "weather_block_hours", "basis", "location_prefix_states", "profiles"],
+  "properties": {
+    "schema": {"const": "sword-environment-climate-catalog"},
+    "version": {"type": "integer", "minimum": 1},
+    "weather_block_hours": {"type": "integer", "minimum": 1},
+    "basis": {"type": "string", "minLength": 1},
+    "location_prefix_states": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "profiles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "temperature_index_by_season",
+          "precipitation_chance_pct",
+          "storm_chance_pct",
+          "fog_chance_pct",
+          "cloud_chance_pct",
+          "wind_bias"
+        ],
+        "properties": {
+          "temperature_index_by_season": {"$ref": "#/$defs/seasonIndex"},
+          "precipitation_chance_pct": {"$ref": "#/$defs/seasonPct"},
+          "storm_chance_pct": {"$ref": "#/$defs/seasonPct"},
+          "fog_chance_pct": {"$ref": "#/$defs/seasonPct"},
+          "cloud_chance_pct": {"$ref": "#/$defs/seasonPct"},
+          "wind_bias": {"type": "integer", "minimum": -100, "maximum": 100}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "seasonIndex": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["winter", "spring", "summer", "autumn"],
+      "properties": {
+        "winter": {"type": "integer", "minimum": -10, "maximum": 10},
+        "spring": {"type": "integer", "minimum": -10, "maximum": 10},
+        "summer": {"type": "integer", "minimum": -10, "maximum": 10},
+        "autumn": {"type": "integer", "minimum": -10, "maximum": 10}
+      }
+    },
+    "seasonPct": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["winter", "spring", "summer", "autumn"],
+      "properties": {
+        "winter": {"type": "integer", "minimum": 0, "maximum": 100},
+        "spring": {"type": "integer", "minimum": 0, "maximum": 100},
+        "summer": {"type": "integer", "minimum": 0, "maximum": 100},
+        "autumn": {"type": "integer", "minimum": 0, "maximum": 100}
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "owner_id", "owner_type", "policy", "networks"],
+  "properties": {
+    "schema": {"const": "household-military-network-registry"},
+    "owner_id": {"type": "string"},
+    "owner_type": {"const": "household_military_network_registry"},
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state_command_separate_from_household",
+        "profile_only_noncombat",
+        "exact_manpower_requires_source_conservation",
+        "exact_equipment_requires_source_conservation",
+        "quality_requires_training_resources_history",
+        "royal_state_boundary_must_be_resolved"
+      ],
+      "properties": {
+        "state_command_separate_from_household": {"const": true},
+        "profile_only_noncombat": {"const": true},
+        "exact_manpower_requires_source_conservation": {"const": true},
+        "exact_equipment_requires_source_conservation": {"const": true},
+        "quality_requires_training_resources_history": {"const": true},
+        "royal_state_boundary_must_be_resolved": {"const": true}
+      }
+    },
+    "networks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "anchor_refs",
+          "polity_scope",
+          "network_kind",
+          "ownership_scope",
+          "materialization_state",
+          "force_refs"
+        ],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "anchor_refs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "polity_scope": {"type": "string", "minLength": 1},
+          "network_kind": {
+            "enum": [
+              "aristocratic_household",
+              "military_household",
+              "personal_retainer_network",
+              "political_household",
+              "royal_household"
+            ]
+          },
+          "ownership_scope": {
+            "enum": [
+              "private_household",
+              "personal_loyalty",
+              "crown_state_boundary"
+            ]
+          },
+          "materialization_state": {"enum": ["profile_only", "materialized"]},
+          "force_refs": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          }
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"materialization_state": {"const": "profile_only"}}},
+            "then": {"properties": {"force_refs": {"maxItems": 0}}}
+          },
+          {
+            "if": {"properties": {"materialization_state": {"const": "materialized"}}},
+            "then": {"properties": {"force_refs": {"minItems": 1}}}
+          }
+        ]
+      }
+    }
+  }
+}

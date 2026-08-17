@@ -1,0 +1,24 @@
+{
+  "location_ref": "loc_chu_regional_01",
+  "owner_id": "state_depot_chu",
+  "schema": "sword-depot",
+  "state": "chu",
+  "stocks": {
+    "carts": 48000,
+    "fodder_kg": 94990000,
+    "grain_kg": 590041500,
+    "iron_tonnes": 70000,
+    "medicine_lots": 68000,
+    "timber_tonnes": 420000,
+    "war_arrows": 31820000,
+    "war_bolts": 10000000
+  },
+  "region_ref": "loc_chu_regional_01",
+  "geography": {
+    "location_ref": "loc_chu_regional_01",
+    "region_ref": "loc_chu_regional_01",
+    "access_node_ref": "loc_chu_regional_01",
+    "owns_local_population": false,
+    "rule": "depot owns stock only; surrounding population/economy remain with their exact demographic/economic owners"
+  }
+}

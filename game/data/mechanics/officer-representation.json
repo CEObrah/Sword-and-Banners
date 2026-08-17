@@ -1,0 +1,25 @@
+{
+  "schema": "officer-representation-policy.v1",
+  "authority": "Static representation policy only; manpower, formation, ownership and appointment truth remain in native owners.",
+  "default_representation": "aggregate",
+  "automatic_person_lite": {
+    "minimum_commanded_personnel": 500,
+    "maximum_aggregate_commanded_personnel": 499,
+    "scopes": {
+      "tang_wei_assigned_command": {
+        "player_ref": "char_tang_wei"
+      },
+      "house_tang": {
+        "owner_ref": "house_tang",
+        "force_ref": "force_house_tang"
+      },
+      "sword_manor": {
+        "institution_ref": "institution_sword_manor"
+      }
+    },
+    "rule": "Inside these scopes, ordinary 1,000/500 commanders become person-lite; 100-man and below remain aggregate unless independently salient."
+  },
+  "external_command_rule": "Army commander/deputy and persistent unit commander/deputy are outside fighting-strength troop numbers.",
+  "loadout_rule": "Army/unit commander and deputy use loadout_house_champion. Internal infantry commanders use loadout_house_guard; internal cavalry commanders use loadout_house_champion. Wei-assigned Qin uses the same troop-type rule without changing Qin ownership.",
+  "materialization_rule": "Every internal person-lite consumes one conserved fighting body. Representation never creates manpower."
+}

@@ -1,0 +1,489 @@
+{
+  "schema": "person-lite",
+  "id": "staff.chu.karin.chu_yan",
+  "name": "Chu Yan",
+  "resolution": "individual_lite",
+  "owner": "army.karin_army",
+  "family_id": "fam.chu_yan",
+  "origin": "Chu",
+  "rank": "named_staff_officer",
+  "role": "operations officer",
+  "stats": {
+    "attributes": {
+      "Strength": 88.0,
+      "Agility": 96.0,
+      "Endurance": 84.0,
+      "Toughness": 99.0,
+      "Coordination": 93.0,
+      "Awareness": 79.0,
+      "Composure": 91.0,
+      "Intelligence": 87.0,
+      "Presence": 85.0
+    },
+    "skills": {
+      "Sword": 87,
+      "Spear": 96.0,
+      "Glaive": 100,
+      "Axe": 76,
+      "Mace": 103,
+      "Staff": 102,
+      "Dagger": 97,
+      "Bow": 102.0,
+      "Crossbow": 103,
+      "Shield": 73.0,
+      "Defense": 89.0,
+      "Athletics": 78.0,
+      "Mass Combat": 103.0,
+      "Grappling": 83,
+      "Unarmed": 78,
+      "Riding": 68,
+      "Formation Fighting": 108.0,
+      "Survival": 84.0,
+      "Stealth": 101,
+      "Scouting": 96,
+      "Navigation": 86,
+      "Medicine": 94,
+      "Engineering": 70,
+      "Leadership": 111.0,
+      "Formation Command": 125,
+      "Tactics": 128,
+      "Strategy": 93.0,
+      "Logistics": 83.0,
+      "Intelligence Operations": 75,
+      "Training": 86.0,
+      "Diplomacy": 91,
+      "Law": 82,
+      "Trade": 87,
+      "Intrigue": 68,
+      "Governance": 92
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "fatigue": 0
+  },
+  "equipment_standard": "loadout_state_command_personnel",
+  "mount": null,
+  "loc": "Chu",
+  "loyalty": "professional_or_institutional",
+  "narration_priority": "role_until_relevant",
+  "history": {
+    "service": [
+      "Built enough practical experience in operations officer duties to earn a permanent named post rather than anonymous staff representation."
+    ],
+    "promotion": []
+  },
+  "birth_date": "275-BCE-07-14",
+  "birth_date_source": "simulation_assigned_stable_seed",
+  "body": {
+    "adult_height_cm": 160.4,
+    "growth_profile_id": "human_height_to_18",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "current_weight_kg": 49.9,
+    "frame": "average",
+    "source": "simulation_assigned"
+  },
+  "appearance": 54,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "physical_learning": 136,
+    "technical_learning": 129,
+    "tactical_learning": 122,
+    "academic_learning": 107,
+    "social_learning": 119,
+    "source": "individual_lite_seed"
+  },
+  "personality": {
+    "resolution": "compact",
+    "traits": [
+      "methodical",
+      "decisive",
+      "brief"
+    ],
+    "preferences": [
+      "clear orders",
+      "timely reports"
+    ],
+    "dislikes": [
+      "conflicting instructions",
+      "ceremonial delay"
+    ],
+    "decision_tendency": "acts through role, personal judgment, and saved relationships; does not exist as a generic commander bonus"
+  },
+  "relationships": [
+    {
+      "target_id": "army.karin_army",
+      "relationship_type": "staff_or_command_relationship",
+      "trust": 65,
+      "respect": 70,
+      "duty": 75
+    },
+    {
+      "target_id": "char_karin",
+      "relationship_type": "direct professional relationship",
+      "trust": 60,
+      "respect": 70,
+      "duty": 75
+    }
+  ],
+  "current_goal": "coordinate orders, reserves, and reporting so the commander can act on a coherent battlefield picture",
+  "background": "Persistent named operations officer. This person has an individual career, relationships, risk, and future development; the command/staff appointment does not create unit headcount.",
+  "command_record_ref": "state/cmd/command-personnel/staff.chu.karin.chu_yan.json",
+  "autonomous_activity_state": {
+    "version": 3,
+    "enabled": true,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "cadence_seconds": 2592000,
+    "verified_hours_per_cycle": 56.0,
+    "focus_cursor": 7,
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "verification_rule": "named person-lite command staff use verified elapsed role development only; force-owned materialized officers remain on their force training clock",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "repair_provenance": {
+      "kind": "ooc_dev_stale_development_repair_v1",
+      "basis": "saved process_named_character_life_monthly coverage plus established named-person activity clock",
+      "repair_through": "244-BCE-07-02T06:22:48+08:00",
+      "campaign_time_advanced": false
+    },
+    "completed_cycles": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00"
+  },
+  "development_state": {
+    "skill_edu_banks": {
+      "Logistics": 92.351,
+      "Shield": 22.147,
+      "Training": 84.049,
+      "Athletics": 15.903,
+      "Strategy": 64.673,
+      "Survival": 13.718,
+      "Defense": 11.598,
+      "Spear": 8.631,
+      "Leadership": 3.703,
+      "Bow": 6.397,
+      "Mass Combat": 5.716,
+      "Formation Fighting": 4.778
+    },
+    "attribute_edu_banks": {
+      "Awareness": 59.892,
+      "Endurance": 50.638,
+      "Presence": 6.969,
+      "Intelligence": 6.441,
+      "Strength": 6.176,
+      "Composure": 5.383,
+      "Coordination": 4.855,
+      "Agility": 4.158,
+      "Toughness": 3.653
+    },
+    "smart_training_cursor": 7,
+    "verified_training_hours": 392.0,
+    "verified_role_exposure_hours": 336.0,
+    "training_history": [
+      {
+        "evidence_ref": "named_activity:244-BCE-01-04T06:22:48+08:00:staff.chu.karin.chu_yan",
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Survival"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Presence"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-02-03T06:22:48+08:00:staff.chu.karin.chu_yan",
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Defense"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Intelligence"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-03-04T06:22:48+08:00:staff.chu.karin.chu_yan",
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Spear"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Strength"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-04-03T06:22:48+08:00:staff.chu.karin.chu_yan",
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Leadership"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Composure"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-05-03T06:22:48+08:00:staff.chu.karin.chu_yan",
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Bow"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Coordination"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-06-02T06:22:48+08:00:staff.chu.karin.chu_yan",
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Mass Combat"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Agility"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      },
+      {
+        "evidence_ref": "named_activity:244-BCE-07-02T06:22:48+08:00:staff.chu.karin.chu_yan",
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Formation Fighting"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Toughness"
+        ],
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0
+      }
+    ]
+  },
+  "autonomous_development_history": [
+    {
+      "at": "244-BCE-01-04T06:22:48+08:00",
+      "focus": "Tactics",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Survival"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Presence"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-02-03T06:22:48+08:00",
+      "focus": "Formation Command",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Defense"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Intelligence"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-03-04T06:22:48+08:00",
+      "focus": "Leadership",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Spear"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Strength"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-04-03T06:22:48+08:00",
+      "focus": "Formation Fighting",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Leadership"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Composure"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-05-03T06:22:48+08:00",
+      "focus": "Crossbow",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Bow"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Coordination"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-06-02T06:22:48+08:00",
+      "focus": "Mace",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Mass Combat"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Agility"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    },
+    {
+      "at": "244-BCE-07-02T06:22:48+08:00",
+      "focus": "Mass Combat",
+      "hours": 56.0,
+      "development": {
+        "trained": true,
+        "deliberate_hours": 56.0,
+        "role_exposure_hours": 48.0,
+        "skill_focuses": [
+          "Logistics",
+          "Shield",
+          "Training",
+          "Athletics",
+          "Strategy",
+          "Formation Fighting"
+        ],
+        "attribute_focuses": [
+          "Awareness",
+          "Endurance",
+          "Toughness"
+        ]
+      },
+      "verification_basis": "structured_causal_activity_cycle_v3_exact_attribute_stimulus",
+      "planned_opportunity_hours_used": false
+    }
+  ]
+}
