@@ -50,6 +50,16 @@ def _active_unrouted_arc() -> dict:
     }
 
 
+def _active_route_only_arc() -> dict:
+    return {
+        "record_id": "arc_test_routed",
+        "facts": {
+            "status": "active distant",
+            "information_path": "merchants, military dispatches, and price movement",
+        },
+    }
+
+
 def test_discoverable_queued_work_is_intentionally_not_a_missing_report_route() -> None:
     summary = summarize_playability_vitality(_Store(_activity("work_queued")))
     assert summary["visible_arc_activities_without_delivery_route"] == 0
@@ -91,6 +101,21 @@ def test_active_arcs_with_no_player_visible_route_are_diagnosed() -> None:
     assert summary["active_world_arcs_with_player_visible_routes"] == 0
     assert "active_world_arcs_have_no_player_visible_route" in summary["diagnostics"]
     assert "review_world_arc_visibility_and_handoff_routing" in summary["suggestions"]
+
+
+def test_information_path_uses_same_discoverability_rule_as_world_arc_scheduler() -> None:
+    store = _Store(_activity("work_queued"))
+    store.docs["state/arc/kingdom-arcs.json"]["records"] = [_active_route_only_arc()]
+    store.docs["state/runtime.json"]["hosts"] = {
+        "host_arc": {"kind": "world_arc", "next_due": "245-BCE-12-27T20:22:48+08:00"}
+    }
+
+    summary = summarize_playability_vitality(store)
+
+    assert summary["active_world_arcs"] == 1
+    assert summary["active_world_arcs_with_player_visible_routes"] == 1
+    assert "active_world_arcs_have_no_player_visible_route" not in summary["diagnostics"]
+    assert "review_world_arc_visibility_and_handoff_routing" not in summary["suggestions"]
 
 
 def test_world_pressure_with_empty_player_information_and_no_handoff_is_diagnosed() -> None:
