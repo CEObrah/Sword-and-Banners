@@ -39,6 +39,16 @@ def test_skill_runtime_paths_and_default_verification_exist():
     assert 'scene_consequence' in architecture and 'scene_consequence' in interface
 
 
+def test_player_facing_alias_does_not_require_campaign_state_rename():
+    interface = (SKILL / 'references/player-interface.md').read_text(encoding='utf-8')
+    github_dev = (SKILL / 'references/github-development.md').read_text(encoding='utf-8')
+
+    assert 'formation_tang_wei_house_guard_first' in interface
+    assert 'House Guard' in interface
+    assert 'presentation alias' in interface.lower()
+    assert 'never edit `state/` on the live/default branch merely to change prose' in github_dev.lower()
+
+
 def test_railway_watch_policy_matches_runtime_neutral_boundary():
     railway = (ROOT / 'railway.toml').read_text(encoding='utf-8')
     for pattern in (
