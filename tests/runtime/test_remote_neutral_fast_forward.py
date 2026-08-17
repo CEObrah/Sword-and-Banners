@@ -80,6 +80,29 @@ def test_preflight_fast_forwards_runtime_neutral_remote_descendant(
     assert (worker / "state/meta.json").read_text(encoding="utf-8") == original_state
 
 
+def test_preflight_fast_forwards_descendant_with_no_net_tree_change(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.delenv("SWORD_GIT_TOKEN", raising=False)
+    _, publisher, worker = _seed_pair(tmp_path)
+    local_head = _run(worker, "rev-parse", "HEAD")
+    original_state = (worker / "state/meta.json").read_text(encoding="utf-8")
+
+    _commit(publisher, "state/meta.json", '{"revision": 2}\n', "accidental state edit")
+    remote_head = _commit(publisher, "state/meta.json", original_state, "revert accidental state edit")
+    _run(publisher, "push", "origin", "main")
+
+    assert _run(publisher, "diff", "--name-only", local_head, remote_head) == ""
+
+    durability = GitRemoteDurability(GitStager(worker), "origin", "main")
+    snapshot = durability.verify_synchronized()
+
+    assert snapshot.local_head == remote_head
+    assert snapshot.remote_head == remote_head
+    assert _run(worker, "rev-parse", "HEAD") == remote_head
+    assert (worker / "state/meta.json").read_text(encoding="utf-8") == original_state
+
+
 def test_preflight_refuses_remote_descendant_that_changes_campaign_state(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
