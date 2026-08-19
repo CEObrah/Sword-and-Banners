@@ -1,0 +1,163 @@
+{
+  "administrative_owner": "state_chu",
+  "cohesion": 71,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_chu_5176a288c4c3",
+      "count": 3200
+    }
+  ],
+  "command_authority": "state_chu",
+  "commander_ref": "char_kouen",
+  "composition": {
+    "siege_engineering": 3200
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "low",
+    "reserve_commitment": 35,
+    "withdrawal_threshold": 45
+  },
+  "doctrine_ref": null,
+  "equipment_completeness": "0.9",
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_chu_siege_train",
+  "geographic_provenance": {
+    "basis": "replaced arbitrary seed parking with meaningful current regional disposition; ownership/personnel unchanged"
+  },
+  "location_ref": "loc_chu_regional_01",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 16000,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": false,
+  "morale": 70,
+  "mounts": {},
+  "name": "CHU Siege Train",
+  "owner_force_ref": "force_state_chu",
+  "personnel": 3200,
+  "readiness": 71,
+  "schema": "sword-formation",
+  "status": "forming",
+  "training_progress": 27,
+  "training_ref": null,
+  "command_structure": {
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 4,
+        "500_commander": 7,
+        "100_commander": 32
+      },
+      "active_billets": {
+        "1000_commander": 3,
+        "500_commander": 7,
+        "100_commander": 32
+      },
+      "cadre_reserve": {
+        "1000_commander": 1,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 3
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    },
+    "unit_command": {
+      "commander_ref": "char_kouen",
+      "deputy_ref": null,
+      "external_to_fighting_establishment": true,
+      "rule": "persistent top commander/deputy are command-establishment personnel outside formation.personnel; internal 1000/500/100 command remains inside fighting establishment"
+    },
+    "internal_hierarchy": [
+      {
+        "scale": 1000,
+        "count": 3,
+        "authorized_count": 3,
+        "full_elements": 3,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 0.914286,
+        "representation": "aggregate",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      },
+      {
+        "scale": 500,
+        "count": 7,
+        "authorized_count": 7,
+        "full_elements": 6,
+        "partial_tail_personnel": 200,
+        "current_strength_fraction": 0.914286,
+        "representation": "aggregate",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      },
+      {
+        "scale": 100,
+        "count": 35,
+        "authorized_count": 35,
+        "full_elements": 32,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 0.914286,
+        "representation": "aggregate",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      }
+    ],
+    "establishment_topology": {
+      "formation_class": "unit",
+      "unit_command_scale": 3500,
+      "direct_subordinates": [
+        {
+          "scale": 1000,
+          "count": 3
+        },
+        {
+          "scale": 500,
+          "count": 1
+        }
+      ],
+      "children_per_parent": {
+        "1000": [
+          {
+            "scale": 500,
+            "count": 2
+          }
+        ],
+        "500": [
+          {
+            "scale": 100,
+            "count": 5
+          }
+        ]
+      },
+      "summary_counts": {
+        "1000": 3,
+        "500": 7,
+        "100": 35
+      },
+      "rule": "Unit commander/deputy own the Unit echelon; internal 1,000/500/100 billets are strictly subordinate and remain fixed through casualties."
+    },
+    "establishment_rule": "Unit commander/deputy occupy the Unit echelon outside fighting strength; internal 1,000/500/100 billets are generated only from authorized establishment and never from casualty-depleted current manpower."
+  },
+  "establishment_composition": {
+    "siege_engineering": 3500
+  },
+  "establishment_personnel": 3200,
+  "formation_class": "unit",
+  "authorized_strength": 3500
+}

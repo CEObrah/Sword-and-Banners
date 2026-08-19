@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "copper": {},
+    "owner_id": {},
+    "person_ref": {},
+    "schema": {
+      "const": "sword-wallet"
+    },
+    "silver": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "person_ref",
+    "silver",
+    "copper"
+  ],
+  "type": "object"
+}

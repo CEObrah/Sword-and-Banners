@@ -1,0 +1,37 @@
+{
+  "schema": "military-career",
+  "principle": "Earned rank, current billet, and current command span are separate durable facts. Casualties alter span, reassignment alters billet, and only an explicit promotion or demotion alters rank.",
+  "formal_rank_order": {
+    "unranked": 0,
+    "100_commander": 10,
+    "500_commander": 20,
+    "1000_commander": 30,
+    "general": 40,
+    "great_general": 50
+  },
+  "non_ladder_grades": [
+    "not_formally_recorded",
+    "corps_commander",
+    "corps_deputy",
+    "Marshal of the Four Bastion Corps",
+    "Deputy Marshal of the Four Bastion Corps"
+  ],
+  "rank_sources": {
+    "current_baseline": "Exact current-state normalization from already-saved role/rank/command evidence; does not itself constitute a promotion event.",
+    "runtime_career": "A later explicit lawful promotion or demotion recorded through the career-event surface."
+  },
+  "promotion_rule": "Promotion is an explicit durable grade change. It requires a higher formal grade than the current formal grade and lawful authority/evidence. Assignment to a larger force, temporary command, casualty replacement, or autonomous staffing never silently promotes anybody.",
+  "demotion_rule": "Demotion is an explicit career consequence with lawful authority and evidence. Losses, smaller current strength, relief from command, illness, transfer, or cadre reserve status never silently demote rank.",
+  "relief_rule": "Relief removes or changes a billet while preserving durable rank unless a separate explicit demotion is also ordered.",
+  "reserve_rule": "Reserve/cadre status removes active command span while preserving durable rank and career history.",
+  "retirement_rule": "Retirement ends active billet/service while preserving rank history. Return to service requires a new lawful billet.",
+  "career_evidence_rule": "Performance creates evidence and opportunity. It never automatically promotes, demotes, appoints, or relieves anyone.",
+  "representation_rule": "Aggregate officers keep rank inventory/cadre state inside their formation. A materialized exact person carries the same durable rank separately from billet and span; materialization never grants rank.",
+  "army_lifecycle": {
+    "post_battle_rule": "Shattered Units are preserved as organizations/cadres by default. Refill uses conserved trained reserves; merger, dissolution, demotion and detachment require explicit lawful reorganization.",
+    "promotion_growth_rule": "Promotion may create a new Nested Army around an existing Unit, but later staffing attaches only exact physically available direct Units or intact subordinate Nested Armies. Descendants are never flattened or duplicated.",
+    "casualty_rule": "Casualties update strength and may create vacancies or cadre surplus. They do not change surviving officers' durable rank.",
+    "immediate_staff_review_casualty_basis_points": 1500,
+    "immediate_staff_review_rule": "A single battle causing at least 15% personnel loss to a formation, or destroying it, immediately reviews that formation's exact containing NPC command group. Review may reassign only existing co-located direct parent Units; player-directed hierarchies, durable rank, and recursive Unit identity are untouched."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "mass_kg",
+    "coverage_arc_degrees",
+    "structural_resistance",
+    "handling"
+  ],
+  "properties": {
+    "schema": {
+      "const": "shield"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mass_kg": {},
+    "coverage_arc_degrees": {},
+    "structural_resistance": {},
+    "handling": {}
+  },
+  "additionalProperties": true
+}

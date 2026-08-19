@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fortified site logistics mechanics",
+  "type": "object",
+  "required": ["schema", "principles", "storage_classes"],
+  "properties": {
+    "schema": {"const": "fortified-site-logistics"},
+    "principles": {"type": "object"},
+    "storage_classes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["reserve_days", "nominal_garrison_per_perimeter_km", "fixed_emplacement_density"],
+        "properties": {
+          "reserve_days": {"type": "integer", "minimum": 1},
+          "nominal_garrison_per_perimeter_km": {"type": "integer", "minimum": 1},
+          "fixed_emplacement_density": {"type": "number", "exclusiveMinimum": 0}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

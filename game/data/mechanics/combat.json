@@ -1,0 +1,476 @@
+{
+  "schema": "combat-mechanics",
+  "formulas": {
+    "readiness_factor": "0.60 + 0.40*readiness_fraction",
+    "injury_factor": "max(0.10,1-combined_relevant_impairment/100)",
+    "core_capability_factor": "readiness_factor*fatigue_factor*injury_factor",
+    "usable_value": "permanent_value*core_capability_factor",
+    "comfortable_combat_load_kg": "8 + 0.18*Strength + 0.08*Endurance",
+    "combat_load_ratio": "total_body_load_kg/comfortable_combat_load_kg",
+    "endurance_fatigue_factor": "clamp(1.15-usable_Endurance/400,0.55,1.20)",
+    "raw_fatigue_gain": "base_rate*exertion_minutes*endurance_fatigue_factor*load_fatigue*heat*terrain*injury",
+    "final_fatigue": "clamp(start_fatigue+raw_fatigue_gain-supported_recovery,0,100)",
+    "attack_control": "0.45*relevant_skill + 0.20*Coordination + 0.15*usable_Agility + 0.10*Awareness + 0.10*Composure + handling_adjustment + legal_position - impairments",
+    "dodge_control": "0.35*Defense + 0.25*Agility + 0.15*Awareness + 0.10*Athletics + 0.10*Coordination + 0.05*Composure + movement_footing_space - armor_articulation_loss - impairments",
+    "parry_control": "0.35*relevant_weapon_skill + 0.25*Defense + 0.20*Coordination + 0.10*Awareness + 0.10*Composure + weapon_handling_adjustment + guard_reach_position - impairments",
+    "block_control": "0.35*Shield + 0.25*Defense + 0.15*Coordination + 0.10*Strength + 0.10*Awareness + 0.05*Composure + shield_handling_adjustment + coverage_guard_position - impairments",
+    "handling_adjustment": "clamp(40*(effective_handling-1),-16,16)",
+    "control_margin": "attack_control-selected_legal_defensive_control",
+    "combined_pressure": "strongest + 0.55*second + 0.35*third + 0.20*fourth + 0.10*sum(later_legal_attackers)",
+    "grapple_hold_score": "0.35*Grappling + 0.20*Strength + 0.20*Coordination + 0.15*Toughness + 0.10*Composure + position_support",
+    "escape_score": "0.30*max(Grappling,Defense) + 0.25*Agility + 0.20*Strength + 0.15*Coordination + 0.10*Composure + base_space_ally_support",
+    "condition_factor": "0.55 + 0.45*clamp(condition_fraction,0,1)",
+    "attack_force": "usable_Strength*catalog_base_force*contact_grade_multiplier*motion_grade_multiplier*technique_grade_multiplier*condition_factor*legal_grip_force_factor",
+    "fall_energy_j": "total_mass_kg*9.80665*vertical_height_m",
+    "fall_impact_index": "sqrt(fall_energy_j)*surface_factor*orientation_factor*breakfall_factor",
+    "collision_energy_j": "0.5*reduced_mass_kg*relative_speed_mps^2",
+    "collision_impact_index": "sqrt(collision_energy_j)*contact_geometry_factor*bracing_factor",
+    "strength_support": "clamp((usable_Strength-50)/5,-12,12)",
+    "recovery_control": "recovery_class_base+0.18*relevant_skill+0.12*Coordination+0.10*load_adjusted_Agility+0.08*strength_support+handling_adjustment-load_penalty-articulation_penalty-injury_penalty-condition_penalty",
+    "load_penalty": "max(0,(combat_load_ratio-0.75)*32)",
+    "articulation_penalty": "max(0,(1-articulation_factor)*50)",
+    "recovery_injury_penalty": "relevant_impairment*0.25",
+    "recovery_condition_penalty": "(1-condition_factor)*20",
+    "bow_strength_tempo": "clamp(1-max(0,draw_ratio-1)*0.12+max(0,1-draw_ratio)*0.25,0.82,1.25)",
+    "ranged_fatigue_cycle_factor": "1+fatigue/125",
+    "ranged_injury_cycle_factor": "1+relevant_impairment/160",
+    "contact_wear": "base_contact_wear*overload_factor*material_vulnerability",
+    "combined_relevant_impairment": "min(90,largest_impairment+0.35*second_impairment+0.15*third_impairment)",
+    "fatigue_factor": "piecewise_linear_lookup(fatigue_factor_piecewise,current_fatigue)",
+    "combat_load_agility_factor": "piecewise_lookup(combat_load_agility_factor,combat_load_ratio)",
+    "breakfall_factor": "clamp(1-min(120,max(Athletics,Grappling))/300,0.55,1.00) when conscious, space exists, and reaction is legal; otherwise 1.00",
+    "reduced_mass_kg": "moving_mass_kg*target_mass_kg/(moving_mass_kg+target_mass_kg)",
+    "current_structural_capacity": "catalog_structural_capacity*condition_factor*durability_modifier",
+    "weapon_overload_ratio": "transmitted_hard_contact_impact_index/max(1,current_structural_capacity)",
+    "weapon_failure_threshold": "0.85+0.65*pre_contact_condition_fraction*durability_modifier",
+    "draw_ratio": "usable_Strength/draw_power_index",
+    "draw_completion": "clamp(draw_ratio,0,1)",
+    "launch_power_factor": "draw_completion^1.35",
+    "ranged_attack_control": "0.45*Bow*range_control_factor+0.20*Coordination+0.15*Awareness+0.10*Composure+0.10*movement_skill+handling_aim_posture_weather_elevation_movement-overbow_penalty-impairments",
+    "bow_projectile_impact_index": "draw_power_index*launch_power_factor*technique_multiplier*contact_multiplier*retained_force_factor*projectile_profile_factor*condition_factor*projectile_mass_factor",
+    "crossbow_projectile_impact_index": "draw_power_index*technique_multiplier*contact_multiplier*retained_force_factor*projectile_profile_factor*mechanism_condition_factor*projectile_mass_factor after verified full latch",
+    "horse_fatigue_factor": "max(0.35,1-horse_fatigue/130)",
+    "horse_load_ratio": "(rider_mass+rider_equipment+tack+barding+cargo)/comfortable_load",
+    "effective_horse_speed": "base_speed*health_factor*horse_fatigue_factor*feed_factor*load_speed_factor*stat_derived_barding_load_factor*terrain_factor*weather_factor",
+    "horse_fatigue_gain": "base_effort*load_fatigue*barding_endurance_inverse*barding_heat*climate*terrain*injury",
+    "mounted_control": "0.35*Riding+0.20*Coordination+0.15*Awareness+0.10*Composure+0.10*horse_training+0.10*horse_condition+lane_terrain+40*(tack_rider_control_modifier*tack_fit-1)-impairments",
+    "charge_alignment": "mounted_control*tack_charge_alignment_modifier*horse_training_alignment*barding_articulation*load_legality",
+    "panic_control": "0.35*horse_training+0.20*Riding+0.15*horse_condition+0.15*Composure+0.15*formation_familiarity-pain_shock_fire_noise",
+    "charge_collision_index": "total_horse_rider_equipment_mass*relative_speed^2/100*alignment",
+    "hero_tempo": "0.25*Agility+0.20*Coordination+0.20*relevant_skill+0.15*Awareness+0.10*Mass_Combat+0.10*Endurance",
+    "minimum_action_interval_seconds": "max(0.40,360/(hero_tempo+60))",
+    "stat_derived_load_penalty": "max(0,(combat_load_ratio-0.75)*32)",
+    "stat_derived_movement_factor": "clamp(1-stat_derived_load_penalty/(140+0.35*usable_Agility+0.25*Coordination),0.45,1)",
+    "stat_derived_fatigue_multiplier": "clamp(1+max(0,combat_load_ratio-0.75)*clamp(1.15-usable_Endurance/400,0.55,1.20),1,2.75)",
+    "stat_derived_recovery_factor": "clamp(1-stat_derived_load_penalty/(125+0.30*Coordination+0.20*usable_Agility+0.15*usable_Strength),0.40,1)",
+    "stat_derived_helmet_vision_factor": "clamp(1-(1-vision_aperture_fraction)*clamp(1-Awareness/400,0.50,0.90),0.70,1)",
+    "stat_derived_helmet_hearing_factor": "clamp(1-hearing_occlusion_fraction*clamp(1-Awareness/450,0.55,0.95),0.70,1)",
+    "stat_derived_horse_barding_factor": "derive from horse_load_ratio, mount Strength/Endurance/Agility, barding mass, articulation and heat; no fixed pattern speed penalty for stat-derived barding",
+    "action_ready_time": "next_ready_at=max(action_start+minimum_action_interval_seconds,contact_or_completion_at+action_specific_recovery_seconds)",
+    "reaction_ready_time": "reaction_origin+reaction_seconds*commitment_factor; defense is full only when reaction_ready_time<=incoming_contact_time",
+    "weapon_penetration_index": "attack_force*weapon_mode_geometry_penetration_factor; attack_force and penetration share the same strength/speed/contact event rather than independent special-power scales",
+    "shield_penetration": "intercepted_penetration_index versus condition-adjusted shield penetration_capacity; perforation may pass residual penetration without requiring total shield structural failure",
+    "armor_residual_penetration": "max(0,incoming_penetration_index-contacted_channel_protection) after shield residual; only residual penetration and transmitted impact reach anatomy",
+    "adaptive_action_selection": "score each physically legal attack method from target structure/coverage, weapon geometry, distance/current state, recent failures/repetitions and demonstrated defense; explicit player wording overrides selection"
+  },
+  "reach_advantage_points": {
+    "<0.15": 0,
+    "0.15_to_0.39": 4,
+    "0.40_to_0.74": 8,
+    "0.75_plus": 12,
+    "decisive_one_sided_threat": 16
+  },
+  "contact_grades": {
+    "<=-25": {
+      "grade": "denied",
+      "multiplier": 0.0
+    },
+    "-25_to_0": {
+      "grade": "glancing",
+      "multiplier": 0.45
+    },
+    "0_to_15": {
+      "grade": "solid",
+      "multiplier": 0.8
+    },
+    "15_to_40": {
+      "grade": "clean",
+      "multiplier": 1.0
+    },
+    "40_plus": {
+      "grade": "exceptional",
+      "multiplier": 1.15
+    }
+  },
+  "experience_control_modifier": {
+    "unblooded": -6,
+    "exposed": -3,
+    "field_tested": 0,
+    "veteran": 3,
+    "hardened": 5
+  },
+  "rule": "Geometry and legal defensive method are determined before control scores. Combat uses continuous action-ready timing rather than alternating turns. Penetration resolves sequentially through shield then armor then anatomy, and undeclared method selection adapts to current physical state rather than repeating a static best action. Exact ties favor the defender or current controller.",
+  "fit_factors": {
+    "poor": 0.8,
+    "usable": 0.92,
+    "fitted": 1.0,
+    "custom_fitted": 1.05
+  },
+  "recovery_class_base": {
+    "quick": 80,
+    "standard": 65,
+    "slow": 50,
+    "very_slow": 38
+  },
+  "recovery_bands": {
+    "105_plus": "ready",
+    "85_to_104.99": "brief_exposure",
+    "65_to_84.99": "clear_exposure",
+    "below_65": "major_exposure"
+  },
+  "ranged_cycle_factors": {
+    "skill_tempo": {
+      "novice": 1.35,
+      "trained": 1.15,
+      "skilled": 1.0,
+      "expert": 0.9,
+      "master": 0.82
+    },
+    "draw_effort": {
+      "full": 1.0,
+      "near_full": 1.1,
+      "partial": 1.35,
+      "unstable": "illegal_for_deliberate_fire"
+    },
+    "aim": {
+      "rapid": 0.82,
+      "standard": 1.0,
+      "deliberate": 1.25,
+      "flight": 1.4
+    },
+    "movement": {
+      "stationary": 1.0,
+      "walking": 1.12,
+      "trotting": 1.2,
+      "cantering": 1.35,
+      "galloping": 1.6
+    },
+    "ammunition_access": {
+      "fitted_quiver_or_case": 1.0,
+      "belt_bundle": 1.2,
+      "nearby_reserve": 1.6,
+      "loose_or_obstructed": 2.0
+    }
+  },
+  "mounted_method_control_adjustment": {
+    "excellent": 4,
+    "good": 0,
+    "limited": -8,
+    "poor": -12,
+    "demanding": -16,
+    "extreme": -24
+  },
+  "base_contact_wear_percent": {
+    "soft_contact": 0.15,
+    "ordinary_hard_contact": 0.35,
+    "severe_hard_contact": 0.8,
+    "structural_overload": 1.5
+  },
+  "fatigue_factor_piecewise": [
+    {
+      "fatigue_min": 0,
+      "fatigue_max": 20,
+      "factor_start": 1.0,
+      "factor_end": 0.95
+    },
+    {
+      "fatigue_min": 20,
+      "fatigue_max": 40,
+      "factor_start": 0.95,
+      "factor_end": 0.85
+    },
+    {
+      "fatigue_min": 40,
+      "fatigue_max": 60,
+      "factor_start": 0.85,
+      "factor_end": 0.7
+    },
+    {
+      "fatigue_min": 60,
+      "fatigue_max": 80,
+      "factor_start": 0.7,
+      "factor_end": 0.5
+    },
+    {
+      "fatigue_min": 80,
+      "fatigue_max": 100,
+      "factor_start": 0.5,
+      "factor_end": 0.2
+    }
+  ],
+  "impairment_combination": {
+    "largest_weight": 1.0,
+    "second_weight": 0.35,
+    "third_weight": 0.15,
+    "maximum_total_loss_fraction": 0.9
+  },
+  "combat_load_agility_factor": {
+    "<=0.75": 1.0,
+    "0.75_to_1.00": "linear_1.00_to_0.90",
+    "1.00_to_1.25": "linear_0.90_to_0.70",
+    "1.25_to_1.50": "linear_0.70_to_0.50",
+    ">1.50": "linear_from_0.50_to_minimum_0.30; movement legality may fail by action"
+  },
+  "carriage_balance_factor": {
+    "fitted_balanced_harness": 1.0,
+    "ordinary_balanced_pack": 0.96,
+    "unbalanced_or_loose": 0.9,
+    "severe_shifting_load": 0.8
+  },
+  "exertion_base_fatigue_per_minute": {
+    "ordinary_walking_ready_reserve_light_drill": 0.015,
+    "marching": 0.04,
+    "ranged_firing_or_ordinary_hard_drill": 0.08,
+    "fast_movement": 0.1,
+    "heavy_bow_draw_or_repeated_crossbow_spanning": 0.14,
+    "climbing_or_swimming": 0.3,
+    "active_melee": 0.35,
+    "sprinting": 0.6,
+    "intense_melee_or_sustained_grappling": 0.7
+  },
+  "load_fatigue_multiplier": {
+    "<=0.75": 1.0,
+    "0.75_to_1.00": 1.1,
+    "1.00_to_1.25": 1.3,
+    "1.25_to_1.50": 1.6,
+    ">1.50": 2.0
+  },
+  "environment_fatigue_multiplier": {
+    "none": 1.0,
+    "minor": 1.1,
+    "clear": 1.25,
+    "major": 1.5
+  },
+  "recovery_per_minute": {
+    "active_guard": 0.0,
+    "guarded_pause": 0.015,
+    "seated_or_lying_rest_with_water": 0.04,
+    "sleep_adequate": 0.1
+  },
+  "special_formation_weapon_methods": {
+    "phalanx_strapped_shield": {
+      "control_adjustment": -4,
+      "force_multiplier": 0.95,
+      "passive_shield_protection_multiplier": 0.62,
+      "active_block": false,
+      "shield_mass_kg_max": 6,
+      "requires_formed_adjacent_allies": true
+    },
+    "formation_braced_one_hand": {
+      "control_adjustment": -8,
+      "force_multiplier": 0.85,
+      "active_shield": true,
+      "charge_motion_allowed": false,
+      "sweeping_attacks_allowed": false,
+      "requires_formed_adjacent_allies": true
+    }
+  },
+  "perception_margin_bands": {
+    "<=0": "no_supported_alert_before_current_phase",
+    "1_to_5": "late_warning",
+    "6_to_15": "clear_warning",
+    "16_plus": "strongest_plausible_early_warning_never_future_knowledge"
+  },
+  "fall_surface_factor": {
+    "deep_soft_material": 0.55,
+    "soft_ground": 0.75,
+    "ordinary_earth": 0.9,
+    "timber_or_packed_ground": 1.0,
+    "stone_or_unyielding": 1.15
+  },
+  "fall_orientation_factor": {
+    "controlled_roll": 0.75,
+    "limb_first": 0.9,
+    "side": 1.0,
+    "back": 1.05,
+    "head_or_neck_first": 1.25
+  },
+  "ranged_range_bands": {
+    "close": {
+      "fraction_of_effective_range_max": 0.5,
+      "control_factor": 1.0,
+      "retained_force_factor": 1.0
+    },
+    "effective": {
+      "through": "effective_range",
+      "control_factor": 0.9,
+      "retained_force_factor": 0.9
+    },
+    "long_direct": {
+      "through": "maximum_direct_range",
+      "control_factor": 0.65,
+      "retained_force_factor": 0.65
+    },
+    "flight": {
+      "through": "maximum_flight_range",
+      "control_factor": 0.4,
+      "retained_force_factor": 0.4,
+      "area_target_required": true
+    }
+  },
+  "horse_health_factor": {
+    "healthy_fresh": 1.0,
+    "healthy_tired": 0.94,
+    "minor_injury": 0.78,
+    "unfit": 0.45
+  },
+  "horse_feed_factor": {
+    "adequate": 1.0,
+    "short": 0.92,
+    "deficient": 0.78,
+    "starving": 0.55
+  },
+  "horse_load_speed_factor": {
+    "<=0.75": 1.0,
+    "0.75_to_0.90": 0.97,
+    "0.90_to_1.00": 0.91,
+    "1.00_to_1.10": 0.8,
+    ">1.10": "charge_or_sustained_fast_movement_illegal"
+  },
+  "weapon_wear": {
+    "ordinary_contact_condition_loss_percent": {
+      "wood_leather_soft_shield_face": 0.2,
+      "hard_shield_rim_or_soft_armor_reinforcement": 0.4,
+      "metal_armor_or_ordinary_hard_parry": 0.6,
+      "edge_on_edge_stone_severe_misalignment": 0.8
+    },
+    "overload_condition_loss_percent": "0 below 0.90; linear 1..3 from 0.90..1.19; linear 4..10 from 1.20..1.59; min(30,10+20*(ratio-1.60)/0.80) at 1.60+",
+    "automatic_structural_failure_overload_ratio": 2.0,
+    "condition_loss_rounding_percent": 0.1
+  },
+  "position_modifier_levels": {
+    "minor": 4,
+    "clear": 8,
+    "major": 12,
+    "decisive": 16,
+    "physically_impossible": "illegal"
+  },
+  "item_condition_states": [
+    {
+      "min": 90,
+      "max": 100,
+      "state": "excellent_service_condition"
+    },
+    {
+      "min": 70,
+      "max": 89,
+      "state": "serviceable"
+    },
+    {
+      "min": 50,
+      "max": 69,
+      "state": "worn"
+    },
+    {
+      "min": 25,
+      "max": 49,
+      "state": "unreliable"
+    },
+    {
+      "min": 1,
+      "max": 24,
+      "state": "emergency_use_only"
+    },
+    {
+      "min": 0,
+      "max": 0,
+      "state": "unusable"
+    }
+  ],
+  "timing_model": {
+    "mode": "continuous_action_ready",
+    "initiative_rule": "initiative chooses initial local start timing only; it never grants a permanent turn order",
+    "action_rule": "movement, attack startup, contact, defense reaction and recovery each consume their own physical duration",
+    "concurrency_rule": "actors retain independent ready/action clocks; a faster actor may complete multiple actions while a slower committed action is still resolving",
+    "defense_rule": "a defender may abort a committed action to react if physical reaction time permits; doing so consumes defender readiness",
+    "no_turn_entitlement": true,
+    "stat_ceiling_rule": "character and cohort combat stats are not capped at 200; physical floors/geometry/recovery may bound outcomes without erasing values above 200"
+  },
+  "sequencing_rules": {
+    "no_static_best_action_spam": "A legal high-scoring method is penalized when repeated into the same failed defense/target line; the actor reevaluates target, method, distance and opponent response when it becomes action-ready.",
+    "state_inputs": [
+      "distance/reach",
+      "target anatomy/function",
+      "actual armor/shield coverage and condition",
+      "recent action outcomes",
+      "last demonstrated defense",
+      "current weapon/mount state",
+      "injuries/fatigue",
+      "declared player intent"
+    ],
+    "player_override": "Explicit player target/method/action sequence is never silently replaced by adaptive automation.",
+    "determinism": "Adaptive selection is deterministic from saved/current causal state; it is not random move rotation."
+  },
+  "posture_timing": {
+    "fall_seconds_by_severity": {
+      "minor": 0.35,
+      "moderate": 0.55,
+      "serious": 0.85,
+      "critical": 1.15
+    },
+    "prone_minimum_seconds_by_severity": {
+      "minor": 0.45,
+      "moderate": 0.8,
+      "serious": 1.4,
+      "critical": 2.4
+    },
+    "get_up_base_seconds": 1.15,
+    "kneel_transition_seconds": 0.35,
+    "prone_defense_factor": 0.48,
+    "kneeling_defense_factor": 0.72,
+    "knocked_down_defense_factor": 0.42,
+    "get_up_exertion": 0.55,
+    "rule": "fall, ground contact, prone recovery and standing are separate timed states; no actor regains standing mobility instantly after knockdown"
+  },
+  "grapple_model": {
+    "engagement_distance_m": 0.9,
+    "control_margin_for_hold": 4.0,
+    "control_margin_for_throw": 16.0,
+    "escape_margin": 2.0,
+    "attack_defense_factor_when_grappled": 0.48,
+    "third_party_parry_factor": 0.22,
+    "third_party_block_factor": 0.18,
+    "third_party_dodge_factor": 0.42,
+    "movement_factor_when_bound": 0.18,
+    "hold_recovery_seconds": 0.55,
+    "escape_recovery_seconds": 0.75,
+    "throw_recovery_seconds": 0.95,
+    "throw_displacement_m": 0.75,
+    "rule": "a clinch occupies both bodies; arm/weapon/shield resources cannot be reused at full strength against unrelated attackers, and throws create real displacement plus fall timing"
+  },
+  "embedded_weapon_model": {
+    "minimum_penetration_ratio": 1.18,
+    "deep_penetration_ratio": 1.65,
+    "base_extraction_seconds": 0.42,
+    "bone_extra_seconds": 0.55,
+    "shield_extra_seconds": 0.35,
+    "armor_extra_seconds": 0.28,
+    "spear_multiplier": 1.25,
+    "axe_multiplier": 1.2,
+    "sword_multiplier": 1.0,
+    "projectiles_remain_in_target_probability": 0.72,
+    "rule": "deep thrust/cut contacts may bind or lodge a weapon; extraction occupies the weapon and extends the attacker recovery clock instead of granting an instant reset"
+  },
+  "local_obstacle_model": {
+    "human_body_radius_m": 0.28,
+    "mounted_body_radius_m": 0.75,
+    "fallen_body_radius_m": 0.38,
+    "clearance_margin_m": 0.08,
+    "movement_slide_fraction": 0.82,
+    "rule": "the local combat plane treats other bodies, mounts, fallen bodies and runtime-supplied static obstacle circles/segments as physical clearance constraints; obstacles never create hidden world objects"
+  },
+  "projectile_recovery_model": {
+    "search_seconds_per_projectile": 12,
+    "rule": "fired exact personal projectiles become recoverable field candidates only when physical recoverability resolves true; retrieval requires exact co-location and elapsed search time and never returns ammunition during combat"
+  }
+}

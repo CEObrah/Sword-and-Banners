@@ -1,0 +1,57 @@
+{
+  "schema": "stat-order-registry",
+  "authority": "Sword and Banners only",
+  "profiles": {
+    "military_person": {
+      "attribute_order": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ],
+      "skill_order": [
+        "Sword",
+        "Spear",
+        "Glaive",
+        "Axe",
+        "Mace",
+        "Staff",
+        "Dagger",
+        "Bow",
+        "Crossbow",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Grappling",
+        "Unarmed",
+        "Riding",
+        "Formation Fighting",
+        "Survival",
+        "Stealth",
+        "Scouting",
+        "Navigation",
+        "Medicine",
+        "Engineering",
+        "Leadership",
+        "Formation Command",
+        "Tactics",
+        "Strategy",
+        "Logistics",
+        "Intelligence Operations",
+        "Training",
+        "Diplomacy",
+        "Law",
+        "Trade",
+        "Intrigue",
+        "Governance"
+      ],
+      "vector_rule": "Every aggregate attribute_values/skill_values vector using this profile aligns positionally to these orders. Do not repeat the order arrays inside every unit/manpower capability record."
+    }
+  }
+}

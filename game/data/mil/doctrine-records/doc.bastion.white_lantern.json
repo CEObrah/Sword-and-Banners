@@ -1,0 +1,14 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.bastion.white_lantern",
+  "doctrine": {
+    "inherits": "doc.house_tang.core",
+    "institution_overlay_ref": "game/data/mil/institution-doctrine-overlays.json#house_tang",
+    "principles": [
+      "Preserve signals, ammunition movement, mechanisms, firefighting, medical routing and emergency logistics across the defense.",
+      "Maintain redundant communications between outer defenses, Sword Manor, Inner Citadel and mobile reserves.",
+      "Combat elements protect critical support nodes and can reinforce threatened sectors when ordered."
+    ],
+    "normal_layer": "signals_mechanisms_logistics_fire_and_medical_support"
+  }
+}

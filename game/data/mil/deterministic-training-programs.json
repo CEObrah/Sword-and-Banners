@@ -1,0 +1,2579 @@
+{
+  "schema": "deterministic-training-registry",
+  "authority": "Canonical finite training drill/program catalog. Runtime training may select only registered drills/programs; narration and ChatGPT never create gain-bearing exercises, weights, skill targets, or attribute targets.",
+  "allocation_rule": "Verified hours use a finite registered program. Baseline rotation weights are deterministically reweighted only among that program’s registered drills: next lawful promotion deficits first, then weak useful registered capabilities; physical loadout/mount/shield access may reduce verified drill hours. No RNG, prose-created drill, or unregistered gain target.",
+  "drills": {
+    "drill.spear_shield_line": {
+      "skills": [
+        "Spear",
+        "Shield",
+        "Defense"
+      ],
+      "attributes": [
+        "Strength",
+        "Endurance",
+        "Coordination",
+        "Composure"
+      ],
+      "practice_mode": "drill",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "spear",
+        "shield"
+      ],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.sword_shield_close": {
+      "skills": [
+        "Sword",
+        "Shield",
+        "Defense"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Coordination",
+        "Awareness"
+      ],
+      "practice_mode": "drill",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "sword",
+        "shield"
+      ],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.formation_maneuver": {
+      "skills": [
+        "Formation Fighting",
+        "Mass Combat"
+      ],
+      "attributes": [
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.conditioning_march": {
+      "skills": [
+        "Athletics",
+        "Survival"
+      ],
+      "attributes": [
+        "Strength",
+        "Endurance",
+        "Toughness"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "hard",
+      "equipment_requirements": [],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.bow_range": {
+      "skills": [
+        "Bow"
+      ],
+      "attributes": [
+        "Strength",
+        "Endurance",
+        "Coordination",
+        "Awareness"
+      ],
+      "practice_mode": "coached",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "bow",
+        "arrows"
+      ],
+      "facility_tag": "range",
+      "instructor_role": "role_instructor"
+    },
+    "drill.crossbow_range": {
+      "skills": [
+        "Crossbow"
+      ],
+      "attributes": [
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "coached",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "crossbow",
+        "bolts"
+      ],
+      "facility_tag": "range",
+      "instructor_role": "role_instructor"
+    },
+    "drill.missile_formation": {
+      "skills": [
+        "Formation Fighting",
+        "Mass Combat",
+        "Defense"
+      ],
+      "attributes": [
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.mounted_control": {
+      "skills": [
+        "Riding",
+        "Defense"
+      ],
+      "attributes": [
+        "Agility",
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "mount",
+        "tack"
+      ],
+      "facility_tag": "riding_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.mounted_lance": {
+      "skills": [
+        "Spear",
+        "Riding",
+        "Defense"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Coordination",
+        "Awareness"
+      ],
+      "practice_mode": "sparring",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "mount",
+        "lance",
+        "shield"
+      ],
+      "facility_tag": "riding_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.mounted_archery": {
+      "skills": [
+        "Bow",
+        "Riding",
+        "Defense"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Coordination",
+        "Awareness"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "mount",
+        "bow",
+        "arrows"
+      ],
+      "facility_tag": "riding_range",
+      "instructor_role": "role_instructor"
+    },
+    "drill.cavalry_formation": {
+      "skills": [
+        "Formation Fighting",
+        "Mass Combat",
+        "Riding"
+      ],
+      "attributes": [
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "mount"
+      ],
+      "facility_tag": "maneuver_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.scout_recon": {
+      "skills": [
+        "Scouting",
+        "Navigation",
+        "Stealth",
+        "Survival"
+      ],
+      "attributes": [
+        "Agility",
+        "Endurance",
+        "Awareness",
+        "Intelligence"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "field_terrain",
+      "instructor_role": "role_instructor"
+    },
+    "drill.scout_break_contact": {
+      "skills": [
+        "Defense",
+        "Athletics",
+        "Riding",
+        "Bow"
+      ],
+      "attributes": [
+        "Agility",
+        "Endurance",
+        "Coordination",
+        "Awareness"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.engineering_works": {
+      "skills": [
+        "Engineering",
+        "Logistics"
+      ],
+      "attributes": [
+        "Strength",
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Intelligence"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "engineering_tools"
+      ],
+      "facility_tag": "engineering_yard",
+      "instructor_role": "engineer_instructor"
+    },
+    "drill.siege_service": {
+      "skills": [
+        "Engineering",
+        "Mass Combat",
+        "Logistics"
+      ],
+      "attributes": [
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure",
+        "Intelligence"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "siege_tools"
+      ],
+      "facility_tag": "engineering_yard",
+      "instructor_role": "engineer_instructor"
+    },
+    "drill.artillery_service": {
+      "skills": [
+        "Engineering",
+        "Crossbow",
+        "Mass Combat"
+      ],
+      "attributes": [
+        "Strength",
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "artillery"
+      ],
+      "facility_tag": "artillery_range",
+      "instructor_role": "artillery_instructor"
+    },
+    "drill.logistics_staff": {
+      "skills": [
+        "Logistics",
+        "Navigation",
+        "Trade"
+      ],
+      "attributes": [
+        "Awareness",
+        "Composure",
+        "Intelligence"
+      ],
+      "practice_mode": "administration",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "staff_room",
+      "instructor_role": "logistics_instructor"
+    },
+    "drill.convoy_field": {
+      "skills": [
+        "Logistics",
+        "Survival",
+        "Defense",
+        "Mass Combat"
+      ],
+      "attributes": [
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.signal_relay": {
+      "skills": [
+        "Intelligence Operations",
+        "Navigation",
+        "Leadership"
+      ],
+      "attributes": [
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ],
+      "practice_mode": "drill",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "signals"
+      ],
+      "facility_tag": "signal_ground",
+      "instructor_role": "signal_instructor"
+    },
+    "drill.signal_disruption": {
+      "skills": [
+        "Intelligence Operations",
+        "Tactics",
+        "Logistics",
+        "Survival"
+      ],
+      "attributes": [
+        "Endurance",
+        "Awareness",
+        "Composure",
+        "Intelligence"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "signals"
+      ],
+      "facility_tag": "maneuver_ground",
+      "instructor_role": "signal_instructor"
+    },
+    "drill.medical_triage": {
+      "skills": [
+        "Medicine",
+        "Logistics"
+      ],
+      "attributes": [
+        "Coordination",
+        "Awareness",
+        "Composure",
+        "Intelligence"
+      ],
+      "practice_mode": "coached",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "medical_kit"
+      ],
+      "facility_tag": "medical_training",
+      "instructor_role": "medical_instructor"
+    },
+    "drill.medical_evacuation": {
+      "skills": [
+        "Medicine",
+        "Athletics",
+        "Survival",
+        "Defense"
+      ],
+      "attributes": [
+        "Strength",
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "medical_kit"
+      ],
+      "facility_tag": "medical_training",
+      "instructor_role": "medical_instructor"
+    },
+    "drill.command_orders": {
+      "skills": [
+        "Leadership",
+        "Formation Command",
+        "Tactics"
+      ],
+      "attributes": [
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "command_ground",
+      "instructor_role": "command_instructor"
+    },
+    "drill.command_staff": {
+      "skills": [
+        "Strategy",
+        "Logistics",
+        "Training",
+        "Formation Command"
+      ],
+      "attributes": [
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ],
+      "practice_mode": "administration",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "staff_room",
+      "instructor_role": "command_instructor"
+    },
+    "drill.command_battlefield": {
+      "skills": [
+        "Mass Combat",
+        "Tactics",
+        "Formation Command",
+        "Leadership"
+      ],
+      "attributes": [
+        "Endurance",
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "maneuver_ground",
+      "instructor_role": "command_instructor"
+    },
+    "drill.weapon_transitions": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Defense"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Coordination",
+        "Awareness"
+      ],
+      "practice_mode": "sparring",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "sword",
+        "spear",
+        "bow"
+      ],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.guard_protection": {
+      "skills": [
+        "Shield",
+        "Defense",
+        "Formation Fighting",
+        "Leadership"
+      ],
+      "attributes": [
+        "Strength",
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "shield"
+      ],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.disciple_fundamentals": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Shield",
+        "Defense"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness"
+      ],
+      "practice_mode": "coached",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "training_ground",
+      "instructor_role": "sword_manor_instructor"
+    },
+    "drill.disciple_field": {
+      "skills": [
+        "Athletics",
+        "Formation Fighting",
+        "Survival",
+        "Mass Combat"
+      ],
+      "attributes": [
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "maneuver_ground",
+      "instructor_role": "sword_manor_instructor"
+    },
+    "drill.disciple_command": {
+      "skills": [
+        "Leadership",
+        "Tactics",
+        "Training",
+        "Formation Command"
+      ],
+      "attributes": [
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ],
+      "practice_mode": "coached",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "command_ground",
+      "instructor_role": "sword_manor_senior_instructor"
+    },
+    "drill.disciple_mounted": {
+      "skills": [
+        "Riding",
+        "Spear",
+        "Bow",
+        "Defense"
+      ],
+      "attributes": [
+        "Agility",
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "mount",
+        "spear",
+        "bow"
+      ],
+      "facility_tag": "riding_ground",
+      "instructor_role": "sword_manor_senior_instructor"
+    },
+    "drill.governance_council": {
+      "skills": [
+        "Governance",
+        "Leadership",
+        "Law"
+      ],
+      "attributes": [
+        "Intelligence",
+        "Awareness",
+        "Composure",
+        "Presence"
+      ],
+      "practice_mode": "administration",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "staff_room",
+      "instructor_role": "civil_instructor"
+    },
+    "drill.legal_review": {
+      "skills": [
+        "Law",
+        "Governance",
+        "Intelligence Operations"
+      ],
+      "attributes": [
+        "Intelligence",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "administration",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "staff_room",
+      "instructor_role": "civil_instructor"
+    },
+    "drill.diplomatic_practice": {
+      "skills": [
+        "Diplomacy",
+        "Leadership",
+        "Intrigue"
+      ],
+      "attributes": [
+        "Intelligence",
+        "Awareness",
+        "Composure",
+        "Presence"
+      ],
+      "practice_mode": "coached",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "audience_hall",
+      "instructor_role": "diplomatic_instructor"
+    },
+    "drill.strategic_study": {
+      "skills": [
+        "Strategy",
+        "Tactics",
+        "Logistics",
+        "Intelligence Operations"
+      ],
+      "attributes": [
+        "Intelligence",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "study",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "staff_room",
+      "instructor_role": "strategy_instructor"
+    },
+    "drill.intrigue_security": {
+      "skills": [
+        "Intrigue",
+        "Intelligence Operations",
+        "Stealth"
+      ],
+      "attributes": [
+        "Intelligence",
+        "Awareness",
+        "Composure",
+        "Presence"
+      ],
+      "practice_mode": "field_practice",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "staff_room",
+      "instructor_role": "intelligence_instructor"
+    },
+    "drill.merchant_administration": {
+      "skills": [
+        "Trade",
+        "Logistics",
+        "Diplomacy",
+        "Governance"
+      ],
+      "attributes": [
+        "Intelligence",
+        "Awareness",
+        "Composure",
+        "Presence"
+      ],
+      "practice_mode": "administration",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "facility_tag": "staff_room",
+      "instructor_role": "merchant_instructor"
+    },
+    "drill.heir_household_learning": {
+      "skills": [
+        "Training",
+        "Leadership",
+        "Navigation"
+      ],
+      "attributes": [
+        "Intelligence",
+        "Awareness",
+        "Presence"
+      ],
+      "practice_mode": "study",
+      "intensity": "light",
+      "equipment_requirements": [],
+      "facility_tag": "household_classroom",
+      "instructor_role": "strategy_instructor"
+    },
+    "drill.heir_route_observation": {
+      "skills": [
+        "Scouting",
+        "Navigation",
+        "Survival"
+      ],
+      "attributes": [
+        "Awareness",
+        "Intelligence",
+        "Composure"
+      ],
+      "practice_mode": "observation",
+      "intensity": "light",
+      "equipment_requirements": [],
+      "facility_tag": "estate_routes",
+      "instructor_role": "scout_instructor"
+    },
+    "drill.heir_riding_familiarity": {
+      "skills": [
+        "Riding"
+      ],
+      "attributes": [
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ],
+      "practice_mode": "coached",
+      "intensity": "light",
+      "equipment_requirements": [
+        "mount",
+        "tack"
+      ],
+      "facility_tag": "riding_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.heir_safe_martial_observation": {
+      "skills": [
+        "Defense",
+        "Formation Fighting"
+      ],
+      "attributes": [
+        "Awareness",
+        "Coordination",
+        "Composure"
+      ],
+      "practice_mode": "observation",
+      "intensity": "light",
+      "equipment_requirements": [],
+      "facility_tag": "training_ground",
+      "instructor_role": "role_instructor"
+    },
+    "drill.martial_sword_fundamentals": {
+      "skills": [
+        "Sword",
+        "Defense",
+        "Athletics"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Coordination",
+        "Awareness"
+      ],
+      "practice_mode": "drill",
+      "intensity": "standard",
+      "equipment_requirements": [
+        "sword"
+      ],
+      "instructor_role": "role_instructor",
+      "policy": "Civilian or junior martial sword fundamentals using an actually available sword; no shield, spear, bow, formation, or command skill is implied.",
+      "facility_tag": "training_ground"
+    },
+    "drill.martial_grappling_fundamentals": {
+      "skills": [
+        "Grappling",
+        "Defense",
+        "Athletics"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness"
+      ],
+      "practice_mode": "sparring",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "instructor_role": "role_instructor",
+      "policy": "Controlled grappling, balance, breakfall, positional defense, and conditioning for martial aspirants.",
+      "facility_tag": "training_ground"
+    },
+    "drill.martial_leadership_fundamentals": {
+      "skills": [
+        "Leadership"
+      ],
+      "attributes": [
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ],
+      "practice_mode": "coached",
+      "intensity": "standard",
+      "equipment_requirements": [],
+      "instructor_role": "command_instructor",
+      "policy": "Age- and station-appropriate leadership practice without granting Formation Command, Tactics, Strategy, Logistics, or office authority.",
+      "facility_tag": "training_ground"
+    }
+  },
+  "programs": {
+    "program.line_infantry": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.spear_shield_line",
+          "weight_bp": 4000
+        },
+        {
+          "drill_ref": "drill.formation_maneuver",
+          "weight_bp": 3000
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.sword_shield_close",
+          "weight_bp": 1200
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.heavy_infantry": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.spear_shield_line",
+          "weight_bp": 4200
+        },
+        {
+          "drill_ref": "drill.formation_maneuver",
+          "weight_bp": 2800
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.guard_protection",
+          "weight_bp": 1200
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.archer": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.bow_range",
+          "weight_bp": 4600
+        },
+        {
+          "drill_ref": "drill.missile_formation",
+          "weight_bp": 2800
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.scout_recon",
+          "weight_bp": 1200
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.crossbow": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.crossbow_range",
+          "weight_bp": 5000
+        },
+        {
+          "drill_ref": "drill.missile_formation",
+          "weight_bp": 2800
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.scout_recon",
+          "weight_bp": 1000
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.cavalry": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.mounted_control",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.mounted_lance",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.mounted_archery",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.cavalry_formation",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1000
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.guardian_cavalry": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.mounted_lance",
+          "weight_bp": 2300
+        },
+        {
+          "drill_ref": "drill.mounted_archery",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.cavalry_formation",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.weapon_transitions",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.guard_protection",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 900
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.chariot": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.mounted_control",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.bow_range",
+          "weight_bp": 2400
+        },
+        {
+          "drill_ref": "drill.spear_shield_line",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.cavalry_formation",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1600
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.scout": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.scout_recon",
+          "weight_bp": 4200
+        },
+        {
+          "drill_ref": "drill.scout_break_contact",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.bow_range",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1800
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.engineer": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.engineering_works",
+          "weight_bp": 5000
+        },
+        {
+          "drill_ref": "drill.siege_service",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.missile_formation",
+          "weight_bp": 1200
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.artillery": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.artillery_service",
+          "weight_bp": 5200
+        },
+        {
+          "drill_ref": "drill.engineering_works",
+          "weight_bp": 2400
+        },
+        {
+          "drill_ref": "drill.missile_formation",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 1200
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.logistics": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 4800
+        },
+        {
+          "drill_ref": "drill.convoy_field",
+          "weight_bp": 2800
+        },
+        {
+          "drill_ref": "drill.signal_relay",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1200
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.signal": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.signal_relay",
+          "weight_bp": 4800
+        },
+        {
+          "drill_ref": "drill.signal_disruption",
+          "weight_bp": 3000
+        },
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1000
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.medical": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.medical_triage",
+          "weight_bp": 5200
+        },
+        {
+          "drill_ref": "drill.medical_evacuation",
+          "weight_bp": 3000
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 800
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.house_guard": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.sword_shield_close",
+          "weight_bp": 2400
+        },
+        {
+          "drill_ref": "drill.spear_shield_line",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.bow_range",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.guard_protection",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.formation_maneuver",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 800
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.tang_champion": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.mounted_archery",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.mounted_lance",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.weapon_transitions",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.guard_protection",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.cavalry_formation",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 800
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.household_retainer": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.sword_shield_close",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.spear_shield_line",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.formation_maneuver",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.guard_protection",
+          "weight_bp": 1200
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.sword_trainee": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.disciple_fundamentals",
+          "weight_bp": 5200
+        },
+        {
+          "drill_ref": "drill.disciple_field",
+          "weight_bp": 3000
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1800
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.sword_junior": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.disciple_fundamentals",
+          "weight_bp": 3800
+        },
+        {
+          "drill_ref": "drill.disciple_field",
+          "weight_bp": 3200
+        },
+        {
+          "drill_ref": "drill.bow_range",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 800
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1000
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.sword_general": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.weapon_transitions",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.disciple_field",
+          "weight_bp": 2400
+        },
+        {
+          "drill_ref": "drill.disciple_command",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.bow_range",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1400
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.sword_senior": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.weapon_transitions",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.disciple_command",
+          "weight_bp": 3000
+        },
+        {
+          "drill_ref": "drill.disciple_mounted",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1400
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.sword_officer": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 2800
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.weapon_transitions",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.disciple_mounted",
+          "weight_bp": 1200
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_combined_arms": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 3000
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2800
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.weapon_transitions",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.mounted_control",
+          "weight_bp": 1000
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.general_military": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.weapon_transitions",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.formation_maneuver",
+          "weight_bp": 2400
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.scout_recon",
+          "weight_bp": 1400
+        }
+      ],
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_infantry": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.spear_shield_line",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.formation_maneuver",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1000
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_cavalry": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.mounted_control",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.mounted_lance",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.mounted_archery",
+          "weight_bp": 800
+        },
+        {
+          "drill_ref": "drill.cavalry_formation",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 400
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_archer": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.bow_range",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.missile_formation",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.scout_recon",
+          "weight_bp": 1000
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_crossbow": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.crossbow_range",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.missile_formation",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 800
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_guard": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.guard_protection",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.sword_shield_close",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.spear_shield_line",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 800
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_champion": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.mounted_archery",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.mounted_lance",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.guard_protection",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.cavalry_formation",
+          "weight_bp": 800
+        },
+        {
+          "drill_ref": "drill.weapon_transitions",
+          "weight_bp": 600
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_engineer": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.engineering_works",
+          "weight_bp": 2400
+        },
+        {
+          "drill_ref": "drill.siege_service",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 800
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_artillery": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.artillery_service",
+          "weight_bp": 2800
+        },
+        {
+          "drill_ref": "drill.engineering_works",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 1000
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_logistics": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 2800
+        },
+        {
+          "drill_ref": "drill.convoy_field",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.signal_relay",
+          "weight_bp": 600
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_signal": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.signal_relay",
+          "weight_bp": 2400
+        },
+        {
+          "drill_ref": "drill.signal_disruption",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 800
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.commander_medical": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.medical_triage",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.medical_evacuation",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 1000
+        }
+      ],
+      "authority": "Fixed command-and-branch program; billet command skills and commanded branch skills both receive deterministic verified training.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.ruler_governance": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.governance_council",
+          "weight_bp": 3000
+        },
+        {
+          "drill_ref": "drill.diplomatic_practice",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.legal_review",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.strategic_study",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 1000
+        }
+      ],
+      "authority": "Registered ruler/statecraft development; no stat-ranked focus selection.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.court_official": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.governance_council",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.legal_review",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.diplomatic_practice",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.strategic_study",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.intrigue_security",
+          "weight_bp": 1800
+        }
+      ],
+      "authority": "Registered court/minister development.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.legal_official": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.legal_review",
+          "weight_bp": 4200
+        },
+        {
+          "drill_ref": "drill.governance_council",
+          "weight_bp": 2400
+        },
+        {
+          "drill_ref": "drill.diplomatic_practice",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.intrigue_security",
+          "weight_bp": 1200
+        },
+        {
+          "drill_ref": "drill.strategic_study",
+          "weight_bp": 1000
+        }
+      ],
+      "authority": "Registered legal/governance development.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.diplomat": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.diplomatic_practice",
+          "weight_bp": 4200
+        },
+        {
+          "drill_ref": "drill.governance_council",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.intrigue_security",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.strategic_study",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.legal_review",
+          "weight_bp": 1000
+        }
+      ],
+      "authority": "Registered diplomatic development.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.strategist": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.strategic_study",
+          "weight_bp": 3800
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.intrigue_security",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 1000
+        }
+      ],
+      "authority": "Registered strategist development.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.merchant_administrator": {
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.merchant_administration",
+          "weight_bp": 4000
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.diplomatic_practice",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.legal_review",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.intrigue_security",
+          "weight_bp": 1200
+        }
+      ],
+      "authority": "Registered mercantile/administrative development.",
+      "allocation_rule": "registered_adaptive_rotation; promotion deficits and weak useful targets may reweight only this closed drill set; no RNG or prose-created focuses"
+    },
+    "program.tang_heir_child": {
+      "label": "Tang heir age-appropriate household development",
+      "rotation": [
+        {
+          "drill_ref": "drill.heir_household_learning",
+          "weight_bp": 3500
+        },
+        {
+          "drill_ref": "drill.heir_route_observation",
+          "weight_bp": 2500
+        },
+        {
+          "drill_ref": "drill.heir_riding_familiarity",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.heir_safe_martial_observation",
+          "weight_bp": 2000
+        }
+      ],
+      "policy": "No adult workload, live weapons, independent command, or battle-contact drill. Registered supervised learning only.",
+      "cycle_days": 7
+    },
+    "program.tang_field_senior_command": {
+      "label": "House Tang senior combined-arms field command",
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.mounted_control",
+          "weight_bp": 900
+        },
+        {
+          "drill_ref": "drill.mounted_lance",
+          "weight_bp": 900
+        },
+        {
+          "drill_ref": "drill.mounted_archery",
+          "weight_bp": 800
+        },
+        {
+          "drill_ref": "drill.sword_shield_close",
+          "weight_bp": 800
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 600
+        }
+      ],
+      "policy": "Senior Tang commanders rotate command, logistics, actual House loadout, and mounted skills; adaptive weighting remains inside this closed set.",
+      "cycle_days": 7
+    },
+    "program.bastion_senior_command": {
+      "label": "Four Bastion Corps senior command",
+      "rotation": [
+        {
+          "drill_ref": "drill.command_orders",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 2000
+        },
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.engineering_works",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.artillery_service",
+          "weight_bp": 1000
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 900
+        },
+        {
+          "drill_ref": "drill.signal_relay",
+          "weight_bp": 700
+        }
+      ],
+      "policy": "Bastion senior command integrates command, engineering, artillery, logistics and signals without fabricating separate support manpower.",
+      "cycle_days": 7
+    },
+    "program.martial_aspirant": {
+      "label": "Martial aspirant fundamentals",
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.martial_sword_fundamentals",
+          "weight_bp": 4000
+        },
+        {
+          "drill_ref": "drill.martial_grappling_fundamentals",
+          "weight_bp": 2500
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 2500
+        },
+        {
+          "drill_ref": "drill.martial_leadership_fundamentals",
+          "weight_bp": 1000
+        }
+      ],
+      "policy": "Closed aspirant program for saved martial-youth contracts: Sword, Defense, Athletics, Grappling, Survival and Leadership only. It does not imply soldier formation training, battlefield command, or unrelated weapons."
+    },
+    "program.strategic_apprentice": {
+      "label": "Strategic apprentice development",
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.strategic_study",
+          "weight_bp": 3200
+        },
+        {
+          "drill_ref": "drill.logistics_staff",
+          "weight_bp": 2200
+        },
+        {
+          "drill_ref": "drill.scout_recon",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.command_staff",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.diplomatic_practice",
+          "weight_bp": 1200
+        }
+      ],
+      "policy": "Closed youth/student strategist program. It builds analysis, logistics, reconnaissance, staff work and leadership-adjacent communication without pre-granting command office or future canon outcomes.",
+      "allocation_rule": "registered_adaptive_rotation; adaptation remains inside this closed drill set"
+    },
+    "program.elite_martial_operative": {
+      "label": "Elite independent martial operative",
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.martial_sword_fundamentals",
+          "weight_bp": 3200
+        },
+        {
+          "drill_ref": "drill.martial_grappling_fundamentals",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.scout_recon",
+          "weight_bp": 2600
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 2600
+        }
+      ],
+      "policy": "Closed elite-martial program using sword/defense/athletics, grappling, stealth/scouting and conditioning. It does not invent formation command or unrelated weapon training.",
+      "allocation_rule": "registered_adaptive_rotation; adaptation remains inside this closed drill set"
+    },
+    "program.warrior_ruler": {
+      "label": "Warrior-ruler combined development",
+      "cycle_days": 7,
+      "rotation": [
+        {
+          "drill_ref": "drill.command_battlefield",
+          "weight_bp": 2400
+        },
+        {
+          "drill_ref": "drill.strategic_study",
+          "weight_bp": 1800
+        },
+        {
+          "drill_ref": "drill.governance_council",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.mounted_control",
+          "weight_bp": 1400
+        },
+        {
+          "drill_ref": "drill.martial_sword_fundamentals",
+          "weight_bp": 1600
+        },
+        {
+          "drill_ref": "drill.conditioning_march",
+          "weight_bp": 1200
+        }
+      ],
+      "policy": "Closed combined ruler/field-leader program. Governance does not erase martial command, and martial training does not create sovereign outcomes.",
+      "allocation_rule": "registered_adaptive_rotation; adaptation remains inside this closed drill set"
+    }
+  },
+  "role_programs": {
+    "line_infantry": "program.line_infantry",
+    "bastion_heavy_infantry": "program.heavy_infantry",
+    "archer": "program.archer",
+    "bastion_archer": "program.archer",
+    "missile_crossbow": "program.crossbow",
+    "bastion_crossbow": "program.crossbow",
+    "cavalry": "program.cavalry",
+    "guardian_cavalry": "program.guardian_cavalry",
+    "chariot": "program.chariot",
+    "scout": "program.scout",
+    "siege_engineering": "program.engineer",
+    "bastion_engineer": "program.engineer",
+    "bastion_artillery": "program.artillery",
+    "logistics": "program.logistics",
+    "bastion_logistics": "program.logistics",
+    "signal": "program.signal",
+    "bastion_signal": "program.signal",
+    "bastion_medical": "program.medical",
+    "house_guard": "program.house_guard",
+    "tang_champion": "program.tang_champion",
+    "household_retainer": "program.household_retainer",
+    "trainee": "program.sword_trainee",
+    "junior_disciple": "program.sword_junior",
+    "general_disciple": "program.sword_general",
+    "senior_disciple": "program.sword_senior",
+    "officer": "program.sword_officer",
+    "command_personnel": "program.commander_combined_arms",
+    "light": "program.general_military",
+    "light_line": "program.line_infantry",
+    "light_infantry": "program.line_infantry",
+    "heavy": "program.heavy_infantry",
+    "heavy_line": "program.heavy_infantry",
+    "heavy_infantry": "program.heavy_infantry",
+    "line": "program.line_infantry",
+    "line_guards": "program.household_retainer",
+    "dismounted_line": "program.line_infantry",
+    "spears": "program.line_infantry",
+    "spear": "program.line_infantry",
+    "spear_screen": "program.line_infantry",
+    "spear_line": "program.line_infantry",
+    "spear_infantry": "program.line_infantry",
+    "crossbow": "program.crossbow",
+    "crossbow_infantry": "program.crossbow",
+    "scouts": "program.scout",
+    "mounted_scouts": "program.scout",
+    "mounted_scout": "program.scout",
+    "riders": "program.cavalry",
+    "engineers": "program.engineer",
+    "engineer": "program.engineer",
+    "sappers": "program.engineer",
+    "sapper": "program.engineer",
+    "boat_engineers": "program.engineer",
+    "engineer_drivers": "program.engineer",
+    "support": "program.logistics",
+    "support_staff": "program.logistics",
+    "wagon_guard": "program.household_retainer",
+    "guard_infantry": "program.household_retainer",
+    "veteran": "program.general_military"
+  },
+  "training_ref_programs": {
+    "train.house_tang_internal.heavy_cavalry": "program.guardian_cavalry",
+    "train.house_tang_internal.house_guard": "program.house_guard",
+    "train.tang_wei.household_champions": "program.tang_champion",
+    "train.sword_manor.trainee": "program.sword_trainee",
+    "train.sword_manor.junior_disciple": "program.sword_junior",
+    "train.sword_manor.general_disciple": "program.sword_general",
+    "train.sword_manor.senior_disciple": "program.sword_senior",
+    "train.sword_manor.officer": "program.sword_officer"
+  },
+  "exact_billet_programs": {
+    "army_commander": "program.commander_combined_arms",
+    "field_army_commander": "program.commander_combined_arms",
+    "unit_commander": "program.commander_combined_arms",
+    "formation_commander": "program.commander_combined_arms",
+    "deputy_commander": "program.commander_combined_arms",
+    "staff_officer": "program.commander_combined_arms",
+    "army_deputy": "program.commander_combined_arms",
+    "corps_commander": "program.commander_combined_arms",
+    "corps_deputy": "program.commander_combined_arms",
+    "command_group_commander": "program.commander_combined_arms",
+    "command_group_deputy": "program.commander_combined_arms",
+    "internal_100_command": "program.commander_combined_arms",
+    "internal_500_command": "program.commander_combined_arms",
+    "internal_1000_command": "program.commander_combined_arms",
+    "internal_100_commander": "program.commander_combined_arms",
+    "internal_500_commander": "program.commander_combined_arms",
+    "internal_1000_commander": "program.commander_combined_arms",
+    "100_commander": "program.commander_combined_arms",
+    "500_commander": "program.commander_combined_arms",
+    "1000_commander": "program.commander_combined_arms"
+  },
+  "role_keyword_programs": [
+    {
+      "contains": [
+        "deep earth"
+      ],
+      "program_ref": "program.engineer"
+    },
+    {
+      "contains": [
+        "red crane"
+      ],
+      "program_ref": "program.artillery"
+    },
+    {
+      "contains": [
+        "white lantern"
+      ],
+      "program_ref": "program.signal"
+    },
+    {
+      "contains": [
+        "iron rampart"
+      ],
+      "program_ref": "program.heavy_infantry"
+    },
+    {
+      "contains": [
+        "tang champion",
+        "champion"
+      ],
+      "program_ref": "program.tang_champion"
+    },
+    {
+      "contains": [
+        "house guard",
+        "bodyguard",
+        "retainer"
+      ],
+      "program_ref": "program.house_guard"
+    },
+    {
+      "contains": [
+        "guardian cavalry",
+        "mounted",
+        "cavalry",
+        "rider"
+      ],
+      "program_ref": "program.cavalry"
+    },
+    {
+      "contains": [
+        "elite archer",
+        "archer",
+        "bow"
+      ],
+      "program_ref": "program.archer"
+    },
+    {
+      "contains": [
+        "crossbow"
+      ],
+      "program_ref": "program.crossbow"
+    },
+    {
+      "contains": [
+        "scout",
+        "recon",
+        "ranger"
+      ],
+      "program_ref": "program.scout"
+    },
+    {
+      "contains": [
+        "artillery"
+      ],
+      "program_ref": "program.artillery"
+    },
+    {
+      "contains": [
+        "engineer",
+        "sapper",
+        "siege"
+      ],
+      "program_ref": "program.engineer"
+    },
+    {
+      "contains": [
+        "physician",
+        "medic",
+        "medical"
+      ],
+      "program_ref": "program.medical"
+    },
+    {
+      "contains": [
+        "quartermaster",
+        "logistics",
+        "supply"
+      ],
+      "program_ref": "program.logistics"
+    },
+    {
+      "contains": [
+        "signal",
+        "messenger",
+        "intelligence"
+      ],
+      "program_ref": "program.signal"
+    },
+    {
+      "contains": [
+        "legal",
+        "judge",
+        "law"
+      ],
+      "program_ref": "program.legal_official"
+    },
+    {
+      "contains": [
+        "diplomat",
+        "envoy",
+        "ambassador"
+      ],
+      "program_ref": "program.diplomat"
+    },
+    {
+      "contains": [
+        "strategist",
+        "strategy"
+      ],
+      "program_ref": "program.strategist"
+    },
+    {
+      "contains": [
+        "ruler",
+        "king",
+        "duke",
+        "royal",
+        "chancellor"
+      ],
+      "program_ref": "program.ruler_governance"
+    },
+    {
+      "contains": [
+        "minister",
+        "official",
+        "court"
+      ],
+      "program_ref": "program.court_official"
+    },
+    {
+      "contains": [
+        "merchant",
+        "trade"
+      ],
+      "program_ref": "program.merchant_administrator"
+    },
+    {
+      "contains": [
+        "guard",
+        "warrior",
+        "soldier",
+        "martial",
+        "assassin",
+        "brute"
+      ],
+      "program_ref": "program.general_military"
+    }
+  ],
+  "fallback_program_ref": "program.general_military",
+  "command_specialization_programs": {
+    "program.line_infantry": "program.commander_infantry",
+    "program.heavy_infantry": "program.commander_infantry",
+    "program.cavalry": "program.commander_cavalry",
+    "program.guardian_cavalry": "program.commander_cavalry",
+    "program.chariot": "program.commander_cavalry",
+    "program.archer": "program.commander_archer",
+    "program.crossbow": "program.commander_crossbow",
+    "program.house_guard": "program.commander_guard",
+    "program.household_retainer": "program.commander_guard",
+    "program.tang_champion": "program.commander_champion",
+    "program.engineer": "program.commander_engineer",
+    "program.artillery": "program.commander_artillery",
+    "program.logistics": "program.commander_logistics",
+    "program.signal": "program.commander_signal",
+    "program.medical": "program.commander_medical",
+    "program.sword_trainee": "program.sword_officer",
+    "program.sword_junior": "program.sword_officer",
+    "program.sword_general": "program.sword_officer",
+    "program.sword_senior": "program.sword_officer",
+    "program.sword_officer": "program.sword_officer",
+    "program.general_military": "program.commander_combined_arms"
+  },
+  "adaptive_priority": {
+    "priority_order": [
+      "real_promotion_threshold_deficits",
+      "registered_branch_and_loadout_program",
+      "command_and_logistics_duties",
+      "weak_useful_registered_capabilities",
+      "deterministic_rotation_tie_break"
+    ],
+    "promotion_deficit_weight": 3.0,
+    "weak_useful_weight": 0.8,
+    "maximum_module_multiplier": 4.0,
+    "rule": "Adaptation redistributes hours only among drills already in the resolved finite program. A skill or weapon absent from the program cannot receive gain merely because it is weak."
+  },
+  "instructor_pools": {
+    "default": [
+      "char_tang_zhu",
+      "char_wei_jian",
+      "char_lin_zhen",
+      "char_tang_ling",
+      "char_gao_yun",
+      "char_han_qiu",
+      "char_duan_jin",
+      "char_shen_rui",
+      "char_qiu_ren",
+      "char_zhao_fen"
+    ],
+    "role_instructor": [
+      "char_tang_zhu",
+      "char_wei_jian",
+      "char_lin_zhen",
+      "char_tang_ling",
+      "char_gao_yun",
+      "char_han_qiu",
+      "char_duan_jin",
+      "char_shen_rui",
+      "char_qiu_ren",
+      "char_zhao_fen"
+    ],
+    "command_instructor": [
+      "char_tang_zhu",
+      "char_wei_jian",
+      "char_lin_zhen",
+      "char_tang_ling",
+      "char_gao_yun",
+      "char_duan_jin",
+      "char_han_qiu",
+      "char_shen_rui"
+    ],
+    "engineer_instructor": [
+      "char_tang_zhu",
+      "char_tang_ling",
+      "char_lin_zhen",
+      "char_wei_jian"
+    ],
+    "artillery_instructor": [
+      "char_tang_zhu",
+      "char_wei_jian",
+      "char_lin_zhen"
+    ],
+    "logistics_instructor": [
+      "char_tang_ling",
+      "char_tang_zhu",
+      "char_lin_zhen",
+      "char_wei_jian"
+    ],
+    "signal_instructor": [
+      "char_lin_zhen",
+      "char_tang_ling",
+      "char_tang_zhu",
+      "char_wei_jian"
+    ],
+    "medical_instructor": [
+      "char_shen_rui",
+      "char_tang_ling",
+      "char_tang_zhu"
+    ],
+    "sword_manor_instructor": [
+      "char_wei_jian",
+      "char_tang_zhu",
+      "char_tang_ling"
+    ],
+    "sword_manor_senior_instructor": [
+      "char_wei_jian",
+      "char_tang_zhu",
+      "char_lin_zhen"
+    ],
+    "civil_instructor": [
+      "char_tang_ling",
+      "char_tang_zhu",
+      "char_wei_jian"
+    ],
+    "diplomatic_instructor": [
+      "char_tang_ling",
+      "char_tang_zhu",
+      "char_lin_zhen"
+    ],
+    "strategy_instructor": [
+      "char_tang_zhu",
+      "char_lin_zhen",
+      "char_tang_ling",
+      "char_wei_jian"
+    ],
+    "intelligence_instructor": [
+      "char_tang_ling",
+      "char_lin_zhen",
+      "char_tang_zhu"
+    ],
+    "merchant_instructor": [
+      "char_tang_ling",
+      "char_tang_zhu"
+    ],
+    "scout_instructor": [
+      "char_tang_zhu",
+      "char_lin_zhen",
+      "char_wei_jian",
+      "char_duan_jin"
+    ]
+  },
+  "instructor_location_groups": [
+    {
+      "id": "tang_manor_estate",
+      "prefixes": [
+        "loc_tang_manor"
+      ],
+      "availability_factor": 0.92
+    }
+  ],
+  "instructor_policy": {
+    "selection": "highest deterministic registered instructor quality among lawful healthy candidates at the training location or registered local training area; ties by Training then stable ref",
+    "large_unit_delivery": "senior exact instructor sets/corrects standard; existing 100/500/1000 command chain and ordinary qualified drill leaders deliver distributed training; no extra support or specialist manpower class",
+    "instructors_continue_training": "teaching duty does not cancel the instructor own deterministic program; total verified duty/training time remains bounded by ordinary elapsed-time and waking-hour rules",
+    "no_free_capacity": "missing local instructor/drill-leader capacity reduces verified EDU instead of being filled by narration"
+  }
+}

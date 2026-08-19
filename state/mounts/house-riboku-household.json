@@ -1,0 +1,35 @@
+{
+  "schema": "sword-mount-pool",
+  "owner_id": "mount_pool_force_house_riboku_household",
+  "house_force_ref": "force_house_riboku_household",
+  "state": "zhao",
+  "total": 1600,
+  "types": {
+    "horse_war_military": 1600
+  },
+  "health": {
+    "fit": 1600,
+    "limited": 0,
+    "recovering": 0,
+    "unfit": 0
+  },
+  "regional_reserve": {},
+  "allocated_to_formations": {
+    "formation_house_riboku_household_01": {
+      "horse_war_military": 800
+    },
+    "formation_house_riboku_household_02": {
+      "horse_war_military": 800
+    }
+  },
+  "geographic_disposition": {
+    "authority": true,
+    "rule": "Conserved military horses transferred from the host state mount owner during the private-House establishment rebaseline; health partition transferred with the same living animals.",
+    "source_partitions": [
+      [
+        "loc_zhao_regional_03",
+        1600
+      ]
+    ]
+  }
+}

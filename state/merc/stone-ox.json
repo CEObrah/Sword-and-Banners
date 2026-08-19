@@ -1,0 +1,171 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "Wei-Han roads",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 167,
+      "sd": 6.1
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 63,
+      "sd": 7.6
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 140000,
+      "basis": "mercenary_ecology current obligation; contract organizes employment but owns zero bodies",
+      "contract_ref": "market_contract_merc_stone_ox",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "employer_ref": "faction_mercenary_brokers",
+      "engagement_kind": "reconstitution",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 120
+    }
+  ],
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "doctrine": "doc.merc_stone_ox.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 0,
+    "assigned_war_arrows": 0,
+    "assigned_war_bolts": 107500,
+    "issued_loadouts": [
+      {
+        "count": 4167,
+        "loadout_id": "loadout_mercenary_heavy_infantry"
+      },
+      {
+        "count": 417,
+        "loadout_id": "loadout_mercenary_engineer"
+      },
+      {
+        "count": 416,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 0,
+    "reserve_war_arrows": 0,
+    "reserve_war_bolts": 107500
+  },
+  "establishment_strength": 5000,
+  "food_stock_kg": 480000,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "geographic_provenance": {
+    "rule": "company remains exact manpower owner; contract/employer does not own duplicate bodies"
+  },
+  "headcount": 5000,
+  "home_establishment_ref": "establishment.merc_stone_ox",
+  "home_location_ref": "loc_qin_regional_01",
+  "market_engagement": {
+    "kind": "reconstitution",
+    "rule": "current commercial/military employment affects availability without changing company manpower ownership",
+    "short_notice_available": false,
+    "established_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "market_tier": "specialist",
+  "name": "Stone Ox Company",
+  "owner_id": "merc_stone_ox",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "Independent",
+  "status": "contracted",
+  "subprocess_id": "process_merc_stone_ox",
+  "training": "train.merc_stone_ox.standard",
+  "treasury_silver": 400000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-stone-ox-pool-heavy.json",
+      "condition": {
+        "fit": 4167
+      },
+      "count": 4167,
+      "display": "Heavy Infantry",
+      "doctrine": "doc.merc_stone_ox.heavy",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_heavy_infantry",
+      "mount_type": null,
+      "pool_id": "merc_stone_ox:pool_heavy",
+      "pool_kind": "unit_manpower",
+      "role": "heavy",
+      "specialty": "heavy",
+      "training": "train.merc_stone_ox.heavy",
+      "troop_type": "heavy_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-stone-ox-pool-engineer.json",
+      "condition": {
+        "fit": 417
+      },
+      "count": 417,
+      "display": "Engineers",
+      "doctrine": "doc.merc_stone_ox.engineer",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_engineer",
+      "mount_type": null,
+      "pool_id": "merc_stone_ox:pool_engineer",
+      "pool_kind": "unit_manpower",
+      "role": "engineer",
+      "training": "train.merc_stone_ox.engineer",
+      "troop_type": "engineer"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-stone-ox-pool-support.json",
+      "condition": {
+        "fit": 416
+      },
+      "count": 416,
+      "display": "Support",
+      "doctrine": "doc.merc_stone_ox.support",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_support",
+      "mount_type": null,
+      "pool_id": "merc_stone_ox:pool_support",
+      "pool_kind": "unit_manpower",
+      "role": "support",
+      "specialty": "support",
+      "training": "train.merc_stone_ox.support",
+      "troop_type": "line_infantry"
+    }
+  ]
+}

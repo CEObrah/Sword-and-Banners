@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Independent non-sovereign organization",
+  "type": "object",
+  "required": ["schema", "owner_id", "name", "organization_class", "state", "location_ref", "status", "capacity", "population_owned", "treasury_ref", "member_refs", "leader_refs", "linked_force_refs", "projects"],
+  "properties": {
+    "schema": {"const": "sword-independent-organization"},
+    "owner_id": {"type": "string"},
+    "name": {"type": "string"},
+    "organization_class": {"type": "string"},
+    "state": {"type": "string"},
+    "location_ref": {"type": "string"},
+    "status": {"enum": ["active", "dissolved"]},
+    "capacity": {"type": "integer", "minimum": 1},
+    "population_owned": {"const": 0},
+    "treasury_ref": {"type": "string"},
+    "member_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "leader_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "linked_force_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "projects": {"type": "array"}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Resource pool",
+  "type": "object",
+  "required": [
+    "allocation",
+    "count",
+    "fodder_obligation_owner_id",
+    "legal_owner_rule",
+    "monthly_fodder_kg",
+    "owner_id",
+    "owner_type",
+    "resource_type",
+    "runtime",
+    "schema",
+    "settlement_process_id"
+  ],
+  "properties": {
+    "allocation": {
+      "type": "object"
+    },
+    "count": {
+      "type": "integer"
+    },
+    "fodder_obligation_owner_id": {
+      "type": "string"
+    },
+    "legal_owner_rule": {
+      "type": "string"
+    },
+    "monthly_fodder_kg": {
+      "type": "integer"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "resource_type": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "object"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "settlement_process_id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current schema contract."
+}

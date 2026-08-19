@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "effects": {
+      "type": "object"
+    },
+    "evidence_update": {
+      "type": "object"
+    },
+    "game": {
+      "enum": [
+        "sword"
+      ]
+    },
+    "knowledge_gate": {
+      "type": "object"
+    },
+    "propagation": {
+      "type": "object"
+    },
+    "schema": {
+      "const": "reputation-mechanics"
+    },
+    "standing_axes": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "game",
+    "standing_axes",
+    "knowledge_gate",
+    "evidence_update",
+    "propagation",
+    "effects"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "content-archetypes",
+  "kind": "ambient_location_archetypes",
+  "authority": "cold_non_state_content",
+  "rule": "These are ordinary social, commercial, civic, roadside, and leisure-place archetypes for scene generation and world flavor. An archetype creates no inventory, treasury, staffing sheet, population owner, contract ledger, recurring economy process, or other managed state merely by appearing in narration. Persist a specific location only when it becomes causally important, and then instantiate only the minimum registered geography or owner state required by play.",
+  "archetypes": [
+    {
+      "id": "location.inn_guesthouse",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "An inn or guesthouse offering lodging, meals, stabling arrangements, common-room conversation, travelers, merchants, guards, and news without requiring a managed business ledger unless the specific establishment becomes causally important.",
+      "category": "inn_guesthouse"
+    },
+    {
+      "id": "location.wine_house",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A wine house or drinking shop where patrons eat, drink, bargain, gossip, hire guides or escorts, and encounter officials, soldiers, merchants, travelers, or local regulars.",
+      "category": "wine_house"
+    },
+    {
+      "id": "location.flower_house",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A flower house or pleasure house providing companionship, music, drinking, private rooms, social introductions, gossip, and elite or common entertainment according to district and clientele; it is an ordinary civilian venue, not an automatic intrigue or vice event.",
+      "category": "flower_house"
+    },
+    {
+      "id": "location.music_dance_house",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A music, dance, or performance house used for entertainment, patronage, banquets, introductions, and informal political or commercial meetings.",
+      "category": "music_dance_house"
+    },
+    {
+      "id": "location.gambling_house",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A gambling house or back-room gaming hall with wagers, dice, board games, drinking, spectators, debts, and local social networks; no debt or criminal consequence exists unless play actually creates one.",
+      "category": "gambling_house"
+    },
+    {
+      "id": "location.eating_house",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A cookshop or eating house serving prepared food to laborers, travelers, soldiers, merchants, clerks, and neighborhood customers, useful for ordinary street-level scenes and overheard conversation.",
+      "category": "eating_house"
+    },
+    {
+      "id": "location.bath_wash_house",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A public or semi-public bathing and wash establishment where local custom permits it, providing washing, grooming, attendants, conversation, and a civilian social setting without a persistent service inventory by default.",
+      "category": "bath_wash_house"
+    },
+    {
+      "id": "location.livery_stable",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A civilian stable or livery yard used by travelers for temporary horse care, remount inquiry, carriage handling, and local route information; actual purchases, losses, or transfers still require the relevant material transaction.",
+      "category": "livery_stable"
+    },
+    {
+      "id": "location.ferry_guesthouse",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A riverside lodging and waiting place near a ferry or landing, mixing boatmen, traders, guards, travelers, animals, carts, rumors, weather delays, and route information.",
+      "category": "ferry_guesthouse"
+    },
+    {
+      "id": "location.market_courtyard",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A market courtyard or street cluster where stalls, porters, brokers, customers, animals, carts, inspectors, and itinerant sellers create ordinary urban activity without each stall becoming a persistent owner.",
+      "category": "market_courtyard"
+    },
+    {
+      "id": "location.shrine_temple",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A shrine, ancestral hall, or temple-like local sacred place used for offerings, vows, funerary customs, petitions, meetings, and community observance according to local tradition.",
+      "category": "shrine_temple"
+    },
+    {
+      "id": "location.scribe_letter_house",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A civilian scribe, letter-writer, seal-copying, or document-assistance stall or room serving travelers, merchants, petitioners, and households; official authority is never implied by the service.",
+      "category": "scribe_letter_house"
+    },
+    {
+      "id": "location.physician_herbalist",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A civilian physician, healer, bonesetter, or herbalist practice for ordinary consultation and treatment scenes. Medical stock, named practitioners, payment, and treatment consequences become managed state only when causally relevant.",
+      "category": "physician_herbalist"
+    },
+    {
+      "id": "location.roadside_rest_stop",
+      "type": "ambient_location",
+      "status": "available",
+      "description": "A simple roadside rest point, shelter, food stop, relay-adjacent yard, or traveler gathering place where routes converge, distinct from an official state post unless explicitly established as one.",
+      "category": "roadside_rest_stop"
+    }
+  ]
+}

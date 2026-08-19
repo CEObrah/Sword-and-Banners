@@ -1,0 +1,41 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.ouki.field_army",
+  "authority_ref": "state_qin",
+  "commander_ref": "char_ouki",
+  "deputy_ref": null,
+  "direct_person_refs": [],
+  "parent_command_group_ref": null,
+  "display_name": "Ouki Field Army",
+  "location": "loc_qin_regional_02",
+  "context": "state_field_army",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [],
+  "attachment_rule": "This zero-body field-army command may attach to a larger army as one subordinate command while every nested House unit remains intact.",
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_qin_ouki_vanguard"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.house_ouki_household.field_army"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 18000,
+    "authorized_direct_unit_slots": 2,
+    "current_recursive_strength": 18000,
+    "current_direct_formation_strength": 10000,
+    "recursive_formation_count": 3,
+    "direct_unit_count": 2,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "state_field_army",
+    "reserve_doctrine": "Preserve surviving Units and officer cadres; casualty losses change strength, not durable rank. Consolidation, dissolution, reassignment and promotion require deliberate authority.",
+    "staffing_policy": "Attach only exact physically available formations or intact nested armies under lawful authority; prefer delegation rather than flattening large subordinate commands.",
+    "history": []
+  }
+}

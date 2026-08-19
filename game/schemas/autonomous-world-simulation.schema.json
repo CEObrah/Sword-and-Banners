@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "purpose",
+    "player_intent_boundary",
+    "actor_sources",
+    "action_kinds",
+    "selection_rule",
+    "materialization_rule",
+    "storage_rule",
+    "npc_mission_rule",
+    "interaction_rule",
+    "combat_rule",
+    "territory_rule",
+    "successor_rule",
+    "information_rule",
+    "efficiency_rule",
+    "operation_lifecycle",
+    "large_conflict_efficiency_rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "autonomous-world-simulation"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "player_intent_boundary": {
+      "type": "string"
+    },
+    "actor_sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "action_kinds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "selection_rule": {
+      "type": "string"
+    },
+    "materialization_rule": {
+      "type": "string"
+    },
+    "npc_mission_rule": {
+      "type": "string"
+    },
+    "interaction_rule": {
+      "type": "string"
+    },
+    "combat_rule": {
+      "type": "string"
+    },
+    "territory_rule": {
+      "type": "string"
+    },
+    "successor_rule": {
+      "type": "string"
+    },
+    "information_rule": {
+      "type": "string"
+    },
+    "efficiency_rule": {
+      "type": "string"
+    },
+    "storage_rule": {
+      "type": "string"
+    },
+    "operation_lifecycle": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string"
+      }
+    },
+    "large_conflict_efficiency_rule": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

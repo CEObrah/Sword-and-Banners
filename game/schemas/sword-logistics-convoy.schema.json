@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "source_depot_ref",
+    "destination_site_ref",
+    "cargo",
+    "status",
+    "departed_at",
+    "arrives_at",
+    "route_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-logistics-convoy"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "cargo": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "status": {
+      "enum": [
+        "in_transit",
+        "arrived_holding",
+        "delivered",
+        "seized",
+        "destroyed"
+      ]
+    },
+    "route_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

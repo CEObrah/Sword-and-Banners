@@ -1,0 +1,16 @@
+{
+  "schema": "body-mechanics",
+  "formulas": {
+    "height_m": "current_height_cm/100",
+    "unarmed_reach_m": "0.45*height_m",
+    "body_reach_adjustment_m": "0.22*(height_m-1.70)",
+    "effective_weapon_reach_m": "item.reach_m+body_reach_adjustment_m",
+    "walking_stride_m": "0.415*height_m",
+    "mass_factor": "clamp(100*sqrt(actor_mass_kg/target_mass_kg),50,150)",
+    "grapple_control": "0.35*Grappling+0.25*Strength+0.15*Coordination+0.15*Agility+0.10*mass_factor",
+    "knockback_resistance": "(0.45*Toughness+0.35*Strength+0.20*Endurance)*sqrt(mass_kg/70)",
+    "linear_momentum": "mass_kg*speed_mps",
+    "fall_energy_j": "mass_kg*9.80665*fall_height_m"
+  },
+  "rule": "Height and mass are mechanical inputs. Any older prose saying they are not inputs is invalid. Unless an owner has an explicit supported override, current height derives from birth_date + growth_profile_id + optional anchors through growth_end_age; current_weight_kg is a mutable life-course value and is never frozen merely because growth_end_age was reached."
+}

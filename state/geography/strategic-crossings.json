@@ -1,0 +1,51 @@
+{
+  "authority": true,
+  "crossings": {
+    "route_chu_east_ei": {
+      "bridge_condition_percent": 100,
+      "bridge_open": true,
+      "change_history": [],
+      "ford_open": false,
+      "last_changed_at": null,
+      "route_ref": "route_chu_east_ei",
+      "serviceable_ferry_boats": 16,
+      "water_stage": "normal"
+    },
+    "route_chu_heartland_east": {
+      "bridge_condition_percent": 100,
+      "bridge_open": true,
+      "change_history": [],
+      "ford_open": false,
+      "last_changed_at": null,
+      "route_ref": "route_chu_heartland_east",
+      "serviceable_ferry_boats": 18,
+      "water_stage": "normal"
+    },
+    "route_retsubi_gyou": {
+      "bridge_condition_percent": 100,
+      "bridge_open": true,
+      "change_history": [],
+      "ford_open": false,
+      "last_changed_at": null,
+      "route_ref": "route_retsubi_gyou",
+      "serviceable_ferry_boats": 14,
+      "water_stage": "normal"
+    },
+    "route_zhao_west_retsubi": {
+      "bridge_condition_percent": 100,
+      "bridge_open": true,
+      "change_history": [],
+      "ford_open": false,
+      "last_changed_at": null,
+      "route_ref": "route_zhao_west_retsubi",
+      "serviceable_ferry_boats": 10,
+      "water_stage": "normal"
+    }
+  },
+  "geography": {
+    "owns_local_population": false,
+    "rule": "crossing state owns infrastructure condition only; no population, force, wagon, market, or supply bodies"
+  },
+  "owner_id": "strategic_crossings",
+  "schema": "sword-strategic-crossing-state"
+}

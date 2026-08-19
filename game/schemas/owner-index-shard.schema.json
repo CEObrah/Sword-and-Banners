@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "prefix",
+    "authority",
+    "owners"
+  ],
+  "properties": {
+    "schema": {
+      "const": "owner-index-shard"
+    },
+    "prefix": {
+      "type": "string"
+    },
+    "authority": {
+      "const": false
+    },
+    "owners": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

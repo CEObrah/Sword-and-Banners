@@ -1,0 +1,179 @@
+{
+  "schema": "content-archetypes",
+  "kind": "world_event_archetypes",
+  "authority": "cold_non_state_content",
+  "rule": "Archetypes wake on actual scheduled/causal triggers; dormant patterns are not monthly polling work.",
+  "archetypes": [
+    {
+      "id": "event.qin_court_appointment",
+      "type": "scheduled",
+      "status": "dormant",
+      "description": "A court appointment, dismissal, or council session reaches its time window.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.state_mobilization",
+      "type": "triggered",
+      "status": "dormant",
+      "description": "A state threat, war plan, or political order commits troops from existing pools.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.commander_casualty",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "A named commander death, injury, capture, or removal forces succession through actual command rules.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.border_raid",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "A frontier faction or army initiates a raid from existing people and supplies.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.major_siege",
+      "type": "triggered",
+      "status": "dormant",
+      "description": "A campaign reaches a fortified target and commits existing siege assets and formations.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.supply_collapse",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "Supply state falls below the deterministic threshold and causes readiness/morale/operational consequences.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.army_desertion",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "Morale, supply, leadership, or political conditions cross desertion/rout triggers.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.enemy_coalition",
+      "type": "triggered",
+      "status": "dormant",
+      "description": "Multiple states/factions reach compatible plans and political conditions for coalition action.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.fortification_program",
+      "type": "triggered",
+      "status": "dormant",
+      "description": "A polity commits money, engineers, labor, and time to a fortification plan.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.grain_shortage",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "Harvest, transport, storage, or war damage produces a verified grain shortage.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.horse_shortage",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "Remount demand exceeds available pools or routes.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.trade_route_closure",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "War, banditry, toll conflict, disaster, or politics closes a trade route.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.river_flood",
+      "type": "scheduled_or_emergent",
+      "status": "dormant",
+      "description": "Season/weather state causes a material river disruption when conditions are met.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.mercenary_company_split",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "A company's contract, casualties, leadership, or reputation state creates a split.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.mercenary_wage_spike",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "Demand and available company strength drive wages upward through existing market mechanics.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.martial_school_dispute",
+      "type": "triggered",
+      "status": "dormant",
+      "description": "Two institutions enter a reputation, patronage, student, or jurisdiction dispute.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.house_tang_political_pressure",
+      "type": "triggered",
+      "status": "dormant",
+      "description": "A state, noble, merchant, or institution makes a consequential demand of House Tang.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.yotanwa_confederation_council",
+      "type": "scheduled_or_triggered",
+      "status": "dormant",
+      "description": "Mountain chiefs require a council because campaign, succession, alliance, or resource conditions are material.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    },
+    {
+      "id": "event.quanrong_warband_shift",
+      "type": "emergent",
+      "status": "dormant",
+      "description": "A Quanrong warband changes posture because of actual leadership, resource, or security pressure.",
+      "forced_outcome": false,
+      "process_id": "process_living_world_event_triggers",
+      "visibility": "information_path_or_hidden_until_observed"
+    }
+  ]
+}

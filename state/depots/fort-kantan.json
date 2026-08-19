@@ -1,0 +1,169 @@
+{
+  "artillery_ref": "artillery_fort_kantan",
+  "consumption_history": [],
+  "current_shortfalls": {},
+  "damage_history": [],
+  "damage_state": {
+    "granary_damage_percent": 0,
+    "last_damage_at": null,
+    "magazine_damage_percent": 0,
+    "medical_facility_damage_percent": 0,
+    "overall_condition_percent": 100,
+    "wagon_yard_damage_percent": 0,
+    "water_system_damage_percent": 0
+  },
+  "depot_kind": "fortified_site_garrison",
+  "fortification_profile_ref": "fort_profile_kantan",
+  "garrison_formation_refs": [
+    "formation_zhao_reconstitution"
+  ],
+  "garrison_personnel_at_materialization": 3500,
+  "garrison_summary": {
+    "bow_personnel": 0,
+    "crossbow_personnel": 0,
+    "engineer_personnel": 0,
+    "mounts": 0,
+    "personnel": 3500
+  },
+  "garrison_support_targets": {
+    "carts": 175,
+    "fodder_kg": 0,
+    "grain_kg": 630000,
+    "iron_tonnes": 9,
+    "medicine_lots": 1225,
+    "timber_tonnes": 42,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "geography": {
+    "access_node_ref": "loc_kantan",
+    "location_ref": "loc_kantan",
+    "owns_demographic_production": false,
+    "owns_local_population": false,
+    "region_ref": "loc_zhao_regional_01",
+    "rule": "fortified-site depot owns only exact military stock and installed-fixture condition; resident population/economy remain with their demographic/economic owners"
+  },
+  "hot_state": {
+    "cold_blueprint_ref": "fort_profile_kantan",
+    "last_reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "materialized_at": "244-BCE-07-29T20:22:48+08:00",
+    "status": "hot"
+  },
+  "infrastructure_capacity": {
+    "carts": 8250,
+    "construction_material_units": 12100,
+    "fodder_kg": 25987500,
+    "grain_kg": 14850000,
+    "iron_tonnes": 528,
+    "medicine_lots": 99000,
+    "timber_tonnes": 2640,
+    "war_arrows": 8316000,
+    "war_bolts": 8316000
+  },
+  "installed_equipment": {
+    "authority_ref": null,
+    "blueprint_quantities": {
+      "bed_crossbows": 238,
+      "counterweight_trebuchets": 13,
+      "firepot_systems": 95,
+      "gate_mechanism_sets": 4,
+      "signal_tower_sets": 0,
+      "stone_drop_cranes": 95
+    },
+    "condition_percent": {
+      "bed_crossbows": 100,
+      "counterweight_trebuchets": 100,
+      "firepot_systems": 100,
+      "gate_mechanism_sets": 100,
+      "signal_tower_sets": 100,
+      "stone_drop_cranes": 100
+    },
+    "disabled_quantities": {
+      "bed_crossbows": 0,
+      "counterweight_trebuchets": 0,
+      "firepot_systems": 0,
+      "gate_mechanism_sets": 0,
+      "signal_tower_sets": 0,
+      "stone_drop_cranes": 0
+    },
+    "mode": "materialized_from_static_installed_blueprint"
+  },
+  "location_ref": "loc_kantan",
+  "medical_reserve": {
+    "bed_capacity": 1650,
+    "field_hospital_sites": 4,
+    "supply_yards": 1
+  },
+  "owner_id": "depot_fort_kantan",
+  "region_ref": "loc_zhao_regional_01",
+  "resupply_history": [
+    {
+      "at": "244-BCE-07-29T20:22:48+08:00",
+      "construction_source": {
+        "economy_owner_ref": "private_economy_zhao",
+        "location_ref": "loc_kantan",
+        "units": 875
+      },
+      "kind": "baseline_hot_materialization",
+      "source_depot_ref": "state_depot_zhao",
+      "transferred_stocks": {
+        "carts": 175,
+        "construction_material_units": 875,
+        "fodder_kg": 0,
+        "grain_kg": 630000,
+        "iron_tonnes": 9,
+        "medicine_lots": 1225,
+        "timber_tonnes": 42,
+        "war_arrows": 0,
+        "war_bolts": 0
+      }
+    }
+  ],
+  "schema": "sword-depot",
+  "site_ref": "loc_kantan",
+  "source_aggregate_depot_ref": "state_depot_zhao",
+  "source_depot_ref": "state_depot_zhao",
+  "state": "zhao",
+  "stocks": {
+    "carts": 175,
+    "construction_material_units": 3150,
+    "fodder_kg": 0,
+    "grain_kg": 630000,
+    "iron_tonnes": 9,
+    "medicine_lots": 1225,
+    "timber_tonnes": 42,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "storage_capacity": {
+    "carts": 8250,
+    "construction_material_units": 12100,
+    "fodder_kg": 25987500,
+    "grain_kg": 14850000,
+    "iron_tonnes": 528,
+    "medicine_lots": 99000,
+    "timber_tonnes": 2640,
+    "war_arrows": 8316000,
+    "war_bolts": 8316000
+  },
+  "storage_class": "capital_campaign_reserve",
+  "transfer_history": [
+    {
+      "at": "244-BCE-07-29T20:22:48+08:00",
+      "moved": {
+        "construction_material_units": 2275
+      },
+      "reason": "fortified-site local construction reserve partition",
+      "source_ref": "private_economy_zhao:loc_kantan"
+    }
+  ],
+  "wagon_staging": {
+    "covered_cart_capacity": 8250,
+    "yard_count": 1
+  },
+  "water_reserve": {
+    "capacity_person_days": 3960000,
+    "current_person_days": 3168000,
+    "source": "local wells/cisterns/stored water represented by the static fortification blueprint"
+  }
+}

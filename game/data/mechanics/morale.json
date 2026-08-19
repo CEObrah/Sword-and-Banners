@@ -1,0 +1,66 @@
+{
+  "schema": "morale-mechanics",
+  "scale": {
+    "minimum": 0,
+    "maximum": 200
+  },
+  "formulas": {
+    "casualty_pressure": "clamp(0,60,120*recent_casualty_fraction + 40*cumulative_casualty_fraction)",
+    "commander_loss_pressure": "18*commander_lost + 8*deputy_lost",
+    "fear_pressure": "clamp(sum(registered_fear_pressure),0,40)",
+    "cohesion_support": "clamp((cohesion-70)*0.25,-15,25)",
+    "rally": "command_action_used * clamp(((0.40*Leadership + 0.30*Presence + 0.30*Formation_Command)-60)*0.35,0,35) * commander_familiarity_factor",
+    "morale_pressure": "casualty_pressure + commander_loss_pressure + positional_pressure + isolation_pressure + supply_pressure + fear_pressure - rally - cohesion_support",
+    "effective_morale": "clamp(base_morale-morale_pressure,0,200)"
+  },
+  "trigger_weights": {
+    "positional_pressure": {
+      "none": 0,
+      "flanked": 10,
+      "rear_compromised": 20,
+      "encircled": 35
+    },
+    "isolation_pressure": {
+      "connected": 0,
+      "separated": 8,
+      "cut_off": 18
+    },
+    "supply_pressure": {
+      "secure": 0,
+      "strained": 8,
+      "critical": 18,
+      "exhausted": 30
+    }
+  },
+  "rally_rules": {
+    "command_action_required": true,
+    "commander_familiarity_factor_min": 0.85,
+    "commander_familiarity_factor_max": 1.15,
+    "maximum_rally": 35,
+    "one_rally_resolution_per_trigger_window": true
+  },
+  "input_rules": {
+    "recent_casualty_fraction": "0..1; casualties suffered during current shock window divided by personnel present at window start",
+    "cumulative_casualty_fraction": "0..1; total unresolved casualties since formation entered current engagement divided by engagement-start personnel",
+    "commander_lost": "0 or 1 for current unresolved command-loss shock",
+    "deputy_lost": "0 or 1 for current unresolved deputy-loss shock",
+    "registered_fear_pressure": "numeric points from effects already registered before the engagement; unregistered narrative fear adds 0",
+    "cohesion": "saved 0..200 formation cohesion",
+    "commander_familiarity_factor": "saved 0.85..1.15 familiarity multiplier"
+  },
+  "thresholds": {
+    "0-24": "rout_or_surrender",
+    "25-49": "breaking",
+    "50-79": "shaken",
+    "80-119": "steady",
+    "120-159": "confident",
+    "160-200": "unyielding"
+  },
+  "resolution_rules": {
+    "threshold_result_is_authoritative": true,
+    "no_hidden_random_morale_roll": true,
+    "new_trigger_recalculates_from_current_saved_state": true,
+    "rout_or_surrender_choice": "use saved doctrine, escape geometry, command state, and surrender legality; if multiple equally legal outcomes remain, use recorded deterministic RNG"
+  },
+  "registered_triggers_required": true
+}

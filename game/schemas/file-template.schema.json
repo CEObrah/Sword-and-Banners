@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "template_id",
+    "target_schema",
+    "scope",
+    "unknown_key_policy",
+    "object_contracts",
+    "type_contracts",
+    "array_contracts",
+    "writing_rules"
+  ],
+  "properties": {
+    "schema": {
+      "const": "file-template"
+    },
+    "template_id": {
+      "type": "string"
+    },
+    "target_schema": {
+      "type": "string"
+    },
+    "source_schema": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "scope": {
+      "enum": [
+        "mutable_state",
+        "registered_json_structure",
+        "static_data"
+      ]
+    },
+    "current_directories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unknown_key_policy": {
+      "const": "reject"
+    },
+    "required_top_level_keys": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "object_contracts": {
+      "type": "object"
+    },
+    "type_contracts": {
+      "type": "object"
+    },
+    "array_contracts": {
+      "type": "object"
+    },
+    "writing_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

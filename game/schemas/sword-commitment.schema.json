@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Durable commitment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "commitment_ref",
+    "obligor_ref",
+    "beneficiary_ref",
+    "kind",
+    "description",
+    "status"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-commitment"
+    },
+    "commitment_ref": {
+      "type": "string"
+    },
+    "obligor_ref": {
+      "type": "string"
+    },
+    "beneficiary_ref": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "due_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "overdue",
+        "fulfillment_claimed",
+        "fulfilled",
+        "breached",
+        "released"
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "fulfilled_at": {
+      "type": "string"
+    },
+    "breached_at": {
+      "type": "string"
+    },
+    "released_at": {
+      "type": "string"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "overdue_at": {
+      "type": "string"
+    },
+    "fulfillment_claimed_at": {
+      "type": "string"
+    },
+    "confirmed_by_ref": {
+      "type": "string"
+    }
+  }
+}

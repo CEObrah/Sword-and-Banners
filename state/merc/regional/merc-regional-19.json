@@ -1,0 +1,63 @@
+{
+  "accounting_only": true,
+  "accounting_scale": "operational_100",
+  "aptitude_distribution": {
+    "exceptional_pct": 4,
+    "high_pct": 22,
+    "low_pct": 12,
+    "mean": 108,
+    "normal_pct": 62,
+    "sd": 16,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "composition": "deterministic template from specialty, registered before contract or combat",
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 38400,
+      "basis": "mercenary_ecology regional obligation; owns zero bodies",
+      "contract_ref": "market_contract_regional_19",
+      "deployment_location_ref": "loc_chu_regional_02",
+      "employer_ref": "faction_central_merchant_houses",
+      "engagement_kind": "travel",
+      "expires_at": "244-BCE-09-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 90
+    }
+  ],
+  "count": 1600,
+  "current_location_ref": "loc_chu_regional_02",
+  "deployment_status": "travel",
+  "doctrine": "doc.merc.regional.19",
+  "establishment_strength": 1600,
+  "geographic_provenance": {
+    "rule": "exact company remains manpower owner; state_market/location describe geography only"
+  },
+  "home_location_ref": "loc_chu_regional_02",
+  "id": "merc.regional.19",
+  "market_engagement": {
+    "kind": "travel",
+    "short_notice_available": false,
+    "established_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "market_tier": "regional_professional",
+  "name": "Pine Shield Veterans",
+  "owner_id": "merc.regional.19",
+  "owner_type": "regional_mercenary_company",
+  "quality": "regional_professional",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "regional-mercenary-company",
+  "specialty": "veteran_line",
+  "state_market": "chu",
+  "status": "contracted",
+  "tendencies": {
+    "adaptability": 55,
+    "aggression": 59,
+    "caution": 55,
+    "initiative": 53
+  },
+  "training": "train.merc.regional"
+}

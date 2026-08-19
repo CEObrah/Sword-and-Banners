@@ -1,0 +1,179 @@
+{
+  "action_history": [
+    {
+      "at": "244-BCE-01-25T01:22:48+08:00",
+      "duty": "Investigate the assigned Qin formation: commander, strength, route, mission, supply, and any concrete need for additional officers or troops.",
+      "kind": "assign_duty",
+      "subject_ref": "char_tang_ling"
+    }
+  ],
+  "administrative_programs": {
+    "four_bastion_corps": {
+      "command_ref": "cmdgrp.house_tang.bastions",
+      "establishment": 110000,
+      "institution_ref": "institution_four_bastion_corps",
+      "payroll_model": "professional House military payroll; never mercenary contract expense",
+      "policy_ref": "game/data/mechanics/bastion-corps.json",
+      "status": "permanent"
+    },
+    "house_equipment_production": {
+      "forge_and_armory_workers": 7000,
+      "history": [
+        {
+          "at": "244-BCE-07-29T06:00:00+08:00",
+          "construction_material_units_consumed": 8720,
+          "private_horses_acquired": 325,
+          "produced": {
+            "Cavalry Lance unissued reserve": 250,
+            "Great War Bow armory reserve": 735,
+            "Long Spear unissued reserve": 1500,
+            "One-Handed Long Sword unissued reserve": 1155,
+            "Tang Armor unissued reserve": 945,
+            "Tang Heavy Warhorse reserve": 225,
+            "Tang Helmet unissued reserve": 840,
+            "Tang Horse Armor reserve": 245,
+            "Tang Shield unissued reserve": 1050,
+            "Tang Tack reserve": 250
+          },
+          "rule": "resource_bounded_monthly_replenishment_to_registered_reserve_targets",
+          "silver_paid": 50160
+        }
+      ],
+      "last_close": "244-BCE-07-29T06:00:00+08:00",
+      "last_horses_acquired": 325,
+      "last_material_units_consumed": 8720,
+      "last_output": {
+        "Cavalry Lance unissued reserve": 250,
+        "Great War Bow armory reserve": 735,
+        "Long Spear unissued reserve": 1500,
+        "One-Handed Long Sword unissued reserve": 1155,
+        "Tang Armor unissued reserve": 945,
+        "Tang Heavy Warhorse reserve": 225,
+        "Tang Helmet unissued reserve": 840,
+        "Tang Horse Armor reserve": 245,
+        "Tang Shield unissued reserve": 1050,
+        "Tang Tack reserve": 250
+      },
+      "last_silver_paid": 50160,
+      "schema": "house-equipment-production-runtime",
+      "stable_remount_and_carriage_workers": 5000
+    },
+    "sword_manor_initiate_intake": {
+      "last_intake": 60,
+      "last_review_at": "244-BCE-07-23T01:22:48+08:00",
+      "rule": "Sword Manor intake uses conserved eligible population and the ordinary monthly development cycle.",
+      "status": "active"
+    },
+    "wei_field_preparation": {
+      "champions_formation_ref": "formation_tang_champions_first",
+      "champions_personnel": 500,
+      "equipment_issue_status": "issued_for_departure",
+      "kai_training_disposition": "remain_home_age_appropriate_verified_training",
+      "manufacturing_truth": "House Tang has a registered monthly armory/remount production owner. Output is resource-bounded by workers, nearby private materials or horses, House silver, and exact reserve shortages.",
+      "material_issued_at": "244-BCE-07-23T10:22:48+08:00",
+      "policy_ref": "game/data/mechanics/house-tang-field-service.json#field_service_preparation",
+      "principal_ref": "char_tang_wei",
+      "production_last_close": "244-BCE-07-29T06:00:00+08:00",
+      "production_last_output": {
+        "Cavalry Lance unissued reserve": 250,
+        "Great War Bow armory reserve": 735,
+        "Long Spear unissued reserve": 1500,
+        "One-Handed Long Sword unissued reserve": 1155,
+        "Tang Armor unissued reserve": 945,
+        "Tang Heavy Warhorse reserve": 225,
+        "Tang Helmet unissued reserve": 840,
+        "Tang Horse Armor reserve": 245,
+        "Tang Shield unissued reserve": 1050,
+        "Tang Tack reserve": 250
+      },
+      "production_rules_ref": "game/data/mechanics/house-tang-production.json",
+      "requested_at": "244-BCE-07-23T10:22:48+08:00",
+      "reserve_days": 120,
+      "shortfalls": [],
+      "status": "issued_for_departure",
+      "wei_house_guard_formation_ref": "formation_tang_wei_house_guard",
+      "wei_house_guard_personnel": 3000
+    }
+  },
+  "autonomous_reviews": [
+    {
+      "at": "244-BCE-06-04T07:22:48+08:00",
+      "kind": "estate_and_retainer_review",
+      "projects_settled": 0,
+      "source": "autonomous_house_policy"
+    }
+  ],
+  "coordination_runtime": {
+    "last_review": "244-BCE-07-04T00:00:48+08:00",
+    "reviews": 7
+  },
+  "duty_assignments": {
+    "char_tang_ling": {
+      "assigned_at": "244-BCE-01-25T01:22:48+08:00",
+      "duty": "Investigate the assigned Qin formation: commander, strength, route, mission, supply, and any concrete need for additional officers or troops.",
+      "grantor_ref": "char_tang_wei",
+      "house_ref": "house_tang"
+    }
+  },
+  "estate_support": {
+    "depot_ref": "depot_house_tang",
+    "fodder_monthly_output_kg": 4000000,
+    "food_monthly_output_kg": 14000000,
+    "house_mounts": 12000,
+    "infrastructure_rule": "Sword Manor is part of House Tang permanent support burden, not an external client.",
+    "master_plan_ref": "game/data/world/tang-manor-master-plan.json",
+    "population_ref": "population_tang_manor",
+    "strategic_autarky": true,
+    "strategic_fodder_reserve_kg": 180000000,
+    "strategic_food_reserve_kg": 450000000,
+    "supported_fighting_personnel": 170060,
+    "treasury_ref": "treasury_house_tang"
+  },
+  "force_employment_policy_ref": "game/data/mechanics/house-tang-force-policy.json",
+  "goals": [
+    "preserve household",
+    "improve standing"
+  ],
+  "house_ref": "house_tang",
+  "last_review": "244-BCE-07-23T01:22:48+08:00",
+  "leader_ref": "char_tang_zhu",
+  "lineage_cohort": {
+    "adults": 3,
+    "children": 1,
+    "elders": 0,
+    "exact_member_refs": [
+      "char_tang_kai",
+      "char_tang_ling",
+      "char_tang_wei",
+      "char_tang_zhu"
+    ],
+    "last_close": "244-BCE-06-04T07:22:48+08:00",
+    "marriages": 1,
+    "projection_basis": "state/family/index.json exact people"
+  },
+  "military_command": {
+    "authority_rule": "House Tang military command is owned by its standing force hierarchy. Tang Zhu is field commander and Tang Ling is field deputy; Tang Wei retains only the separate formations and commands lawfully assigned to him.",
+    "bastion_command_ref": "cmdgrp.house_tang.bastions",
+    "command_group_ref": "cmdgrp.house_tang.field_army",
+    "commander_ref": "char_tang_zhu",
+    "deputy_ref": "char_tang_ling",
+    "field_army_command_ref": "cmdgrp.house_tang.field_army",
+    "force_ref": "force_house_tang",
+    "rule": "House Tang field command is recursive. Tang Zhu commands the full House Tang Field Army with Tang Ling as deputy. Sword Manor, the Four Bastion Corps, House Guard, Guardian Cavalry, and Tang Champions report as whole subordinate commands. Tang Wei Field Army may attach as one intact nested command when ordered. Command nesting does not require every subordinate branch to share the same physical station or deploy on every operation.",
+    "sword_manor_field_ref": "cmdgrp.sword_manor.field"
+  },
+  "military_force_ref": "force_house_tang",
+  "military_force_refs": [
+    "force_house_tang",
+    "force_bastion_iron_rampart",
+    "force_bastion_red_crane",
+    "force_bastion_white_lantern",
+    "force_bastion_deep_earth"
+  ],
+  "owner_id": "house_tang",
+  "projects": [],
+  "schema": "sword-house",
+  "state": "qin",
+  "threat_level": "0.1",
+  "treasury_ref": "treasury_house_tang"
+}

@@ -1,0 +1,226 @@
+{
+  "$defs": {
+    "formationMemory": {
+      "additionalProperties": false,
+      "properties": {
+        "battles": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "casualties": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "current_personnel": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "deployments": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "last_operation_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_readiness": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "last_result": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_result_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_review_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lifecycle": {
+          "enum": [
+            "standing_state_formation",
+            "temporary_operation_formation",
+            "unknown"
+          ]
+        },
+        "losses": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "recent_event_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 32,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "replacement_policy": {
+          "enum": [
+            "maintain_strength",
+            "authority_review",
+            "none"
+          ]
+        },
+        "replacements_received": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "role": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "dominant_role": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "role_mix": {
+          "type": "object",
+          "additionalProperties": {"type": "integer", "minimum": 0}
+        },
+        "target_strength": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "training_reviews": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "wins": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "role",
+        "lifecycle",
+        "replacement_policy",
+        "current_personnel",
+        "target_strength",
+        "last_readiness",
+        "training_reviews",
+        "replacements_received",
+        "deployments",
+        "battles",
+        "wins",
+        "losses",
+        "casualties",
+        "last_operation_ref",
+        "last_result",
+        "last_result_at",
+        "recent_event_refs"
+      ],
+      "type": "object"
+    },
+    "stateMemory": {
+      "additionalProperties": false,
+      "properties": {
+        "active_operation_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 3,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "battle_losses": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "battle_wins": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "completed_operation_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 32,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "last_review": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "operation_capacity": {
+          "maximum": 3,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "recent_event_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 32,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "last_review",
+        "operation_capacity",
+        "active_operation_refs",
+        "completed_operation_refs",
+        "battle_wins",
+        "battle_losses",
+        "recent_event_refs"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "authority": {
+      "const": false
+    },
+    "formation_memory": {
+      "additionalProperties": {
+        "$ref": "#/$defs/formationMemory"
+      },
+      "maxProperties": 256,
+      "type": "object"
+    },
+    "schema": {
+      "const": "sword-operational-memory"
+    },
+    "state_memory": {
+      "additionalProperties": {
+        "$ref": "#/$defs/stateMemory"
+      },
+      "maxProperties": 16,
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "authority",
+    "as_of",
+    "state_memory",
+    "formation_memory"
+  ],
+  "type": "object"
+}

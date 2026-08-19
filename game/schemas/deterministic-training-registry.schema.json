@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "authority", "drills", "programs", "role_programs", "training_ref_programs", "fallback_program_ref"],
+  "properties": {
+    "schema": {"const": "deterministic-training-registry"},
+    "authority": {"type": "string"},
+    "drills": {"type": "object", "additionalProperties": {"type": "object", "required": ["skills", "attributes", "practice_mode", "intensity"], "additionalProperties": true}},
+    "programs": {"type": "object", "additionalProperties": {"type": "object", "required": ["cycle_days", "rotation"], "additionalProperties": true}},
+    "role_programs": {"type": "object", "additionalProperties": {"type": "string"}},
+    "training_ref_programs": {"type": "object", "additionalProperties": {"type": "string"}},
+    "exact_billet_programs": {"type": "object", "additionalProperties": {"type": "string"}},
+    "role_keyword_programs": {"type": "array"},
+    "fallback_program_ref": {"type": "string"}
+  },
+  "additionalProperties": true
+}

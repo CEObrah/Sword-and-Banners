@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "id",
+    "training"
+  ],
+  "properties": {
+    "schema": {
+      "const": "training-record"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "training": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": true
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deterministic_program_policy",
+        "gain_authority"
+      ],
+      "properties": {
+        "deterministic_program_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gain_authority": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

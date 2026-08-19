@@ -1,0 +1,477 @@
+"""Conserved aggregate population movement over physical world routes.
+
+This layer moves civilian household cohorts between legitimate demographic sites
+without materializing families.  Departure removes people from the origin local
+partition and places the same bodies in an in-transit stratum.  Same-owner moves
+never change national population.  Cross-owner moves change population ownership
+only on physical arrival.
+"""
+from __future__ import annotations
+
+import copy
+import hashlib
+import math
+from collections.abc import Mapping, MutableMapping
+from typing import Any
+
+from sword_runtime.geography import shortest_path as geography_shortest_path
+from sword_runtime.settlement_development import DYNAMIC_GEOGRAPHY_PATH, refresh_dynamic_settlement_class
+from sword_runtime.sim.calendar import CampaignTime
+
+MOBILITY_PATH = "state/mobility/population-transit.json"
+INFRASTRUCTURE_PATH = "state/infrastructure/settlements.json"
+RUNTIME_PATH = "state/runtime.json"
+LOCATIONS_PATH = "game/data/world/locations.json"
+TANG_POPULATION_PATH = "state/population/tang-manor.json"
+TRANSIT_STRATUM = "civilian_migration_in_transit"
+MONTH_SECONDS = 30 * 86400
+
+
+def _integer_partition(total: int, weights: Mapping[str, int]) -> dict[str, int]:
+    total = max(0, int(total))
+    positive = {str(k): max(0, int(v)) for k, v in weights.items() if int(v) > 0}
+    if total <= 0 or not positive:
+        return {str(k): 0 for k in weights}
+    available = sum(positive.values())
+    total = min(total, available)
+    raw = {key: total * value / available for key, value in positive.items()}
+    out = {key: int(math.floor(value)) for key, value in raw.items()}
+    remaining = total - sum(out.values())
+    for key in sorted(positive, key=lambda k: (-(raw[k] - out[k]), k))[:remaining]:
+        out[key] += 1
+    return out
+
+
+def _civilian_mix(row: Mapping[str, Any], count: int) -> dict[str, int]:
+    strata = row.get("civilian_strata", {}) if isinstance(row.get("civilian_strata"), Mapping) else {}
+    return _integer_partition(count, {str(k): max(0, int(v)) for k, v in strata.items()})
+
+
+def _sync_local_row(row: MutableMapping[str, Any]) -> None:
+    civilian = sum(max(0, int(v)) for v in (row.get("civilian_strata", {}) or {}).values())
+    allocations = row.get("service_allocations", {}) if isinstance(row.get("service_allocations"), Mapping) else {}
+    service = sum(max(0, int(v.get("personnel", 0))) for v in allocations.values() if isinstance(v, Mapping))
+    reservations = row.get("candidate_reservations", {}) if isinstance(row.get("candidate_reservations"), Mapping) else {}
+    reserved = sum(
+        sum(max(0, int(x)) for x in (v.get("source_strata", {}) if isinstance(v, Mapping) else {}).values())
+        for v in reservations.values()
+        if isinstance(v, Mapping)
+    )
+    row["civilian_population"] = civilian
+    row["service_population"] = service
+    row["candidates_reserved"] = reserved
+    row["reserved_candidates"] = reserved
+    row["agricultural_available"] = max(0, int((row.get("civilian_strata", {}) or {}).get("agricultural", 0)))
+
+
+def _local_load(row: Mapping[str, Any]) -> int:
+    return max(0, int(row.get("civilian_population", 0))) + max(0, int(row.get("service_population", 0)))
+
+
+class PopulationMobilityMixin:
+    """Production mixin for autonomous and explicitly routed population movement."""
+
+    def _mobility_owner(self) -> dict[str, Any]:
+        owner = copy.deepcopy(self.read(MOBILITY_PATH))
+        if not isinstance(owner.get("cohorts"), dict):
+            raise ValueError("population mobility cohort registry is invalid")
+        return owner
+
+    def _location_rows_for_mobility(self) -> dict[str, Mapping[str, Any]]:
+        doc = self.read(LOCATIONS_PATH)
+        rows = {
+            str(row.get("ref")): row
+            for row in doc.get("locations", [])
+            if isinstance(row, Mapping) and isinstance(row.get("ref"), str)
+        }
+        dynamic = self.read_optional(DYNAMIC_GEOGRAPHY_PATH)
+        if isinstance(dynamic, Mapping):
+            for row in dynamic.get("locations", []):
+                if isinstance(row, Mapping) and isinstance(row.get("ref"), str):
+                    rows[str(row.get("ref"))] = row
+        return rows
+
+    def _adjust_tang_private_civilians(self, delta: int, *, at: str, migration_ref: str) -> None:
+        """Keep Tang Manor's detailed private civilian owner synchronized.
+
+        Qin's local-population row is the national spatial partition.  Tang Manor
+        also has a more detailed private civilian owner whose occupational strata
+        do not map one-to-one onto Qin's generic categories.  Movement therefore
+        changes the same body count proportionally across the existing detailed
+        Tang strata rather than inventing a false occupational mapping.
+        """
+        change = int(delta)
+        if change == 0:
+            return
+        tang = copy.deepcopy(self.read(TANG_POPULATION_PATH))
+        strata = tang.get("strata")
+        if not isinstance(strata, dict):
+            raise ValueError("Tang Manor detailed civilian strata are invalid")
+        if change < 0:
+            count = -change
+            if count > int(tang.get("population_total", 0)):
+                raise ValueError("Tang Manor migration exceeds detailed civilian population")
+            mix = _integer_partition(count, {str(k): max(0, int(v)) for k, v in strata.items()})
+            for key, value in mix.items():
+                if int(strata.get(key, 0)) < value:
+                    raise ValueError("Tang Manor detailed migration debit exceeds source stratum")
+                strata[key] = int(strata.get(key, 0)) - value
+        else:
+            count = change
+            weights = {str(k): max(1, int(v)) for k, v in strata.items()}
+            mix = _integer_partition(count, weights)
+            # _integer_partition limits by available weights, which is undesirable
+            # for additions larger than a tiny test cohort.  Distribute any
+            # remainder deterministically by existing occupational weight.
+            remainder = count - sum(mix.values())
+            if remainder:
+                total_weight = sum(weights.values())
+                raw = {k: remainder * v / total_weight for k, v in weights.items()}
+                extra = {k: int(math.floor(v)) for k, v in raw.items()}
+                left = remainder - sum(extra.values())
+                for key in sorted(weights, key=lambda k: (-(raw[k] - extra[k]), k))[:left]:
+                    extra[key] += 1
+                for key, value in extra.items():
+                    mix[key] = mix.get(key, 0) + value
+            for key, value in mix.items():
+                strata[key] = int(strata.get(key, 0)) + value
+        tang["population_total"] = int(tang.get("population_total", 0)) + change
+        if sum(max(0, int(v)) for v in strata.values()) != int(tang["population_total"]):
+            raise ValueError("Tang Manor detailed civilian population lost conservation")
+        tang["last_population_mobility"] = {
+            "at": at,
+            "migration_ref": migration_ref,
+            "civilian_delta": change,
+        }
+        self.put(TANG_POPULATION_PATH, tang)
+
+    def _schedule_population_arrival(
+        self, cohort_ref: str, arrives_at: str, *, runtime_queue: dict[str, Any] | None = None
+    ) -> bool:
+        """Register one arrival on an optional shared mutable runtime queue.
+
+        Autonomous mobility can create many legitimate cohorts in one monthly
+        review. Copying the entire causal queue once per cohort made that review
+        quadratic in queue size. A review now copies the queue once, registers
+        every exact arrival on that same object, and writes it once. Singular
+        explicit migrations keep the same fail-closed behavior.
+        """
+        owned_queue = runtime_queue is None
+        runtime = copy.deepcopy(self.read(RUNTIME_PATH)) if owned_queue else runtime_queue
+        if not isinstance(runtime, dict):
+            raise ValueError("runtime causal queue is invalid")
+        hosts = runtime.get("hosts")
+        events = runtime.get("events")
+        if not isinstance(hosts, dict) or not isinstance(events, list):
+            raise ValueError("runtime causal queue is invalid")
+        digest = hashlib.sha256(("population-arrival|" + cohort_ref).encode("utf-8")).hexdigest()[:20]
+        host_id = f"host_population_arrival_{digest}"
+        event_id = f"event_population_arrival_{digest}"
+        if host_id in hosts:
+            return False
+        now = str(runtime.get("world_time"))
+        hosts[host_id] = {
+            "host_id": host_id,
+            "kind": "population_mobility_arrival",
+            "owner_ref": "population_mobility",
+            "cohort_ref": cohort_ref,
+            "recurrence_seconds": 0,
+            "next_due": arrives_at,
+            "resolved_through": now,
+            "safe_through": str(CampaignTime.parse(arrives_at).add_seconds(-1)),
+        }
+        events.append({
+            "event_id": event_id,
+            "kind": "population_mobility_arrival",
+            "priority": 61,
+            "target_host": host_id,
+            "due_at": arrives_at,
+        })
+        if owned_queue:
+            self.put(RUNTIME_PATH, runtime)
+        return True
+
+    def _queue_population_move(
+        self,
+        *,
+        source_population_path: str,
+        destination_population_path: str,
+        origin_site_ref: str,
+        destination_site_ref: str,
+        count: int,
+        departed_at: str,
+        basis: str,
+        runtime_queue: dict[str, Any] | None = None,
+        route_plan: Mapping[str, Any] | None = None,
+    ) -> dict[str, Any] | None:
+        requested = max(0, int(count))
+        if requested <= 0 or origin_site_ref == destination_site_ref:
+            return None
+        source = copy.deepcopy(self.read(source_population_path))
+        destination = source if destination_population_path == source_population_path else copy.deepcopy(self.read(destination_population_path))
+        source_sites = source.get("local_population", {}).get("sites", {}) if isinstance(source.get("local_population"), Mapping) else {}
+        destination_sites = destination.get("local_population", {}).get("sites", {}) if isinstance(destination.get("local_population"), Mapping) else {}
+        origin = source_sites.get(origin_site_ref) if isinstance(source_sites, Mapping) else None
+        dest = destination_sites.get(destination_site_ref) if isinstance(destination_sites, Mapping) else None
+        if not isinstance(origin, dict) or not isinstance(dest, dict):
+            raise ValueError("population movement requires exact demographic origin and destination rows")
+
+        mix = _civilian_mix(origin, requested)
+        moved = sum(mix.values())
+        if moved <= 0:
+            return None
+        plan = dict(route_plan) if isinstance(route_plan, Mapping) else geography_shortest_path(
+            self.read, origin_site_ref, destination_site_ref, modes=("foot", "horse", "convoy")
+        )
+        duration_hours = max(1, int(plan.get("duration_hours", 0)))
+        arrives_at = str(CampaignTime.parse(departed_at).add_seconds(duration_hours * 3600))
+
+        digest = hashlib.sha256(
+            f"{departed_at}|{source_population_path}|{origin_site_ref}|{destination_population_path}|{destination_site_ref}|{moved}".encode("utf-8")
+        ).hexdigest()[:24]
+        cohort_ref = f"migration_{digest}"
+        owner = self._mobility_owner()
+        if cohort_ref in owner["cohorts"]:
+            return copy.deepcopy(owner["cohorts"][cohort_ref])
+
+        # Debit physical origin locality immediately and place the same bodies in
+        # an in-transit national stratum. National ownership is unchanged here.
+        origin_strata = origin.setdefault("civilian_strata", {})
+        source_strata = source.setdefault("strata", {})
+        for key, value in mix.items():
+            if int(origin_strata.get(key, 0)) < value or int(source_strata.get(key, 0)) < value:
+                raise ValueError("population movement exceeds conserved source stratum")
+            origin_strata[key] = int(origin_strata.get(key, 0)) - value
+            source_strata[key] = int(source_strata.get(key, 0)) - value
+        source_strata[TRANSIT_STRATUM] = int(source_strata.get(TRANSIT_STRATUM, 0)) + moved
+        _sync_local_row(origin)
+
+        cohort = {
+            "migration_ref": cohort_ref,
+            "status": "in_transit",
+            "count": moved,
+            "source_population_path": source_population_path,
+            "destination_population_path": destination_population_path,
+            "origin_site_ref": origin_site_ref,
+            "destination_site_ref": destination_site_ref,
+            "civilian_strata_mix": mix,
+            "departed_at": departed_at,
+            "arrives_at": arrives_at,
+            "route_refs": list(plan.get("route_refs", [])),
+            "route_path": list(plan.get("path", [])),
+            "duration_hours": duration_hours,
+            "basis": basis,
+            "ownership_transfer_at": "arrival" if destination_population_path != source_population_path else "unchanged",
+        }
+        owner["cohorts"][cohort_ref] = cohort
+        owner["last_departure_at"] = departed_at
+        self.put(source_population_path, source)
+        if source_population_path == "state/population/qin.json" and origin_site_ref == "loc_tang_manor":
+            self._adjust_tang_private_civilians(-moved, at=departed_at, migration_ref=cohort_ref)
+        self.put(MOBILITY_PATH, owner)
+        self._schedule_population_arrival(cohort_ref, arrives_at, runtime_queue=runtime_queue)
+        return copy.deepcopy(cohort)
+
+    def _settle_population_mobility_arrival(self, host: Mapping[str, Any], at: str) -> None:
+        cohort_ref = str(host.get("cohort_ref", ""))
+        owner = self._mobility_owner()
+        cohort = owner.get("cohorts", {}).get(cohort_ref)
+        if not isinstance(cohort, dict) or cohort.get("status") != "in_transit":
+            return
+        if str(cohort.get("arrives_at")) != at:
+            raise ValueError("population migration arrival time diverged from cohort route")
+        source_path = str(cohort["source_population_path"])
+        destination_path = str(cohort["destination_population_path"])
+        source = copy.deepcopy(self.read(source_path))
+        destination = source if source_path == destination_path else copy.deepcopy(self.read(destination_path))
+        destination_sites = destination.get("local_population", {}).get("sites", {}) if isinstance(destination.get("local_population"), Mapping) else {}
+        dest = destination_sites.get(str(cohort["destination_site_ref"])) if isinstance(destination_sites, Mapping) else None
+        if not isinstance(dest, dict):
+            raise ValueError("population migration destination demographic row disappeared")
+        mix = {str(k): max(0, int(v)) for k, v in cohort.get("civilian_strata_mix", {}).items()}
+        count = sum(mix.values())
+        source_strata = source.setdefault("strata", {})
+        if int(source_strata.get(TRANSIT_STRATUM, 0)) < count:
+            raise ValueError("population migration lost its conserved in-transit bodies")
+        source_strata[TRANSIT_STRATUM] = int(source_strata.get(TRANSIT_STRATUM, 0)) - count
+        if source_strata[TRANSIT_STRATUM] == 0:
+            source_strata.pop(TRANSIT_STRATUM, None)
+
+        destination_strata = destination.setdefault("strata", {})
+        dest_civilian = dest.setdefault("civilian_strata", {})
+        for key, value in mix.items():
+            destination_strata[key] = int(destination_strata.get(key, 0)) + value
+            dest_civilian[key] = int(dest_civilian.get(key, 0)) + value
+        _sync_local_row(dest)
+
+        if source_path != destination_path:
+            source["population_total"] = max(0, int(source.get("population_total", 0)) - count)
+            destination["population_total"] = int(destination.get("population_total", 0)) + count
+            self.put(source_path, source)
+            self.put(destination_path, destination)
+        else:
+            # Same-owner movement only reclassifies transit bodies back into their
+            # civilian source mix. Population total never changed.
+            self.put(source_path, source)
+
+        if destination_path == "state/population/qin.json" and str(cohort["destination_site_ref"]) == "loc_tang_manor":
+            self._adjust_tang_private_civilians(count, at=at, migration_ref=cohort_ref)
+            application = cohort.get("bastion_application") if isinstance(cohort.get("bastion_application"), Mapping) else None
+            if application:
+                tang = copy.deepcopy(self.read(TANG_POPULATION_PATH))
+                corps = str(application.get("corps", ""))
+                pools = tang.setdefault("bastion_outside_applications", {})
+                row = pools.setdefault(corps, {
+                    "available_applicants": 0,
+                    "arrival_history": [],
+                    "selection_history": [],
+                    "rule": "subset/provenance over already-conserved Tang Manor civilians; this record owns zero additional bodies",
+                })
+                row["available_applicants"] = max(0, int(row.get("available_applicants", 0))) + count
+                row.setdefault("arrival_history", []).append({
+                    "migration_ref": cohort_ref,
+                    "count": count,
+                    "unconsidered_applicants": count,
+                    "source_state": application.get("source_state"),
+                    "source_site_ref": application.get("source_site_ref"),
+                    "arrived_at": at,
+                })
+                row["arrival_history"] = row["arrival_history"][-32:]
+                self.put(TANG_POPULATION_PATH, tang)
+                application["status"] = "resident_applicant"
+                application["arrived_at"] = at
+
+        cohort["status"] = "arrived"
+        cohort["arrived_at"] = at
+        owner["last_arrival_at"] = at
+        history = owner.setdefault("recent_arrivals", [])
+        history.append({
+            "migration_ref": cohort_ref,
+            "count": count,
+            "origin_site_ref": cohort["origin_site_ref"],
+            "destination_site_ref": cohort["destination_site_ref"],
+            "arrived_at": at,
+        })
+        del history[:-64]
+        self.put(MOBILITY_PATH, owner)
+        refresh_dynamic_settlement_class(self, str(cohort["destination_site_ref"]))
+
+    def _autonomy_population_mobility(self, host: Mapping[str, Any], occurrences: int, at: str) -> None:
+        """Create lawful internal household movement from pressure and opportunity.
+
+        ``occurrences`` is normally one under the chronological production scheduler.
+        Movement amount is a behavioral propensity applied to willing civilian
+        households and then bounded by actual destination headroom and route access;
+        there is no standalone monthly migration ceiling.
+        """
+        if max(0, int(occurrences)) <= 0:
+            return
+        owner = self._mobility_owner()
+        infrastructure = self.read(INFRASTRUCTURE_PATH)
+        infra_sites = infrastructure.get("sites", {}) if isinstance(infrastructure, Mapping) else {}
+        location_rows = self._location_rows_for_mobility()
+        population_paths = owner.get("population_owner_paths", [])
+        if not isinstance(population_paths, list):
+            raise ValueError("population mobility owner-path registry is invalid")
+
+        planned: list[dict[str, Any]] = []
+        runtime_queue = copy.deepcopy(self.read(RUNTIME_PATH))
+        runtime_queue_changed = False
+        for population_path in population_paths:
+            if not isinstance(population_path, str):
+                continue
+            pop = self.read(population_path)
+            local = pop.get("local_population") if isinstance(pop, Mapping) else None
+            sites = local.get("sites", {}) if isinstance(local, Mapping) else {}
+            if not isinstance(sites, Mapping) or len(sites) < 2:
+                continue
+            for source_ref, source_row in sorted(sites.items()):
+                if not isinstance(source_row, Mapping):
+                    continue
+                civilian = max(0, int(source_row.get("civilian_population", 0)))
+                if civilian < 25:
+                    continue
+                source_infra = infra_sites.get(source_ref, {}) if isinstance(infra_sites, Mapping) else {}
+                source_policy = source_infra.get("mobility", {}) if isinstance(source_infra, Mapping) else {}
+                source_kind = str(location_rows.get(source_ref, {}).get("kind", "region"))
+                default_propensity_bp = 8 if source_kind in {"region", "major_region", "village"} else 3
+                propensity_bp = max(0, int(source_policy.get("outmigration_propensity_per_30d_basis_points", default_propensity_bp))) if isinstance(source_policy, Mapping) else default_propensity_bp
+                source_capacity = max(1, int(source_infra.get("effective_resident_support_capacity_people", _local_load(source_row)))) if isinstance(source_infra, Mapping) else max(1, _local_load(source_row))
+                source_load = _local_load(source_row)
+                overcrowding = max(0.0, (source_load - source_capacity) / source_capacity)
+                displaced = max(0, int(source_row.get("displaced", 0)))
+
+                # Destination desirability depends only on represented physical
+                # headroom and pull. Route duration was never part of the score, so
+                # running a full shortest-path search for every source/destination
+                # pair was redundant. Rank candidates first, then route-check only
+                # until the best reachable destination is found.
+                candidates: list[tuple[float, str]] = []
+                for destination_ref, destination_row in sites.items():
+                    if destination_ref == source_ref or not isinstance(destination_row, Mapping):
+                        continue
+                    destination_infra = infra_sites.get(destination_ref, {}) if isinstance(infra_sites, Mapping) else {}
+                    if not isinstance(destination_infra, Mapping):
+                        continue
+                    capacity = max(0, int(destination_infra.get("effective_resident_support_capacity_people", 0)))
+                    load = _local_load(destination_row)
+                    headroom = max(0, capacity - load)
+                    if headroom <= 0:
+                        continue
+                    dest_kind = str(location_rows.get(destination_ref, {}).get("kind", "region"))
+                    urban_weight = 1.45 if dest_kind in {"capital", "city"} else (1.20 if dest_kind in {"town", "estate"} else 1.0)
+                    mobility = destination_infra.get("mobility", {}) if isinstance(destination_infra.get("mobility"), Mapping) else {}
+                    pull = max(0.1, float(mobility.get("pull_weight", urban_weight)))
+                    score = (headroom / max(1, capacity)) * pull
+                    candidates.append((score, str(destination_ref)))
+                best: tuple[float, str, dict[str, Any]] | None = None
+                for score, destination_ref in sorted(candidates, reverse=True):
+                    try:
+                        route = geography_shortest_path(
+                            self.read, str(source_ref), str(destination_ref), modes=("foot", "horse", "convoy")
+                        )
+                    except ValueError:
+                        continue
+                    best = (score, destination_ref, dict(route))
+                    break
+                if best is None:
+                    continue
+                pull_score, destination_ref, selected_route = best
+                # Normal household willingness is a rate, not a hard cap.  Severe
+                # crowding/displacement increases pressure; destination headroom
+                # still provides the physical stop condition.
+                willing_fraction = propensity_bp / 10000.0
+                desired = int(math.floor(civilian * willing_fraction * max(0.25, pull_score)))
+                desired += int(math.floor(civilian * min(0.25, overcrowding)))
+                if displaced:
+                    desired += min(displaced, max(1, int(math.ceil(displaced * 0.25))))
+                destination_row = sites[destination_ref]
+                destination_capacity = int(infra_sites[destination_ref]["effective_resident_support_capacity_people"])
+                destination_headroom = max(0, destination_capacity - _local_load(destination_row))
+                desired = min(max(0, desired), destination_headroom)
+                if desired <= 0:
+                    continue
+                cohort = self._queue_population_move(
+                    source_population_path=population_path,
+                    destination_population_path=population_path,
+                    origin_site_ref=str(source_ref),
+                    destination_site_ref=destination_ref,
+                    count=desired,
+                    departed_at=at,
+                    basis="autonomous household movement from physical headroom, settlement pull, household willingness, and source pressure",
+                    runtime_queue=runtime_queue,
+                    route_plan=selected_route,
+                )
+                if cohort:
+                    runtime_queue_changed = True
+                    planned.append({"migration_ref": cohort["migration_ref"], "count": cohort["count"]})
+
+        if runtime_queue_changed:
+            self.put(RUNTIME_PATH, runtime_queue)
+        owner = self._mobility_owner()
+        owner["last_autonomous_review_at"] = at
+        owner["last_autonomous_departures"] = planned[-64:]
+        self.put(MOBILITY_PATH, owner)
+
+
+__all__ = ["PopulationMobilityMixin"]

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command Personnel Registry",
+  "type": "object",
+  "required": [
+    "schema",
+    "personnel"
+  ],
+  "properties": {
+    "schema": {
+      "const": "command-personnel-registry"
+    },
+    "personnel": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "person_id",
+          "current_unit_ids"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "person_id": {
+            "type": "string"
+          },
+          "current_unit_ids": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sword causal event archive segment",
+  "type": "object",
+  "required": ["schema", "owner_id", "authority", "segment_number", "event_count", "causal_events"],
+  "properties": {
+    "schema": {"const": "sword-causal-event-segment"},
+    "owner_id": {"type": "string", "pattern": "^causal_event_segment_[0-9]{6}$"},
+    "authority": {"const": true},
+    "segment_number": {"type": "integer", "minimum": 1},
+    "event_count": {"type": "integer", "minimum": 1, "maximum": 256},
+    "first_triggered_at": {"type": "string"},
+    "last_triggered_at": {"type": "string"},
+    "causal_events": {"type": "object", "minProperties": 1, "maxProperties": 256, "additionalProperties": {"type": "object"}}
+  },
+  "additionalProperties": false
+}

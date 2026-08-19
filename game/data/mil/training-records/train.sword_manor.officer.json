@@ -1,0 +1,11 @@
+{
+  "schema": "training-profile-record",
+  "id": "train.sword_manor.officer",
+  "profile": {
+    "id": "train.sword_manor.officer",
+    "inherits": "train.world_force.standard",
+    "resource_gated": true,
+    "deterministic_program_policy": "program.sword_officer",
+    "gain_authority": "game/data/mil/deterministic-training-programs.json + game/data/mechanics/training.json"
+  }
+}

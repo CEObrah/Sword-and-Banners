@@ -1,0 +1,12 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["schema","authority","purpose","shards"],
+  "properties":{
+    "schema":{"const":"template-index"},
+    "authority":{"const":false},
+    "purpose":{"type":"string"},
+    "shards":{"type":"object","additionalProperties":{"type":"string"}}
+  },
+  "additionalProperties":false
+}

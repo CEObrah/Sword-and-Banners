@@ -1,0 +1,166 @@
+{
+  "administrative_owner": "state_yan",
+  "cohesion": 72,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_yan_8a2065536fcf",
+      "count": 5200
+    }
+  ],
+  "command_authority": "state_yan",
+  "commander_ref": null,
+  "composition": {
+    "line_infantry": 5200
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 50,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": null,
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "line_infantry": 5200
+  },
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_yan_frontier_army",
+  "geographic_provenance": {
+    "basis": "replaced arbitrary seed parking with meaningful current regional disposition; ownership/personnel unchanged"
+  },
+  "location_ref": "loc_yan_regional_02",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 26000,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": false,
+  "morale": 70,
+  "mounts": {},
+  "name": "YAN Frontier Army",
+  "owner_force_ref": "force_state_yan",
+  "personnel": 5200,
+  "readiness": 72,
+  "schema": "sword-formation",
+  "status": "formed",
+  "training_progress": 29,
+  "training_ref": null,
+  "command_structure": {
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 6,
+        "500_commander": 11,
+        "100_commander": 52
+      },
+      "active_billets": {
+        "1000_commander": 5,
+        "500_commander": 11,
+        "100_commander": 52
+      },
+      "cadre_reserve": {
+        "1000_commander": 1,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 3
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    },
+    "unit_command": {
+      "commander_ref": null,
+      "deputy_ref": null,
+      "external_to_fighting_establishment": true,
+      "rule": "persistent top commander/deputy are command-establishment personnel outside formation.personnel; internal 1000/500/100 command remains inside fighting establishment"
+    },
+    "internal_hierarchy": [
+      {
+        "scale": 1000,
+        "count": 5,
+        "authorized_count": 5,
+        "full_elements": 5,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 0.945455,
+        "representation": "aggregate",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      },
+      {
+        "scale": 500,
+        "count": 11,
+        "authorized_count": 11,
+        "full_elements": 10,
+        "partial_tail_personnel": 200,
+        "current_strength_fraction": 0.945455,
+        "representation": "aggregate",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      },
+      {
+        "scale": 100,
+        "count": 55,
+        "authorized_count": 55,
+        "full_elements": 52,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 0.945455,
+        "representation": "aggregate",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      }
+    ],
+    "establishment_topology": {
+      "formation_class": "unit",
+      "unit_command_scale": 5500,
+      "direct_subordinates": [
+        {
+          "scale": 1000,
+          "count": 5
+        },
+        {
+          "scale": 500,
+          "count": 1
+        }
+      ],
+      "children_per_parent": {
+        "1000": [
+          {
+            "scale": 500,
+            "count": 2
+          }
+        ],
+        "500": [
+          {
+            "scale": 100,
+            "count": 5
+          }
+        ]
+      },
+      "summary_counts": {
+        "1000": 5,
+        "500": 11,
+        "100": 55
+      },
+      "rule": "Unit commander/deputy own the Unit echelon; internal 1,000/500/100 billets are strictly subordinate and remain fixed through casualties."
+    },
+    "establishment_rule": "Unit commander/deputy occupy the Unit echelon outside fighting strength; internal 1,000/500/100 billets are generated only from authorized establishment and never from casualty-depleted current manpower."
+  },
+  "establishment_composition": {
+    "line_infantry": 5500
+  },
+  "establishment_personnel": 5200,
+  "formation_class": "unit",
+  "authorized_strength": 5500
+}

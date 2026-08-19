@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "scene_first_focus_rule",
+    "unknown_identity_rule",
+    "large_meeting_rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "narrative-recall"
+    }
+  },
+  "additionalProperties": true
+}

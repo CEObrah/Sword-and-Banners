@@ -1,0 +1,28 @@
+{
+  "actor_ref": "char_tang_wei",
+  "owner_id": "authority_char_tang_wei",
+  "roles": [
+    {
+      "authority_ref": "house_tang",
+      "capabilities": [
+        "house_administration",
+        "house_training"
+      ],
+      "role": "heir",
+      "source": "state/player.json#authority"
+    },
+    {
+      "authority_ref": "cmdgrp.tang_wei.field_army",
+      "capabilities": [
+        "formation_command",
+        "operation_command",
+        "command_group_command"
+      ],
+      "role": "Tang Wei Field Army Commander",
+      "source": "state/player.json#authority"
+    }
+  ],
+  "rule": "Gameplay authority is capability-scoped. Tang Wei is House heir and commands only his own field army plus formations explicitly assigned to him. House Tang Field Army command belongs to Tang Zhu with Tang Ling as deputy; Sword Manor belongs to its own field commander/deputy under that chain. State authority still requires an explicit saved appointment or delegation.",
+  "schema": "sword-actor-authority",
+  "state_offices": []
+}

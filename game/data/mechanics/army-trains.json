@@ -1,0 +1,19 @@
+{
+  "camp_space": {
+    "animal_line_m2_per_mount": 18,
+    "baggage_park_m2_per_cart": 38,
+    "kitchen_people_per_station": 800,
+    "latrine_people_per_trench": 250,
+    "medical_people_per_station": 2500,
+    "picket_people_per_post": 1500
+  },
+  "cart_stock_semantics": "One depot 'carts' unit is one serviceable aggregate military transport cart team with its ordinary harness/draft allocation. It is not one individually simulated wagon or one extra human body.",
+  "principles": {
+    "camp": "The train persists the physical camp arrangement, baggage park, animal lines, kitchens, sanitation, medical area, pickets and temporary-depot custody refs without spawning new population.",
+    "cargo_custody": "Food, fodder, ammunition and engineering stores remain in the exact formation logistics ledgers that already own them. The train references custody and transports it; it does not duplicate cargo.",
+    "cart_conservation": "Creating or reinforcing a train transfers exact cart teams out of an accessible depot. Releasing them transfers the same surviving carts back. Damage changes serviceability; destruction is permanent loss.",
+    "one_owner_per_army": "A materially moving recursive army uses one exact aggregate train owner, never one file per wagon.",
+    "standalone_formation": "A strategically moving standalone formation materializes one exact formation-train owner with the same cart conservation, duty-allocation, damage, delay and camp rules; its own logistics ledger remains cargo authority."
+  },
+  "schema": "army-train-mechanics"
+}
