@@ -2,16 +2,21 @@
 
 This layer closes a narrow social-flow gap without weakening the interaction
 firewall. Tang Wei still authors only his own question. When that question asks
-one of his exact parents for counsel about an exact player-visible report, the
+one of his exact parents for counsel about an exact player-visible process, the
 runtime schedules that parent's own advisory response as a later causal event.
 The response may recommend actions, but it never spends money, moves troops,
-accepts obligations, or converts advice into House policy.
+accepts obligations, creates House policy, or converts advice into a commitment.
+
+The causal response itself is the exact durable owner.  Its ``advisory_record``
+is explicitly nonbinding and preserves the speaker, interaction process, request,
+topics, and advisory positions so a later scene reconstruction does not have to
+rely on presentation-only dialogue memory.
 """
 from __future__ import annotations
 
 import copy
 import hashlib
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from typing import Any
 
 from sword_runtime.api.interaction_surface import parse_interaction_attempt_summary
@@ -44,11 +49,60 @@ _COUNSEL_PHRASES = (
     "what can we do",
     "what should we do",
     "what do you think",
+    "do you think",
     "what would you do",
+    "should we",
     "your counsel",
     "your advice",
+    "your view",
     "advise me",
     "counsel me",
+)
+_TOPIC_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    (
+        "field_doctrine",
+        (
+            "doctrine",
+            "field army",
+            "command by intent",
+            "subordinate initiative",
+        ),
+    ),
+    (
+        "northern_wei_situation",
+        (
+            "northern wei",
+            "wei situation",
+            "qin operation",
+            "qin-wei",
+            "wei campaign",
+        ),
+    ),
+    (
+        "house_growth",
+        (
+            "house tang should grow",
+            "house tang grow",
+            "gain power",
+            "gain greater influence",
+            "grow stronger",
+            "ambition for the house",
+            "ambitions for it",
+        ),
+    ),
+    (
+        "sovereignty_and_diplomacy",
+        (
+            "declare independence",
+            "independence from qin",
+            "independent from qin",
+            "break with qin",
+            "secede",
+            "sovereign",
+            "alliance",
+            "treaty",
+        ),
+    ),
 )
 
 
@@ -75,23 +129,79 @@ def _classify_family_counsel(attempt: Mapping[str, Any]) -> bool:
     return bool(text) and any(phrase in text for phrase in _COUNSEL_PHRASES)
 
 
-def _counsel_summary(parent_ref: str, source_summary: str) -> str:
-    """Return bounded advice that creates no external commitment.
+def _counsel_topics(question_text: object) -> tuple[str, ...]:
+    text = str(question_text or "").strip().lower()
+    topics = [
+        topic
+        for topic, patterns in _TOPIC_PATTERNS
+        if any(pattern in text for pattern in patterns)
+    ]
+    return tuple(topics or ["general_counsel"])
 
-    The source summary is accepted only so the caller must have resolved one exact
-    player-visible report first. The advice intentionally does not extrapolate
-    hidden campaign truth from it.
+
+def _counsel_positions(parent_ref: str, topics: Sequence[str]) -> list[str]:
+    requested = set(str(topic) for topic in topics)
+    positions: list[str] = []
+
+    if parent_ref == "char_tang_ling":
+        if "field_doctrine" in requested:
+            positions.append(
+                "Tang Ling favors the doctrine's clear division between Wei's reserved strategic decisions and subordinate initiative, but advises keeping Qin authority, House authority, expenditure, and responsibility separately legible so battlefield freedom does not blur political obligation."
+            )
+        if "northern_wei_situation" in requested:
+            positions.append(
+                "Tang Ling advises treating reports of a divided Qin court and a checked northern operation as potential leverage and potential danger at the same time: first verify which authorities, resources, and factions actually control the matter before House Tang binds itself to any interpretation of the campaign."
+            )
+        if "house_growth" in requested:
+            positions.append(
+                "Tang Ling favors diversified House power rather than simple numerical expansion: treasury resilience, productive workshops, remounts, stores, administration, logistics, commercial relationships, and political options should grow alongside military strength so House Tang is not dependent on one patron, one campaign, or one exceptional heir."
+            )
+        if "sovereignty_and_diplomacy" in requested:
+            positions.append(
+                "Tang Ling advises that comparative troop strength alone is not sovereignty. Independence would also require durable revenue, administration, territorial control, political legitimacy, external recognition or toleration, and the ability to survive retaliation or isolation. A negotiated treaty or alliance is potentially more reversible, but only if its exact military, fiscal, territorial, and diplomatic obligations are defined before acceptance."
+            )
+        if not positions:
+            positions.append(
+                "Tang Ling advises separating preparation from commitment: verify which authority owns the matter and what formal request, if any, actually reaches House Tang before spending new House silver or binding House forces. She favors preserving existing obligations while gathering firmer political and logistical information."
+            )
+    elif parent_ref == "char_tang_zhu":
+        if "field_doctrine" in requested:
+            positions.append(
+                "Tang Zhu favors command by intent if the middle command echelons are trained hard enough to act without constant supervision while still recognizing the strategic decisions reserved to Wei. He advises judging the doctrine by whether officers can preserve cohesion, reserves, and assigned roles under pressure rather than by how elegant the written method appears."
+            )
+        if "northern_wei_situation" in requested:
+            positions.append(
+                "Tang Zhu advises not mistaking reports that an operation is blocked for proof of a battlefield opening. Before committing force, identify whether the real obstacle is command, route, supply, timing, enemy disposition, or some other concrete military problem, then solve that problem rather than merely seeking visible action."
+            )
+        if "house_growth" in requested:
+            positions.append(
+                "Tang Zhu favors military depth before breadth: more reliable commanders, training cadres, engineers, logistics, recovery capacity, and formations that remain coherent through repeated campaigning are more valuable than adding bodies faster than the House can command and sustain them."
+            )
+        if "sovereignty_and_diplomacy" in requested:
+            positions.append(
+                "Tang Zhu advises against treating a favorable troop comparison as sufficient reason for an irreversible break with Qin. Before independence, House Tang would need to prove it can hold and supply its forces, protect the territory and command structure that sustain them, and absorb the military response a break might provoke. If greater freedom can be won by negotiated terms without forcing that test immediately, he would examine those terms before choosing rupture."
+            )
+        if not positions:
+            positions.append(
+                "Tang Zhu advises preparing without pretending preparation is deployment: keep House military readiness in hand, clarify command, route, supply, timing, and the strength actually required, and do not march House forces into a state campaign merely because reports say an operation is forming."
+            )
+    else:
+        raise ValueError("unsupported House Tang family-counsel parent")
+
+    return positions
+
+
+def _counsel_summary(parent_ref: str, source_summary: str, question_text: object = None) -> str:
+    """Return bounded, topic-aware advice that creates no external commitment.
+
+    ``source_summary`` is accepted only so the caller must have resolved one exact
+    player-visible report/process first. Its content is deliberately not echoed,
+    because the interaction attempt may not authorize disclosure of any hidden
+    facts beyond the player-visible process itself.
     """
     del source_summary
-    if parent_ref == "char_tang_ling":
-        return (
-            "Tang Ling advises separating preparation from commitment: verify which Qin authority owns the matter and what formal request, if any, actually reaches House Tang before spending new House silver or binding House forces. In the meantime she recommends preserving the House's existing obligations and gathering firmer political and logistical information rather than treating preparations as a settled campaign result."
-        )
-    if parent_ref == "char_tang_zhu":
-        return (
-            "Tang Zhu advises preparing without pretending preparation is deployment: keep House military readiness in hand, clarify command, route, supply, timing, and the strength Qin actually requires, and do not march House forces into a state campaign merely because reports say an operation is forming. He recommends acting once a lawful command or a deliberate House decision gives the effort a concrete objective."
-        )
-    raise ValueError("unsupported House Tang family-counsel parent")
+    topics = _counsel_topics(question_text)
+    return " ".join(_counsel_positions(parent_ref, topics))
 
 
 def _settle_family_counsel(planner: Any, host: Mapping[str, Any], at: str) -> None:
@@ -117,8 +227,17 @@ def _settle_family_counsel(planner: Any, host: Mapping[str, Any], at: str) -> No
     if not location_ref:
         raise ValueError("family counsel cannot resolve Tang Wei's delivery location")
 
+    question_text = str(host.get("question_text", "") or "")
+    topic_values = host.get("topic_tags")
+    if isinstance(topic_values, Sequence) and not isinstance(topic_values, (str, bytes, bytearray)):
+        topics = tuple(str(topic) for topic in topic_values if isinstance(topic, str) and topic)
+    else:
+        topics = ()
+    if not topics:
+        topics = _counsel_topics(question_text)
+    positions = _counsel_positions(parent_ref, topics)
     parent_name = _PARENT_NAMES[parent_ref]
-    advice = _counsel_summary(parent_ref, str(source.get("summary", "")))
+    advice = " ".join(positions)
     owner["causal_events"][response_ref] = {
         "event_ref": response_ref,
         "kind": "institutional_response",
@@ -132,6 +251,19 @@ def _settle_family_counsel(planner: Any, host: Mapping[str, Any], at: str) -> No
         "process_stage": "responded",
         "summary": advice[:4000],
         "source_event_ref": process_ref,
+        "advisory_record": {
+            "schema": "sword-nonbinding-counsel.v1",
+            "speaker_ref": parent_ref,
+            "audience_ref": "char_tang_wei",
+            "request_id": request_id,
+            "process_ref": process_ref,
+            "topics": list(topics),
+            "positions": positions,
+            "binding": False,
+            "creates_policy": False,
+            "creates_commitment": False,
+            "creates_authority": False,
+        },
         "delivery": {
             "target_ref": "char_tang_wei",
             "location_ref": location_ref,
@@ -177,6 +309,7 @@ class FamilyCounselMixin:
             due = CampaignTime.parse(requested_at).add_seconds(_COUNSEL_DELAY_SECONDS)
             if due < current:
                 due = current
+            question_text = str(attempt.get("player_statement", "") or "")[:2000]
             hosts[host_id] = {
                 "host_id": host_id,
                 "kind": "family_counsel",
@@ -184,6 +317,8 @@ class FamilyCounselMixin:
                 "request_id": request_id,
                 "parent_ref": parent_ref,
                 "process_ref": process_ref,
+                "question_text": question_text,
+                "topic_tags": list(_counsel_topics(question_text)),
                 "event_id": event_id,
                 "recurrence_seconds": 0,
                 "next_due": str(due),
@@ -217,5 +352,7 @@ class FamilyCounselMixin:
 __all__ = [
     "FamilyCounselMixin",
     "_classify_family_counsel",
+    "_counsel_positions",
     "_counsel_summary",
+    "_counsel_topics",
 ]

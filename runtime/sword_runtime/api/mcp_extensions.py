@@ -7,6 +7,7 @@ from typing import Optional
 from mcp.types import ToolAnnotations
 
 from sword_runtime.api.contract_guidance import enrich_command_contract
+from sword_runtime.api.house_readiness import house_readiness_snapshot
 from sword_runtime.api.mcp import ReadToolOutput, _failure, _tool_call
 from sword_runtime.api.operations import OperationError
 
@@ -29,6 +30,17 @@ def install_extended_tools(server, operations, oauth) -> None:
         if not isinstance(command_type, str) or not _SAFE_COMMAND.fullmatch(command_type):
             return _failure(OperationError(422, "command_type_invalid"))
         return _tool_call(lambda: enrich_command_contract(command_type, operations.get_command_contract(command_type)))
+
+    @server.tool(
+        name="get_house_readiness",
+        title="Get House Tang readiness",
+        description="Read the current player-safe House Tang treasury, depot, armory, remount and realized replenishment picture without mutating or committing House resources.",
+        annotations=read_annotations,
+        meta=read_security_meta,
+        structured_output=True,
+    )
+    def get_house_readiness() -> ReadToolOutput:
+        return _tool_call(lambda: house_readiness_snapshot(operations))
 
     @server.tool(
         name="list_controlled_formations",
@@ -62,7 +74,6 @@ def install_extended_tools(server, operations, oauth) -> None:
     )
     def list_interaction_handles(cursor: Optional[str] = None, limit: int = 20) -> ReadToolOutput:
         return _tool_call(lambda: operations.list_interaction_handles(cursor=cursor, limit=limit))
-
 
 
 __all__ = ["install_extended_tools"]

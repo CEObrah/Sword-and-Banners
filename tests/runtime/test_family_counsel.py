@@ -3,7 +3,9 @@ import copy
 from sword_runtime.family_counsel import (
     FamilyCounselMixin,
     _classify_family_counsel,
+    _counsel_positions,
     _counsel_summary,
+    _counsel_topics,
     _settle_family_counsel,
 )
 from sword_runtime.production_planner import ProductionCampaignPlanner
@@ -24,6 +26,9 @@ def _attempt(**overrides):
 def test_exact_parent_report_counsel_is_classified():
     assert _classify_family_counsel(_attempt()) is True
     assert _classify_family_counsel(_attempt(target_ref="char_tang_zhu")) is True
+    assert _classify_family_counsel(
+        _attempt(player_statement="Do you think House Tang should declare independence from Qin or seek an alliance or treaty?")
+    ) is True
 
 
 def test_counsel_requires_exact_parent_exact_report_and_counsel_language():
@@ -33,16 +38,38 @@ def test_counsel_requires_exact_parent_exact_report_and_counsel_language():
     assert _classify_family_counsel(_attempt(actor_id="char_other")) is False
 
 
-def test_parent_counsel_is_advisory_and_role_distinct():
-    ling = _counsel_summary("char_tang_ling", "hidden source details must not be echoed")
-    zhu = _counsel_summary("char_tang_zhu", "hidden source details must not be echoed")
+def test_counsel_topics_are_bounded_and_question_specific():
+    topics = _counsel_topics(
+        "What do you think of my field army doctrine, the northern Wei situation, how House Tang should grow stronger, and whether we should declare independence from Qin or negotiate an alliance or treaty?"
+    )
+    assert topics == (
+        "field_doctrine",
+        "northern_wei_situation",
+        "house_growth",
+        "sovereignty_and_diplomacy",
+    )
+    assert _counsel_topics("Advise me.") == ("general_counsel",)
+
+
+def test_parent_counsel_is_advisory_role_distinct_and_does_not_echo_source():
+    question = "What do you think about declaring independence from Qin or negotiating an alliance or treaty?"
+    ling = _counsel_summary("char_tang_ling", "hidden source details must not be echoed", question)
+    zhu = _counsel_summary("char_tang_zhu", "hidden source details must not be echoed", question)
     assert "Tang Ling" in ling
     assert "Tang Zhu" in zhu
     assert "hidden source details" not in ling
     assert "hidden source details" not in zhu
-    assert "spending new House silver" in ling
-    assert "do not march House forces" in zhu
+    assert "comparative troop strength alone is not sovereignty" in ling
+    assert "favorable troop comparison" in zhu
     assert ling != zhu
+
+
+def test_house_growth_positions_preserve_role_distinction():
+    ling = _counsel_positions("char_tang_ling", ("house_growth",))
+    zhu = _counsel_positions("char_tang_zhu", ("house_growth",))
+    assert len(ling) == 1 and len(zhu) == 1
+    assert "treasury resilience" in ling[0]
+    assert "military depth before breadth" in zhu[0]
 
 
 def test_family_counsel_is_in_production_mro_before_household_admin():
@@ -84,13 +111,15 @@ class _FakePlanner:
         self.docs[path] = copy.deepcopy(value)
 
 
-def test_settlement_creates_exact_parent_advice_event_only():
+def test_settlement_creates_exact_typed_nonbinding_parent_advice_event_only():
     planner = _FakePlanner()
     before_player = copy.deepcopy(planner.docs["state/player.json"])
     host = {
         "request_id": "wei-ask-ling-counsel",
         "parent_ref": "char_tang_ling",
         "process_ref": "event_world_arc_example.report",
+        "question_text": "Do you think House Tang should declare independence from Qin or seek an alliance or treaty?",
+        "topic_tags": ["sovereignty_and_diplomacy"],
     }
     _settle_family_counsel(planner, host, "245-BCE-12-07T18:37:48+08:00")
 
@@ -104,3 +133,15 @@ def test_settlement_creates_exact_parent_advice_event_only():
     assert response["source_event_ref"] == "event_world_arc_example.report"
     assert response["process_kind"] == "house_tang_family_counsel"
     assert response["delivery"]["location_ref"] == "loc_tang_manor_inner_citadel_family_hall"
+    advisory = response["advisory_record"]
+    assert advisory["schema"] == "sword-nonbinding-counsel.v1"
+    assert advisory["speaker_ref"] == "char_tang_ling"
+    assert advisory["audience_ref"] == "char_tang_wei"
+    assert advisory["request_id"] == "wei-ask-ling-counsel"
+    assert advisory["process_ref"] == "event_world_arc_example.report"
+    assert advisory["topics"] == ["sovereignty_and_diplomacy"]
+    assert advisory["positions"]
+    assert advisory["binding"] is False
+    assert advisory["creates_policy"] is False
+    assert advisory["creates_commitment"] is False
+    assert advisory["creates_authority"] is False
