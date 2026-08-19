@@ -13,8 +13,26 @@ def _planner(campaign):
     return planner
 
 
-def _install_source(planner, event_ref: str, at: str, result: str) -> None:
+def _install_source(
+    planner,
+    event_ref: str,
+    at: str,
+    result: str,
+    *,
+    material_evidence: dict | None = None,
+) -> None:
     _path, owner = read_causal_event_owner(planner)
+    provenance = {
+        "kind": "world_arc_orchestration",
+        "arc_owner_ref": "kingdom_arcs",
+        "review_count": 1,
+        "domain_status": result,
+        "evidence_stage": "domain_action" if result == "material_action_settled" else "intent",
+        "required_evidence_stage": "domain_action",
+        "domain_action_ref": "state_qin",
+    }
+    if material_evidence is not None:
+        provenance["material_evidence"] = copy.deepcopy(material_evidence)
     owner["causal_events"][event_ref] = {
         "event_ref": event_ref,
         "kind": "world_arc_activity",
@@ -30,15 +48,7 @@ def _install_source(planner, event_ref: str, at: str, result: str) -> None:
         "pressure_stage": "material",
         "visibility_class": "direct",
         "summary": f"Test arc activity with result {result}.",
-        "provenance": {
-            "kind": "world_arc_orchestration",
-            "arc_owner_ref": "kingdom_arcs",
-            "review_count": 1,
-            "domain_status": result,
-            "evidence_stage": "domain_action" if result == "material_action_settled" else "intent",
-            "required_evidence_stage": "domain_action",
-            "domain_action_ref": "state_qin",
-        },
+        "provenance": provenance,
     }
     write_causal_event_owner(planner, owner)
 
@@ -89,6 +99,60 @@ def test_material_arc_activity_still_propagates_player_report(campaign) -> None:
     assert report["kind"] == "world_arc_report"
     assert report["delivery"]["target_ref"] == "char_tang_wei"
     assert "material domain work that actually settled" in report["summary"]
+
+
+def test_operation_creation_reports_expose_safe_delta_and_suppress_exact_repeat(campaign) -> None:
+    planner = _planner(campaign)
+    at = str(planner.read("state/runtime.json")["world_time"])
+    evidence_a = {
+        "kind": "exact_operation_created",
+        "operation_ref": "operation_hidden_a",
+        "formation_ref": "formation_hidden_a",
+        "evidence_stage": "domain_action",
+    }
+    evidence_b = {
+        "kind": "exact_operation_created",
+        "operation_ref": "operation_hidden_b",
+        "formation_ref": "formation_hidden_b",
+        "evidence_stage": "domain_action",
+    }
+
+    source_a = "event_test_arc_operation_a"
+    _install_source(planner, source_a, at, "material_action_settled", material_evidence=evidence_a)
+    host_a = _scheduled_host(planner, source_a, at)
+    assert settle_world_arc_report(planner, host_a, at) is None
+    report_a = get_causal_event(planner, source_a + ".report")
+    assert report_a is not None
+    assert "active military operation" in report_a["summary"]
+    assert "operation_hidden_a" not in report_a["summary"]
+    assert "formation_hidden_a" not in report_a["summary"]
+    assert report_a["provenance"]["player_safe_evidence_kind"] == "exact_operation_created"
+
+    source_b = "event_test_arc_operation_b"
+    _install_source(planner, source_b, at, "material_action_settled", material_evidence=evidence_b)
+    host_b = _scheduled_host(planner, source_b, at)
+    assert settle_world_arc_report(planner, host_b, at) is None
+    report_b = get_causal_event(planner, source_b + ".report")
+    assert report_b is not None
+    assert "further military commitment" in report_b["summary"]
+    assert "another active military operation" in report_b["summary"]
+    assert "operation_hidden_b" not in report_b["summary"]
+    assert "formation_hidden_b" not in report_b["summary"]
+
+    duplicate_source = "event_test_arc_operation_b_repeat"
+    _install_source(planner, duplicate_source, at, "material_action_settled", material_evidence=evidence_b)
+    duplicate_host = _scheduled_host(planner, duplicate_source, at)
+    assert settle_world_arc_report(planner, duplicate_host, at) is None
+    assert get_causal_event(planner, duplicate_source + ".report") is None
+    runtime_host = planner.read("state/runtime.json")["hosts"][duplicate_host["host_id"]]
+    assert runtime_host["recurrence_seconds"] == 0
+
+    arcs = planner.read("state/arc/kingdom-arcs.json")
+    arc = next(row for row in arcs["records"] if row.get("record_id") == "arc_ryo_fui_northern_wei_campaign")
+    claims = arc["runtime"]["delivered_player_report_claims"]
+    exact_operation_claims = [row for row in claims if row.get("evidence_kind") == "exact_operation_created"]
+    assert len(exact_operation_claims) == 2
+    assert all("operation_ref" not in row and "formation_ref" not in row for row in exact_operation_claims)
 
 
 def test_blocked_arc_attempt_route_terminates_without_player_report(campaign) -> None:
