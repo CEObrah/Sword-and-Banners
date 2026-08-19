@@ -11,6 +11,8 @@ from sword_runtime.sim.calendar import CampaignTime
 
 
 class _BoundaryBase:
+    event_kind = "world_arc_report"
+
     def __init__(self) -> None:
         self.docs = {
             "state/runtime.json": {
@@ -45,29 +47,51 @@ class _BoundaryBase:
         if str(target) == "245-BCE-12-07T14:05:48+08:00":
             runtime["hosts"]["host_hidden"]["next_due"] = "245-BCE-12-08T14:05:48+08:00"
             runtime["events"][0]["due_at"] = "245-BCE-12-08T14:05:48+08:00"
-        if str(target) == "245-BCE-12-07T18:22:48+08:00":
-            runtime["hosts"]["host_report"]["next_due"] = None
-            self.docs["state/event/events-messages-and-movement.json"]["causal_events"]["report_1"] = {
-                "kind": "world_arc_report",
-                "status": "triggered",
-                "triggered_at": str(target),
-            }
-        return {
+        metrics = {
             "hosts_woken": 1,
             "events_processed": 1,
             "battlefield_reports": [],
             "battlefield_reviews": 0,
         }
+        if str(target) == "245-BCE-12-07T18:22:48+08:00":
+            runtime["hosts"]["host_report"]["next_due"] = None
+            self.docs["state/event/events-messages-and-movement.json"]["causal_events"]["report_1"] = {
+                "kind": self.event_kind,
+                "status": "triggered",
+                "triggered_at": str(target),
+            }
+            if self.event_kind == "world_arc_report":
+                metrics["campaign_event_notices"] = [
+                    {"event_ref": "report_1", "kind": "campaign_event"}
+                ]
+        return metrics
 
 
 class _BoundaryPlanner(DowntimeAdvanceMixin, _BoundaryBase):
     pass
 
 
-def test_stop_on_player_event_halts_at_first_new_report():
+class _MessageBoundaryPlanner(_BoundaryPlanner):
+    event_kind = "message"
+
+
+def test_stop_on_player_event_keeps_world_arc_notice_nonblocking():
     planner = _BoundaryPlanner()
     planner._downtime_stop_on_player_event = True
-    result = planner._advance_runtime("245-BCE-12-14T12:05:48+08:00")
+    result = planner._advance_runtime("245-BCE-12-07T20:05:48+08:00")
+
+    assert planner.read("state/runtime.json")["world_time"] == "245-BCE-12-07T20:05:48+08:00"
+    assert result.get("interrupted") is not True
+    assert result.get("player_facing_event_refs") is None
+    assert result["campaign_event_notices"] == [
+        {"event_ref": "report_1", "kind": "campaign_event"}
+    ]
+
+
+def test_stop_on_player_event_still_halts_at_new_direct_message():
+    planner = _MessageBoundaryPlanner()
+    planner._downtime_stop_on_player_event = True
+    result = planner._advance_runtime("245-BCE-12-07T20:05:48+08:00")
 
     assert planner.read("state/runtime.json")["world_time"] == "245-BCE-12-07T18:22:48+08:00"
     assert result["interrupted"] is True
