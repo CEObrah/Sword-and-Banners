@@ -29,10 +29,11 @@ def _write_formation_credit(
     planner: ProductionCampaignPlanner,
     credit: float,
     *,
+    formation_ref: str = "formation_tang_champions_first",
     started_at: CampaignTime | None = None,
     fatigue: int | None = None,
 ) -> None:
-    path, raw = planner._load_formation("formation_tang_champions_first")
+    path, raw = planner._load_formation(formation_ref)
     formation = deepcopy(raw)
     current = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
     formation["standing_training_time_credit_hours"] = credit
@@ -59,13 +60,21 @@ def test_surface_semantics_admit_only_exact_target_ref(campaign):
         raise AssertionError("caller-supplied hours must be rejected")
 
 
-def test_downtime_policy_auto_settles_whole_player_training_credit(campaign):
+def test_downtime_policy_auto_settles_player_and_all_targeted_formations(campaign):
     planner = ProductionCampaignPlanner(campaign)
     planner._reset()
     _write_player_credit(planner, 0.0)
-    _write_formation_credit(planner, 0.0)
+    formation_refs = [
+        "formation_tang_champions_first",
+        "formation_tang_wei_house_guard",
+    ]
+    for formation_ref in formation_refs:
+        _write_formation_credit(planner, 0.0, formation_ref=formation_ref)
     player_before = deepcopy(planner.read("state/player.json"))
-    _path, formation_before = planner._load_formation("formation_tang_champions_first")
+    formation_before = {
+        formation_ref: deepcopy(planner._load_formation(formation_ref)[1])
+        for formation_ref in formation_refs
+    }
     start = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
     end = start.add_hours(8)
 
@@ -74,15 +83,14 @@ def test_downtime_policy_auto_settles_whole_player_training_credit(campaign):
         end,
         {
             "player_standing_training": True,
-            "formation_refs": ["formation_tang_champions_first"],
+            "formation_refs": formation_refs,
             "household_standing_person_refs": [],
         },
-        "test-credit-only-accrual",
+        "test-same-command-settlement",
     )
 
     player_after = planner.read("state/player.json")
-    _path, formation_after = planner._load_formation("formation_tang_champions_first")
-    assert result["settlement_rule"] == "credits_only_during_time_advance"
+    assert result["settlement_rule"] == "auto_settle_whole_credits_during_time_advance"
     auto = result["player_auto_settlement"]
     registry = planner.read("game/data/mil/deterministic-training-programs.json")
     allowed_skills = {
@@ -92,15 +100,25 @@ def test_downtime_policy_auto_settles_whole_player_training_credit(campaign):
     }
     changed = {name for name, value in player_after["skills"].items() if value != player_before["skills"].get(name)}
     assert changed <= allowed_skills
-    # Wei's requested permanent standing plan now consumes whole earned hours
-    # automatically; fractional credit remains and EDU banks preserve sub-point progress.
     assert result["player"]["accrued_hours"] == 2.0
     assert result["player_auto_settlement"]["consumed_hours"] == 2
     assert player_after["development_state"]["standing_training_time_credit_hours"] == 0.0
     assert player_after["development_state"]["settled_training_hours"] == player_before["development_state"]["settled_training_hours"] + 2
-    assert formation_after.get("training_progress") is None
-    assert 2.28 < formation_after["standing_training_time_credit_hours"] < 2.29
-    assert formation_after.get("cohesion") == formation_before.get("cohesion")
+
+    rows = {row["formation_ref"]: row for row in result["formations"]}
+    assert set(rows) == set(formation_refs)
+    for formation_ref in formation_refs:
+        row = rows[formation_ref]
+        settlement = row["auto_settlement"]
+        _path, formation_after = planner._load_formation(formation_ref)
+        assert row["accrued_hours"] > 2.0
+        assert settlement["consumed_hours"] == 2
+        assert 0.0 <= settlement["remaining_credit_hours"] < 1.0
+        assert formation_after["standing_training_time_credit_hours"] == settlement["remaining_credit_hours"]
+        assert int(formation_after["training_progress"]) >= 1
+        assert int(formation_after["verified_training_hours"]) == 2
+        assert int(formation_after["cohesion"]) >= int(formation_before[formation_ref]["cohesion"])
+        assert "capability_development" not in settlement
 
 
 def test_player_credit_settlement_consumes_whole_hours_without_time(campaign):
