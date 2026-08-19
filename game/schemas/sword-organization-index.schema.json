@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Independent organization routing index",
+  "type": "object",
+  "required": ["schema", "authority", "organizations", "active_refs"],
+  "properties": {
+    "schema": {"const": "sword-organization-index"},
+    "authority": {"const": false},
+    "organizations": {"type": "object", "additionalProperties": {"type": "string"}},
+    "active_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "additionalProperties": true
+}

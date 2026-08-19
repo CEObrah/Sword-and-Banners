@@ -1,0 +1,54 @@
+{
+  "civil_recruitment_history": [],
+  "civil_recruitment_policy": {
+    "mode": "capacity_and_willingness_limited_settlement",
+    "candidate_constraints": [
+      "voluntary acceptance or lawful resettlement authority",
+      "physical route",
+      "housing",
+      "water",
+      "food",
+      "work or support",
+      "public order"
+    ],
+    "throughput_rule": "No arbitrary monthly cap. Throughput is derived from destination support capacity, route throughput, transport, administration, household willingness, security, and source pressure."
+  },
+  "geographic_partition": {
+    "authority": true,
+    "basis": "private estate population is contained by Tang Manor; child facilities do not own duplicate residents",
+    "location_ref": "loc_tang_manor",
+    "owner_ref": "population_tang_manor"
+  },
+  "owner_id": "population_tang_manor",
+  "parent_population_ref": "population_qin",
+  "population_total": 725000,
+  "recruitment_runtime": {
+    "last_civil_intake": 0,
+    "last_house_requested_intake": 60,
+    "last_house_requested_intake_at": "244-BCE-07-23T01:22:48+08:00",
+    "last_review": "244-BCE-07-29T06:00:00+08:00",
+    "last_sword_manor_intake": 0
+  },
+  "schema": "sword-population",
+  "state": "qin",
+  "strata": {
+    "agricultural_workers_and_supervisors": 390000,
+    "dependents_and_nonworking_children": 165000,
+    "craft_and_industry": 58000,
+    "merchant_and_transport": 30000,
+    "administrative_clerks": 12000,
+    "construction_and_maintenance_workers": 12000,
+    "forge_and_armory_workers": 12000,
+    "stable_remount_and_carriage_workers": 9000,
+    "sword_manor_civilian_medical": 7000,
+    "warehouse_and_granary_workers": 9000,
+    "water_sanitation_and_firefighting": 9000,
+    "resource_extraction_and_forestry": 12000
+  },
+  "subset_of_parent": true,
+  "sword_manor": {
+    "current_establishment": 30060,
+    "capacity_rule": "Admissions depend on physical dormitory, food, instructor, equipment, stable, range, medical, and training-space capacity. There is no fixed trainee or total-personnel cap.",
+    "mobilization_ref": "game/data/mechanics/sword-manor-organization.json"
+  }
+}

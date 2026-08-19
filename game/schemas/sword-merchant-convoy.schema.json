@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Merchant convoy",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "merchant_house_ref",
+    "source_market_ref",
+    "destination_market_ref",
+    "cargo",
+    "status",
+    "departed_at",
+    "arrives_at",
+    "route_refs",
+    "wagon_equivalents"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-merchant-convoy"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "merchant_house_ref": {
+      "type": "string"
+    },
+    "cargo": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "status": {
+      "enum": [
+        "in_transit",
+        "arrived_holding",
+        "delivered",
+        "destroyed",
+        "seized"
+      ]
+    },
+    "route_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "wagon_equivalents": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "escort_formation_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "escort_state": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "security_incidents": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "delay_history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "current_location_ref": {
+      "type": "string"
+    },
+    "route_path": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "guard_detail": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

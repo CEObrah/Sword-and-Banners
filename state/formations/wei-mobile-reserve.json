@@ -1,0 +1,105 @@
+{
+  "administrative_owner": "state_wei",
+  "autonomous_orders": [
+    {
+      "action_ref": "state_arc_051d810eb82690bdab",
+      "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+      "at": "244-BCE-01-09T06:22:48+08:00",
+      "goal": "maintain military readiness",
+      "kind": "state_world_arc_operation",
+      "target_ref": "state_qin"
+    }
+  ],
+  "cohesion": 71,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_wei_988c2dacbd8f",
+      "count": 4200
+    }
+  ],
+  "command_authority": "state_wei",
+  "command_structure": {
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 5,
+        "100_commander": 42,
+        "500_commander": 9
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      },
+      "last_reorganization_reason": "clean_baseline_officer_cadre",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 5,
+        "100_commander": 42,
+        "500_commander": 9
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      }
+    },
+    "unit_command": {
+      "commander_ref": "char_gai_mou",
+      "deputy_ref": null,
+      "external_to_fighting_establishment": true,
+      "rule": "persistent top commander/deputy are command-establishment personnel outside formation.personnel; internal 1000/500/100 command remains inside fighting establishment"
+    }
+  },
+  "commander_ref": "char_gai_mou",
+  "composition": {
+    "cavalry": 4200
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 70,
+    "withdrawal_threshold": 35
+  },
+  "doctrine_ref": null,
+  "equipment_completeness": "0.9",
+  "establishment_composition": {
+    "cavalry": 4200
+  },
+  "establishment_personnel": 4200,
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_wei_mobile_reserve",
+  "geographic_provenance": {
+    "basis": "replaced arbitrary seed parking with meaningful current regional disposition; ownership/personnel unchanged"
+  },
+  "location_ref": "loc_dairyou",
+  "logistics": {
+    "fodder_kg": 8400,
+    "food_kg": 21000,
+    "source_depot_ref": "depot_fort_dairyou",
+    "war_arrows": 151200,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 70,
+  "mounts": {
+    "horse_war_military": 4200
+  },
+  "name": "WEI Mobile Reserve",
+  "owner_force_ref": "force_state_wei",
+  "personnel": 4200,
+  "readiness": 71,
+  "schema": "sword-formation",
+  "status": "mobilized",
+  "supply_depot_ref": "depot_fort_dairyou",
+  "training_progress": 27,
+  "training_ref": null
+}

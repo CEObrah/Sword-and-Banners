@@ -1,0 +1,171 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 90,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 185,
+    "physical_learning": 100,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 148,
+    "technical_learning": 114
+  },
+  "attributes": {
+    "Agility": 82,
+    "Awareness": 165,
+    "Composure": 183,
+    "Coordination": 89,
+    "Endurance": 103,
+    "Intelligence": 182,
+    "Presence": 191,
+    "Strength": 78,
+    "Toughness": 92
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 48.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Qin"
+  },
+  "birth_date": "281-BCE-10-24",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 172.0,
+    "current_weight_kg": 67.7,
+    "frame": "broad",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "nonmilitary_role",
+    "current_command_span": 0,
+    "office_or_command": "Chancellor",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 1.176,
+      "Awareness": 1.817,
+      "Composure": 0.853,
+      "Coordination": 0.368,
+      "Endurance": 0.21,
+      "Intelligence": 2.45,
+      "Presence": 0.468,
+      "Strength": 0.713,
+      "Toughness": 0.639
+    },
+    "attribute_stimulus_hours_milli": 117600,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 336,
+    "skill_edu_banks": {
+      "Athletics": 28.593,
+      "Defense": 28.593,
+      "Law": 4.119,
+      "Navigation": 34.142,
+      "Strategy": 2.658,
+      "Survival": 28.593
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_court",
+  "goal_state": {
+    "current_goals": [
+      "expand court control through wealth, offices, alliances, and strategic absence"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 36,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_qin_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "unranked",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_nonmilitary_role"
+  },
+  "name": "Ryo Fui",
+  "owner_id": "char_ryo_fui",
+  "owner_type": "character",
+  "rank": "unranked",
+  "role_archetype": "chancellor",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 48,
+    "Axe": 13,
+    "Bow": 16,
+    "Crossbow": 15,
+    "Dagger": 16,
+    "Defense": 43,
+    "Diplomacy": 188,
+    "Engineering": 17,
+    "Formation Command": 17,
+    "Formation Fighting": 13,
+    "Glaive": 15,
+    "Governance": 194,
+    "Grappling": 14,
+    "Intelligence Operations": 185,
+    "Intrigue": 189,
+    "Law": 172,
+    "Leadership": 179,
+    "Logistics": 14,
+    "Mace": 16,
+    "Mass Combat": 16,
+    "Medicine": 18,
+    "Navigation": 31,
+    "Riding": 16,
+    "Scouting": 15,
+    "Shield": 13,
+    "Spear": 17,
+    "Staff": 17,
+    "Stealth": 17,
+    "Strategy": 172,
+    "Survival": 42,
+    "Sword": 14,
+    "Tactics": 14,
+    "Trade": 177,
+    "Training": 25,
+    "Unarmed": 14
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_ecc726452c0ac60dce4f",
+  "state": "Qin"
+}

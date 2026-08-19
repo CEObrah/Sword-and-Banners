@@ -1,0 +1,240 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": [
+      "Logistics",
+      "Bow",
+      "Scouting",
+      "Formation Command",
+      "Leadership",
+      "Tactics",
+      "Strategy",
+      "Riding",
+      "Formation Fighting"
+    ],
+    "growth_rule": "verified elapsed training only; current role, assignment, useful deficits, instructors and lawful opportunity determine development; future canon skill is never pre-granted",
+    "mode": "career_role_training",
+    "training_regimen_ref": "regular_army"
+  },
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adolescent",
+  "appearance": 56,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 158,
+    "physical_learning": 136,
+    "social_learning": 156,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 158,
+    "technical_learning": 117
+  },
+  "attributes": {
+    "Agility": 133,
+    "Awareness": 144,
+    "Composure": 152,
+    "Coordination": 138,
+    "Endurance": 123,
+    "Intelligence": 143,
+    "Presence": 144,
+    "Strength": 104,
+    "Toughness": 116
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 56.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Qin"
+  },
+  "behavior": {
+    "ambition_or_orientation": "rise through merit while keeping people alive with flexible command",
+    "core_traits": [
+      "easygoing",
+      "brilliant",
+      "socially perceptive"
+    ],
+    "decision_style": "likes having one practical fallback ready before taking a risk",
+    "failure_response": "reviews the mistake and changes procedure",
+    "personal_preferences": [
+      "predictable logistics",
+      "familiar training partners"
+    ],
+    "private_concern": "losing status through visible failure",
+    "source": "curated_canon_characterization_plus_campaign_state",
+    "stress_response": "uses speed of thought and maneuver rather than forcing bad frontal contests",
+    "temperament": "young_commander; stable behavior follows saved history and incentives",
+    "trust_style": "status-aware but willing to revise judgments",
+    "values": [
+      "earn command credibility through study, service, and performance rather than family name",
+      "preserve earned reputation and obligations"
+    ]
+  },
+  "birth_date": "259-BCE-11-10",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 184.0,
+    "current_weight_kg": 56.8,
+    "frame": "lean",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "appointments": [
+      {
+        "assignment_ref": "formation_qin_mou_ten_100",
+        "at": "244-BCE-07-29T20:22:48+08:00",
+        "basis": "current_authority",
+        "office_or_command": "Commander, Mou Ten 100-Man Command",
+        "rule": "current assignment only; creates no guaranteed future promotion or canon outcome"
+      }
+    ],
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_assignment_ref": "formation_qin_mou_ten_100",
+    "current_billet": "Qin 100-Man Commander",
+    "current_command_span": 100,
+    "current_professional_path": "qin_young_commander",
+    "future_canon_guaranteed": false,
+    "office_or_command": "Commander, Mou Ten 100-Man Command",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "command_assignment": {
+    "billet": "formation_commander",
+    "current_command_span": 100,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "formation_qin_mou_ten_100",
+    "rule": "Current command span follows exact surviving formation strength and may change without changing durable rank.",
+    "source": "current_exact_formation"
+  },
+  "current_formation_id": "formation_qin_mou_ten_100",
+  "current_location": "loc_kanyou",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.394,
+      "Awareness": 2.184,
+      "Composure": 0.914,
+      "Coordination": 0.197,
+      "Endurance": 0.721,
+      "Intelligence": 1.04,
+      "Presence": 0.542,
+      "Strength": 2.3,
+      "Toughness": 0.721
+    },
+    "attribute_stimulus_hours_milli": 137200,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 392,
+    "skill_edu_banks": {
+      "Athletics": 2.411,
+      "Leadership": 3.137,
+      "Mass Combat": 13.96,
+      "Strategy": 21.645,
+      "Survival": 45.101,
+      "Sword": 2.411
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_spear",
+  "goal_state": {
+    "current_goals": [
+      "earn command credibility through study, service, and performance rather than family name"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [
+      "earn command credibility through study, service, and performance rather than family name"
+    ],
+    "personal_desires": [
+      "rise through merit while keeping people alive with flexible command"
+    ]
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 14,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "Kanyou military service",
+  "military_rank": {
+    "durable": true,
+    "grade": "100_commander",
+    "rule": "Only explicit career promotion/demotion changes grade; billet and current troop span changes do not.",
+    "source": "current_baseline"
+  },
+  "name": "Mou Ten",
+  "owner_id": "char_mou_ten",
+  "owner_type": "character",
+  "relationship_refs": [
+    "rel.char_mou_ten.char_mou_bu.son"
+  ],
+  "role": "Qin 100-Man Commander",
+  "role_archetype": "young_commander",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 136,
+    "Axe": 16,
+    "Bow": 17,
+    "Crossbow": 15,
+    "Dagger": 13,
+    "Defense": 147,
+    "Diplomacy": 26,
+    "Engineering": 15,
+    "Formation Command": 142,
+    "Formation Fighting": 144,
+    "Glaive": 16,
+    "Governance": 18,
+    "Grappling": 13,
+    "Intelligence Operations": 15,
+    "Intrigue": 15,
+    "Law": 18,
+    "Leadership": 141,
+    "Logistics": 13,
+    "Mace": 14,
+    "Mass Combat": 133,
+    "Medicine": 22,
+    "Navigation": 32,
+    "Riding": 154,
+    "Scouting": 15,
+    "Shield": 16,
+    "Spear": 142,
+    "Staff": 15,
+    "Stealth": 16,
+    "Strategy": 126,
+    "Survival": 42,
+    "Sword": 137,
+    "Tactics": 143,
+    "Trade": 23,
+    "Training": 25,
+    "Unarmed": 15
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_f37d974cb34620a60adf",
+  "state": "Qin"
+}

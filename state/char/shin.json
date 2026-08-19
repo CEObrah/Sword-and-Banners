@@ -1,0 +1,218 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": [
+      "Sword",
+      "Athletics",
+      "Defense",
+      "Grappling",
+      "Survival",
+      "Leadership"
+    ],
+    "growth_rule": "verified elapsed training only; current role, assignment, useful deficits, instructors and lawful opportunity determine development; future canon skill is never pre-granted",
+    "mode": "career_role_training",
+    "training_regimen_ref": "civilian_skilled"
+  },
+  "age_basis": "exact_profile",
+  "age_stage": "adolescent",
+  "appearance": 70,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 67,
+    "physical_learning": 104,
+    "social_learning": 66,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 65,
+    "technical_learning": 71
+  },
+  "attributes": {
+    "Agility": 92,
+    "Awareness": 82,
+    "Composure": 68,
+    "Coordination": 90,
+    "Endurance": 110,
+    "Intelligence": 52,
+    "Presence": 72,
+    "Strength": 78,
+    "Toughness": 108
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 56.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Qin"
+  },
+  "behavior": {
+    "ambition_or_orientation": "rise to Great General through battlefield achievement",
+    "core_traits": [
+      "impulsive",
+      "loyal",
+      "aspirational"
+    ],
+    "decision_style": "prefers clear hierarchy and explicit responsibility",
+    "failure_response": "protects subordinates publicly and corrects privately",
+    "personal_preferences": [
+      "predictable logistics",
+      "private rather than ceremonial praise"
+    ],
+    "source": "curated_canon_characterization_plus_campaign_state",
+    "stress_response": "charges toward decisive responsibility but is increasingly capable of reading the intent of battle",
+    "temperament": "youth_warrior; stable behavior follows saved history and incentives",
+    "trust_style": "status-aware but willing to revise judgments",
+    "values": [
+      "escape servitude through achievement and earn a real path toward becoming a great general",
+      "preserve earned reputation and obligations"
+    ]
+  },
+  "birth_date": "259-BCE-04-06",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 163.0,
+    "current_weight_kg": 44.7,
+    "frame": "lean",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "appointments": [
+      {
+        "assignment_ref": null,
+        "at": "244-BCE-07-29T20:22:48+08:00",
+        "basis": "current_authority",
+        "office_or_command": "No military office; bonded rural laborer and self-trained martial aspirant",
+        "rule": "current assignment only; creates no guaranteed future promotion or canon outcome"
+      }
+    ],
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_assignment_ref": null,
+    "current_professional_path": "martial_aspirant",
+    "future_canon_guaranteed": false,
+    "office_or_command": "No military office; bonded rural laborer and self-trained martial aspirant",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "current_location": "loc_jouto_village",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Awareness": 4.277,
+      "Composure": 6.608,
+      "Intelligence": 19.131,
+      "Presence": 6.867
+    },
+    "attribute_stimulus_hours_milli": 137200,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 392,
+    "skill_edu_banks": {
+      "Diplomacy": 21.06,
+      "Law": 8.685,
+      "Leadership": 20.741,
+      "Navigation": 25.744,
+      "Trade": 21.06,
+      "Training": 20.741
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_sword",
+  "goal_state": {
+    "current_goals": [
+      "escape servitude through achievement and earn a real path toward becoming a great general"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [
+      "escape servitude through achievement and earn a real path toward becoming a great general"
+    ],
+    "personal_desires": [
+      "rise to Great General through battlefield achievement"
+    ]
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": true,
+  "life_course_age_index": 14,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "Jouto Village",
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_no_exact_grade_evidence"
+  },
+  "name": "Shin",
+  "owner_id": "char_shin",
+  "owner_type": "character",
+  "role": "Jouto bonded laborer and aspiring martial youth",
+  "role_archetype": "youth_warrior",
+  "runtime": {},
+  "runtime_status": "active_shared_process_participant",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 102,
+    "Axe": 13,
+    "Bow": 0,
+    "Crossbow": 16,
+    "Dagger": 15,
+    "Defense": 76,
+    "Diplomacy": 26,
+    "Engineering": 13,
+    "Formation Command": 0,
+    "Formation Fighting": 0,
+    "Glaive": 0,
+    "Governance": 21,
+    "Grappling": 45,
+    "Intelligence Operations": 14,
+    "Intrigue": 13,
+    "Law": 23,
+    "Leadership": 28,
+    "Logistics": 0,
+    "Mace": 14,
+    "Mass Combat": 5,
+    "Medicine": 21,
+    "Navigation": 31,
+    "Riding": 0,
+    "Scouting": 17,
+    "Shield": 5,
+    "Spear": 16,
+    "Staff": 13,
+    "Stealth": 15,
+    "Strategy": 0,
+    "Survival": 58,
+    "Sword": 88,
+    "Tactics": 8,
+    "Trade": 26,
+    "Training": 26,
+    "Unarmed": 52
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_bb6d62f454ad8def73e6",
+  "state": "Qin"
+}

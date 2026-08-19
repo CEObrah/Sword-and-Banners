@@ -1,0 +1,164 @@
+{
+  "administrative_owner": "house_shou_bun_kun_household",
+  "cohesion": 78,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_house_shou_bun_kun_household_household_retainer_standing",
+      "count": 2600,
+      "role": "household_retainer"
+    },
+    {
+      "cohort_id": "cohort_force_house_shou_bun_kun_household_archer_standing",
+      "count": 600,
+      "role": "archer"
+    },
+    {
+      "cohort_id": "cohort_force_house_shou_bun_kun_household_missile_crossbow_standing",
+      "count": 400,
+      "role": "missile_crossbow"
+    },
+    {
+      "cohort_id": "cohort_force_house_shou_bun_kun_household_cavalry_standing",
+      "count": 400,
+      "role": "cavalry"
+    }
+  ],
+  "command_authority": "char_shou_bun_kun",
+  "command_structure": {
+    "internal_hierarchy": {
+      "by_role": {
+        "archer": {
+          "commanders_100": 6,
+          "commanders_1000": 0,
+          "commanders_500": 1,
+          "counted_inside_role_strength": true
+        },
+        "cavalry": {
+          "commanders_100": 4,
+          "commanders_1000": 0,
+          "commanders_500": 0,
+          "counted_inside_role_strength": true
+        },
+        "household_retainer": {
+          "commanders_100": 26,
+          "commanders_1000": 2,
+          "commanders_500": 5,
+          "counted_inside_role_strength": true
+        },
+        "missile_crossbow": {
+          "commanders_100": 4,
+          "commanders_1000": 0,
+          "commanders_500": 0,
+          "counted_inside_role_strength": true
+        }
+      },
+      "representation_rule": "Embedded 1,000/500/100 commanders are bodies inside each role component. Aggregate command slots do not add manpower. Materialize an existing slot only when individual relevance requires it.",
+      "summary": [
+        {
+          "count": 2,
+          "counted_inside_troop_strength": true,
+          "representation": "aggregate_command_slots",
+          "scale": 1000
+        },
+        {
+          "count": 6,
+          "counted_inside_troop_strength": true,
+          "representation": "aggregate_command_slots",
+          "scale": 500
+        },
+        {
+          "count": 40,
+          "counted_inside_troop_strength": true,
+          "representation": "aggregate_command_slots",
+          "scale": 100
+        }
+      ]
+    },
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 2,
+        "100_commander": 40,
+        "500_commander": 6
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      },
+      "last_reorganization_reason": "clean_baseline_officer_cadre",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 2,
+        "100_commander": 40,
+        "500_commander": 6
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 2,
+        "100_commander": 0,
+        "500_commander": 2
+      }
+    },
+    "unit_command": {
+      "commander_post": "materialize_when_relevant",
+      "commander_ref": null,
+      "deputy_post": "materialize_when_relevant",
+      "external_to_fighting_establishment": true
+    }
+  },
+  "commander_ref": null,
+  "composition": {
+    "archer": 600,
+    "cavalry": 400,
+    "household_retainer": 2600,
+    "missile_crossbow": 400
+  },
+  "deputy_ref": null,
+  "doctrine_ref": "household_combined_arms",
+  "equipment_completeness": "0.9000",
+  "equipment_units_by_role": {
+    "archer": 600,
+    "cavalry": 400,
+    "household_retainer": 2600,
+    "missile_crossbow": 400
+  },
+  "establishment_composition": {
+    "archer": 600,
+    "cavalry": 400,
+    "household_retainer": 2600,
+    "missile_crossbow": 400
+  },
+  "establishment_personnel": 4000,
+  "experience": "trained",
+  "fatigue": 0,
+  "formation_ref": "formation_house_shou_bun_kun_household_01",
+  "higher_command_ref": "cmdgrp.house_shou_bun_kun_household.field_army",
+  "location_ref": "loc_kanyou",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "source_depot_ref": "depot_fort_kanyou",
+    "war_arrows": 108000,
+    "war_bolts": 60000
+  },
+  "mobilized": false,
+  "morale": 80,
+  "mounts": {
+    "horse_war_military": 400
+  },
+  "name": "House Shou Bun Kun Household Maneuver Unit 1",
+  "owner_force_ref": "force_house_shou_bun_kun_household",
+  "personnel": 4000,
+  "readiness": 78,
+  "schema": "sword-formation",
+  "status": "ready",
+  "supply_depot_ref": "depot_fort_kanyou"
+}

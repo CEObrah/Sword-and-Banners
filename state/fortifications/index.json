@@ -1,0 +1,322 @@
+{
+  "fortifications": {},
+  "owner_id": "fortifications",
+  "rule": "fortifications map is exact materialized state only; static_profiles is a discovery projection and never overwrites materialized condition",
+  "schema": "sword-fortification-index",
+  "static_profiles": {
+    "loc_atsuyo": {
+      "authority": false,
+      "profile_id": "fort_profile_atsuyo",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_bu_pass": {
+      "authority": false,
+      "profile_id": "fort_profile_bu_pass",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_bujou": {
+      "authority": false,
+      "profile_id": "fort_profile_bujou",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_chu_ei": {
+      "authority": false,
+      "profile_id": "fort_profile_chu_ei",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_chu_north_fort": {
+      "authority": false,
+      "profile_id": "fort_profile_chu_north_fort",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_dairyou": {
+      "authority": false,
+      "profile_id": "fort_profile_dairyou",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_dairyou",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_wei_mobile_reserve"
+      ]
+    },
+    "loc_ei": {
+      "authority": false,
+      "profile_id": "fort_profile_ei",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_ei",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_qi_rinshi_royal_guard"
+      ]
+    },
+    "loc_gian": {
+      "authority": false,
+      "profile_id": "fort_profile_gian",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_gian",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_zhao_riboku_northern_army"
+      ]
+    },
+    "loc_gyou": {
+      "authority": false,
+      "profile_id": "fort_profile_gyou",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_han_capital": {
+      "authority": false,
+      "profile_id": "fort_profile_han_capital",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_han_frontier_fort": {
+      "authority": false,
+      "profile_id": "fort_profile_han_frontier_fort",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_han_frontier_fort",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_han_fortress_reserve"
+      ]
+    },
+    "loc_hango": {
+      "authority": false,
+      "profile_id": "fort_profile_hango",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_heiyou": {
+      "authority": false,
+      "profile_id": "fort_profile_heiyou",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_hika": {
+      "authority": false,
+      "profile_id": "fort_profile_hika",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_houshi": {
+      "authority": false,
+      "profile_id": "fort_profile_houshi",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_ji": {
+      "authority": false,
+      "profile_id": "fort_profile_ji",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_jo_city": {
+      "authority": false,
+      "profile_id": "fort_profile_jo_city",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_juuko": {
+      "authority": false,
+      "profile_id": "fort_profile_juuko",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_juuko",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_chu_juuko_defense_army"
+      ]
+    },
+    "loc_kankoku_pass": {
+      "authority": false,
+      "profile_id": "fort_profile_kankoku_pass",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_kankoku_pass",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_qin_kankoku_central_gate",
+        "formation_qin_kankoku_east_wall",
+        "formation_qin_kankoku_missile_artillery",
+        "formation_qin_kankoku_mobile_reserve",
+        "formation_qin_kankoku_relief_engineers",
+        "formation_qin_kankoku_west_wall"
+      ]
+    },
+    "loc_kantan": {
+      "authority": false,
+      "profile_id": "fort_profile_kantan",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_kantan",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_zhao_reconstitution"
+      ]
+    },
+    "loc_kanyou": {
+      "authority": false,
+      "profile_id": "fort_profile_kanyou",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_kanyou",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_house_shou_bun_kun_household_01",
+        "formation_qin_heki_royal_detail",
+        "formation_qin_mou_ten_100",
+        "formation_qin_ou_hon_100"
+      ]
+    },
+    "loc_keiyou": {
+      "authority": false,
+      "profile_id": "fort_profile_keiyou",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_koukei": {
+      "authority": false,
+      "profile_id": "fort_profile_koukei",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_nanyou": {
+      "authority": false,
+      "profile_id": "fort_profile_nanyou",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_nanyou",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_han_nanyou_western_command"
+      ]
+    },
+    "loc_qi_west_fort": {
+      "authority": false,
+      "profile_id": "fort_profile_qi_west_fort",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_qin_western_fort": {
+      "authority": false,
+      "profile_id": "fort_profile_qin_western_fort",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_retsubi": {
+      "authority": false,
+      "profile_id": "fort_profile_retsubi",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_retsubi",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_zhao_retsubi_gate_command"
+      ]
+    },
+    "loc_roumou": {
+      "authority": false,
+      "profile_id": "fort_profile_roumou",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_sai": {
+      "authority": false,
+      "profile_id": "fort_profile_sai",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_sanyou": {
+      "authority": false,
+      "profile_id": "fort_profile_sanyou",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_seika": {
+      "authority": false,
+      "profile_id": "fort_profile_seika",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_seika",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_zhao_seika_field_army"
+      ]
+    },
+    "loc_shintei": {
+      "authority": false,
+      "profile_id": "fort_profile_shintei",
+      "logistics_blueprint_authority": true,
+      "live_logistics_depot_ref": "depot_fortified_loc_shintei",
+      "hot_baseline": true,
+      "garrison_formation_refs": [
+        "formation_chu_shock_reserve"
+      ]
+    },
+    "loc_sword_manor": {
+      "authority": false,
+      "profile_id": "fort_profile_sword_manor",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null,
+      "external_exact_logistics_authority_ref": "depot_house_tang"
+    },
+    "loc_tang_inner_citadel": {
+      "authority": false,
+      "profile_id": "fort_profile_tang_inner_citadel",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null,
+      "external_exact_logistics_authority_ref": "depot_house_tang"
+    },
+    "loc_tang_manor": {
+      "authority": false,
+      "profile_id": "fort_profile_tang_manor",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": true,
+      "live_logistics_depot_ref": "depot_house_tang",
+      "external_exact_logistics_authority_ref": "depot_house_tang"
+    },
+    "loc_wei_west_fort": {
+      "authority": false,
+      "profile_id": "fort_profile_wei_west_fort",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_yan_south_fort": {
+      "authority": false,
+      "profile_id": "fort_profile_yan_south_fort",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    },
+    "loc_zhao_border_fort": {
+      "authority": false,
+      "profile_id": "fort_profile_zhao_border_fort",
+      "logistics_blueprint_authority": true,
+      "hot_baseline": false,
+      "live_logistics_depot_ref": null
+    }
+  },
+  "static_profiles_authority": false
+}

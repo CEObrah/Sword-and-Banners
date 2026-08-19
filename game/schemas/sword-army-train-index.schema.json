@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "owner_id", "authority", "trains", "active_refs"],
+  "properties": {
+    "schema": {"const": "sword-army-train-index"},
+    "owner_id": {"const": "army_train_index"},
+    "authority": {"const": false},
+    "trains": {"type": "object"},
+    "active_refs": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

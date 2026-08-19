@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "owner_id", "actor_ref", "roles"],
+  "properties": {
+    "schema": {"const": "sword-actor-authority"},
+    "owner_id": {"type": "string"},
+    "actor_ref": {"type": "string"},
+    "roles": {"type": "array"}
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": [
+      "Logistics",
+      "Bow",
+      "Scouting",
+      "Formation Command",
+      "Leadership",
+      "Tactics",
+      "Strategy",
+      "Riding",
+      "Spear",
+      "Formation Fighting"
+    ],
+    "growth_rule": "verified elapsed training only; current role, assignment, useful deficits, instructors and lawful opportunity determine development; future canon skill is never pre-granted",
+    "mode": "career_role_training",
+    "training_regimen_ref": "regular_army"
+  },
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adolescent",
+  "appearance": 61,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 163,
+    "physical_learning": 138,
+    "social_learning": 160,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 160,
+    "technical_learning": 119
+  },
+  "attributes": {
+    "Agility": 132,
+    "Awareness": 146,
+    "Composure": 153,
+    "Coordination": 139,
+    "Endurance": 128,
+    "Intelligence": 148,
+    "Presence": 147,
+    "Strength": 107,
+    "Toughness": 113
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 56.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Qin"
+  },
+  "behavior": {
+    "ambition_or_orientation": "prove his worth through elite command and spear skill",
+    "core_traits": [
+      "proud",
+      "disciplined",
+      "technically exacting"
+    ],
+    "decision_style": "prefers private correction over public humiliation",
+    "failure_response": "seeks missing information before assigning blame",
+    "personal_preferences": [
+      "well-prepared equipment",
+      "honest after-action criticism"
+    ],
+    "source": "curated_canon_characterization_plus_campaign_state",
+    "stress_response": "responds to doubt by raising standards and accepting difficult assignments",
+    "temperament": "young_commander; stable behavior follows saved history and incentives",
+    "trust_style": "slow and evidence-based",
+    "values": [
+      "prove personal and military competence through disciplined service and measurable achievement",
+      "preserve earned reputation and obligations"
+    ]
+  },
+  "birth_date": "259-BCE-11-19",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 180.0,
+    "current_weight_kg": 55.0,
+    "frame": "lean",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "appointments": [
+      {
+        "assignment_ref": "formation_qin_ou_hon_100",
+        "at": "244-BCE-07-29T20:22:48+08:00",
+        "basis": "current_authority",
+        "office_or_command": "Commander, Ou Hon 100-Man Command",
+        "rule": "current assignment only; creates no guaranteed future promotion or canon outcome"
+      }
+    ],
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_assignment_ref": "formation_qin_ou_hon_100",
+    "current_billet": "Qin 100-Man Commander",
+    "current_command_span": 100,
+    "current_professional_path": "qin_young_commander",
+    "future_canon_guaranteed": false,
+    "office_or_command": "Commander, Ou Hon 100-Man Command",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "command_assignment": {
+    "billet": "formation_commander",
+    "current_command_span": 100,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "formation_qin_ou_hon_100",
+    "rule": "Current command span follows exact surviving formation strength and may change without changing durable rank.",
+    "source": "current_exact_formation"
+  },
+  "current_formation_id": "formation_qin_ou_hon_100",
+  "current_location": "loc_kanyou",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.398,
+      "Awareness": 2.211,
+      "Composure": 0.649,
+      "Coordination": 0.398,
+      "Endurance": 0.93,
+      "Intelligence": 0.751,
+      "Presence": 0.278,
+      "Strength": 2.871,
+      "Toughness": 1.975
+    },
+    "attribute_stimulus_hours_milli": 137200,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 392,
+    "skill_edu_banks": {
+      "Athletics": 2.446,
+      "Mass Combat": 14.136,
+      "Spear": 2.446,
+      "Strategy": 24.143,
+      "Survival": 47.504,
+      "Sword": 2.446
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_sword",
+  "goal_state": {
+    "current_goals": [
+      "prove personal and military competence through disciplined service and measurable achievement"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [
+      "prove personal and military competence through disciplined service and measurable achievement"
+    ],
+    "personal_desires": [
+      "prove his worth through elite command and spear skill"
+    ]
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 14,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "Kanyou military service",
+  "military_rank": {
+    "durable": true,
+    "grade": "100_commander",
+    "rule": "Only explicit career promotion/demotion changes grade; billet and current troop span changes do not.",
+    "source": "current_baseline"
+  },
+  "name": "Ou Hon",
+  "owner_id": "char_ou_hon",
+  "owner_type": "character",
+  "relationship_refs": [
+    "rel.char_ou_hon.char_ousen.son"
+  ],
+  "role": "Qin 100-Man Commander",
+  "role_archetype": "young_commander",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 138,
+    "Axe": 13,
+    "Bow": 13,
+    "Crossbow": 13,
+    "Dagger": 17,
+    "Defense": 142,
+    "Diplomacy": 25,
+    "Engineering": 16,
+    "Formation Command": 143,
+    "Formation Fighting": 145,
+    "Glaive": 13,
+    "Governance": 19,
+    "Grappling": 16,
+    "Intelligence Operations": 13,
+    "Intrigue": 17,
+    "Law": 22,
+    "Leadership": 149,
+    "Logistics": 13,
+    "Mace": 16,
+    "Mass Combat": 133,
+    "Medicine": 21,
+    "Navigation": 31,
+    "Riding": 146,
+    "Scouting": 14,
+    "Shield": 15,
+    "Spear": 137,
+    "Staff": 13,
+    "Stealth": 15,
+    "Strategy": 124,
+    "Survival": 41,
+    "Sword": 137,
+    "Tactics": 143,
+    "Trade": 26,
+    "Training": 24,
+    "Unarmed": 14
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_d630378b929d7af2864d",
+  "state": "Qin"
+}

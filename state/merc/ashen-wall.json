@@ -1,0 +1,172 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "Qin-Han fortified corridor",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 5.5
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 68,
+      "sd": 7.2
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 182000,
+      "basis": "mercenary_ecology current obligation; contract organizes employment but owns zero bodies",
+      "contract_ref": "market_contract_merc_ashen_wall",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "employer_ref": "house_ou_family",
+      "engagement_kind": "house_contract",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 120
+    }
+  ],
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "doctrine": "doc.merc_ashen_wall.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 0,
+    "assigned_war_arrows": 0,
+    "assigned_war_bolts": 145364,
+    "issued_loadouts": [
+      {
+        "count": 5318,
+        "loadout_id": "loadout_mercenary_heavy_infantry"
+      },
+      {
+        "count": 591,
+        "loadout_id": "loadout_mercenary_crossbow"
+      },
+      {
+        "count": 591,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 0,
+    "reserve_war_arrows": 0,
+    "reserve_war_bolts": 145364
+  },
+  "establishment_strength": 6500,
+  "food_stock_kg": 624000,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "geographic_provenance": {
+    "rule": "company remains exact manpower owner; contract/employer does not own duplicate bodies"
+  },
+  "headcount": 6500,
+  "home_establishment_ref": "establishment.merc_ashen_wall",
+  "home_location_ref": "loc_qin_regional_01",
+  "market_engagement": {
+    "kind": "house_contract",
+    "rule": "current commercial/military employment affects availability without changing company manpower ownership",
+    "short_notice_available": false,
+    "established_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "market_tier": "specialist",
+  "name": "Ashen Wall Veterans",
+  "owner_id": "merc_ashen_wall",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "Independent",
+  "status": "contracted",
+  "subprocess_id": "process_merc_ashen_wall",
+  "training": "train.merc_ashen_wall.standard",
+  "treasury_silver": 520000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-ashen-wall-pool-veteran.json",
+      "condition": {
+        "fit": 5318
+      },
+      "count": 5318,
+      "display": "Veteran Infantry",
+      "doctrine": "doc.merc_ashen_wall.veteran",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_heavy_infantry",
+      "mount_type": null,
+      "pool_id": "merc_ashen_wall:pool_veteran",
+      "pool_kind": "unit_manpower",
+      "role": "veteran",
+      "specialty": "veteran",
+      "training": "train.merc_ashen_wall.veteran",
+      "troop_type": "heavy_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-ashen-wall-pool-crossbow.json",
+      "condition": {
+        "fit": 591
+      },
+      "count": 591,
+      "display": "Crossbow Troops",
+      "doctrine": "doc.merc_ashen_wall.crossbow",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_crossbow",
+      "mount_type": null,
+      "pool_id": "merc_ashen_wall:pool_crossbow",
+      "pool_kind": "unit_manpower",
+      "role": "crossbow",
+      "specialty": "crossbow",
+      "training": "train.merc_ashen_wall.crossbow",
+      "troop_type": "crossbow_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-ashen-wall-pool-support.json",
+      "condition": {
+        "fit": 591
+      },
+      "count": 591,
+      "display": "Support",
+      "doctrine": "doc.merc_ashen_wall.support",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_support",
+      "mount_type": null,
+      "pool_id": "merc_ashen_wall:pool_support",
+      "pool_kind": "unit_manpower",
+      "role": "support",
+      "specialty": "support",
+      "training": "train.merc_ashen_wall.support",
+      "troop_type": "line_infantry"
+    }
+  ]
+}

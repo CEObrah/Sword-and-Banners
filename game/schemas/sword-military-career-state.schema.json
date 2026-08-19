@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Named military career state",
+  "type": "object",
+  "required": ["schema"],
+  "properties": {
+    "schema": {"const": "sword-military-career-state"},
+    "derived_preferences": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "active_petition_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "commander_discovery_cursor": {"type": "integer", "minimum": 0},
+    "review_count": {"type": "integer", "minimum": 0},
+    "last_review_at": {"type": "string"},
+    "last_authorized_transfer_order_ref": {"type": "string"},
+    "emergence_evidence_ref": {"type": "string"},
+    "emerged_at": {"type": "string"}
+  },
+  "additionalProperties": true
+}

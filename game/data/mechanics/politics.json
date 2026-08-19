@@ -1,0 +1,58 @@
+{
+  "coalition_bands": {
+    "0": "tied_or_blocked_without_tiebreak_authority",
+    "greater_than_0": "supporters_have_margin_within_actual_legal_and_physical_reach",
+    "less_than_0": "opposition_has_margin"
+  },
+  "evidence_thresholds": {
+    "0_to_24": "weak",
+    "120_plus": "overwhelming_subject_to_legality_and_scope",
+    "25_to_49": "limited",
+    "50_to_79": "substantial",
+    "80_to_119": "strong"
+  },
+  "exposure_bands": {
+    "15_to_29": "investigable_trace",
+    "1_to_14": "minor_anomaly",
+    "30_to_49": "probable_hostile_activity",
+    "50_plus": "strong_exposure_subject_to_actual_evidence_scope",
+    "<=0": "no_new_detectable_trace"
+  },
+  "formulas": {
+    "coalition_support": "sum(supporter_effective_weight)-sum(opponent_effective_weight)",
+    "effective_political_weight": "clamp(sum(unique_applicable_power_basis_points),0,200)*reach_factor*procedure_factor",
+    "evidence_weight": "quality*(reliability/100)*custody_factor*corroboration_factor-contradiction_penalty",
+    "faction_gate": "eligible only when every required gate >= its saved minimum; no average may substitute for a failed essential gate",
+    "legal_finding_margin": "admissible_evidence_weight+applicable_authority+corroboration-contradiction-contamination-procedural_defect-supported_defense",
+    "occupation_reach": "min(garrison_patrol_capacity,information_coverage,administrative_capacity,supply_capacity,communication_capacity)",
+    "scheme_exposure_score": "traces+witnesses+communication_risk+suspicious_access+counterintelligence-compartmentation-cover-cleanup",
+    "scheme_progress_score": "access+agent_capability+resources+target_vulnerability+preparation-difficulty-opposition",
+    "war_capacity": "min(force_readiness,supply_readiness,treasury_readiness,command_readiness,political_support,route_access)"
+  },
+  "input_rules": {
+    "evidence_components": "quality and reliability are 0..100; reliability is applied as a percentage; custody_factor and corroboration_factor are 0..1; contradiction_penalty is nonnegative numeric evidence pressure",
+    "legal_components": "legal finding components are saved numeric values tied to actual evidence, authority, procedure, and defenses; unstored narrative impressions contribute 0",
+    "power_basis_points": "each office/troop/money/land/household/network/popular/legal/procedure basis is a saved 0..200 contribution and may be counted once only for the deciding body",
+    "procedure_factor": "saved 0..1 ability to use the current procedure; absence of a procedural route is 0",
+    "reach_factor": "saved 0..1 physical/legal reach into deciding body or enforcement area",
+    "readiness_components": "war-capacity components use the same saved 0..200 readiness scale",
+    "scheme_components": "all scheme progress/exposure components are saved numeric 0..100 values created before resolution; missing values block the step"
+  },
+  "legal_margin_bands": {
+    "0_to_24": "weak_support",
+    "25_to_49": "supported",
+    "50_to_79": "strongly_supported",
+    "80_plus": "overwhelmingly_supported_subject_to_scope",
+    "less_than_0": "finding_not_supported"
+  },
+  "numerical_authority": true,
+  "rule": "Progress, exposure, evidence, legal judgment, enforcement, coalition support, and public belief are separate state. No score creates access, authority, evidence, resources, or physical effects that do not exist.",
+  "schema": "politics-mechanics",
+  "scheme_progress_bands": {
+    "-19_to_-1": "no_material_progress",
+    "0_to_14": "limited_progress",
+    "15_to_29": "clear_progress",
+    "30_plus": "major_progress_within_physical_access_limits",
+    "<=-20": "blocked_or_reversed"
+  }
+}

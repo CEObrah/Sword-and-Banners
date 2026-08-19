@@ -1,0 +1,156 @@
+{
+  "schema": "sword-formation",
+  "formation_ref": "formation_bastion_iron_rampart_15",
+  "owner_force_ref": "force_bastion_iron_rampart",
+  "administrative_owner": "house_tang",
+  "name": "Iron Rampart Corps 15th Maneuver Formation",
+  "personnel": 5000,
+  "composition": {
+    "bastion_heavy_infantry": 3000,
+    "bastion_crossbow": 1000,
+    "bastion_archer": 1000
+  },
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_bastion_iron_rampart_bastion_heavy_infantry",
+      "count": 3000,
+      "role": "bastion_heavy_infantry"
+    },
+    {
+      "cohort_id": "cohort_force_bastion_iron_rampart_bastion_crossbow",
+      "count": 1000,
+      "role": "bastion_crossbow"
+    },
+    {
+      "cohort_id": "cohort_force_bastion_iron_rampart_bastion_archer",
+      "count": 1000,
+      "role": "bastion_archer"
+    }
+  ],
+  "location_ref": "loc_tang_manor_defense_camp",
+  "command_authority": "char_han_ru",
+  "commander_ref": null,
+  "deputy_ref": null,
+  "command_structure": {
+    "unit_command": {
+      "commander_post": "materialize_when_individually_relevant",
+      "deputy_post": "materialize_when_individually_relevant",
+      "external_to_fighting_establishment": true,
+      "reports_to_corps_commander_ref": "char_han_ru"
+    },
+    "internal_hierarchy": {
+      "by_role": {
+        "bastion_heavy_infantry": {
+          "commanders_1000": 3,
+          "commanders_500": 6,
+          "commanders_100": 30,
+          "counted_inside_role_strength": true
+        },
+        "bastion_crossbow": {
+          "commanders_1000": 1,
+          "commanders_500": 2,
+          "commanders_100": 10,
+          "counted_inside_role_strength": true
+        },
+        "bastion_archer": {
+          "commanders_1000": 1,
+          "commanders_500": 2,
+          "commanders_100": 10,
+          "counted_inside_role_strength": true
+        }
+      },
+      "summary": [
+        {
+          "scale": 1000,
+          "count": 5,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 500,
+          "count": 10,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 100,
+          "count": 50,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        }
+      ],
+      "representation_rule": "Embedded 1,000/500/100 commanders are bodies inside each role component. Aggregate command slots do not add manpower. Materialize an existing slot only when individual relevance requires it."
+    },
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 5,
+        "500_commander": 10,
+        "100_commander": 50
+      },
+      "active_billets": {
+        "1000_commander": 5,
+        "500_commander": 10,
+        "100_commander": 50
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    }
+  },
+  "doctrine_ref": "doc.bastion.iron_rampart",
+  "registered_loadouts_by_role": {
+    "bastion_heavy_infantry": "loadout_bastion_heavy_infantry",
+    "bastion_crossbow": "loadout_bastion_crossbow",
+    "bastion_archer": "loadout_bastion_archer"
+  },
+  "equipment_units_by_role": {
+    "bastion_heavy_infantry": 3000,
+    "bastion_crossbow": 1000,
+    "bastion_archer": 1000
+  },
+  "equipment_completeness": "1.0000",
+  "experience": "trained",
+  "fatigue": 0,
+  "cohesion": 90,
+  "morale": 90,
+  "readiness": 92,
+  "mobilized": true,
+  "status": "garrison_ready",
+  "mounts": {},
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 480000,
+    "war_bolts": 360000
+  },
+  "command_accounting": {
+    "top_commander_inside_troop_strength": false,
+    "top_deputy_inside_troop_strength": false,
+    "embedded_1000_500_100_commanders_inside_troop_strength": true
+  },
+  "higher_command_ref": "cmdgrp.bastion.iron_rampart",
+  "establishment_personnel": 5000,
+  "establishment_composition": {
+    "bastion_heavy_infantry": 3000,
+    "bastion_crossbow": 1000,
+    "bastion_archer": 1000
+  }
+}

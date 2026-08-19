@@ -1,0 +1,194 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": [
+      "Trade",
+      "Scouting",
+      "Stealth",
+      "Navigation",
+      "Survival",
+      "Intelligence Operations",
+      "Logistics",
+      "Tactics"
+    ],
+    "growth_rule": "verified elapsed training only; current role, assignment, useful deficits, instructors and lawful opportunity determine development; future canon skill is never pre-granted",
+    "mode": "career_role_training",
+    "training_regimen_ref": "civilian_skilled"
+  },
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adolescent",
+  "appearance": 63,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 125,
+    "physical_learning": 77,
+    "social_learning": 77,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 92,
+    "technical_learning": 85
+  },
+  "attributes": {
+    "Agility": 68,
+    "Awareness": 98,
+    "Composure": 97,
+    "Coordination": 77,
+    "Endurance": 69,
+    "Intelligence": 110,
+    "Presence": 87,
+    "Strength": 46,
+    "Toughness": 66
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 48.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Independent"
+  },
+  "birth_date": "261-BCE-03-26",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 176.0,
+    "current_weight_kg": 60.9,
+    "frame": "lean",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "appointments": [
+      {
+        "assignment_ref": null,
+        "at": "244-BCE-07-29T20:22:48+08:00",
+        "basis": "current_authority",
+        "office_or_command": "No military office; independent youth in Kokuhi Village",
+        "rule": "current assignment only; creates no guaranteed future promotion or canon outcome"
+      }
+    ],
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_assignment_ref": null,
+    "current_professional_path": "practical_survival",
+    "future_canon_guaranteed": false,
+    "office_or_command": "No military office; independent youth in Kokuhi Village",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "current_location": "loc_kokuhi_village",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 1.534,
+      "Awareness": 0.625,
+      "Composure": 0.844,
+      "Coordination": 0.991,
+      "Intelligence": 4.72,
+      "Presence": 2.948
+    },
+    "attribute_stimulus_hours_milli": 117600,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 336,
+    "skill_edu_banks": {
+      "Defense": 26.803,
+      "Diplomacy": 21.06,
+      "Governance": 10.291,
+      "Law": 13.516,
+      "Training": 25.162
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_court",
+  "goal_state": {
+    "current_goals": [
+      "survive through practical skill, information, and opportunity; no future strategist ability is pre-granted"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Independent political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 16,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "Kokuhi Village",
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_no_exact_grade_evidence"
+  },
+  "name": "Karyoten",
+  "owner_id": "char_karyoten",
+  "owner_type": "character",
+  "role": "Independent youth survivor and information gatherer",
+  "role_archetype": "youth_support",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 69,
+    "Axe": 16,
+    "Bow": 13,
+    "Crossbow": 15,
+    "Dagger": 17,
+    "Defense": 44,
+    "Diplomacy": 41,
+    "Engineering": 14,
+    "Formation Command": 16,
+    "Formation Fighting": 14,
+    "Glaive": 17,
+    "Governance": 22,
+    "Grappling": 14,
+    "Intelligence Operations": 15,
+    "Intrigue": 14,
+    "Law": 20,
+    "Leadership": 16,
+    "Logistics": 16,
+    "Mace": 14,
+    "Mass Combat": 14,
+    "Medicine": 20,
+    "Navigation": 55,
+    "Riding": 16,
+    "Scouting": 58,
+    "Shield": 15,
+    "Spear": 17,
+    "Staff": 17,
+    "Stealth": 69,
+    "Strategy": 17,
+    "Survival": 59,
+    "Sword": 15,
+    "Tactics": 14,
+    "Trade": 48,
+    "Training": 23,
+    "Unarmed": 13
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_ce11b9cedf6643be56ad",
+  "state": "Independent"
+}

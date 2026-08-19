@@ -1,0 +1,209 @@
+{
+  "administrative_owner": "house_tang",
+  "cohesion": 94,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_house_tang_house_guard_standing",
+      "count": 2991
+    }
+  ],
+  "command_authority": "char_tang_wei",
+  "command_structure": {
+    "internal_hierarchy": [
+      {
+        "count": 3,
+        "loadout_ref": "loadout_house_guard",
+        "representation": "person_lite",
+        "scale": 1000
+      },
+      {
+        "count": 6,
+        "loadout_ref": "loadout_house_guard",
+        "representation": "person_lite",
+        "scale": 500
+      },
+      {
+        "count": 30,
+        "representation": "aggregate",
+        "scale": 100
+      }
+    ],
+    "internal_person_refs": [
+      "officer.house_tang.house_guard.1000.001",
+      "officer.house_tang.house_guard.1000.002",
+      "officer.house_tang.house_guard.1000.003",
+      "officer.house_tang.house_guard.500.001",
+      "officer.house_tang.house_guard.500.002",
+      "officer.house_tang.house_guard.500.003",
+      "officer.house_tang.house_guard.500.004",
+      "officer.house_tang.house_guard.500.005",
+      "officer.house_tang.house_guard.500.006"
+    ],
+    "representation_rule": "1,000/500 commanders are conserved formation bodies; 100-man commanders are aggregate.",
+    "unit_command": {
+      "commander_ref": "char_gao_yun",
+      "deputy_ref": "char_han_qiu",
+      "external_to_fighting_establishment": true,
+      "loadout_ref": "loadout_house_champion"
+    },
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 3,
+        "500_commander": 6,
+        "100_commander": 30
+      },
+      "active_billets": {
+        "1000_commander": 3,
+        "500_commander": 6,
+        "100_commander": 30
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    }
+  },
+  "commander_ref": "char_gao_yun",
+  "composition": {
+    "house_guard": 3000
+  },
+  "deputy_ref": "char_han_qiu",
+  "doctrine_ref": "doc.house_tang_internal.house_guard",
+  "embedded_person_refs": [
+    "officer.house_tang.house_guard.1000.001",
+    "officer.house_tang.house_guard.1000.002",
+    "officer.house_tang.house_guard.1000.003",
+    "officer.house_tang.house_guard.500.001",
+    "officer.house_tang.house_guard.500.002",
+    "officer.house_tang.house_guard.500.003",
+    "officer.house_tang.house_guard.500.004",
+    "officer.house_tang.house_guard.500.005",
+    "officer.house_tang.house_guard.500.006"
+  ],
+  "equipment_completeness": "1.0000",
+  "equipment_issue_history": [
+    {
+      "at": "244-BCE-07-23T10:22:48+08:00",
+      "complete_loadout_units_converted": 0,
+      "item_key": "armor_tang",
+      "kind": "house_armory_issue",
+      "quantity": 1500,
+      "source_ref": "equipment_inventories"
+    },
+    {
+      "at": "244-BCE-07-23T10:22:48+08:00",
+      "complete_loadout_units_converted": 0,
+      "item_key": "helmet_tang",
+      "kind": "house_armory_issue",
+      "quantity": 1500,
+      "source_ref": "equipment_inventories"
+    },
+    {
+      "at": "244-BCE-07-23T10:22:48+08:00",
+      "complete_loadout_units_converted": 0,
+      "item_key": "weapon_bow_great_war",
+      "kind": "house_armory_issue",
+      "quantity": 1500,
+      "source_ref": "equipment_inventories"
+    },
+    {
+      "at": "244-BCE-07-23T10:22:48+08:00",
+      "complete_loadout_units_converted": 0,
+      "item_key": "weapon_spear_long",
+      "kind": "house_armory_issue",
+      "quantity": 1500,
+      "source_ref": "equipment_inventories"
+    },
+    {
+      "at": "244-BCE-07-23T10:22:48+08:00",
+      "complete_loadout_units_converted": 0,
+      "item_key": "shield_tang",
+      "kind": "house_armory_issue",
+      "quantity": 1500,
+      "source_ref": "equipment_inventories"
+    },
+    {
+      "at": "244-BCE-07-23T10:22:48+08:00",
+      "complete_loadout_units_converted": 0,
+      "item_key": "weapon_sword_one_hand_long",
+      "kind": "house_armory_issue",
+      "quantity": 1500,
+      "source_ref": "equipment_inventories"
+    }
+  ],
+  "equipment_staging_by_item": {
+    "armor_tang": 1500,
+    "helmet_tang": 1500,
+    "shield_tang": 1500,
+    "weapon_bow_great_war": 1500,
+    "weapon_spear_long": 1500,
+    "weapon_sword_one_hand_long": 1500
+  },
+  "equipment_units_by_role": {
+    "house_guard": 3000
+  },
+  "experience": "veteran",
+  "fatigue": 3,
+  "field_supply_issue_history": [
+    {
+      "arrow_loads_total": 30,
+      "at": "244-BCE-07-23T10:22:48+08:00",
+      "issued": {
+        "fodder_kg": 0,
+        "food_kg": 288000,
+        "war_arrows": 3132000
+      },
+      "kind": "house_field_preparation_issue",
+      "reserve_days": 120,
+      "source_ref": "depot_house_tang",
+      "targets": {
+        "fodder_kg": 0,
+        "food_kg": 288000,
+        "war_arrows": 3240000
+      }
+    }
+  ],
+  "formation_ref": "formation_tang_wei_house_guard",
+  "last_moved_at": "244-BCE-07-25T04:22:48+08:00",
+  "location_ref": "loc_qin_eastern_depot",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 284100,
+    "war_arrows": 3240000,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 92,
+  "mounts": {},
+  "name": "Tang Wei's House Guard",
+  "owner_force_ref": "force_house_tang",
+  "personnel": 3000,
+  "readiness": 95,
+  "registered_loadout_ref": "loadout_house_guard",
+  "schema": "sword-formation",
+  "status": "deployed",
+  "training_progress": 95,
+  "training_ref": "train.house_tang_internal.house_guard",
+  "higher_command_ref": "cmdgrp.tang_wei.field_army",
+  "establishment_composition": {
+    "house_guard": 3000
+  },
+  "establishment_personnel": 3000
+}

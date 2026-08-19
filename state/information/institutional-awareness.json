@@ -1,0 +1,545 @@
+{
+  "schema": "institutional-awareness",
+  "authority": true,
+  "audience_membership_rule": "Audience membership is derived from an exact observer’s state and saved role archetype. This file grants only subject identity awareness within listed institutional networks; it never creates a relationship, friendship, loyalty, secret knowledge, or universal public fame.",
+  "subjects": {
+    "char_tang_wei": {
+      "subject_type": "person",
+      "identity_source_refs": [
+        "state/player.json",
+        "state/family/parentage/parentage.tang_wei.birth_parents.json",
+        "state/states/qin.json",
+        "state/houses/house_tang.json"
+      ],
+      "audiences": {
+        "audience:state_qin:court": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_family_identity",
+            "public_house_status",
+            "current_registered_qin_office"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength"
+          ],
+          "basis": "Qin court and senior administration have direct institutional records for House Tang and Wei’s current Qin appointment"
+        },
+        "audience:state_qin:military_officers": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status",
+            "current_registered_qin_office"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength"
+          ],
+          "basis": "Qin officer corps has lawful service-register access to Wei’s public identity and current registered field command"
+        },
+        "audience:state_qin:nobility": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_family_identity",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "House Tang is a major active Qin House and Wei is its publicly identifiable principal/heir"
+        },
+        "audience:state_qin:merchant_network": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "House Tang’s established commercial footprint makes its principal identity available in major Qin merchant networks"
+        },
+        "audience:state_zhao:court": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state court knowledge of a prominent Qin House principal; this is institutional identity awareness, not a personal relationship"
+        },
+        "audience:state_zhao:military_officers": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state officer/intelligence circulation recognizes prominent foreign House principals without granting confidential Qin information"
+        },
+        "audience:state_chu:court": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state court knowledge of a prominent Qin House principal; this is institutional identity awareness, not a personal relationship"
+        },
+        "audience:state_chu:military_officers": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state officer/intelligence circulation recognizes prominent foreign House principals without granting confidential Qin information"
+        },
+        "audience:state_wei:court": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state court knowledge of a prominent Qin House principal; this is institutional identity awareness, not a personal relationship"
+        },
+        "audience:state_wei:military_officers": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state officer/intelligence circulation recognizes prominent foreign House principals without granting confidential Qin information"
+        },
+        "audience:state_han:court": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state court knowledge of a prominent Qin House principal; this is institutional identity awareness, not a personal relationship"
+        },
+        "audience:state_han:military_officers": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state officer/intelligence circulation recognizes prominent foreign House principals without granting confidential Qin information"
+        },
+        "audience:state_yan:court": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state court knowledge of a prominent Qin House principal; this is institutional identity awareness, not a personal relationship"
+        },
+        "audience:state_yan:military_officers": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state officer/intelligence circulation recognizes prominent foreign House principals without granting confidential Qin information"
+        },
+        "audience:state_qi:court": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state court knowledge of a prominent Qin House principal; this is institutional identity awareness, not a personal relationship"
+        },
+        "audience:state_qi:military_officers": {
+          "status": "institutionally_known",
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "basis": "major-state officer/intelligence circulation recognizes prominent foreign House principals without granting confidential Qin information"
+        }
+      }
+    },
+    "house_tang": {
+      "subject_type": "house",
+      "identity_source_refs": [
+        "state/houses/house_tang.json",
+        "state/forces/house-tang.json",
+        "state/forces/sword-manor.json",
+        "state/treasury/treasury-house-tang.json"
+      ],
+      "audiences": {
+        "audience:state_qin:court": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_qin:military_officers": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_zhao:court": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_zhao:military_officers": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_chu:court": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_chu:military_officers": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_wei:court": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_wei:military_officers": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_han:court": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_han:military_officers": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_yan:court": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_yan:military_officers": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_qi:court": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        },
+        "audience:state_qi:military_officers": {
+          "status": "widely_known_in_network",
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "basis": "House Tang is a major active Qin House with a permanent estate, military institutions, and interregional commercial presence; recognition does not expose confidential numbers"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "accounting_only": true,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 164,
+      "sd": 5.8
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 60,
+      "sd": 7.5
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 62,
+    "aggression": 58,
+    "casualty_tolerance": 55,
+    "caution": 48,
+    "initiative": 54,
+    "objective_focus": 68,
+    "pursuit_bias": 50
+  },
+  "composition_rule": "company is persistent combined force, not one generic blob",
+  "contracts": [],
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "doctrine": "doc.merc.major.01",
+  "doctrine_familiarity": 75,
+  "establishment_strength": 12000,
+  "formation_library_ref": "formation.mercenary.standard",
+  "geographic_provenance": {
+    "rule": "company remains exact manpower owner; contract/employer does not own duplicate bodies"
+  },
+  "headcount": 12000,
+  "home_establishment_ref": "establishment.merc.major.01",
+  "home_location_ref": "loc_qin_regional_01",
+  "market_engagement": {
+    "kind": "available",
+    "rule": "current commercial/military employment affects availability without changing company manpower ownership",
+    "short_notice_available": true,
+    "established_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "market_tier": "major_famous",
+  "name": "Black Tortoise",
+  "owner_id": "merc.major.01",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "mercenary",
+  "specialty": "heavy_infantry",
+  "status": "available",
+  "training": "train.merc.regular",
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-major-01-heavy-line.json",
+      "count": 8160,
+      "doctrine": "doc.merc.major.01",
+      "id": "merc.major.01.heavy_line",
+      "loadout": "loadout_mercenary_heavy_infantry",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "heavy_line",
+      "schema": "troop_pool",
+      "specialty": "heavy_line",
+      "training": "train.merc.regular",
+      "troop_type": "heavy_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-01-crossbow.json",
+      "count": 1440,
+      "doctrine": "doc.merc.major.01",
+      "id": "merc.major.01.crossbow",
+      "loadout": "loadout_mercenary_crossbow",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "crossbow",
+      "schema": "troop_pool",
+      "specialty": "crossbow",
+      "training": "train.merc.regular",
+      "troop_type": "crossbow_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-01-engineers.json",
+      "count": 960,
+      "doctrine": "doc.merc.major.01",
+      "id": "merc.major.01.engineers",
+      "loadout": "loadout_mercenary_engineer",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "engineers",
+      "schema": "troop_pool",
+      "specialty": "engineers",
+      "training": "train.merc.regular",
+      "troop_type": "engineer"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-01-scouts.json",
+      "count": 600,
+      "doctrine": "doc.merc.major.01",
+      "id": "merc.major.01.scouts",
+      "loadout": "loadout_mercenary_scout",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "scouts",
+      "schema": "troop_pool",
+      "specialty": "scouts",
+      "training": "train.merc.regular",
+      "troop_type": "scout"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-01-support.json",
+      "count": 840,
+      "doctrine": "doc.merc.major.01",
+      "id": "merc.major.01.support",
+      "loadout": "loadout_mercenary_support",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "support",
+      "schema": "troop_pool",
+      "specialty": "support",
+      "training": "train.merc.regular",
+      "troop_type": "support_staff"
+    }
+  ]
+}

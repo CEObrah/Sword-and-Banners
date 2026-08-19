@@ -1,0 +1,124 @@
+{
+  "schema": "items-shard",
+  "items": {
+    "shield_tower": {
+      "id": "shield_tower",
+      "baseline_value_silver": 14,
+      "routine_monthly_maintenance_fraction": 0.007,
+      "coverage_arc_degrees": 135,
+      "mass_kg": 8.5,
+      "hands_required_when_held": 1,
+      "shield_states": "held only for slow advance; normally planted or formation-braced; held occupies one hand",
+      "handling": 0.72,
+      "structural_resistance": 115,
+      "visibility_modifier": 0.86,
+      "formation_compatibility": "excellent_static",
+      "schema": "shield"
+    },
+    "tack_common_riding": {
+      "id": "tack_common_riding",
+      "baseline_value_silver": 18,
+      "routine_monthly_maintenance_fraction": 0.008,
+      "mass_kg": 12,
+      "rider_control_modifier": 0.96,
+      "charge_alignment_modifier": 0.9,
+      "schema": "tack",
+      "fit_required": true
+    },
+    "tack_heavy_charge": {
+      "id": "tack_heavy_charge",
+      "baseline_value_silver": 55,
+      "routine_monthly_maintenance_fraction": 0.008,
+      "mass_kg": 22,
+      "rider_control_modifier": 0.98,
+      "charge_alignment_modifier": 1.08,
+      "schema": "tack",
+      "fit_required": true
+    },
+    "tack_military_cavalry": {
+      "id": "tack_military_cavalry",
+      "baseline_value_silver": 32,
+      "routine_monthly_maintenance_fraction": 0.008,
+      "mass_kg": 16,
+      "rider_control_modifier": 1.0,
+      "charge_alignment_modifier": 1.0,
+      "schema": "tack",
+      "fit_required": true
+    },
+    "tack_tang": {
+      "id": "tack_tang",
+      "name": "Tang Tack",
+      "external_sale_allowed": false,
+      "tang_forge_only": true,
+      "baseline_accounting_value_silver": 90,
+      "routine_monthly_maintenance_fraction": 0.01,
+      "mass_kg": 18,
+      "rider_control_modifier": 1.08,
+      "charge_alignment_modifier": 1.12,
+      "fit_required": true,
+      "schema": "tack"
+    },
+    "tool_assault_ladder_16m": {
+      "id": "tool_assault_ladder_16m",
+      "name": "16-Meter Assault Ladder",
+      "mass_kg": 280,
+      "crew_minimum": 16,
+      "wall_reach_m": 16,
+      "comfortable_climbers_simultaneous": 5,
+      "base_climbers_per_minute": 2,
+      "condition_profile": "timber_rope",
+      "baseline_value_silver": 45,
+      "schema": "siege_equipment"
+    },
+    "tool_assault_ladder_8m": {
+      "id": "tool_assault_ladder_8m",
+      "mass_kg": 110,
+      "crew_minimum": 8,
+      "wall_reach_m": 8,
+      "comfortable_climbers_simultaneous": 3,
+      "condition_profile": "timber_rope",
+      "baseline_value_silver": 18,
+      "schema": "siege_equipment"
+    },
+    "tool_entrenching_set_10": {
+      "id": "tool_entrenching_set_10",
+      "mass_kg": 32,
+      "workers_supported": 10,
+      "work_types": "ditch, berm, latrine, firebreak, field obstacle, camp drainage",
+      "baseline_value_silver": 8,
+      "schema": "engineering_equipment"
+    },
+    "tool_field_bridge_repair_set": {
+      "id": "tool_field_bridge_repair_set",
+      "mass_kg": 180,
+      "crew_minimum": 8,
+      "work_types": "timber bridge repair, wagonway reinforcement, temporary trestle",
+      "baseline_value_silver": 35,
+      "schema": "engineering_equipment"
+    },
+    "tool_fire_flint": {
+      "id": "tool_fire_flint",
+      "mass_kg": 0.1,
+      "uses_before_replacement": 500,
+      "baseline_value_silver": 0.2,
+      "schema": "field_tool"
+    },
+    "tool_grooming_brush": {
+      "id": "tool_grooming_brush",
+      "mass_kg": 0.25,
+      "baseline_value_silver": 0.25,
+      "schema": "field_tool"
+    },
+    "tool_pontoon_bridge_set_20m": {
+      "id": "tool_pontoon_bridge_set_20m",
+      "mass_kg": 3200,
+      "crew_minimum": 50,
+      "bridge_length_m": 20,
+      "safe_load_profile": "infantry_and_light_carts",
+      "setup_labor_hours": 300,
+      "current_limit": "moderate",
+      "baseline_value_silver": 420,
+      "schema": "engineering_equipment"
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "schema": "sword-formation",
+  "formation_ref": "formation_house_tang_house_guard_02",
+  "owner_force_ref": "force_house_tang",
+  "administrative_owner": "house_tang",
+  "name": "House Tang House Guard 2",
+  "personnel": 5000,
+  "composition": {
+    "house_guard": 5000
+  },
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_house_tang_house_guard_standing",
+      "count": 4985,
+      "role": "house_guard"
+    }
+  ],
+  "embedded_person_refs": [
+    "officer.house_tang.house_guard.500.007",
+    "officer.house_tang.house_guard.500.008",
+    "officer.house_tang.house_guard.500.009",
+    "officer.house_tang.house_guard.500.010",
+    "officer.house_tang.house_guard.500.011",
+    "officer.house_tang.house_guard.500.012",
+    "officer.house_tang.house_guard.500.013",
+    "officer.house_tang.house_guard.500.014",
+    "officer.house_tang.house_guard.500.015",
+    "officer.house_tang.house_guard.500.016",
+    "officer.house_tang.house_guard.500.017",
+    "officer.house_tang.house_guard.500.018",
+    "officer.house_tang.house_guard.500.019",
+    "officer.house_tang.house_guard.500.020",
+    "officer.house_tang.house_guard.500.021"
+  ],
+  "location_ref": "loc_tang_manor_garrison_yard",
+  "command_authority": "char_tang_zhu",
+  "commander_ref": null,
+  "deputy_ref": null,
+  "command_structure": {
+    "unit_command": {
+      "commander_post": "materialize_when_individually_relevant",
+      "deputy_post": "materialize_when_individually_relevant",
+      "external_to_fighting_establishment": true
+    },
+    "internal_hierarchy": {
+      "by_role": {
+        "house_guard": {
+          "commanders_1000": 5,
+          "commanders_500": 10,
+          "commanders_100": 50,
+          "counted_inside_role_strength": true
+        }
+      },
+      "summary": [
+        {
+          "scale": 1000,
+          "count": 5,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 500,
+          "count": 10,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 100,
+          "count": 50,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        }
+      ],
+      "representation_rule": "Embedded 1,000/500/100 commanders are bodies inside each role component. Aggregate command slots do not add manpower. Materialize an existing slot only when individual relevance requires it."
+    },
+    "internal_person_refs": [
+      "officer.house_tang.house_guard.500.007",
+      "officer.house_tang.house_guard.500.008",
+      "officer.house_tang.house_guard.500.009",
+      "officer.house_tang.house_guard.500.010",
+      "officer.house_tang.house_guard.500.011",
+      "officer.house_tang.house_guard.500.012",
+      "officer.house_tang.house_guard.500.013",
+      "officer.house_tang.house_guard.500.014",
+      "officer.house_tang.house_guard.500.015",
+      "officer.house_tang.house_guard.500.016",
+      "officer.house_tang.house_guard.500.017",
+      "officer.house_tang.house_guard.500.018",
+      "officer.house_tang.house_guard.500.019",
+      "officer.house_tang.house_guard.500.020",
+      "officer.house_tang.house_guard.500.021"
+    ],
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 5,
+        "500_commander": 10,
+        "100_commander": 50
+      },
+      "active_billets": {
+        "1000_commander": 5,
+        "500_commander": 10,
+        "100_commander": 50
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    }
+  },
+  "doctrine_ref": "doc.house_tang_internal.house_guard",
+  "registered_loadout_ref": "loadout_house_guard",
+  "equipment_units_by_role": {
+    "house_guard": 5000
+  },
+  "equipment_completeness": "1.0000",
+  "experience": "veteran",
+  "fatigue": 0,
+  "cohesion": 94,
+  "morale": 92,
+  "readiness": 94,
+  "mobilized": true,
+  "status": "home_ready",
+  "mounts": {},
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "higher_command_ref": "cmdgrp.house_tang.house_guard",
+  "establishment_composition": {
+    "house_guard": 5000
+  },
+  "establishment_personnel": 5000
+}

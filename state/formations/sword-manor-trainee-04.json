@@ -1,0 +1,136 @@
+{
+  "administrative_owner": "house_tang",
+  "cohesion": 72,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_sword_manor_trainee_standing",
+      "count": 4940
+    },
+    {
+      "cohort_id": "cohort_force_sword_manor_b7582ab63fe9",
+      "count": 60
+    }
+  ],
+  "command_accounting": {
+    "embedded_1000_500_100_commanders_inside_troop_strength": true,
+    "top_commander_inside_troop_strength": false,
+    "top_deputy_inside_troop_strength": false
+  },
+  "command_authority": "char_sword_manor_trainee_commander",
+  "command_structure": {
+    "internal_hierarchy": {
+      "by_role": {
+        "trainee": {
+          "commanders_100": 50,
+          "counted_inside_role_strength": true,
+          "materialized_commanders_1000": 5,
+          "materialized_commanders_500": 10
+        }
+      },
+      "representation_rule": "Embedded 1,000/500/100 command echelons are bodies inside troop strength. Materialized 1,000/500 officers reuse already conserved Sword Manor troops; 100-man echelons remain aggregate unless salient."
+    },
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 0,
+        "100_commander": 50,
+        "500_commander": 0
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      },
+      "last_reorganization_reason": "clean_baseline_officer_cadre",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 0,
+        "100_commander": 50,
+        "500_commander": 0
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 6,
+        "100_commander": 1,
+        "500_commander": 11
+      }
+    },
+    "unit_command": {
+      "commander_post": "materialize_when_individually_relevant",
+      "deputy_post": "materialize_when_individually_relevant",
+      "external_to_fighting_establishment": true,
+      "reports_to_command_group_ref": "cmdgrp.sword_manor.trainee"
+    }
+  },
+  "commander_ref": null,
+  "composition": {
+    "trainee": 5015
+  },
+  "deputy_ref": null,
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 50,
+    "withdrawal_threshold": 50
+  },
+  "doctrine_ref": "doc.sword_manor.trainee",
+  "embedded_person_refs": [
+    "officer.sword_manor.trainee.1000.004",
+    "officer.sword_manor.trainee.1000.008",
+    "officer.sword_manor.trainee.1000.012",
+    "officer.sword_manor.trainee.1000.016",
+    "officer.sword_manor.trainee.1000.020",
+    "officer.sword_manor.trainee.500.004",
+    "officer.sword_manor.trainee.500.008",
+    "officer.sword_manor.trainee.500.012",
+    "officer.sword_manor.trainee.500.016",
+    "officer.sword_manor.trainee.500.020",
+    "officer.sword_manor.trainee.500.024",
+    "officer.sword_manor.trainee.500.028",
+    "officer.sword_manor.trainee.500.032",
+    "officer.sword_manor.trainee.500.036",
+    "officer.sword_manor.trainee.500.040"
+  ],
+  "equipment_completeness": "0.9850",
+  "equipment_note": "Standing equipment completeness reflects exact Sword Manor force stock. Missing issue remains a real readiness shortfall rather than being conjured.",
+  "equipment_units_by_role": {
+    "trainee": 4940
+  },
+  "establishment_composition": {
+    "trainee": 5015
+  },
+  "establishment_personnel": 5015,
+  "experience": "developing",
+  "fatigue": 0,
+  "formation_ref": "formation_sword_manor_trainee_04",
+  "higher_command_ref": "cmdgrp.sword_manor.trainee",
+  "location_ref": "loc_tang_manor_training_ground",
+  "logistics": {
+    "construction_material_units": 0,
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "iron_tonnes": 0,
+    "source_depot_ref": "depot_fort_sword_manor",
+    "timber_tonnes": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 68,
+  "mounts": {},
+  "name": "Sword Manor Trainee Formation 4",
+  "owner_force_ref": "force_sword_manor",
+  "personnel": 5015,
+  "readiness": 62,
+  "schema": "sword-formation",
+  "status": "home_ready",
+  "supply_depot_ref": "depot_fort_sword_manor",
+  "training_progress": 55,
+  "training_ref": "train.sword_manor.trainee"
+}

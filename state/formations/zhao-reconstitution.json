@@ -1,0 +1,93 @@
+{
+  "administrative_owner": "state_zhao",
+  "cohesion": 71,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_zhao_3ab1c5f63a28",
+      "count": 3500
+    }
+  ],
+  "command_authority": "state_zhao",
+  "command_structure": {
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 4,
+        "100_commander": 35,
+        "500_commander": 7
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      },
+      "last_reorganization_reason": "clean_baseline_officer_cadre",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 4,
+        "100_commander": 35,
+        "500_commander": 7
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      }
+    },
+    "unit_command": {
+      "commander_ref": "char_kochou",
+      "deputy_ref": null,
+      "external_to_fighting_establishment": true,
+      "rule": "persistent top commander/deputy are command-establishment personnel outside formation.personnel; internal 1000/500/100 command remains inside fighting establishment"
+    }
+  },
+  "commander_ref": "char_kochou",
+  "composition": {
+    "line_infantry": 3500
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 50,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": null,
+  "equipment_completeness": "0.9",
+  "establishment_composition": {
+    "line_infantry": 3500
+  },
+  "establishment_personnel": 3500,
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_zhao_reconstitution",
+  "geographic_provenance": {
+    "basis": "replaced arbitrary seed parking with meaningful current regional disposition; ownership/personnel unchanged"
+  },
+  "location_ref": "loc_kantan",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 17500,
+    "source_depot_ref": "depot_fort_kantan",
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": false,
+  "morale": 70,
+  "mounts": {},
+  "name": "ZHAO Reconstitution",
+  "owner_force_ref": "force_state_zhao",
+  "personnel": 3500,
+  "readiness": 71,
+  "schema": "sword-formation",
+  "status": "forming",
+  "supply_depot_ref": "depot_fort_kantan",
+  "training_progress": 27,
+  "training_ref": null
+}

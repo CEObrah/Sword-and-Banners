@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Materialized fortress artillery and fixed mechanisms",
+  "type": "object",
+  "required": ["schema", "owner_id", "site_ref", "depot_ref", "installed", "condition"],
+  "properties": {
+    "schema": {"const": "fortress-artillery"},
+    "owner_id": {"type": "string"},
+    "site_ref": {"type": "string"},
+    "depot_ref": {"type": "string"},
+    "installed": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "condition": {"type": "object"}
+  },
+  "additionalProperties": true
+}

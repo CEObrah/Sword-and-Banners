@@ -1,0 +1,199 @@
+{
+  "schema": "sword-formation",
+  "formation_ref": "formation_chu_karin_state_army",
+  "owner_force_ref": "force_state_chu",
+  "administrative_owner": "state_chu",
+  "name": "Karin State Army",
+  "personnel": 18000,
+  "composition": {
+    "line_infantry": 11000,
+    "missile_crossbow": 3500,
+    "cavalry": 1000,
+    "logistics": 1000,
+    "signal": 500,
+    "siege_engineering": 1000
+  },
+  "establishment_composition": {
+    "line_infantry": 11000,
+    "missile_crossbow": 3500,
+    "cavalry": 1000,
+    "logistics": 1000,
+    "signal": 500,
+    "siege_engineering": 1000
+  },
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_chu_f2878bedec3d",
+      "count": 11000
+    },
+    {
+      "cohort_id": "cohort_force_state_chu_dd2bb79f75a2",
+      "count": 3500
+    },
+    {
+      "cohort_id": "cohort_force_state_chu_32065a16c957",
+      "count": 1000
+    },
+    {
+      "cohort_id": "cohort_force_state_chu_e09683179c78",
+      "count": 1000
+    },
+    {
+      "cohort_id": "cohort_force_state_chu_94251152af95",
+      "count": 500
+    },
+    {
+      "cohort_id": "cohort_force_state_chu_5176a288c4c3",
+      "count": 1000
+    }
+  ],
+  "location_ref": "loc_chu_regional_02",
+  "command_authority": "state_chu",
+  "commander_ref": null,
+  "deputy_ref": null,
+  "command_structure": {
+    "unit_command": {
+      "commander_ref": null,
+      "deputy_post": "materialize_when_relevant",
+      "external_to_fighting_establishment": true,
+      "commander_post": "materialize_when_relevant"
+    },
+    "internal_hierarchy": {
+      "by_role": {
+        "line_infantry": {
+          "commanders_1000": 11,
+          "commanders_500": 22,
+          "commanders_100": 110,
+          "counted_inside_role_strength": true
+        },
+        "missile_crossbow": {
+          "commanders_1000": 3,
+          "commanders_500": 7,
+          "commanders_100": 35,
+          "counted_inside_role_strength": true
+        },
+        "cavalry": {
+          "commanders_1000": 1,
+          "commanders_500": 2,
+          "commanders_100": 10,
+          "counted_inside_role_strength": true
+        },
+        "logistics": {
+          "commanders_1000": 1,
+          "commanders_500": 2,
+          "commanders_100": 10,
+          "counted_inside_role_strength": true
+        },
+        "signal": {
+          "commanders_1000": 0,
+          "commanders_500": 1,
+          "commanders_100": 5,
+          "counted_inside_role_strength": true
+        },
+        "siege_engineering": {
+          "commanders_1000": 1,
+          "commanders_500": 2,
+          "commanders_100": 10,
+          "counted_inside_role_strength": true
+        }
+      },
+      "summary": [
+        {
+          "scale": 1000,
+          "count": 17,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 500,
+          "count": 36,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 100,
+          "count": 180,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        }
+      ],
+      "representation_rule": "Embedded 1,000/500/100 commanders are bodies inside each troop-role component. Aggregate command slots add no manpower; materialization only reclassifies an existing body."
+    },
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 17,
+        "500_commander": 36,
+        "100_commander": 180
+      },
+      "active_billets": {
+        "1000_commander": 17,
+        "500_commander": 36,
+        "100_commander": 180
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 1,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    }
+  },
+  "higher_command_ref": "cmdgrp.karin.field_army",
+  "doctrine_ref": "doc.external_state_force.standard",
+  "training_ref": null,
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 60,
+    "withdrawal_threshold": 30
+  },
+  "training_progress": 70,
+  "readiness": 90,
+  "morale": 88,
+  "cohesion": 91,
+  "fatigue": 0,
+  "experience": "veteran",
+  "mobilized": true,
+  "status": "ready",
+  "equipment_units_by_role": {
+    "line_infantry": 11000,
+    "missile_crossbow": 3500,
+    "cavalry": 1000,
+    "logistics": 1000,
+    "signal": 500,
+    "siege_engineering": 1000
+  },
+  "equipment_completeness": "1.0000",
+  "mounts": {
+    "horse_war_heavy": 1000
+  },
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 0,
+    "war_bolts": 0,
+    "timber_tonnes": 0,
+    "iron_tonnes": 0,
+    "construction_material_units": 0
+  },
+  "formation_identity": {
+    "persistent_elite_or_prestige_formation": true,
+    "capability_rule": "Elite identity is expressed through persistent organization, readiness, cohesion, experience, command and later earned training. It does not replace the conserved cohort capability underneath or grant a flat combat multiplier.",
+    "state_force_ownership_preserved": true
+  },
+  "establishment_personnel": 18000
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "person_links",
+    "rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "kinship-index"
+    },
+    "authority": {
+      "const": false
+    },
+    "person_links": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "spouses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "former_spouses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "parents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "guardians": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "wards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "households": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "succession_claims": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kinships": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "rule": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

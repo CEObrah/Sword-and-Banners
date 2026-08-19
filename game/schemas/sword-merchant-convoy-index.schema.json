@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Merchant convoy index",
+  "type": "object",
+  "required": ["schema", "authority", "convoys", "active_refs"],
+  "properties": {
+    "schema": {"const": "sword-merchant-convoy-index"},
+    "authority": {"const": false},
+    "convoys": {"type": "object", "additionalProperties": {"type": "string"}},
+    "active_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "additionalProperties": true
+}

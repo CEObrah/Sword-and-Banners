@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "subjects",
+    "audience_membership_rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "institutional-awareness"
+    },
+    "authority": {
+      "const": true
+    },
+    "audience_membership_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subjects": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "subject_type",
+          "identity_source_refs",
+          "audiences"
+        ],
+        "properties": {
+          "subject_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "identity_source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "audiences": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status",
+                "known_fact_classes",
+                "basis"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "institutionally_known",
+                    "widely_known_in_network"
+                  ]
+                },
+                "known_fact_classes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "restricted_fact_classes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "basis": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

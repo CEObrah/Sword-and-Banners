@@ -1,0 +1,63 @@
+{
+  "accounting_only": true,
+  "accounting_scale": "operational_100",
+  "aptitude_distribution": {
+    "exceptional_pct": 4,
+    "high_pct": 22,
+    "low_pct": 12,
+    "mean": 102,
+    "normal_pct": 62,
+    "sd": 16,
+    "source": "population_distribution_not_training_bonus"
+  },
+  "composition": "deterministic template from specialty, registered before contract or combat",
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 33600,
+      "basis": "mercenary_ecology regional obligation; owns zero bodies",
+      "contract_ref": "market_contract_regional_06",
+      "deployment_location_ref": "loc_chu_regional_04",
+      "employer_ref": "regional_client_chu",
+      "engagement_kind": "fortress_contract",
+      "expires_at": "244-BCE-09-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 90
+    }
+  ],
+  "count": 1400,
+  "current_location_ref": "loc_chu_regional_04",
+  "deployment_status": "fortress_contract",
+  "doctrine": "doc.merc.regional.06",
+  "establishment_strength": 1400,
+  "geographic_provenance": {
+    "rule": "exact company remains manpower owner; state_market/location describe geography only"
+  },
+  "home_location_ref": "loc_chu_regional_04",
+  "id": "merc.regional.06",
+  "market_engagement": {
+    "kind": "fortress_contract",
+    "short_notice_available": false,
+    "established_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "market_tier": "regional_professional",
+  "name": "Red Willow Escorts",
+  "owner_id": "merc.regional.06",
+  "owner_type": "regional_mercenary_company",
+  "quality": "regional_professional",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "regional-mercenary-company",
+  "specialty": "scout",
+  "state_market": "chu",
+  "status": "contracted",
+  "tendencies": {
+    "adaptability": 70,
+    "aggression": 50,
+    "caution": 47,
+    "initiative": 49
+  },
+  "training": "train.merc.regional"
+}

@@ -1,0 +1,171 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 75,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 185,
+    "physical_learning": 168,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 185,
+    "technical_learning": 180
+  },
+  "attributes": {
+    "Agility": 140,
+    "Awareness": 172,
+    "Composure": 178,
+    "Coordination": 158,
+    "Endurance": 171,
+    "Intelligence": 170,
+    "Presence": 185,
+    "Strength": 157,
+    "Toughness": 168
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 56.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Wei"
+  },
+  "birth_date": "290-BCE-10-11",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 179.0,
+    "current_weight_kg": 71.1,
+    "frame": "athletic",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "unassigned",
+    "current_command_span": 0,
+    "office_or_command": "Great General",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.447,
+      "Awareness": 1.886,
+      "Composure": 2.0,
+      "Coordination": 0.348,
+      "Endurance": 0.497,
+      "Intelligence": 1.482,
+      "Presence": 0.417,
+      "Strength": 0.497,
+      "Toughness": 0.298
+    },
+    "attribute_stimulus_hours_milli": 137200,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 392,
+    "skill_edu_banks": {
+      "Athletics": 6.216,
+      "Glaive": 3.108,
+      "Logistics": 16.654,
+      "Riding": 3.108,
+      "Strategy": 4.898,
+      "Training": 4.898
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_glaive",
+  "goal_state": {
+    "current_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Wei authority and resources"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Wei political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 45,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_wei_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "great_general",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_role_evidence"
+  },
+  "name": "Go Kei",
+  "owner_id": "char_go_kei",
+  "owner_type": "character",
+  "rank": "great_general",
+  "role_archetype": "great_general",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 160,
+    "Axe": 13,
+    "Bow": 14,
+    "Crossbow": 15,
+    "Dagger": 14,
+    "Defense": 178,
+    "Diplomacy": 26,
+    "Engineering": 15,
+    "Formation Command": 189,
+    "Formation Fighting": 177,
+    "Glaive": 172,
+    "Governance": 18,
+    "Grappling": 17,
+    "Intelligence Operations": 17,
+    "Intrigue": 16,
+    "Law": 20,
+    "Leadership": 188,
+    "Logistics": 161,
+    "Mace": 16,
+    "Mass Combat": 187,
+    "Medicine": 22,
+    "Navigation": 31,
+    "Riding": 168,
+    "Scouting": 14,
+    "Shield": 13,
+    "Spear": 14,
+    "Staff": 13,
+    "Stealth": 15,
+    "Strategy": 171,
+    "Survival": 40,
+    "Sword": 16,
+    "Tactics": 181,
+    "Trade": 25,
+    "Training": 166,
+    "Unarmed": 13
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_64577eabfa93dec1183c",
+  "state": "Wei"
+}

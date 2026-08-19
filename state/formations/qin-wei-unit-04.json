@@ -1,0 +1,132 @@
+{
+  "administrative_owner": "state_qin",
+  "cohesion": 72,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qin_8a2df4bf8f86",
+      "count": 1994
+    }
+  ],
+  "command_assignment_source_ref": "event_story_qin_command_offer_17220ee53f8f08820e41",
+  "command_authority": "char_tang_wei",
+  "command_last_changed_at": "244-BCE-07-26T06:23:48+08:00",
+  "command_structure": {
+    "internal_hierarchy": [
+      {
+        "count": 2,
+        "loadout_ref": "loadout_house_guard",
+        "representation": "person_lite",
+        "scale": 1000
+      },
+      {
+        "count": 4,
+        "loadout_ref": "loadout_house_guard",
+        "representation": "person_lite",
+        "scale": 500
+      },
+      {
+        "count": 20,
+        "representation": "aggregate",
+        "scale": 100
+      }
+    ],
+    "internal_person_refs": [
+      "officer.qin.wei_designated.1000.007",
+      "officer.qin.wei_designated.1000.008",
+      "officer.qin.wei_designated.500.013",
+      "officer.qin.wei_designated.500.014",
+      "officer.qin.wei_designated.500.015",
+      "officer.qin.wei_designated.500.016"
+    ],
+    "representation_rule": "The 2,000-unit commander and deputy are full mounted command characters outside fighting strength. The 1,000/500 commanders are conserved infantry bodies using the unit loadout; 100-man command remains aggregate unless individually salient.",
+    "unit_command": {
+      "commander_ref": "char_qin_wei_unit_04_commander",
+      "deputy_ref": "char_qin_wei_unit_04_deputy",
+      "external_to_fighting_establishment": true,
+      "loadout_ref": "loadout_house_champion"
+    },
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 2,
+        "500_commander": 4,
+        "100_commander": 20
+      },
+      "active_billets": {
+        "1000_commander": 2,
+        "500_commander": 4,
+        "100_commander": 20
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    }
+  },
+  "commander_ref": "char_qin_wei_unit_04_commander",
+  "composition": {
+    "line_infantry": 2000
+  },
+  "deputy_ref": "char_qin_wei_unit_04_deputy",
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 50,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.house_tang_internal.standard",
+  "embedded_person_refs": [
+    "officer.qin.wei_designated.1000.007",
+    "officer.qin.wei_designated.1000.008",
+    "officer.qin.wei_designated.500.013",
+    "officer.qin.wei_designated.500.014",
+    "officer.qin.wei_designated.500.015",
+    "officer.qin.wei_designated.500.016"
+  ],
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "line_infantry": 2000
+  },
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_qin_wei_unit_04",
+  "higher_command_ref": "cmdgrp.tang_wei.field_army",
+  "location_ref": "loc_qin_regional_02",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 10000,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 70,
+  "mounts": {},
+  "name": "Qin Border Detachment Unit 4",
+  "owner_force_ref": "force_state_qin",
+  "personnel": 2000,
+  "readiness": 72,
+  "registered_loadout_ref": "loadout_house_guard",
+  "schema": "sword-formation",
+  "status": "formed",
+  "training_progress": 29,
+  "training_ref": "train.house_tang_internal.standard",
+  "establishment_composition": {
+    "line_infantry": 2000
+  },
+  "establishment_personnel": 2000
+}

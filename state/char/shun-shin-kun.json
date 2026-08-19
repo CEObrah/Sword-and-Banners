@@ -1,0 +1,171 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 56,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 185,
+    "physical_learning": 101,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 149,
+    "technical_learning": 116
+  },
+  "attributes": {
+    "Agility": 87,
+    "Awareness": 168,
+    "Composure": 177,
+    "Coordination": 90,
+    "Endurance": 97,
+    "Intelligence": 188,
+    "Presence": 190,
+    "Strength": 82,
+    "Toughness": 93
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 48.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Chu"
+  },
+  "birth_date": "282-BCE-02-17",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 182.0,
+    "current_weight_kg": 67.2,
+    "frame": "slight",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "nonmilitary_role",
+    "current_command_span": 0,
+    "office_or_command": "Chancellor",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.87,
+      "Awareness": 2.068,
+      "Composure": 0.78,
+      "Coordination": 0.34,
+      "Endurance": 0.212,
+      "Intelligence": 2.327,
+      "Presence": 0.351,
+      "Strength": 0.594,
+      "Toughness": 0.571
+    },
+    "attribute_stimulus_hours_milli": 117600,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 336,
+    "skill_edu_banks": {
+      "Athletics": 28.879,
+      "Defense": 28.879,
+      "Leadership": 2.676,
+      "Navigation": 35.46,
+      "Strategy": 2.676,
+      "Survival": 28.879
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_court",
+  "goal_state": {
+    "current_goals": [
+      "secure policy influence and institutional leverage within the Chu political system"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Chu political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 37,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_chu_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "unranked",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_nonmilitary_role"
+  },
+  "name": "Shun Shin Kun",
+  "owner_id": "char_shun_shin_kun",
+  "owner_type": "character",
+  "rank": "unranked",
+  "role_archetype": "chancellor",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 52,
+    "Axe": 13,
+    "Bow": 16,
+    "Crossbow": 13,
+    "Dagger": 13,
+    "Defense": 43,
+    "Diplomacy": 186,
+    "Engineering": 17,
+    "Formation Command": 14,
+    "Formation Fighting": 14,
+    "Glaive": 15,
+    "Governance": 194,
+    "Grappling": 16,
+    "Intelligence Operations": 186,
+    "Intrigue": 193,
+    "Law": 179,
+    "Leadership": 175,
+    "Logistics": 16,
+    "Mace": 17,
+    "Mass Combat": 17,
+    "Medicine": 18,
+    "Navigation": 31,
+    "Riding": 17,
+    "Scouting": 16,
+    "Shield": 14,
+    "Spear": 13,
+    "Staff": 14,
+    "Stealth": 16,
+    "Strategy": 169,
+    "Survival": 38,
+    "Sword": 16,
+    "Tactics": 16,
+    "Trade": 179,
+    "Training": 26,
+    "Unarmed": 16
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_8efa8b7cd0e40eb1ce7e",
+  "state": "Chu"
+}

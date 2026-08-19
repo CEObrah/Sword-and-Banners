@@ -1,0 +1,52 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.sword_manor.trainee",
+  "authority_ref": "force_sword_manor",
+  "commander_ref": "char_sword_manor_trainee_commander",
+  "deputy_ref": "char_sword_manor_trainee_deputy",
+  "direct_person_refs": [
+    "char_sword_manor_trainee_deputy"
+  ],
+  "parent_command_group_ref": "cmdgrp.sword_manor.field",
+  "display_name": "Sword Manor Trainee Command",
+  "location": "loc_tang_manor_training_ground",
+  "context": "maneuver_command",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [
+    "char_sword_manor_trainee_deputy"
+  ],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_sword_manor_trainee_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_sword_manor_trainee_02"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_sword_manor_trainee_03"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_sword_manor_trainee_04"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 20060,
+    "authorized_direct_unit_slots": 4,
+    "current_recursive_strength": 20060,
+    "current_direct_formation_strength": 20060,
+    "recursive_formation_count": 4,
+    "direct_unit_count": 4,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "maneuver_command",
+    "reserve_doctrine": "Preserve surviving Units and officer cadres; casualty losses change strength, not durable rank. Consolidation, dissolution, reassignment and promotion require deliberate authority.",
+    "staffing_policy": "Attach only exact physically available formations or intact nested armies under lawful authority; prefer delegation rather than flattening large subordinate commands.",
+    "history": []
+  }
+}

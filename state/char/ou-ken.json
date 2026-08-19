@@ -1,0 +1,178 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 77,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 172,
+    "physical_learning": 98,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 132,
+    "technical_learning": 107
+  },
+  "attributes": {
+    "Agility": 78,
+    "Awareness": 142,
+    "Composure": 166,
+    "Coordination": 93,
+    "Endurance": 99,
+    "Intelligence": 157,
+    "Presence": 182,
+    "Strength": 75,
+    "Toughness": 92
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 48.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Qi"
+  },
+  "birth_date": "279-BCE-08-07",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 167.0,
+    "current_weight_kg": 54.9,
+    "frame": "slight",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "army_commander",
+    "current_command_span": 10000,
+    "office_or_command": "Commander, Rinshi Royal Guard Command",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "command_assignment": {
+    "billet": "army_commander",
+    "command_group_ref": "cmdgrp.rinshi.royal_guard",
+    "current_command_span": 10000,
+    "external_to_fighting_establishment": true,
+    "rule": "Current command span follows exact surviving/assigned Units and may change without changing durable rank.",
+    "source": "current_exact_command_group"
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 1.864,
+      "Awareness": 1.549,
+      "Composure": 0.828,
+      "Coordination": 0.317,
+      "Endurance": 0.273,
+      "Intelligence": 1.544,
+      "Presence": 1.053,
+      "Strength": 1.055,
+      "Toughness": 0.835
+    },
+    "attribute_stimulus_hours_milli": 117600,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 336,
+    "skill_edu_banks": {
+      "Athletics": 30.458,
+      "Defense": 30.458,
+      "Intrigue": 50.247,
+      "Navigation": 35.251,
+      "Survival": 30.458,
+      "Training": 17.297
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_court",
+  "goal_state": {
+    "current_goals": [
+      "preserve or obtain effective sovereign authority through the existing Qi political structure"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Qi political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 34,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_qi_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_no_exact_grade_evidence"
+  },
+  "name": "Ou Ken",
+  "owner_id": "char_ou_ken",
+  "owner_type": "character",
+  "role_archetype": "ruler_adult",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 51,
+    "Axe": 16,
+    "Bow": 14,
+    "Crossbow": 17,
+    "Dagger": 16,
+    "Defense": 46,
+    "Diplomacy": 163,
+    "Engineering": 15,
+    "Formation Command": 14,
+    "Formation Fighting": 13,
+    "Glaive": 13,
+    "Governance": 174,
+    "Grappling": 16,
+    "Intelligence Operations": 147,
+    "Intrigue": 139,
+    "Law": 153,
+    "Leadership": 174,
+    "Logistics": 15,
+    "Mace": 14,
+    "Mass Combat": 15,
+    "Medicine": 21,
+    "Navigation": 29,
+    "Riding": 15,
+    "Scouting": 16,
+    "Shield": 14,
+    "Spear": 14,
+    "Staff": 15,
+    "Stealth": 14,
+    "Strategy": 149,
+    "Survival": 39,
+    "Sword": 14,
+    "Tactics": 15,
+    "Trade": 25,
+    "Training": 29,
+    "Unarmed": 17
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_1ca1b563f93e96aff365",
+  "state": "Qi"
+}

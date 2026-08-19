@@ -1,0 +1,130 @@
+{
+  "schema": "sword-formation",
+  "formation_ref": "formation_house_tang_tang_champion_03",
+  "owner_force_ref": "force_house_tang",
+  "administrative_owner": "house_tang",
+  "name": "House Tang Tang Champions 3",
+  "personnel": 1000,
+  "composition": {
+    "tang_champion": 1000
+  },
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_house_tang_tang_champion_standing",
+      "count": 997,
+      "role": "tang_champion"
+    }
+  ],
+  "embedded_person_refs": [
+    "officer.house_tang.tang_champion.500.004",
+    "officer.house_tang.tang_champion.500.005",
+    "officer.house_tang.tang_champion.500.006"
+  ],
+  "location_ref": "loc_tang_manor_garrison_yard",
+  "command_authority": "char_tang_zhu",
+  "commander_ref": null,
+  "deputy_ref": null,
+  "command_structure": {
+    "unit_command": {
+      "commander_post": "materialize_when_individually_relevant",
+      "deputy_post": "materialize_when_individually_relevant",
+      "external_to_fighting_establishment": true
+    },
+    "internal_hierarchy": {
+      "by_role": {
+        "tang_champion": {
+          "commanders_1000": 1,
+          "commanders_500": 2,
+          "commanders_100": 10,
+          "counted_inside_role_strength": true
+        }
+      },
+      "summary": [
+        {
+          "scale": 1000,
+          "count": 1,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 500,
+          "count": 2,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 100,
+          "count": 10,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        }
+      ],
+      "representation_rule": "Embedded 1,000/500/100 commanders are bodies inside each role component. Aggregate command slots do not add manpower. Materialize an existing slot only when individual relevance requires it."
+    },
+    "internal_person_refs": [
+      "officer.house_tang.tang_champion.500.004",
+      "officer.house_tang.tang_champion.500.005",
+      "officer.house_tang.tang_champion.500.006"
+    ],
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 1,
+        "500_commander": 2,
+        "100_commander": 10
+      },
+      "active_billets": {
+        "1000_commander": 1,
+        "500_commander": 2,
+        "100_commander": 10
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    }
+  },
+  "doctrine_ref": "doc.house_tang_internal.tang_champion",
+  "registered_loadout_ref": "loadout_house_champion",
+  "equipment_units_by_role": {
+    "tang_champion": 1000
+  },
+  "equipment_completeness": "1.0000",
+  "experience": "elite",
+  "fatigue": 0,
+  "cohesion": 94,
+  "morale": 92,
+  "readiness": 94,
+  "mobilized": true,
+  "status": "home_ready",
+  "mounts": {
+    "horse_tang_heavy_war": 1000
+  },
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 360000,
+    "war_bolts": 0
+  },
+  "higher_command_ref": "cmdgrp.house_tang.champions",
+  "establishment_composition": {
+    "tang_champion": 1000
+  },
+  "establishment_personnel": 1000
+}

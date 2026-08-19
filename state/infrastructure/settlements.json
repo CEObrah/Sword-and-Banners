@@ -1,0 +1,804 @@
+{
+  "schema": "generic-object",
+  "owner_id": "infrastructure_settlements",
+  "owner_type": "settlement_infrastructure_registry",
+  "authority": true,
+  "capacity_law": {
+    "rule": "Settlement population support is constrained by constructed housing, water, sanitation, food/storage/distribution, work access, security and transport. Capacity is a mutable physical property, never an arbitrary world or population cap.",
+    "damage_rule": "Damage may reduce individual physical systems and therefore effective support before repairs restore them.",
+    "project_rule": "Projects add or repair specific physical works using the existing funded project/material/labor system; silver alone never materializes completed infrastructure."
+  },
+  "sites": {
+    "loc_bu_pass": {
+      "site_ref": "loc_bu_pass",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 130100,
+        "water_capacity_people": 130100,
+        "sanitation_capacity_people": 130100,
+        "food_storage_distribution_capacity_people": 130100,
+        "ordinary_work_access_capacity_people": 130100
+      },
+      "effective_resident_support_capacity_people": 130100,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_chu_north_fort": {
+      "site_ref": "loc_chu_north_fort",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 458100,
+        "water_capacity_people": 458100,
+        "sanitation_capacity_people": 458100,
+        "food_storage_distribution_capacity_people": 458100,
+        "ordinary_work_access_capacity_people": 458100
+      },
+      "effective_resident_support_capacity_people": 458100,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_chu_regional_01": {
+      "site_ref": "loc_chu_regional_01",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 2028700,
+        "water_capacity_people": 2028700,
+        "sanitation_capacity_people": 2028700,
+        "food_storage_distribution_capacity_people": 2028700,
+        "ordinary_work_access_capacity_people": 2028700
+      },
+      "effective_resident_support_capacity_people": 2028700,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_chu_regional_02": {
+      "site_ref": "loc_chu_regional_02",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 2074600,
+        "water_capacity_people": 2074600,
+        "sanitation_capacity_people": 2074600,
+        "food_storage_distribution_capacity_people": 2074600,
+        "ordinary_work_access_capacity_people": 2074600
+      },
+      "effective_resident_support_capacity_people": 2074600,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_chu_regional_03": {
+      "site_ref": "loc_chu_regional_03",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 2063400,
+        "water_capacity_people": 2063400,
+        "sanitation_capacity_people": 2063400,
+        "food_storage_distribution_capacity_people": 2063400,
+        "ordinary_work_access_capacity_people": 2063400
+      },
+      "effective_resident_support_capacity_people": 2063400,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_chu_regional_04": {
+      "site_ref": "loc_chu_regional_04",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 2025000,
+        "water_capacity_people": 2025000,
+        "sanitation_capacity_people": 2025000,
+        "food_storage_distribution_capacity_people": 2025000,
+        "ordinary_work_access_capacity_people": 2025000
+      },
+      "effective_resident_support_capacity_people": 2025000,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_dairyou": {
+      "site_ref": "loc_dairyou",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1710300,
+        "water_capacity_people": 1710300,
+        "sanitation_capacity_people": 1710300,
+        "food_storage_distribution_capacity_people": 1710300,
+        "ordinary_work_access_capacity_people": 1710300
+      },
+      "effective_resident_support_capacity_people": 1710300,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_ei": {
+      "site_ref": "loc_ei",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 2394800,
+        "water_capacity_people": 2394800,
+        "sanitation_capacity_people": 2394800,
+        "food_storage_distribution_capacity_people": 2394800,
+        "ordinary_work_access_capacity_people": 2394800
+      },
+      "effective_resident_support_capacity_people": 2394800,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_gyou": {
+      "site_ref": "loc_gyou",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1437200,
+        "water_capacity_people": 1437200,
+        "sanitation_capacity_people": 1437200,
+        "food_storage_distribution_capacity_people": 1437200,
+        "ordinary_work_access_capacity_people": 1437200
+      },
+      "effective_resident_support_capacity_people": 1437200,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_han_capital": {
+      "site_ref": "loc_han_capital",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1040200,
+        "water_capacity_people": 1040200,
+        "sanitation_capacity_people": 1040200,
+        "food_storage_distribution_capacity_people": 1040200,
+        "ordinary_work_access_capacity_people": 1040200
+      },
+      "effective_resident_support_capacity_people": 1040200,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_han_frontier_fort": {
+      "site_ref": "loc_han_frontier_fort",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 90700,
+        "water_capacity_people": 90700,
+        "sanitation_capacity_people": 90700,
+        "food_storage_distribution_capacity_people": 90700,
+        "ordinary_work_access_capacity_people": 90700
+      },
+      "effective_resident_support_capacity_people": 90700,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_han_regional_01": {
+      "site_ref": "loc_han_regional_01",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 407600,
+        "water_capacity_people": 407600,
+        "sanitation_capacity_people": 407600,
+        "food_storage_distribution_capacity_people": 407600,
+        "ordinary_work_access_capacity_people": 407600
+      },
+      "effective_resident_support_capacity_people": 407600,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_han_regional_02": {
+      "site_ref": "loc_han_regional_02",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 413400,
+        "water_capacity_people": 413400,
+        "sanitation_capacity_people": 413400,
+        "food_storage_distribution_capacity_people": 413400,
+        "ordinary_work_access_capacity_people": 413400
+      },
+      "effective_resident_support_capacity_people": 413400,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_han_regional_03": {
+      "site_ref": "loc_han_regional_03",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 404200,
+        "water_capacity_people": 404200,
+        "sanitation_capacity_people": 404200,
+        "food_storage_distribution_capacity_people": 404200,
+        "ordinary_work_access_capacity_people": 404200
+      },
+      "effective_resident_support_capacity_people": 404200,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_han_regional_04": {
+      "site_ref": "loc_han_regional_04",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 404200,
+        "water_capacity_people": 404200,
+        "sanitation_capacity_people": 404200,
+        "food_storage_distribution_capacity_people": 404200,
+        "ordinary_work_access_capacity_people": 404200
+      },
+      "effective_resident_support_capacity_people": 404200,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_ji": {
+      "site_ref": "loc_ji",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1804300,
+        "water_capacity_people": 1804300,
+        "sanitation_capacity_people": 1804300,
+        "food_storage_distribution_capacity_people": 1804300,
+        "ordinary_work_access_capacity_people": 1804300
+      },
+      "effective_resident_support_capacity_people": 1804300,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_jo_city": {
+      "site_ref": "loc_jo_city",
+      "authority_basis": "current physical settlement works; owns no population",
+      "physical_support": {
+        "housing_capacity_people": 38000,
+        "water_capacity_people": 42000,
+        "sanitation_capacity_people": 40000,
+        "food_storage_distribution_capacity_people": 40000,
+        "ordinary_work_access_capacity_people": 40000
+      },
+      "effective_resident_support_capacity_people": 38000,
+      "works": {
+        "granary_storage_kg": 18000000,
+        "workshop_floor_area_m2": 42000,
+        "potable_water_capacity_liters_per_day": 4200000
+      },
+      "condition": 1.0,
+      "capacity_rule": "Population growth is limited by real housing, water, sanitation, work, food/storage, security and transport rather than a fixed Jo population maximum.",
+      "mobility": {
+        "pull_weight": 1.8,
+        "outmigration_propensity_per_30d_basis_points": 2
+      }
+    },
+    "loc_jo_mountain_region": {
+      "site_ref": "loc_jo_mountain_region",
+      "authority_basis": "current physical settlement works; owns no population",
+      "physical_support": {
+        "housing_capacity_people": 25000,
+        "water_capacity_people": 28000,
+        "sanitation_capacity_people": 25000,
+        "food_storage_distribution_capacity_people": 30000,
+        "ordinary_work_access_capacity_people": 30000
+      },
+      "effective_resident_support_capacity_people": 25000,
+      "works": {
+        "irrigated_agriculture_km2": 22.0,
+        "rural_granary_storage_kg": 9500000,
+        "irrigation_condition": 1.0
+      },
+      "condition": 1.0,
+      "capacity_rule": "The mountain region can grow only while physical housing, water, agriculture, storage, roads and security support the added residents.",
+      "mobility": {
+        "pull_weight": 0.8,
+        "outmigration_propensity_per_30d_basis_points": 75
+      }
+    },
+    "loc_kankoku_pass": {
+      "site_ref": "loc_kankoku_pass",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 205900,
+        "water_capacity_people": 205900,
+        "sanitation_capacity_people": 205900,
+        "food_storage_distribution_capacity_people": 205900,
+        "ordinary_work_access_capacity_people": 205900
+      },
+      "effective_resident_support_capacity_people": 205900,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_kantan": {
+      "site_ref": "loc_kantan",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 2542700,
+        "water_capacity_people": 2542700,
+        "sanitation_capacity_people": 2542700,
+        "food_storage_distribution_capacity_people": 2542700,
+        "ordinary_work_access_capacity_people": 2542700
+      },
+      "effective_resident_support_capacity_people": 2542700,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_kanyou": {
+      "site_ref": "loc_kanyou",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 2774100,
+        "water_capacity_people": 2774100,
+        "sanitation_capacity_people": 2774100,
+        "food_storage_distribution_capacity_people": 2774100,
+        "ordinary_work_access_capacity_people": 2774100
+      },
+      "effective_resident_support_capacity_people": 2774100,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_keiyou": {
+      "site_ref": "loc_keiyou",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 951400,
+        "water_capacity_people": 951400,
+        "sanitation_capacity_people": 951400,
+        "food_storage_distribution_capacity_people": 951400,
+        "ordinary_work_access_capacity_people": 951400
+      },
+      "effective_resident_support_capacity_people": 951400,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qi_regional_01": {
+      "site_ref": "loc_qi_regional_01",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 926600,
+        "water_capacity_people": 926600,
+        "sanitation_capacity_people": 926600,
+        "food_storage_distribution_capacity_people": 926600,
+        "ordinary_work_access_capacity_people": 926600
+      },
+      "effective_resident_support_capacity_people": 926600,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qi_regional_02": {
+      "site_ref": "loc_qi_regional_02",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 935600,
+        "water_capacity_people": 935600,
+        "sanitation_capacity_people": 935600,
+        "food_storage_distribution_capacity_people": 935600,
+        "ordinary_work_access_capacity_people": 935600
+      },
+      "effective_resident_support_capacity_people": 935600,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qi_regional_03": {
+      "site_ref": "loc_qi_regional_03",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 939000,
+        "water_capacity_people": 939000,
+        "sanitation_capacity_people": 939000,
+        "food_storage_distribution_capacity_people": 939000,
+        "ordinary_work_access_capacity_people": 939000
+      },
+      "effective_resident_support_capacity_people": 939000,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qi_regional_04": {
+      "site_ref": "loc_qi_regional_04",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 943800,
+        "water_capacity_people": 943800,
+        "sanitation_capacity_people": 943800,
+        "food_storage_distribution_capacity_people": 943800,
+        "ordinary_work_access_capacity_people": 943800
+      },
+      "effective_resident_support_capacity_people": 943800,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qi_west_fort": {
+      "site_ref": "loc_qi_west_fort",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 185600,
+        "water_capacity_people": 185600,
+        "sanitation_capacity_people": 185600,
+        "food_storage_distribution_capacity_people": 185600,
+        "ordinary_work_access_capacity_people": 185600
+      },
+      "effective_resident_support_capacity_people": 185600,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qin_regional_01": {
+      "site_ref": "loc_qin_regional_01",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1086400,
+        "water_capacity_people": 1086400,
+        "sanitation_capacity_people": 1086400,
+        "food_storage_distribution_capacity_people": 1086400,
+        "ordinary_work_access_capacity_people": 1086400
+      },
+      "effective_resident_support_capacity_people": 1086400,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qin_regional_02": {
+      "site_ref": "loc_qin_regional_02",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1176900,
+        "water_capacity_people": 1176900,
+        "sanitation_capacity_people": 1176900,
+        "food_storage_distribution_capacity_people": 1176900,
+        "ordinary_work_access_capacity_people": 1176900
+      },
+      "effective_resident_support_capacity_people": 1176900,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qin_regional_03": {
+      "site_ref": "loc_qin_regional_03",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1096100,
+        "water_capacity_people": 1096100,
+        "sanitation_capacity_people": 1096100,
+        "food_storage_distribution_capacity_people": 1096100,
+        "ordinary_work_access_capacity_people": 1096100
+      },
+      "effective_resident_support_capacity_people": 1096100,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qin_regional_04": {
+      "site_ref": "loc_qin_regional_04",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1080000,
+        "water_capacity_people": 1080000,
+        "sanitation_capacity_people": 1080000,
+        "food_storage_distribution_capacity_people": 1080000,
+        "ordinary_work_access_capacity_people": 1080000
+      },
+      "effective_resident_support_capacity_people": 1080000,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_qin_western_fort": {
+      "site_ref": "loc_qin_western_fort",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 242400,
+        "water_capacity_people": 242400,
+        "sanitation_capacity_people": 242400,
+        "food_storage_distribution_capacity_people": 242400,
+        "ordinary_work_access_capacity_people": 242400
+      },
+      "effective_resident_support_capacity_people": 242400,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_sai": {
+      "site_ref": "loc_sai",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1529100,
+        "water_capacity_people": 1529100,
+        "sanitation_capacity_people": 1529100,
+        "food_storage_distribution_capacity_people": 1529100,
+        "ordinary_work_access_capacity_people": 1529100
+      },
+      "effective_resident_support_capacity_people": 1529100,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_shintei": {
+      "site_ref": "loc_shintei",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 5150400,
+        "water_capacity_people": 5150400,
+        "sanitation_capacity_people": 5150400,
+        "food_storage_distribution_capacity_people": 5150400,
+        "ordinary_work_access_capacity_people": 5150400
+      },
+      "effective_resident_support_capacity_people": 5150400,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_tang_manor": {
+      "site_ref": "loc_tang_manor",
+      "authority_basis": "constructed-support projection of game/data/world/tang-manor-master-plan.json; no people or resources are created by this record",
+      "master_plan_ref": "game/data/world/tang-manor-master-plan.json",
+      "physical_support": {
+        "housing_capacity_people": 1000000,
+        "water_capacity_people": 1100000,
+        "sanitation_capacity_people": 1000000,
+        "food_storage_distribution_capacity_people": 1050000,
+        "ordinary_work_access_capacity_people": 1000000
+      },
+      "effective_resident_support_capacity_people": 1000000,
+      "condition": 1.0,
+      "capacity_rule": "The Tang Manor support envelope is physical and expandable. Strategic autarky derives from the exact master plan and can be degraded by damage; this field is not a legal population cap.",
+      "sword_manor": {
+        "site_ref": "loc_tang_manor_training_ground",
+        "area_km2": 60.0,
+        "trainee_dormitory_beds": 24000,
+        "other_disciple_dormitory_beds": 12000,
+        "total_residential_beds": 36000,
+        "instruction_capacity_people": 36000,
+        "dining_capacity_people_per_day": 40000,
+        "water_capacity_people_per_day": 40000,
+        "medical_support_capacity_people": 40000,
+        "training_space_capacity_people": 38000,
+        "intake_assessment_candidates_per_day": 80,
+        "capacity_rule": "No fixed trainee or total-personnel cap exists. Current trainee vacancies derive from dormitory beds plus shared institution support after housing existing higher ranks; practical intake throughput derives from assessment/induction facilities and available conserved applicants.",
+        "induction_equipment_issue_capacity_per_30d": 6000
+      },
+      "mobility": {
+        "pull_weight": 1.6,
+        "outmigration_propensity_per_30d_basis_points": 2
+      },
+      "bastion_training": {
+        "common_induction_concurrent_capacity": 6000,
+        "iron_rampart": {
+          "concurrent_trainee_capacity": 4000,
+          "facilities": [
+            "formation drill grounds",
+            "wall sectors",
+            "gate/breach practice works",
+            "bow and crossbow ranges",
+            "barracks/classrooms"
+          ]
+        },
+        "red_crane": {
+          "concurrent_trainee_capacity": 1600,
+          "facilities": [
+            "artillery school",
+            "live-fire artillery range",
+            "crew drill yards",
+            "mechanical workshops",
+            "ammunition handling grounds"
+          ]
+        },
+        "white_lantern": {
+          "concurrent_trainee_capacity": 1000,
+          "facilities": [
+            "signal towers",
+            "mechanism school",
+            "firefighting grounds",
+            "medical/logistics routing hall",
+            "barracks/classrooms"
+          ]
+        },
+        "deep_earth": {
+          "concurrent_trainee_capacity": 1000,
+          "facilities": [
+            "countermine galleries",
+            "practice tunnels",
+            "earthwork fields",
+            "structural repair yard",
+            "moat/gate engineering works"
+          ]
+        },
+        "capacity_rule": "Concurrent physical trainee places constrain how many people can train at once. They are not Corps-strength caps and can be expanded through physical infrastructure projects."
+      },
+      "productive_assets": {
+        "staple_agriculture_condition": 1.0,
+        "fodder_agriculture_condition": 1.0,
+        "pasture_condition": 1.0,
+        "waterworks_condition": 1.0,
+        "storage_network_condition": 1.0,
+        "resource_industry_condition": 1.0,
+        "rule": "These are physical-condition multipliers for the current constructed Tang Manor productive system. Damage changes them; they are not abstract upgrade levels or legal capacity caps."
+      }
+    },
+    "loc_wei_regional_01": {
+      "site_ref": "loc_wei_regional_01",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 670000,
+        "water_capacity_people": 670000,
+        "sanitation_capacity_people": 670000,
+        "food_storage_distribution_capacity_people": 670000,
+        "ordinary_work_access_capacity_people": 670000
+      },
+      "effective_resident_support_capacity_people": 670000,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_wei_regional_02": {
+      "site_ref": "loc_wei_regional_02",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 704700,
+        "water_capacity_people": 704700,
+        "sanitation_capacity_people": 704700,
+        "food_storage_distribution_capacity_people": 704700,
+        "ordinary_work_access_capacity_people": 704700
+      },
+      "effective_resident_support_capacity_people": 704700,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_wei_regional_03": {
+      "site_ref": "loc_wei_regional_03",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 674300,
+        "water_capacity_people": 674300,
+        "sanitation_capacity_people": 674300,
+        "food_storage_distribution_capacity_people": 674300,
+        "ordinary_work_access_capacity_people": 674300
+      },
+      "effective_resident_support_capacity_people": 674300,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_wei_regional_04": {
+      "site_ref": "loc_wei_regional_04",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 674300,
+        "water_capacity_people": 674300,
+        "sanitation_capacity_people": 674300,
+        "food_storage_distribution_capacity_people": 674300,
+        "ordinary_work_access_capacity_people": 674300
+      },
+      "effective_resident_support_capacity_people": 674300,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_wei_west_fort": {
+      "site_ref": "loc_wei_west_fort",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 135200,
+        "water_capacity_people": 135200,
+        "sanitation_capacity_people": 135200,
+        "food_storage_distribution_capacity_people": 135200,
+        "ordinary_work_access_capacity_people": 135200
+      },
+      "effective_resident_support_capacity_people": 135200,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_yan_regional_01": {
+      "site_ref": "loc_yan_regional_01",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 701900,
+        "water_capacity_people": 701900,
+        "sanitation_capacity_people": 701900,
+        "food_storage_distribution_capacity_people": 701900,
+        "ordinary_work_access_capacity_people": 701900
+      },
+      "effective_resident_support_capacity_people": 701900,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_yan_regional_02": {
+      "site_ref": "loc_yan_regional_02",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 726800,
+        "water_capacity_people": 726800,
+        "sanitation_capacity_people": 726800,
+        "food_storage_distribution_capacity_people": 726800,
+        "ordinary_work_access_capacity_people": 726800
+      },
+      "effective_resident_support_capacity_people": 726800,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_yan_regional_03": {
+      "site_ref": "loc_yan_regional_03",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 737100,
+        "water_capacity_people": 737100,
+        "sanitation_capacity_people": 737100,
+        "food_storage_distribution_capacity_people": 737100,
+        "ordinary_work_access_capacity_people": 737100
+      },
+      "effective_resident_support_capacity_people": 737100,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_yan_regional_04": {
+      "site_ref": "loc_yan_regional_04",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 708200,
+        "water_capacity_people": 708200,
+        "sanitation_capacity_people": 708200,
+        "food_storage_distribution_capacity_people": 708200,
+        "ordinary_work_access_capacity_people": 708200
+      },
+      "effective_resident_support_capacity_people": 708200,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_yan_south_fort": {
+      "site_ref": "loc_yan_south_fort",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 152100,
+        "water_capacity_people": 152100,
+        "sanitation_capacity_people": 152100,
+        "food_storage_distribution_capacity_people": 152100,
+        "ordinary_work_access_capacity_people": 152100
+      },
+      "effective_resident_support_capacity_people": 152100,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_zhao_border_fort": {
+      "site_ref": "loc_zhao_border_fort",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 227300,
+        "water_capacity_people": 227300,
+        "sanitation_capacity_people": 227300,
+        "food_storage_distribution_capacity_people": 227300,
+        "ordinary_work_access_capacity_people": 227300
+      },
+      "effective_resident_support_capacity_people": 227300,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_zhao_regional_01": {
+      "site_ref": "loc_zhao_regional_01",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 977800,
+        "water_capacity_people": 977800,
+        "sanitation_capacity_people": 977800,
+        "food_storage_distribution_capacity_people": 977800,
+        "ordinary_work_access_capacity_people": 977800
+      },
+      "effective_resident_support_capacity_people": 977800,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_zhao_regional_02": {
+      "site_ref": "loc_zhao_regional_02",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1033400,
+        "water_capacity_people": 1033400,
+        "sanitation_capacity_people": 1033400,
+        "food_storage_distribution_capacity_people": 1033400,
+        "ordinary_work_access_capacity_people": 1033400
+      },
+      "effective_resident_support_capacity_people": 1033400,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_zhao_regional_03": {
+      "site_ref": "loc_zhao_regional_03",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 1066600,
+        "water_capacity_people": 1066600,
+        "sanitation_capacity_people": 1066600,
+        "food_storage_distribution_capacity_people": 1066600,
+        "ordinary_work_access_capacity_people": 1066600
+      },
+      "effective_resident_support_capacity_people": 1066600,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    },
+    "loc_zhao_regional_04": {
+      "site_ref": "loc_zhao_regional_04",
+      "authority_basis": "current physical support envelope; owns no population or economy",
+      "physical_support": {
+        "housing_capacity_people": 995400,
+        "water_capacity_people": 995400,
+        "sanitation_capacity_people": 995400,
+        "food_storage_distribution_capacity_people": 995400,
+        "ordinary_work_access_capacity_people": 995400
+      },
+      "effective_resident_support_capacity_people": 995400,
+      "condition": 1.0,
+      "capacity_rule": "The effective support envelope is the minimum of the relevant constructed systems. It is expandable and is not an arbitrary legal or demographic cap."
+    }
+  }
+}

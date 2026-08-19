@@ -1,0 +1,209 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 92,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 185,
+    "physical_learning": 146,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 185,
+    "technical_learning": 133
+  },
+  "attributes": {
+    "Agility": 118,
+    "Awareness": 177,
+    "Composure": 187,
+    "Coordination": 137,
+    "Endurance": 151,
+    "Intelligence": 191,
+    "Presence": 178,
+    "Strength": 131,
+    "Toughness": 142
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 56.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Chu"
+  },
+  "behavior": {
+    "ambition_or_orientation": "increase her authority and Chu strategic leverage",
+    "core_traits": [
+      "dominating",
+      "cunning",
+      "provocative"
+    ],
+    "decision_style": "tests people through small commitments before trusting them",
+    "failure_response": "tries to recover initiative rapidly",
+    "personal_preferences": [
+      "people who keep promises",
+      "well-prepared equipment"
+    ],
+    "private_concern": "being manipulated by a superior",
+    "source": "curated_canon_characterization_plus_campaign_state",
+    "stress_response": "uses feints, subordinates, and psychological pressure before committing her own position",
+    "temperament": "strategist_general; stable behavior follows saved history and incentives",
+    "trust_style": "bond-driven once loyalty is proven",
+    "values": [
+      "preserve command capacity and pursue only supported military opportunities within Chu authority and resources",
+      "preserve earned reputation and obligations"
+    ]
+  },
+  "birth_date": "277-BCE-03-20",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 179.0,
+    "current_weight_kg": 68.2,
+    "frame": "slight",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "army_commander",
+    "current_command_span": 28000,
+    "office_or_command": "Commander, Karin Field Army",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "command_assignment": {
+    "billet": "army_commander",
+    "command_group_ref": "cmdgrp.karin.field_army",
+    "current_command_span": 28000,
+    "external_to_fighting_establishment": true,
+    "rule": "Current command span follows exact surviving/assigned Units and may change without changing durable rank.",
+    "secondary_command_group_refs": [
+      "cmdgrp.house_karin_house.field_army"
+    ],
+    "source": "current_exact_command_group"
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.452,
+      "Awareness": 3.572,
+      "Composure": 1.263,
+      "Coordination": 0.226,
+      "Endurance": 0.528,
+      "Intelligence": 2.572,
+      "Presence": 0.818,
+      "Strength": 0.226,
+      "Toughness": 0.528
+    },
+    "attribute_stimulus_hours_milli": 137200,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 392,
+    "skill_edu_banks": {
+      "Athletics": 58.821,
+      "Defense": 2.941,
+      "Governance": 39.889,
+      "Mass Combat": 4.806,
+      "Navigation": 32.546,
+      "Survival": 9.446
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_court",
+  "goal_state": {
+    "current_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Chu authority and resources"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Chu political and military obligations"
+    ],
+    "long_term_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Chu authority and resources"
+    ],
+    "personal_desires": [
+      "increase her authority and Chu strategic leverage"
+    ]
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 32,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_chu_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "general",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_role_evidence"
+  },
+  "name": "Karin",
+  "owner_id": "char_karin",
+  "owner_type": "character",
+  "rank": "general",
+  "role_archetype": "strategist_general",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 50,
+    "Axe": 14,
+    "Bow": 15,
+    "Crossbow": 14,
+    "Dagger": 17,
+    "Defense": 134,
+    "Diplomacy": 25,
+    "Engineering": 13,
+    "Formation Command": 189,
+    "Formation Fighting": 15,
+    "Glaive": 16,
+    "Governance": 147,
+    "Grappling": 13,
+    "Intelligence Operations": 183,
+    "Intrigue": 15,
+    "Law": 20,
+    "Leadership": 174,
+    "Logistics": 184,
+    "Mace": 17,
+    "Mass Combat": 168,
+    "Medicine": 19,
+    "Navigation": 31,
+    "Riding": 15,
+    "Scouting": 16,
+    "Shield": 14,
+    "Spear": 13,
+    "Staff": 14,
+    "Stealth": 17,
+    "Strategy": 195,
+    "Survival": 40,
+    "Sword": 13,
+    "Tactics": 190,
+    "Trade": 26,
+    "Training": 27,
+    "Unarmed": 15
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_d5dba1b0d82201867c64",
+  "state": "Chu"
+}

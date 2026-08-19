@@ -1,0 +1,195 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": [
+      "Strategy",
+      "Tactics",
+      "Logistics",
+      "Formation Command",
+      "Intelligence Operations",
+      "Governance",
+      "Law",
+      "Training"
+    ],
+    "growth_rule": "verified elapsed training only; current role, assignment, useful deficits, instructors and lawful opportunity determine development; future canon skill is never pre-granted",
+    "mode": "career_role_training",
+    "training_regimen_ref": "household_professional"
+  },
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adolescent",
+  "appearance": 80,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 125,
+    "physical_learning": 79,
+    "social_learning": 78,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 91,
+    "technical_learning": 87
+  },
+  "attributes": {
+    "Agility": 71,
+    "Awareness": 92,
+    "Composure": 98,
+    "Coordination": 81,
+    "Endurance": 70,
+    "Intelligence": 110,
+    "Presence": 90,
+    "Strength": 46,
+    "Toughness": 68
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 48.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Qin"
+  },
+  "birth_date": "260-BCE-12-01",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 182.0,
+    "current_weight_kg": 59.2,
+    "frame": "slight",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "appointments": [
+      {
+        "assignment_ref": "institution_qin_strategist_academy",
+        "at": "244-BCE-07-29T20:22:48+08:00",
+        "basis": "current_authority",
+        "office_or_command": "Student, Qin Strategist Academy",
+        "rule": "current assignment only; creates no guaranteed future promotion or canon outcome"
+      }
+    ],
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_assignment_ref": "institution_qin_strategist_academy",
+    "current_professional_path": "strategist_student",
+    "future_canon_guaranteed": false,
+    "office_or_command": "Student, Qin Strategist Academy",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "current_location": "loc_kanyou_strategist_academy",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.987,
+      "Awareness": 2.011,
+      "Composure": 0.726,
+      "Coordination": 1.216,
+      "Intelligence": 4.956,
+      "Presence": 2.101
+    },
+    "attribute_stimulus_hours_milli": 117600,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 336,
+    "skill_edu_banks": {
+      "Defense": 21.607,
+      "Governance": 5.553,
+      "Law": 11.912,
+      "Medicine": 27.039,
+      "Trade": 21.333,
+      "Training": 24.889
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_court",
+  "goal_state": {
+    "current_goals": [
+      "study administration and strategy through real instruction; no future office or skill is guaranteed"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 15,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "Qin Strategist Academy, Kanyou",
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_no_exact_grade_evidence"
+  },
+  "name": "Mou Ki",
+  "owner_id": "char_mou_ki",
+  "owner_type": "character",
+  "role": "Strategist Academy student",
+  "role_archetype": "youth_support",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 63,
+    "Axe": 14,
+    "Bow": 17,
+    "Crossbow": 16,
+    "Dagger": 16,
+    "Defense": 46,
+    "Diplomacy": 48,
+    "Engineering": 13,
+    "Formation Command": 15,
+    "Formation Fighting": 17,
+    "Glaive": 15,
+    "Governance": 21,
+    "Grappling": 13,
+    "Intelligence Operations": 14,
+    "Intrigue": 17,
+    "Law": 21,
+    "Leadership": 17,
+    "Logistics": 14,
+    "Mace": 14,
+    "Mass Combat": 13,
+    "Medicine": 20,
+    "Navigation": 53,
+    "Riding": 16,
+    "Scouting": 58,
+    "Shield": 16,
+    "Spear": 17,
+    "Staff": 13,
+    "Stealth": 65,
+    "Strategy": 17,
+    "Survival": 61,
+    "Sword": 15,
+    "Tactics": 17,
+    "Trade": 47,
+    "Training": 25,
+    "Unarmed": 14
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_aa26dd1302073fbb16e7",
+  "state": "Qin"
+}

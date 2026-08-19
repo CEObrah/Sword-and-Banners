@@ -1,0 +1,194 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 60,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 154,
+    "physical_learning": 128,
+    "social_learning": 160,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 152,
+    "technical_learning": 109
+  },
+  "attributes": {
+    "Agility": 108,
+    "Awareness": 138,
+    "Composure": 148,
+    "Coordination": 116,
+    "Endurance": 125,
+    "Intelligence": 139,
+    "Presence": 142,
+    "Strength": 117,
+    "Toughness": 119
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 48.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Qin"
+  },
+  "behavior": {
+    "decision_style": "combines veteran military judgment with court-network preservation; protects Ei Sei first, then preserves loyal people, information and enough force to reverse the coup",
+    "evidence_boundary": "This anchor is derived only from the saved current role, goal and opening-campaign obligations. Do not infer unrelated private traits, future development or later-series behavior from it.",
+    "pressure_behavior": "under pressure, favors survivable loyal networks, controlled information and force concentration over symbolic gestures",
+    "priority_order": [
+      "keep Ei Sei alive and free",
+      "preserve the loyal network and information channels",
+      "assemble lawful military leverage for the next decisive move"
+    ],
+    "source": "current_campaign_role_goal_anchor"
+  },
+  "birth_date": "294-BCE-10-20",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 168.0,
+    "current_weight_kg": 62.4,
+    "frame": "lean",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "army_commander",
+    "current_command_span": 4500,
+    "office_or_command": "Commander, Shou Bun Kun Field Command",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "command_assignment": {
+    "billet": "army_commander",
+    "command_group_ref": "cmdgrp.shou_bun_kun.field_command",
+    "current_command_span": 4500,
+    "external_to_fighting_establishment": true,
+    "rule": "Current command span follows exact surviving/assigned Units and may change without changing durable rank.",
+    "secondary_command_group_refs": [
+      "cmdgrp.house_shou_bun_kun_household.field_army"
+    ],
+    "source": "current_exact_command_group"
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.387,
+      "Awareness": 1.885,
+      "Composure": 1.092,
+      "Endurance": 0.203,
+      "Intelligence": 1.565,
+      "Presence": 1.148,
+      "Strength": 0.087,
+      "Toughness": 0.203
+    },
+    "attribute_stimulus_hours_milli": 117600,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 336,
+    "skill_edu_banks": {
+      "Athletics": 36.246,
+      "Diplomacy": 28.37,
+      "Governance": 20.677,
+      "Navigation": 33.877,
+      "Survival": 36.246,
+      "Training": 9.662
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_spear",
+  "goal_state": {
+    "current_goals": [
+      "protect Ei Sei, preserve the loyal network, and obtain enough force to reverse the coup"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 49,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_qin_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_no_exact_grade_evidence"
+  },
+  "name": "Shou Bun Kun",
+  "owner_id": "char_shou_bun_kun",
+  "owner_type": "character",
+  "relationship_refs": [
+    "rel.char_shou_bun_kun.char_ei_sei.retainer"
+  ],
+  "role_archetype": "veteran_official",
+  "runtime_status": "active_shared_process_participant",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 49,
+    "Axe": 17,
+    "Bow": 17,
+    "Crossbow": 14,
+    "Dagger": 17,
+    "Defense": 137,
+    "Diplomacy": 121,
+    "Engineering": 15,
+    "Formation Command": 146,
+    "Formation Fighting": 13,
+    "Glaive": 13,
+    "Governance": 127,
+    "Grappling": 16,
+    "Intelligence Operations": 13,
+    "Intrigue": 17,
+    "Law": 19,
+    "Leadership": 159,
+    "Logistics": 17,
+    "Mace": 13,
+    "Mass Combat": 148,
+    "Medicine": 20,
+    "Navigation": 29,
+    "Riding": 17,
+    "Scouting": 14,
+    "Shield": 17,
+    "Spear": 146,
+    "Staff": 17,
+    "Stealth": 17,
+    "Strategy": 16,
+    "Survival": 40,
+    "Sword": 16,
+    "Tactics": 137,
+    "Trade": 25,
+    "Training": 29,
+    "Unarmed": 13
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_ba3cbe6cf80d51dd8df2",
+  "state": "Qin"
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "sword-autonomous-theaters",
+  "theaters": [
+    {
+      "base_pressure": 28,
+      "formation_refs": {
+        "qin": "formation_qin_siege_train",
+        "zhao": "formation_zhao_border_line"
+      },
+      "sides": [
+        "qin",
+        "zhao"
+      ],
+      "target_location_ref": "loc_gyou",
+      "theater_ref": "qin_zhao_gyou"
+    },
+    {
+      "base_pressure": 24,
+      "formation_refs": {
+        "han": "formation_han_fortress_reserve",
+        "wei": "formation_wei_engineered_line"
+      },
+      "sides": [
+        "wei",
+        "han"
+      ],
+      "target_location_ref": "loc_han_regional_02",
+      "theater_ref": "wei_han_border"
+    },
+    {
+      "base_pressure": 22,
+      "formation_refs": {
+        "chu": "formation_chu_field_reserve",
+        "qin": "formation_qin_mobile_reserve"
+      },
+      "sides": [
+        "chu",
+        "qin"
+      ],
+      "target_location_ref": "loc_qin_regional_04",
+      "theater_ref": "chu_qin_border"
+    },
+    {
+      "base_pressure": 18,
+      "formation_refs": {
+        "han": "formation_han_mobile_screen",
+        "qi": "formation_qi_coastal_reserve"
+      },
+      "sides": [
+        "qi",
+        "han"
+      ],
+      "target_location_ref": "loc_han_regional_04",
+      "theater_ref": "qi_han_border"
+    },
+    {
+      "base_pressure": 20,
+      "formation_refs": {
+        "qi": "formation_qi_mobile_guard",
+        "yan": "formation_yan_frontier_army"
+      },
+      "sides": [
+        "yan",
+        "qi"
+      ],
+      "target_location_ref": "loc_qi_regional_02",
+      "theater_ref": "yan_qi_border"
+    }
+  ]
+}

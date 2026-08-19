@@ -1,0 +1,169 @@
+{
+  "artillery_ref": "artillery_fort_retsubi",
+  "consumption_history": [],
+  "current_shortfalls": {},
+  "damage_history": [],
+  "damage_state": {
+    "granary_damage_percent": 0,
+    "last_damage_at": null,
+    "magazine_damage_percent": 0,
+    "medical_facility_damage_percent": 0,
+    "overall_condition_percent": 100,
+    "wagon_yard_damage_percent": 0,
+    "water_system_damage_percent": 0
+  },
+  "depot_kind": "fortified_site_garrison",
+  "fortification_profile_ref": "fort_profile_retsubi",
+  "garrison_formation_refs": [
+    "formation_zhao_retsubi_gate_command"
+  ],
+  "garrison_personnel_at_materialization": 8000,
+  "garrison_summary": {
+    "bow_personnel": 0,
+    "crossbow_personnel": 2000,
+    "engineer_personnel": 500,
+    "mounts": 0,
+    "personnel": 8000
+  },
+  "garrison_support_targets": {
+    "carts": 400,
+    "fodder_kg": 0,
+    "grain_kg": 960000,
+    "iron_tonnes": 20,
+    "medicine_lots": 2800,
+    "timber_tonnes": 96,
+    "war_arrows": 0,
+    "war_bolts": 600000
+  },
+  "geography": {
+    "access_node_ref": "loc_retsubi",
+    "location_ref": "loc_retsubi",
+    "owns_demographic_production": false,
+    "owns_local_population": false,
+    "region_ref": "loc_zhao_regional_04",
+    "rule": "fortified-site depot owns only exact military stock and installed-fixture condition; resident population/economy remain with their demographic/economic owners"
+  },
+  "hot_state": {
+    "cold_blueprint_ref": "fort_profile_retsubi",
+    "last_reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "materialized_at": "244-BCE-07-29T20:22:48+08:00",
+    "status": "hot"
+  },
+  "infrastructure_capacity": {
+    "carts": 3300,
+    "construction_material_units": 6600,
+    "fodder_kg": 6930000,
+    "grain_kg": 3960000,
+    "iron_tonnes": 288,
+    "medicine_lots": 39600,
+    "timber_tonnes": 1440,
+    "war_arrows": 3326400,
+    "war_bolts": 3326400
+  },
+  "installed_equipment": {
+    "authority_ref": null,
+    "blueprint_quantities": {
+      "bed_crossbows": 144,
+      "counterweight_trebuchets": 8,
+      "firepot_systems": 58,
+      "gate_mechanism_sets": 4,
+      "signal_tower_sets": 0,
+      "stone_drop_cranes": 58
+    },
+    "condition_percent": {
+      "bed_crossbows": 100,
+      "counterweight_trebuchets": 100,
+      "firepot_systems": 100,
+      "gate_mechanism_sets": 100,
+      "signal_tower_sets": 100,
+      "stone_drop_cranes": 100
+    },
+    "disabled_quantities": {
+      "bed_crossbows": 0,
+      "counterweight_trebuchets": 0,
+      "firepot_systems": 0,
+      "gate_mechanism_sets": 0,
+      "signal_tower_sets": 0,
+      "stone_drop_cranes": 0
+    },
+    "mode": "materialized_from_static_installed_blueprint"
+  },
+  "location_ref": "loc_retsubi",
+  "medical_reserve": {
+    "bed_capacity": 660,
+    "field_hospital_sites": 2,
+    "supply_yards": 1
+  },
+  "owner_id": "depot_fort_retsubi",
+  "region_ref": "loc_zhao_regional_04",
+  "resupply_history": [
+    {
+      "at": "244-BCE-07-29T20:22:48+08:00",
+      "construction_source": {
+        "economy_owner_ref": "private_economy_zhao",
+        "location_ref": "loc_retsubi",
+        "units": 436
+      },
+      "kind": "baseline_hot_materialization",
+      "source_depot_ref": "state_depot_zhao",
+      "transferred_stocks": {
+        "carts": 400,
+        "construction_material_units": 436,
+        "fodder_kg": 0,
+        "grain_kg": 960000,
+        "iron_tonnes": 20,
+        "medicine_lots": 2800,
+        "timber_tonnes": 96,
+        "war_arrows": 0,
+        "war_bolts": 600000
+      }
+    }
+  ],
+  "schema": "sword-depot",
+  "site_ref": "loc_retsubi",
+  "source_aggregate_depot_ref": "state_depot_zhao",
+  "source_depot_ref": "state_depot_zhao",
+  "state": "zhao",
+  "stocks": {
+    "carts": 400,
+    "construction_material_units": 873,
+    "fodder_kg": 0,
+    "grain_kg": 960000,
+    "iron_tonnes": 20,
+    "medicine_lots": 2800,
+    "timber_tonnes": 96,
+    "war_arrows": 0,
+    "war_bolts": 600000
+  },
+  "storage_capacity": {
+    "carts": 3300,
+    "construction_material_units": 6600,
+    "fodder_kg": 6930000,
+    "grain_kg": 3960000,
+    "iron_tonnes": 288,
+    "medicine_lots": 39600,
+    "timber_tonnes": 1440,
+    "war_arrows": 3326400,
+    "war_bolts": 3326400
+  },
+  "storage_class": "regional_siege_reserve",
+  "transfer_history": [
+    {
+      "at": "244-BCE-07-29T20:22:48+08:00",
+      "moved": {
+        "construction_material_units": 437
+      },
+      "reason": "fortified-site local construction reserve partition",
+      "source_ref": "private_economy_zhao:loc_retsubi"
+    }
+  ],
+  "wagon_staging": {
+    "covered_cart_capacity": 3300,
+    "yard_count": 1
+  },
+  "water_reserve": {
+    "capacity_person_days": 1584000,
+    "current_person_days": 1267200,
+    "source": "local wells/cisterns/stored water represented by the static fortification blueprint"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "location_ref",
+    "cart_count",
+    "serviceable_cart_count",
+    "cargo_custody_refs",
+    "status"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-army-train"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "command_group_ref": {
+      "type": "string"
+    },
+    "location_ref": {
+      "type": "string"
+    },
+    "cart_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "serviceable_cart_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "damaged_cart_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "destroyed_cart_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "cargo_custody_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "assembled",
+        "in_column",
+        "encamped",
+        "camp_forming",
+        "delayed",
+        "stood_down"
+      ]
+    },
+    "movement_owner_kind": {
+      "enum": [
+        "recursive_army",
+        "standalone_formation"
+      ]
+    },
+    "movement_owner_ref": {
+      "type": "string"
+    },
+    "standalone_formation_ref": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
+  "oneOf": [
+    {
+      "required": [
+        "command_group_ref"
+      ],
+      "not": {
+        "required": [
+          "standalone_formation_ref"
+        ]
+      }
+    },
+    {
+      "required": [
+        "standalone_formation_ref"
+      ],
+      "not": {
+        "required": [
+          "command_group_ref"
+        ]
+      }
+    }
+  ]
+}

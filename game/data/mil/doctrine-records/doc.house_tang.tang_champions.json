@@ -1,0 +1,24 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.house_tang.tang_champions",
+  "doctrine": {
+    "inherits": "doc.house_tang_internal.heavy_cavalry",
+    "institution_overlay_ref": "game/data/mil/institution-doctrine-overlays.json#house_tang",
+    "role": "House Tang institutional Tang Champion elite",
+    "principles": [
+      "Use the assigned bow for mounted harassment, disruption, and precision fire while preserving maneuver space.",
+      "Charge only when terrain, cohesion, target disorder, and tactical advantage justify closing.",
+      "On charge: bow away, cavalry lance and shield ready, keep ordered spacing and mutual support.",
+      "When lance reach is lost, the lance breaks, becomes trapped, or close terrain makes it unsuitable: transition immediately to one-handed long sword and shield.",
+      "Core progression: BOW -> CAVALRY LANCE + SHIELD -> ONE-HANDED LONG SWORD + SHIELD.",
+      "Kill at distance. Charge only on advantage. Break them with the lance. Draw the sword once distance is gone.",
+      "Tang Champion is a House Tang institutional rank and remains institutionally owned by House Tang regardless of temporary command assignment",
+      "Champion personnel preserve discipline, formation integrity, command continuity, trained personnel, assigned mounts, equipment, and cohesion",
+      "Champion assignments inherit mission-specific overlays from their lawful commander without changing institutional ownership",
+      "assignment to Tang Wei adds a protective-retinue mission but does not redefine every House Tang Champion as Tang Wei personal property",
+      "unassigned or newly promoted Champions remain in the House Tang Champion reserve until a lawful assignment transfers their formation membership",
+      "promotion into Tang Champion status transfers conserved integer headcount between aggregate House Tang cohorts; exact identity is created only when an individual later becomes mechanically or narratively relevant, without duplicating a body"
+    ],
+    "weapon_transition_rule": "Core progression: BOW -> CAVALRY LANCE + SHIELD -> ONE-HANDED LONG SWORD + SHIELD."
+  }
+}

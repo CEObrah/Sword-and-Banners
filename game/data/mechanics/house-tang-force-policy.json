@@ -1,0 +1,107 @@
+{
+  "authority": "Static House Tang force-employment, recruiting, training, and contingency-auxiliary policy. Exact people, manpower, contracts, money, and operations remain in their existing mutable owners.",
+  "contingency_mercenary_procurement": {
+    "desired_additional_headcount_by_severity": [
+      {
+        "headcount": 50000,
+        "minimum": 80
+      },
+      {
+        "headcount": 30000,
+        "minimum": 65
+      },
+      {
+        "headcount": 15000,
+        "minimum": 45
+      }
+    ],
+    "minimum_threat_severity": 45,
+    "offer_premium_basis_points": 11500,
+    "preferred_deployment_location_ref": "loc_tang_manor_defense_camp",
+    "review": "House causal review plus material threat/war wake",
+    "rule": "Offers are made only to exact available short-notice companies and must pass fair-pay and House treasury checks; accepted contracts are funded from treasury_house_tang and remain independent manpower owners.",
+    "term_days": 90
+  },
+  "force_employment": {
+    "constraints": [
+      "Four Bastion Corps are permanent House Tang troops nested inside the House Tang Field Army and are not market mercenaries.",
+      "Sword Manor is a permanent House Tang troop-house command nested inside the House Tang Field Army; it trains only its own members and has no outsider instructional enrollment.",
+      "House Guard, Guardian Cavalry, Tang Champions, Sword Manor, and the Four Bastion Corps remain distinct conserved manpower owners while sharing one recursive House Tang field-army command hierarchy.",
+      "Command nesting changes authority and reporting, never manpower ownership or troop count."
+    ],
+    "home_defense_doctrine": {
+      "commander_ref": "char_tang_zhu",
+      "default_layers": [
+        {
+          "command_ref": "cmdgrp.house_tang.bastions",
+          "primary_assignment": "outer_wall_gate_towers_moat_and_outer_perimeter",
+          "purpose": "absorb the first siege/contact burden with the specialist fortress corps and preserve deeper House forces"
+        },
+        {
+          "command_ref": "cmdgrp.sword_manor.field",
+          "primary_assignment": "city_and_interior_defensive_belt_between_outer_perimeter_and_inner_citadel",
+          "purpose": "defend the populated interior and reinforce penetrations without spending the highest-quality House reserve first"
+        },
+        {
+          "command_refs": [
+            "cmdgrp.house_tang.house_guard",
+            "cmdgrp.house_tang.guardian_cavalry",
+            "cmdgrp.house_tang.champions"
+          ],
+          "primary_assignment": "inner_citadel_and_mobile_decisive_reserve",
+          "purpose": "protect the family seat, maintain a high-quality mobile counterattack reserve, and preserve elite strength until decisive commitment is justified"
+        }
+      ],
+      "deputy_ref": "char_tang_ling",
+      "quality_preservation_rule": "Do not spend Sword Manor or House Tang elite formations on routine outer-wall attrition when the Four Bastion Corps can lawfully hold the task. Escalate inward forces as the tactical situation requires, while never sacrificing the estate or civilians merely to preserve elite labels.",
+      "reassignment_rule": "These are preferred home-defense assignments, not immutable restrictions. Tang Zhu or the lawful acting House Tang field commander may shift any subordinate command, formation, or intact recursive subtree when breach geometry, casualties, fires, raids, sorties, relief operations, pursuit, field campaigning, or another urgent operational need justifies it.",
+      "root_command_ref": "cmdgrp.house_tang.field_army"
+    },
+    "principle": "House Tang operates one recursive field army under Tang Zhu with Tang Ling as deputy. Sword Manor, the Four Bastion Corps, House Guard, Guardian Cavalry, and Tang Champions are subordinate commands inside that one army, not independent armies. Home-defense sectors are doctrinal defaults for preserving capability and controlling frontage, not hard locks on reassignment.",
+    "priority": [
+      "single_recursive_house_tang_field_army",
+      "defense_in_depth_by_subordinate_command",
+      "preserve_high_quality_inner_reserves_until_operationally_required",
+      "external_auxiliaries_only_when_lawfully_preferred"
+    ]
+  },
+  "recruitment": {
+    "branches": {
+      "four_bastion_corps": {
+        "entry": "direct professional Corps recruitment from conserved civilians/applicants",
+        "force_refs": [
+          "force_bastion_iron_rampart",
+          "force_bastion_red_crane",
+          "force_bastion_white_lantern",
+          "force_bastion_deep_earth"
+        ],
+        "policy_ref": "game/data/mechanics/bastion-corps.json"
+      },
+      "house_elite_progression": {
+        "force_ref": "force_house_tang",
+        "ladder": [
+          "house_guard",
+          "guardian_cavalry",
+          "tang_champion"
+        ],
+        "rule": "promotions move existing conserved House military bodies through registered gates, vacancies, mounts, equipment and training; they do not spawn personnel"
+      },
+      "sword_manor": {
+        "entry_role": "trainee",
+        "force_ref": "force_sword_manor",
+        "outsider_instruction": false,
+        "selection_profile": "sword_manor_screened_initiate"
+      }
+    },
+    "population_source_ref": "population_qin",
+    "rule": "House Tang has distinct conserved entry pipelines. Sword Manor recruits/trains only its own troop-house members; the Four Bastion Corps recruit and qualify through their own professional pipelines; House Guard/Guardian Cavalry/Champion replacement follows the registered internal House service progression. No branch may materialize bodies or use an arbitrary monthly intake cap."
+  },
+  "schema": "house-tang-force-policy",
+  "training": {
+    "named_people": "eligible requested adult House Tang/Sword Manor/Tang Wei/Qin-assigned commanders use the same max-sustainable regimen through exact-person activity contracts; Tang Kai remains age-appropriate only",
+    "no_free_progress": true,
+    "person_lite": "House Tang, Sword Manor and Wei-designated Qin 1,000/500 officers train as conserved person-lite bodies through their exact force owners",
+    "regimen_ref": "house_tang_max_sustainable",
+    "smart_rotation": "prioritize next lawful promotion deficits; then current loadout and troop-type skills; then command/logistics needs; then the weakest useful registered stats; rotate deterministically so one already-high stat cannot monopolize training"
+  }
+}

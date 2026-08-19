@@ -1,0 +1,173 @@
+{
+  "administrative_owner": "state_zhao",
+  "cohesion": 84,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_zhao_3ab1c5f63a28",
+      "count": 5000
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_e0975907884c",
+      "count": 2000
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_ef25a0c224b5",
+      "count": 500
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_d8acc16f1aea",
+      "count": 500
+    }
+  ],
+  "command_authority": "state_zhao",
+  "command_structure": {
+    "internal_hierarchy": {
+      "by_role": {
+        "line_infantry": {
+          "commanders_100": 50,
+          "commanders_1000": 5,
+          "commanders_500": 10,
+          "counted_inside_role_strength": true
+        },
+        "missile_crossbow": {
+          "commanders_100": 20,
+          "commanders_1000": 2,
+          "commanders_500": 4,
+          "counted_inside_role_strength": true
+        },
+        "siege_engineering": {
+          "commanders_100": 5,
+          "commanders_1000": 0,
+          "commanders_500": 1,
+          "counted_inside_role_strength": true
+        },
+        "signal": {
+          "commanders_100": 5,
+          "commanders_1000": 0,
+          "commanders_500": 1,
+          "counted_inside_role_strength": true
+        }
+      },
+      "representation_rule": "Embedded 1,000/500/100 commanders are bodies inside each troop-role component. Aggregate command slots add no manpower; materialization only reclassifies an existing body.",
+      "summary": [
+        {
+          "count": 7,
+          "counted_inside_troop_strength": true,
+          "representation": "aggregate_command_slots",
+          "scale": 1000
+        },
+        {
+          "count": 16,
+          "counted_inside_troop_strength": true,
+          "representation": "aggregate_command_slots",
+          "scale": 500
+        },
+        {
+          "count": 80,
+          "counted_inside_troop_strength": true,
+          "representation": "aggregate_command_slots",
+          "scale": 100
+        }
+      ]
+    },
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 7,
+        "100_commander": 80,
+        "500_commander": 16
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      },
+      "last_reorganization_reason": "clean_baseline_officer_cadre",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 7,
+        "100_commander": 80,
+        "500_commander": 16
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 1,
+        "100_commander": 0,
+        "500_commander": 0
+      }
+    },
+    "unit_command": {
+      "commander_post": "materialize_when_relevant",
+      "commander_ref": null,
+      "deputy_post": "materialize_when_relevant",
+      "external_to_fighting_establishment": true
+    }
+  },
+  "commander_ref": null,
+  "composition": {
+    "line_infantry": 5000,
+    "missile_crossbow": 2000,
+    "siege_engineering": 500,
+    "signal": 500
+  },
+  "deputy_ref": null,
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 60,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.external_state_force.standard",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "line_infantry": 5000,
+    "missile_crossbow": 2000,
+    "siege_engineering": 500,
+    "signal": 500
+  },
+  "establishment_composition": {
+    "line_infantry": 5000,
+    "missile_crossbow": 2000,
+    "siege_engineering": 500,
+    "signal": 500
+  },
+  "establishment_personnel": 8000,
+  "experience": "trained",
+  "fatigue": 0,
+  "formation_identity": {
+    "capability_rule": "Elite identity is expressed through persistent organization, readiness, cohesion, experience, command and later earned training. It does not replace the conserved cohort capability underneath or grant a flat combat multiplier.",
+    "persistent_elite_or_prestige_formation": true,
+    "state_force_ownership_preserved": true
+  },
+  "formation_ref": "formation_zhao_retsubi_gate_command",
+  "higher_command_ref": "cmdgrp.retsubi.garrison",
+  "location_ref": "loc_retsubi",
+  "logistics": {
+    "construction_material_units": 0,
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "iron_tonnes": 0,
+    "source_depot_ref": "depot_fort_retsubi",
+    "timber_tonnes": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 82,
+  "mounts": {},
+  "name": "Retsubi Gate Command",
+  "owner_force_ref": "force_state_zhao",
+  "personnel": 8000,
+  "readiness": 80,
+  "schema": "sword-formation",
+  "status": "ready",
+  "supply_depot_ref": "depot_fort_retsubi",
+  "training_progress": 50,
+  "training_ref": null
+}

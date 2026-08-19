@@ -1,0 +1,363 @@
+{
+  "ammunition_reserve_derivation": {
+    "arrows_per_bow_intense_day": 30,
+    "arrows_per_bow_routine_day": 2,
+    "bolts_per_crossbow_intense_day": 24,
+    "bolts_per_crossbow_routine_day": 1,
+    "bow_loadouts": 75060,
+    "carried_ammunition_per_weapon": 36,
+    "contingency_basis_points": 2000,
+    "crossbow_loadouts": 18500,
+    "intense_defense_days": 45,
+    "routine_training_and_alert_days": 135,
+    "rule": "Reserve is derived from current standing ranged establishment, carried loads, a 180-day defense/training planning horizon and a 20% disruption contingency. It is a physical stock target, not infinite ammunition or an immutable cap.",
+    "war_arrows_strategic_reserve": 145916640,
+    "war_bolts_strategic_reserve": 26973000
+  },
+  "armory_work_allocation_rule": "Forge/armory item work shares are one complete 10,000-basis-point allocation of the same conserved worker-month pool; adding an item requires rebalancing existing shares rather than overcommitting labor.",
+  "authority": "Static House Tang workshop, armory and remount production policy. Mutable stock remains in the equipment inventory; workers remain in Tang Manor population; purchased materials and cash remain in their existing economy and treasury owners.",
+  "commercial_infrastructure": {
+    "armory_repair_and_contract_forge": {
+      "labor_owner": "forge_and_armory_workers",
+      "monthly_service_capacity_silver": 200000
+    },
+    "bonded_warehouse_and_cartage": {
+      "labor_owner": "warehouse_and_granary_workers",
+      "monthly_service_capacity_silver": 300000
+    },
+    "grain_milling_and_preservation": {
+      "labor_owner": "agricultural_workers_and_supervisors",
+      "monthly_service_capacity_silver": 250000
+    },
+    "market_storage_and_transport_brokerage": {
+      "labor_owner": "warehouse_and_granary_workers",
+      "monthly_service_capacity_silver": 250000
+    },
+    "remount_stable_and_carriage_services": {
+      "labor_owner": "stable_remount_and_carriage_workers",
+      "monthly_service_capacity_silver": 200000
+    }
+  },
+  "commercial_infrastructure_rule": "Installed House-owned commercial capacity earns only through bounded monthly service sales paid from exact nearby private-economy cash; it does not mint silver, consume military bodies, or turn Sword Manor into a public school.",
+  "military_equipment_repair": {
+    "labor_fraction_of_new_manufacture": 0.35,
+    "material_fraction_of_new_manufacture": 0.3,
+    "silver_fraction_of_new_manufacture": 0.3,
+    "minimum_repairable_condition_pct": 5,
+    "rule": "Repair restores only surviving serviceable formation shields and armor sets. Work consumes exact forge worker-hours, nearby private construction materials and House silver using the registered manufacture recipes as the physical cost basis. Missing or destroyed units require separate armory replacement stock."
+  },
+  "cycle_seconds": 2592000,
+  "equipment_reserve_derivation": {
+    "attrition_disruption_contingency_basis_points": 2500,
+    "immediate_reissue_floor_basis_points": 2500,
+    "issue_counts": {
+      "Bastion Crossbow": 18500,
+      "Cavalry Lance": 12000,
+      "Composite Bow": 20060,
+      "Great War Bow": 50000,
+      "Heavy War Bow": 5000,
+      "Long Spear": 98560,
+      "One-Handed Long Sword": 170060,
+      "Tang Armor": 170060,
+      "Tang Helmet": 170060,
+      "Tang Horse Armor": 12000,
+      "Tang Shield": 170060,
+      "Tang Tack": 12000
+    },
+    "monthly_attrition_per_1000": {
+      "Bastion Crossbow": 8,
+      "Cavalry Lance": 10,
+      "Composite Bow": 8,
+      "Great War Bow": 8,
+      "Heavy War Bow": 8,
+      "Long Spear": 10,
+      "One-Handed Long Sword": 6,
+      "Tang Armor": 4,
+      "Tang Helmet": 5,
+      "Tang Horse Armor": 5,
+      "Tang Shield": 12,
+      "Tang Tack": 6
+    },
+    "planning_horizon_months": 24,
+    "rule": "For each reusable item, reserve target is the larger of a 25% immediate reissue floor or 24 months of expected normal attrition with 25% disruption contingency. Current issue is derived from exact role establishments. Production replenishes toward this target but never creates equipment for free."
+  },
+  "estate_agriculture": {
+    "average_harvested_fodder_output_kg_per_month": 4166667,
+    "average_usable_food_output_kg_per_month": 22733333,
+    "civilian_staple_ration_kg_per_day": 0.68,
+    "gross_food_output_kg_per_year": 310000000,
+    "gross_staple_yield_kg_per_ha_year": 2500.0,
+    "harvested_fodder_output_kg_per_year": 50000000,
+    "military_staple_ration_kg_per_day": 0.9,
+    "normal_processing_storage_loss_fraction": 0.04,
+    "productive_asset_condition_ref": "state/infrastructure/settlements.json#/sites/loc_tang_manor/productive_assets",
+    "protected_agricultural_workers": 50000,
+    "resident_mount_fodder_kg_per_day": 4.0,
+    "rule": "Monthly settlement derives food from the exact 1,240 km2 staple-food land and saved productive-asset condition. Consumption is recomputed from current Tang Manor civilians plus permanent House military bodies physically resident inside the estate. Fodder consumption is recomputed from House heavy warhorses physically resident or held in the Tang depot. Output and stock are physical and storage-bounded; closed gates do not stop internal production, while burned fields, damaged waterworks or destroyed storage reduce it.",
+    "scope": "Tang Manor permanent civilian population + Sword Manor + Four Bastion Corps + House Tang troops physically resident inside Tang Manor",
+    "seed_reserve_fraction": 0.08,
+    "staple_food_land_ha": 124000,
+    "usable_food_output_kg_per_year": 272800000
+  },
+  "fortress_support_industry": {
+    "outputs": {
+      "carts": {
+        "silver_per_unit": 3,
+        "units_per_worker_month": 0.08,
+        "work_share_basis_points": 2000,
+        "workforce": "stable_remount_and_carriage_workers"
+      },
+      "construction_material_units": {
+        "silver_per_unit": 1,
+        "units_per_worker_month": 0.5,
+        "work_share_basis_points": 3000,
+        "workforce": "construction_and_maintenance_workers"
+      },
+      "iron_tonnes": {
+        "silver_per_unit": 4,
+        "units_per_worker_month": 0.015,
+        "work_share_basis_points": 2500,
+        "workforce": "resource_extraction_and_forestry"
+      },
+      "medicine_lots": {
+        "silver_per_unit": 1,
+        "units_per_worker_month": 2.0,
+        "work_share_basis_points": 4000,
+        "workforce": "sword_manor_civilian_medical"
+      },
+      "prepared_drop_stones_20kg": {
+        "silver_per_unit": 0,
+        "units_per_worker_month": 1.5,
+        "work_share_basis_points": 1000,
+        "workforce": "resource_extraction_and_forestry"
+      },
+      "prepared_firepots": {
+        "silver_per_unit": 1,
+        "units_per_worker_month": 0.4,
+        "work_share_basis_points": 300,
+        "workforce": "craft_and_industry"
+      },
+      "timber_tonnes": {
+        "silver_per_unit": 1,
+        "units_per_worker_month": 0.05,
+        "work_share_basis_points": 3500,
+        "workforce": "resource_extraction_and_forestry"
+      },
+      "trebuchet_stones_50kg": {
+        "silver_per_unit": 0,
+        "units_per_worker_month": 0.6,
+        "work_share_basis_points": 1000,
+        "workforce": "resource_extraction_and_forestry"
+      }
+    },
+    "resource_basis_ref": "game/data/world/tang-manor-master-plan.json#resource_network",
+    "rule": "Tang Manor may replenish basic fortress support from its exact forestry, mines/quarries, medicinal-crop, carriage, construction and craft workforce. Output is labor-, treasury- and storage-bounded and never draws Qin state stock."
+  },
+  "items": [
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 3,
+      "record_id": "tang_restricted_equipment",
+      "reserve_key": "Tang Armor unissued reserve",
+      "silver_per_batch": 12,
+      "total_key": "Tang Armor total",
+      "units_per_worker_month": 0.75,
+      "work_share_basis_points": 1600,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 1,
+      "record_id": "tang_restricted_equipment",
+      "reserve_key": "Tang Helmet unissued reserve",
+      "silver_per_batch": 5,
+      "total_key": "Tang Helmet total",
+      "units_per_worker_month": 1.2,
+      "work_share_basis_points": 900,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 1,
+      "record_id": "tang_restricted_equipment",
+      "reserve_key": "Tang Shield unissued reserve",
+      "silver_per_batch": 4,
+      "total_key": "Tang Shield total",
+      "units_per_worker_month": 1.5,
+      "work_share_basis_points": 900,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 4,
+      "record_id": "tang_restricted_equipment",
+      "reserve_key": "Tang Horse Armor reserve",
+      "silver_per_batch": 18,
+      "total_key": "Tang Horse Armor total",
+      "units_per_worker_month": 0.5,
+      "work_share_basis_points": 600,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 1,
+      "record_id": "tang_restricted_equipment",
+      "reserve_key": "Tang Tack reserve",
+      "silver_per_batch": 3,
+      "total_key": "Tang Tack total",
+      "units_per_worker_month": 2.0,
+      "work_share_basis_points": 5000,
+      "workforce": "stable_remount_and_carriage_workers"
+    },
+    {
+      "batch_size": 2,
+      "material_units_per_batch": 1,
+      "record_id": "tang_restricted_equipment",
+      "reserve_key": "Long Spear unissued reserve",
+      "silver_per_batch": 4,
+      "total_key": "Long Spear total",
+      "units_per_worker_month": 4.0,
+      "work_share_basis_points": 800,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 1,
+      "record_id": "tang_restricted_equipment",
+      "reserve_key": "One-Handed Long Sword unissued reserve",
+      "silver_per_batch": 6,
+      "total_key": "One-Handed Long Sword total",
+      "units_per_worker_month": 1.5,
+      "work_share_basis_points": 1000,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 2,
+      "material_units_per_batch": 1,
+      "record_id": "tang_restricted_equipment",
+      "reserve_key": "Cavalry Lance unissued reserve",
+      "silver_per_batch": 4,
+      "total_key": "Cavalry Lance total",
+      "units_per_worker_month": 3.0,
+      "work_share_basis_points": 350,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 1,
+      "record_id": "bows",
+      "reserve_key": "Great War Bow armory reserve",
+      "silver_per_batch": 8,
+      "total_key": "Great War Bow total",
+      "units_per_worker_month": 1.5,
+      "work_share_basis_points": 600,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 1,
+      "record_id": "bows",
+      "reserve_key": "Heavy War Bow armory reserve",
+      "silver_per_batch": 6,
+      "total_key": "Heavy War Bow total",
+      "units_per_worker_month": 2.0,
+      "work_share_basis_points": 500,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 1,
+      "record_id": "bows",
+      "reserve_key": "Composite Bow armory reserve",
+      "silver_per_batch": 5,
+      "total_key": "Composite Bow total",
+      "units_per_worker_month": 2.5,
+      "work_share_basis_points": 700,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 100,
+      "material_units_per_batch": 1,
+      "record_id": "ammunition",
+      "reserve_key": "War Arrows strategic reserve",
+      "silver_per_batch": 5,
+      "total_key": "War Arrows total",
+      "units_per_worker_month": 1000.0,
+      "work_share_basis_points": 900,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 100,
+      "material_units_per_batch": 1,
+      "record_id": "ammunition",
+      "reserve_key": "War Bolts strategic reserve",
+      "silver_per_batch": 6,
+      "total_key": "War Bolts total",
+      "units_per_worker_month": 700.0,
+      "work_share_basis_points": 600,
+      "workforce": "forge_and_armory_workers"
+    },
+    {
+      "batch_size": 1,
+      "material_units_per_batch": 1,
+      "record_id": "tang_restricted_equipment",
+      "reserve_key": "Bastion Crossbow unissued reserve",
+      "silver_per_batch": 7,
+      "total_key": "Bastion Crossbow total",
+      "units_per_worker_month": 1.5,
+      "work_share_basis_points": 550,
+      "workforce": "forge_and_armory_workers"
+    }
+  ],
+  "procurement_regions": [
+    "loc_qin_regional_01",
+    "loc_kanyou"
+  ],
+  "remounts": [
+    {
+      "private_horse_stock_per_mount": 1,
+      "record_id": "mounts",
+      "reserve_key": "Tang Heavy Warhorse reserve",
+      "silver_per_mount": 30,
+      "total_key": "Tang Heavy Warhorse total",
+      "units_per_worker_month": 0.15,
+      "work_share_basis_points": 3000,
+      "workforce": "stable_remount_and_carriage_workers"
+    }
+  ],
+  "reserve_targets": {
+    "Bastion Crossbow unissued reserve": 4625,
+    "Cavalry Lance unissued reserve": 3600,
+    "Composite Bow armory reserve": 5015,
+    "Great War Bow armory reserve": 12500,
+    "Heavy War Bow armory reserve": 1250,
+    "Long Spear unissued reserve": 29568,
+    "One-Handed Long Sword unissued reserve": 42515,
+    "Tang Armor unissued reserve": 42515,
+    "Tang Heavy Warhorse reserve": 6000,
+    "Tang Helmet unissued reserve": 42515,
+    "Tang Horse Armor reserve": 3000,
+    "Tang Shield unissued reserve": 61222,
+    "Tang Tack reserve": 3000,
+    "War Arrows strategic reserve": 145916640,
+    "War Bolts strategic reserve": 26973000
+  },
+  "rule": "Monthly House production is bounded by the exact Tang Manor civilian workforce, estate agriculture, physical materials, treasury and storage. Armory reserve targets are current strategic stock requirements. Sword Manor trainee production excludes heavy lamellar, lamellar helmets, and medium shields unless a current program explicitly requires them.",
+  "schema": "house-tang-production",
+  "siege_logistics": {
+    "design_burden_people": 895060,
+    "design_house_heavy_warhorses": 18000,
+    "fodder_storage_capacity_kg": 220000000,
+    "grain_storage_capacity_kg": 500000000,
+    "rule": "Tang Manor is strategically autarkic for ordinary survival. The strategic buffer is finite physical stock, while enclosed farms, pasture, waterworks and industry continue producing during blockade when undamaged. Physical destruction, fire, contamination, labor loss or capture of productive districts can therefore create real shortages.",
+    "target_fodder_buffer_kg": 180000000,
+    "target_food_buffer_kg": 450000000
+  },
+  "workforce": {
+    "agricultural_workers_and_supervisors": 50000,
+    "construction_and_maintenance_workers": 6000,
+    "forge_and_armory_workers": 7000,
+    "stable_remount_and_carriage_workers": 5000,
+    "warehouse_and_granary_workers": 4500
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 75,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 185,
+    "physical_learning": 180,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 185,
+    "technical_learning": 142
+  },
+  "attributes": {
+    "Agility": 180,
+    "Awareness": 180,
+    "Composure": 185,
+    "Coordination": 185,
+    "Endurance": 180,
+    "Intelligence": 170,
+    "Presence": 195,
+    "Strength": 165,
+    "Toughness": 170
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 48.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Independent Mountain Confederation"
+  },
+  "behavior": {
+    "ambition_or_orientation": "unify and protect the mountain peoples while expanding their place in the wider world",
+    "core_traits": [
+      "commanding",
+      "fearless",
+      "politically adaptive"
+    ],
+    "decision_style": "tests people through small commitments before trusting them",
+    "failure_response": "tries to recover initiative rapidly",
+    "humor_style": "dry and regal",
+    "personal_preferences": [
+      "well-prepared equipment",
+      "clean chains of command"
+    ],
+    "source": "curated_canon_characterization_plus_campaign_state",
+    "stress_response": "takes extreme personal risks only when they unlock decisive tribal momentum",
+    "temperament": "commanding, pragmatic, fiercely independent",
+    "trust_style": "slow and evidence-based",
+    "values": [
+      "preserve and expand mountain unity",
+      "protect confederated tribes"
+    ]
+  },
+  "birth_date": "286-BCE-11-21",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 179.0,
+    "current_weight_kg": 71.5,
+    "frame": "average",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "unassigned",
+    "current_command_span": 0,
+    "office_or_command": "Mountain polity ruler",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.223,
+      "Awareness": 3.005,
+      "Composure": 1.921,
+      "Coordination": 0.223,
+      "Endurance": 0.297,
+      "Intelligence": 2.196,
+      "Presence": 1.053,
+      "Toughness": 0.297
+    },
+    "attribute_stimulus_hours_milli": 117600,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 336,
+    "skill_edu_banks": {
+      "Diplomacy": 5.272,
+      "Formation Command": 4.119,
+      "Navigation": 9.841,
+      "Riding": 3.546,
+      "Strategy": 4.119,
+      "Survival": 21.537
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_sword",
+  "goal_state": {
+    "current_goals": [
+      "preserve the mountain confederation and expand unity without surrendering independent authority"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Independent Mountain Confederation political and military obligations"
+    ],
+    "long_term_goals": [
+      "preserve the mountain confederation and expand unity without surrendering independent authority"
+    ],
+    "personal_desires": [
+      "unify and protect the mountain peoples while expanding their place in the wider world"
+    ]
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 41,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_independent mountain confederation_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_no_exact_grade_evidence"
+  },
+  "name": "Yotanwa",
+  "owner_id": "char_yotanwa",
+  "owner_type": "character",
+  "relationship_refs": [
+    "rel.char_yotanwa.char_bajio.queen_commander",
+    "rel.char_yotanwa.char_tajifu.queen_commander"
+  ],
+  "role_archetype": "mountain_ruler",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 185,
+    "Axe": 16,
+    "Bow": 14,
+    "Crossbow": 13,
+    "Dagger": 17,
+    "Defense": 185,
+    "Diplomacy": 30,
+    "Engineering": 17,
+    "Formation Command": 180,
+    "Formation Fighting": 16,
+    "Glaive": 17,
+    "Governance": 19,
+    "Grappling": 16,
+    "Intelligence Operations": 15,
+    "Intrigue": 13,
+    "Law": 21,
+    "Leadership": 195,
+    "Logistics": 14,
+    "Mace": 13,
+    "Mass Combat": 185,
+    "Medicine": 22,
+    "Navigation": 29,
+    "Riding": 180,
+    "Scouting": 16,
+    "Shield": 13,
+    "Spear": 13,
+    "Staff": 15,
+    "Stealth": 15,
+    "Strategy": 172,
+    "Survival": 40,
+    "Sword": 190,
+    "Tactics": 180,
+    "Trade": 23,
+    "Training": 25,
+    "Unarmed": 13
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_fee79a13b62eecfa0cf9",
+  "state": "Independent Mountain Confederation"
+}

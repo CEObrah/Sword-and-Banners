@@ -1,0 +1,14 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.bastion.red_crane",
+  "doctrine": {
+    "inherits": "doc.house_tang.core",
+    "institution_overlay_ref": "game/data/mil/institution-doctrine-overlays.json#house_tang",
+    "principles": [
+      "Operate registered fortress artillery through exact crew assignments and ammunition stocks.",
+      "Prioritize counter-battery, dense assault formations, siege works, bridges and breach approaches according to command order.",
+      "Artillery crews remain soldiers and can be reassigned only through higher-command orders with the resulting loss of weapon crew coverage recorded."
+    ],
+    "normal_layer": "fortress_artillery_and_counter_siege_fire"
+  }
+}

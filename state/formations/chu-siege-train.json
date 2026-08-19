@@ -1,0 +1,91 @@
+{
+  "administrative_owner": "state_chu",
+  "cohesion": 71,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_chu_5176a288c4c3",
+      "count": 3200
+    }
+  ],
+  "command_authority": "state_chu",
+  "commander_ref": "char_kouen",
+  "composition": {
+    "siege_engineering": 3200
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "low",
+    "reserve_commitment": 35,
+    "withdrawal_threshold": 45
+  },
+  "doctrine_ref": null,
+  "equipment_completeness": "0.9",
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_chu_siege_train",
+  "geographic_provenance": {
+    "basis": "replaced arbitrary seed parking with meaningful current regional disposition; ownership/personnel unchanged"
+  },
+  "location_ref": "loc_chu_regional_01",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 16000,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": false,
+  "morale": 70,
+  "mounts": {},
+  "name": "CHU Siege Train",
+  "owner_force_ref": "force_state_chu",
+  "personnel": 3200,
+  "readiness": 71,
+  "schema": "sword-formation",
+  "status": "forming",
+  "training_progress": 27,
+  "training_ref": null,
+  "command_structure": {
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 4,
+        "500_commander": 7,
+        "100_commander": 32
+      },
+      "active_billets": {
+        "1000_commander": 4,
+        "500_commander": 7,
+        "100_commander": 32
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    },
+    "unit_command": {
+      "commander_ref": "char_kouen",
+      "deputy_ref": null,
+      "external_to_fighting_establishment": true,
+      "rule": "persistent top commander/deputy are command-establishment personnel outside formation.personnel; internal 1000/500/100 command remains inside fighting establishment"
+    }
+  },
+  "establishment_composition": {
+    "siege_engineering": 3200
+  },
+  "establishment_personnel": 3200
+}

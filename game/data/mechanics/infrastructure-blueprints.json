@@ -1,0 +1,210 @@
+{
+  "schema": "infrastructure-blueprints",
+  "measurement_policy": "Exact gameplay construction blueprints calibrated from the existing settlement facility economy. These are physical game authorities, not claims of archaeological measurement.",
+  "blueprints": {
+    "settlement_public_well_cluster": {
+      "category": "water",
+      "unit_name": "six-well public water cluster",
+      "silver_cost": 3000,
+      "construction_material_units": 1000,
+      "labor_hours": 8000,
+      "minimum_calendar_hours": 168,
+      "support_capacity_add": {
+        "water_capacity_people": 1000
+      },
+      "works_add": {
+        "potable_water_capacity_liters_per_day": 120000,
+        "public_wells": 6
+      },
+      "physical_geometry": {
+        "well_count": 6,
+        "shaft_internal_diameter_m": 1.2,
+        "design_depth_m": 18.0
+      }
+    },
+    "settlement_housing_courtyard_block": {
+      "category": "housing",
+      "unit_name": "courtyard housing district for 1,000 residents",
+      "silver_cost": 22500,
+      "construction_material_units": 10000,
+      "labor_hours": 220000,
+      "minimum_calendar_hours": 720,
+      "support_capacity_add": {
+        "housing_capacity_people": 1000
+      },
+      "works_add": {
+        "housing_floor_area_m2": 30000,
+        "housing_land_area_m2": 50000
+      },
+      "physical_geometry": {
+        "design_residents": 1000,
+        "built_floor_area_m2": 30000,
+        "district_land_area_m2": 50000
+      }
+    },
+    "settlement_drainage_latrine_district": {
+      "category": "sanitation",
+      "unit_name": "drainage and latrine district for 5,000 residents",
+      "silver_cost": 16000,
+      "construction_material_units": 6000,
+      "labor_hours": 100000,
+      "minimum_calendar_hours": 720,
+      "support_capacity_add": {
+        "sanitation_capacity_people": 5000
+      },
+      "works_add": {
+        "lined_drain_length_km": 12.0,
+        "public_latrine_points": 250
+      },
+      "physical_geometry": {
+        "lined_drain_length_km": 12.0,
+        "public_latrine_points": 250
+      }
+    },
+    "settlement_granary_1000t": {
+      "category": "food_storage",
+      "unit_name": "1,000 tonne dry granary complex",
+      "silver_cost": 3500,
+      "construction_material_units": 2000,
+      "labor_hours": 35000,
+      "minimum_calendar_hours": 1080,
+      "support_capacity_add": {
+        "food_storage_distribution_capacity_people": 3000
+      },
+      "works_add": {
+        "granary_storage_kg": 1000000,
+        "granary_floor_area_m2": 8000
+      },
+      "physical_geometry": {
+        "dry_storage_kg": 1000000,
+        "floor_area_m2": 8000,
+        "raised_floor": true
+      }
+    },
+    "settlement_workshop_court_120": {
+      "category": "industry",
+      "unit_name": "120-workstation craft court",
+      "silver_cost": 9000,
+      "construction_material_units": 5000,
+      "labor_hours": 88000,
+      "minimum_calendar_hours": 1800,
+      "support_capacity_add": {
+        "ordinary_work_access_capacity_people": 600
+      },
+      "works_add": {
+        "workshop_floor_area_m2": 12000,
+        "skilled_workstations": 120
+      },
+      "physical_geometry": {
+        "workstations": 120,
+        "floor_area_m2": 12000
+      }
+    },
+    "settlement_irrigation_1km2": {
+      "category": "agriculture",
+      "unit_name": "irrigation works for 1 km2 of cultivated land",
+      "silver_cost": 6000,
+      "construction_material_units": 3000,
+      "labor_hours": 120000,
+      "minimum_calendar_hours": 1440,
+      "support_capacity_add": {},
+      "works_add": {
+        "irrigated_area_km2": 1.0,
+        "irrigation_canal_length_km": 8.0
+      },
+      "physical_geometry": {
+        "served_area_km2": 1.0,
+        "canal_length_km": 8.0,
+        "main_canal_design_width_m": 3.0
+      }
+    },
+    "settlement_road_10km": {
+      "category": "transport",
+      "unit_name": "10 km all-weather trunk-road section",
+      "silver_cost": 50000,
+      "construction_material_units": 15000,
+      "labor_hours": 240000,
+      "minimum_calendar_hours": 4320,
+      "support_capacity_add": {},
+      "works_add": {
+        "improved_road_length_km": 10.0
+      },
+      "physical_geometry": {
+        "length_km": 10.0,
+        "carriageway_width_m": 6.0,
+        "drainage_ditches": true
+      }
+    },
+    "military_barracks_1000": {
+      "category": "military_housing",
+      "unit_name": "barracks for 1,000 personnel",
+      "silver_cost": 14000,
+      "construction_material_units": 7000,
+      "labor_hours": 144000,
+      "minimum_calendar_hours": 2400,
+      "support_capacity_add": {
+        "housing_capacity_people": 1000
+      },
+      "works_add": {
+        "military_barracks_beds": 1000
+      },
+      "physical_geometry": {
+        "beds": 1000,
+        "design_floor_area_m2": 18000
+      }
+    },
+    "military_stable_500": {
+      "category": "stabling",
+      "unit_name": "stabling complex for 500 horses",
+      "silver_cost": 8750,
+      "construction_material_units": 4500,
+      "labor_hours": 90000,
+      "minimum_calendar_hours": 1440,
+      "support_capacity_add": {},
+      "works_add": {
+        "stable_capacity_horses": 500
+      },
+      "physical_geometry": {
+        "stalls": 500,
+        "design_floor_area_m2": 12500,
+        "drainage": true
+      }
+    },
+    "training_complex_1000": {
+      "category": "training",
+      "unit_name": "training complex for 1,000 simultaneous trainees",
+      "silver_cost": 3000,
+      "construction_material_units": 1800,
+      "labor_hours": 30000,
+      "minimum_calendar_hours": 720,
+      "support_capacity_add": {},
+      "works_add": {
+        "training_capacity_people": 1000,
+        "training_ground_area_m2": 120000
+      },
+      "physical_geometry": {
+        "simultaneous_trainees": 1000,
+        "training_ground_area_m2": 120000
+      }
+    },
+    "settlement_foundation_package": {
+      "category": "settlement_foundation",
+      "unit_name": "new settlement foundation for 1,000 residents",
+      "silver_cost": 55000,
+      "construction_material_units": 22000,
+      "labor_hours": 420000,
+      "minimum_calendar_hours": 2160,
+      "support_capacity_add": {},
+      "works_add": {},
+      "physical_geometry": {
+        "design_residents": 1000,
+        "initial_access_road_km": 5.0,
+        "access_road_width_m": 4.0,
+        "public_wells": 6,
+        "housing_floor_area_m2": 30000,
+        "initial_granary_storage_kg": 350000,
+        "initial_workshop_positions": 40
+      }
+    }
+  }
+}

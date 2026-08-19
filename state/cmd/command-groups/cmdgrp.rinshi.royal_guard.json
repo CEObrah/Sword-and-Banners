@@ -1,0 +1,37 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.rinshi.royal_guard",
+  "authority_ref": "state_qi",
+  "commander_ref": "char_ou_ken",
+  "deputy_ref": null,
+  "direct_person_refs": [],
+  "parent_command_group_ref": null,
+  "display_name": "Rinshi Royal Guard Command",
+  "location": "loc_ei",
+  "context": "state_capital_guard_command",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [],
+  "attachment_rule": "This zero-body command may attach to a larger army as one subordinate command while all nested formations remain intact; command authority never changes manpower ownership.",
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_qi_rinshi_royal_guard"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 10000,
+    "authorized_direct_unit_slots": 1,
+    "current_recursive_strength": 10000,
+    "current_direct_formation_strength": 10000,
+    "recursive_formation_count": 1,
+    "direct_unit_count": 1,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "state_capital_guard_command",
+    "reserve_doctrine": "Preserve surviving Units and officer cadres; casualty losses change strength, not durable rank. Consolidation, dissolution, reassignment and promotion require deliberate authority.",
+    "staffing_policy": "Attach only exact physically available formations or intact nested armies under lawful authority; prefer delegation rather than flattening large subordinate commands.",
+    "history": []
+  }
+}

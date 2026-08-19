@@ -1,0 +1,50 @@
+{
+  "schema": "institution_doctrine_overlays",
+  "overlays": {
+    "state_force": {
+      "style": [
+        "discipline",
+        "combined arms",
+        "preserve operational reserves"
+      ],
+      "rule": "institutional orders and logistics constrain maneuver"
+    },
+    "mercenary": {
+      "style": [
+        "contract objective",
+        "preserve company viability",
+        "fight within negotiated risk/cost"
+      ],
+      "rule": "company-specific tendencies/contract modify aggression and withdrawal"
+    },
+    "escort": {
+      "style": [
+        "protect principal/cargo",
+        "keep route/extraction open",
+        "avoid battles unrelated to contract"
+      ]
+    },
+    "school": {
+      "style": [
+        "instructor-led discipline",
+        "protect students",
+        "mobilization only when authorized"
+      ]
+    },
+    "house_tang": {
+      "style": [
+        "protect command/objective",
+        "disciplined reserve",
+        "controlled pursuit",
+        "combined arms"
+      ]
+    },
+    "irregular": {
+      "style": [
+        "local terrain",
+        "opportunistic action",
+        "preserve force when strategic support is weak"
+      ]
+    }
+  }
+}

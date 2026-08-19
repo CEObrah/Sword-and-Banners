@@ -1,0 +1,171 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 72,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 185,
+    "physical_learning": 146,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 185,
+    "technical_learning": 133
+  },
+  "attributes": {
+    "Agility": 117,
+    "Awareness": 180,
+    "Composure": 189,
+    "Coordination": 137,
+    "Endurance": 153,
+    "Intelligence": 192,
+    "Presence": 173,
+    "Strength": 129,
+    "Toughness": 148
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 56.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Zhao"
+  },
+  "birth_date": "280-BCE-03-08",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 178.0,
+    "current_weight_kg": 67.2,
+    "frame": "slight",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "unassigned",
+    "current_command_span": 0,
+    "office_or_command": "General / strategist",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.34,
+      "Awareness": 3.572,
+      "Composure": 1.263,
+      "Coordination": 0.17,
+      "Endurance": 0.396,
+      "Intelligence": 2.572,
+      "Presence": 0.818,
+      "Strength": 0.17,
+      "Toughness": 0.396
+    },
+    "attribute_stimulus_hours_milli": 137200,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 392,
+    "skill_edu_banks": {
+      "Athletics": 54.116,
+      "Defense": 2.706,
+      "Governance": 41.571,
+      "Mass Combat": 4.806,
+      "Navigation": 27.119,
+      "Survival": 5.707
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_court",
+  "goal_state": {
+    "current_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Zhao authority and resources"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Zhao political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 35,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_zhao_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "general",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_role_evidence"
+  },
+  "name": "Keisha",
+  "owner_id": "char_keisha",
+  "owner_type": "character",
+  "rank": "general",
+  "role_archetype": "strategist_general",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 48,
+    "Axe": 17,
+    "Bow": 16,
+    "Crossbow": 14,
+    "Dagger": 13,
+    "Defense": 130,
+    "Diplomacy": 24,
+    "Engineering": 16,
+    "Formation Command": 185,
+    "Formation Fighting": 17,
+    "Glaive": 15,
+    "Governance": 146,
+    "Grappling": 17,
+    "Intelligence Operations": 188,
+    "Intrigue": 14,
+    "Law": 21,
+    "Leadership": 179,
+    "Logistics": 182,
+    "Mace": 16,
+    "Mass Combat": 167,
+    "Medicine": 22,
+    "Navigation": 34,
+    "Riding": 17,
+    "Scouting": 16,
+    "Shield": 13,
+    "Spear": 13,
+    "Staff": 13,
+    "Stealth": 14,
+    "Strategy": 192,
+    "Survival": 39,
+    "Sword": 17,
+    "Tactics": 188,
+    "Trade": 23,
+    "Training": 24,
+    "Unarmed": 14
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_1bf386415391fd06316c",
+  "state": "Zhao"
+}

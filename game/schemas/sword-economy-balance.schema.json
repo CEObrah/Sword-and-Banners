@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "currency": {},
+    "prices_silver": {},
+    "schema": {
+      "const": "sword-economy-balance"
+    },
+    "service_issue": {},
+    "wages": {}
+  },
+  "required": [
+    "schema",
+    "currency",
+    "wages",
+    "service_issue",
+    "prices_silver"
+  ],
+  "type": "object"
+}

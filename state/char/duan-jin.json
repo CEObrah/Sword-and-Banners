@@ -1,0 +1,239 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": "Riding, Spear, Bow, Defense, Formation Fighting, Leadership, Tactics, Scouting, Navigation",
+    "growth_rule": "verified elapsed training only; smart rotation prioritizes legal next-rank deficits, current loadout skills, command/logistics needs, and weakest useful stats; no free progress",
+    "mode": "standing_role_training",
+    "resource_owner": "House Tang supplied command establishment",
+    "smart_rotation": "weakest_useful_then_promotion_gate_then_role_and_loadout; deterministic rotation avoids overtraining already-high skills",
+    "training_regimen_ref": "house_tang_max_sustainable"
+  },
+  "affiliation": [
+    "Tang Wei Personal Retinue",
+    "house_tang"
+  ],
+  "appearance": 90,
+  "appearance_source": "preserved_seed_value",
+  "aptitude": {
+    "academic_learning": 180,
+    "physical_learning": 176,
+    "social_learning": 175,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 185,
+    "technical_learning": 174
+  },
+  "attributes": {
+    "Agility": 170,
+    "Awareness": 185,
+    "Composure": 180,
+    "Coordination": 175,
+    "Endurance": 165,
+    "Intelligence": 165,
+    "Presence": 145,
+    "Strength": 145,
+    "Toughness": 160
+  },
+  "authority": "Formal commander of Tang Wei's Tang Champions under Tang Wei's command authority",
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "244-BCE-07-02T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive standard House Tang adult hours from the canonical training regimen; exact elapsed settlement remains authoritative",
+    "verified_hours_per_cycle": 240.0
+  },
+  "autonomous_development_history": [],
+  "behavior": {
+    "conflict_style": "states the risk once, offers the safest executable alternative, then obeys within his vow and authority",
+    "core_traits": "taciturn, vigilant, literal, field-practical, unwavering once committed",
+    "speech_pattern": "very few words; reports in threat, route, distance, and readiness order",
+    "values": "Tang Wei's life, clear orders, readiness, promises kept under pressure"
+  },
+  "birth_date": "272-BCE-03-18",
+  "body": {
+    "adult_height_cm": 179.0,
+    "current_weight_kg": 73.1,
+    "frame": "broad",
+    "growth_end_age": 18,
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "unit",
+    "current_command_span": 500,
+    "office_or_command": "Commander of Tang Wei's Tang Champions",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "command_assignment": {
+    "billet": "army_commander",
+    "command_group_ref": "cmdgrp.duan_jin.tang_champions_first",
+    "current_command_span": 500,
+    "external_to_fighting_establishment": true,
+    "rule": "Current command span follows exact surviving/assigned Units and may change without changing durable rank.",
+    "source": "current_exact_command_group"
+  },
+  "current_formation_id": "formation_tang_champions_first",
+  "current_location": "loc_qin_eastern_depot",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.29,
+      "Awareness": 1.958,
+      "Composure": 1.561,
+      "Coordination": 0.87,
+      "Endurance": 1.16,
+      "Intelligence": 1.668,
+      "Presence": 3.069,
+      "Strength": 2.611
+    },
+    "attribute_stimulus_hours_milli": 84000,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 336,
+    "skill_edu_banks": {
+      "Bow": 14.131,
+      "Defense": 3.768,
+      "Formation Fighting": 3.768,
+      "Leadership": 4.119,
+      "Riding": 3.768,
+      "Spear": 3.768,
+      "Tactics": 4.119
+    },
+    "training_credit": 0.0
+  },
+  "equipment_description": "Mounted command standard: great war bow, cavalry lance (spear-family), shield, one-handed long sword, Tang armor and helmet, heavy warhorse, tack and horse armor.",
+  "equipment_loadout_id": "loadout_house_champion",
+  "equipment_manifest": {
+    "carried_ammunition": 36,
+    "individual_custody": true,
+    "items": {
+      "ammunition_item": "ammo_arrow_war",
+      "body_armor": "armor_tang",
+      "helmet": "helmet_tang",
+      "horse_armor": "horse_armor_tang",
+      "mount": "horse_tang_heavy_war",
+      "primary_melee_weapon": "weapon_lance_cavalry",
+      "ranged_weapon": "weapon_bow_great_war",
+      "shield": "shield_tang",
+      "shield_state_when_shooting": "slung",
+      "shield_state_with_lance": "ready_offhand",
+      "sidearm": "weapon_sword_one_hand_long",
+      "tack": "tack_tang"
+    },
+    "loadout_id": "loadout_house_champion"
+  },
+  "fatigue": 0,
+  "goal_state": {
+    "current_goals": [
+      "keep Tang Wei's Tang Champions ready and execute Tang Wei's lawful orders"
+    ],
+    "current_orders": [
+      "command the Tang Champions under Tang Wei; preserve formation readiness until given a lawful movement or deployment order"
+    ],
+    "institutional_duties": [
+      "command formation_tang_champions_first",
+      "protect Tang Wei as sworn retainer"
+    ],
+    "long_term_goals": [
+      "keep Tang Wei alive and the personal retinue coherent under field conditions"
+    ],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_boundary": "Knows Tang Champions readiness, personal-retinue orders, current depot conditions, and information separately delivered to him; no hidden campaign knowledge.",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "life_course_state": {
+    "annual_reviews": 0,
+    "career_changes": 0,
+    "injuries": 0,
+    "location_changes": 2,
+    "relationship_events": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "loyalty": "permanent lifetime vow; zero wage",
+  "military_command": {
+    "deputy_ref": "char_shen_rui",
+    "external_to_fighting_strength": true,
+    "formation_scope": "formation_tang_champions_first",
+    "higher_commander_ref": "char_tang_wei",
+    "level": "unit"
+  },
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded",
+    "rule": "Only explicit career promotion/demotion changes grade; billet and current troop span changes do not.",
+    "source": "current_baseline"
+  },
+  "name": "Duan Jin",
+  "owner_id": "char_duan_jin",
+  "owner_type": "character",
+  "relationship_refs": [
+    "rel.char_duan_jin.char_tang_wei.sworn_deputy"
+  ],
+  "role": "Commander of Tang Wei's Tang Champions; principal sworn retainer",
+  "runtime": {
+    "last_settled_at": "244-BCE-07-29T20:22:48+08:00"
+  },
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 175,
+    "Axe": 78,
+    "Bow": 160,
+    "Crossbow": 76,
+    "Dagger": 78,
+    "Defense": 180,
+    "Diplomacy": 75,
+    "Engineering": 131,
+    "Formation Command": 170,
+    "Formation Fighting": 185,
+    "Glaive": 78,
+    "Governance": 105,
+    "Grappling": 93,
+    "Intelligence Operations": 125,
+    "Intrigue": 88,
+    "Law": 145,
+    "Leadership": 170,
+    "Logistics": 170,
+    "Mace": 78,
+    "Mass Combat": 170,
+    "Medicine": 109,
+    "Navigation": 175,
+    "Riding": 190,
+    "Scouting": 185,
+    "Shield": 170,
+    "Spear": 185,
+    "Staff": 78,
+    "Stealth": 130,
+    "Strategy": 145,
+    "Survival": 165,
+    "Sword": 165,
+    "Tactics": 170,
+    "Trade": 122,
+    "Training": 137,
+    "Unarmed": 145
+  },
+  "source_class": "internal_or_local_named",
+  "specializations": [
+    {
+      "Cavalry Command": 185
+    },
+    {
+      "Bodyguard Interception": 190
+    },
+    {
+      "Route Selection": 180
+    },
+    {
+      "Tactical Communication": 175
+    }
+  ],
+  "stable_seed": "seed_e68c94f835e5a13ac596"
+}

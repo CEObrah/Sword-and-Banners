@@ -1,0 +1,147 @@
+{
+  "schema": "sword-formation",
+  "formation_ref": "formation_house_mou_family_02",
+  "owner_force_ref": "force_house_mou_family",
+  "administrative_owner": "house_mou_family",
+  "name": "House Mou Family Maneuver Unit 2",
+  "personnel": 3000,
+  "composition": {
+    "household_retainer": 1650,
+    "cavalry": 900,
+    "archer": 450
+  },
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_house_mou_family_household_retainer_standing",
+      "count": 1650,
+      "role": "household_retainer"
+    },
+    {
+      "cohort_id": "cohort_force_house_mou_family_cavalry_standing",
+      "count": 900,
+      "role": "cavalry"
+    },
+    {
+      "cohort_id": "cohort_force_house_mou_family_archer_standing",
+      "count": 450,
+      "role": "archer"
+    }
+  ],
+  "location_ref": "loc_qin_regional_01",
+  "command_authority": "char_mou_gou",
+  "commander_ref": null,
+  "deputy_ref": null,
+  "command_structure": {
+    "unit_command": {
+      "commander_ref": null,
+      "deputy_post": "materialize_when_relevant",
+      "external_to_fighting_establishment": true
+    },
+    "internal_hierarchy": {
+      "by_role": {
+        "household_retainer": {
+          "commanders_1000": 1,
+          "commanders_500": 3,
+          "commanders_100": 16,
+          "counted_inside_role_strength": true
+        },
+        "cavalry": {
+          "commanders_1000": 0,
+          "commanders_500": 1,
+          "commanders_100": 9,
+          "counted_inside_role_strength": true
+        },
+        "archer": {
+          "commanders_1000": 0,
+          "commanders_500": 0,
+          "commanders_100": 4,
+          "counted_inside_role_strength": true
+        }
+      },
+      "summary": [
+        {
+          "scale": 1000,
+          "count": 1,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 500,
+          "count": 4,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 100,
+          "count": 29,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        }
+      ],
+      "representation_rule": "Embedded 1,000/500/100 commanders are bodies inside each role component. Aggregate command slots do not add manpower. Materialize an existing slot only when individual relevance requires it."
+    },
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 1,
+        "500_commander": 4,
+        "100_commander": 29
+      },
+      "active_billets": {
+        "1000_commander": 1,
+        "500_commander": 4,
+        "100_commander": 29
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 2,
+        "500_commander": 2,
+        "100_commander": 1
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    }
+  },
+  "doctrine_ref": "household_combined_arms",
+  "equipment_units_by_role": {
+    "household_retainer": 1650,
+    "cavalry": 900,
+    "archer": 450
+  },
+  "equipment_completeness": "0.9000",
+  "experience": "trained",
+  "fatigue": 0,
+  "cohesion": 78,
+  "morale": 80,
+  "readiness": 78,
+  "mobilized": false,
+  "status": "ready",
+  "mounts": {
+    "horse_war_military": 900
+  },
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 81000,
+    "war_bolts": 0
+  },
+  "higher_command_ref": "cmdgrp.house_mou_family.field_army",
+  "establishment_composition": {
+    "household_retainer": 1650,
+    "cavalry": 900,
+    "archer": 450
+  },
+  "establishment_personnel": 3000
+}

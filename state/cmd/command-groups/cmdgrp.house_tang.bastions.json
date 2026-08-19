@@ -1,0 +1,60 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.house_tang.bastions",
+  "authority_ref": "house_tang",
+  "commander_ref": "char_mu_zhen",
+  "deputy_ref": "char_he_shan",
+  "direct_person_refs": [
+    "char_he_shan"
+  ],
+  "parent_command_group_ref": "cmdgrp.house_tang.field_army",
+  "display_name": "Four Bastion Corps Command",
+  "location": "loc_tang_manor",
+  "context": "field_army_branch_fortress_corps",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [
+    "char_he_shan"
+  ],
+  "standing_orders": [
+    {
+      "order_ref": "bastion_outer_defense_default",
+      "text": "Default Tang Manor assignment is the outer wall, gate, towers, moat, artillery positions, engineering works, and outer perimeter. The Corps remain inside the House Tang Grand Field Army and may be reassigned by higher command when operationally necessary.",
+      "issued_at": "244-BCE-07-29T20:22:48+08:00",
+      "issued_by": "char_tang_zhu"
+    }
+  ],
+  "units": [
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.bastion.iron_rampart"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.bastion.red_crane"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.bastion.white_lantern"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.bastion.deep_earth"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 110000,
+    "authorized_direct_unit_slots": 4,
+    "current_recursive_strength": 110000,
+    "current_direct_formation_strength": 0,
+    "recursive_formation_count": 26,
+    "direct_unit_count": 4,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "field_army_branch_fortress_corps",
+    "reserve_doctrine": "Preserve surviving Units and officer cadres; casualty losses change strength, not durable rank. Consolidation, dissolution, reassignment and promotion require deliberate authority.",
+    "staffing_policy": "Attach only exact physically available formations or intact nested armies under lawful authority; prefer delegation rather than flattening large subordinate commands.",
+    "history": []
+  }
+}

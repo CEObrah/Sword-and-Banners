@@ -1,0 +1,203 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": [
+      "Sword",
+      "Leadership",
+      "Defense",
+      "Diplomacy",
+      "Intrigue",
+      "Athletics"
+    ],
+    "growth_rule": "verified elapsed training only; current role, assignment, useful deficits, instructors and lawful opportunity determine development; future canon skill is never pre-granted",
+    "mode": "career_role_training",
+    "training_regimen_ref": "civilian_skilled"
+  },
+  "age_basis": "exact_profile",
+  "age_stage": "adolescent",
+  "appearance": 85,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 107,
+    "physical_learning": 103,
+    "social_learning": 94,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 91,
+    "technical_learning": 86
+  },
+  "attributes": {
+    "Agility": 90,
+    "Awareness": 90,
+    "Composure": 98,
+    "Coordination": 94,
+    "Endurance": 105,
+    "Intelligence": 92,
+    "Presence": 90,
+    "Strength": 76,
+    "Toughness": 100
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 48.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Qin"
+  },
+  "behavior": {
+    "decision_style": "pursues concrete openings to train, prove himself, protect his shared path with Shin, and enter consequential service rather than waiting passively for status",
+    "evidence_boundary": "This anchor is derived only from the saved current role, goal and opening-campaign obligations. Do not infer unrelated private traits, future development or later-series behavior from it.",
+    "pressure_behavior": "under pressure, favors action that preserves the shared objective and a future path forward rather than prestige for its own sake",
+    "priority_order": [
+      "survive and protect the immediate opportunity",
+      "train and improve through real experience",
+      "seize lawful openings that move him toward the battlefield world he seeks"
+    ],
+    "source": "current_campaign_role_goal_anchor"
+  },
+  "birth_date": "259-BCE-10-10",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 179.0,
+    "current_weight_kg": 55.2,
+    "frame": "average",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "appointments": [
+      {
+        "assignment_ref": "house_shou_bun_kun_household",
+        "at": "244-BCE-07-29T20:22:48+08:00",
+        "basis": "current_authority",
+        "office_or_command": "No military office; Shou Bun Kun body-double candidate under observation",
+        "rule": "current assignment only; creates no guaranteed future promotion or canon outcome"
+      }
+    ],
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_assignment_ref": "house_shou_bun_kun_household",
+    "current_professional_path": "royal_service_candidate",
+    "future_canon_guaranteed": false,
+    "office_or_command": "No military office; Shou Bun Kun body-double candidate under observation",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "current_location": "loc_jouto_village",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Awareness": 4.177,
+      "Composure": 0.617,
+      "Intelligence": 3.996,
+      "Presence": 1.828
+    },
+    "attribute_stimulus_hours_milli": 117600,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 336,
+    "skill_edu_banks": {
+      "Governance": 26.903,
+      "Navigation": 26.729,
+      "Strategy": 24.889,
+      "Tactics": 24.889,
+      "Trade": 25.709,
+      "Training": 24.889
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_sword",
+  "goal_state": {
+    "current_goals": [
+      "train beside Shin and seize the first lawful opportunity to enter the world of generals"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": true,
+  "life_course_age_index": 14,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "Jouto Village",
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_no_exact_grade_evidence"
+  },
+  "name": "Hyou",
+  "owner_id": "char_hyou",
+  "owner_type": "character",
+  "role": "Jouto bonded laborer; royal body-double candidate under observation",
+  "role_archetype": "youth_leader",
+  "runtime": {},
+  "runtime_status": "active_shared_process_participant",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 98,
+    "Axe": 14,
+    "Bow": 0,
+    "Crossbow": 17,
+    "Dagger": 13,
+    "Defense": 80,
+    "Diplomacy": 55,
+    "Engineering": 14,
+    "Formation Command": 0,
+    "Formation Fighting": 0,
+    "Glaive": 0,
+    "Governance": 20,
+    "Grappling": 15,
+    "Intelligence Operations": 13,
+    "Intrigue": 14,
+    "Law": 19,
+    "Leadership": 65,
+    "Logistics": 0,
+    "Mace": 15,
+    "Mass Combat": 0,
+    "Medicine": 18,
+    "Navigation": 28,
+    "Riding": 0,
+    "Scouting": 13,
+    "Shield": 17,
+    "Spear": 15,
+    "Staff": 15,
+    "Stealth": 14,
+    "Strategy": 25,
+    "Survival": 42,
+    "Sword": 86,
+    "Tactics": 35,
+    "Trade": 24,
+    "Training": 26,
+    "Unarmed": 15
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_a5483f5315333e05f6fa",
+  "state": "Qin"
+}

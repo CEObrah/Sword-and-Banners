@@ -1,0 +1,365 @@
+{
+  "schema": "siege-engineering-blueprints",
+  "measurement_policy": "exact game engineering blueprints; dimensions and requirements are authoritative for siege admission and construction",
+  "blueprints": {
+    "siege_ladder_8m": {
+      "kind": "assault_ladder",
+      "length_m": 8.0,
+      "width_m": 0.65,
+      "mass_kg": 120.0,
+      "safe_wall_height_m": 7.2,
+      "crew_min": 4,
+      "crew_optimal": 8,
+      "materials": {
+        "construction_material_units": 12
+      },
+      "labor_hours": 40,
+      "wheeled": false,
+      "fire_susceptibility": 0.9,
+      "engineer_min": 0
+    },
+    "siege_ladder_16m": {
+      "kind": "assault_ladder",
+      "length_m": 16.0,
+      "width_m": 0.75,
+      "mass_kg": 300.0,
+      "safe_wall_height_m": 14.8,
+      "crew_min": 10,
+      "crew_optimal": 18,
+      "materials": {
+        "construction_material_units": 30
+      },
+      "labor_hours": 100,
+      "wheeled": false,
+      "fire_susceptibility": 0.9,
+      "engineer_min": 0
+    },
+    "siege_ladder_24m": {
+      "kind": "assault_ladder",
+      "length_m": 24.0,
+      "width_m": 0.85,
+      "mass_kg": 550.0,
+      "safe_wall_height_m": 22.5,
+      "crew_min": 18,
+      "crew_optimal": 30,
+      "materials": {
+        "construction_material_units": 55
+      },
+      "labor_hours": 190,
+      "wheeled": false,
+      "fire_susceptibility": 0.9,
+      "engineer_min": 2
+    },
+    "siege_ladder_32m": {
+      "kind": "assault_ladder",
+      "length_m": 32.0,
+      "width_m": 1.0,
+      "mass_kg": 850.0,
+      "safe_wall_height_m": 30.5,
+      "crew_min": 28,
+      "crew_optimal": 48,
+      "materials": {
+        "construction_material_units": 85
+      },
+      "labor_hours": 300,
+      "wheeled": false,
+      "fire_susceptibility": 0.9,
+      "engineer_min": 4
+    },
+    "siege_hook_rope_30m": {
+      "kind": "grapnel_rope",
+      "rope_length_m": 30.0,
+      "safe_static_load_kg": 1600.0,
+      "mass_kg": 42.0,
+      "crew_min": 2,
+      "crew_optimal": 4,
+      "materials": {
+        "construction_material_units": 6
+      },
+      "labor_hours": 16,
+      "wheeled": false,
+      "fire_susceptibility": 0.7,
+      "engineer_min": 0
+    },
+    "siege_mantlet": {
+      "kind": "mantlet",
+      "height_m": 2.2,
+      "width_m": 1.8,
+      "depth_m": 0.55,
+      "mass_kg": 780.0,
+      "crew_min": 4,
+      "crew_optimal": 8,
+      "materials": {
+        "construction_material_units": 80
+      },
+      "labor_hours": 120,
+      "wheeled": true,
+      "fire_susceptibility": 0.75,
+      "engineer_min": 0
+    },
+    "siege_heavy_mantlet": {
+      "kind": "mantlet",
+      "height_m": 2.6,
+      "width_m": 2.4,
+      "depth_m": 0.8,
+      "mass_kg": 1650.0,
+      "crew_min": 8,
+      "crew_optimal": 14,
+      "materials": {
+        "construction_material_units": 170
+      },
+      "labor_hours": 230,
+      "wheeled": true,
+      "fire_susceptibility": 0.7,
+      "engineer_min": 2
+    },
+    "siege_gallery_12m": {
+      "kind": "covered_gallery",
+      "length_m": 12.0,
+      "width_m": 3.2,
+      "height_m": 2.8,
+      "mass_kg": 6200.0,
+      "crew_min": 16,
+      "crew_optimal": 30,
+      "materials": {
+        "timber_tonnes": 6
+      },
+      "labor_hours": 920,
+      "wheeled": true,
+      "fire_susceptibility": 0.65,
+      "engineer_min": 8
+    },
+    "siege_light_ram": {
+      "kind": "battering_ram",
+      "length_m": 7.0,
+      "beam_mass_kg": 1800.0,
+      "covered": false,
+      "crew_min": 24,
+      "crew_optimal": 40,
+      "base_impact_index": 95.0,
+      "base_cycle_seconds": 16,
+      "materials": {
+        "timber_tonnes": 3
+      },
+      "labor_hours": 480,
+      "wheeled": true,
+      "fire_susceptibility": 0.85,
+      "engineer_min": 4
+    },
+    "siege_heavy_covered_ram": {
+      "kind": "battering_ram",
+      "length_m": 12.0,
+      "beam_mass_kg": 6200.0,
+      "covered": true,
+      "crew_min": 60,
+      "crew_optimal": 100,
+      "base_impact_index": 180.0,
+      "base_cycle_seconds": 20,
+      "materials": {
+        "timber_tonnes": 14,
+        "iron_tonnes": 2
+      },
+      "labor_hours": 2400,
+      "wheeled": true,
+      "fire_susceptibility": 0.6,
+      "engineer_min": 12
+    },
+    "siege_great_ram": {
+      "kind": "battering_ram",
+      "length_m": 18.0,
+      "beam_mass_kg": 14500.0,
+      "covered": true,
+      "crew_min": 120,
+      "crew_optimal": 200,
+      "base_impact_index": 300.0,
+      "base_cycle_seconds": 26,
+      "materials": {
+        "timber_tonnes": 31,
+        "iron_tonnes": 6
+      },
+      "labor_hours": 5600,
+      "wheeled": true,
+      "fire_susceptibility": 0.55,
+      "engineer_min": 24
+    },
+    "siege_tower_12m": {
+      "kind": "siege_tower",
+      "deck_height_m": 12.0,
+      "base_width_m": 6.0,
+      "base_length_m": 7.0,
+      "mass_tonnes": 28.0,
+      "crew_min": 80,
+      "crew_optimal": 140,
+      "max_wall_height_m": 11.0,
+      "materials": {
+        "timber_tonnes": 25,
+        "iron_tonnes": 2
+      },
+      "labor_hours": 5200,
+      "wheeled": true,
+      "fire_susceptibility": 0.8,
+      "engineer_min": 12
+    },
+    "siege_tower_20m": {
+      "kind": "siege_tower",
+      "deck_height_m": 20.0,
+      "base_width_m": 8.0,
+      "base_length_m": 9.0,
+      "mass_tonnes": 65.0,
+      "crew_min": 160,
+      "crew_optimal": 260,
+      "max_wall_height_m": 19.0,
+      "materials": {
+        "timber_tonnes": 58,
+        "iron_tonnes": 4
+      },
+      "labor_hours": 12000,
+      "wheeled": true,
+      "fire_susceptibility": 0.8,
+      "engineer_min": 24
+    },
+    "siege_tower_28m": {
+      "kind": "siege_tower",
+      "deck_height_m": 28.0,
+      "base_width_m": 10.0,
+      "base_length_m": 11.0,
+      "mass_tonnes": 112.0,
+      "crew_min": 260,
+      "crew_optimal": 420,
+      "max_wall_height_m": 27.0,
+      "materials": {
+        "timber_tonnes": 100,
+        "iron_tonnes": 7
+      },
+      "labor_hours": 21000,
+      "wheeled": true,
+      "fire_susceptibility": 0.8,
+      "engineer_min": 40
+    },
+    "siege_tower_34m": {
+      "kind": "siege_tower",
+      "deck_height_m": 34.0,
+      "base_width_m": 12.0,
+      "base_length_m": 13.0,
+      "mass_tonnes": 170.0,
+      "crew_min": 400,
+      "crew_optimal": 650,
+      "max_wall_height_m": 33.0,
+      "materials": {
+        "timber_tonnes": 152,
+        "iron_tonnes": 11
+      },
+      "labor_hours": 33000,
+      "wheeled": true,
+      "fire_susceptibility": 0.8,
+      "engineer_min": 64
+    },
+    "siege_fascine_bundle": {
+      "kind": "fascine",
+      "length_m": 3.0,
+      "diameter_m": 0.8,
+      "mass_kg": 180.0,
+      "fill_length_m_per_bundle": 0.25,
+      "crew_min": 2,
+      "crew_optimal": 4,
+      "materials": {
+        "construction_material_units": 18
+      },
+      "labor_hours": 8,
+      "wheeled": false,
+      "fire_susceptibility": 0.95,
+      "engineer_min": 0
+    },
+    "siege_timber_earth_causeway_10m": {
+      "kind": "crossing",
+      "length_m": 10.0,
+      "usable_width_m": 5.0,
+      "load_class": "wheeled_siege_engine",
+      "crew_min": 120,
+      "crew_optimal": 240,
+      "materials": {
+        "timber_tonnes": 18
+      },
+      "labor_hours": 7600,
+      "wheeled": false,
+      "fire_susceptibility": 0.45,
+      "engineer_min": 20
+    },
+    "siege_trestle_bridge_20m": {
+      "kind": "crossing",
+      "length_m": 20.0,
+      "usable_width_m": 4.5,
+      "load_class": "wheeled_siege_engine",
+      "crew_min": 160,
+      "crew_optimal": 300,
+      "materials": {
+        "timber_tonnes": 32,
+        "iron_tonnes": 2
+      },
+      "labor_hours": 11800,
+      "wheeled": false,
+      "fire_susceptibility": 0.7,
+      "engineer_min": 32
+    },
+    "siege_mining_gallery_set": {
+      "kind": "mine",
+      "supported_gallery_length_m": 20.0,
+      "crew_min": 40,
+      "crew_optimal": 80,
+      "materials": {
+        "timber_tonnes": 8
+      },
+      "labor_hours": 3800,
+      "wheeled": false,
+      "fire_susceptibility": 0.5,
+      "engineer_min": 24
+    },
+    "siege_investment_trench_100m": {
+      "kind": "investment_work",
+      "length_m": 100.0,
+      "width_m": 3.0,
+      "depth_m": 1.8,
+      "crew_min": 150,
+      "crew_optimal": 300,
+      "materials": {
+        "timber_tonnes": 3
+      },
+      "labor_hours": 6000,
+      "wheeled": false,
+      "fire_susceptibility": 0.2,
+      "engineer_min": 4
+    },
+    "siege_circumvallation_100m": {
+      "kind": "investment_work",
+      "length_m": 100.0,
+      "crew_min": 250,
+      "crew_optimal": 500,
+      "materials": {
+        "timber_tonnes": 12
+      },
+      "labor_hours": 10000,
+      "wheeled": false,
+      "fire_susceptibility": 0.55,
+      "engineer_min": 12
+    },
+    "siege_contravallation_100m": {
+      "kind": "investment_work",
+      "length_m": 100.0,
+      "crew_min": 250,
+      "crew_optimal": 500,
+      "materials": {
+        "timber_tonnes": 12
+      },
+      "labor_hours": 10000,
+      "wheeled": false,
+      "fire_susceptibility": 0.55,
+      "engineer_min": 12
+    }
+  },
+  "rules": {
+    "ladder_admission": "safe_wall_height_m must meet or exceed exact target wall height; nominal ladder length alone is insufficient because lean angle and parapet clearance consume reach",
+    "moat_crossing": "wheeled engines require a continuous load-bearing crossing whose completed usable length meets the exact open water/gap distance on the selected approach",
+    "grapnel_access": "grapnels may create infantry escalade access only when rope length meets wall height; they never create wheeled-engine access",
+    "technology": "AI may combine registered works tactically but may not invent unregistered siege technology"
+  }
+}

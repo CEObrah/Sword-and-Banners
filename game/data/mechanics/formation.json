@@ -1,0 +1,126 @@
+{
+  "schema": "formation-mechanics",
+  "formulas": {
+    "engaged_front": "min(eligible_combatants,terrain_frontage,formation_frontage,legal_weapon_reach_frontage)",
+    "experience_execution_factor": "weighted_mean(experience_execution_factor_by_fit_personnel)",
+    "experience_control_modifier": "weighted_mean(experience_control_modifier_by_fit_personnel)",
+    "current_attribute_mean": "stored_current_attribute_mean+settled_unit_attribute_delta",
+    "current_role_skill_mean": "stored_current_skill_mean+settled_unit_skill_delta",
+    "raw_successful_contacts": "engaged_front*contact_fraction+prior_contact_fraction_carry",
+    "potential_contacts_per_exchange": "floor(raw_successful_contacts)",
+    "new_contact_fraction_carry": "raw_successful_contacts-floor(raw_successful_contacts)",
+    "new_casualty_rate": "(new_dead+new_wounded+new_captured+new_missing)/max(1,pre_contact_present_combatants_exposed_to_contact)",
+    "front_rank_capacity": "floor(available_frontage*terrain_width_factor/chosen_spacing)",
+    "contact_opportunities": "min(exposed_opposing_bodies,floor(legal_weapon_lanes*contact_fraction))",
+    "pursuit_score": "0.30*movement_capability+0.20*current_cohesion+0.15*awareness_scouting+0.15*commander_control+0.10*morale+0.10*route_familiarity+terrain_factor+exhaustion_factor",
+    "reserve_commitment_seconds": "order_delay_seconds+movement_seconds",
+    "eligible_combatants": "sum(fit_present_personnel in units whose troop_type is frontage_eligible or explicitly committed)"
+  },
+  "contact_fraction_by_formation_margin": {
+    "below_-20": 0.1,
+    "-20_to_below_-5": 0.25,
+    "-5_to_5": 0.5,
+    "above_5_to_20": 0.7,
+    "above_20": 0.9
+  },
+  "integrity_states": {
+    "ordered": 0,
+    "pressured": 0,
+    "distorted": -8,
+    "fragmented": -12,
+    "broken": -16,
+    "routing": "no_coherent_offensive_method"
+  },
+  "standard_exchange_seconds": {
+    "close_melee_collision": 10,
+    "local_heroic_action": "exact_person_action_ready_timeline; no fixed heroic exchange duration",
+    "formation_push": 40,
+    "relief": 40,
+    "short_charge": 30,
+    "ordered_withdrawal_step": 40,
+    "volley": "exact_weapon_cycle",
+    "reserve_or_flank_movement": "actual_route_time",
+    "siege_work": "actual_work_time"
+  },
+  "rules": {
+    "contact_carry_range": "0<=carry<1 and only same continuous contact line",
+    "contacts_are_opportunities_not_casualties": true,
+    "named_people_resolve_exactly": true,
+    "morale_authority": "game/data/mechanics/morale.json",
+    "service_support_default_frontage": false,
+    "service_support_exposure": "Service/noncombat support takes casualties when directly attacked, overrun, exposed to missiles/hazards, or explicitly committed; it does not add default offensive frontage.",
+    "split_frontage_conservation": "Splitting one unit into several does not create additional terrain frontage or contact opportunities beyond real lanes and bodies.",
+    "named_local_timing": "Exact full/person-lite named interventions use their stat/equipment-derived action-ready interval inside a bounded local window; they are never assigned the formation exchange duration.",
+    "penetration_defense_interaction": "Aggregate melee penetration pressure is derived from actual weapon geometry/force/capability and resolved against opposing armor/shield protection; shield walls, spear depth, cavalry mass/speed/barding and brace geometry remain physical formation methods rather than flat doctrine labels."
+  },
+  "mass_battle_weapon_interaction": {
+    "ordered_reach_advantage_per_meter": 0.16,
+    "ordered_reach_advantage_cap": 0.22,
+    "compressed_minimum_range_penalty_cap": 0.22,
+    "disorder_reach_retention": 0.35,
+    "ranged_opening_weight": 0.28,
+    "ranged_effective_range_reference_m": 120.0,
+    "ranged_cycle_reference_seconds": 6.0,
+    "frontage_reference_m_per_1000_open": 500.0,
+    "terrain_frontage_factor": {
+      "open": 1.0,
+      "plain": 1.0,
+      "field": 1.0,
+      "pass": 0.28,
+      "fort": 0.22,
+      "fortress": 0.18,
+      "city": 0.32,
+      "capital": 0.32,
+      "town": 0.42,
+      "estate": 0.45,
+      "hall": 0.12,
+      "forest": 0.45,
+      "mountain": 0.3
+    },
+    "ranged_fire_duty_fraction": 0.1,
+    "minimum_opening_shots_per_ranged_person": 2,
+    "range_superiority_cap": 0.18,
+    "range_superiority_per_reference": 0.12,
+    "compressed_short_weapon_bonus_cap": 0.14,
+    "compressed_short_weapon_bonus_per_meter": 0.18,
+    "opening_volley_opportunity_cap": 4,
+    "opening_volley_bonus_per_opportunity": 0.035,
+    "default_closing_speed_mps": 1.6,
+    "mounted_closing_speed_mps": 3.4,
+    "minimum_range_window_m": 12.0,
+    "shield_breakage_share_of_wear_at_full_condition": 0.2,
+    "shield_breakage_extra_share_at_zero_condition": 0.6,
+    "shield_breakage_fraction_cap_per_battle": 0.35,
+    "shield_minimum_serviceable_condition_pct": 8.0,
+    "armor_breakage_share_of_wear_at_full_condition": 0.1,
+    "armor_breakage_extra_share_at_zero_condition": 0.45,
+    "armor_breakage_fraction_cap_per_battle": 0.2,
+    "armor_minimum_serviceable_condition_pct": 5.0,
+    "contact_phases": [
+      {
+        "id": "opening",
+        "duration_fraction": 0.25,
+        "contact_wear_factor": 0.75,
+        "cohesion_wear_factor": 0.65
+      },
+      {
+        "id": "sustained",
+        "duration_fraction": 0.5,
+        "contact_wear_factor": 1.15,
+        "cohesion_wear_factor": 1.1
+      },
+      {
+        "id": "resolution",
+        "duration_fraction": 0.25,
+        "contact_wear_factor": 0.9,
+        "cohesion_wear_factor": 0.85
+      }
+    ],
+    "local_breach_threshold_pct": 35.0,
+    "local_breach_exploitation_penalty_per_sector": 0.055,
+    "local_breach_exploitation_penalty_cap": 0.15,
+    "mount_phase_base_loss_fraction_per_hour": 0.002,
+    "mount_phase_risk_excess_loss_fraction_per_hour": 0.006,
+    "mount_phase_loss_fraction_cap": 0.12
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "recruitment_cost_constants",
+    "rules",
+    "default_rank_structure",
+    "default_support_monthly_pay_silver",
+    "force_posture_hysteresis",
+    "operating_mode_factors",
+    "ordinary_market_reference",
+    "currency",
+    "military_finance",
+    "prices_silver",
+    "retail_rule",
+    "service_issue",
+    "wages",
+    "recruitment_campaign",
+    "ammunition_procurement"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-economy-mechanics"
+    },
+    "formulas": {
+      "type": "object"
+    },
+    "recruitment_cost_constants": {
+      "type": "object"
+    },
+    "rules": {
+      "type": "object"
+    },
+    "default_rank_structure": {
+      "type": "object"
+    },
+    "default_support_monthly_pay_silver": {
+      "type": "object"
+    },
+    "force_posture_hysteresis": {
+      "type": "object"
+    },
+    "operating_mode_factors": {
+      "type": "object"
+    },
+    "ordinary_market_reference": {
+      "type": "object"
+    },
+    "currency": {
+      "type": "object"
+    },
+    "military_finance": {
+      "type": "object"
+    },
+    "prices_silver": {
+      "type": "object"
+    },
+    "service_issue": {
+      "type": "object"
+    },
+    "wages": {
+      "type": "object"
+    },
+    "retail_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recruitment_campaign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default_contact_cost_key",
+        "screening_cost_key",
+        "candidate_food_kg_per_person_day",
+        "candidate_training_capacity",
+        "training_day_hours",
+        "final_issue_cost_key",
+        "principle"
+      ],
+      "properties": {
+        "default_contact_cost_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "screening_cost_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_food_kg_per_person_day": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "candidate_training_capacity": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "training_day_hours": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "final_issue_cost_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "principle": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "ammunition_procurement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lot_size",
+        "price_key",
+        "central_reserve_carried_loads",
+        "monthly_purchase_cap",
+        "principle"
+      ],
+      "properties": {
+        "lot_size": {
+          "type": "object",
+          "required": [
+            "war_arrows",
+            "war_bolts"
+          ],
+          "properties": {
+            "war_arrows": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "war_bolts": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "price_key": {
+          "type": "object",
+          "required": [
+            "war_arrows",
+            "war_bolts"
+          ],
+          "properties": {
+            "war_arrows": {
+              "type": "string",
+              "minLength": 1
+            },
+            "war_bolts": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "central_reserve_carried_loads": {
+          "type": "number",
+          "minimum": 0
+        },
+        "monthly_purchase_cap": {
+          "type": "object",
+          "required": [
+            "war_arrows",
+            "war_bolts"
+          ],
+          "properties": {
+            "war_arrows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "war_bolts": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "principle": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "state_fiscal_model": {
+      "type": "object"
+    },
+    "house_tang_fiscal_model": {
+      "type": "object"
+    }
+  }
+}

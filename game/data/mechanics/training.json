@@ -1,0 +1,428 @@
+{
+  "schema": "training-mechanics",
+  "numerical_authority": true,
+  "representation_efficiency": {
+    "exact": 1.0,
+    "individual_lite": 1.0,
+    "unit": 1.0
+  },
+  "time_budget": {
+    "waking_hours_per_7d_max": 112,
+    "deliberate_training_hours_per_7d_normal_max": 56
+  },
+  "share_limits": {
+    "skill": 1.0,
+    "specialization": 0.25,
+    "attribute_stimulus": 0.35
+  },
+  "factor_tables": {
+    "intensity": {
+      "recovery": 0.4,
+      "light": 0.68,
+      "standard": 1.0,
+      "hard": 1.14,
+      "overreach": 1.2
+    },
+    "practice_mode": {
+      "observation": 0.55,
+      "study": 0.78,
+      "rote": 0.75,
+      "drill": 0.95,
+      "coached": 1.05,
+      "sparring": 1.1,
+      "field_practice": 1.0,
+      "live_operation": 1.0,
+      "reflection": 0.65,
+      "administration": 0.9,
+      "instruction_given": 0.85
+    },
+    "facility": {
+      "none": 0.7,
+      "poor": 0.78,
+      "basic": 0.9,
+      "adequate": 1.0,
+      "good": 1.08,
+      "excellent": 1.15
+    },
+    "equipment": {
+      "none": 0.0,
+      "unsafe": 0.4,
+      "improvised": 0.65,
+      "limited": 0.82,
+      "adequate": 0.92,
+      "correct": 1.0,
+      "superior": 1.05
+    },
+    "health": {
+      "fit": 1.0,
+      "stable": 1.0,
+      "minor_limitation": 0.9,
+      "recovering": 0.68,
+      "serious": 0.3,
+      "critical": 0.0,
+      "unfit": 0.0
+    },
+    "recovery": {
+      "deprived": 0.55,
+      "poor": 0.72,
+      "adequate": 0.92,
+      "good": 1.0,
+      "excellent": 1.05
+    },
+    "feedback": {
+      "none": 0.72,
+      "delayed": 0.86,
+      "ordinary": 1.0,
+      "immediate": 1.08,
+      "expert": 1.15
+    },
+    "potential": {
+      "common": 0.9,
+      "capable": 1.0,
+      "exceptional": 1.12,
+      "heroic": 1.24,
+      "legendary": 1.36
+    },
+    "self_practice": {
+      "default": 0.85,
+      "study": 0.92,
+      "observation": 0.92,
+      "administration": 0.92
+    }
+  },
+  "potential_soft_ceilings": {
+    "skill": {
+      "common": 80,
+      "capable": 100,
+      "exceptional": 120,
+      "heroic": 145,
+      "legendary": 170
+    },
+    "attribute": {
+      "common": 75,
+      "capable": 95,
+      "exceptional": 115,
+      "heroic": 145,
+      "legendary": 170
+    }
+  },
+  "age_factors": {
+    "physical_or_martial_skill": [
+      {
+        "min_age": 0,
+        "max_age": 15,
+        "factor": 0.88
+      },
+      {
+        "min_age": 16,
+        "max_age": 24,
+        "factor": 1.12
+      },
+      {
+        "min_age": 25,
+        "max_age": 34,
+        "factor": 1.0
+      },
+      {
+        "min_age": 35,
+        "max_age": 44,
+        "factor": 0.92
+      },
+      {
+        "min_age": 45,
+        "max_age": 54,
+        "factor": 0.82
+      },
+      {
+        "min_age": 55,
+        "max_age": 999,
+        "factor": 0.7
+      }
+    ],
+    "mental_skill": [
+      {
+        "min_age": 0,
+        "max_age": 20,
+        "factor": 1.0
+      },
+      {
+        "min_age": 21,
+        "max_age": 39,
+        "factor": 1.06
+      },
+      {
+        "min_age": 40,
+        "max_age": 54,
+        "factor": 1.0
+      },
+      {
+        "min_age": 55,
+        "max_age": 999,
+        "factor": 0.86
+      }
+    ],
+    "command_or_civil_skill": [
+      {
+        "min_age": 0,
+        "max_age": 17,
+        "factor": 0.88
+      },
+      {
+        "min_age": 18,
+        "max_age": 24,
+        "factor": 0.96
+      },
+      {
+        "min_age": 25,
+        "max_age": 44,
+        "factor": 1.04
+      },
+      {
+        "min_age": 45,
+        "max_age": 59,
+        "factor": 1.06
+      },
+      {
+        "min_age": 60,
+        "max_age": 999,
+        "factor": 0.9
+      }
+    ],
+    "physical_attribute": [
+      {
+        "min_age": 0,
+        "max_age": 15,
+        "factor": 0.82
+      },
+      {
+        "min_age": 16,
+        "max_age": 20,
+        "factor": 1.14
+      },
+      {
+        "min_age": 21,
+        "max_age": 24,
+        "factor": 1.05
+      },
+      {
+        "min_age": 25,
+        "max_age": 34,
+        "factor": 0.88
+      },
+      {
+        "min_age": 35,
+        "max_age": 44,
+        "factor": 0.66
+      },
+      {
+        "min_age": 45,
+        "max_age": 54,
+        "factor": 0.45
+      },
+      {
+        "min_age": 55,
+        "max_age": 999,
+        "factor": 0.28
+      }
+    ]
+  },
+  "instructor": {
+    "quality_formula": "clamp(0.78 + min(0.32,Training/300) + min(0.25,max(0,instructor_domain_skill-trainee_skill)/320),0.75,1.35)",
+    "ordinary_spans": {
+      "rote": 24,
+      "drill": 12,
+      "coached": 6,
+      "sparring": 4,
+      "field_practice": 10,
+      "live_operation": 8
+    },
+    "capacity_formula": "min(1,ordinary_span/student_count) when student_count>ordinary_span; otherwise 1",
+    "self_practice_rule": "use factor_tables.self_practice for the selected mode"
+  },
+  "capacity": {
+    "formula": "min(instructor_hours/required_instructor_hours,facility_slots/required_slots,equipment_sets/required_sets,1)",
+    "zero_denominator_rule": "a requirement of 0 contributes factor 1; a positive requirement with zero available capacity contributes 0"
+  },
+  "formulas": {
+    "raw_EDU": "verified_hours * competency_share * intensity_factor * practice_mode_factor * instruction_factor * instructor_capacity_factor * facility_factor * equipment_factor * health_factor * recovery_factor * feedback_factor * age_factor * aptitude_factor * potential_factor * relevance_factor * interruption_completion_factor * representation_efficiency",
+    "diminishing_factor": "if score<=ceiling-20:1.0; if ceiling-20<score<=ceiling:1.0-(score-(ceiling-20))*(0.55/20); if ceiling<score<=ceiling+20:0.45-(score-ceiling)*(0.35/20); if score>ceiling+20:0.05",
+    "effective_EDU": "raw_EDU*diminishing_factor",
+    "skill_next_point_cost": "18*(1+current_score/50)^1.75",
+    "specialization_next_point_cost": "15*(1+current_score/50)^1.65",
+    "attribute_next_point_cost": "120*(1+current_score/50)^2.10",
+    "rust_penalty_fraction": "if unused_days<=180:0; otherwise min(0.08,0.01*floor((unused_days-180)/90))",
+    "annual_physical_age_pressure_points": "if age<=35 or current_score<=50:0; otherwise max(0,(age-35)*(current_score-50)/1000)*health_pressure_factor*(1+0.5*deprivation_fraction)*(1-0.75*clamp(maintenance_factor,0,1))"
+  },
+  "aging": {
+    "health_pressure_factor": {
+      "fit": 1.0,
+      "stable": 1.0,
+      "minor_limitation": 1.15,
+      "recovering": 1.35,
+      "serious": 1.75,
+      "critical": 2.25,
+      "unfit": 2.25
+    },
+    "natural_maturation_rule": "body growth is handled by body state; permanent attributes receive no birthday or free maturation points. Attribute development still requires verified stimulus EDU.",
+    "settlement": "annual; fractional age-pressure points accumulate in an aging bank and remove one permanent point only when bank>=1, iteratively, preserving remainder"
+  },
+  "experience": {
+    "states": {
+      "unblooded": {
+        "control": -6,
+        "formation_execution": 0.92
+      },
+      "exposed": {
+        "control": -3,
+        "formation_execution": 0.97
+      },
+      "field_tested": {
+        "control": 0,
+        "formation_execution": 1.0
+      },
+      "veteran": {
+        "control": 3,
+        "formation_execution": 1.05
+      },
+      "hardened": {
+        "control": 5,
+        "formation_execution": 1.08
+      }
+    },
+    "rule": "changes only through saved operational exposure containing role, pressure, duration, decision burden, casualties, and outcome; kills alone grant nothing"
+  },
+  "banking": {
+    "point_purchase": "pay iteratively one point at a time using the cost at the current score; preserve unused EDU remainder",
+    "persistent_precision_decimals": 3,
+    "rounding": "half_up"
+  },
+  "promotion": "qualified subset transfer only; training never promotes a whole unit and promotion remains institutionally separate from development",
+  "qualification_monthly_planned_hours": {
+    "levy_or_basic": 32,
+    "regular": 56,
+    "advanced": 64,
+    "specialist_or_command": 56
+  },
+  "ordinary_current_performance_caps_by_age": [
+    {
+      "age_min": 0,
+      "age_max": 2,
+      "attributes": 20,
+      "martial_skills": 1,
+      "command_skills": 0,
+      "civil_field_skills": 3
+    },
+    {
+      "age_min": 3,
+      "age_max": 5,
+      "attributes": 32,
+      "martial_skills": 5,
+      "command_skills": 2,
+      "civil_field_skills": 10
+    },
+    {
+      "age_min": 6,
+      "age_max": 8,
+      "attributes": 48,
+      "martial_skills": 20,
+      "command_skills": 10,
+      "civil_field_skills": 28
+    },
+    {
+      "age_min": 9,
+      "age_max": 11,
+      "attributes": 65,
+      "martial_skills": 40,
+      "command_skills": 25,
+      "civil_field_skills": 50
+    },
+    {
+      "age_min": 12,
+      "age_max": 13,
+      "attributes": 82,
+      "martial_skills": 62,
+      "command_skills": 50,
+      "civil_field_skills": 75
+    },
+    {
+      "age_min": 14,
+      "age_max": 15,
+      "attributes": 100,
+      "martial_skills": 85,
+      "command_skills": 70,
+      "civil_field_skills": 95
+    },
+    {
+      "age_min": 16,
+      "age_max": 17,
+      "attributes": 118,
+      "martial_skills": 110,
+      "command_skills": 95,
+      "civil_field_skills": 115
+    },
+    {
+      "age_min": 18,
+      "age_max": 20,
+      "attributes": 135,
+      "martial_skills": 135,
+      "command_skills": 115,
+      "civil_field_skills": 135
+    },
+    {
+      "age_min": 21,
+      "age_max": 23,
+      "attributes": 155,
+      "martial_skills": 165,
+      "command_skills": 140,
+      "civil_field_skills": 155
+    },
+    {
+      "age_min": 24,
+      "age_max": 29,
+      "attributes": 180,
+      "martial_skills": 190,
+      "command_skills": 180,
+      "civil_field_skills": 185
+    },
+    {
+      "age_min": 30,
+      "age_max": 39,
+      "attributes": 190,
+      "martial_skills": 200,
+      "command_skills": 195,
+      "civil_field_skills": 195
+    },
+    {
+      "age_min": 40,
+      "age_max": 49,
+      "attributes": 185,
+      "martial_skills": 195,
+      "command_skills": 200,
+      "civil_field_skills": 200
+    },
+    {
+      "age_min": 50,
+      "age_max": 59,
+      "attributes": 170,
+      "martial_skills": 185,
+      "command_skills": 200,
+      "civil_field_skills": 200
+    },
+    {
+      "age_min": 60,
+      "age_max": 69,
+      "attributes": 150,
+      "martial_skills": 170,
+      "command_skills": 195,
+      "civil_field_skills": 200
+    },
+    {
+      "age_min": 70,
+      "age_max": null,
+      "attributes": 130,
+      "martial_skills": 155,
+      "command_skills": 185,
+      "civil_field_skills": 195
+    }
+  ]
+}

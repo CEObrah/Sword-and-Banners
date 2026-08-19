@@ -1,0 +1,132 @@
+{
+  "administrative_owner": "house_tang",
+  "cohesion": 86,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_sword_manor_junior_disciple_standing",
+      "count": 4985
+    }
+  ],
+  "command_accounting": {
+    "embedded_1000_500_100_commanders_inside_troop_strength": true,
+    "top_commander_inside_troop_strength": false,
+    "top_deputy_inside_troop_strength": false
+  },
+  "command_authority": "char_sword_manor_junior_commander",
+  "command_structure": {
+    "internal_hierarchy": {
+      "by_role": {
+        "junior_disciple": {
+          "commanders_100": 50,
+          "counted_inside_role_strength": true,
+          "materialized_commanders_1000": 5,
+          "materialized_commanders_500": 10
+        }
+      },
+      "representation_rule": "Embedded 1,000/500/100 command echelons are bodies inside troop strength. Materialized 1,000/500 officers reuse already conserved Sword Manor troops; 100-man echelons remain aggregate unless salient."
+    },
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 0,
+        "100_commander": 50,
+        "500_commander": 0
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      },
+      "last_reorganization_reason": "clean_baseline_officer_cadre",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 0,
+        "100_commander": 50,
+        "500_commander": 0
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 5,
+        "100_commander": 0,
+        "500_commander": 10
+      }
+    },
+    "unit_command": {
+      "commander_post": "materialize_when_individually_relevant",
+      "deputy_post": "materialize_when_individually_relevant",
+      "external_to_fighting_establishment": true,
+      "reports_to_command_group_ref": "cmdgrp.sword_manor.junior"
+    }
+  },
+  "commander_ref": null,
+  "composition": {
+    "junior_disciple": 5000
+  },
+  "deputy_ref": null,
+  "doctrine_behavior": {
+    "casualty_tolerance": "high",
+    "reserve_commitment": 50,
+    "withdrawal_threshold": 35
+  },
+  "doctrine_ref": "doc.sword_manor.junior_disciple",
+  "embedded_person_refs": [
+    "officer.sword_manor.junior_disciple.1000.001",
+    "officer.sword_manor.junior_disciple.1000.002",
+    "officer.sword_manor.junior_disciple.1000.003",
+    "officer.sword_manor.junior_disciple.1000.004",
+    "officer.sword_manor.junior_disciple.1000.005",
+    "officer.sword_manor.junior_disciple.500.001",
+    "officer.sword_manor.junior_disciple.500.002",
+    "officer.sword_manor.junior_disciple.500.003",
+    "officer.sword_manor.junior_disciple.500.004",
+    "officer.sword_manor.junior_disciple.500.005",
+    "officer.sword_manor.junior_disciple.500.006",
+    "officer.sword_manor.junior_disciple.500.007",
+    "officer.sword_manor.junior_disciple.500.008",
+    "officer.sword_manor.junior_disciple.500.009",
+    "officer.sword_manor.junior_disciple.500.010"
+  ],
+  "equipment_completeness": "0.9970",
+  "equipment_note": "Standing equipment completeness reflects exact Sword Manor force stock. Missing issue remains a real readiness shortfall rather than being conjured.",
+  "equipment_units_by_role": {
+    "junior_disciple": 4985
+  },
+  "establishment_composition": {
+    "junior_disciple": 5000
+  },
+  "establishment_personnel": 5000,
+  "experience": "trained",
+  "fatigue": 0,
+  "formation_ref": "formation_sword_manor_junior_01",
+  "higher_command_ref": "cmdgrp.sword_manor.junior",
+  "location_ref": "loc_tang_manor_training_ground",
+  "logistics": {
+    "construction_material_units": 0,
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "iron_tonnes": 0,
+    "source_depot_ref": "depot_fort_sword_manor",
+    "timber_tonnes": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 86,
+  "mounts": {},
+  "name": "Sword Manor Junior Formation",
+  "owner_force_ref": "force_sword_manor",
+  "personnel": 5000,
+  "readiness": 84,
+  "schema": "sword-formation",
+  "status": "home_ready",
+  "supply_depot_ref": "depot_fort_sword_manor",
+  "training_progress": 100,
+  "training_ref": "train.sword_manor.junior_disciple"
+}

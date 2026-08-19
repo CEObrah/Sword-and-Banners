@@ -1,0 +1,178 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 57,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 134,
+    "physical_learning": 178,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 156,
+    "technical_learning": 113
+  },
+  "attributes": {
+    "Agility": 142,
+    "Awareness": 152,
+    "Composure": 163,
+    "Coordination": 153,
+    "Endurance": 186,
+    "Intelligence": 119,
+    "Presence": 181,
+    "Strength": 182,
+    "Toughness": 182
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 56.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Wei"
+  },
+  "birth_date": "284-BCE-04-07",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 183.0,
+    "current_weight_kg": 69.7,
+    "frame": "lean",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "formation_commander",
+    "current_command_span": 4200,
+    "office_or_command": "Commander, WEI Mobile Reserve",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "command_assignment": {
+    "billet": "formation_commander",
+    "current_command_span": 4200,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "formation_wei_mobile_reserve",
+    "rule": "Current command span follows exact surviving formation strength and may change without changing durable rank.",
+    "source": "current_exact_formation"
+  },
+  "current_location": "loc_wei_regional_01",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 2.735,
+      "Awareness": 2.773,
+      "Composure": 1.707,
+      "Coordination": 1.592,
+      "Endurance": 0.342,
+      "Intelligence": 1.557,
+      "Presence": 1.227,
+      "Toughness": 0.342
+    },
+    "attribute_stimulus_hours_milli": 137200,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 392,
+    "skill_edu_banks": {
+      "Diplomacy": 28.475,
+      "Formation Command": 3.66,
+      "Navigation": 2.46,
+      "Riding": 13.908,
+      "Survival": 33.403,
+      "Tactics": 3.66
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_glaive",
+  "goal_state": {
+    "current_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Wei authority and resources"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Wei political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 39,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "military_rank": {
+    "durable": true,
+    "grade": "general",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_role_evidence"
+  },
+  "name": "Gai Mou",
+  "owner_id": "char_gai_mou",
+  "owner_type": "character",
+  "rank": "general",
+  "role_archetype": "martial_general",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 189,
+    "Axe": 13,
+    "Bow": 14,
+    "Crossbow": 16,
+    "Dagger": 13,
+    "Defense": 182,
+    "Diplomacy": 31,
+    "Engineering": 14,
+    "Formation Command": 163,
+    "Formation Fighting": 13,
+    "Glaive": 182,
+    "Governance": 22,
+    "Grappling": 13,
+    "Intelligence Operations": 16,
+    "Intrigue": 15,
+    "Law": 22,
+    "Leadership": 174,
+    "Logistics": 15,
+    "Mace": 188,
+    "Mass Combat": 181,
+    "Medicine": 22,
+    "Navigation": 31,
+    "Riding": 161,
+    "Scouting": 15,
+    "Shield": 16,
+    "Spear": 15,
+    "Staff": 15,
+    "Stealth": 17,
+    "Strategy": 14,
+    "Survival": 39,
+    "Sword": 13,
+    "Tactics": 141,
+    "Trade": 23,
+    "Training": 23,
+    "Unarmed": 13
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_e60de946a4006a1bd15e",
+  "state": "Wei"
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "numerical_authority",
+    "representation_efficiency",
+    "time_budget",
+    "share_limits",
+    "factor_tables",
+    "potential_soft_ceilings",
+    "age_factors",
+    "instructor",
+    "capacity",
+    "formulas",
+    "aging",
+    "experience",
+    "banking",
+    "promotion",
+    "qualification_monthly_planned_hours",
+    "ordinary_current_performance_caps_by_age"
+  ],
+  "properties": {
+    "schema": {
+      "const": "training-mechanics"
+    },
+    "numerical_authority": {
+      "const": true
+    },
+    "representation_efficiency": {
+      "type": "object"
+    },
+    "time_budget": {
+      "type": "object"
+    },
+    "share_limits": {
+      "type": "object"
+    },
+    "factor_tables": {
+      "type": "object"
+    },
+    "potential_soft_ceilings": {
+      "type": "object"
+    },
+    "age_factors": {
+      "type": "object"
+    },
+    "instructor": {
+      "type": "object"
+    },
+    "capacity": {
+      "type": "object"
+    },
+    "formulas": {
+      "type": "object"
+    },
+    "aging": {
+      "type": "object"
+    },
+    "experience": {
+      "type": "object"
+    },
+    "banking": {
+      "type": "object"
+    },
+    "promotion": {
+      "type": "string"
+    },
+    "qualification_monthly_planned_hours": {},
+    "ordinary_current_performance_caps_by_age": {}
+  }
+}

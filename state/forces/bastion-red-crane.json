@@ -1,0 +1,504 @@
+{
+  "schema": "sword-force",
+  "owner_id": "force_bastion_red_crane",
+  "owner_type": "force",
+  "kind": "house_military_institution",
+  "administrative_owner": "house_tang",
+  "institution_ref": "institution_four_bastion_corps",
+  "corps_name": "Red Crane Corps",
+  "headcount": 16000,
+  "authorized_strength": 16000,
+  "authorized_by_role": {
+    "bastion_artillery": 10000,
+    "bastion_crossbow": 2000,
+    "bastion_heavy_infantry": 2000,
+    "bastion_logistics": 2000
+  },
+  "available_by_role": {
+    "bastion_artillery": 0,
+    "bastion_crossbow": 0,
+    "bastion_heavy_infantry": 0,
+    "bastion_logistics": 0
+  },
+  "available_by_location": {
+    "loc_tang_manor_defense_camp": {
+      "bastion_artillery": 0,
+      "bastion_crossbow": 0,
+      "bastion_heavy_infantry": 0,
+      "bastion_logistics": 0
+    }
+  },
+  "allocated_to_formations": {
+    "formation_bastion_red_crane_01": {
+      "personnel": 4000,
+      "composition": {
+        "bastion_artillery": 2500,
+        "bastion_crossbow": 500,
+        "bastion_heavy_infantry": 500,
+        "bastion_logistics": 500
+      }
+    },
+    "formation_bastion_red_crane_02": {
+      "personnel": 4000,
+      "composition": {
+        "bastion_artillery": 2500,
+        "bastion_crossbow": 500,
+        "bastion_heavy_infantry": 500,
+        "bastion_logistics": 500
+      }
+    },
+    "formation_bastion_red_crane_03": {
+      "personnel": 4000,
+      "composition": {
+        "bastion_artillery": 2500,
+        "bastion_crossbow": 500,
+        "bastion_heavy_infantry": 500,
+        "bastion_logistics": 500
+      }
+    },
+    "formation_bastion_red_crane_04": {
+      "personnel": 4000,
+      "composition": {
+        "bastion_artillery": 2500,
+        "bastion_crossbow": 500,
+        "bastion_heavy_infantry": 500,
+        "bastion_logistics": 500
+      }
+    }
+  },
+  "cohort_ledger": {
+    "schema": "force-cohort-ledger",
+    "representation": "aggregate_provenance_cohorts",
+    "individualization_policy": "commanders inside 1,000/500/100 troop echelons remain aggregate until individually relevant; materialization consumes an existing role body",
+    "last_reconciled_at": "244-BCE-07-29T06:00:00+08:00",
+    "cohorts": {
+      "cohort_force_bastion_red_crane_bastion_artillery": {
+        "cohort_id": "cohort_force_bastion_red_crane_bastion_artillery",
+        "role": "bastion_artillery",
+        "origin": {
+          "kind": "standing_establishment_rebaseline",
+          "population_ref": "population_qin",
+          "source_location_ref": "loc_tang_manor",
+          "source_stratum": "private_household_military",
+          "recorded_at": "244-BCE-07-29T06:00:00+08:00",
+          "provenance_note": "Current-setting Four Bastion Corps rebaseline. Existing former defense-company bodies were retained/reassigned; the additional 35,000 establishment bodies were added directly to the military baseline without debiting Tang Manor civilians. Future recruitment follows normal conserved service movement."
+        },
+        "reserve_by_location": {
+          "loc_tang_manor_defense_camp": 0
+        },
+        "allocated_by_formation": {
+          "formation_bastion_red_crane_01": 2500,
+          "formation_bastion_red_crane_02": 2500,
+          "formation_bastion_red_crane_03": 2500,
+          "formation_bastion_red_crane_04": 2500
+        },
+        "age_distribution": {},
+        "aptitude_means": {
+          "academic_learning": 108,
+          "physical_learning": 118,
+          "social_learning": 100,
+          "tactical_learning": 118,
+          "technical_learning": 118
+        },
+        "attribute_means": {
+          "Agility": 84,
+          "Awareness": 92,
+          "Composure": 100,
+          "Coordination": 104,
+          "Endurance": 98,
+          "Intelligence": 88,
+          "Presence": 76,
+          "Strength": 94,
+          "Toughness": 98
+        },
+        "attribute_sd": {
+          "Agility": 9,
+          "Awareness": 9,
+          "Composure": 9,
+          "Coordination": 9,
+          "Endurance": 9,
+          "Intelligence": 9,
+          "Presence": 9,
+          "Strength": 9,
+          "Toughness": 9
+        },
+        "skill_means": {
+          "Athletics": 82,
+          "Bow": 48,
+          "Crossbow": 92,
+          "Defense": 90,
+          "Engineering": 108,
+          "Formation Command": 42,
+          "Formation Fighting": 94,
+          "Leadership": 45,
+          "Logistics": 88,
+          "Mass Combat": 86,
+          "Medicine": 32,
+          "Navigation": 50,
+          "Riding": 35,
+          "Scouting": 50,
+          "Shield": 90,
+          "Spear": 92,
+          "Strategy": 38,
+          "Survival": 62,
+          "Sword": 82,
+          "Tactics": 58,
+          "Training": 48
+        },
+        "skill_sd": {
+          "Athletics": 11,
+          "Bow": 11,
+          "Crossbow": 11,
+          "Defense": 11,
+          "Engineering": 11,
+          "Formation Command": 11,
+          "Formation Fighting": 11,
+          "Leadership": 11,
+          "Logistics": 11,
+          "Mass Combat": 11,
+          "Medicine": 11,
+          "Navigation": 11,
+          "Riding": 11,
+          "Scouting": 11,
+          "Shield": 11,
+          "Spear": 11,
+          "Strategy": 11,
+          "Survival": 11,
+          "Sword": 11,
+          "Tactics": 11,
+          "Training": 11
+        },
+        "service_months_mean": 48.0,
+        "training_history": [],
+        "tags": [
+          "permanent_bastion_corps",
+          "professionally_qualified"
+        ]
+      },
+      "cohort_force_bastion_red_crane_bastion_crossbow": {
+        "cohort_id": "cohort_force_bastion_red_crane_bastion_crossbow",
+        "role": "bastion_crossbow",
+        "origin": {
+          "kind": "standing_establishment_rebaseline",
+          "population_ref": "population_qin",
+          "source_location_ref": "loc_tang_manor",
+          "source_stratum": "private_household_military",
+          "recorded_at": "244-BCE-07-29T06:00:00+08:00",
+          "provenance_note": "Current-setting Four Bastion Corps rebaseline. Existing former defense-company bodies were retained/reassigned; the additional 35,000 establishment bodies were added directly to the military baseline without debiting Tang Manor civilians. Future recruitment follows normal conserved service movement."
+        },
+        "reserve_by_location": {
+          "loc_tang_manor_defense_camp": 0
+        },
+        "allocated_by_formation": {
+          "formation_bastion_red_crane_01": 500,
+          "formation_bastion_red_crane_02": 500,
+          "formation_bastion_red_crane_03": 500,
+          "formation_bastion_red_crane_04": 500
+        },
+        "age_distribution": {},
+        "aptitude_means": {
+          "academic_learning": 108,
+          "physical_learning": 118,
+          "social_learning": 100,
+          "tactical_learning": 118,
+          "technical_learning": 118
+        },
+        "attribute_means": {
+          "Agility": 84,
+          "Awareness": 92,
+          "Composure": 100,
+          "Coordination": 92,
+          "Endurance": 98,
+          "Intelligence": 74,
+          "Presence": 76,
+          "Strength": 94,
+          "Toughness": 98
+        },
+        "attribute_sd": {
+          "Agility": 9,
+          "Awareness": 9,
+          "Composure": 9,
+          "Coordination": 9,
+          "Endurance": 9,
+          "Intelligence": 9,
+          "Presence": 9,
+          "Strength": 9,
+          "Toughness": 9
+        },
+        "skill_means": {
+          "Athletics": 82,
+          "Bow": 48,
+          "Crossbow": 108,
+          "Defense": 88,
+          "Engineering": 45,
+          "Formation Command": 42,
+          "Formation Fighting": 92,
+          "Leadership": 45,
+          "Logistics": 48,
+          "Mass Combat": 88,
+          "Medicine": 32,
+          "Navigation": 50,
+          "Riding": 35,
+          "Scouting": 50,
+          "Shield": 90,
+          "Spear": 92,
+          "Strategy": 38,
+          "Survival": 62,
+          "Sword": 82,
+          "Tactics": 58,
+          "Training": 48
+        },
+        "skill_sd": {
+          "Athletics": 11,
+          "Bow": 11,
+          "Crossbow": 11,
+          "Defense": 11,
+          "Engineering": 11,
+          "Formation Command": 11,
+          "Formation Fighting": 11,
+          "Leadership": 11,
+          "Logistics": 11,
+          "Mass Combat": 11,
+          "Medicine": 11,
+          "Navigation": 11,
+          "Riding": 11,
+          "Scouting": 11,
+          "Shield": 11,
+          "Spear": 11,
+          "Strategy": 11,
+          "Survival": 11,
+          "Sword": 11,
+          "Tactics": 11,
+          "Training": 11
+        },
+        "service_months_mean": 48.0,
+        "training_history": [],
+        "tags": [
+          "permanent_bastion_corps",
+          "professionally_qualified"
+        ]
+      },
+      "cohort_force_bastion_red_crane_bastion_heavy_infantry": {
+        "cohort_id": "cohort_force_bastion_red_crane_bastion_heavy_infantry",
+        "role": "bastion_heavy_infantry",
+        "origin": {
+          "kind": "standing_establishment_rebaseline",
+          "population_ref": "population_qin",
+          "source_location_ref": "loc_tang_manor",
+          "source_stratum": "private_household_military",
+          "recorded_at": "244-BCE-07-29T06:00:00+08:00",
+          "provenance_note": "Current-setting Four Bastion Corps rebaseline. Existing former defense-company bodies were retained/reassigned; the additional 35,000 establishment bodies were added directly to the military baseline without debiting Tang Manor civilians. Future recruitment follows normal conserved service movement."
+        },
+        "reserve_by_location": {
+          "loc_tang_manor_defense_camp": 0
+        },
+        "allocated_by_formation": {
+          "formation_bastion_red_crane_01": 500,
+          "formation_bastion_red_crane_02": 500,
+          "formation_bastion_red_crane_03": 500,
+          "formation_bastion_red_crane_04": 500
+        },
+        "age_distribution": {},
+        "aptitude_means": {
+          "academic_learning": 108,
+          "physical_learning": 118,
+          "social_learning": 100,
+          "tactical_learning": 118,
+          "technical_learning": 118
+        },
+        "attribute_means": {
+          "Agility": 84,
+          "Awareness": 92,
+          "Composure": 100,
+          "Coordination": 92,
+          "Endurance": 98,
+          "Intelligence": 74,
+          "Presence": 76,
+          "Strength": 94,
+          "Toughness": 98
+        },
+        "attribute_sd": {
+          "Agility": 9,
+          "Awareness": 9,
+          "Composure": 9,
+          "Coordination": 9,
+          "Endurance": 9,
+          "Intelligence": 9,
+          "Presence": 9,
+          "Strength": 9,
+          "Toughness": 9
+        },
+        "skill_means": {
+          "Athletics": 82,
+          "Bow": 48,
+          "Crossbow": 48,
+          "Defense": 102,
+          "Engineering": 45,
+          "Formation Command": 42,
+          "Formation Fighting": 108,
+          "Leadership": 45,
+          "Logistics": 48,
+          "Mass Combat": 92,
+          "Medicine": 32,
+          "Navigation": 50,
+          "Riding": 35,
+          "Scouting": 50,
+          "Shield": 105,
+          "Spear": 108,
+          "Strategy": 38,
+          "Survival": 62,
+          "Sword": 82,
+          "Tactics": 58,
+          "Training": 48
+        },
+        "skill_sd": {
+          "Athletics": 11,
+          "Bow": 11,
+          "Crossbow": 11,
+          "Defense": 11,
+          "Engineering": 11,
+          "Formation Command": 11,
+          "Formation Fighting": 11,
+          "Leadership": 11,
+          "Logistics": 11,
+          "Mass Combat": 11,
+          "Medicine": 11,
+          "Navigation": 11,
+          "Riding": 11,
+          "Scouting": 11,
+          "Shield": 11,
+          "Spear": 11,
+          "Strategy": 11,
+          "Survival": 11,
+          "Sword": 11,
+          "Tactics": 11,
+          "Training": 11
+        },
+        "service_months_mean": 48.0,
+        "training_history": [],
+        "tags": [
+          "permanent_bastion_corps",
+          "professionally_qualified"
+        ]
+      },
+      "cohort_force_bastion_red_crane_bastion_logistics": {
+        "cohort_id": "cohort_force_bastion_red_crane_bastion_logistics",
+        "role": "bastion_logistics",
+        "origin": {
+          "kind": "standing_establishment_rebaseline",
+          "population_ref": "population_qin",
+          "source_location_ref": "loc_tang_manor",
+          "source_stratum": "private_household_military",
+          "recorded_at": "244-BCE-07-29T06:00:00+08:00",
+          "provenance_note": "Current-setting Four Bastion Corps rebaseline. Existing former defense-company bodies were retained/reassigned; the additional 35,000 establishment bodies were added directly to the military baseline without debiting Tang Manor civilians. Future recruitment follows normal conserved service movement."
+        },
+        "reserve_by_location": {
+          "loc_tang_manor_defense_camp": 0
+        },
+        "allocated_by_formation": {
+          "formation_bastion_red_crane_01": 500,
+          "formation_bastion_red_crane_02": 500,
+          "formation_bastion_red_crane_03": 500,
+          "formation_bastion_red_crane_04": 500
+        },
+        "age_distribution": {},
+        "aptitude_means": {
+          "academic_learning": 108,
+          "physical_learning": 118,
+          "social_learning": 100,
+          "tactical_learning": 118,
+          "technical_learning": 118
+        },
+        "attribute_means": {
+          "Agility": 84,
+          "Awareness": 98,
+          "Composure": 100,
+          "Coordination": 92,
+          "Endurance": 98,
+          "Intelligence": 88,
+          "Presence": 76,
+          "Strength": 94,
+          "Toughness": 98
+        },
+        "attribute_sd": {
+          "Agility": 9,
+          "Awareness": 9,
+          "Composure": 9,
+          "Coordination": 9,
+          "Endurance": 9,
+          "Intelligence": 9,
+          "Presence": 9,
+          "Strength": 9,
+          "Toughness": 9
+        },
+        "skill_means": {
+          "Athletics": 82,
+          "Bow": 48,
+          "Crossbow": 48,
+          "Defense": 90,
+          "Engineering": 72,
+          "Formation Command": 42,
+          "Formation Fighting": 94,
+          "Leadership": 45,
+          "Logistics": 105,
+          "Mass Combat": 72,
+          "Medicine": 32,
+          "Navigation": 50,
+          "Riding": 35,
+          "Scouting": 50,
+          "Shield": 90,
+          "Spear": 92,
+          "Strategy": 38,
+          "Survival": 62,
+          "Sword": 82,
+          "Tactics": 58,
+          "Training": 48
+        },
+        "skill_sd": {
+          "Athletics": 11,
+          "Bow": 11,
+          "Crossbow": 11,
+          "Defense": 11,
+          "Engineering": 11,
+          "Formation Command": 11,
+          "Formation Fighting": 11,
+          "Leadership": 11,
+          "Logistics": 11,
+          "Mass Combat": 11,
+          "Medicine": 11,
+          "Navigation": 11,
+          "Riding": 11,
+          "Scouting": 11,
+          "Shield": 11,
+          "Spear": 11,
+          "Strategy": 11,
+          "Survival": 11,
+          "Sword": 11,
+          "Tactics": 11,
+          "Training": 11
+        },
+        "service_months_mean": 48.0,
+        "training_history": [],
+        "tags": [
+          "permanent_bastion_corps",
+          "professionally_qualified"
+        ]
+      }
+    }
+  },
+  "geographic_disposition": {
+    "authority": true,
+    "home_location_ref": "loc_tang_manor",
+    "garrison_location_ref": "loc_tang_manor_defense_camp",
+    "rule": "permanent Tang Manor military institution; no mercenary employer or contract exists"
+  },
+  "command_establishment": {
+    "commander_ref": "char_luo_zhen",
+    "deputy_ref": "char_pei_an",
+    "top_command_external_to_fighting_establishment": true,
+    "marshal_ref": "char_mu_zhen",
+    "deputy_marshal_ref": "char_he_shan"
+  },
+  "training_policy_ref": "game/data/mechanics/bastion-corps.json",
+  "institutional_reserve_silver": 1294937
+}

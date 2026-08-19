@@ -1,0 +1,178 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 61,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 136,
+    "physical_learning": 179,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 157,
+    "technical_learning": 117
+  },
+  "attributes": {
+    "Agility": 147,
+    "Awareness": 153,
+    "Composure": 166,
+    "Coordination": 158,
+    "Endurance": 182,
+    "Intelligence": 121,
+    "Presence": 177,
+    "Strength": 182,
+    "Toughness": 182
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from an explicit regimen when present or the bounded named-role fallback; House Tang explicit standing-role regimens remain canonical; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 56.0
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Zhao"
+  },
+  "birth_date": "281-BCE-10-07",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 163.0,
+    "current_weight_kg": 60.6,
+    "frame": "broad",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "formation_commander",
+    "current_command_span": 5000,
+    "office_or_command": "Commander, ZHAO Mobile Reserve",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "command_assignment": {
+    "billet": "formation_commander",
+    "current_command_span": 5000,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "formation_zhao_mobile_reserve",
+    "rule": "Current command span follows exact surviving formation strength and may change without changing durable rank.",
+    "source": "current_exact_formation"
+  },
+  "current_location": "loc_zhao_regional_01",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 2.143,
+      "Awareness": 2.849,
+      "Composure": 1.718,
+      "Coordination": 1.149,
+      "Endurance": 0.344,
+      "Intelligence": 1.609,
+      "Presence": 1.227,
+      "Toughness": 0.344
+    },
+    "attribute_stimulus_hours_milli": 137200,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 392,
+    "skill_edu_banks": {
+      "Formation Command": 3.684,
+      "Navigation": 3.998,
+      "Riding": 12.546,
+      "Survival": 29.946,
+      "Tactics": 3.684,
+      "Training": 29.759
+    },
+    "training_credit": 0.0
+  },
+  "equipment_loadout_id": "loadout_named_glaive",
+  "goal_state": {
+    "current_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Zhao authority and resources"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Zhao political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 36,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "military_rank": {
+    "durable": true,
+    "grade": "general",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_role_evidence"
+  },
+  "name": "Bananji",
+  "owner_id": "char_bananji",
+  "owner_type": "character",
+  "rank": "general",
+  "role_archetype": "martial_general",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 181,
+    "Axe": 13,
+    "Bow": 17,
+    "Crossbow": 17,
+    "Dagger": 14,
+    "Defense": 183,
+    "Diplomacy": 23,
+    "Engineering": 13,
+    "Formation Command": 159,
+    "Formation Fighting": 15,
+    "Glaive": 181,
+    "Governance": 19,
+    "Grappling": 17,
+    "Intelligence Operations": 13,
+    "Intrigue": 13,
+    "Law": 20,
+    "Leadership": 174,
+    "Logistics": 15,
+    "Mace": 189,
+    "Mass Combat": 187,
+    "Medicine": 18,
+    "Navigation": 31,
+    "Riding": 162,
+    "Scouting": 14,
+    "Shield": 17,
+    "Spear": 13,
+    "Staff": 13,
+    "Stealth": 14,
+    "Strategy": 16,
+    "Survival": 43,
+    "Sword": 14,
+    "Tactics": 141,
+    "Trade": 26,
+    "Training": 30,
+    "Unarmed": 13
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_4228655c6d851c01da57",
+  "state": "Zhao"
+}

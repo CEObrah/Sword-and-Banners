@@ -1,0 +1,1566 @@
+{
+  "schema": "person-lite-roster-shard",
+  "id": "person_lite_roster.cmdgrp-kankoku-defense-army.0001",
+  "representation": "person_lite_roster_shard",
+  "scope_ref": "cmdgrp.kankoku.defense_army",
+  "scope_rule": "Individually relevant Kankoku officers share a compact command-local roster shard; aggregate officers remain sheetless.",
+  "shard_ordinal": 1,
+  "shard_policy": "soft_target_only_no_world_cap",
+  "records": {
+    "officer.qin.kankoku.army.commander": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.army.commander",
+      "name": "Gao Cheng",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "general",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "general",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "army_commander"
+      },
+      "command_assignment": {
+        "billet": "army_commander",
+        "external_to_fighting_strength": true,
+        "command_group_ref": "cmdgrp.kankoku.defense_army"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 72,
+          "Agility": 80,
+          "Endurance": 66,
+          "Toughness": 91,
+          "Coordination": 64,
+          "Awareness": 88,
+          "Composure": 75,
+          "Intelligence": 73,
+          "Presence": 84
+        },
+        "skills": {
+          "Sword": 72,
+          "Spear": 90,
+          "Glaive": 33,
+          "Axe": 33,
+          "Mace": 25,
+          "Staff": 48,
+          "Dagger": 9,
+          "Bow": 20,
+          "Crossbow": 30,
+          "Shield": 57,
+          "Defense": 79,
+          "Athletics": 77,
+          "Mass Combat": 69,
+          "Grappling": 24,
+          "Unarmed": 28,
+          "Riding": 21,
+          "Formation Fighting": 64,
+          "Survival": 64,
+          "Stealth": 25,
+          "Scouting": 20,
+          "Navigation": 20,
+          "Medicine": 4,
+          "Engineering": 28,
+          "Leadership": 61,
+          "Formation Command": 89,
+          "Tactics": 67,
+          "Strategy": 58,
+          "Logistics": 61,
+          "Intelligence Operations": 30,
+          "Training": 48,
+          "Diplomacy": 24,
+          "Law": 0,
+          "Trade": 24,
+          "Intrigue": 12,
+          "Governance": 11
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 164.0,
+        "growth_end_age": 18,
+        "current_weight_kg": 70.6,
+        "frame": "average"
+      },
+      "appearance": 75
+    },
+    "officer.qin.kankoku.army.deputy": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.army.deputy",
+      "name": "Meng Rui",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "general",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "general",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "army_deputy"
+      },
+      "command_assignment": {
+        "billet": "army_deputy",
+        "external_to_fighting_strength": true,
+        "command_group_ref": "cmdgrp.kankoku.defense_army"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 82,
+          "Agility": 70,
+          "Endurance": 87,
+          "Toughness": 63,
+          "Coordination": 68,
+          "Awareness": 53,
+          "Composure": 92,
+          "Intelligence": 83,
+          "Presence": 86
+        },
+        "skills": {
+          "Sword": 39,
+          "Spear": 61,
+          "Glaive": 35,
+          "Axe": 33,
+          "Mace": 46,
+          "Staff": 0,
+          "Dagger": 28,
+          "Bow": 22,
+          "Crossbow": 26,
+          "Shield": 75,
+          "Defense": 69,
+          "Athletics": 64,
+          "Mass Combat": 80,
+          "Grappling": 31,
+          "Unarmed": 26,
+          "Riding": 13,
+          "Formation Fighting": 79,
+          "Survival": 57,
+          "Stealth": 25,
+          "Scouting": 28,
+          "Navigation": 15,
+          "Medicine": 27,
+          "Engineering": 26,
+          "Leadership": 72,
+          "Formation Command": 84,
+          "Tactics": 69,
+          "Strategy": 65,
+          "Logistics": 52,
+          "Intelligence Operations": 13,
+          "Training": 64,
+          "Diplomacy": 29,
+          "Law": 23,
+          "Trade": 16,
+          "Intrigue": 29,
+          "Governance": 0
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 165.2,
+        "growth_end_age": 18,
+        "current_weight_kg": 62.3,
+        "frame": "average"
+      },
+      "appearance": 62
+    },
+    "officer.qin.kankoku.central_gate.commander": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.central_gate.commander",
+      "name": "Bai Ren",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "1000_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "1000_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_commander"
+      },
+      "command_assignment": {
+        "billet": "formation_commander",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_central_gate"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 77,
+          "Agility": 54,
+          "Endurance": 96,
+          "Toughness": 60,
+          "Coordination": 60,
+          "Awareness": 80,
+          "Composure": 79,
+          "Intelligence": 73,
+          "Presence": 70
+        },
+        "skills": {
+          "Sword": 81,
+          "Spear": 83,
+          "Glaive": 4,
+          "Axe": 28,
+          "Mace": 29,
+          "Staff": 0,
+          "Dagger": 41,
+          "Bow": 9,
+          "Crossbow": 11,
+          "Shield": 70,
+          "Defense": 94,
+          "Athletics": 70,
+          "Mass Combat": 67,
+          "Grappling": 25,
+          "Unarmed": 33,
+          "Riding": 25,
+          "Formation Fighting": 86,
+          "Survival": 60,
+          "Stealth": 41,
+          "Scouting": 45,
+          "Navigation": 38,
+          "Medicine": 31,
+          "Engineering": 48,
+          "Leadership": 69,
+          "Formation Command": 80,
+          "Tactics": 53,
+          "Strategy": 78,
+          "Logistics": 48,
+          "Intelligence Operations": 20,
+          "Training": 55,
+          "Diplomacy": 18,
+          "Law": 3,
+          "Trade": 0,
+          "Intrigue": 3,
+          "Governance": 18
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 177.6,
+        "growth_end_age": 18,
+        "current_weight_kg": 54.7,
+        "frame": "average"
+      },
+      "appearance": 88
+    },
+    "officer.qin.kankoku.central_gate.deputy": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.central_gate.deputy",
+      "name": "Han Yi",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "500_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "500_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_deputy"
+      },
+      "command_assignment": {
+        "billet": "formation_deputy",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_central_gate"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 72,
+          "Agility": 65,
+          "Endurance": 75,
+          "Toughness": 80,
+          "Coordination": 84,
+          "Awareness": 64,
+          "Composure": 81,
+          "Intelligence": 65,
+          "Presence": 69
+        },
+        "skills": {
+          "Sword": 35,
+          "Spear": 66,
+          "Glaive": 32,
+          "Axe": 35,
+          "Mace": 27,
+          "Staff": 35,
+          "Dagger": 14,
+          "Bow": 10,
+          "Crossbow": 10,
+          "Shield": 58,
+          "Defense": 59,
+          "Athletics": 75,
+          "Mass Combat": 73,
+          "Grappling": 38,
+          "Unarmed": 25,
+          "Riding": 28,
+          "Formation Fighting": 79,
+          "Survival": 57,
+          "Stealth": 21,
+          "Scouting": 32,
+          "Navigation": 28,
+          "Medicine": 43,
+          "Engineering": 15,
+          "Leadership": 62,
+          "Formation Command": 77,
+          "Tactics": 64,
+          "Strategy": 54,
+          "Logistics": 62,
+          "Intelligence Operations": 9,
+          "Training": 48,
+          "Diplomacy": 17,
+          "Law": 26,
+          "Trade": 20,
+          "Intrigue": 25,
+          "Governance": 1
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 173.8,
+        "growth_end_age": 18,
+        "current_weight_kg": 52.3,
+        "frame": "average"
+      },
+      "appearance": 77
+    },
+    "officer.qin.kankoku.east_wall.commander": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.east_wall.commander",
+      "name": "Wang Jun",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "1000_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "1000_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_commander"
+      },
+      "command_assignment": {
+        "billet": "formation_commander",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_east_wall"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 97,
+          "Agility": 70,
+          "Endurance": 90,
+          "Toughness": 72,
+          "Coordination": 82,
+          "Awareness": 68,
+          "Composure": 85,
+          "Intelligence": 74,
+          "Presence": 90
+        },
+        "skills": {
+          "Sword": 58,
+          "Spear": 69,
+          "Glaive": 22,
+          "Axe": 37,
+          "Mace": 31,
+          "Staff": 27,
+          "Dagger": 49,
+          "Bow": 26,
+          "Crossbow": 31,
+          "Shield": 93,
+          "Defense": 87,
+          "Athletics": 82,
+          "Mass Combat": 78,
+          "Grappling": 16,
+          "Unarmed": 22,
+          "Riding": 20,
+          "Formation Fighting": 63,
+          "Survival": 63,
+          "Stealth": 49,
+          "Scouting": 21,
+          "Navigation": 41,
+          "Medicine": 17,
+          "Engineering": 7,
+          "Leadership": 91,
+          "Formation Command": 85,
+          "Tactics": 70,
+          "Strategy": 78,
+          "Logistics": 65,
+          "Intelligence Operations": 12,
+          "Training": 55,
+          "Diplomacy": 31,
+          "Law": 25,
+          "Trade": 7,
+          "Intrigue": 39,
+          "Governance": 24
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 180.3,
+        "growth_end_age": 18,
+        "current_weight_kg": 56.0,
+        "frame": "average"
+      },
+      "appearance": 95
+    },
+    "officer.qin.kankoku.east_wall.deputy": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.east_wall.deputy",
+      "name": "Xu Ke",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "500_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "500_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_deputy"
+      },
+      "command_assignment": {
+        "billet": "formation_deputy",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_east_wall"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 72,
+          "Agility": 86,
+          "Endurance": 78,
+          "Toughness": 86,
+          "Coordination": 81,
+          "Awareness": 85,
+          "Composure": 86,
+          "Intelligence": 80,
+          "Presence": 87
+        },
+        "skills": {
+          "Sword": 43,
+          "Spear": 82,
+          "Glaive": 39,
+          "Axe": 39,
+          "Mace": 9,
+          "Staff": 30,
+          "Dagger": 8,
+          "Bow": 23,
+          "Crossbow": 12,
+          "Shield": 61,
+          "Defense": 75,
+          "Athletics": 73,
+          "Mass Combat": 81,
+          "Grappling": 12,
+          "Unarmed": 11,
+          "Riding": 19,
+          "Formation Fighting": 89,
+          "Survival": 76,
+          "Stealth": 41,
+          "Scouting": 37,
+          "Navigation": 31,
+          "Medicine": 16,
+          "Engineering": 45,
+          "Leadership": 83,
+          "Formation Command": 73,
+          "Tactics": 73,
+          "Strategy": 61,
+          "Logistics": 70,
+          "Intelligence Operations": 8,
+          "Training": 65,
+          "Diplomacy": 21,
+          "Law": 8,
+          "Trade": 18,
+          "Intrigue": 19,
+          "Governance": 0
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 175.6,
+        "growth_end_age": 18,
+        "current_weight_kg": 64.7,
+        "frame": "average"
+      },
+      "appearance": 22
+    },
+    "officer.qin.kankoku.missile_artillery.commander": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.missile_artillery.commander",
+      "name": "Fan Qian",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "1000_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "1000_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_commander"
+      },
+      "command_assignment": {
+        "billet": "formation_commander",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_missile_artillery"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 75,
+          "Agility": 75,
+          "Endurance": 82,
+          "Toughness": 87,
+          "Coordination": 73,
+          "Awareness": 80,
+          "Composure": 81,
+          "Intelligence": 77,
+          "Presence": 92
+        },
+        "skills": {
+          "Sword": 52,
+          "Spear": 108,
+          "Glaive": 17,
+          "Axe": 29,
+          "Mace": 23,
+          "Staff": 17,
+          "Dagger": 26,
+          "Bow": 12,
+          "Crossbow": 24,
+          "Shield": 67,
+          "Defense": 76,
+          "Athletics": 59,
+          "Mass Combat": 90,
+          "Grappling": 35,
+          "Unarmed": 52,
+          "Riding": 12,
+          "Formation Fighting": 64,
+          "Survival": 60,
+          "Stealth": 52,
+          "Scouting": 27,
+          "Navigation": 16,
+          "Medicine": 19,
+          "Engineering": 0,
+          "Leadership": 62,
+          "Formation Command": 98,
+          "Tactics": 58,
+          "Strategy": 77,
+          "Logistics": 69,
+          "Intelligence Operations": 26,
+          "Training": 66,
+          "Diplomacy": 5,
+          "Law": 7,
+          "Trade": 15,
+          "Intrigue": 12,
+          "Governance": 40
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 160.2,
+        "growth_end_age": 18,
+        "current_weight_kg": 69.4,
+        "frame": "average"
+      },
+      "appearance": 84
+    },
+    "officer.qin.kankoku.missile_artillery.deputy": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.missile_artillery.deputy",
+      "name": "Lu Bo",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "500_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "500_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_deputy"
+      },
+      "command_assignment": {
+        "billet": "formation_deputy",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_missile_artillery"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 90,
+          "Agility": 66,
+          "Endurance": 68,
+          "Toughness": 74,
+          "Coordination": 71,
+          "Awareness": 84,
+          "Composure": 103,
+          "Intelligence": 99,
+          "Presence": 83
+        },
+        "skills": {
+          "Sword": 40,
+          "Spear": 80,
+          "Glaive": 26,
+          "Axe": 42,
+          "Mace": 24,
+          "Staff": 16,
+          "Dagger": 29,
+          "Bow": 58,
+          "Crossbow": 20,
+          "Shield": 65,
+          "Defense": 79,
+          "Athletics": 59,
+          "Mass Combat": 88,
+          "Grappling": 34,
+          "Unarmed": 30,
+          "Riding": 32,
+          "Formation Fighting": 85,
+          "Survival": 60,
+          "Stealth": 28,
+          "Scouting": 64,
+          "Navigation": 49,
+          "Medicine": 26,
+          "Engineering": 5,
+          "Leadership": 57,
+          "Formation Command": 81,
+          "Tactics": 79,
+          "Strategy": 68,
+          "Logistics": 66,
+          "Intelligence Operations": 25,
+          "Training": 57,
+          "Diplomacy": 48,
+          "Law": 35,
+          "Trade": 21,
+          "Intrigue": 24,
+          "Governance": 11
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 166.6,
+        "growth_end_age": 18,
+        "current_weight_kg": 71.8,
+        "frame": "average"
+      },
+      "appearance": 45
+    },
+    "officer.qin.kankoku.mobile_reserve.commander": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.mobile_reserve.commander",
+      "name": "Zhao Yong",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "1000_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "1000_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_commander"
+      },
+      "command_assignment": {
+        "billet": "formation_commander",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_mobile_reserve"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 68,
+          "Agility": 78,
+          "Endurance": 73,
+          "Toughness": 79,
+          "Coordination": 86,
+          "Awareness": 61,
+          "Composure": 78,
+          "Intelligence": 63,
+          "Presence": 67
+        },
+        "skills": {
+          "Sword": 61,
+          "Spear": 92,
+          "Glaive": 19,
+          "Axe": 19,
+          "Mace": 30,
+          "Staff": 35,
+          "Dagger": 32,
+          "Bow": 16,
+          "Crossbow": 21,
+          "Shield": 63,
+          "Defense": 82,
+          "Athletics": 50,
+          "Mass Combat": 78,
+          "Grappling": 48,
+          "Unarmed": 34,
+          "Riding": 17,
+          "Formation Fighting": 69,
+          "Survival": 78,
+          "Stealth": 16,
+          "Scouting": 46,
+          "Navigation": 48,
+          "Medicine": 26,
+          "Engineering": 16,
+          "Leadership": 84,
+          "Formation Command": 58,
+          "Tactics": 69,
+          "Strategy": 48,
+          "Logistics": 54,
+          "Intelligence Operations": 14,
+          "Training": 39,
+          "Diplomacy": 2,
+          "Law": 25,
+          "Trade": 6,
+          "Intrigue": 0,
+          "Governance": 30
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 177.2,
+        "growth_end_age": 18,
+        "current_weight_kg": 74.6,
+        "frame": "average"
+      },
+      "appearance": 93
+    },
+    "officer.qin.kankoku.mobile_reserve.deputy": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.mobile_reserve.deputy",
+      "name": "Jing Tao",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "500_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "500_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_deputy"
+      },
+      "command_assignment": {
+        "billet": "formation_deputy",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_mobile_reserve"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 80,
+          "Agility": 72,
+          "Endurance": 85,
+          "Toughness": 62,
+          "Coordination": 82,
+          "Awareness": 67,
+          "Composure": 81,
+          "Intelligence": 71,
+          "Presence": 81
+        },
+        "skills": {
+          "Sword": 39,
+          "Spear": 59,
+          "Glaive": 40,
+          "Axe": 13,
+          "Mace": 26,
+          "Staff": 38,
+          "Dagger": 13,
+          "Bow": 24,
+          "Crossbow": 14,
+          "Shield": 81,
+          "Defense": 92,
+          "Athletics": 75,
+          "Mass Combat": 51,
+          "Grappling": 21,
+          "Unarmed": 29,
+          "Riding": 16,
+          "Formation Fighting": 80,
+          "Survival": 38,
+          "Stealth": 18,
+          "Scouting": 12,
+          "Navigation": 34,
+          "Medicine": 24,
+          "Engineering": 21,
+          "Leadership": 95,
+          "Formation Command": 69,
+          "Tactics": 62,
+          "Strategy": 73,
+          "Logistics": 73,
+          "Intelligence Operations": 27,
+          "Training": 42,
+          "Diplomacy": 23,
+          "Law": 15,
+          "Trade": 25,
+          "Intrigue": 0,
+          "Governance": 11
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 171.2,
+        "growth_end_age": 18,
+        "current_weight_kg": 52.1,
+        "frame": "average"
+      },
+      "appearance": 45
+    },
+    "officer.qin.kankoku.relief_engineers.commander": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.relief_engineers.commander",
+      "name": "Du Cheng",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "1000_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "1000_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_commander"
+      },
+      "command_assignment": {
+        "billet": "formation_commander",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_relief_engineers"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 71,
+          "Agility": 70,
+          "Endurance": 79,
+          "Toughness": 78,
+          "Coordination": 72,
+          "Awareness": 66,
+          "Composure": 97,
+          "Intelligence": 77,
+          "Presence": 78
+        },
+        "skills": {
+          "Sword": 76,
+          "Spear": 83,
+          "Glaive": 10,
+          "Axe": 19,
+          "Mace": 39,
+          "Staff": 16,
+          "Dagger": 5,
+          "Bow": 13,
+          "Crossbow": 30,
+          "Shield": 67,
+          "Defense": 48,
+          "Athletics": 80,
+          "Mass Combat": 72,
+          "Grappling": 33,
+          "Unarmed": 58,
+          "Riding": 24,
+          "Formation Fighting": 52,
+          "Survival": 40,
+          "Stealth": 32,
+          "Scouting": 15,
+          "Navigation": 11,
+          "Medicine": 26,
+          "Engineering": 13,
+          "Leadership": 92,
+          "Formation Command": 90,
+          "Tactics": 70,
+          "Strategy": 70,
+          "Logistics": 69,
+          "Intelligence Operations": 21,
+          "Training": 46,
+          "Diplomacy": 25,
+          "Law": 0,
+          "Trade": 32,
+          "Intrigue": 15,
+          "Governance": 14
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 167.7,
+        "growth_end_age": 18,
+        "current_weight_kg": 60.6,
+        "frame": "average"
+      },
+      "appearance": 74
+    },
+    "officer.qin.kankoku.relief_engineers.deputy": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.relief_engineers.deputy",
+      "name": "Zhang Lin",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "500_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "500_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_deputy"
+      },
+      "command_assignment": {
+        "billet": "formation_deputy",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_relief_engineers"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 76,
+          "Agility": 50,
+          "Endurance": 63,
+          "Toughness": 82,
+          "Coordination": 76,
+          "Awareness": 82,
+          "Composure": 88,
+          "Intelligence": 72,
+          "Presence": 93
+        },
+        "skills": {
+          "Sword": 46,
+          "Spear": 74,
+          "Glaive": 10,
+          "Axe": 25,
+          "Mace": 20,
+          "Staff": 15,
+          "Dagger": 32,
+          "Bow": 31,
+          "Crossbow": 14,
+          "Shield": 68,
+          "Defense": 83,
+          "Athletics": 74,
+          "Mass Combat": 87,
+          "Grappling": 4,
+          "Unarmed": 14,
+          "Riding": 14,
+          "Formation Fighting": 93,
+          "Survival": 73,
+          "Stealth": 19,
+          "Scouting": 30,
+          "Navigation": 27,
+          "Medicine": 25,
+          "Engineering": 38,
+          "Leadership": 79,
+          "Formation Command": 63,
+          "Tactics": 67,
+          "Strategy": 77,
+          "Logistics": 69,
+          "Intelligence Operations": 18,
+          "Training": 38,
+          "Diplomacy": 20,
+          "Law": 3,
+          "Trade": 31,
+          "Intrigue": 26,
+          "Governance": 31
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 174.4,
+        "growth_end_age": 18,
+        "current_weight_kg": 52.9,
+        "frame": "average"
+      },
+      "appearance": 38
+    },
+    "officer.qin.kankoku.west_wall.commander": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.west_wall.commander",
+      "name": "Li Sheng",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "1000_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "1000_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_commander"
+      },
+      "command_assignment": {
+        "billet": "formation_commander",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_west_wall"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 71,
+          "Agility": 74,
+          "Endurance": 59,
+          "Toughness": 64,
+          "Coordination": 62,
+          "Awareness": 83,
+          "Composure": 78,
+          "Intelligence": 74,
+          "Presence": 83
+        },
+        "skills": {
+          "Sword": 49,
+          "Spear": 90,
+          "Glaive": 13,
+          "Axe": 31,
+          "Mace": 26,
+          "Staff": 39,
+          "Dagger": 7,
+          "Bow": 1,
+          "Crossbow": 7,
+          "Shield": 52,
+          "Defense": 66,
+          "Athletics": 72,
+          "Mass Combat": 62,
+          "Grappling": 20,
+          "Unarmed": 44,
+          "Riding": 23,
+          "Formation Fighting": 103,
+          "Survival": 53,
+          "Stealth": 38,
+          "Scouting": 51,
+          "Navigation": 37,
+          "Medicine": 28,
+          "Engineering": 23,
+          "Leadership": 97,
+          "Formation Command": 74,
+          "Tactics": 65,
+          "Strategy": 47,
+          "Logistics": 53,
+          "Intelligence Operations": 23,
+          "Training": 56,
+          "Diplomacy": 32,
+          "Law": 9,
+          "Trade": 11,
+          "Intrigue": 19,
+          "Governance": 1
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 170.5,
+        "growth_end_age": 18,
+        "current_weight_kg": 75.1,
+        "frame": "average"
+      },
+      "appearance": 23
+    },
+    "officer.qin.kankoku.west_wall.deputy": {
+      "schema": "person-lite",
+      "id": "officer.qin.kankoku.west_wall.deputy",
+      "name": "Sun An",
+      "resolution": "individual_lite",
+      "birth_date": "278-BCE-01-01",
+      "owner": "force_state_qin",
+      "origin": "qin",
+      "rank": "500_commander",
+      "role": "command_personnel",
+      "military_rank": {
+        "grade": "500_commander",
+        "durable": true,
+        "source": "kankoku_current_baseline",
+        "rule": "Only explicit promotion/demotion changes grade; billet and troop span do not."
+      },
+      "career_state": {
+        "current_billet": "formation_deputy"
+      },
+      "command_assignment": {
+        "billet": "formation_deputy",
+        "external_to_fighting_strength": true,
+        "formation_ref": "formation_qin_kankoku_west_wall"
+      },
+      "stats": {
+        "attributes": {
+          "Strength": 87,
+          "Agility": 61,
+          "Endurance": 74,
+          "Toughness": 68,
+          "Coordination": 64,
+          "Awareness": 76,
+          "Composure": 73,
+          "Intelligence": 78,
+          "Presence": 71
+        },
+        "skills": {
+          "Sword": 46,
+          "Spear": 77,
+          "Glaive": 21,
+          "Axe": 0,
+          "Mace": 0,
+          "Staff": 23,
+          "Dagger": 19,
+          "Bow": 37,
+          "Crossbow": 38,
+          "Shield": 77,
+          "Defense": 84,
+          "Athletics": 80,
+          "Mass Combat": 73,
+          "Grappling": 29,
+          "Unarmed": 16,
+          "Riding": 14,
+          "Formation Fighting": 78,
+          "Survival": 56,
+          "Stealth": 30,
+          "Scouting": 8,
+          "Navigation": 37,
+          "Medicine": 31,
+          "Engineering": 5,
+          "Leadership": 86,
+          "Formation Command": 103,
+          "Tactics": 70,
+          "Strategy": 73,
+          "Logistics": 55,
+          "Intelligence Operations": 23,
+          "Training": 68,
+          "Diplomacy": 7,
+          "Law": 10,
+          "Trade": 17,
+          "Intrigue": 14,
+          "Governance": 1
+        }
+      },
+      "aptitude": {
+        "academic_learning": 116,
+        "physical_learning": 104,
+        "social_learning": 114,
+        "tactical_learning": 122,
+        "technical_learning": 110
+      },
+      "health": {
+        "status": "healthy",
+        "fatigue": 0
+      },
+      "loc": "loc_kankoku_pass",
+      "current_location": "loc_kankoku_pass",
+      "source_cohort_ref": "cohort_force_state_qin_759b0aad95f7",
+      "source_cohort_provenance": {
+        "kind": "standing_establishment",
+        "population_ref": null,
+        "provenance_note": "standing personnel preserve current capability without asserting unavailable recruitment ancestry",
+        "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+        "recruited_at": null,
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stratum": null
+      },
+      "equipment_custody": {
+        "mode": "force_issue_standard",
+        "force_ref": "force_state_qin",
+        "role": "command_personnel",
+        "principle": "qualification/loadout standard only; no duplicate equipment owner"
+      },
+      "body": {
+        "adult_height_cm": 175.6,
+        "growth_end_age": 18,
+        "current_weight_kg": 56.2,
+        "frame": "average"
+      },
+      "appearance": 72
+    }
+  },
+  "record_count": 14
+}

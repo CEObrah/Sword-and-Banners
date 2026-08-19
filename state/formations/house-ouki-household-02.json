@@ -1,0 +1,161 @@
+{
+  "schema": "sword-formation",
+  "formation_ref": "formation_house_ouki_household_02",
+  "owner_force_ref": "force_house_ouki_household",
+  "administrative_owner": "house_ouki_household",
+  "name": "House Ouki Household Maneuver Unit 2",
+  "personnel": 4000,
+  "composition": {
+    "household_retainer": 2200,
+    "cavalry": 800,
+    "archer": 600,
+    "missile_crossbow": 400
+  },
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_house_ouki_household_household_retainer_standing",
+      "count": 2200,
+      "role": "household_retainer"
+    },
+    {
+      "cohort_id": "cohort_force_house_ouki_household_cavalry_standing",
+      "count": 800,
+      "role": "cavalry"
+    },
+    {
+      "cohort_id": "cohort_force_house_ouki_household_archer_standing",
+      "count": 600,
+      "role": "archer"
+    },
+    {
+      "cohort_id": "cohort_force_house_ouki_household_missile_crossbow_standing",
+      "count": 400,
+      "role": "missile_crossbow"
+    }
+  ],
+  "location_ref": "loc_qin_regional_02",
+  "command_authority": "char_ouki",
+  "commander_ref": null,
+  "deputy_ref": null,
+  "command_structure": {
+    "unit_command": {
+      "commander_ref": null,
+      "deputy_post": "materialize_when_relevant",
+      "external_to_fighting_establishment": true
+    },
+    "internal_hierarchy": {
+      "by_role": {
+        "household_retainer": {
+          "commanders_1000": 2,
+          "commanders_500": 4,
+          "commanders_100": 22,
+          "counted_inside_role_strength": true
+        },
+        "cavalry": {
+          "commanders_1000": 0,
+          "commanders_500": 1,
+          "commanders_100": 8,
+          "counted_inside_role_strength": true
+        },
+        "archer": {
+          "commanders_1000": 0,
+          "commanders_500": 1,
+          "commanders_100": 6,
+          "counted_inside_role_strength": true
+        },
+        "missile_crossbow": {
+          "commanders_1000": 0,
+          "commanders_500": 0,
+          "commanders_100": 4,
+          "counted_inside_role_strength": true
+        }
+      },
+      "summary": [
+        {
+          "scale": 1000,
+          "count": 2,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 500,
+          "count": 6,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        },
+        {
+          "scale": 100,
+          "count": 40,
+          "representation": "aggregate_command_slots",
+          "counted_inside_troop_strength": true
+        }
+      ],
+      "representation_rule": "Embedded 1,000/500/100 commanders are bodies inside each role component. Aggregate command slots do not add manpower. Materialize an existing slot only when individual relevance requires it."
+    },
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 2,
+        "500_commander": 6,
+        "100_commander": 40
+      },
+      "active_billets": {
+        "1000_commander": 2,
+        "500_commander": 6,
+        "100_commander": 40
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 2,
+        "500_commander": 2,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    }
+  },
+  "doctrine_ref": "household_combined_arms",
+  "equipment_units_by_role": {
+    "household_retainer": 2200,
+    "cavalry": 800,
+    "archer": 600,
+    "missile_crossbow": 400
+  },
+  "equipment_completeness": "0.9000",
+  "experience": "trained",
+  "fatigue": 0,
+  "cohesion": 78,
+  "morale": 80,
+  "readiness": 78,
+  "mobilized": false,
+  "status": "ready",
+  "mounts": {
+    "horse_war_military": 800
+  },
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 108000,
+    "war_bolts": 60000
+  },
+  "higher_command_ref": "cmdgrp.house_ouki_household.field_army",
+  "establishment_composition": {
+    "household_retainer": 2200,
+    "cavalry": 800,
+    "archer": 600,
+    "missile_crossbow": 400
+  },
+  "establishment_personnel": 4000
+}

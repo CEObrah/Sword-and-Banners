@@ -1,0 +1,164 @@
+{
+  "administrative_owner": "state_qin",
+  "cohesion": 88,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qin_3af44f950ac6",
+      "count": 4000
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_b5dfda110120",
+      "count": 3000
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_536ea6471349",
+      "count": 1000
+    }
+  ],
+  "command_authority": "state_qin",
+  "command_structure": {
+    "internal_hierarchy": {
+      "by_role": {
+        "cavalry": {
+          "commanders_100": 30,
+          "commanders_1000": 3,
+          "commanders_500": 6,
+          "counted_inside_role_strength": true
+        },
+        "chariot": {
+          "commanders_100": 10,
+          "commanders_1000": 1,
+          "commanders_500": 2,
+          "counted_inside_role_strength": true
+        },
+        "line_infantry": {
+          "commanders_100": 40,
+          "commanders_1000": 4,
+          "commanders_500": 8,
+          "counted_inside_role_strength": true
+        }
+      },
+      "representation_rule": "Embedded 1,000/500/100 commanders are bodies inside the troop-role component they command; earned grade survives casualties until explicit reorganization/promotion/demotion.",
+      "summary": [
+        {
+          "count": 8,
+          "counted_inside_troop_strength": true,
+          "representation": "aggregate_command_slots",
+          "scale": 1000
+        },
+        {
+          "count": 16,
+          "counted_inside_troop_strength": true,
+          "representation": "aggregate_command_slots",
+          "scale": 500
+        },
+        {
+          "count": 80,
+          "counted_inside_troop_strength": true,
+          "representation": "aggregate_command_slots",
+          "scale": 100
+        }
+      ]
+    },
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 8,
+        "100_commander": 80,
+        "500_commander": 16
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      },
+      "last_reorganization_reason": "kankoku_current_baseline",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 8,
+        "100_commander": 80,
+        "500_commander": 16
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      }
+    },
+    "unit_command": {
+      "commander_ref": "officer.qin.kankoku.mobile_reserve.commander",
+      "deputy_ref": "officer.qin.kankoku.mobile_reserve.deputy",
+      "external_to_fighting_establishment": true
+    }
+  },
+  "commander_ref": "officer.qin.kankoku.mobile_reserve.commander",
+  "composition": {
+    "cavalry": 3000,
+    "chariot": 1000,
+    "line_infantry": 4000
+  },
+  "deputy_ref": "officer.qin.kankoku.mobile_reserve.deputy",
+  "doctrine_behavior": {
+    "casualty_tolerance": "high",
+    "reserve_commitment": 65,
+    "withdrawal_threshold": 25
+  },
+  "doctrine_ref": "doc.external_state_force.standard",
+  "equipment_completeness": "0.6375",
+  "equipment_units_by_role": {
+    "cavalry": 3000,
+    "chariot": 1000,
+    "line_infantry": 1100
+  },
+  "establishment_composition": {
+    "cavalry": 3000,
+    "chariot": 1000,
+    "line_infantry": 4000
+  },
+  "establishment_personnel": 8000,
+  "experience": "veteran",
+  "fatigue": 0,
+  "formation_identity": {
+    "persistent_garrison_formation": true,
+    "quality_rule": "Capability comes from conserved cohort skills, equipment, readiness, cohesion, command, geometry and experience; no flat fortress bonus.",
+    "state_force_ownership_preserved": true
+  },
+  "formation_ref": "formation_qin_kankoku_mobile_reserve",
+  "higher_command_ref": "cmdgrp.kankoku.defense_army",
+  "location_ref": "loc_kankoku_pass",
+  "logistics": {
+    "construction_material_units": 0,
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "iron_tonnes": 0,
+    "source_depot_ref": "state_depot_qin_kankoku",
+    "timber_tonnes": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 84,
+  "mounts": {
+    "horse_chariot_trained": 1000,
+    "horse_frontier_trained": 1500,
+    "horse_war_heavy": 1000,
+    "horse_war_military": 500
+  },
+  "name": "Kankoku Mobile Reserve",
+  "owner_force_ref": "force_state_qin",
+  "personnel": 8000,
+  "readiness": 86,
+  "schema": "sword-formation",
+  "status": "ready",
+  "supply_depot_ref": "state_depot_qin_kankoku",
+  "training_progress": 62,
+  "training_ref": null
+}

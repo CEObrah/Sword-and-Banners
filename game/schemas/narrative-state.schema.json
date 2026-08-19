@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Narrative state",
+  "type": "object",
+  "required": [
+    "active_questions",
+    "available_reports",
+    "current_scene",
+    "last_scene_summary",
+    "pending_information_paths",
+    "recent_reveals",
+    "schema",
+    "unresolved_hooks",
+    "voice_profiles_required"
+  ],
+  "properties": {
+    "active_questions": {
+      "type": "array"
+    },
+    "available_reports": {
+      "type": "array"
+    },
+    "current_scene": {
+      "type": "string"
+    },
+    "last_scene_summary": {
+      "type": "string"
+    },
+    "pending_information_paths": {
+      "type": "array"
+    },
+    "recent_reveals": {
+      "type": "array"
+    },
+    "schema": {
+      "const": "narrative_state"
+    },
+    "unresolved_hooks": {
+      "type": "array"
+    },
+    "voice_profiles_required": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current narrative-state schema contract."
+}
