@@ -1,0 +1,79 @@
+name: ooc-dev-tang-route-fix
+
+on:
+  push:
+    branches:
+      - ooc-dev/fix-tang-family-hall-route
+
+permissions:
+  contents: write
+
+jobs:
+  patch-verify-commit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          ref: ooc-dev/fix-tang-family-hall-route
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install Sword runtime and test dependencies
+        run: python -m pip install -e '.[service,service-test]'
+      - name: Patch Tang estate route and regression
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          routes_path = Path('game/data/world/routes.json')
+          doc = json.loads(routes_path.read_text(encoding='utf-8'))
+          ref = 'local_tang_estate_inner_citadel_approach'
+          if not any(row.get('ref') == ref for row in doc['local_routes']):
+              edge = {
+                  'a': 'loc_tang_manor',
+                  'access_control_ref': 'loc_tang_manor',
+                  'access_semantics': 'estate-internal approach to the inner-citadel gate; crossing into the citadel still uses route_inner_citadel_gate_access',
+                  'b': 'loc_tang_inner_citadel_gate',
+                  'hours': 1,
+                  'modes': ['foot', 'horse', 'courier'],
+                  'ref': ref,
+                  'scope': 'local',
+              }
+              insert_at = next(
+                  (i + 1 for i, row in enumerate(doc['local_routes']) if row.get('ref') == 'local_tang_gate_estate'),
+                  len(doc['local_routes']),
+              )
+              doc['local_routes'].insert(insert_at, edge)
+          routes_path.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+
+          test_path = Path('tests/runtime/test_world_geography.py')
+          text = test_path.read_text(encoding='utf-8')
+          test_name = 'test_tang_manor_family_hall_uses_direct_inner_citadel_approach'
+          if test_name not in text:
+              marker = '\ndef test_route_closure_forces_real_alternate_and_full_isolation_requires_all_approaches_closed():'
+              block = '''\n\ndef test_tang_manor_family_hall_uses_direct_inner_citadel_approach():\n    plan = shortest_path(read, "loc_tang_manor", "loc_tang_manor_inner_citadel_family_hall", modes=("foot",))\n    assert plan["path"] == [\n        "loc_tang_manor",\n        "loc_tang_inner_citadel_gate",\n        "loc_tang_inner_citadel",\n        "loc_tang_manor_inner_citadel_family_hall",\n    ]\n    assert plan["route_refs"] == [\n        "local_tang_estate_inner_citadel_approach",\n        "route_inner_citadel_gate_access",\n        "local_tang_estate_family_hall",\n    ]\n    assert plan["duration_hours"] == 3\n    assert "loc_sword_manor" not in plan["path"]\n'''
+              if marker not in text:
+                  raise SystemExit('test insertion marker not found')
+              text = text.replace(marker, block + marker, 1)
+              test_path.write_text(text, encoding='utf-8')
+          PY
+      - name: Verify structural gate
+        run: python tools/quick_check.py
+      - name: Verify changed geography
+        run: python tools/test_changed.py game/data/world/routes.json tests/runtime/test_world_geography.py
+      - name: Commit verified repair and remove one-shot workflow
+        shell: bash
+        run: |
+          git rm .github/workflows/ooc-dev-tang-route-fix.yml
+          git config user.name 'OpenAI OOC Dev'
+          git config user.email 'ooc-dev@invalid'
+          git add game/data/world/routes.json tests/runtime/test_world_geography.py
+          git diff --cached --check
+          git commit -m 'fix: add direct Tang inner-citadel approach route'
+          git push origin HEAD:ooc-dev/fix-tang-family-hall-route
