@@ -31,8 +31,11 @@ _RUNTIME_PATH = "state/runtime.json"
 _EVENT_PATH = "state/event/events-messages-and-movement.json"
 _PROFILES_PATH = "game/data/mil/recruitment-cohort-profiles.json"
 _SESSION_RULES_PATH = "game/data/mechanics/training-session.json"
+# World-arc reports are informational campaign-event notices. The causal scheduler
+# deliberately delivers them without persisting a blocking wake, so this wrapper
+# must not turn them back into stop boundaries.
 _PLAYER_FACING_EVENT_KINDS = frozenset(
-    {"institutional_response", "petition_response", "message", "audience_response", "world_arc_report"}
+    {"institutional_response", "petition_response", "message", "audience_response"}
 )
 _ACTIVITY_POLICY_KEYS = frozenset(
     {"player_standing_training", "formation_refs", "household_standing_person_refs"}
@@ -134,6 +137,9 @@ class DowntimeAdvanceMixin:
         reports = total.setdefault("battlefield_reports", [])
         if isinstance(reports, list):
             reports.extend(row for row in metrics.get("battlefield_reports", []) if isinstance(row, Mapping))
+        notices = total.setdefault("campaign_event_notices", [])
+        if isinstance(notices, list):
+            notices.extend(row for row in metrics.get("campaign_event_notices", []) if isinstance(row, Mapping))
 
     def _advance_runtime(self, target_text: str) -> dict[str, Any]:
         if not self._downtime_stop_on_player_event:
@@ -145,6 +151,7 @@ class DowntimeAdvanceMixin:
             "events_processed": 0,
             "battlefield_reports": [],
             "battlefield_reviews": 0,
+            "campaign_event_notices": [],
         }
         for _ in range(4096):
             current = CampaignTime.parse(str(self.read(_RUNTIME_PATH)["world_time"]))
@@ -160,7 +167,7 @@ class DowntimeAdvanceMixin:
                     {
                         key: value
                         for key, value in metrics.items()
-                        if key not in {"hosts_woken", "events_processed", "battlefield_reports", "battlefield_reviews"}
+                        if key not in {"hosts_woken", "events_processed", "battlefield_reports", "battlefield_reviews", "campaign_event_notices"}
                     }
                 )
                 return total
