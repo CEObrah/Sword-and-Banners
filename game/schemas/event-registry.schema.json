@@ -158,6 +158,81 @@
             "minLength": 1,
             "maxLength": 96
           },
+          "advisory_record": {
+            "type": "object",
+            "required": [
+              "schema",
+              "speaker_ref",
+              "audience_ref",
+              "request_id",
+              "process_ref",
+              "topics",
+              "positions",
+              "binding",
+              "creates_policy",
+              "creates_commitment",
+              "creates_authority"
+            ],
+            "properties": {
+              "schema": {
+                "const": "sword-nonbinding-counsel.v1"
+              },
+              "speaker_ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "audience_ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "request_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "process_ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "topics": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 8,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96
+                },
+                "uniqueItems": true
+              },
+              "positions": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 8,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "binding": {
+                "const": false
+              },
+              "creates_policy": {
+                "const": false
+              },
+              "creates_commitment": {
+                "const": false
+              },
+              "creates_authority": {
+                "const": false
+              }
+            },
+            "additionalProperties": false
+          },
           "delivery": {
             "type": "object",
             "required": [
