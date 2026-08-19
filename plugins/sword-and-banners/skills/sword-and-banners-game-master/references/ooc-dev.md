@@ -90,7 +90,7 @@ Full release verification:
 python tools/run_release_suite.py
 ```
 
-A test that did not run is neither passing nor failing. Run required verification locally on the editing workspace; GitHub Actions/hosted CI is not part of the Sword release gate.
+A test that did not run is neither passing nor failing. Required verification comes only from commands that actually ran in the editing workspace. GitHub Actions and hosted CI are not part of the Sword release gate, their absence is not a failure, and their status must not be used as a substitute for local verification.
 
 ## Skill changes
 
