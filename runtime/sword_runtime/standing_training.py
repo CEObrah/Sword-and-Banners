@@ -70,6 +70,44 @@ class StandingTrainingSettlementMixin:
         rows.append(dict(row))
         del rows[:-limit]
 
+    @staticmethod
+    def _parsed_credit_window_start(
+        owner: Mapping[str, Any],
+    ) -> CampaignTime | None:
+        value = owner.get("standing_training_credit_window_start")
+        if not isinstance(value, str) or not value:
+            return None
+        try:
+            return CampaignTime.parse(value)
+        except (TypeError, ValueError):
+            return None
+
+    def _expire_orphan_standing_credit(
+        self,
+        owner: dict[str, Any],
+        *,
+        new_window_start: CampaignTime,
+    ) -> float:
+        """Expire credit that has no lawful recovery-window provenance.
+
+        Standing credit is evidence of deliberate time inside a dated downtime
+        window, not timeless XP. Legacy positive credit without a parseable start
+        cannot safely be combined with a new interval: doing so previously made
+        settlement fall back to the current timestamp and converted ordinary
+        rested training into zero-time overload.
+        """
+        credit = float(owner.get("standing_training_time_credit_hours", 0.0) or 0.0)
+        if credit <= 1e-9:
+            return 0.0
+        parsed = self._parsed_credit_window_start(owner)
+        if parsed is not None and parsed <= new_window_start:
+            return 0.0
+        owner["standing_training_time_credit_hours"] = 0.0
+        owner.pop("standing_training_credit_window_start", None)
+        owner.pop("standing_training_credit_window_end", None)
+        owner.pop("standing_training_recovery_through", None)
+        return credit
+
     def _accrue_player_standing_credit(
         self,
         start: CampaignTime,
@@ -84,6 +122,7 @@ class StandingTrainingSettlementMixin:
         elapsed = max(0, start.seconds_until(end))
         accrued = weekly * elapsed / _WEEK_SECONDS
         ds = player.setdefault("development_state", {})
+        expired_orphan = self._expire_orphan_standing_credit(ds, new_window_start=start)
         before = float(ds.get("standing_training_time_credit_hours", 0.0) or 0.0)
         after = before + accrued
         ds["standing_training_time_credit_hours"] = round(after, 6)
@@ -107,11 +146,14 @@ class StandingTrainingSettlementMixin:
             32,
         )
         self.put("state/player.json", player)
-        return {
+        result = {
             "status": "accrued",
             "accrued_hours": round(accrued, 6),
             "credit_hours": round(after, 6),
         }
+        if expired_orphan > 1e-9:
+            result["expired_orphan_credit_hours"] = round(expired_orphan, 6)
+        return result
 
     def _formation_weekly_training_rate(self, formation: Mapping[str, Any]) -> float:
         force_path = self.owner_path(str(formation["owner_force_ref"]))
@@ -139,6 +181,7 @@ class StandingTrainingSettlementMixin:
             return {"formation_ref": formation_ref, "status": "not_configured", "accrued_hours": 0.0}
         elapsed = max(0, start.seconds_until(end))
         accrued = weekly * elapsed / _WEEK_SECONDS
+        expired_orphan = self._expire_orphan_standing_credit(formation, new_window_start=start)
         before = float(formation.get("standing_training_time_credit_hours", 0.0) or 0.0)
         after = before + accrued
         formation["standing_training_time_credit_hours"] = round(after, 6)
@@ -162,12 +205,15 @@ class StandingTrainingSettlementMixin:
             32,
         )
         self.put(path, formation)
-        return {
+        result = {
             "formation_ref": formation_ref,
             "status": "accrued",
             "accrued_hours": round(accrued, 6),
             "credit_hours": round(after, 6),
         }
+        if expired_orphan > 1e-9:
+            result["expired_orphan_credit_hours"] = round(expired_orphan, 6)
+        return result
 
     def _settle_downtime_policy(
         self,
@@ -217,8 +263,17 @@ class StandingTrainingSettlementMixin:
     def _credit_window_start(owner: Mapping[str, Any], current_text: str) -> str:
         value = owner.get("standing_training_credit_window_start")
         if isinstance(value, str) and value:
-            return value
-        return current_text
+            try:
+                parsed = CampaignTime.parse(value)
+                current = CampaignTime.parse(current_text)
+            except (TypeError, ValueError):
+                pass
+            else:
+                if parsed <= current:
+                    return value
+        raise ValueError(
+            "standing training credit has no valid recovery window; accrue a new downtime interval before settlement"
+        )
 
     def _standing_recovery(
         self,
