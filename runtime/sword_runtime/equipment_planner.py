@@ -4,6 +4,8 @@ import copy
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.geography import location_chain, shortest_path as geography_shortest_path
+
 
 _EQUIPMENT_COMMANDS = frozenset({
     "equipment_equip",
@@ -23,6 +25,7 @@ _LANCE_KEY = "weapon_lance_cavalry"
 _MANIFEST_PATH = "state/player-detail/equipment-manifest.json"
 _PLAYER_PATH = "state/player.json"
 _HOUSE_TANG_STABLES = "House Tang cavalry stables"
+_TANG_MANOR_ROOT = "loc_tang_manor"
 
 
 def _manifest_entries(manifest: Mapping[str, Any]) -> list[Mapping[str, Any]]:
@@ -77,12 +80,16 @@ def _mount_label(player: Mapping[str, Any]) -> str:
     return _HOUSE_TANG_STABLES
 
 
-def _mount_accessible(player: Mapping[str, Any], origin: str) -> bool:
+def _mount_accessible(read: Any, player: Mapping[str, Any], origin: str) -> bool:
     compact = player.get("current_equipment_state", {})
     mount_location = str(compact.get("mount_location", "")) if isinstance(compact, Mapping) else ""
     if mount_location == origin:
         return True
-    if mount_location == _HOUSE_TANG_STABLES and origin.startswith("loc_tang_manor_"):
+
+    chain = location_chain(read, origin)
+    if mount_location == _HOUSE_TANG_STABLES:
+        return _TANG_MANOR_ROOT in chain
+    if mount_location.startswith("loc_") and mount_location in chain:
         return True
     return bool(compact.get("mounted", False)) and mount_location == origin if isinstance(compact, Mapping) else False
 
@@ -149,6 +156,12 @@ class EquipmentStateProjectionMixin:
     normalizes mount/tack/barding custody after equipment commands and applies
     the rider transition only when the player actually chooses horse travel.
     Merely assigning or barding a horse never means Tang Wei is mounted indoors.
+
+    Mount locations may be stored at a coarser enclosing site than the player's
+    exact room. A horse anchored to Tang Manor, Sword Manor, or another enclosing
+    compound is locally accessible from contained sublocations. When a horse-mode
+    journey starts in a foot-only room such as the Family Hall, travel resolves a
+    local foot prefix to the nearest horse-capable ancestor and mounts there.
     """
 
     def _require_horse_travel_ready(self, player: Mapping[str, Any], manifest: Mapping[str, Any]) -> None:
@@ -157,8 +170,94 @@ class EquipmentStateProjectionMixin:
             raise ValueError("horse travel requires an assigned player mount")
         if _quantity(manifest, _TACK_KEY) < 1:
             raise ValueError("horse travel requires assigned tack")
-        if not _mount_accessible(player, origin):
+        if not _mount_accessible(self.read, player, origin):
             raise ValueError("assigned mount is not physically accessible from the player's current location")
+
+    def _horse_departure_route(
+        self,
+        origin: str,
+        destination: str,
+        player: Mapping[str, Any],
+    ) -> Mapping[str, Any] | None:
+        """Resolve a foot-to-mount departure wholly inside the mount's enclosing site.
+
+        This does not teleport a remote horse. It only interprets a coarse mount
+        anchor as availability inside that same containment hierarchy. The first
+        ancestor that can continue by horse is the mounting point.
+        """
+        compact = player.get("current_equipment_state", {})
+        mount_location = str(compact.get("mount_location", "")) if isinstance(compact, Mapping) else ""
+        chain = location_chain(self.read, origin)
+        if not chain:
+            return None
+
+        if mount_location == _HOUSE_TANG_STABLES:
+            access_root = _TANG_MANOR_ROOT if _TANG_MANOR_ROOT in chain else None
+        elif mount_location.startswith("loc_") and mount_location in chain:
+            access_root = mount_location
+        else:
+            access_root = None
+        if access_root is None:
+            return None
+
+        root_index = chain.index(access_root)
+
+        def inside_access_root(a: str, b: str, _route: Mapping[str, Any]) -> bool:
+            return access_root in location_chain(self.read, a) and access_root in location_chain(self.read, b)
+
+        for mount_ref in chain[1 : root_index + 1]:
+            try:
+                foot = geography_shortest_path(
+                    self.read,
+                    origin,
+                    mount_ref,
+                    modes=("foot",),
+                    edge_allowed=inside_access_root,
+                )
+                horse = geography_shortest_path(
+                    self.read,
+                    mount_ref,
+                    destination,
+                    modes=("horse",),
+                )
+            except ValueError:
+                continue
+
+            foot_refs = list(foot.get("route_refs", []))
+            horse_refs = list(horse.get("route_refs", []))
+            foot_path = list(foot.get("path", []))
+            horse_path = list(horse.get("path", []))
+            foot_modes = list(foot.get("edge_modes", []))
+            horse_modes = list(horse.get("edge_modes", []))
+            foot_hours = list(foot.get("edge_hours", []))
+            horse_hours = list(horse.get("edge_hours", []))
+            route_refs = foot_refs + horse_refs
+            path = foot_path + horse_path[1:]
+            return {
+                "ref": route_refs[0] if len(route_refs) == 1 else "route_path",
+                "route_refs": route_refs,
+                "path": path,
+                "edge_modes": foot_modes + horse_modes,
+                "edge_hours": foot_hours + horse_hours,
+                "duration_hours": int(foot.get("duration_hours", 0)) + int(horse.get("duration_hours", 0)),
+                "modes": ["foot", "horse"],
+                "mount_departure_ref": mount_ref,
+            }
+        return None
+
+    def _find_route(self, origin: str, destination: str, *, mode: str | None = None) -> Mapping[str, Any]:
+        try:
+            return super()._find_route(origin, destination, mode=mode)
+        except ValueError as direct_error:
+            if mode != "horse":
+                raise
+            player = self.read(_PLAYER_PATH)
+            if not _mount_accessible(self.read, player, str(origin)):
+                raise direct_error
+            fallback = self._horse_departure_route(str(origin), str(destination), player)
+            if fallback is None:
+                raise direct_error
+            return fallback
 
     def _postprocess_equipment(self, command: Any) -> None:
         manifest = copy.deepcopy(self.read(_MANIFEST_PATH))
