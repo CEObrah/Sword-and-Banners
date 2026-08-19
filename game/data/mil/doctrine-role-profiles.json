@@ -1,0 +1,150 @@
+{
+  "schema": "doctrine_role_profiles",
+  "profiles": {
+    "line_infantry": {
+      "priorities": [
+        "maintain frontage and depth",
+        "protect flanks",
+        "advance/withdraw on command"
+      ],
+      "pursuit": "controlled"
+    },
+    "heavy_infantry": {
+      "priorities": [
+        "hold decisive ground",
+        "absorb pressure without losing order",
+        "advance in maintained formation"
+      ]
+    },
+    "spear_infantry": {
+      "priorities": [
+        "maintain spear integrity",
+        "deny cavalry/direct approach",
+        "support adjacent infantry"
+      ]
+    },
+    "crossbow_infantry": {
+      "priorities": [
+        "preserve firing lanes",
+        "volley on command",
+        "avoid unsupported melee"
+      ]
+    },
+    "archer": {
+      "priorities": [
+        "maintain range and ammunition",
+        "shape exposed movement",
+        "displace before close entanglement"
+      ]
+    },
+    "cavalry": {
+      "priorities": [
+        "preserve mobility",
+        "attack exposed flanks/rears",
+        "avoid wasteful frontal fixation"
+      ]
+    },
+    "heavy_cavalry": {
+      "priorities": [
+        "mass for decisive shock",
+        "maintain horse/order integrity",
+        "break contact before disorder compounds"
+      ]
+    },
+    "mounted_archer": {
+      "priorities": [
+        "harass from mobility",
+        "preserve distance",
+        "draw/punish pursuit"
+      ]
+    },
+    "chariot": {
+      "priorities": [
+        "operate on suitable ground",
+        "support shock/missile geometry",
+        "avoid broken terrain"
+      ]
+    },
+    "scout": {
+      "priorities": [
+        "find enemy/routes",
+        "report without unnecessary engagement",
+        "preserve observation network"
+      ]
+    },
+    "engineer": {
+      "priorities": [
+        "enable movement/works",
+        "protect specialist tools",
+        "fight only as mission requires"
+      ]
+    },
+    "sapper": {
+      "priorities": [
+        "prepare/breach obstacles",
+        "coordinate timing with assault",
+        "preserve specialist capability"
+      ]
+    },
+    "siege_artillery": {
+      "priorities": [
+        "maintain firing/support position",
+        "protect crews/ammunition",
+        "coordinate with siege plan"
+      ]
+    },
+    "medical": {
+      "priorities": [
+        "triage/stabilize",
+        "evacuate casualties",
+        "preserve treatment capacity"
+      ],
+      "frontage": "not default assault frontage"
+    },
+    "logistics": {
+      "priorities": [
+        "maintain supply flow",
+        "protect trains/stores",
+        "reroute around threats"
+      ],
+      "frontage": "not default assault frontage"
+    },
+    "signal": {
+      "priorities": [
+        "maintain message chain",
+        "preserve signal integrity",
+        "relocate if threatened"
+      ],
+      "frontage": "not default assault frontage"
+    },
+    "support_staff": {
+      "priorities": [
+        "sustain camp/maintenance/admin function",
+        "remain protected",
+        "withdraw before support collapse"
+      ],
+      "frontage": "not default assault frontage"
+    },
+    "guard_infantry": {
+      "priorities": [
+        "protect assigned person/place",
+        "maintain controlled perimeter",
+        "counter local breach"
+      ]
+    },
+    "house_guard": {
+      "priorities": [
+        "protect household command/objective",
+        "maintain discipline",
+        "counterattack local breaches"
+      ]
+    },
+    "student": {
+      "priorities": [
+        "follow instructor command",
+        "avoid independent battle maneuver",
+        "mobilize only under lawful institutional order"
+      ]
+    }
+  }
+}

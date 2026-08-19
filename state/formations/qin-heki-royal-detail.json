@@ -1,0 +1,152 @@
+{
+  "administrative_owner": "state_qin",
+  "cohesion": 58,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qin_3af44f950ac6",
+      "count": 400
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_33c6ae86fd97",
+      "count": 100
+    }
+  ],
+  "command_authority": "state_qin",
+  "command_structure": {
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 0,
+        "100_commander": 5,
+        "500_commander": 0
+      },
+      "cadre_reserve": {
+        "1000_commander": 1,
+        "100_commander": 0,
+        "500_commander": 1
+      },
+      "last_reorganization_reason": "clean_baseline_officer_cadre",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 1,
+        "100_commander": 5,
+        "500_commander": 1
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      }
+    },
+    "unit_command": {
+      "commander_ref": "char_heki",
+      "deputy_ref": null,
+      "external_to_fighting_establishment": true,
+      "rule": "persistent top commander/deputy are command-establishment personnel outside formation.personnel; internal 1000/500/100 command remains inside fighting establishment"
+    },
+    "internal_hierarchy": [
+      {
+        "scale": 100,
+        "count": 5,
+        "authorized_count": 5,
+        "full_elements": 5,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "aggregate",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      }
+    ],
+    "establishment_topology": {
+      "formation_class": "unit",
+      "unit_command_scale": 500,
+      "direct_subordinates": [
+        {
+          "scale": 100,
+          "count": 5
+        }
+      ],
+      "children_per_parent": {
+        "1000": [
+          {
+            "scale": 500,
+            "count": 2
+          }
+        ],
+        "500": [
+          {
+            "scale": 100,
+            "count": 5
+          }
+        ]
+      },
+      "summary_counts": {
+        "100": 5
+      },
+      "rule": "Unit commander/deputy own the Unit echelon; internal 1,000/500/100 billets are strictly subordinate and remain fixed through casualties."
+    },
+    "establishment_rule": "Unit commander/deputy occupy the Unit echelon outside fighting strength; internal 1,000/500/100 billets are generated only from authorized establishment and never from casualty-depleted current manpower."
+  },
+  "commander_ref": "char_heki",
+  "composition": {
+    "line_infantry": 400,
+    "missile_crossbow": 100
+  },
+  "created_at": "244-BCE-07-29T20:22:48+08:00",
+  "creation_basis": "Current-setting canon-service rebaseline; real Qin reserve bodies were allocated without advancing campaign time. Top commander is outside troop strength.",
+  "deputy_ref": null,
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 45
+  },
+  "doctrine_ref": "doc.state_qin.regular_combined_arms",
+  "equipment_completeness": "1.0000",
+  "equipment_units": 500,
+  "equipment_units_by_role": {
+    "line_infantry": 400,
+    "missile_crossbow": 100
+  },
+  "establishment_composition": {
+    "line_infantry": 400,
+    "missile_crossbow": 100
+  },
+  "establishment_personnel": 500,
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_qin_heki_royal_detail",
+  "higher_command_ref": "cmdgrp.shou_bun_kun.field_command",
+  "location_ref": "loc_kanyou",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "source_depot_ref": "depot_fort_kanyou",
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": false,
+  "morale": 68,
+  "mounts": {},
+  "name": "Heki Royal Service Detail",
+  "owner_force_ref": "force_state_qin",
+  "personnel": 500,
+  "readiness": 62,
+  "schema": "sword-formation",
+  "status": "ready",
+  "supply_depot_ref": "depot_fort_kanyou",
+  "top_command_staff_accounting": {
+    "commander_and_deputy_external_to_troop_strength": true,
+    "embedded_1000_500_100_leaders_inside_relevant_troop_components": true
+  },
+  "training_progress": 35,
+  "training_ref": "train.state_qin.regular_combined_arms",
+  "formation_class": "unit",
+  "authorized_strength": 500
+}

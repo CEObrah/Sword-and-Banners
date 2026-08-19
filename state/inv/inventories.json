@@ -1,0 +1,119 @@
+{
+  "name": "Institutional Equipment and Issue Inventories",
+  "owner_id": "equipment_inventories",
+  "owner_type": "inventory_registry",
+  "records": [
+    {
+      "label": "Overview",
+      "notes": [
+        "House Tang and Sword Manor fighting establishments are the aggregate issue authority; exact named personal manifests remain separately owned.",
+        "Sword Manor trainee issue stock follows the current registered protective kit; no removed equipment is counted as current stock, production, or destruction."
+      ],
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "Cavalry Lance issued": 12000,
+        "Cavalry Lance total": 15600,
+        "Cavalry Lance unissued reserve": 3600,
+        "Long Spear issued": 98560,
+        "Long Spear total": 128128,
+        "Long Spear unissued reserve": 29568,
+        "One-Handed Long Sword issued": 170060,
+        "One-Handed Long Sword total": 212575,
+        "One-Handed Long Sword unissued reserve": 42515,
+        "Tang Armor issued": 170060,
+        "Tang Armor total": 212575,
+        "Tang Armor unissued reserve": 42515,
+        "Tang Helmet issued": 170060,
+        "Tang Helmet total": 212575,
+        "Tang Helmet unissued reserve": 42515,
+        "Tang Horse Armor issued": 12000,
+        "Tang Horse Armor reserve": 3000,
+        "Tang Horse Armor total": 15000,
+        "Tang Shield issued": 170060,
+        "Tang Shield total": 231282,
+        "Tang Shield unissued reserve": 61222,
+        "Tang Tack issued": 12000,
+        "Tang Tack reserve": 3000,
+        "Tang Tack total": 15000,
+        "issued aggregate calculation": "All 170,060 permanent House Tang military bodies are covered by their registered role loadouts: 30,000 House elites + 30,060 Sword Manor + 110,000 Four Bastion Corps. Role-specific weapon counts are derived from exact force composition; named personal manifests remain separate custody owners.",
+        "Bastion Crossbow issued": 18500,
+        "Bastion Crossbow unissued reserve": 4625,
+        "Bastion Crossbow total": 23125
+      },
+      "label": "Tang restricted equipment",
+      "record_id": "tang_restricted_equipment",
+      "notes": [
+        "Reserve quantities are derived from current issue count, 24 months of role-specific normal attrition, a 25% immediate reissue floor, and a 25% disruption contingency on attrition. They are stock targets, never gameplay caps."
+      ]
+    },
+    {
+      "facts": {
+        "Tang Heavy Warhorse assigned": 12000,
+        "Tang Heavy Warhorse reserve": 6000,
+        "Tang Heavy Warhorse total": 18000,
+        "assigned mount calculation": "Assigned count is derived from all current force_house_tang formations; reserve is the current House Tang remount stock target. No Swift Warhorse category exists.",
+        "breeding_stock_export_allowed": false,
+        "external_sale_or_lease_allowed": false,
+        "external_stud_service_allowed": false,
+        "mount_category_rule": "House Tang service cavalry uses the Tang Heavy Warhorse category. Breeding/remount animals support this service category; ordinary riding, draft, pack and chariot animals remain distinct world service pools."
+      },
+      "label": "Mounts",
+      "record_id": "mounts"
+    },
+    {
+      "facts": {
+        "Bow conservation": "75,060 current bow loadouts are derived from exact House Tang, Sword Manor, and Bastion role establishments. Exact named personal manifests remain separate.",
+        "Composite Bow active issued": 20060,
+        "Composite Bow armory reserve": 5015,
+        "Composite Bow calculation": "20,060 Sword Manor trainee loadouts.",
+        "Composite Bow total": 25075,
+        "Great War Bow active issued": 50000,
+        "Great War Bow armory reserve": 12500,
+        "Great War Bow calculation": "50,000 current Great War Bow loadouts across House troops, senior/general disciples, and Bastion archers.",
+        "Great War Bow separately assigned in storage to Tang Kai": 0,
+        "Great War Bow total": 62500,
+        "Heavy War Bow active issued": 5000,
+        "Heavy War Bow armory reserve": 1250,
+        "Heavy War Bow calculation": "5,000 Sword Manor Junior Disciple loadouts.",
+        "Heavy War Bow total": 6250,
+        "active aggregate standing bow loadouts": 75060,
+        "separate exact-person bow manifests": "owned by exact person/equipment custody records"
+      },
+      "label": "Bows",
+      "record_id": "bows"
+    },
+    {
+      "facts": {
+        "Arrow Quivers issued or assigned": 75060,
+        "War Arrows carried or assigned": 2702160,
+        "War Arrows strategic reserve": 145916640,
+        "War Arrows total": 148618800,
+        "calculation": "Ranged establishment is 75,060 bow loadouts and 18,500 hand-crossbow loadouts at 36 carried missiles each. Strategic reserves use the current House Tang production-policy derivation and mirror the garrison depot rather than duplicating stock.",
+        "quiver_capacity_each": 36,
+        "Crossbow bolt cases issued or assigned": 18500,
+        "War Bolts carried or assigned": 666000,
+        "War Bolts strategic reserve": 26973000,
+        "War Bolts total": 27639000
+      },
+      "label": "Ammunition",
+      "notes": [
+        "Every aggregate standing bow loadout has one 36-arrow quiver. Reserve arrows are physically separate in the garrison depot and do not count as carried ammunition."
+      ],
+      "record_id": "ammunition"
+    },
+    {
+      "facts": {
+        "exact_owner": "owner:tang_manor_siege_inventory",
+        "runtime_state_owner": "owner:tang_manor_artillery"
+      },
+      "label": "Defensive siege inventory",
+      "record_id": "defensive_siege_inventory"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "inventory-registry"
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "training-profile-record",
+  "id": "train.house_tang_internal.heavy_cavalry",
+  "profile": {
+    "id": "train.house_tang_internal.heavy_cavalry",
+    "inherits": "train.world_force.standard",
+    "resource_gated": true,
+    "deterministic_program_policy": "program.guardian_cavalry",
+    "gain_authority": "game/data/mil/deterministic-training-programs.json + game/data/mechanics/training.json"
+  }
+}

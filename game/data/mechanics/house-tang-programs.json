@@ -1,0 +1,56 @@
+{
+  "authority": "Static House Tang administrative program rules. This file registers lawful program templates and treasury-safety policy; it does not prove that any campaign program has been accepted or opened.",
+  "treasury_safety": {
+    "reserve_months_of_stable_expense": 12,
+    "discretionary_program_fraction_basis_points": 1000,
+    "rule": "A new discretionary House program may receive at most the registered fraction of cash remaining after the protected stable-expense reserve. Opening a program reserves no money and spends nothing by itself."
+  },
+  "field_preparation": {
+    "minimum_staging_hours": 2,
+    "departure_reserve_days": 7,
+    "food_kg_per_person_day": 1.5,
+    "fodder_kg_per_mount_day": 4.0,
+    "rule": "An explicitly requested House Tang campaign-preparation stage may load at most seven days of departure food and fodder from exact House stores. It may form already-conserved Tang Wei personal-force manpower and issue only exact registered stock. Missing equipment remains a persisted shortfall rather than being manufactured by narration."
+  },
+  "sword_manor_initiates": {
+    "role": "trainee",
+    "selection_profile": "sword_manor_screened_initiate",
+    "training_ground_ref": "loc_tang_manor_training_ground",
+    "physical_capacity_ref": "state/infrastructure/settlements.json#/sites/loc_tang_manor/sword_manor",
+    "intake_rule": "House-requested intake may admit only conserved screened applicants into the Sword Manor military force through current physical training/replacement throughput. Housing, instructors, ranges, water, food, medical support, assessment, equipment and standards govern intake; there is no fixed personnel cap and no outsider instructional enrollment.",
+    "force_ref": "force_sword_manor"
+  },
+  "sword_manor_officer_cadre": {
+    "representation_rule": "Sword Manor army commander and deputy are named full characters outside disciple fighting strength. Internal 1,000/500 officers are conserved members of their disciple rank; 100-man and below remain aggregate unless salient.",
+    "automatic_person_lite_minimum_commanded_personnel": 500,
+    "army_commander_ref": "char_wei_jian",
+    "army_deputy_ref": "char_ren_qiao"
+  },
+  "standing_establishment": {
+    "house_tang": {
+      "house_guard": 18000,
+      "guardian_cavalry": 8000,
+      "tang_champion": 4000,
+      "assigned_to_tang_wei": {
+        "house_guard": 3000,
+        "tang_champion": 500
+      }
+    },
+    "sword_manor": {
+      "trainee": 20060,
+      "junior_disciple": 5000,
+      "general_disciple": 3500,
+      "senior_disciple": 1500,
+      "rule": "current conserved permanent military-force snapshot, not an authorized maximum or mobilization pool"
+    },
+    "command_count_rule": "army/unit commander and deputy excluded from fighting troop numbers; internal 1,000/500 commanders are conserved inside their fighting ranks.",
+    "four_bastion_corps": {
+      "iron_rampart": 75000,
+      "red_crane": 16000,
+      "white_lantern": 10000,
+      "deep_earth": 9000,
+      "total": 110000,
+      "rule": "permanent Four Bastion Corps nested as one subordinate command inside the unified House Tang Field Army; outer-perimeter defense is their default home doctrine, not separate-army status or a deployment prohibition"
+    }
+  }
+}

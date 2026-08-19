@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "measurement_policy", "blueprints"],
+  "properties": {
+    "schema": {"const": "infrastructure-blueprints"},
+    "measurement_policy": {"type": "string", "minLength": 1},
+    "blueprints": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["category", "unit_name", "silver_cost", "construction_material_units", "labor_hours", "minimum_calendar_hours", "support_capacity_add", "works_add", "physical_geometry"],
+        "properties": {
+          "category": {"type": "string", "minLength": 1},
+          "unit_name": {"type": "string", "minLength": 1},
+          "silver_cost": {"type": "integer", "minimum": 0},
+          "construction_material_units": {"type": "integer", "minimum": 0},
+          "labor_hours": {"type": "integer", "minimum": 1},
+          "minimum_calendar_hours": {"type": "integer", "minimum": 1},
+          "support_capacity_add": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+          "works_add": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+          "physical_geometry": {"type": "object"}
+        }
+      }
+    }
+  }
+}

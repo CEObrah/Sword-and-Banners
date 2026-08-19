@@ -1,0 +1,145 @@
+{
+  "accounting_only": true,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 5.9
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 62,
+      "sd": 7.4
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 62,
+    "aggression": 58,
+    "casualty_tolerance": 55,
+    "caution": 48,
+    "initiative": 54,
+    "objective_focus": 68,
+    "pursuit_bias": 50
+  },
+  "composition_rule": "company is persistent combined force, not one generic blob",
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 280000,
+      "basis": "mercenary_ecology current obligation; contract organizes employment but owns zero bodies",
+      "contract_ref": "market_contract_merc_major_04",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "employer_ref": "house_mou_family",
+      "engagement_kind": "house_contract",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 120
+    }
+  ],
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "doctrine": "doc.merc.major.04",
+  "doctrine_familiarity": 75,
+  "establishment_strength": 10000,
+  "formation_library_ref": "formation.mercenary.standard",
+  "geographic_provenance": {
+    "rule": "company remains exact manpower owner; contract/employer does not own duplicate bodies"
+  },
+  "headcount": 10000,
+  "home_establishment_ref": "establishment.merc.major.04",
+  "home_location_ref": "loc_qin_regional_01",
+  "market_engagement": {
+    "kind": "house_contract",
+    "rule": "current commercial/military employment affects availability without changing company manpower ownership",
+    "short_notice_available": false,
+    "established_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "market_tier": "major_famous",
+  "name": "Bronze River",
+  "owner_id": "merc.major.04",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "mercenary",
+  "specialty": "river",
+  "status": "contracted",
+  "training": "train.merc.regular",
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability_ref": "state/manpower-capability/merc-major-04-light-line.json",
+      "count": 5000,
+      "doctrine": "doc.merc.major.04",
+      "id": "merc.major.04.light_line",
+      "loadout": "loadout_mercenary_light",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "light_line",
+      "schema": "troop_pool",
+      "specialty": "light_line",
+      "training": "train.merc.regular",
+      "troop_type": "light_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-04-crossbow.json",
+      "count": 2000,
+      "doctrine": "doc.merc.major.04",
+      "id": "merc.major.04.crossbow",
+      "loadout": "loadout_mercenary_crossbow",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "crossbow",
+      "schema": "troop_pool",
+      "specialty": "crossbow",
+      "training": "train.merc.regular",
+      "troop_type": "crossbow_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-04-boat-engineers.json",
+      "count": 1500,
+      "doctrine": "doc.merc.major.04",
+      "id": "merc.major.04.boat_engineers",
+      "loadout": "loadout_mercenary_engineer",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "boat_engineers",
+      "schema": "troop_pool",
+      "specialty": "boat_engineers",
+      "training": "train.merc.regular",
+      "troop_type": "engineer"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability_ref": "state/manpower-capability/merc-major-04-support.json",
+      "count": 1500,
+      "doctrine": "doc.merc.major.04",
+      "id": "merc.major.04.support",
+      "loadout": "loadout_mercenary_support",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "support",
+      "schema": "troop_pool",
+      "specialty": "support",
+      "training": "train.merc.regular",
+      "troop_type": "support_staff"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "tests"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mechanics-regression-tests"
+    },
+    "tests": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "inputs",
+          "expected"
+        ]
+      }
+    }
+  }
+}

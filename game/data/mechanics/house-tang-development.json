@@ -1,0 +1,26 @@
+{
+  "authority": "Registered House Tang development packages. Mutable project state remains in House Tang, Sword Manor force, treasury, population, runtime and candidate-pool owners.",
+  "sword_manor_expansion": {
+    "project_ref": "project_house_tang_sword_manor_expansion",
+    "start_cost_silver": 1800000,
+    "construction_seconds": 5184000,
+    "completion_capacity_add": {
+      "trainee_dormitory_beds": 2000,
+      "total_residential_beds": 2000,
+      "instruction_capacity_people": 2000,
+      "dining_capacity_people_per_day": 2000,
+      "water_capacity_people_per_day": 2000,
+      "medical_support_capacity_people": 2000,
+      "training_space_capacity_people": 2000,
+      "intake_assessment_candidates_per_day": 8,
+      "induction_equipment_issue_capacity_per_30d": 500
+    },
+    "rule": "Start cost must fit the House treasury-safe discretionary ceiling. Completion expands specific constructed support systems for the permanent Sword Manor military force. No fixed personnel cap exists; conserved applicants, internal training, physical capacity, equipment, and standards govern growth."
+  },
+  "sword_manor_operating_costs": {
+    "trainee_monthly_cash_per_head_silver": 40,
+    "trainee_monthly_food_per_head_kg": 48,
+    "full_establishment_personnel": 60000,
+    "rule": "Sword Manor is part of House Tang permanent military population; operating cost and food burden scale from current conserved troops across all four ranks, not from authorized empty positions."
+  }
+}

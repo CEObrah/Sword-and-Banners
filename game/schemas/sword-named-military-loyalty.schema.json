@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Named military loyalty state",
+  "type": "object",
+  "required": ["schema", "state_ref", "state_allegiance_milli", "institutional_professional_milli", "formation_bond_milli", "legitimacy_belief_milli", "commander_bonds", "house_patron_bonds", "resentment_by_person", "recent_memory"],
+  "properties": {
+    "schema": {"const": "sword-named-military-loyalty"},
+    "state_ref": {"type": "string"},
+    "state_allegiance_milli": {"type": "integer", "minimum": 0, "maximum": 1000},
+    "institutional_professional_milli": {"type": "integer", "minimum": 0, "maximum": 1000},
+    "formation_bond_milli": {"type": "integer", "minimum": 0, "maximum": 1000},
+    "legitimacy_belief_milli": {"type": "integer", "minimum": 0, "maximum": 1000},
+    "commander_bonds": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "house_patron_bonds": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "resentment_by_person": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 1000}},
+    "recent_memory": {"type": "array", "items": {"type": "object"}}
+  },
+  "additionalProperties": true
+}

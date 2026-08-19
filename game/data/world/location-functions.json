@@ -1,0 +1,180 @@
+{
+  "functions": {
+    "movement": {
+      "roles": [
+        "mechanical_gate",
+        "strategic_classification"
+      ],
+      "meaning": "Suitable as a movement or military-column access destination; strategic routing still comes from the route graph."
+    },
+    "recruitment": {
+      "roles": [
+        "simulation_weight",
+        "strategic_classification"
+      ],
+      "meaning": "Locality may contribute recruitment access/weight; conserved bodies still come from exact population and force owners."
+    },
+    "information": {
+      "roles": [
+        "delivery_channel",
+        "strategic_classification"
+      ],
+      "meaning": "Locality can support lawful report, intelligence, rumor, or message delivery when provenance and route conditions permit."
+    },
+    "taxation": {
+      "roles": [
+        "simulation_weight"
+      ],
+      "meaning": "Locality participates in weighted civil tax allocation; exact population, treasury, and territorial owners remain authoritative."
+    },
+    "scene": {
+      "roles": [
+        "scene_anchor"
+      ],
+      "meaning": "Useful as a physical scene/reference venue; by itself grants no population, stock, authority, access, or strategic effect."
+    },
+    "fortification": {
+      "roles": [
+        "strategic_classification"
+      ],
+      "meaning": "Location is relevant to fortification routing; actual fortification geometry and condition come from fortification profiles and exact fortification state."
+    },
+    "supply": {
+      "roles": [
+        "mechanical_gate",
+        "strategic_classification"
+      ],
+      "meaning": "Suitable for military/logistics activity; actual stock and transfers come from exact depot, economy, formation, and contract owners."
+    },
+    "market": {
+      "roles": [
+        "simulation_weight",
+        "delivery_channel",
+        "strategic_classification"
+      ],
+      "meaning": "Supports market-weighted civil activity and merchant information routes; it never creates stock or capital by tag alone."
+    },
+    "military": {
+      "roles": [
+        "mechanical_gate",
+        "delivery_channel",
+        "strategic_classification"
+      ],
+      "meaning": "Suitable for military access/activity and military report routing; troop presence and command remain exact formation/force facts."
+    },
+    "politics": {
+      "roles": [
+        "delivery_channel",
+        "strategic_classification"
+      ],
+      "meaning": "Supports political/official information routing; it does not prove audience, office access, control, or recognition."
+    },
+    "battlefield": {
+      "roles": [
+        "strategic_classification"
+      ],
+      "meaning": "Marks a site suitable for battlefield/campaign reference; exact contact and combat require saved geometry and participating formations."
+    },
+    "house": {
+      "roles": [
+        "reference_tag"
+      ],
+      "meaning": "Associates a site with House activity or identity without creating House authority or resources."
+    },
+    "medical": {
+      "roles": [
+        "mechanical_gate"
+      ],
+      "meaning": "Can satisfy location-based medical facility requirements such as surgery when all exact people and treatment conditions are also valid."
+    },
+    "chokepoint": {
+      "roles": [
+        "strategic_classification"
+      ],
+      "meaning": "Marks strategic constriction relevance; exact movement/control effects still come from routes, fortifications, terrain, and current control state."
+    },
+    "trade": {
+      "roles": [
+        "reference_tag"
+      ],
+      "meaning": "Classifies trade relevance for reference and simulation routing; exact goods, prices, capital, and contracts live in economy owners."
+    },
+    "training": {
+      "roles": [
+        "mechanical_gate"
+      ],
+      "meaning": "Suitable for formation/group training access where the command also satisfies current authority, co-location, and time rules."
+    },
+    "tribal_territory": {
+      "roles": [
+        "reference_tag"
+      ],
+      "meaning": "Classifies a tribal territorial locality; it does not create polity recognition, population, troops, or control."
+    },
+    "agriculture": {
+      "roles": [
+        "reference_tag"
+      ],
+      "meaning": "Classifies agricultural relevance; production and population remain exact civil-economy and population facts."
+    },
+    "household": {
+      "roles": [
+        "reference_tag"
+      ],
+      "meaning": "Classifies household use; residence does not prove current presence, access, or relationship state."
+    },
+    "inspection": {
+      "roles": [
+        "reference_tag"
+      ],
+      "meaning": "Classifies a site as relevant to inspection/investigation scenes; evidence still requires an exact investigation or information path."
+    },
+    "mercenary": {
+      "roles": [
+        "reference_tag"
+      ],
+      "meaning": "Classifies mercenary-market relevance; company bodies, availability, contracts, and treasury remain exact mercenary/economy facts."
+    },
+    "muster": {
+      "roles": [
+        "reference_tag"
+      ],
+      "meaning": "Classifies a muster-capable venue; it creates no troops and does not bypass exact force or formation conservation."
+    },
+    "pasture": {
+      "roles": [
+        "reference_tag"
+      ],
+      "meaning": "Classifies pasture/horse-economy relevance; mounts and fodder remain exact conserved owners."
+    },
+    "barracks": {
+      "roles": [
+        "reference_tag",
+        "strategic_classification"
+      ],
+      "meaning": "Classifies permanent military housing/service infrastructure; it never creates troops, beds, or capacity without exact infrastructure owners."
+    },
+    "engineering": {
+      "roles": [
+        "reference_tag",
+        "strategic_classification"
+      ],
+      "meaning": "Classifies military/civil engineering activity; exact works, tools, materials, labor and projects remain in their authoritative owners."
+    },
+    "artillery": {
+      "roles": [
+        "reference_tag",
+        "strategic_classification"
+      ],
+      "meaning": "Classifies artillery emplacement/service relevance; exact engines, ammunition, crews and firing geometry remain separate exact authorities."
+    }
+  },
+  "role_semantics": {
+    "mechanical_gate": "Consumed directly by at least one current runtime eligibility check.",
+    "simulation_weight": "Consumed by current deterministic aggregate simulation weighting.",
+    "delivery_channel": "Consumed by lawful report/information delivery routing.",
+    "strategic_classification": "Used to classify strategic sites while exact geometry/control lives elsewhere.",
+    "reference_tag": "Semantic/reference classification only; it must not manufacture mutable state.",
+    "scene_anchor": "Presentation/reference venue only unless additional current mechanics independently apply."
+  }
+}

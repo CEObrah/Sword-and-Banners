@@ -1,0 +1,120 @@
+{
+  "administrative_owner": "state_qin",
+  "cohesion": 58,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qin_3af44f950ac6",
+      "count": 70
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_33c6ae86fd97",
+      "count": 30
+    }
+  ],
+  "command_authority": "state_qin",
+  "command_structure": {
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      },
+      "cadre_reserve": {
+        "1000_commander": 1,
+        "100_commander": 1,
+        "500_commander": 1
+      },
+      "last_reorganization_reason": "clean_baseline_officer_cadre",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 1,
+        "100_commander": 1,
+        "500_commander": 1
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      }
+    },
+    "unit_command": {
+      "commander_ref": "char_ou_hon",
+      "deputy_ref": null,
+      "external_to_fighting_establishment": true,
+      "rule": "persistent top commander/deputy are command-establishment personnel outside formation.personnel; internal 1000/500/100 command remains inside fighting establishment"
+    },
+    "internal_hierarchy": [],
+    "establishment_topology": {
+      "formation_class": "detachment",
+      "unit_command_scale": 100,
+      "direct_subordinates": [],
+      "children_per_parent": {},
+      "summary_counts": {},
+      "rule": "Sub-500 persistent commands are detachments, not Units; their top commander owns the detachment echelon."
+    },
+    "establishment_rule": "Unit commander/deputy occupy the Unit echelon outside fighting strength; internal 1,000/500/100 billets are generated only from authorized establishment and never from casualty-depleted current manpower."
+  },
+  "commander_ref": "char_ou_hon",
+  "composition": {
+    "line_infantry": 70,
+    "missile_crossbow": 30
+  },
+  "created_at": "244-BCE-07-29T20:22:48+08:00",
+  "creation_basis": "Current-setting canon-service rebaseline; real Qin reserve bodies were allocated without advancing campaign time. Top commander is outside troop strength.",
+  "deputy_ref": null,
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 45
+  },
+  "doctrine_ref": "doc.state_qin.regular_combined_arms",
+  "equipment_completeness": "1.0000",
+  "equipment_units": 100,
+  "equipment_units_by_role": {
+    "line_infantry": 70,
+    "missile_crossbow": 30
+  },
+  "establishment_composition": {
+    "line_infantry": 70,
+    "missile_crossbow": 30
+  },
+  "establishment_personnel": 100,
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_qin_ou_hon_100",
+  "higher_command_ref": "cmdgrp.ousen.field_army",
+  "location_ref": "loc_kanyou",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "source_depot_ref": "depot_fort_kanyou",
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": false,
+  "morale": 68,
+  "mounts": {},
+  "name": "Ou Hon 100-Man Command",
+  "owner_force_ref": "force_state_qin",
+  "personnel": 100,
+  "readiness": 62,
+  "schema": "sword-formation",
+  "status": "ready",
+  "supply_depot_ref": "depot_fort_kanyou",
+  "top_command_staff_accounting": {
+    "commander_and_deputy_external_to_troop_strength": true,
+    "embedded_1000_500_100_leaders_inside_relevant_troop_components": true
+  },
+  "training_progress": 35,
+  "training_ref": "train.state_qin.regular_combined_arms",
+  "formation_class": "detachment",
+  "authorized_strength": 100
+}

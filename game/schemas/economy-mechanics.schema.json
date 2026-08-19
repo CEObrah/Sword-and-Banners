@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "recruitment_cost_constants",
+    "rules",
+    "default_rank_structure",
+    "default_support_monthly_pay_silver",
+    "force_posture_hysteresis",
+    "operating_mode_factors",
+    "ordinary_market_reference"
+  ],
+  "properties": {
+    "schema": {
+      "const": "economy-mechanics"
+    },
+    "formulas": {},
+    "recruitment_cost_constants": {},
+    "rules": {},
+    "default_rank_structure": {},
+    "default_support_monthly_pay_silver": {},
+    "force_posture_hysteresis": {},
+    "operating_mode_factors": {},
+    "ordinary_market_reference": {}
+  }
+}

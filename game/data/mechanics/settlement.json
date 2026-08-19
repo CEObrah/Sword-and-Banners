@@ -1,0 +1,270 @@
+{
+  "schema": "settlement-mechanics",
+  "formulas": {
+    "food_balance": "opening_edible_stock+production+imports-civilian_consumption-military_consumption-exports-spoilage-seizure",
+    "recruitment_availability": "eligible_population-essential_labor_floor-current_service-disability-protected_dependents-recent_levy_exhaustion",
+    "cycle_output": "base_capacity*input_completion*skilled_labor_factor*tool_condition_factor*attendance*quality_factor",
+    "daily_progress_labor": "available_laborers*attendance*skill_tool_factor*weather_security_factor",
+    "estate_net_cash": "realized_sales+rents+transfers_in-wages-purchased_inputs-maintenance-taxes-debt_service-losses-transfers_out",
+    "exposure_pressure": "infectious_contacts+contaminated_water_food+vector_exposure+corpse_waste_exposure-isolation-sanitation-protective_behavior",
+    "population_resistance": "nutrition+prior_resistance+shelter+medical_support-exhaustion-crowding-concurrent_illness",
+    "new_cases": "floor(exposed_susceptible*contact_fraction+prior_fractional_carry)",
+    "activity_progress": "max(0,current_work_score-difficulty+10)",
+    "levy_total_burden": "cash_paid+food_transport_consumed+equipment_supervision+lost_output_tax+household_relief+expected_desertion_disorder_political_cost",
+    "disease_margin": "exposure_pressure-population_resistance",
+    "new_case_fractional_carry": "exposed_susceptible*contact_fraction+prior_fractional_carry-new_cases"
+  },
+  "rules": {
+    "outputs_conserve_people_stock_cash_and_labor": true,
+    "disease_contact_fraction_must_come_from_registered_pressure_resistance_band": true,
+    "project_progress_is_capped_by_workfront_supervision_tools_materials_and_coordination": true,
+    "new_cases_capped_by_actual_exposed_susceptible": true
+  },
+  "facility_patterns": {
+    "simple_house_courtyard": {
+      "baseline_silver": 180,
+      "labor_days": 220,
+      "base_time_days": 30,
+      "capacity": "household 6-10",
+      "monthly_maintenance": 1,
+      "materials": [
+        "timber",
+        "tile_or_thatch",
+        "fittings"
+      ]
+    },
+    "manor": {
+      "baseline_silver": 1200,
+      "labor_days": 1600,
+      "base_time_days": 120,
+      "capacity": "household_staff 35",
+      "monthly_maintenance": 8,
+      "materials": [
+        "timber",
+        "masonry",
+        "tile",
+        "fittings"
+      ]
+    },
+    "fortified_estate": {
+      "baseline_silver": 8000,
+      "labor_days": 12000,
+      "base_time_days": 360,
+      "capacity": "200 residents; defensive core",
+      "monthly_maintenance": 55,
+      "materials": [
+        "masonry",
+        "timber",
+        "iron",
+        "earthworks"
+      ]
+    },
+    "barracks": {
+      "baseline_silver": 1400,
+      "labor_days": 1800,
+      "base_time_days": 100,
+      "capacity": "100 soldiers",
+      "monthly_maintenance": 12,
+      "materials": [
+        "timber",
+        "tile",
+        "bedding"
+      ]
+    },
+    "training_field": {
+      "baseline_silver": 350,
+      "labor_days": 450,
+      "base_time_days": 30,
+      "capacity": "120 trainees per cycle",
+      "monthly_maintenance": 3,
+      "materials": [
+        "leveled_land",
+        "targets",
+        "racks"
+      ]
+    },
+    "armory": {
+      "baseline_silver": 650,
+      "labor_days": 750,
+      "base_time_days": 60,
+      "capacity": "300 equipment sets",
+      "monthly_maintenance": 5,
+      "materials": [
+        "masonry_or_timber",
+        "locks",
+        "racks"
+      ]
+    },
+    "stable": {
+      "baseline_silver": 700,
+      "labor_days": 900,
+      "base_time_days": 60,
+      "capacity": "40 horses",
+      "monthly_maintenance": 7,
+      "materials": [
+        "timber",
+        "stalls",
+        "drainage"
+      ]
+    },
+    "warehouse": {
+      "baseline_silver": 500,
+      "labor_days": 650,
+      "base_time_days": 45,
+      "capacity": "150 tonnes dry stock",
+      "monthly_maintenance": 4,
+      "materials": [
+        "timber_or_masonry",
+        "raised_floor"
+      ]
+    },
+    "workshop": {
+      "baseline_silver": 900,
+      "labor_days": 1100,
+      "base_time_days": 75,
+      "capacity": "12 skilled workstations",
+      "monthly_maintenance": 8,
+      "materials": [
+        "structure",
+        "forge_or_tools_by_craft"
+      ]
+    },
+    "clinic": {
+      "baseline_silver": 750,
+      "labor_days": 850,
+      "base_time_days": 60,
+      "capacity": "12 serious patients",
+      "monthly_maintenance": 7,
+      "materials": [
+        "clean_rooms",
+        "beds",
+        "water",
+        "stores"
+      ]
+    },
+    "prison": {
+      "baseline_silver": 1000,
+      "labor_days": 1300,
+      "base_time_days": 90,
+      "capacity": "40 ordinary prisoners",
+      "monthly_maintenance": 10,
+      "materials": [
+        "masonry",
+        "bars",
+        "locks",
+        "guard_post"
+      ]
+    },
+    "archive": {
+      "baseline_silver": 500,
+      "labor_days": 600,
+      "base_time_days": 45,
+      "capacity": "institutional records",
+      "monthly_maintenance": 4,
+      "materials": [
+        "dry_secure_rooms",
+        "shelves",
+        "seals"
+      ]
+    },
+    "officer_quarters": {
+      "baseline_silver": 750,
+      "labor_days": 900,
+      "base_time_days": 60,
+      "capacity": "20 officers",
+      "monthly_maintenance": 6,
+      "materials": [
+        "timber",
+        "tile",
+        "furnishings"
+      ]
+    },
+    "family_housing": {
+      "baseline_silver": 1000,
+      "labor_days": 1400,
+      "base_time_days": 90,
+      "capacity": "20 households",
+      "monthly_maintenance": 7,
+      "materials": [
+        "multiple_dwellings",
+        "wells"
+      ]
+    },
+    "local_walls_and_gates": {
+      "baseline_silver": 6000,
+      "labor_days": 10000,
+      "base_time_days": 300,
+      "capacity": "site perimeter",
+      "monthly_maintenance": 45,
+      "materials": [
+        "earth",
+        "timber",
+        "masonry",
+        "iron"
+      ]
+    },
+    "river_dock": {
+      "baseline_silver": 1500,
+      "labor_days": 2000,
+      "base_time_days": 120,
+      "capacity": "8 medium vessels",
+      "monthly_maintenance": 12,
+      "materials": [
+        "timber",
+        "pilings",
+        "cranes",
+        "store"
+      ]
+    },
+    "shipyard": {
+      "baseline_silver": 5000,
+      "labor_days": 7000,
+      "base_time_days": 240,
+      "capacity": "4 construction slips",
+      "monthly_maintenance": 35,
+      "materials": [
+        "dock",
+        "slips",
+        "timber_stores",
+        "tools"
+      ]
+    }
+  },
+  "disease_level_values": {
+    "minor": 4,
+    "clear": 8,
+    "major": 12,
+    "decisive": 16
+  },
+  "disease_contact_fraction_by_margin": [
+    {
+      "max_margin": 0,
+      "contact_fraction": 0.0
+    },
+    {
+      "min_margin": 1,
+      "max_margin": 8,
+      "contact_fraction": 0.02
+    },
+    {
+      "min_margin": 9,
+      "max_margin": 16,
+      "contact_fraction": 0.05
+    },
+    {
+      "min_margin": 17,
+      "max_margin": 24,
+      "contact_fraction": 0.1
+    },
+    {
+      "min_margin": 25,
+      "max_margin": 40,
+      "contact_fraction": 0.2
+    },
+    {
+      "min_margin": 41,
+      "max_margin": null,
+      "contact_fraction": 0.35
+    }
+  ]
+}

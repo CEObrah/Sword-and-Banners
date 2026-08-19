@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "case_ref", "location_ref", "native_state", "case_kind", "severity", "evidence_refs", "status", "opened_at"],
+  "properties": {
+    "schema": {"const": "sword-local-justice-case"},
+    "case_ref": {"type": "string"},
+    "location_ref": {"type": "string"},
+    "native_state": {"type": "string"},
+    "severity": {"type": "integer", "minimum": 1, "maximum": 100},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["open", "resolved", "escalated"]}
+  },
+  "additionalProperties": true
+}

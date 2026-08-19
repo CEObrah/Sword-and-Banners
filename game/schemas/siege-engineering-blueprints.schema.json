@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "measurement_policy",
+    "blueprints",
+    "rules"
+  ],
+  "properties": {
+    "schema": {
+      "const": "siege-engineering-blueprints"
+    },
+    "measurement_policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "blueprints": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "kind",
+          "crew_min",
+          "crew_optimal",
+          "materials",
+          "labor_hours",
+          "wheeled",
+          "fire_susceptibility",
+          "engineer_min"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "crew_min": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "crew_optimal": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "engineer_min": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "labor_hours": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "wheeled": {
+            "type": "boolean"
+          },
+          "fire_susceptibility": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "materials": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "rules": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

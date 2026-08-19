@@ -1,0 +1,3134 @@
+{
+  "schema": "recruitment-cohort-profiles",
+  "authority": "Canonical deterministic recruitment-background distributions and registered selection transforms. Population ledgers own bodies; ChatGPT never authors starting capability values.",
+  "population_background_defaults": {
+    "agricultural": "agricultural_laborer",
+    "craft_and_industry": "artisan",
+    "household_and_service": "household_service",
+    "merchant_and_transport": "merchant_caravan",
+    "private_household_military": "former_soldier",
+    "active_military": "former_soldier",
+    "administration_and_education": "clerk_scribe",
+    "dependents": "civilian_common",
+    "camp_medical_support": "household_service"
+  },
+  "background_profiles": {
+    "civilian_common": {
+      "age_distribution": {
+        "mean": 24.0,
+        "sd": 8.0,
+        "min": 14,
+        "max": 45
+      },
+      "aptitude_means": {
+        "physical_learning": 100,
+        "technical_learning": 100,
+        "tactical_learning": 96,
+        "academic_learning": 96,
+        "social_learning": 100
+      },
+      "attribute_means": {
+        "Strength": 58,
+        "Agility": 58,
+        "Endurance": 60,
+        "Toughness": 59,
+        "Coordination": 58,
+        "Awareness": 56,
+        "Composure": 58,
+        "Intelligence": 52,
+        "Presence": 52
+      },
+      "attribute_sd": {
+        "Strength": 12,
+        "Agility": 12,
+        "Endurance": 12,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 12
+      },
+      "skill_means": {
+        "Sword": 12,
+        "Spear": 14,
+        "Bow": 14,
+        "Crossbow": 8,
+        "Shield": 12,
+        "Defense": 18,
+        "Athletics": 48,
+        "Riding": 22,
+        "Formation Fighting": 8,
+        "Survival": 38,
+        "Scouting": 22,
+        "Navigation": 24,
+        "Medicine": 12,
+        "Engineering": 16,
+        "Trade": 20
+      },
+      "skill_sd": {
+        "Sword": 10,
+        "Spear": 10,
+        "Bow": 12,
+        "Crossbow": 8,
+        "Shield": 10,
+        "Defense": 10,
+        "Athletics": 15,
+        "Riding": 16,
+        "Formation Fighting": 8,
+        "Survival": 16,
+        "Scouting": 14,
+        "Navigation": 14,
+        "Medicine": 10,
+        "Engineering": 12,
+        "Trade": 16
+      },
+      "correlation_groups": [
+        [
+          "Strength",
+          "Endurance",
+          "Athletics"
+        ],
+        [
+          "Awareness",
+          "Scouting",
+          "Survival"
+        ],
+        [
+          "Coordination",
+          "Bow",
+          "Riding"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 28,
+        "Agility": 28,
+        "Endurance": 30,
+        "Toughness": 32,
+        "Coordination": 28,
+        "Awareness": 26,
+        "Composure": 30,
+        "Intelligence": 22,
+        "Presence": 22
+      },
+      "attribute_max": {
+        "Strength": 88,
+        "Agility": 88,
+        "Endurance": 90,
+        "Toughness": 86,
+        "Coordination": 88,
+        "Awareness": 86,
+        "Composure": 86,
+        "Intelligence": 82,
+        "Presence": 82
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Crossbow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 10,
+        "Riding": 0,
+        "Formation Fighting": 0,
+        "Survival": 0,
+        "Scouting": 0,
+        "Navigation": 0,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 0
+      },
+      "skill_max": {
+        "Sword": 37,
+        "Spear": 39,
+        "Bow": 44,
+        "Crossbow": 28,
+        "Shield": 37,
+        "Defense": 43,
+        "Athletics": 86,
+        "Riding": 62,
+        "Formation Fighting": 28,
+        "Survival": 78,
+        "Scouting": 57,
+        "Navigation": 59,
+        "Medicine": 37,
+        "Engineering": 46,
+        "Trade": 60
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 70,
+        "technical_learning": 70,
+        "tactical_learning": 66,
+        "academic_learning": 66,
+        "social_learning": 70
+      },
+      "aptitude_max": {
+        "physical_learning": 130,
+        "technical_learning": 130,
+        "tactical_learning": 126,
+        "academic_learning": 126,
+        "social_learning": 130
+      }
+    },
+    "agricultural_laborer": {
+      "age_distribution": {
+        "mean": 24.0,
+        "sd": 7.5,
+        "min": 14,
+        "max": 44
+      },
+      "aptitude_means": {
+        "physical_learning": 105,
+        "technical_learning": 94,
+        "tactical_learning": 92,
+        "academic_learning": 90,
+        "social_learning": 94
+      },
+      "attribute_means": {
+        "Strength": 64,
+        "Agility": 57,
+        "Endurance": 70,
+        "Toughness": 65,
+        "Coordination": 58,
+        "Awareness": 57,
+        "Composure": 60,
+        "Intelligence": 50,
+        "Presence": 50
+      },
+      "attribute_sd": {
+        "Strength": 12,
+        "Agility": 11,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 11,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 11,
+        "Presence": 11
+      },
+      "skill_means": {
+        "Sword": 10,
+        "Spear": 16,
+        "Bow": 18,
+        "Shield": 10,
+        "Defense": 18,
+        "Athletics": 58,
+        "Riding": 24,
+        "Formation Fighting": 8,
+        "Survival": 52,
+        "Scouting": 28,
+        "Navigation": 26,
+        "Medicine": 10,
+        "Engineering": 14,
+        "Trade": 12
+      },
+      "skill_sd": {
+        "Sword": 9,
+        "Spear": 11,
+        "Bow": 14,
+        "Shield": 9,
+        "Defense": 10,
+        "Athletics": 14,
+        "Riding": 16,
+        "Formation Fighting": 8,
+        "Survival": 15,
+        "Scouting": 14,
+        "Navigation": 13,
+        "Medicine": 9,
+        "Engineering": 11,
+        "Trade": 10
+      },
+      "correlation_groups": [
+        [
+          "Strength",
+          "Endurance",
+          "Toughness",
+          "Athletics"
+        ],
+        [
+          "Awareness",
+          "Survival",
+          "Scouting"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 34,
+        "Agility": 30,
+        "Endurance": 42,
+        "Toughness": 38,
+        "Coordination": 30,
+        "Awareness": 27,
+        "Composure": 32,
+        "Intelligence": 22,
+        "Presence": 22
+      },
+      "attribute_max": {
+        "Strength": 94,
+        "Agility": 84,
+        "Endurance": 98,
+        "Toughness": 92,
+        "Coordination": 86,
+        "Awareness": 87,
+        "Composure": 88,
+        "Intelligence": 78,
+        "Presence": 78
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 23,
+        "Riding": 0,
+        "Formation Fighting": 0,
+        "Survival": 14,
+        "Scouting": 0,
+        "Navigation": 0,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 0
+      },
+      "skill_max": {
+        "Sword": 32,
+        "Spear": 44,
+        "Bow": 53,
+        "Shield": 32,
+        "Defense": 43,
+        "Athletics": 93,
+        "Riding": 64,
+        "Formation Fighting": 28,
+        "Survival": 90,
+        "Scouting": 63,
+        "Navigation": 58,
+        "Medicine": 32,
+        "Engineering": 42,
+        "Trade": 37
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 75,
+        "technical_learning": 64,
+        "tactical_learning": 62,
+        "academic_learning": 60,
+        "social_learning": 64
+      },
+      "aptitude_max": {
+        "physical_learning": 135,
+        "technical_learning": 124,
+        "tactical_learning": 122,
+        "academic_learning": 120,
+        "social_learning": 124
+      }
+    },
+    "artisan": {
+      "age_distribution": {
+        "mean": 25.0,
+        "sd": 7.0,
+        "min": 15,
+        "max": 45
+      },
+      "aptitude_means": {
+        "physical_learning": 102,
+        "technical_learning": 112,
+        "tactical_learning": 94,
+        "academic_learning": 100,
+        "social_learning": 96
+      },
+      "attribute_means": {
+        "Strength": 63,
+        "Agility": 57,
+        "Endurance": 63,
+        "Toughness": 62,
+        "Coordination": 67,
+        "Awareness": 58,
+        "Composure": 60,
+        "Intelligence": 56,
+        "Presence": 50
+      },
+      "attribute_sd": {
+        "Strength": 12,
+        "Agility": 11,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 11,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 11
+      },
+      "skill_means": {
+        "Sword": 12,
+        "Spear": 14,
+        "Bow": 12,
+        "Shield": 12,
+        "Defense": 18,
+        "Athletics": 52,
+        "Riding": 14,
+        "Formation Fighting": 8,
+        "Survival": 30,
+        "Scouting": 18,
+        "Navigation": 22,
+        "Medicine": 10,
+        "Engineering": 46,
+        "Trade": 26
+      },
+      "skill_sd": {
+        "Sword": 10,
+        "Spear": 10,
+        "Bow": 10,
+        "Shield": 10,
+        "Defense": 10,
+        "Athletics": 13,
+        "Riding": 12,
+        "Formation Fighting": 8,
+        "Survival": 12,
+        "Scouting": 11,
+        "Navigation": 12,
+        "Medicine": 9,
+        "Engineering": 16,
+        "Trade": 14
+      },
+      "correlation_groups": [
+        [
+          "Strength",
+          "Coordination",
+          "Engineering"
+        ],
+        [
+          "Intelligence",
+          "Engineering"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 33,
+        "Agility": 30,
+        "Endurance": 36,
+        "Toughness": 34,
+        "Coordination": 37,
+        "Awareness": 30,
+        "Composure": 32,
+        "Intelligence": 26,
+        "Presence": 22
+      },
+      "attribute_max": {
+        "Strength": 93,
+        "Agility": 84,
+        "Endurance": 90,
+        "Toughness": 90,
+        "Coordination": 97,
+        "Awareness": 86,
+        "Composure": 88,
+        "Intelligence": 86,
+        "Presence": 78
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 20,
+        "Riding": 0,
+        "Formation Fighting": 0,
+        "Survival": 0,
+        "Scouting": 0,
+        "Navigation": 0,
+        "Medicine": 0,
+        "Engineering": 6,
+        "Trade": 0
+      },
+      "skill_max": {
+        "Sword": 37,
+        "Spear": 39,
+        "Bow": 37,
+        "Shield": 37,
+        "Defense": 43,
+        "Athletics": 84,
+        "Riding": 44,
+        "Formation Fighting": 28,
+        "Survival": 60,
+        "Scouting": 46,
+        "Navigation": 52,
+        "Medicine": 32,
+        "Engineering": 86,
+        "Trade": 61
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 72,
+        "technical_learning": 82,
+        "tactical_learning": 64,
+        "academic_learning": 70,
+        "social_learning": 66
+      },
+      "aptitude_max": {
+        "physical_learning": 132,
+        "technical_learning": 142,
+        "tactical_learning": 124,
+        "academic_learning": 130,
+        "social_learning": 126
+      }
+    },
+    "household_service": {
+      "age_distribution": {
+        "mean": 24.0,
+        "sd": 8.0,
+        "min": 14,
+        "max": 46
+      },
+      "aptitude_means": {
+        "physical_learning": 96,
+        "technical_learning": 100,
+        "tactical_learning": 96,
+        "academic_learning": 102,
+        "social_learning": 108
+      },
+      "attribute_means": {
+        "Strength": 54,
+        "Agility": 60,
+        "Endurance": 59,
+        "Toughness": 56,
+        "Coordination": 62,
+        "Awareness": 62,
+        "Composure": 64,
+        "Intelligence": 55,
+        "Presence": 57
+      },
+      "attribute_sd": {
+        "Strength": 11,
+        "Agility": 12,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 12
+      },
+      "skill_means": {
+        "Sword": 10,
+        "Spear": 10,
+        "Bow": 10,
+        "Shield": 12,
+        "Defense": 18,
+        "Athletics": 46,
+        "Riding": 18,
+        "Formation Fighting": 8,
+        "Survival": 28,
+        "Scouting": 24,
+        "Navigation": 24,
+        "Medicine": 16,
+        "Engineering": 14,
+        "Diplomacy": 24,
+        "Trade": 20
+      },
+      "skill_sd": {
+        "Sword": 9,
+        "Spear": 9,
+        "Bow": 9,
+        "Shield": 10,
+        "Defense": 10,
+        "Athletics": 13,
+        "Riding": 14,
+        "Formation Fighting": 8,
+        "Survival": 12,
+        "Scouting": 13,
+        "Navigation": 13,
+        "Medicine": 12,
+        "Engineering": 10,
+        "Diplomacy": 14,
+        "Trade": 14
+      },
+      "correlation_groups": [
+        [
+          "Awareness",
+          "Composure",
+          "Diplomacy"
+        ],
+        [
+          "Coordination",
+          "Medicine"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 26,
+        "Agility": 30,
+        "Endurance": 32,
+        "Toughness": 28,
+        "Coordination": 32,
+        "Awareness": 32,
+        "Composure": 36,
+        "Intelligence": 25,
+        "Presence": 27
+      },
+      "attribute_max": {
+        "Strength": 82,
+        "Agility": 90,
+        "Endurance": 86,
+        "Toughness": 84,
+        "Coordination": 92,
+        "Awareness": 92,
+        "Composure": 92,
+        "Intelligence": 85,
+        "Presence": 87
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 14,
+        "Riding": 0,
+        "Formation Fighting": 0,
+        "Survival": 0,
+        "Scouting": 0,
+        "Navigation": 0,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Diplomacy": 0,
+        "Trade": 0
+      },
+      "skill_max": {
+        "Sword": 32,
+        "Spear": 32,
+        "Bow": 32,
+        "Shield": 37,
+        "Defense": 43,
+        "Athletics": 78,
+        "Riding": 53,
+        "Formation Fighting": 28,
+        "Survival": 58,
+        "Scouting": 56,
+        "Navigation": 56,
+        "Medicine": 46,
+        "Engineering": 39,
+        "Diplomacy": 59,
+        "Trade": 55
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 66,
+        "technical_learning": 70,
+        "tactical_learning": 66,
+        "academic_learning": 72,
+        "social_learning": 78
+      },
+      "aptitude_max": {
+        "physical_learning": 126,
+        "technical_learning": 130,
+        "tactical_learning": 126,
+        "academic_learning": 132,
+        "social_learning": 138
+      }
+    },
+    "merchant_caravan": {
+      "age_distribution": {
+        "mean": 26.0,
+        "sd": 8.0,
+        "min": 16,
+        "max": 48
+      },
+      "aptitude_means": {
+        "physical_learning": 98,
+        "technical_learning": 106,
+        "tactical_learning": 98,
+        "academic_learning": 104,
+        "social_learning": 112
+      },
+      "attribute_means": {
+        "Strength": 55,
+        "Agility": 59,
+        "Endurance": 61,
+        "Toughness": 57,
+        "Coordination": 61,
+        "Awareness": 63,
+        "Composure": 61,
+        "Intelligence": 58,
+        "Presence": 61
+      },
+      "attribute_sd": {
+        "Strength": 11,
+        "Agility": 11,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 12
+      },
+      "skill_means": {
+        "Sword": 12,
+        "Spear": 10,
+        "Bow": 14,
+        "Shield": 10,
+        "Defense": 18,
+        "Athletics": 46,
+        "Riding": 50,
+        "Formation Fighting": 6,
+        "Survival": 36,
+        "Scouting": 34,
+        "Navigation": 54,
+        "Medicine": 10,
+        "Engineering": 16,
+        "Trade": 62,
+        "Diplomacy": 32
+      },
+      "skill_sd": {
+        "Sword": 10,
+        "Spear": 9,
+        "Bow": 11,
+        "Shield": 9,
+        "Defense": 10,
+        "Athletics": 13,
+        "Riding": 18,
+        "Formation Fighting": 7,
+        "Survival": 14,
+        "Scouting": 15,
+        "Navigation": 17,
+        "Medicine": 9,
+        "Engineering": 11,
+        "Trade": 18,
+        "Diplomacy": 15
+      },
+      "correlation_groups": [
+        [
+          "Awareness",
+          "Riding",
+          "Scouting",
+          "Navigation"
+        ],
+        [
+          "Presence",
+          "Trade",
+          "Diplomacy"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 28,
+        "Agility": 32,
+        "Endurance": 34,
+        "Toughness": 30,
+        "Coordination": 31,
+        "Awareness": 33,
+        "Composure": 34,
+        "Intelligence": 28,
+        "Presence": 31
+      },
+      "attribute_max": {
+        "Strength": 82,
+        "Agility": 86,
+        "Endurance": 88,
+        "Toughness": 84,
+        "Coordination": 91,
+        "Awareness": 93,
+        "Composure": 88,
+        "Intelligence": 88,
+        "Presence": 91
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 14,
+        "Riding": 5,
+        "Formation Fighting": 0,
+        "Survival": 1,
+        "Scouting": 0,
+        "Navigation": 12,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 17,
+        "Diplomacy": 0
+      },
+      "skill_max": {
+        "Sword": 37,
+        "Spear": 32,
+        "Bow": 42,
+        "Shield": 32,
+        "Defense": 43,
+        "Athletics": 78,
+        "Riding": 95,
+        "Formation Fighting": 24,
+        "Survival": 71,
+        "Scouting": 72,
+        "Navigation": 96,
+        "Medicine": 32,
+        "Engineering": 44,
+        "Trade": 107,
+        "Diplomacy": 70
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 68,
+        "technical_learning": 76,
+        "tactical_learning": 68,
+        "academic_learning": 74,
+        "social_learning": 82
+      },
+      "aptitude_max": {
+        "physical_learning": 128,
+        "technical_learning": 136,
+        "tactical_learning": 128,
+        "academic_learning": 134,
+        "social_learning": 142
+      }
+    },
+    "hunter": {
+      "age_distribution": {
+        "mean": 24.0,
+        "sd": 7.5,
+        "min": 14,
+        "max": 44
+      },
+      "aptitude_means": {
+        "physical_learning": 108,
+        "technical_learning": 102,
+        "tactical_learning": 103,
+        "academic_learning": 90,
+        "social_learning": 88
+      },
+      "attribute_means": {
+        "Strength": 60,
+        "Agility": 67,
+        "Endurance": 70,
+        "Toughness": 62,
+        "Coordination": 70,
+        "Awareness": 76,
+        "Composure": 63,
+        "Intelligence": 52,
+        "Presence": 49
+      },
+      "attribute_sd": {
+        "Strength": 12,
+        "Agility": 11,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 11,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 11,
+        "Presence": 11
+      },
+      "skill_means": {
+        "Sword": 10,
+        "Spear": 20,
+        "Bow": 68,
+        "Shield": 7,
+        "Defense": 24,
+        "Athletics": 64,
+        "Riding": 26,
+        "Formation Fighting": 4,
+        "Survival": 78,
+        "Scouting": 66,
+        "Navigation": 58,
+        "Medicine": 12,
+        "Engineering": 10,
+        "Trade": 10,
+        "Crossbow": 12
+      },
+      "skill_sd": {
+        "Sword": 9,
+        "Spear": 11,
+        "Bow": 14,
+        "Shield": 9,
+        "Defense": 10,
+        "Athletics": 14,
+        "Riding": 16,
+        "Formation Fighting": 8,
+        "Survival": 15,
+        "Scouting": 14,
+        "Navigation": 13,
+        "Medicine": 9,
+        "Engineering": 11,
+        "Trade": 10,
+        "Crossbow": 10
+      },
+      "correlation_groups": [
+        [
+          "Awareness",
+          "Bow",
+          "Scouting",
+          "Survival",
+          "Navigation"
+        ],
+        [
+          "Agility",
+          "Coordination",
+          "Bow"
+        ],
+        [
+          "Endurance",
+          "Athletics",
+          "Survival"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 30,
+        "Agility": 40,
+        "Endurance": 42,
+        "Toughness": 34,
+        "Coordination": 42,
+        "Awareness": 46,
+        "Composure": 36,
+        "Intelligence": 24,
+        "Presence": 22
+      },
+      "attribute_max": {
+        "Strength": 90,
+        "Agility": 94,
+        "Endurance": 98,
+        "Toughness": 90,
+        "Coordination": 98,
+        "Awareness": 106,
+        "Composure": 90,
+        "Intelligence": 80,
+        "Presence": 76
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 33,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 29,
+        "Riding": 0,
+        "Formation Fighting": 0,
+        "Survival": 40,
+        "Scouting": 31,
+        "Navigation": 26,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 0,
+        "Crossbow": 0
+      },
+      "skill_max": {
+        "Sword": 32,
+        "Spear": 48,
+        "Bow": 103,
+        "Shield": 30,
+        "Defense": 49,
+        "Athletics": 99,
+        "Riding": 66,
+        "Formation Fighting": 24,
+        "Survival": 116,
+        "Scouting": 101,
+        "Navigation": 90,
+        "Medicine": 34,
+        "Engineering": 38,
+        "Trade": 35,
+        "Crossbow": 32
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 78,
+        "technical_learning": 72,
+        "tactical_learning": 73,
+        "academic_learning": 60,
+        "social_learning": 58
+      },
+      "aptitude_max": {
+        "physical_learning": 138,
+        "technical_learning": 132,
+        "tactical_learning": 133,
+        "academic_learning": 120,
+        "social_learning": 118
+      }
+    },
+    "herder": {
+      "age_distribution": {
+        "mean": 24.0,
+        "sd": 7.5,
+        "min": 14,
+        "max": 44
+      },
+      "aptitude_means": {
+        "physical_learning": 104,
+        "technical_learning": 98,
+        "tactical_learning": 98,
+        "academic_learning": 90,
+        "social_learning": 94
+      },
+      "attribute_means": {
+        "Strength": 60,
+        "Agility": 62,
+        "Endurance": 71,
+        "Toughness": 63,
+        "Coordination": 64,
+        "Awareness": 67,
+        "Composure": 62,
+        "Intelligence": 50,
+        "Presence": 50
+      },
+      "attribute_sd": {
+        "Strength": 12,
+        "Agility": 11,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 11,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 11,
+        "Presence": 11
+      },
+      "skill_means": {
+        "Sword": 10,
+        "Spear": 16,
+        "Bow": 28,
+        "Shield": 10,
+        "Defense": 20,
+        "Athletics": 58,
+        "Riding": 62,
+        "Formation Fighting": 5,
+        "Survival": 64,
+        "Scouting": 48,
+        "Navigation": 46,
+        "Medicine": 10,
+        "Engineering": 14,
+        "Trade": 12
+      },
+      "skill_sd": {
+        "Sword": 9,
+        "Spear": 11,
+        "Bow": 14,
+        "Shield": 9,
+        "Defense": 10,
+        "Athletics": 14,
+        "Riding": 16,
+        "Formation Fighting": 8,
+        "Survival": 15,
+        "Scouting": 14,
+        "Navigation": 13,
+        "Medicine": 9,
+        "Engineering": 11,
+        "Trade": 10
+      },
+      "correlation_groups": [
+        [
+          "Riding",
+          "Awareness",
+          "Survival",
+          "Navigation"
+        ],
+        [
+          "Endurance",
+          "Athletics"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 30,
+        "Agility": 34,
+        "Endurance": 44,
+        "Toughness": 36,
+        "Coordination": 36,
+        "Awareness": 37,
+        "Composure": 34,
+        "Intelligence": 22,
+        "Presence": 22
+      },
+      "attribute_max": {
+        "Strength": 90,
+        "Agility": 90,
+        "Endurance": 98,
+        "Toughness": 90,
+        "Coordination": 92,
+        "Awareness": 97,
+        "Composure": 90,
+        "Intelligence": 78,
+        "Presence": 78
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 23,
+        "Riding": 22,
+        "Formation Fighting": 0,
+        "Survival": 26,
+        "Scouting": 13,
+        "Navigation": 14,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 0
+      },
+      "skill_max": {
+        "Sword": 32,
+        "Spear": 44,
+        "Bow": 63,
+        "Shield": 32,
+        "Defense": 45,
+        "Athletics": 93,
+        "Riding": 102,
+        "Formation Fighting": 25,
+        "Survival": 102,
+        "Scouting": 83,
+        "Navigation": 78,
+        "Medicine": 32,
+        "Engineering": 42,
+        "Trade": 37
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 74,
+        "technical_learning": 68,
+        "tactical_learning": 68,
+        "academic_learning": 60,
+        "social_learning": 64
+      },
+      "aptitude_max": {
+        "physical_learning": 134,
+        "technical_learning": 128,
+        "tactical_learning": 128,
+        "academic_learning": 120,
+        "social_learning": 124
+      }
+    },
+    "mounted_household": {
+      "age_distribution": {
+        "mean": 26.0,
+        "sd": 8.0,
+        "min": 16,
+        "max": 48
+      },
+      "aptitude_means": {
+        "physical_learning": 106,
+        "technical_learning": 104,
+        "tactical_learning": 104,
+        "academic_learning": 104,
+        "social_learning": 112
+      },
+      "attribute_means": {
+        "Strength": 59,
+        "Agility": 66,
+        "Endurance": 68,
+        "Toughness": 57,
+        "Coordination": 68,
+        "Awareness": 68,
+        "Composure": 64,
+        "Intelligence": 58,
+        "Presence": 61
+      },
+      "attribute_sd": {
+        "Strength": 11,
+        "Agility": 11,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 12
+      },
+      "skill_means": {
+        "Sword": 12,
+        "Spear": 25,
+        "Bow": 38,
+        "Shield": 10,
+        "Defense": 25,
+        "Athletics": 55,
+        "Riding": 78,
+        "Formation Fighting": 10,
+        "Survival": 55,
+        "Scouting": 52,
+        "Navigation": 55,
+        "Medicine": 10,
+        "Engineering": 16,
+        "Trade": 62,
+        "Diplomacy": 32
+      },
+      "skill_sd": {
+        "Sword": 10,
+        "Spear": 9,
+        "Bow": 11,
+        "Shield": 9,
+        "Defense": 10,
+        "Athletics": 13,
+        "Riding": 18,
+        "Formation Fighting": 7,
+        "Survival": 14,
+        "Scouting": 15,
+        "Navigation": 17,
+        "Medicine": 9,
+        "Engineering": 11,
+        "Trade": 18,
+        "Diplomacy": 15
+      },
+      "correlation_groups": [
+        [
+          "Riding",
+          "Coordination",
+          "Awareness",
+          "Bow"
+        ],
+        [
+          "Endurance",
+          "Survival",
+          "Navigation"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 32,
+        "Agility": 38,
+        "Endurance": 40,
+        "Toughness": 30,
+        "Coordination": 38,
+        "Awareness": 38,
+        "Composure": 36,
+        "Intelligence": 28,
+        "Presence": 31
+      },
+      "attribute_max": {
+        "Strength": 86,
+        "Agility": 94,
+        "Endurance": 96,
+        "Toughness": 84,
+        "Coordination": 98,
+        "Awareness": 98,
+        "Composure": 92,
+        "Intelligence": 88,
+        "Presence": 91
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 2,
+        "Bow": 10,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 22,
+        "Riding": 33,
+        "Formation Fighting": 0,
+        "Survival": 20,
+        "Scouting": 14,
+        "Navigation": 12,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 17,
+        "Diplomacy": 0
+      },
+      "skill_max": {
+        "Sword": 37,
+        "Spear": 48,
+        "Bow": 66,
+        "Shield": 32,
+        "Defense": 50,
+        "Athletics": 88,
+        "Riding": 123,
+        "Formation Fighting": 28,
+        "Survival": 90,
+        "Scouting": 90,
+        "Navigation": 98,
+        "Medicine": 32,
+        "Engineering": 44,
+        "Trade": 107,
+        "Diplomacy": 70
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 76,
+        "technical_learning": 74,
+        "tactical_learning": 74,
+        "academic_learning": 74,
+        "social_learning": 82
+      },
+      "aptitude_max": {
+        "physical_learning": 136,
+        "technical_learning": 134,
+        "tactical_learning": 134,
+        "academic_learning": 134,
+        "social_learning": 142
+      }
+    },
+    "urban_laborer": {
+      "age_distribution": {
+        "mean": 24.0,
+        "sd": 8.0,
+        "min": 14,
+        "max": 45
+      },
+      "aptitude_means": {
+        "physical_learning": 103,
+        "technical_learning": 99,
+        "tactical_learning": 96,
+        "academic_learning": 96,
+        "social_learning": 100
+      },
+      "attribute_means": {
+        "Strength": 63,
+        "Agility": 59,
+        "Endurance": 64,
+        "Toughness": 62,
+        "Coordination": 60,
+        "Awareness": 60,
+        "Composure": 58,
+        "Intelligence": 52,
+        "Presence": 52
+      },
+      "attribute_sd": {
+        "Strength": 12,
+        "Agility": 12,
+        "Endurance": 12,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 12
+      },
+      "skill_means": {
+        "Sword": 12,
+        "Spear": 14,
+        "Bow": 14,
+        "Crossbow": 8,
+        "Shield": 12,
+        "Defense": 18,
+        "Athletics": 55,
+        "Riding": 22,
+        "Formation Fighting": 8,
+        "Survival": 30,
+        "Scouting": 24,
+        "Navigation": 24,
+        "Medicine": 12,
+        "Engineering": 22,
+        "Trade": 18
+      },
+      "skill_sd": {
+        "Sword": 10,
+        "Spear": 10,
+        "Bow": 12,
+        "Crossbow": 8,
+        "Shield": 10,
+        "Defense": 10,
+        "Athletics": 15,
+        "Riding": 16,
+        "Formation Fighting": 8,
+        "Survival": 16,
+        "Scouting": 14,
+        "Navigation": 14,
+        "Medicine": 10,
+        "Engineering": 12,
+        "Trade": 16
+      },
+      "correlation_groups": [
+        [
+          "Strength",
+          "Endurance",
+          "Toughness",
+          "Athletics"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 33,
+        "Agility": 29,
+        "Endurance": 34,
+        "Toughness": 34,
+        "Coordination": 30,
+        "Awareness": 30,
+        "Composure": 30,
+        "Intelligence": 22,
+        "Presence": 22
+      },
+      "attribute_max": {
+        "Strength": 93,
+        "Agility": 89,
+        "Endurance": 94,
+        "Toughness": 90,
+        "Coordination": 90,
+        "Awareness": 90,
+        "Composure": 86,
+        "Intelligence": 82,
+        "Presence": 82
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Crossbow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 18,
+        "Riding": 0,
+        "Formation Fighting": 0,
+        "Survival": 0,
+        "Scouting": 0,
+        "Navigation": 0,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 0
+      },
+      "skill_max": {
+        "Sword": 37,
+        "Spear": 39,
+        "Bow": 44,
+        "Crossbow": 28,
+        "Shield": 37,
+        "Defense": 43,
+        "Athletics": 92,
+        "Riding": 62,
+        "Formation Fighting": 28,
+        "Survival": 70,
+        "Scouting": 59,
+        "Navigation": 59,
+        "Medicine": 37,
+        "Engineering": 52,
+        "Trade": 58
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 73,
+        "technical_learning": 69,
+        "tactical_learning": 66,
+        "academic_learning": 66,
+        "social_learning": 70
+      },
+      "aptitude_max": {
+        "physical_learning": 133,
+        "technical_learning": 129,
+        "tactical_learning": 126,
+        "academic_learning": 126,
+        "social_learning": 130
+      }
+    },
+    "former_soldier": {
+      "age_distribution": {
+        "mean": 29,
+        "sd": 7,
+        "min": 18,
+        "max": 48
+      },
+      "aptitude_means": {
+        "physical_learning": 103,
+        "technical_learning": 102,
+        "tactical_learning": 112,
+        "academic_learning": 94,
+        "social_learning": 98
+      },
+      "attribute_means": {
+        "Strength": 68,
+        "Agility": 64,
+        "Endurance": 72,
+        "Toughness": 70,
+        "Coordination": 66,
+        "Awareness": 68,
+        "Composure": 74,
+        "Intelligence": 55,
+        "Presence": 57
+      },
+      "attribute_sd": {
+        "Strength": 12,
+        "Agility": 12,
+        "Endurance": 12,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 12
+      },
+      "skill_means": {
+        "Sword": 48,
+        "Spear": 62,
+        "Bow": 42,
+        "Crossbow": 32,
+        "Shield": 58,
+        "Defense": 65,
+        "Athletics": 68,
+        "Riding": 38,
+        "Formation Fighting": 72,
+        "Survival": 60,
+        "Scouting": 42,
+        "Navigation": 38,
+        "Medicine": 12,
+        "Engineering": 16,
+        "Trade": 20,
+        "Mass Combat": 35,
+        "Leadership": 22
+      },
+      "skill_sd": {
+        "Sword": 10,
+        "Spear": 10,
+        "Bow": 12,
+        "Crossbow": 8,
+        "Shield": 10,
+        "Defense": 10,
+        "Athletics": 15,
+        "Riding": 16,
+        "Formation Fighting": 8,
+        "Survival": 16,
+        "Scouting": 14,
+        "Navigation": 14,
+        "Medicine": 10,
+        "Engineering": 12,
+        "Trade": 16,
+        "Mass Combat": 10,
+        "Leadership": 10
+      },
+      "correlation_groups": [
+        [
+          "Spear",
+          "Shield",
+          "Defense",
+          "Formation Fighting",
+          "Composure"
+        ],
+        [
+          "Endurance",
+          "Athletics",
+          "Survival"
+        ],
+        [
+          "Awareness",
+          "Scouting"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 38,
+        "Agility": 34,
+        "Endurance": 42,
+        "Toughness": 42,
+        "Coordination": 36,
+        "Awareness": 38,
+        "Composure": 46,
+        "Intelligence": 25,
+        "Presence": 27
+      },
+      "attribute_max": {
+        "Strength": 98,
+        "Agility": 94,
+        "Endurance": 102,
+        "Toughness": 98,
+        "Coordination": 96,
+        "Awareness": 98,
+        "Composure": 102,
+        "Intelligence": 85,
+        "Presence": 87
+      },
+      "skill_min": {
+        "Sword": 23,
+        "Spear": 37,
+        "Bow": 12,
+        "Crossbow": 12,
+        "Shield": 33,
+        "Defense": 40,
+        "Athletics": 30,
+        "Riding": 0,
+        "Formation Fighting": 52,
+        "Survival": 20,
+        "Scouting": 7,
+        "Navigation": 3,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 0,
+        "Mass Combat": 15,
+        "Leadership": 2
+      },
+      "skill_max": {
+        "Sword": 73,
+        "Spear": 87,
+        "Bow": 72,
+        "Crossbow": 52,
+        "Shield": 83,
+        "Defense": 90,
+        "Athletics": 106,
+        "Riding": 78,
+        "Formation Fighting": 92,
+        "Survival": 100,
+        "Scouting": 77,
+        "Navigation": 73,
+        "Medicine": 37,
+        "Engineering": 46,
+        "Trade": 60,
+        "Mass Combat": 55,
+        "Leadership": 42
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 73,
+        "technical_learning": 72,
+        "tactical_learning": 82,
+        "academic_learning": 64,
+        "social_learning": 68
+      },
+      "aptitude_max": {
+        "physical_learning": 133,
+        "technical_learning": 132,
+        "tactical_learning": 142,
+        "academic_learning": 124,
+        "social_learning": 128
+      }
+    },
+    "guard_watchman": {
+      "age_distribution": {
+        "mean": 24.0,
+        "sd": 8.0,
+        "min": 14,
+        "max": 46
+      },
+      "aptitude_means": {
+        "physical_learning": 96,
+        "technical_learning": 100,
+        "tactical_learning": 104,
+        "academic_learning": 102,
+        "social_learning": 103
+      },
+      "attribute_means": {
+        "Strength": 62,
+        "Agility": 62,
+        "Endurance": 65,
+        "Toughness": 63,
+        "Coordination": 63,
+        "Awareness": 69,
+        "Composure": 70,
+        "Intelligence": 55,
+        "Presence": 57
+      },
+      "attribute_sd": {
+        "Strength": 11,
+        "Agility": 12,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 12
+      },
+      "skill_means": {
+        "Sword": 32,
+        "Spear": 38,
+        "Bow": 10,
+        "Shield": 40,
+        "Defense": 48,
+        "Athletics": 58,
+        "Riding": 18,
+        "Formation Fighting": 32,
+        "Survival": 34,
+        "Scouting": 38,
+        "Navigation": 24,
+        "Medicine": 16,
+        "Engineering": 14,
+        "Diplomacy": 24,
+        "Trade": 20
+      },
+      "skill_sd": {
+        "Sword": 9,
+        "Spear": 9,
+        "Bow": 9,
+        "Shield": 10,
+        "Defense": 10,
+        "Athletics": 13,
+        "Riding": 14,
+        "Formation Fighting": 8,
+        "Survival": 12,
+        "Scouting": 13,
+        "Navigation": 13,
+        "Medicine": 12,
+        "Engineering": 10,
+        "Diplomacy": 14,
+        "Trade": 14
+      },
+      "correlation_groups": [
+        [
+          "Awareness",
+          "Composure",
+          "Defense"
+        ],
+        [
+          "Spear",
+          "Shield",
+          "Formation Fighting"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 34,
+        "Agility": 32,
+        "Endurance": 38,
+        "Toughness": 36,
+        "Coordination": 33,
+        "Awareness": 39,
+        "Composure": 42,
+        "Intelligence": 25,
+        "Presence": 27
+      },
+      "attribute_max": {
+        "Strength": 90,
+        "Agility": 92,
+        "Endurance": 92,
+        "Toughness": 90,
+        "Coordination": 93,
+        "Awareness": 99,
+        "Composure": 98,
+        "Intelligence": 85,
+        "Presence": 87
+      },
+      "skill_min": {
+        "Sword": 10,
+        "Spear": 16,
+        "Bow": 0,
+        "Shield": 15,
+        "Defense": 23,
+        "Athletics": 26,
+        "Riding": 0,
+        "Formation Fighting": 12,
+        "Survival": 4,
+        "Scouting": 6,
+        "Navigation": 0,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Diplomacy": 0,
+        "Trade": 0
+      },
+      "skill_max": {
+        "Sword": 54,
+        "Spear": 60,
+        "Bow": 32,
+        "Shield": 65,
+        "Defense": 73,
+        "Athletics": 90,
+        "Riding": 53,
+        "Formation Fighting": 52,
+        "Survival": 64,
+        "Scouting": 70,
+        "Navigation": 56,
+        "Medicine": 46,
+        "Engineering": 39,
+        "Diplomacy": 59,
+        "Trade": 55
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 66,
+        "technical_learning": 70,
+        "tactical_learning": 74,
+        "academic_learning": 72,
+        "social_learning": 73
+      },
+      "aptitude_max": {
+        "physical_learning": 126,
+        "technical_learning": 130,
+        "tactical_learning": 134,
+        "academic_learning": 132,
+        "social_learning": 133
+      }
+    },
+    "boatman_fisher": {
+      "age_distribution": {
+        "mean": 24.0,
+        "sd": 7.5,
+        "min": 14,
+        "max": 44
+      },
+      "aptitude_means": {
+        "physical_learning": 105,
+        "technical_learning": 101,
+        "tactical_learning": 92,
+        "academic_learning": 90,
+        "social_learning": 94
+      },
+      "attribute_means": {
+        "Strength": 64,
+        "Agility": 63,
+        "Endurance": 72,
+        "Toughness": 66,
+        "Coordination": 66,
+        "Awareness": 64,
+        "Composure": 60,
+        "Intelligence": 50,
+        "Presence": 50
+      },
+      "attribute_sd": {
+        "Strength": 12,
+        "Agility": 11,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 11,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 11,
+        "Presence": 11
+      },
+      "skill_means": {
+        "Sword": 10,
+        "Spear": 22,
+        "Bow": 15,
+        "Shield": 10,
+        "Defense": 20,
+        "Athletics": 66,
+        "Riding": 24,
+        "Formation Fighting": 8,
+        "Survival": 62,
+        "Scouting": 38,
+        "Navigation": 65,
+        "Medicine": 10,
+        "Engineering": 14,
+        "Trade": 12
+      },
+      "skill_sd": {
+        "Sword": 9,
+        "Spear": 11,
+        "Bow": 14,
+        "Shield": 9,
+        "Defense": 10,
+        "Athletics": 14,
+        "Riding": 16,
+        "Formation Fighting": 8,
+        "Survival": 15,
+        "Scouting": 14,
+        "Navigation": 13,
+        "Medicine": 9,
+        "Engineering": 11,
+        "Trade": 10
+      },
+      "correlation_groups": [
+        [
+          "Strength",
+          "Endurance",
+          "Athletics"
+        ],
+        [
+          "Coordination",
+          "Navigation",
+          "Awareness"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 34,
+        "Agility": 36,
+        "Endurance": 44,
+        "Toughness": 38,
+        "Coordination": 38,
+        "Awareness": 34,
+        "Composure": 32,
+        "Intelligence": 22,
+        "Presence": 22
+      },
+      "attribute_max": {
+        "Strength": 94,
+        "Agility": 90,
+        "Endurance": 100,
+        "Toughness": 94,
+        "Coordination": 94,
+        "Awareness": 94,
+        "Composure": 88,
+        "Intelligence": 78,
+        "Presence": 78
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 31,
+        "Riding": 0,
+        "Formation Fighting": 0,
+        "Survival": 24,
+        "Scouting": 3,
+        "Navigation": 32,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 0
+      },
+      "skill_max": {
+        "Sword": 32,
+        "Spear": 50,
+        "Bow": 50,
+        "Shield": 32,
+        "Defense": 45,
+        "Athletics": 101,
+        "Riding": 64,
+        "Formation Fighting": 28,
+        "Survival": 100,
+        "Scouting": 73,
+        "Navigation": 98,
+        "Medicine": 32,
+        "Engineering": 42,
+        "Trade": 37
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 75,
+        "technical_learning": 71,
+        "tactical_learning": 62,
+        "academic_learning": 60,
+        "social_learning": 64
+      },
+      "aptitude_max": {
+        "physical_learning": 135,
+        "technical_learning": 131,
+        "tactical_learning": 122,
+        "academic_learning": 120,
+        "social_learning": 124
+      }
+    },
+    "miner": {
+      "age_distribution": {
+        "mean": 25.0,
+        "sd": 7.0,
+        "min": 15,
+        "max": 45
+      },
+      "aptitude_means": {
+        "physical_learning": 107,
+        "technical_learning": 105,
+        "tactical_learning": 94,
+        "academic_learning": 100,
+        "social_learning": 96
+      },
+      "attribute_means": {
+        "Strength": 72,
+        "Agility": 52,
+        "Endurance": 70,
+        "Toughness": 72,
+        "Coordination": 58,
+        "Awareness": 55,
+        "Composure": 63,
+        "Intelligence": 56,
+        "Presence": 50
+      },
+      "attribute_sd": {
+        "Strength": 12,
+        "Agility": 11,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 11,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 11
+      },
+      "skill_means": {
+        "Sword": 12,
+        "Spear": 14,
+        "Bow": 12,
+        "Shield": 12,
+        "Defense": 20,
+        "Athletics": 62,
+        "Riding": 14,
+        "Formation Fighting": 8,
+        "Survival": 36,
+        "Scouting": 18,
+        "Navigation": 22,
+        "Medicine": 10,
+        "Engineering": 38,
+        "Trade": 26,
+        "Axe": 22,
+        "Mace": 24
+      },
+      "skill_sd": {
+        "Sword": 10,
+        "Spear": 10,
+        "Bow": 10,
+        "Shield": 10,
+        "Defense": 10,
+        "Athletics": 13,
+        "Riding": 12,
+        "Formation Fighting": 8,
+        "Survival": 12,
+        "Scouting": 11,
+        "Navigation": 12,
+        "Medicine": 9,
+        "Engineering": 16,
+        "Trade": 14,
+        "Axe": 10,
+        "Mace": 10
+      },
+      "correlation_groups": [
+        [
+          "Strength",
+          "Endurance",
+          "Toughness",
+          "Athletics"
+        ],
+        [
+          "Engineering",
+          "Coordination"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 42,
+        "Agility": 24,
+        "Endurance": 42,
+        "Toughness": 44,
+        "Coordination": 28,
+        "Awareness": 28,
+        "Composure": 36,
+        "Intelligence": 26,
+        "Presence": 22
+      },
+      "attribute_max": {
+        "Strength": 102,
+        "Agility": 80,
+        "Endurance": 98,
+        "Toughness": 100,
+        "Coordination": 88,
+        "Awareness": 82,
+        "Composure": 90,
+        "Intelligence": 86,
+        "Presence": 78
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 30,
+        "Riding": 0,
+        "Formation Fighting": 0,
+        "Survival": 6,
+        "Scouting": 0,
+        "Navigation": 0,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Trade": 0,
+        "Axe": 2,
+        "Mace": 4
+      },
+      "skill_max": {
+        "Sword": 37,
+        "Spear": 39,
+        "Bow": 37,
+        "Shield": 37,
+        "Defense": 45,
+        "Athletics": 94,
+        "Riding": 44,
+        "Formation Fighting": 28,
+        "Survival": 66,
+        "Scouting": 46,
+        "Navigation": 52,
+        "Medicine": 32,
+        "Engineering": 78,
+        "Trade": 61,
+        "Axe": 42,
+        "Mace": 44
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 77,
+        "technical_learning": 75,
+        "tactical_learning": 64,
+        "academic_learning": 70,
+        "social_learning": 66
+      },
+      "aptitude_max": {
+        "physical_learning": 137,
+        "technical_learning": 135,
+        "tactical_learning": 124,
+        "academic_learning": 130,
+        "social_learning": 126
+      }
+    },
+    "clerk_scribe": {
+      "age_distribution": {
+        "mean": 24.0,
+        "sd": 8.0,
+        "min": 14,
+        "max": 46
+      },
+      "aptitude_means": {
+        "physical_learning": 88,
+        "technical_learning": 108,
+        "tactical_learning": 103,
+        "academic_learning": 122,
+        "social_learning": 108
+      },
+      "attribute_means": {
+        "Strength": 45,
+        "Agility": 54,
+        "Endurance": 52,
+        "Toughness": 48,
+        "Coordination": 59,
+        "Awareness": 62,
+        "Composure": 65,
+        "Intelligence": 72,
+        "Presence": 58
+      },
+      "attribute_sd": {
+        "Strength": 11,
+        "Agility": 12,
+        "Endurance": 11,
+        "Toughness": 11,
+        "Coordination": 12,
+        "Awareness": 12,
+        "Composure": 11,
+        "Intelligence": 12,
+        "Presence": 12
+      },
+      "skill_means": {
+        "Sword": 6,
+        "Spear": 5,
+        "Bow": 6,
+        "Shield": 12,
+        "Defense": 12,
+        "Athletics": 34,
+        "Riding": 18,
+        "Formation Fighting": 3,
+        "Survival": 28,
+        "Scouting": 24,
+        "Navigation": 34,
+        "Medicine": 16,
+        "Engineering": 14,
+        "Diplomacy": 35,
+        "Trade": 38,
+        "Law": 48,
+        "Governance": 45,
+        "Logistics": 42
+      },
+      "skill_sd": {
+        "Sword": 9,
+        "Spear": 9,
+        "Bow": 9,
+        "Shield": 10,
+        "Defense": 10,
+        "Athletics": 13,
+        "Riding": 14,
+        "Formation Fighting": 8,
+        "Survival": 12,
+        "Scouting": 13,
+        "Navigation": 13,
+        "Medicine": 12,
+        "Engineering": 10,
+        "Diplomacy": 14,
+        "Trade": 14,
+        "Law": 10,
+        "Governance": 10,
+        "Logistics": 10
+      },
+      "correlation_groups": [
+        [
+          "Intelligence",
+          "Law",
+          "Governance",
+          "Logistics"
+        ],
+        [
+          "Awareness",
+          "Composure"
+        ]
+      ],
+      "attribute_min": {
+        "Strength": 18,
+        "Agility": 24,
+        "Endurance": 24,
+        "Toughness": 20,
+        "Coordination": 29,
+        "Awareness": 32,
+        "Composure": 38,
+        "Intelligence": 42,
+        "Presence": 28
+      },
+      "attribute_max": {
+        "Strength": 72,
+        "Agility": 84,
+        "Endurance": 80,
+        "Toughness": 76,
+        "Coordination": 89,
+        "Awareness": 92,
+        "Composure": 92,
+        "Intelligence": 102,
+        "Presence": 88
+      },
+      "skill_min": {
+        "Sword": 0,
+        "Spear": 0,
+        "Bow": 0,
+        "Shield": 0,
+        "Defense": 0,
+        "Athletics": 2,
+        "Riding": 0,
+        "Formation Fighting": 0,
+        "Survival": 0,
+        "Scouting": 0,
+        "Navigation": 2,
+        "Medicine": 0,
+        "Engineering": 0,
+        "Diplomacy": 0,
+        "Trade": 3,
+        "Law": 28,
+        "Governance": 25,
+        "Logistics": 22
+      },
+      "skill_max": {
+        "Sword": 28,
+        "Spear": 28,
+        "Bow": 28,
+        "Shield": 37,
+        "Defense": 37,
+        "Athletics": 66,
+        "Riding": 53,
+        "Formation Fighting": 23,
+        "Survival": 58,
+        "Scouting": 56,
+        "Navigation": 66,
+        "Medicine": 46,
+        "Engineering": 39,
+        "Diplomacy": 70,
+        "Trade": 73,
+        "Law": 68,
+        "Governance": 65,
+        "Logistics": 62
+      },
+      "aptitude_sd": {
+        "physical_learning": 12,
+        "technical_learning": 12,
+        "tactical_learning": 12,
+        "academic_learning": 12,
+        "social_learning": 12
+      },
+      "aptitude_min": {
+        "physical_learning": 58,
+        "technical_learning": 78,
+        "tactical_learning": 73,
+        "academic_learning": 92,
+        "social_learning": 78
+      },
+      "aptitude_max": {
+        "physical_learning": 118,
+        "technical_learning": 138,
+        "tactical_learning": 133,
+        "academic_learning": 152,
+        "social_learning": 138
+      }
+    }
+  },
+  "selection_profiles": {
+    "state_basic_military_screen": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.65,
+      "sd_floor_fraction": 0.78,
+      "attribute_weights": {
+        "Strength": 0.55,
+        "Agility": 0.35,
+        "Endurance": 0.75,
+        "Toughness": 0.5,
+        "Coordination": 0.3,
+        "Awareness": 0.25,
+        "Composure": 0.25
+      },
+      "skill_weights": {
+        "Athletics": 0.65,
+        "Survival": 0.2
+      },
+      "aptitude_weights": {
+        "physical_learning": 0.3,
+        "tactical_learning": 0.15
+      }
+    },
+    "household_retainer_screen": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.35,
+      "sd_floor_fraction": 0.68,
+      "attribute_weights": {
+        "Strength": 0.55,
+        "Agility": 0.55,
+        "Endurance": 0.6,
+        "Toughness": 0.55,
+        "Coordination": 0.55,
+        "Awareness": 0.6,
+        "Composure": 0.7
+      },
+      "skill_weights": {
+        "Athletics": 0.55,
+        "Defense": 0.35,
+        "Survival": 0.25
+      },
+      "aptitude_weights": {
+        "physical_learning": 0.45,
+        "tactical_learning": 0.4,
+        "social_learning": 0.2
+      }
+    },
+    "sword_manor_screened_initiate": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.2,
+      "sd_floor_fraction": 0.62,
+      "age_limits": {
+        "min": 12,
+        "max": 32
+      },
+      "attribute_weights": {
+        "Strength": 0.5,
+        "Agility": 0.75,
+        "Endurance": 0.8,
+        "Toughness": 0.55,
+        "Coordination": 0.8,
+        "Awareness": 0.7,
+        "Composure": 0.6
+      },
+      "skill_weights": {
+        "Bow": 0.3,
+        "Defense": 0.25,
+        "Athletics": 0.75,
+        "Formation Fighting": 0.2,
+        "Survival": 0.25
+      },
+      "aptitude_weights": {
+        "physical_learning": 0.85,
+        "technical_learning": 0.35,
+        "tactical_learning": 0.65,
+        "academic_learning": 0.2
+      }
+    },
+    "wei_basic_eligibility": {
+      "method": "eligibility",
+      "default_retain_fraction": 0.78,
+      "age_limits": {
+        "min": 15,
+        "max": 38
+      }
+    },
+    "wei_physical_trial": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.4,
+      "sd_floor_fraction": 0.6,
+      "attribute_weights": {
+        "Strength": 0.7,
+        "Agility": 0.55,
+        "Endurance": 0.9,
+        "Toughness": 0.65,
+        "Coordination": 0.45
+      },
+      "skill_weights": {
+        "Athletics": 0.8
+      },
+      "aptitude_weights": {
+        "physical_learning": 0.35
+      }
+    },
+    "wei_awareness_field_trial": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.45,
+      "sd_floor_fraction": 0.62,
+      "attribute_weights": {
+        "Awareness": 0.95,
+        "Composure": 0.55,
+        "Coordination": 0.35,
+        "Intelligence": 0.25
+      },
+      "skill_weights": {
+        "Scouting": 0.8,
+        "Survival": 0.6,
+        "Navigation": 0.45
+      },
+      "aptitude_weights": {
+        "tactical_learning": 0.25
+      }
+    },
+    "wei_archery_trial": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.3,
+      "sd_floor_fraction": 0.58,
+      "attribute_weights": {
+        "Coordination": 0.85,
+        "Awareness": 0.75,
+        "Composure": 0.45,
+        "Strength": 0.3
+      },
+      "skill_weights": {
+        "Bow": 1.0,
+        "Athletics": 0.2
+      },
+      "aptitude_weights": {
+        "technical_learning": 0.3
+      }
+    },
+    "wei_riding_trial": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.3,
+      "sd_floor_fraction": 0.58,
+      "attribute_weights": {
+        "Agility": 0.65,
+        "Coordination": 0.8,
+        "Awareness": 0.55,
+        "Composure": 0.55
+      },
+      "skill_weights": {
+        "Riding": 1.0,
+        "Athletics": 0.25
+      },
+      "aptitude_weights": {
+        "physical_learning": 0.2,
+        "technical_learning": 0.25
+      }
+    },
+    "wei_command_trial": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.15,
+      "sd_floor_fraction": 0.55,
+      "attribute_weights": {
+        "Awareness": 0.55,
+        "Composure": 0.75,
+        "Intelligence": 0.75,
+        "Presence": 0.6
+      },
+      "skill_weights": {
+        "Leadership": 0.85,
+        "Formation Command": 1.0,
+        "Tactics": 0.9,
+        "Mass Combat": 0.55
+      },
+      "aptitude_weights": {
+        "tactical_learning": 0.7,
+        "social_learning": 0.3
+      }
+    },
+    "wei_final_retainer_screen": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.45,
+      "sd_floor_fraction": 0.55,
+      "attribute_weights": {
+        "Strength": 0.35,
+        "Agility": 0.4,
+        "Endurance": 0.6,
+        "Toughness": 0.45,
+        "Coordination": 0.55,
+        "Awareness": 0.7,
+        "Composure": 0.8
+      },
+      "skill_weights": {
+        "Defense": 0.5,
+        "Athletics": 0.45,
+        "Formation Fighting": 0.6,
+        "Survival": 0.3
+      },
+      "aptitude_weights": {
+        "physical_learning": 0.25,
+        "technical_learning": 0.25,
+        "tactical_learning": 0.35,
+        "social_learning": 0.2
+      }
+    },
+    "bastion_iron_rampart_screen": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.62,
+      "sd_floor_fraction": 0.76,
+      "attribute_weights": {
+        "Strength": 0.65,
+        "Endurance": 0.85,
+        "Toughness": 0.75,
+        "Coordination": 0.55,
+        "Composure": 0.8,
+        "Awareness": 0.35
+      },
+      "skill_weights": {
+        "Athletics": 0.65,
+        "Defense": 0.25,
+        "Survival": 0.25
+      },
+      "aptitude_weights": {
+        "physical_learning": 0.45,
+        "tactical_learning": 0.3
+      }
+    },
+    "bastion_red_crane_screen": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.48,
+      "sd_floor_fraction": 0.72,
+      "attribute_weights": {
+        "Coordination": 0.9,
+        "Awareness": 0.75,
+        "Composure": 0.8,
+        "Intelligence": 0.7,
+        "Endurance": 0.35
+      },
+      "skill_weights": {
+        "Engineering": 0.55,
+        "Logistics": 0.35,
+        "Crossbow": 0.2
+      },
+      "aptitude_weights": {
+        "technical_learning": 0.85,
+        "academic_learning": 0.55,
+        "tactical_learning": 0.35
+      }
+    },
+    "bastion_white_lantern_screen": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.55,
+      "sd_floor_fraction": 0.74,
+      "attribute_weights": {
+        "Awareness": 0.85,
+        "Composure": 0.8,
+        "Intelligence": 0.75,
+        "Coordination": 0.65,
+        "Endurance": 0.25
+      },
+      "skill_weights": {
+        "Logistics": 0.5,
+        "Medicine": 0.35,
+        "Navigation": 0.35
+      },
+      "aptitude_weights": {
+        "technical_learning": 0.6,
+        "academic_learning": 0.65,
+        "social_learning": 0.35,
+        "tactical_learning": 0.3
+      }
+    },
+    "bastion_deep_earth_screen": {
+      "method": "weighted_upper_tail",
+      "default_retain_fraction": 0.5,
+      "sd_floor_fraction": 0.72,
+      "attribute_weights": {
+        "Intelligence": 0.75,
+        "Coordination": 0.75,
+        "Endurance": 0.7,
+        "Strength": 0.45,
+        "Composure": 0.75,
+        "Awareness": 0.45
+      },
+      "skill_weights": {
+        "Engineering": 0.65,
+        "Athletics": 0.35,
+        "Survival": 0.25
+      },
+      "aptitude_weights": {
+        "technical_learning": 0.9,
+        "physical_learning": 0.35,
+        "academic_learning": 0.45
+      }
+    }
+  },
+  "role_training_profiles": {
+    "line_infantry": {
+      "skills": [
+        "Spear",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Formation Fighting",
+        "Survival"
+      ],
+      "attributes": [
+        "Strength",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ]
+    },
+    "cavalry": {
+      "skills": [
+        "Spear",
+        "Bow",
+        "Defense",
+        "Athletics",
+        "Riding",
+        "Formation Fighting",
+        "Scouting",
+        "Survival"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ]
+    },
+    "missile_crossbow": {
+      "skills": [
+        "Crossbow",
+        "Bow",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Formation Fighting",
+        "Scouting"
+      ],
+      "attributes": [
+        "Agility",
+        "Endurance",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ]
+    },
+    "household_retainer": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Formation Fighting",
+        "Survival"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ]
+    },
+    "trainee": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Formation Fighting",
+        "Survival"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ]
+    },
+    "junior_disciple": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Formation Fighting",
+        "Survival",
+        "Scouting"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ]
+    },
+    "general_disciple": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Formation Fighting",
+        "Survival",
+        "Scouting",
+        "Leadership",
+        "Tactics",
+        "Training"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure",
+        "Intelligence"
+      ]
+    },
+    "senior_disciple": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Formation Fighting",
+        "Riding",
+        "Scouting",
+        "Leadership",
+        "Formation Command",
+        "Tactics",
+        "Training"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ]
+    },
+    "officer": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Riding",
+        "Formation Fighting",
+        "Leadership",
+        "Formation Command",
+        "Tactics",
+        "Strategy",
+        "Logistics",
+        "Training"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ]
+    },
+    "house_guard": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Formation Fighting",
+        "Survival",
+        "Leadership",
+        "Tactics"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ]
+    },
+    "guardian_cavalry": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Riding",
+        "Formation Fighting",
+        "Survival",
+        "Scouting",
+        "Leadership",
+        "Tactics"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure"
+      ]
+    },
+    "tang_champion": {
+      "skills": [
+        "Sword",
+        "Spear",
+        "Bow",
+        "Shield",
+        "Defense",
+        "Athletics",
+        "Mass Combat",
+        "Riding",
+        "Formation Fighting",
+        "Survival",
+        "Scouting",
+        "Leadership",
+        "Formation Command",
+        "Tactics",
+        "Strategy",
+        "Training"
+      ],
+      "attributes": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ]
+    }
+  },
+  "training_regimens": {
+    "regular_army": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "adequate",
+      "equipment_grade": "adequate",
+      "recovery_grade": "adequate",
+      "feedback_grade": "ordinary",
+      "rule": "Baseline full-time professional state-army regimen. Training opportunity requires lawful facilities, equipment, command-chain instruction, fatigue capacity and elapsed time; reserve maintenance is a separate explicit regimen.",
+      "legacy_migration": {
+        "from_deliberate_hours_per_30d": 112.0,
+        "from_role_exposure_hours_per_30d": 96.0,
+        "migration_reason": "replace temporary 112h professional tier with universal 48h/week active/enrolled clock",
+        "earlier_from_deliberate_hours_per_30d": 56.0,
+        "earlier_from_role_exposure_hours_per_30d": 48.0
+      },
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "household_professional": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "good",
+      "equipment_grade": "correct",
+      "recovery_grade": "good",
+      "feedback_grade": "immediate",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "house_tang_max_sustainable": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "deliberate_hours_per_7d": 48.0,
+      "facility_grade": "excellent",
+      "equipment_grade": "superior",
+      "recovery_grade": "excellent",
+      "rule": "House Tang and Sword Manor use the same 48-hour weekly professional training clock as other active institutions. Their advantage comes from registered curriculum, instructor quality, facilities, equipment, recovery and command-chain delivery, never extra calendar hours.",
+      "feedback_grade": "expert",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time."
+    },
+    "civilian_skilled": {
+      "deliberate_hours_per_30d": 48.0,
+      "role_exposure_hours_per_30d": 30.0,
+      "facility_grade": "basic",
+      "equipment_grade": "adequate",
+      "recovery_grade": "adequate",
+      "rule": "Civilian or independent skill development requires verified practice opportunity; time passage alone grants nothing.",
+      "feedback_grade": "ordinary"
+    },
+    "professional_officer": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "good",
+      "equipment_grade": "correct",
+      "recovery_grade": "good",
+      "feedback_grade": "good",
+      "rule": "Full-time professional officers use the same 48-hour weekly deliberate-training clock as troops. Their curriculum emphasizes command, staff work and relevant arms; actual command experience is settled separately from the training clock.",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "elite_command": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "good",
+      "equipment_grade": "correct",
+      "recovery_grade": "good",
+      "feedback_grade": "expert",
+      "rule": "Elite field commanders use the same 48-hour weekly deliberate-training clock as other active professionals. Exceptional development comes from aptitude, instructors, facilities, curriculum and real command/combat experience, not extra calendar hours.",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "elite_martial": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "good",
+      "equipment_grade": "correct",
+      "recovery_grade": "good",
+      "feedback_grade": "expert",
+      "rule": "Elite martial professionals use the same 48-hour weekly deliberate-training clock as other active professionals. Their advantage comes from aptitude, instruction, facilities, equipment and relevant experience.",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "intensive_martial_aspirant": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "basic",
+      "equipment_grade": "adequate",
+      "recovery_grade": "adequate",
+      "feedback_grade": "ordinary",
+      "rule": "A highly committed martial youth can practice about three deliberate hours per day on average without being treated as a full-time institutional soldier; physical access and fatigue still gate credit.",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "strategist_academy": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "good",
+      "equipment_grade": "adequate",
+      "recovery_grade": "good",
+      "feedback_grade": "expert",
+      "rule": "Selective strategist-academy students receive intensive study, staff exercises, tabletop work and supervised field observation through the same verified-hour development law.",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "reserve_maintenance": {
+      "deliberate_hours_per_30d": 56.0,
+      "role_exposure_hours_per_30d": 48.0,
+      "facility_grade": "adequate",
+      "equipment_grade": "adequate",
+      "recovery_grade": "adequate",
+      "feedback_grade": "ordinary",
+      "rule": "Reserve, militia, or low-tempo formations maintaining competence around other primary duties. This is not the default full-time professional-army regimen."
+    },
+    "martial_aspirant": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "adequate",
+      "equipment_grade": "adequate",
+      "recovery_grade": "good",
+      "feedback_grade": "ordinary",
+      "rule": "High-effort youth/aspirant martial development. It is below a full elite professional regimen and grants only through the saved registered program and actual physical access.",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "strategic_apprentice": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "good",
+      "equipment_grade": "adequate",
+      "recovery_grade": "adequate",
+      "feedback_grade": "immediate",
+      "rule": "Intensive strategist/student development through study, staff exercises, logistics, reconnaissance and bounded command practice; future office or battlefield authority is never pre-granted.",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "statecraft_intensive": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "good",
+      "equipment_grade": "adequate",
+      "recovery_grade": "adequate",
+      "feedback_grade": "immediate",
+      "rule": "Intensive ruler/statecraft education plus real court-role exposure. Role exposure affects only causally relevant registered domains.",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    },
+    "elite_professional": {
+      "deliberate_hours_per_30d": 205.714286,
+      "role_exposure_hours_per_30d": 96.0,
+      "facility_grade": "good",
+      "equipment_grade": "superior",
+      "recovery_grade": "good",
+      "feedback_grade": "expert",
+      "rule": "Exceptional full-time professionals use the same 48-hour weekly deliberate-training clock as other active professionals. Capability differences come from aptitude, curriculum, instruction, facilities, equipment and actual experience.",
+      "schedule_rule": "Universal active/enrolled professional schedule: 48 deliberate training hours per 7-day cycle. Rank, faction, prestige and canon importance change curriculum, instructor/facility quality and actual role experience, never calendar training time.",
+      "deliberate_hours_per_7d": 48.0
+    }
+  },
+  "rules": {
+    "population_source_separate_from_background": true,
+    "selection_is_conditioning_not_training": true,
+    "unknown_background_policy": "reject_explicit_unknown; population defaults may resolve only from registered population_background_defaults",
+    "sampling": "deterministic truncated normal within explicit per-metric bounds",
+    "materialization": "materialized people inherit one deterministic point from their saved cohort distribution and never create headcount",
+    "candidate_reserved_stratum": "recruitment_candidates_reserved",
+    "candidate_campaign_principle": "Applicants are reserved real population bodies; tests condition distributions but grant no training; rejected bodies return to their original strata.",
+    "unlisted_registered_skill_baseline": 0,
+    "unlisted_skill_semantics": "A skill absent from a background profile is canonically untrained at 0; combat weight denominators still include it and materialized people receive explicit zero fields.",
+    "activity_training_standards": {
+      "law": "One global active/enrolled professional training clock: 48 deliberate hours per 7 days (205.714286 per 30 days). Reserve/civilian/child exceptions are explicit. Rank, faction, prestige and canon importance change curriculum and training quality, never available training time.",
+      "generic_regimen_refs": [
+        "regular_army",
+        "civilian_skilled"
+      ],
+      "fallback_regimen_ref": "civilian_skilled",
+      "assignment_refs": {
+        "institution_qin_strategist_academy": "strategist_academy"
+      },
+      "professional_paths": {
+        "strategist_student": "strategist_academy",
+        "qin_young_commander": "professional_officer",
+        "independent_martial_operative": "elite_martial",
+        "martial_aspirant": "intensive_martial_aspirant",
+        "royal_service_candidate": "intensive_martial_aspirant"
+      },
+      "role_archetypes": {
+        "great_general": "elite_command",
+        "strategist_general": "elite_command",
+        "martial_general": "elite_command",
+        "irregular_general": "elite_command",
+        "general": "elite_command",
+        "mountain_ruler": "elite_command",
+        "young_commander": "professional_officer",
+        "assassin_youth": "elite_martial",
+        "youth_warrior": "intensive_martial_aspirant",
+        "youth_leader": "intensive_martial_aspirant",
+        "elite_warrior": "elite_professional",
+        "elite_archer": "elite_professional",
+        "warrior_apex": "elite_professional",
+        "scout_warrior": "elite_professional",
+        "officer": "professional_officer",
+        "strategist_minister": "elite_command",
+        "veteran_official": "professional_officer",
+        "specialist_minister": "statecraft_intensive",
+        "ruler_adult": "statecraft_intensive"
+      },
+      "billets": {
+        "army_commander": "elite_command",
+        "army_deputy": "elite_command",
+        "formation_commander": "professional_officer",
+        "formation_deputy": "professional_officer",
+        "internal_1000_commander": "professional_officer",
+        "internal_500_commander": "professional_officer",
+        "internal_100_commander": "professional_officer"
+      },
+      "universal_active_deliberate_hours_per_7d": 48.0,
+      "universal_active_deliberate_hours_per_30d": 205.714286,
+      "time_equality_rule": "All active professional military personnel and explicitly enrolled martial/command/statecraft students use the same deliberate-training clock. Specialized regimens may differ in curriculum, facilities, equipment, feedback and recovery only."
+    }
+  },
+  "population_background_mixes": {
+    "agricultural": {
+      "agricultural_laborer": 0.72,
+      "hunter": 0.12,
+      "herder": 0.1,
+      "mounted_household": 0.06
+    },
+    "craft_and_industry": {
+      "artisan": 0.62,
+      "urban_laborer": 0.28,
+      "miner": 0.1
+    },
+    "household_and_service": {
+      "household_service": 0.72,
+      "guard_watchman": 0.18,
+      "civilian_common": 0.1
+    },
+    "merchant_and_transport": {
+      "merchant_caravan": 0.72,
+      "boatman_fisher": 0.18,
+      "civilian_common": 0.1
+    },
+    "administration_and_education": {
+      "clerk_scribe": 0.88,
+      "civilian_common": 0.12
+    },
+    "camp_medical_support": {
+      "household_service": 0.55,
+      "clerk_scribe": 0.2,
+      "civilian_common": 0.25
+    },
+    "private_household_military": {
+      "former_soldier": 0.85,
+      "guard_watchman": 0.15
+    },
+    "active_military": {
+      "former_soldier": 1.0
+    }
+  },
+  "candidate_campaign_source_mix": {
+    "agricultural": 0.7,
+    "craft_and_industry": 0.12,
+    "merchant_and_transport": 0.08,
+    "household_and_service": 0.07,
+    "administration_and_education": 0.03
+  }
+}

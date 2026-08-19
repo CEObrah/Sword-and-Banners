@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "types", "rule"],
+  "properties": {"schema": {"const": "troop-type-registry"}, "types": {"type":"object"}, "rule": {"type":"string"}},
+  "additionalProperties": true
+}

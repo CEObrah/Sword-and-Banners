@@ -1,0 +1,183 @@
+{
+  "administrative_owner": "state_qin",
+  "cohesion": 72,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qin_8a2df4bf8f86",
+      "count": 1994
+    }
+  ],
+  "command_assignment_source_ref": "event_story_qin_command_offer_17220ee53f8f08820e41",
+  "command_authority": "char_tang_wei",
+  "command_last_changed_at": "244-BCE-07-26T06:23:48+08:00",
+  "command_structure": {
+    "internal_hierarchy": [
+      {
+        "scale": 1000,
+        "count": 2,
+        "authorized_count": 2,
+        "full_elements": 2,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "person_lite",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true,
+        "loadout_ref": "loadout_house_guard"
+      },
+      {
+        "scale": 500,
+        "count": 4,
+        "authorized_count": 4,
+        "full_elements": 4,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "person_lite",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true,
+        "loadout_ref": "loadout_house_guard"
+      },
+      {
+        "scale": 100,
+        "count": 20,
+        "authorized_count": 20,
+        "full_elements": 20,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "aggregate",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      }
+    ],
+    "internal_person_refs": [
+      "officer.qin.wei_designated.1000.001",
+      "officer.qin.wei_designated.1000.002",
+      "officer.qin.wei_designated.500.001",
+      "officer.qin.wei_designated.500.002",
+      "officer.qin.wei_designated.500.003",
+      "officer.qin.wei_designated.500.004"
+    ],
+    "representation_rule": "The 2,000-unit commander and deputy are full mounted command characters outside fighting strength. The 1,000/500 commanders are conserved infantry bodies using the unit loadout; 100-man command remains aggregate unless individually salient.",
+    "unit_command": {
+      "commander_ref": "char_qin_wei_unit_01_commander",
+      "deputy_ref": "char_qin_wei_unit_01_deputy",
+      "external_to_fighting_establishment": true,
+      "loadout_ref": "loadout_house_champion"
+    },
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 2,
+        "500_commander": 4,
+        "100_commander": 20
+      },
+      "active_billets": {
+        "1000_commander": 2,
+        "500_commander": 4,
+        "100_commander": 20
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    },
+    "establishment_topology": {
+      "formation_class": "unit",
+      "unit_command_scale": 2000,
+      "direct_subordinates": [
+        {
+          "scale": 1000,
+          "count": 2
+        }
+      ],
+      "children_per_parent": {
+        "1000": [
+          {
+            "scale": 500,
+            "count": 2
+          }
+        ],
+        "500": [
+          {
+            "scale": 100,
+            "count": 5
+          }
+        ]
+      },
+      "summary_counts": {
+        "1000": 2,
+        "500": 4,
+        "100": 20
+      },
+      "rule": "Unit commander/deputy own the Unit echelon; internal 1,000/500/100 billets are strictly subordinate and remain fixed through casualties."
+    },
+    "establishment_rule": "Unit commander/deputy occupy the Unit echelon outside fighting strength; internal 1,000/500/100 billets are generated only from authorized establishment and never from casualty-depleted current manpower."
+  },
+  "commander_ref": "char_qin_wei_unit_01_commander",
+  "composition": {
+    "line_infantry": 2000
+  },
+  "deputy_ref": "char_qin_wei_unit_01_deputy",
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 50,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.house_tang_internal.standard",
+  "embedded_person_refs": [
+    "officer.qin.wei_designated.1000.001",
+    "officer.qin.wei_designated.1000.002",
+    "officer.qin.wei_designated.500.001",
+    "officer.qin.wei_designated.500.002",
+    "officer.qin.wei_designated.500.003",
+    "officer.qin.wei_designated.500.004"
+  ],
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "line_infantry": 2000
+  },
+  "experience": "formed",
+  "fatigue": 0,
+  "formation_ref": "formation_qin_wei_unit_01",
+  "higher_command_ref": "cmdgrp.tang_wei.field_army",
+  "location_ref": "loc_qin_regional_02",
+  "logistics": {
+    "fodder_kg": 0,
+    "food_kg": 10000,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 70,
+  "mounts": {},
+  "name": "Qin Border Detachment Unit 1",
+  "owner_force_ref": "force_state_qin",
+  "personnel": 2000,
+  "readiness": 72,
+  "registered_loadout_ref": "loadout_house_guard",
+  "schema": "sword-formation",
+  "status": "formed",
+  "training_progress": 29,
+  "training_ref": "train.house_tang_internal.standard",
+  "establishment_composition": {
+    "line_infantry": 2000
+  },
+  "establishment_personnel": 2000,
+  "formation_class": "unit",
+  "authorized_strength": 2000
+}

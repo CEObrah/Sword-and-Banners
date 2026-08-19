@@ -1,0 +1,24 @@
+{
+  "capital_silver_per_concurrent_convoy": 250000,
+  "destination_sale_margin": 1.12,
+  "failed_interception_delay_hours": 6,
+  "guard_combat_factor": 0.75,
+  "guard_hire_silver_per_person_day": 1,
+  "guard_personnel_per_wagon_equivalent": 2,
+  "guard_quality": 50,
+  "interception_node_window_hours": 12,
+  "market_units_per_wagon_equivalent": 30,
+  "max_market_units_per_convoy": 120,
+  "minimum_guard_personnel": 8,
+  "principles": {
+    "conservation": "dispatch removes exact source-market stock and merchant capital; arrival transfers destination regional cash to merchant capital and moves cargo into destination market stock",
+    "disruption": "route damage is checked against live route/crossing state; an in-transit convoy reroutes from its last physically reached route node or waits if no usable route exists",
+    "escort": "An attached escort remains an exact mobilized formation, follows the convoy route chronology, consumes its own field logistics, keeps its exact command staff, and can detach through supply exhaustion or independent movement.",
+    "materialization": "routine trade stays aggregate; only meaningful inter-market cargo imbalance creates an exact convoy owner",
+    "representation": "one convoy owns aggregate cargo and wagon equivalents; no individual wagon or merchant-person explosion",
+    "routing": "convoys use exact strategic routes and are blocked by unusable routes or open war between source and destination states",
+    "security": "material convoys may reserve exact caravan-guard bodies from the existing mercenary pool; guard wages move real merchant silver, guard casualties reduce the pool, and interception requires an exact hostile formation at the convoy route node during its passage window"
+  },
+  "schema": "merchant-convoys",
+  "source_reserve_fraction": 0.55
+}

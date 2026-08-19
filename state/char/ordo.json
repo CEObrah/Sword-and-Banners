@@ -1,0 +1,2494 @@
+{
+  "age_basis": "stage_bounded_simulation_index_not_canon_age",
+  "age_stage": "adult",
+  "appearance": 63,
+  "appearance_source": "simulation_assigned",
+  "aptitude": {
+    "academic_learning": 170,
+    "physical_learning": 158,
+    "social_learning": 180,
+    "source": "simulation_seed_from_initial_capability",
+    "tactical_learning": 173,
+    "technical_learning": 124
+  },
+  "attributes": {
+    "Agility": 137,
+    "Awareness": 157,
+    "Composure": 171,
+    "Coordination": 147,
+    "Endurance": 157,
+    "Intelligence": 155,
+    "Presence": 172,
+    "Strength": 145,
+    "Toughness": 153
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 7,
+    "enabled": true,
+    "focus_cursor": 7,
+    "last_completed_at": "244-BCE-07-02T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-07-02T06:22:48+08:00",
+    "next_due": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_through": "244-BCE-07-02T06:22:48+08:00",
+    "reviewed_cycles": 7,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verification_rule": "structured causal cycles derive verified hours from the registered exact/institution/career/role/billet standard; allegiance never caps or multiplies training; planned opportunity prose never creates hours",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "autonomous_development_history": [],
+  "background": {
+    "origin": "Yan"
+  },
+  "birth_date": "273-BCE-04-27",
+  "birth_date_source": "simulation_assigned_from_life_course_index",
+  "body": {
+    "adult_height_cm": 186.0,
+    "current_weight_kg": 78.5,
+    "frame": "broad",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": [],
+    "source": "simulation_assigned"
+  },
+  "career_state": {
+    "baseline_normalized_at": "244-BCE-07-29T20:22:48+08:00",
+    "career_changes": 0,
+    "current_billet": "army_commander",
+    "current_command_span": 12000,
+    "office_or_command": "Commander, Ordo Field Army",
+    "rank_billet_span_rule": "Durable rank, current billet, and current command span are separate saved facts; only explicit promotion/demotion changes rank."
+  },
+  "command_assignment": {
+    "billet": "army_commander",
+    "command_group_ref": "cmdgrp.ordo.field_army",
+    "current_command_span": 12000,
+    "external_to_fighting_establishment": true,
+    "rule": "Current command span follows exact surviving/assigned Units and may change without changing durable rank.",
+    "source": "current_exact_command_group"
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 1.708,
+      "Awareness": 11.255,
+      "Composure": 9.536,
+      "Coordination": 1.8,
+      "Endurance": 3.565,
+      "Intelligence": 9.202,
+      "Strength": 2.074,
+      "Toughness": 0.548,
+      "Presence": 9.49
+    },
+    "attribute_stimulus_hours_milli": 468300,
+    "completed_months": 0,
+    "completed_reviews": 7,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 1338,
+    "skill_edu_banks": {
+      "Athletics": 16.151,
+      "Glaive": 3.565,
+      "Logistics": 12.731,
+      "Riding": 3.565,
+      "Spear": 7.071,
+      "Strategy": 12.618,
+      "Leadership": 19.396,
+      "Formation Command": 28.206,
+      "Tactics": 19.271,
+      "Training": 25.325,
+      "Mass Combat": 6.882,
+      "Defense": 3.747,
+      "Sword": 11.659,
+      "Bow": 10.81
+    },
+    "training_credit": 0.0,
+    "autonomous_deterministic_training_cursor": 1048,
+    "last_training_program_ref": "program.commander_combined_arms",
+    "verified_deliberate_training_hours": 1440,
+    "training_regimen_migration_history": [
+      {
+        "migration_ref": "regular_army_56_to_112_v1",
+        "recorded_at": "244-BCE-07-29T20:22:48+08:00",
+        "completed_training_through": "244-BCE-07-02T06:22:48+08:00",
+        "regimen_ref": "elite_command",
+        "saved_regimen_ref": "regular_army",
+        "program_ref": "program.commander_combined_arms",
+        "training_ref": null,
+        "resolved_role": null,
+        "completed_cycles": 7,
+        "expected_verified_hours": 1008,
+        "verified_before": 392,
+        "reconciled_verified_hours": 616,
+        "gain_bearing_hours": 556,
+        "access_basis": "saved equipment/loadout only; historical facility and instructor are not reconstructed",
+        "result": {
+          "program_ref": "program.commander_combined_arms",
+          "requested_hours": 616,
+          "verified_hours": 616,
+          "time_reservation": null,
+          "settled_skill_hours": 556,
+          "modules": [
+            {
+              "drill_ref": "drill.command_orders",
+              "allocated_hours": 177,
+              "access_factor": 1.0,
+              "blocked_hours": 0,
+              "settled_skill_hours": 177,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            },
+            {
+              "drill_ref": "drill.command_staff",
+              "allocated_hours": 180,
+              "access_factor": 1.0,
+              "blocked_hours": 0,
+              "settled_skill_hours": 180,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            },
+            {
+              "drill_ref": "drill.command_battlefield",
+              "allocated_hours": 129,
+              "access_factor": 1.0,
+              "blocked_hours": 0,
+              "settled_skill_hours": 129,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            },
+            {
+              "drill_ref": "drill.weapon_transitions",
+              "allocated_hours": 70,
+              "access_factor": 1.0,
+              "blocked_hours": 0,
+              "settled_skill_hours": 70,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            },
+            {
+              "drill_ref": "drill.mounted_control",
+              "allocated_hours": 60,
+              "access_factor": 0.0,
+              "blocked_hours": 60,
+              "settled_skill_hours": 0,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            }
+          ],
+          "development": [
+            {
+              "skill": "Leadership",
+              "hours": 59,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 7383,
+              "skill_points_gained": 0,
+              "skill_score": 168,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 7383,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 11758,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 2348
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 11536,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 1949
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 11554,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 1595
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 12003,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 744
+                }
+              ]
+            },
+            {
+              "skill": "Formation Command",
+              "hours": 59,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 7383,
+              "skill_points_gained": 0,
+              "skill_score": 167,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 7383,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 11758,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 3006
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 11536,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 2595
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 11554,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 2242
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 12003,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 1488
+                }
+              ]
+            },
+            {
+              "skill": "Tactics",
+              "hours": 59,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 7383,
+              "skill_points_gained": 0,
+              "skill_score": 162,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 7383,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 11758,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 3664
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 11536,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 3241
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 11554,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 2889
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 5162,
+                  "raw_edu_milli": 12003,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 2232
+                }
+              ]
+            },
+            {
+              "skill": "Logistics",
+              "hours": 45,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 5068,
+              "skill_points_gained": 0,
+              "skill_score": 148,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 9127,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "administration",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 8071,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 4116
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 7919,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 3684
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 7931,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 3333
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 8239,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 2743
+                }
+              ]
+            },
+            {
+              "skill": "Training",
+              "hours": 45,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 101362,
+              "skill_points_gained": 2,
+              "skill_score": 26,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 29020,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "administration",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 8071,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 4568
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 7919,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 4127
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 7931,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 3777
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 8239,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 3254
+                }
+              ]
+            },
+            {
+              "skill": "Formation Command",
+              "hours": 45,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 5068,
+              "skill_points_gained": 0,
+              "skill_score": 167,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 12451,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "administration",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 8071,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 5020
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 7919,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 4570
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 7931,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 4221
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 8239,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 3765
+                }
+              ]
+            },
+            {
+              "skill": "Strategy",
+              "hours": 45,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 5068,
+              "skill_points_gained": 0,
+              "skill_score": 152,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 9127,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "administration",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 8071,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 5472
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 7919,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 5013
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 7931,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 4665
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 3937,
+                  "raw_edu_milli": 8239,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 4276
+                }
+              ]
+            },
+            {
+              "skill": "Formation Command",
+              "hours": 33,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 4130,
+              "skill_points_gained": 0,
+              "skill_score": 167,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 16581,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 2310,
+                  "raw_edu_milli": 3989,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 1411
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2310,
+                  "raw_edu_milli": 5261,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 5767
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2310,
+                  "raw_edu_milli": 5162,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 5302
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 2310,
+                  "raw_edu_milli": 5170,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 4955
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 2310,
+                  "raw_edu_milli": 5371,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 4609
+                }
+              ]
+            },
+            {
+              "skill": "Leadership",
+              "hours": 32,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 4004,
+              "skill_points_gained": 0,
+              "skill_score": 168,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 11387,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 3868,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 1628
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5102,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 6053
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5006,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 5582
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5013,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 5236
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5208,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 4932
+                }
+              ]
+            },
+            {
+              "skill": "Mass Combat",
+              "hours": 32,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 4004,
+              "skill_points_gained": 0,
+              "skill_score": 169,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 4004,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 3868,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 1845
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5102,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 6339
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5006,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 5862
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5013,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 5517
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5208,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 5255
+                }
+              ]
+            },
+            {
+              "skill": "Tactics",
+              "hours": 32,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 4004,
+              "skill_points_gained": 0,
+              "skill_score": 162,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 11387,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 3868,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 2062
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5102,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 6625
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5006,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 6142
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5013,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 5798
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 2240,
+                  "raw_edu_milli": 5208,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 5578
+                }
+              ]
+            },
+            {
+              "skill": "Defense",
+              "hours": 18,
+              "age": 29,
+              "aptitude": 158,
+              "effective_edu_milli": 2176,
+              "skill_points_gained": 0,
+              "skill_score": 163,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 2176,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "sparring",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Strength",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 2393,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 145,
+                  "edu_bank_milli": 1322
+                },
+                {
+                  "attribute": "Agility",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 2393,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 137,
+                  "edu_bank_milli": 956
+                },
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 2393,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 2196
+                },
+                {
+                  "attribute": "Coordination",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 2393,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 147,
+                  "edu_bank_milli": 1048
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 3157,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 6802
+                }
+              ]
+            },
+            {
+              "skill": "Sword",
+              "hours": 18,
+              "age": 29,
+              "aptitude": 158,
+              "effective_edu_milli": 43517,
+              "skill_points_gained": 1,
+              "skill_score": 18,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 13477,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "sparring",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Strength",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 2393,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 145,
+                  "edu_bank_milli": 1456
+                },
+                {
+                  "attribute": "Agility",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 2393,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 137,
+                  "edu_bank_milli": 1090
+                },
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 2393,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 2330
+                },
+                {
+                  "attribute": "Coordination",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 2393,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 147,
+                  "edu_bank_milli": 1182
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1260,
+                  "raw_edu_milli": 3157,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 6979
+                }
+              ]
+            },
+            {
+              "skill": "Spear",
+              "hours": 17,
+              "age": 29,
+              "aptitude": 158,
+              "effective_edu_milli": 2055,
+              "skill_points_gained": 0,
+              "skill_score": 157,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 5620,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "sparring",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Strength",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2260,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 145,
+                  "edu_bank_milli": 1583
+                },
+                {
+                  "attribute": "Agility",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2260,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 137,
+                  "edu_bank_milli": 1217
+                },
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2260,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 2457
+                },
+                {
+                  "attribute": "Coordination",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2260,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 147,
+                  "edu_bank_milli": 1309
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2981,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 7146
+                }
+              ]
+            },
+            {
+              "skill": "Bow",
+              "hours": 17,
+              "age": 29,
+              "aptitude": 158,
+              "effective_edu_milli": 41100,
+              "skill_points_gained": 1,
+              "skill_score": 17,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 11839,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "sparring",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Strength",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2260,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 145,
+                  "edu_bank_milli": 1710
+                },
+                {
+                  "attribute": "Agility",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2260,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 137,
+                  "edu_bank_milli": 1344
+                },
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2260,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 2584
+                },
+                {
+                  "attribute": "Coordination",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2260,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 147,
+                  "edu_bank_milli": 1436
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1190,
+                  "raw_edu_milli": 2981,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 7313
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "universal_training_migration_history": [
+      {
+        "migration_ref": "universal_active_48h_week_v1",
+        "recorded_at": "244-BCE-07-29T20:22:48+08:00",
+        "completed_cycles": 7,
+        "expected_verified_hours": 1440,
+        "verified_before": 1008,
+        "added_verified_hours": 432,
+        "gain_bearing_hours": 390,
+        "program_ref": "program.commander_combined_arms",
+        "regimen_ref": "elite_command",
+        "training_ref": null,
+        "resolved_role": null,
+        "historical_instructor_claim": false,
+        "historical_location_claim": false,
+        "result": {
+          "program_ref": "program.commander_combined_arms",
+          "requested_hours": 432,
+          "verified_hours": 432,
+          "time_reservation": null,
+          "settled_skill_hours": 390,
+          "modules": [
+            {
+              "drill_ref": "drill.command_orders",
+              "allocated_hours": 124,
+              "access_factor": 1.0,
+              "blocked_hours": 0,
+              "settled_skill_hours": 124,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            },
+            {
+              "drill_ref": "drill.command_staff",
+              "allocated_hours": 126,
+              "access_factor": 1.0,
+              "blocked_hours": 0,
+              "settled_skill_hours": 126,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            },
+            {
+              "drill_ref": "drill.command_battlefield",
+              "allocated_hours": 91,
+              "access_factor": 1.0,
+              "blocked_hours": 0,
+              "settled_skill_hours": 91,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            },
+            {
+              "drill_ref": "drill.weapon_transitions",
+              "allocated_hours": 49,
+              "access_factor": 1.0,
+              "blocked_hours": 0,
+              "settled_skill_hours": 49,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            },
+            {
+              "drill_ref": "drill.mounted_control",
+              "allocated_hours": 42,
+              "access_factor": 0.0,
+              "blocked_hours": 42,
+              "settled_skill_hours": 0,
+              "instructor_ref": null,
+              "instruction_factor": 1.0,
+              "instructor_capacity_factor": 1.0
+            }
+          ],
+          "development": [
+            {
+              "skill": "Formation Command",
+              "hours": 42,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 5256,
+              "skill_points_gained": 0,
+              "skill_score": 167,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 21837,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3675,
+                  "raw_edu_milli": 8370,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 7782
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3675,
+                  "raw_edu_milli": 8212,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 6602
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 3675,
+                  "raw_edu_milli": 8225,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 6259
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 3675,
+                  "raw_edu_milli": 8544,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 6108
+                }
+              ]
+            },
+            {
+              "skill": "Tactics",
+              "hours": 41,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 5131,
+              "skill_points_gained": 0,
+              "skill_score": 162,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 16518,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3588,
+                  "raw_edu_milli": 8171,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 8240
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3588,
+                  "raw_edu_milli": 8017,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 7051
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 3588,
+                  "raw_edu_milli": 8029,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 6709
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 3588,
+                  "raw_edu_milli": 8341,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 6625
+                }
+              ]
+            },
+            {
+              "skill": "Leadership",
+              "hours": 41,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 5131,
+              "skill_points_gained": 0,
+              "skill_score": 168,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 16518,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3588,
+                  "raw_edu_milli": 8171,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 8698
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 3588,
+                  "raw_edu_milli": 8017,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 7500
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 3588,
+                  "raw_edu_milli": 8029,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 7159
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 3588,
+                  "raw_edu_milli": 8341,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 7142
+                }
+              ]
+            },
+            {
+              "skill": "Logistics",
+              "hours": 32,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 3604,
+              "skill_points_gained": 0,
+              "skill_score": 148,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 12731,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "administration",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2800,
+                  "raw_edu_milli": 5740,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 9019
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2800,
+                  "raw_edu_milli": 5631,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 7815
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 2800,
+                  "raw_edu_milli": 5640,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 7475
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 2800,
+                  "raw_edu_milli": 5859,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 7505
+                }
+              ]
+            },
+            {
+              "skill": "Training",
+              "hours": 32,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 72079,
+              "skill_points_gained": 2,
+              "skill_score": 28,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 25325,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "administration",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2800,
+                  "raw_edu_milli": 5740,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 9340
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2800,
+                  "raw_edu_milli": 5631,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 8130
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 2800,
+                  "raw_edu_milli": 5640,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 7791
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 2800,
+                  "raw_edu_milli": 5859,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 7868
+                }
+              ]
+            },
+            {
+              "skill": "Formation Command",
+              "hours": 31,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 3491,
+              "skill_points_gained": 0,
+              "skill_score": 167,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 25328,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "administration",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2712,
+                  "raw_edu_milli": 5560,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 9651
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2712,
+                  "raw_edu_milli": 5455,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 8435
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 2712,
+                  "raw_edu_milli": 5464,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 8097
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 2712,
+                  "raw_edu_milli": 5676,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 8220
+                }
+              ]
+            },
+            {
+              "skill": "Strategy",
+              "hours": 31,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 3491,
+              "skill_points_gained": 0,
+              "skill_score": 152,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 12618,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "administration",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2712,
+                  "raw_edu_milli": 5560,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 9962
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 2712,
+                  "raw_edu_milli": 5455,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 8740
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 2712,
+                  "raw_edu_milli": 5464,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 8403
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 2712,
+                  "raw_edu_milli": 5676,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 8572
+                }
+              ]
+            },
+            {
+              "skill": "Formation Command",
+              "hours": 23,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 2878,
+              "skill_points_gained": 0,
+              "skill_score": 167,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 28206,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 2780,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 2740
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3667,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 10167
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3598,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 8941
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3603,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 8605
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3743,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 8804
+                }
+              ]
+            },
+            {
+              "skill": "Leadership",
+              "hours": 23,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 2878,
+              "skill_points_gained": 0,
+              "skill_score": 168,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 19396,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 2780,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 2896
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3667,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 10372
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3598,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 9142
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3603,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 8807
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3743,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 9036
+                }
+              ]
+            },
+            {
+              "skill": "Mass Combat",
+              "hours": 23,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 2878,
+              "skill_points_gained": 0,
+              "skill_score": 169,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 6882,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 2780,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 3052
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3667,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 10577
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3598,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 9343
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3603,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 9009
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 1610,
+                  "raw_edu_milli": 3743,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 9268
+                }
+              ]
+            },
+            {
+              "skill": "Tactics",
+              "hours": 22,
+              "age": 29,
+              "aptitude": 173,
+              "effective_edu_milli": 2753,
+              "skill_points_gained": 0,
+              "skill_score": 162,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 19271,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "field_practice",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 1540,
+                  "raw_edu_milli": 2659,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 3201
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1540,
+                  "raw_edu_milli": 3507,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 10773
+                },
+                {
+                  "attribute": "Composure",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 1540,
+                  "raw_edu_milli": 3441,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 171,
+                  "edu_bank_milli": 9536
+                },
+                {
+                  "attribute": "Intelligence",
+                  "age": 29,
+                  "aptitude": 170,
+                  "stimulus_hours_milli": 1540,
+                  "raw_edu_milli": 3447,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 155,
+                  "edu_bank_milli": 9202
+                },
+                {
+                  "attribute": "Presence",
+                  "age": 29,
+                  "aptitude": 180,
+                  "stimulus_hours_milli": 1540,
+                  "raw_edu_milli": 3581,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 172,
+                  "edu_bank_milli": 9490
+                }
+              ]
+            },
+            {
+              "skill": "Defense",
+              "hours": 13,
+              "age": 29,
+              "aptitude": 158,
+              "effective_edu_milli": 1571,
+              "skill_points_gained": 0,
+              "skill_score": 163,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 3747,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "sparring",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Strength",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 910,
+                  "raw_edu_milli": 1729,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 145,
+                  "edu_bank_milli": 1807
+                },
+                {
+                  "attribute": "Agility",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 910,
+                  "raw_edu_milli": 1729,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 137,
+                  "edu_bank_milli": 1441
+                },
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 910,
+                  "raw_edu_milli": 1729,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 3298
+                },
+                {
+                  "attribute": "Coordination",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 910,
+                  "raw_edu_milli": 1729,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 147,
+                  "edu_bank_milli": 1533
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 910,
+                  "raw_edu_milli": 2280,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 10901
+                }
+              ]
+            },
+            {
+              "skill": "Sword",
+              "hours": 12,
+              "age": 29,
+              "aptitude": 158,
+              "effective_edu_milli": 29012,
+              "skill_points_gained": 1,
+              "skill_score": 19,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 11659,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "sparring",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Strength",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 145,
+                  "edu_bank_milli": 1896
+                },
+                {
+                  "attribute": "Agility",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 137,
+                  "edu_bank_milli": 1530
+                },
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 3387
+                },
+                {
+                  "attribute": "Coordination",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 147,
+                  "edu_bank_milli": 1622
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 2104,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 11019
+                }
+              ]
+            },
+            {
+              "skill": "Spear",
+              "hours": 12,
+              "age": 29,
+              "aptitude": 158,
+              "effective_edu_milli": 1451,
+              "skill_points_gained": 0,
+              "skill_score": 157,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 7071,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "sparring",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Strength",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 145,
+                  "edu_bank_milli": 1985
+                },
+                {
+                  "attribute": "Agility",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 137,
+                  "edu_bank_milli": 1619
+                },
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 3476
+                },
+                {
+                  "attribute": "Coordination",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 147,
+                  "edu_bank_milli": 1711
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 2104,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 11137
+                }
+              ]
+            },
+            {
+              "skill": "Bow",
+              "hours": 12,
+              "age": 29,
+              "aptitude": 158,
+              "effective_edu_milli": 29012,
+              "skill_points_gained": 1,
+              "skill_score": 18,
+              "routine_training_ceiling": 180,
+              "capability_reference_value": 200,
+              "exceptional_progression_required": false,
+              "edu_bank_milli": 10810,
+              "training_inputs": {
+                "facility_grade": "good",
+                "equipment_grade": "correct",
+                "recovery_grade": "good",
+                "practice_mode": "sparring",
+                "intensity": "standard",
+                "feedback_grade": "expert",
+                "instruction_factor_milli": 1000,
+                "instructor_capacity_factor_milli": 1000,
+                "instructor_ref": null
+              },
+              "attribute_development": [
+                {
+                  "attribute": "Strength",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 145,
+                  "edu_bank_milli": 2074
+                },
+                {
+                  "attribute": "Agility",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 137,
+                  "edu_bank_milli": 1708
+                },
+                {
+                  "attribute": "Endurance",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 3565
+                },
+                {
+                  "attribute": "Coordination",
+                  "age": 29,
+                  "aptitude": 158,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 1596,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 147,
+                  "edu_bank_milli": 1800
+                },
+                {
+                  "attribute": "Awareness",
+                  "age": 29,
+                  "aptitude": 173,
+                  "stimulus_hours_milli": 840,
+                  "raw_edu_milli": 2104,
+                  "attribute_points_gained": 0,
+                  "attribute_score": 157,
+                  "edu_bank_milli": 11255
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "equipment_loadout_id": "loadout_named_spear",
+  "goal_state": {
+    "current_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Yan authority and resources"
+    ],
+    "current_orders": [],
+    "institutional_duties": [
+      "act within current Yan political and military obligations"
+    ],
+    "long_term_goals": [],
+    "personal_desires": []
+  },
+  "health_status": "healthy",
+  "knowledge_profile_ref": "knowledge.current_institution_observation",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_course_age_exact": false,
+  "life_course_age_index": 28,
+  "life_course_state": {
+    "annual_reviews": 0,
+    "deaths": 0,
+    "elapsed_years": 0,
+    "injuries": 0,
+    "location_changes": 0,
+    "relationship_events": 0,
+    "retirements": 0,
+    "status_history": []
+  },
+  "life_status": "active",
+  "location_scope": "state_yan_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "general",
+    "rule": "Only explicit career promotion/demotion changes grade; billet, casualty strength, relief, reserve status and current command span do not.",
+    "source": "current_baseline_role_evidence"
+  },
+  "name": "Ordo",
+  "owner_id": "char_ordo",
+  "owner_type": "character",
+  "rank": "general",
+  "role_archetype": "general",
+  "runtime_status": "deferred_exact_profile",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 54,
+    "Axe": 15,
+    "Bow": 18,
+    "Crossbow": 14,
+    "Dagger": 13,
+    "Defense": 163,
+    "Diplomacy": 25,
+    "Engineering": 17,
+    "Formation Command": 167,
+    "Formation Fighting": 165,
+    "Glaive": 153,
+    "Governance": 22,
+    "Grappling": 14,
+    "Intelligence Operations": 17,
+    "Intrigue": 13,
+    "Law": 20,
+    "Leadership": 168,
+    "Logistics": 148,
+    "Mace": 15,
+    "Mass Combat": 169,
+    "Medicine": 22,
+    "Navigation": 29,
+    "Riding": 162,
+    "Scouting": 17,
+    "Shield": 15,
+    "Spear": 157,
+    "Staff": 16,
+    "Stealth": 13,
+    "Strategy": 152,
+    "Survival": 38,
+    "Sword": 19,
+    "Tactics": 162,
+    "Trade": 26,
+    "Training": 28,
+    "Unarmed": 17
+  },
+  "source_class": "external_named",
+  "stable_seed": "seed_e6bf401d6504786b1e19",
+  "state": "Yan",
+  "activity_contract": {
+    "mode": "standing_role_training",
+    "autonomous_enabled": true,
+    "training_regimen_ref": "regular_army",
+    "growth_rule": "verified elapsed hours settle only through the finite deterministic training-program registry selected from saved role/billet; current stat ranking and prose-created focuses are non-authoritative",
+    "derived_activity_contract": true
+  }
+}

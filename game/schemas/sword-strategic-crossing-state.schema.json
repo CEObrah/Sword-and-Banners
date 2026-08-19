@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "owner_id", "authority", "crossings"],
+  "properties": {
+    "schema": {"const": "sword-strategic-crossing-state"},
+    "owner_id": {"const": "strategic_crossings"},
+    "authority": {"const": true},
+    "crossings": {"type": "object"},
+    "geography": {"type": "object"}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,62 @@
+{
+  "active_context_ref": "operation_arc_131572c4e8a2892bbc",
+  "authority_ref": "char_tang_wei",
+  "commander_ref": "char_tang_wei",
+  "communication_ref": null,
+  "context": "field_army",
+  "deputy_ref": "char_lin_zhen",
+  "direct_person_refs": [
+    "char_lin_zhen"
+  ],
+  "display_name": "Tang Wei Field Army Command",
+  "id": "cmdgrp.tang_wei.field_army",
+  "location": "loc_qin_eastern_depot",
+  "parent_command_group_ref": null,
+  "schema": "command-group",
+  "standing_order_refs": [],
+  "successor_refs": [
+    "char_lin_zhen"
+  ],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_tang_wei_house_guard"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_wei_unit_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_wei_unit_02"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_wei_unit_03"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_wei_unit_04"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.tang_wei.personal_force"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 11500,
+    "authorized_direct_unit_slots": 6,
+    "current_recursive_strength": 11500,
+    "current_direct_formation_strength": 11000,
+    "recursive_formation_count": 6,
+    "direct_unit_count": 6,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "field_army",
+    "reserve_doctrine": "Preserve surviving Units and officer cadres; casualty losses change strength, not durable rank. Consolidation, dissolution, reassignment and promotion require deliberate authority.",
+    "staffing_policy": "Attach only exact physically available formations or intact nested armies under lawful authority; prefer delegation rather than flattening large subordinate commands.",
+    "history": []
+  },
+  "standing_doctrine_ref": "doc.tang_wei.field_army"
+}

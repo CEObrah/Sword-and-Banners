@@ -1,0 +1,35 @@
+{
+  "schema": "sword-mount-pool",
+  "owner_id": "mount_pool_force_house_go_military_house",
+  "house_force_ref": "force_house_go_military_house",
+  "state": "wei",
+  "total": 600,
+  "types": {
+    "horse_war_military": 600
+  },
+  "health": {
+    "fit": 600,
+    "limited": 0,
+    "recovering": 0,
+    "unfit": 0
+  },
+  "regional_reserve": {},
+  "allocated_to_formations": {
+    "formation_house_go_military_house_01": {
+      "horse_war_military": 300
+    },
+    "formation_house_go_military_house_02": {
+      "horse_war_military": 300
+    }
+  },
+  "geographic_disposition": {
+    "authority": true,
+    "rule": "Conserved military horses transferred from the host state mount owner during the private-House establishment rebaseline; health partition transferred with the same living animals.",
+    "source_partitions": [
+      [
+        "loc_wei_regional_02",
+        600
+      ]
+    ]
+  }
+}

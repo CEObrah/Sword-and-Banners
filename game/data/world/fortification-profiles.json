@@ -1,0 +1,2984 @@
+{
+  "profiles": [
+    {
+      "profile_id": "fort_profile_atsuyo",
+      "site_ref": "loc_atsuyo",
+      "defense_class": "castle_city",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 10.0,
+        "outer_wall": {
+          "wall_height_m": 13.0,
+          "wall_base_thickness_m": 7.0,
+          "wall_crown_thickness_m": 4.34,
+          "major_tower_height_m": 19.0,
+          "tower_count": 100,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 20.0,
+          "moat_depth_m": 7.0,
+          "external_strategic_gate_count": 3
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [
+        "route_zhao_west_atsuyo"
+      ],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 22000,
+        "storage_capacity": {
+          "grain_kg": 3300000,
+          "fodder_kg": 5774999,
+          "war_arrows": 2772000,
+          "war_bolts": 2772000,
+          "timber_tonnes": 1200,
+          "iron_tonnes": 240,
+          "construction_material_units": 5500,
+          "medicine_lots": 33000,
+          "carts": 2750
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1320000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 550,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 2750
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 150,
+          "counterweight_trebuchets": 8,
+          "stone_drop_cranes": 60,
+          "firepot_systems": 60,
+          "gate_mechanism_sets": 3,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_bu_pass",
+      "site_ref": "loc_bu_pass",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 5.6,
+        "outer_wall": {
+          "wall_height_m": 16.0,
+          "wall_base_thickness_m": 9.0,
+          "wall_crown_thickness_m": 5.5,
+          "major_tower_height_m": 23.0,
+          "tower_count": 56,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 22.0,
+          "moat_depth_m": 7.0,
+          "external_strategic_gate_count": 1,
+          "gate_station_m": 2800.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [
+        "route_qin_bu_chu_north",
+        "route_qin_south_bu"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 10080,
+        "storage_capacity": {
+          "grain_kg": 1134000,
+          "fodder_kg": 1984500,
+          "war_arrows": 1270080,
+          "war_bolts": 1270080,
+          "timber_tonnes": 672,
+          "iron_tonnes": 134,
+          "construction_material_units": 3080,
+          "medicine_lots": 15120,
+          "carts": 1260
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 453600,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 252,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1260
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 63,
+          "counterweight_trebuchets": 4,
+          "stone_drop_cranes": 25,
+          "firepot_systems": 25,
+          "gate_mechanism_sets": 1,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_bujou",
+      "site_ref": "loc_bujou",
+      "defense_class": "stronghold",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 9.0,
+        "outer_wall": {
+          "wall_height_m": 11.0,
+          "wall_base_thickness_m": 5.5,
+          "wall_crown_thickness_m": 3.41,
+          "major_tower_height_m": 17.0,
+          "tower_count": 90,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 16.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 3
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [
+        "route_zhao_south_bujou"
+      ],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 19800,
+        "storage_capacity": {
+          "grain_kg": 2970000,
+          "fodder_kg": 5197500,
+          "war_arrows": 2494800,
+          "war_bolts": 2494800,
+          "timber_tonnes": 1080,
+          "iron_tonnes": 216,
+          "construction_material_units": 4950,
+          "medicine_lots": 29700,
+          "carts": 2475
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1188000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 495,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 2475
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 135,
+          "counterweight_trebuchets": 8,
+          "stone_drop_cranes": 54,
+          "firepot_systems": 54,
+          "gate_mechanism_sets": 3,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_chu_ei",
+      "site_ref": "loc_chu_ei",
+      "defense_class": "major_city",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 18.0,
+        "outer_wall": {
+          "wall_height_m": 14.0,
+          "wall_base_thickness_m": 7.0,
+          "wall_crown_thickness_m": 4.34,
+          "major_tower_height_m": 20.0,
+          "tower_count": 144,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 20.0,
+          "moat_depth_m": 7.0,
+          "external_strategic_gate_count": 4
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 39600,
+        "storage_capacity": {
+          "grain_kg": 5940000,
+          "fodder_kg": 10395000,
+          "war_arrows": 4989600,
+          "war_bolts": 4989600,
+          "timber_tonnes": 2160,
+          "iron_tonnes": 432,
+          "construction_material_units": 9900,
+          "medicine_lots": 59400,
+          "carts": 4950
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 2376000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 3,
+          "bed_capacity": 990,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 4950
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 216,
+          "counterweight_trebuchets": 12,
+          "stone_drop_cranes": 86,
+          "firepot_systems": 86,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_chu_north_fort",
+      "site_ref": "loc_chu_north_fort",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 5.2,
+        "outer_wall": {
+          "wall_height_m": 11.0,
+          "wall_base_thickness_m": 6.0,
+          "wall_crown_thickness_m": 3.8,
+          "major_tower_height_m": 17.0,
+          "tower_count": 52,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 16.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 2,
+          "gate_station_m": 2600.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [
+        "route_chu_north_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 9360,
+        "storage_capacity": {
+          "grain_kg": 1053000,
+          "fodder_kg": 1842750,
+          "war_arrows": 1179360,
+          "war_bolts": 1179360,
+          "timber_tonnes": 624,
+          "iron_tonnes": 125,
+          "construction_material_units": 2860,
+          "medicine_lots": 14040,
+          "carts": 1170
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 421200,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 234,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1170
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 58,
+          "counterweight_trebuchets": 3,
+          "stone_drop_cranes": 23,
+          "firepot_systems": 23,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_dairyou",
+      "site_ref": "loc_dairyou",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 18.0,
+        "outer_wall": {
+          "wall_height_m": 15.0,
+          "wall_base_thickness_m": 9.0,
+          "wall_crown_thickness_m": 5.5,
+          "major_tower_height_m": 22.0,
+          "tower_count": 120,
+          "tower_station_interval_m": 150.0,
+          "moat_width_m": 25.0,
+          "moat_depth_m": 7.0,
+          "external_strategic_gate_count": 4,
+          "gate_station_m": 9000.0
+        },
+        "storage_class": "capital_campaign_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "capital_campaign_reserve",
+        "reserve_days": 90,
+        "nominal_garrison_capacity": 54000,
+        "storage_capacity": {
+          "grain_kg": 12150000,
+          "fodder_kg": 21262500,
+          "war_arrows": 6804000,
+          "war_bolts": 6804000,
+          "timber_tonnes": 2160,
+          "iron_tonnes": 432,
+          "construction_material_units": 9900,
+          "medicine_lots": 81000,
+          "carts": 6750
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 3240000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 3,
+          "bed_capacity": 1350,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 6750
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 216,
+          "counterweight_trebuchets": 12,
+          "stone_drop_cranes": 86,
+          "firepot_systems": 86,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_ei",
+      "site_ref": "loc_ei",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 20.0,
+        "outer_wall": {
+          "wall_height_m": 15.0,
+          "wall_base_thickness_m": 9.0,
+          "wall_crown_thickness_m": 5.5,
+          "major_tower_height_m": 22.0,
+          "tower_count": 125,
+          "tower_station_interval_m": 160.0,
+          "moat_width_m": 28.0,
+          "moat_depth_m": 8.0,
+          "external_strategic_gate_count": 4,
+          "gate_station_m": 10000.0
+        },
+        "storage_class": "capital_campaign_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "capital_campaign_reserve",
+        "reserve_days": 90,
+        "nominal_garrison_capacity": 60000,
+        "storage_capacity": {
+          "grain_kg": 13500000,
+          "fodder_kg": 23625000,
+          "war_arrows": 7560000,
+          "war_bolts": 7560000,
+          "timber_tonnes": 2400,
+          "iron_tonnes": 480,
+          "construction_material_units": 11000,
+          "medicine_lots": 90000,
+          "carts": 7500
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 3600000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 3,
+          "bed_capacity": 1500,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 7500
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 225,
+          "counterweight_trebuchets": 12,
+          "stone_drop_cranes": 90,
+          "firepot_systems": 90,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_gian",
+      "site_ref": "loc_gian",
+      "defense_class": "major_northern_city",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 18.0,
+        "outer_wall": {
+          "wall_height_m": 12.0,
+          "wall_base_thickness_m": 6.0,
+          "wall_crown_thickness_m": 3.72,
+          "major_tower_height_m": 18.0,
+          "tower_count": 144,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 20.0,
+          "moat_depth_m": 7.0,
+          "external_strategic_gate_count": 4
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 39600,
+        "storage_capacity": {
+          "grain_kg": 5940000,
+          "fodder_kg": 10395000,
+          "war_arrows": 4989600,
+          "war_bolts": 4989600,
+          "timber_tonnes": 2160,
+          "iron_tonnes": 432,
+          "construction_material_units": 9900,
+          "medicine_lots": 59400,
+          "carts": 4950
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 2376000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 3,
+          "bed_capacity": 990,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 4950
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 216,
+          "counterweight_trebuchets": 12,
+          "stone_drop_cranes": 86,
+          "firepot_systems": 86,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_gyou",
+      "site_ref": "loc_gyou",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 16.0,
+        "outer_wall": {
+          "wall_height_m": 18.0,
+          "wall_base_thickness_m": 11.0,
+          "wall_crown_thickness_m": 6.5,
+          "major_tower_height_m": 26.0,
+          "tower_count": 128,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 30.0,
+          "moat_depth_m": 9.0,
+          "external_strategic_gate_count": 3,
+          "gate_station_m": 8000.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 28800,
+        "storage_capacity": {
+          "grain_kg": 3240000,
+          "fodder_kg": 5670000,
+          "war_arrows": 3628800,
+          "war_bolts": 3628800,
+          "timber_tonnes": 1920,
+          "iron_tonnes": 384,
+          "construction_material_units": 8800,
+          "medicine_lots": 43200,
+          "carts": 3600
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1296000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 3,
+          "bed_capacity": 720,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 3600
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 144,
+          "counterweight_trebuchets": 8,
+          "stone_drop_cranes": 58,
+          "firepot_systems": 58,
+          "gate_mechanism_sets": 3,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_han_capital",
+      "site_ref": "loc_han_capital",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 14.0,
+        "outer_wall": {
+          "wall_height_m": 13.0,
+          "wall_base_thickness_m": 8.0,
+          "wall_crown_thickness_m": 4.8,
+          "major_tower_height_m": 20.0,
+          "tower_count": 112,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 24.0,
+          "moat_depth_m": 7.0,
+          "external_strategic_gate_count": 4,
+          "gate_station_m": 7000.0
+        },
+        "storage_class": "capital_campaign_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "capital_campaign_reserve",
+        "reserve_days": 90,
+        "nominal_garrison_capacity": 42000,
+        "storage_capacity": {
+          "grain_kg": 9450000,
+          "fodder_kg": 16537499,
+          "war_arrows": 5292000,
+          "war_bolts": 5292000,
+          "timber_tonnes": 1680,
+          "iron_tonnes": 336,
+          "construction_material_units": 7700,
+          "medicine_lots": 63000,
+          "carts": 5250
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 2520000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 1050,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 5250
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 202,
+          "counterweight_trebuchets": 11,
+          "stone_drop_cranes": 81,
+          "firepot_systems": 81,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_han_frontier_fort",
+      "site_ref": "loc_han_frontier_fort",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 5.0,
+        "outer_wall": {
+          "wall_height_m": 10.0,
+          "wall_base_thickness_m": 5.5,
+          "wall_crown_thickness_m": 3.5,
+          "major_tower_height_m": 16.0,
+          "tower_count": 50,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 15.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 2,
+          "gate_station_m": 2500.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [
+        "route_han_west_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 9000,
+        "storage_capacity": {
+          "grain_kg": 1012500,
+          "fodder_kg": 1771875,
+          "war_arrows": 1134000,
+          "war_bolts": 1134000,
+          "timber_tonnes": 600,
+          "iron_tonnes": 120,
+          "construction_material_units": 2750,
+          "medicine_lots": 13500,
+          "carts": 1125
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 405000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 225,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1125
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 56,
+          "counterweight_trebuchets": 3,
+          "stone_drop_cranes": 22,
+          "firepot_systems": 22,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_hango",
+      "site_ref": "loc_hango",
+      "defense_class": "major_northern_city",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 20.0,
+        "outer_wall": {
+          "wall_height_m": 13.0,
+          "wall_base_thickness_m": 6.5,
+          "wall_crown_thickness_m": 4.03,
+          "major_tower_height_m": 19.0,
+          "tower_count": 160,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 22.0,
+          "moat_depth_m": 7.0,
+          "external_strategic_gate_count": 4
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 44000,
+        "storage_capacity": {
+          "grain_kg": 6600000,
+          "fodder_kg": 11549999,
+          "war_arrows": 5544000,
+          "war_bolts": 5544000,
+          "timber_tonnes": 2400,
+          "iron_tonnes": 480,
+          "construction_material_units": 11000,
+          "medicine_lots": 66000,
+          "carts": 5500
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 2640000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 3,
+          "bed_capacity": 1100,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 5500
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 240,
+          "counterweight_trebuchets": 13,
+          "stone_drop_cranes": 96,
+          "firepot_systems": 96,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_heiyou",
+      "site_ref": "loc_heiyou",
+      "defense_class": "stronghold",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 9.0,
+        "outer_wall": {
+          "wall_height_m": 11.0,
+          "wall_base_thickness_m": 5.5,
+          "wall_crown_thickness_m": 3.41,
+          "major_tower_height_m": 17.0,
+          "tower_count": 90,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 16.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 3
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [
+        "route_zhao_south_heiyou"
+      ],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 19800,
+        "storage_capacity": {
+          "grain_kg": 2970000,
+          "fodder_kg": 5197500,
+          "war_arrows": 2494800,
+          "war_bolts": 2494800,
+          "timber_tonnes": 1080,
+          "iron_tonnes": 216,
+          "construction_material_units": 4950,
+          "medicine_lots": 29700,
+          "carts": 2475
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1188000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 495,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 2475
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 135,
+          "counterweight_trebuchets": 8,
+          "stone_drop_cranes": 54,
+          "firepot_systems": 54,
+          "gate_mechanism_sets": 3,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_hika",
+      "site_ref": "loc_hika",
+      "defense_class": "fortified_town",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 6.0,
+        "outer_wall": {
+          "wall_height_m": 8.0,
+          "wall_base_thickness_m": 4.0,
+          "wall_crown_thickness_m": 3.0,
+          "major_tower_height_m": 14.0,
+          "tower_count": 60,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 10.0,
+          "moat_depth_m": 3.5,
+          "external_strategic_gate_count": 2
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 13200,
+        "storage_capacity": {
+          "grain_kg": 1980000,
+          "fodder_kg": 3465000,
+          "war_arrows": 1663200,
+          "war_bolts": 1663200,
+          "timber_tonnes": 720,
+          "iron_tonnes": 144,
+          "construction_material_units": 3300,
+          "medicine_lots": 19800,
+          "carts": 1650
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 792000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 330,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1650
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 90,
+          "counterweight_trebuchets": 5,
+          "stone_drop_cranes": 36,
+          "firepot_systems": 36,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_houshi",
+      "site_ref": "loc_houshi",
+      "defense_class": "major_eastern_city",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 14.0,
+        "outer_wall": {
+          "wall_height_m": 11.0,
+          "wall_base_thickness_m": 5.5,
+          "wall_crown_thickness_m": 3.41,
+          "major_tower_height_m": 17.0,
+          "tower_count": 112,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 16.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 4
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 30800,
+        "storage_capacity": {
+          "grain_kg": 4620000,
+          "fodder_kg": 8085000,
+          "war_arrows": 3880800,
+          "war_bolts": 3880800,
+          "timber_tonnes": 1680,
+          "iron_tonnes": 336,
+          "construction_material_units": 7700,
+          "medicine_lots": 46200,
+          "carts": 3850
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1848000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 770,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 3850
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 168,
+          "counterweight_trebuchets": 9,
+          "stone_drop_cranes": 67,
+          "firepot_systems": 67,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_ji",
+      "site_ref": "loc_ji",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 16.0,
+        "outer_wall": {
+          "wall_height_m": 13.0,
+          "wall_base_thickness_m": 8.0,
+          "wall_crown_thickness_m": 4.8,
+          "major_tower_height_m": 20.0,
+          "tower_count": 100,
+          "tower_station_interval_m": 160.0,
+          "moat_width_m": 24.0,
+          "moat_depth_m": 7.0,
+          "external_strategic_gate_count": 4,
+          "gate_station_m": 8000.0
+        },
+        "storage_class": "capital_campaign_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "capital_campaign_reserve",
+        "reserve_days": 90,
+        "nominal_garrison_capacity": 48000,
+        "storage_capacity": {
+          "grain_kg": 10800000,
+          "fodder_kg": 18900000,
+          "war_arrows": 6048000,
+          "war_bolts": 6048000,
+          "timber_tonnes": 1920,
+          "iron_tonnes": 384,
+          "construction_material_units": 8800,
+          "medicine_lots": 72000,
+          "carts": 6000
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 2880000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 3,
+          "bed_capacity": 1200,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 6000
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 180,
+          "counterweight_trebuchets": 10,
+          "stone_drop_cranes": 72,
+          "firepot_systems": 72,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "local",
+      "materialization_required": true,
+      "profile_id": "fort_profile_jo_city",
+      "site_ref": "loc_jo_city",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 6.0,
+        "outer_wall": {
+          "wall_height_m": 9.0,
+          "wall_base_thickness_m": 4.5,
+          "wall_crown_thickness_m": 3.0,
+          "major_tower_height_m": 14.0,
+          "tower_count": 60,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 12.0,
+          "moat_depth_m": 4.0,
+          "external_strategic_gate_count": 2,
+          "gate_station_m": 3000.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Jo's defensive advantage derives from mountain approach topology and the city perimeter; the city does not magically block all three external trails.",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 10800,
+        "storage_capacity": {
+          "grain_kg": 1215000,
+          "fodder_kg": 2126249,
+          "war_arrows": 1360800,
+          "war_bolts": 1360800,
+          "timber_tonnes": 720,
+          "iron_tonnes": 144,
+          "construction_material_units": 3300,
+          "medicine_lots": 16200,
+          "carts": 1350
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 486000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 270,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1350
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 68,
+          "counterweight_trebuchets": 4,
+          "stone_drop_cranes": 27,
+          "firepot_systems": 27,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_juuko",
+      "site_ref": "loc_juuko",
+      "defense_class": "deep_border_fortress",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 16.0,
+        "outer_wall": {
+          "wall_height_m": 18.0,
+          "wall_base_thickness_m": 10.0,
+          "wall_crown_thickness_m": 6.2,
+          "major_tower_height_m": 24.0,
+          "tower_count": 160,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 30.0,
+          "moat_depth_m": 10.0,
+          "external_strategic_gate_count": 4
+        },
+        "storage_class": "campaign_siege_reserve"
+      },
+      "route_control_refs": [
+        "route_chu_north_juuko",
+        "route_juuko_han_south",
+        "route_juuko_qin_south",
+        "route_juuko_wei_south"
+      ],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "campaign_siege_reserve",
+        "reserve_days": 90,
+        "nominal_garrison_capacity": 44800,
+        "storage_capacity": {
+          "grain_kg": 10080000,
+          "fodder_kg": 17639999,
+          "war_arrows": 5644800,
+          "war_bolts": 5644800,
+          "timber_tonnes": 1920,
+          "iron_tonnes": 384,
+          "construction_material_units": 8800,
+          "medicine_lots": 67200,
+          "carts": 5600
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 2688000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 3,
+          "bed_capacity": 1120,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 5600
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 312,
+          "counterweight_trebuchets": 17,
+          "stone_drop_cranes": 125,
+          "firepot_systems": 125,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "grand_mountain_pass_fortress",
+      "materialization_required": true,
+      "profile_id": "fort_profile_kankoku_pass",
+      "site_ref": "loc_kankoku_pass",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity is canon-informed, dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 8.4,
+        "outer_wall": {
+          "wall_height_m": 22.0,
+          "wall_base_thickness_m": 14.0,
+          "wall_crown_thickness_m": 8.0,
+          "major_tower_height_m": 30.0,
+          "tower_count": 84,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 28.0,
+          "moat_depth_m": 9.0,
+          "moat_type": "dry_rock_cut_defensive_ditch",
+          "external_strategic_gate_count": 1,
+          "gate_station_m": 4200.0,
+          "fixed_crossing_length_m": 18.0,
+          "lifting_drawbridge_span_m": 10.0,
+          "crossing_total_m": 28.0,
+          "gate_clear_width_m": 12.0,
+          "gate_clear_height_m": 14.0
+        },
+        "pass_geometry": {
+          "defended_corridor_length_km": 11.2,
+          "minimum_deployable_corridor_width_m": 620.0,
+          "maximum_deployable_corridor_width_m": 1450.0,
+          "western_mountain_anchor_elevation_gain_m": 410.0,
+          "eastern_mountain_anchor_elevation_gain_m": 360.0,
+          "primary_attacker_assembly_depth_km": 5.0,
+          "rear_defender_assembly_depth_km": 4.5
+        },
+        "defensive_depth": {
+          "forward_screen_distance_m": 900.0,
+          "main_wall_line_m": 8400.0,
+          "rear_fallback_distance_m": 1250.0,
+          "reserve_assembly_areas": 4,
+          "artillery_platforms": 56,
+          "signal_towers": 28,
+          "main_supply_yards": 3,
+          "field_hospitals": 4
+        },
+        "storage_class": "grand_pass_campaign_reserve"
+      },
+      "route_control_refs": [
+        "route_kankoku_keiyou",
+        "route_kanyou_kankoku",
+        "route_qin_east_kankoku"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "the 28 m rock-cut ditch is a physical crossing problem even though it is dry",
+        "wheeled rams and towers require a load-bearing completed crossing or the lowered main drawbridge",
+        "the mountain anchors prevent treating the pass as an open plain around the wall ends",
+        "large attacker deployments are constrained by the exact corridor width and assembly depth"
+      ],
+      "bypass_policy": "alternatives must exist as separate strategic route edges; none are implied by the pass label",
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Kankoku/Hangu strategic role is canon-informed. Every numeric dimension in this blueprint is game-authored simulation authority, not asserted canon measurement.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "grand_pass_campaign_reserve",
+        "reserve_days": 120,
+        "nominal_garrison_capacity": 50400,
+        "storage_capacity": {
+          "grain_kg": 15120000,
+          "fodder_kg": 26460000,
+          "war_arrows": 6350400,
+          "war_bolts": 6350400,
+          "timber_tonnes": 1008,
+          "iron_tonnes": 202,
+          "construction_material_units": 4620,
+          "medicine_lots": 75600,
+          "carts": 6300
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 3024000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 4,
+          "bed_capacity": 1260,
+          "supply_yards": 3
+        },
+        "wagon_staging": {
+          "yard_count": 3,
+          "covered_cart_capacity": 6300
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 395,
+          "counterweight_trebuchets": 56,
+          "stone_drop_cranes": 91,
+          "firepot_systems": 91,
+          "gate_mechanism_sets": 1,
+          "signal_tower_sets": 28
+        }
+      }
+    },
+    {
+      "defense_class": "major",
+      "materialization_required": true,
+      "profile_id": "fort_profile_kantan",
+      "site_ref": "loc_kantan",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 22.0,
+        "outer_wall": {
+          "wall_height_m": 16.0,
+          "wall_base_thickness_m": 10.0,
+          "wall_crown_thickness_m": 6.0,
+          "major_tower_height_m": 24.0,
+          "tower_count": 132,
+          "tower_station_interval_m": 166.667,
+          "moat_width_m": 28.0,
+          "moat_depth_m": 8.0,
+          "external_strategic_gate_count": 4,
+          "gate_station_m": 11000.0
+        },
+        "storage_class": "capital_campaign_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "capital_campaign_reserve",
+        "reserve_days": 90,
+        "nominal_garrison_capacity": 66000,
+        "storage_capacity": {
+          "grain_kg": 14850000,
+          "fodder_kg": 25987500,
+          "war_arrows": 8316000,
+          "war_bolts": 8316000,
+          "timber_tonnes": 2640,
+          "iron_tonnes": 528,
+          "construction_material_units": 12100,
+          "medicine_lots": 99000,
+          "carts": 8250
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 3960000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 4,
+          "bed_capacity": 1650,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 8250
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 238,
+          "counterweight_trebuchets": 13,
+          "stone_drop_cranes": 95,
+          "firepot_systems": 95,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "major",
+      "materialization_required": true,
+      "profile_id": "fort_profile_kanyou",
+      "site_ref": "loc_kanyou",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 24.0,
+        "outer_wall": {
+          "wall_height_m": 16.0,
+          "wall_base_thickness_m": 10.0,
+          "wall_crown_thickness_m": 6.0,
+          "major_tower_height_m": 24.0,
+          "tower_count": 144,
+          "tower_station_interval_m": 166.667,
+          "moat_width_m": 30.0,
+          "moat_depth_m": 8.0,
+          "external_strategic_gate_count": 4,
+          "gate_station_m": 12000.0
+        },
+        "storage_class": "capital_campaign_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "capital_campaign_reserve",
+        "reserve_days": 90,
+        "nominal_garrison_capacity": 72000,
+        "storage_capacity": {
+          "grain_kg": 16200000,
+          "fodder_kg": 28350000,
+          "war_arrows": 9072000,
+          "war_bolts": 9072000,
+          "timber_tonnes": 2880,
+          "iron_tonnes": 576,
+          "construction_material_units": 13200,
+          "medicine_lots": 108000,
+          "carts": 9000
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 4320000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 4,
+          "bed_capacity": 1800,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 9000
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 259,
+          "counterweight_trebuchets": 14,
+          "stone_drop_cranes": 104,
+          "firepot_systems": 104,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_keiyou",
+      "site_ref": "loc_keiyou",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 10.0,
+        "outer_wall": {
+          "wall_height_m": 11.0,
+          "wall_base_thickness_m": 6.0,
+          "wall_crown_thickness_m": 4.0,
+          "major_tower_height_m": 17.0,
+          "tower_count": 80,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 18.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 3,
+          "gate_station_m": 5000.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 18000,
+        "storage_capacity": {
+          "grain_kg": 2025000,
+          "fodder_kg": 3543750,
+          "war_arrows": 2268000,
+          "war_bolts": 2268000,
+          "timber_tonnes": 1200,
+          "iron_tonnes": 240,
+          "construction_material_units": 5500,
+          "medicine_lots": 27000,
+          "carts": 2250
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 810000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 450,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 2250
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 90,
+          "counterweight_trebuchets": 5,
+          "stone_drop_cranes": 36,
+          "firepot_systems": 36,
+          "gate_mechanism_sets": 3,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_koukei",
+      "site_ref": "loc_koukei",
+      "defense_class": "checkpoint_fort",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 4.0,
+        "outer_wall": {
+          "wall_height_m": 10.0,
+          "wall_base_thickness_m": 5.0,
+          "wall_crown_thickness_m": 3.1,
+          "major_tower_height_m": 16.0,
+          "tower_count": 48,
+          "tower_station_interval_m": 83.333,
+          "moat_width_m": 14.0,
+          "moat_depth_m": 4.5,
+          "external_strategic_gate_count": 2
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [
+        "route_koukei_qin_south",
+        "route_nanyou_koukei"
+      ],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 8800,
+        "storage_capacity": {
+          "grain_kg": 1320000,
+          "fodder_kg": 2310000,
+          "war_arrows": 1108800,
+          "war_bolts": 1108800,
+          "timber_tonnes": 480,
+          "iron_tonnes": 96,
+          "construction_material_units": 2200,
+          "medicine_lots": 13200,
+          "carts": 1100
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 528000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 220,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1100
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 72,
+          "counterweight_trebuchets": 4,
+          "stone_drop_cranes": 29,
+          "firepot_systems": 29,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_nanyou",
+      "site_ref": "loc_nanyou",
+      "defense_class": "strategic_city",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 14.0,
+        "outer_wall": {
+          "wall_height_m": 11.0,
+          "wall_base_thickness_m": 5.5,
+          "wall_crown_thickness_m": 3.41,
+          "major_tower_height_m": 17.0,
+          "tower_count": 112,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 16.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 4
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [
+        "route_han_west_nanyou"
+      ],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 30800,
+        "storage_capacity": {
+          "grain_kg": 4620000,
+          "fodder_kg": 8085000,
+          "war_arrows": 3880800,
+          "war_bolts": 3880800,
+          "timber_tonnes": 1680,
+          "iron_tonnes": 336,
+          "construction_material_units": 7700,
+          "medicine_lots": 46200,
+          "carts": 3850
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1848000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 770,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 3850
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 168,
+          "counterweight_trebuchets": 9,
+          "stone_drop_cranes": 67,
+          "firepot_systems": 67,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_qi_west_fort",
+      "site_ref": "loc_qi_west_fort",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 5.2,
+        "outer_wall": {
+          "wall_height_m": 10.0,
+          "wall_base_thickness_m": 5.5,
+          "wall_crown_thickness_m": 3.5,
+          "major_tower_height_m": 16.0,
+          "tower_count": 52,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 15.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 2,
+          "gate_station_m": 2600.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [
+        "route_qi_west_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 9360,
+        "storage_capacity": {
+          "grain_kg": 1053000,
+          "fodder_kg": 1842750,
+          "war_arrows": 1179360,
+          "war_bolts": 1179360,
+          "timber_tonnes": 624,
+          "iron_tonnes": 125,
+          "construction_material_units": 2860,
+          "medicine_lots": 14040,
+          "carts": 1170
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 421200,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 234,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1170
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 58,
+          "counterweight_trebuchets": 3,
+          "stone_drop_cranes": 23,
+          "firepot_systems": 23,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_qin_western_fort",
+      "site_ref": "loc_qin_western_fort",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 5.8,
+        "outer_wall": {
+          "wall_height_m": 12.0,
+          "wall_base_thickness_m": 6.5,
+          "wall_crown_thickness_m": 4.0,
+          "major_tower_height_m": 18.0,
+          "tower_count": 58,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 18.0,
+          "moat_depth_m": 6.0,
+          "external_strategic_gate_count": 2,
+          "gate_station_m": 2900.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 10440,
+        "storage_capacity": {
+          "grain_kg": 1174500,
+          "fodder_kg": 2055374,
+          "war_arrows": 1315440,
+          "war_bolts": 1315440,
+          "timber_tonnes": 696,
+          "iron_tonnes": 139,
+          "construction_material_units": 3190,
+          "medicine_lots": 15660,
+          "carts": 1305
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 469800,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 261,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1305
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 65,
+          "counterweight_trebuchets": 4,
+          "stone_drop_cranes": 26,
+          "firepot_systems": 26,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_retsubi",
+      "site_ref": "loc_retsubi",
+      "defense_class": "gateway_city_deliberately_shallow",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 12.0,
+        "outer_wall": {
+          "wall_height_m": 8.0,
+          "wall_base_thickness_m": 4.0,
+          "wall_crown_thickness_m": 3.0,
+          "major_tower_height_m": 14.0,
+          "tower_count": 96,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 12.0,
+          "moat_depth_m": 4.0,
+          "external_strategic_gate_count": 4
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [
+        "route_retsubi_gyou",
+        "route_zhao_west_retsubi"
+      ],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 26400,
+        "storage_capacity": {
+          "grain_kg": 3960000,
+          "fodder_kg": 6930000,
+          "war_arrows": 3326400,
+          "war_bolts": 3326400,
+          "timber_tonnes": 1440,
+          "iron_tonnes": 288,
+          "construction_material_units": 6600,
+          "medicine_lots": 39600,
+          "carts": 3300
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1584000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 660,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 3300
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 144,
+          "counterweight_trebuchets": 8,
+          "stone_drop_cranes": 58,
+          "firepot_systems": 58,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_roumou",
+      "site_ref": "loc_roumou",
+      "defense_class": "northern_fortified_city",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 8.0,
+        "outer_wall": {
+          "wall_height_m": 10.0,
+          "wall_base_thickness_m": 5.0,
+          "wall_crown_thickness_m": 3.1,
+          "major_tower_height_m": 16.0,
+          "tower_count": 80,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 14.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 3
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 17600,
+        "storage_capacity": {
+          "grain_kg": 2640000,
+          "fodder_kg": 4620000,
+          "war_arrows": 2217600,
+          "war_bolts": 2217600,
+          "timber_tonnes": 960,
+          "iron_tonnes": 192,
+          "construction_material_units": 4400,
+          "medicine_lots": 26400,
+          "carts": 2200
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1056000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 440,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 2200
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 120,
+          "counterweight_trebuchets": 7,
+          "stone_drop_cranes": 48,
+          "firepot_systems": 48,
+          "gate_mechanism_sets": 3,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_sai",
+      "site_ref": "loc_sai",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 7.2,
+        "outer_wall": {
+          "wall_height_m": 12.0,
+          "wall_base_thickness_m": 6.5,
+          "wall_crown_thickness_m": 4.0,
+          "major_tower_height_m": 18.0,
+          "tower_count": 72,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 18.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 2,
+          "gate_station_m": 3600.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 12960,
+        "storage_capacity": {
+          "grain_kg": 1458000,
+          "fodder_kg": 2551500,
+          "war_arrows": 1632960,
+          "war_bolts": 1632960,
+          "timber_tonnes": 864,
+          "iron_tonnes": 173,
+          "construction_material_units": 3960,
+          "medicine_lots": 19440,
+          "carts": 1620
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 583200,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 324,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1620
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 81,
+          "counterweight_trebuchets": 4,
+          "stone_drop_cranes": 32,
+          "firepot_systems": 32,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_sanyou",
+      "site_ref": "loc_sanyou",
+      "defense_class": "regional_city",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 14.0,
+        "outer_wall": {
+          "wall_height_m": 10.0,
+          "wall_base_thickness_m": 5.0,
+          "wall_crown_thickness_m": 3.1,
+          "major_tower_height_m": 16.0,
+          "tower_count": 140,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 18.0,
+          "moat_depth_m": 6.0,
+          "external_strategic_gate_count": 4
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 30800,
+        "storage_capacity": {
+          "grain_kg": 4620000,
+          "fodder_kg": 8085000,
+          "war_arrows": 3880800,
+          "war_bolts": 3880800,
+          "timber_tonnes": 1680,
+          "iron_tonnes": 336,
+          "construction_material_units": 7700,
+          "medicine_lots": 46200,
+          "carts": 3850
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1848000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 770,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 3850
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 210,
+          "counterweight_trebuchets": 12,
+          "stone_drop_cranes": 84,
+          "firepot_systems": 84,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_seika",
+      "site_ref": "loc_seika",
+      "defense_class": "border_city",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact game simulation blueprint; not claimed canon/historical dimensions",
+        "constructed_wall_centerline_perimeter_km": 13.0,
+        "outer_wall": {
+          "wall_height_m": 12.0,
+          "wall_base_thickness_m": 6.0,
+          "wall_crown_thickness_m": 3.72,
+          "major_tower_height_m": 18.0,
+          "tower_count": 104,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 18.0,
+          "moat_depth_m": 6.0,
+          "external_strategic_gate_count": 4
+        },
+        "storage_class": "regional_siege_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "Only explicitly registered controlled edges are blocked by this fortification; city walls do not magically block unrelated roads.",
+      "approach_constraints": [
+        "exact local wall/moat geometry applies when materialized",
+        "strategic approach determined by registered route topology"
+      ],
+      "canon_geometry_note": "Strategic identity is canon-informed; exact dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_siege_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 28600,
+        "storage_capacity": {
+          "grain_kg": 4290000,
+          "fodder_kg": 7507500,
+          "war_arrows": 3603600,
+          "war_bolts": 3603600,
+          "timber_tonnes": 1560,
+          "iron_tonnes": 312,
+          "construction_material_units": 7150,
+          "medicine_lots": 42900,
+          "carts": 3575
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1716000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 715,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 3575
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 156,
+          "counterweight_trebuchets": 9,
+          "stone_drop_cranes": 62,
+          "firepot_systems": 62,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_shintei",
+      "site_ref": "loc_shintei",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 14.5,
+        "outer_wall": {
+          "wall_height_m": 13.0,
+          "wall_base_thickness_m": 8.0,
+          "wall_crown_thickness_m": 4.8,
+          "major_tower_height_m": 20.0,
+          "tower_count": 116,
+          "tower_station_interval_m": 125.0,
+          "moat_width_m": 24.0,
+          "moat_depth_m": 7.0,
+          "external_strategic_gate_count": 4,
+          "gate_station_m": 7250.0
+        },
+        "storage_class": "capital_campaign_reserve"
+      },
+      "route_control_refs": [],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "capital_campaign_reserve",
+        "reserve_days": 90,
+        "nominal_garrison_capacity": 43500,
+        "storage_capacity": {
+          "grain_kg": 9787500,
+          "fodder_kg": 17128124,
+          "war_arrows": 5481000,
+          "war_bolts": 5481000,
+          "timber_tonnes": 1740,
+          "iron_tonnes": 348,
+          "construction_material_units": 7975,
+          "medicine_lots": 65250,
+          "carts": 5438
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 2610000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 1088,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 5438
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 209,
+          "counterweight_trebuchets": 12,
+          "stone_drop_cranes": 84,
+          "firepot_systems": 84,
+          "gate_mechanism_sets": 4,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_sword_manor",
+      "site_ref": "loc_sword_manor",
+      "defense_class": "major_private_military_academy",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact surveyed game blueprint",
+        "master_plan_ref": "game/data/world/tang-manor-master-plan.json",
+        "outer_wall": {
+          "wall_height_m": 26.0,
+          "wall_base_thickness_m": 16.0,
+          "wall_crown_thickness_m": 10.0,
+          "major_tower_height_m": 34.0,
+          "tower_station_interval_m": 250.0,
+          "tower_count": 128,
+          "tower_station_origin_m": 0.0,
+          "moat_width_m": 45.0,
+          "moat_depth_m": 15.0,
+          "external_strategic_gate_count": 1,
+          "gate_station_m": 0.0,
+          "fixed_crossing_length_m": 27.0,
+          "lifting_drawbridge_span_m": 18.0,
+          "crossing_total_m": 45.0
+        },
+        "enclosed_area_km2": 60.0,
+        "constructed_wall_centerline_perimeter_km": 32.0,
+        "plan_rectangle_m": {
+          "length": 10000.0,
+          "width": 6000.0
+        },
+        "storage_class": "nested_fortification_reserve"
+      },
+      "route_control_refs": [
+        "route_sword_manor_gate_access"
+      ],
+      "route_control_semantics": "Sword Manor has one exact gate over its 45 m moat. Hostile wheeled engines require the raised 18 m moving span to be replaced by a load-bearing siege crossing before gate contact.",
+      "child_containment": "Sword Manor training facilities inherit this perimeter without becoming population owners or duplicate wall owners",
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "ram_target_requires_physical_gate_contact": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "grapnel_and_swim_access_possible": true,
+        "grapnel_assault_does_not_create_wheeled_engine_access": true,
+        "breaches_persist_until_materially_repaired": true
+      },
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "nested_fortification_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 64000,
+        "storage_capacity": {
+          "grain_kg": 9600000,
+          "fodder_kg": 16800000,
+          "war_arrows": 8064000,
+          "war_bolts": 8064000,
+          "timber_tonnes": 3840,
+          "iron_tonnes": 768,
+          "construction_material_units": 17600,
+          "medicine_lots": 96000,
+          "carts": 8000
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 3840000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 5,
+          "bed_capacity": 1600,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 8000
+        },
+        "installed_equipment": {
+          "authority_ref": "state/art/tang-manor-artillery.json",
+          "mode": "reference_existing_exact_fixture_authority"
+        }
+      }
+    },
+    {
+      "profile_id": "fort_profile_tang_inner_citadel",
+      "site_ref": "loc_tang_inner_citadel",
+      "defense_class": "private_inner_citadel",
+      "materialization_required": true,
+      "physical_baseline": {
+        "measurement_policy": "exact surveyed game blueprint",
+        "master_plan_ref": "game/data/world/tang-manor-master-plan.json",
+        "outer_wall": {
+          "wall_height_m": 30.0,
+          "wall_base_thickness_m": 20.0,
+          "wall_crown_thickness_m": 12.0,
+          "major_tower_height_m": 38.0,
+          "tower_station_interval_m": 200.0,
+          "tower_count": 65,
+          "tower_station_origin_m": 0.0,
+          "moat_width_m": 35.0,
+          "moat_depth_m": 14.0,
+          "external_strategic_gate_count": 1,
+          "gate_station_m": 0.0,
+          "fixed_crossing_length_m": 19.0,
+          "lifting_drawbridge_span_m": 16.0,
+          "crossing_total_m": 35.0
+        },
+        "enclosed_area_km2": 10.0,
+        "constructed_wall_centerline_perimeter_km": 13.0,
+        "plan_rectangle_m": {
+          "length": 4000.0,
+          "width": 2500.0
+        },
+        "storage_class": "nested_fortification_reserve"
+      },
+      "route_control_refs": [
+        "route_inner_citadel_gate_access"
+      ],
+      "route_control_semantics": "The Inner Citadel has one exact gate over its 35 m moat. Hostile wheeled engines require a load-bearing crossing across the raised 16 m moving span before gate contact.",
+      "child_containment": "Family and command facilities inside the Inner Citadel inherit its perimeter without becoming demographic or wall owners",
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "ram_target_requires_physical_gate_contact": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "grapnel_and_swim_access_possible": true,
+        "grapnel_assault_does_not_create_wheeled_engine_access": true,
+        "breaches_persist_until_materially_repaired": true
+      },
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "nested_fortification_reserve",
+        "reserve_days": 60,
+        "nominal_garrison_capacity": 26000,
+        "storage_capacity": {
+          "grain_kg": 3900000,
+          "fodder_kg": 6825000,
+          "war_arrows": 3276000,
+          "war_bolts": 3276000,
+          "timber_tonnes": 1560,
+          "iron_tonnes": 312,
+          "construction_material_units": 7150,
+          "medicine_lots": 39000,
+          "carts": 3250
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 1560000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 2,
+          "bed_capacity": 650,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 3250
+        },
+        "installed_equipment": {
+          "authority_ref": "state/art/tang-manor-artillery.json",
+          "mode": "reference_existing_exact_fixture_authority"
+        }
+      }
+    },
+    {
+      "defense_class": "major_private_estate",
+      "materialization_required": true,
+      "profile_id": "fort_profile_tang_manor",
+      "site_ref": "loc_tang_manor",
+      "physical_baseline": {
+        "measurement_policy": "exact surveyed game blueprint",
+        "master_plan_ref": "game/data/world/tang-manor-master-plan.json",
+        "outer_wall": {
+          "wall_height_m": 24.0,
+          "wall_base_thickness_m": 16.0,
+          "wall_crown_thickness_m": 10.0,
+          "major_tower_height_m": 32.0,
+          "tower_station_interval_m": 250.0,
+          "tower_count": 700,
+          "tower_station_origin_m": 0.0,
+          "moat_width_m": 70.0,
+          "moat_depth_m": 20.0,
+          "external_strategic_gate_count": 1,
+          "gate_station_m": 0.0,
+          "fixed_crossing_length_m": 52.0,
+          "lifting_drawbridge_span_m": 18.0,
+          "crossing_total_m": 70.0
+        },
+        "enclosed_area_km2": 2000.0,
+        "constructed_wall_centerline_perimeter_km": 175.0,
+        "defensive_depth": "outer wall + Sword Manor wall + Inner Citadel wall",
+        "storage_class": "strategic_autarky_siege_reserve"
+      },
+      "route_control_refs": [
+        "route_tang_manor_outer_gate_access"
+      ],
+      "route_control_semantics": "The single external strategic gate controls the registered access route. Moat and closed gate physically block rams and wheeled siege engines until a compatible crossing exists; nearby unregistered roads are not blocked by label alone.",
+      "siege_inventory_ref": "state/inv/tang-manor-siege-inventory.json",
+      "child_containment": "Tang Manor facilities inherit enclosure from this parent without duplicate wall ownership",
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "ram_target_requires_physical_gate_contact": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "grapnel_and_swim_access_possible": true,
+        "grapnel_assault_does_not_create_wheeled_engine_access": true,
+        "breaches_persist_until_materially_repaired": true
+      },
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "Tang Manor is an exact master-plan exception: game/data/world/tang-manor-master-plan.json#strategic_storage overrides generic perimeter-derived storage capacity while garrison support targets remain headcount-derived.",
+        "storage_class": "strategic_autarky_siege_reserve",
+        "reserve_days": 180,
+        "nominal_garrison_capacity": 525000,
+        "storage_capacity": {
+          "grain_kg": 500000000,
+          "fodder_kg": 220000000,
+          "war_arrows": 180000000,
+          "war_bolts": 35000000,
+          "timber_tonnes": 21000,
+          "iron_tonnes": 4200,
+          "construction_material_units": 96250,
+          "medicine_lots": 787500,
+          "carts": 12000,
+          "prepared_drop_stones_20kg": 600000,
+          "prepared_firepots": 120000,
+          "trebuchet_stones_50kg": 60000
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 9000000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "exact Tang Manor master-plan wells/cistern/storage reserve; ongoing waterworks productivity is a separate physical productive asset"
+        },
+        "medical_system": {
+          "field_hospital_sites": 29,
+          "bed_capacity": 12000,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 12000
+        },
+        "installed_equipment": {
+          "authority_ref": "state/art/tang-manor-artillery.json",
+          "mode": "reference_existing_exact_fixture_authority"
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_wei_west_fort",
+      "site_ref": "loc_wei_west_fort",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 5.4,
+        "outer_wall": {
+          "wall_height_m": 11.0,
+          "wall_base_thickness_m": 6.0,
+          "wall_crown_thickness_m": 3.8,
+          "major_tower_height_m": 17.0,
+          "tower_count": 54,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 16.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 2,
+          "gate_station_m": 2700.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [
+        "route_wei_west_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 9720,
+        "storage_capacity": {
+          "grain_kg": 1093500,
+          "fodder_kg": 1913625,
+          "war_arrows": 1224720,
+          "war_bolts": 1224720,
+          "timber_tonnes": 648,
+          "iron_tonnes": 130,
+          "construction_material_units": 2970,
+          "medicine_lots": 14580,
+          "carts": 1215
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 437400,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 243,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1215
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 61,
+          "counterweight_trebuchets": 3,
+          "stone_drop_cranes": 24,
+          "firepot_systems": 24,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_yan_south_fort",
+      "site_ref": "loc_yan_south_fort",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 5.0,
+        "outer_wall": {
+          "wall_height_m": 10.0,
+          "wall_base_thickness_m": 5.5,
+          "wall_crown_thickness_m": 3.5,
+          "major_tower_height_m": 16.0,
+          "tower_count": 50,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 15.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 2,
+          "gate_station_m": 2500.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [
+        "route_yan_south_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 9000,
+        "storage_capacity": {
+          "grain_kg": 1012500,
+          "fodder_kg": 1771875,
+          "war_arrows": 1134000,
+          "war_bolts": 1134000,
+          "timber_tonnes": 600,
+          "iron_tonnes": 120,
+          "construction_material_units": 2750,
+          "medicine_lots": 13500,
+          "carts": 1125
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 405000,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 225,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1125
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 56,
+          "counterweight_trebuchets": 3,
+          "stone_drop_cranes": 22,
+          "firepot_systems": 22,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    },
+    {
+      "defense_class": "regional",
+      "materialization_required": true,
+      "profile_id": "fort_profile_zhao_border_fort",
+      "site_ref": "loc_zhao_border_fort",
+      "physical_baseline": {
+        "measurement_policy": "exact game-authored simulation blueprint; strategic identity may be canon-informed but dimensions are not claimed historical/canon measurements",
+        "constructed_wall_centerline_perimeter_km": 5.6,
+        "outer_wall": {
+          "wall_height_m": 11.0,
+          "wall_base_thickness_m": 6.0,
+          "wall_crown_thickness_m": 3.8,
+          "major_tower_height_m": 17.0,
+          "tower_count": 56,
+          "tower_station_interval_m": 100.0,
+          "moat_width_m": 16.0,
+          "moat_depth_m": 5.0,
+          "external_strategic_gate_count": 2,
+          "gate_station_m": 2800.0
+        },
+        "storage_class": "regional_garrison_reserve"
+      },
+      "route_control_refs": [
+        "route_zhao_south_fort"
+      ],
+      "route_control_semantics": "control applies only to listed route edges; nearby roads are not blocked by label alone",
+      "approach_constraints": [
+        "exact local wall/ditch geometry applies when materialized",
+        "strategic approach and bypass possibilities are determined by registered route topology and terrain, not by the fortress label alone"
+      ],
+      "siege_physics": {
+        "moat_required_crossing_for_wheeled_engines": true,
+        "wall_assault_requires_moat_crossing_or_waterborne_access": true,
+        "gate_breach_requires_engine_contact": true,
+        "wall_breach_requires_structural_work": true,
+        "closed_gate_blocks_direct_troop_contact": true,
+        "persistent_breach_geometry": true
+      },
+      "canon_geometry_note": "Strategic identity is canon-informed where applicable; all numeric dimensions are game-authored simulation authority.",
+      "logistics_blueprint": {
+        "authority": true,
+        "derivation": "deterministic from exact physical_baseline plus game/data/mechanics/fortified-site-logistics.json storage class; independent of current troop headcount",
+        "storage_class": "regional_garrison_reserve",
+        "reserve_days": 45,
+        "nominal_garrison_capacity": 10080,
+        "storage_capacity": {
+          "grain_kg": 1134000,
+          "fodder_kg": 1984500,
+          "war_arrows": 1270080,
+          "war_bolts": 1270080,
+          "timber_tonnes": 672,
+          "iron_tonnes": 134,
+          "construction_material_units": 3080,
+          "medicine_lots": 15120,
+          "carts": 1260
+        },
+        "water_system": {
+          "reserve_capacity_person_days": 453600,
+          "initial_hot_fill_fraction_milli": 800,
+          "rule": "local wells/cisterns and stored water are a site physical reserve, not national depot commodity stock"
+        },
+        "medical_system": {
+          "field_hospital_sites": 1,
+          "bed_capacity": 252,
+          "supply_yards": 1
+        },
+        "wagon_staging": {
+          "yard_count": 1,
+          "covered_cart_capacity": 1260
+        },
+        "installed_equipment": {
+          "authority_ref": null,
+          "mode": "static_installed_blueprint",
+          "bed_crossbows": 63,
+          "counterweight_trebuchets": 4,
+          "stone_drop_cranes": 25,
+          "firepot_systems": 25,
+          "gate_mechanism_sets": 2,
+          "signal_tower_sets": 0
+        }
+      }
+    }
+  ],
+  "schema": "sword-fortification-profiles",
+  "blueprint_authority": "static physical baselines seed first materialization only; materialized damage/repairs remain persistent state and are never reset from profile"
+}

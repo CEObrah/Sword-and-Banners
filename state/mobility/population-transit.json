@@ -1,0 +1,25 @@
+{
+  "schema": "generic-object",
+  "owner_id": "population_mobility",
+  "owner_type": "population_mobility_registry",
+  "authority": true,
+  "population_owner_paths": [
+    "state/population/qin.json",
+    "state/population/zhao.json",
+    "state/population/chu.json",
+    "state/population/wei.json",
+    "state/population/han.json",
+    "state/population/yan.json",
+    "state/population/qi.json",
+    "state/population/jo.json"
+  ],
+  "law": {
+    "departure": "Origin local civilian strata are debited immediately and the same bodies move into a national in-transit stratum.",
+    "same_owner": "National population_total never changes for internal movement.",
+    "cross_owner": "Source national ownership persists during travel and transfers only on physical arrival.",
+    "routing": "Every migration cohort requires a usable registered world route and an exact arrival time.",
+    "throughput": "No arbitrary migration cap. Movement is determined by conserved willing households, physical destination headroom, source pressure and route access."
+  },
+  "cohorts": {},
+  "recent_arrivals": []
+}

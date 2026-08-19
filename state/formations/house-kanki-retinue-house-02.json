@@ -1,0 +1,180 @@
+{
+  "schema": "sword-formation",
+  "formation_ref": "formation_house_kanki_retinue_house_02",
+  "owner_force_ref": "force_house_kanki_retinue_house",
+  "administrative_owner": "house_kanki_retinue_house",
+  "name": "House Kanki Retinue House Maneuver Unit 2",
+  "personnel": 4000,
+  "composition": {
+    "household_retainer": 1800,
+    "archer": 800,
+    "missile_crossbow": 800,
+    "cavalry": 600
+  },
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_house_kanki_retinue_house_household_retainer_standing",
+      "count": 1800,
+      "role": "household_retainer"
+    },
+    {
+      "cohort_id": "cohort_force_house_kanki_retinue_house_archer_standing",
+      "count": 800,
+      "role": "archer"
+    },
+    {
+      "cohort_id": "cohort_force_house_kanki_retinue_house_missile_crossbow_standing",
+      "count": 800,
+      "role": "missile_crossbow"
+    },
+    {
+      "cohort_id": "cohort_force_house_kanki_retinue_house_cavalry_standing",
+      "count": 600,
+      "role": "cavalry"
+    }
+  ],
+  "location_ref": "loc_qin_regional_03",
+  "command_authority": "char_kanki",
+  "commander_ref": null,
+  "deputy_ref": null,
+  "command_structure": {
+    "unit_command": {
+      "commander_ref": null,
+      "deputy_post": "materialize_when_relevant",
+      "external_to_fighting_establishment": true
+    },
+    "internal_hierarchy": [
+      {
+        "scale": 1000,
+        "count": 4,
+        "authorized_count": 4,
+        "full_elements": 4,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "aggregate_command_slots",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      },
+      {
+        "scale": 500,
+        "count": 8,
+        "authorized_count": 8,
+        "full_elements": 8,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "aggregate_command_slots",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      },
+      {
+        "scale": 100,
+        "count": 40,
+        "authorized_count": 40,
+        "full_elements": 40,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "aggregate_command_slots",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      }
+    ],
+    "officer_cadre": {
+      "representation": "aggregate_by_default",
+      "rank_inventory": {
+        "1000_commander": 1,
+        "500_commander": 6,
+        "100_commander": 40
+      },
+      "active_billets": {
+        "1000_commander": 1,
+        "500_commander": 6,
+        "100_commander": 40
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "500_commander": 0,
+        "100_commander": 0
+      },
+      "vacant_billets": {
+        "1000_commander": 3,
+        "500_commander": 2,
+        "100_commander": 0
+      },
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "500_commander": [],
+        "100_commander": []
+      },
+      "promotion_training_hours": 0,
+      "promotion_history": [],
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "last_reorganization_reason": "clean_baseline_officer_cadre"
+    },
+    "establishment_topology": {
+      "formation_class": "unit",
+      "unit_command_scale": 4000,
+      "direct_subordinates": [
+        {
+          "scale": 1000,
+          "count": 4
+        }
+      ],
+      "children_per_parent": {
+        "1000": [
+          {
+            "scale": 500,
+            "count": 2
+          }
+        ],
+        "500": [
+          {
+            "scale": 100,
+            "count": 5
+          }
+        ]
+      },
+      "summary_counts": {
+        "1000": 4,
+        "500": 8,
+        "100": 40
+      },
+      "rule": "Unit commander/deputy own the Unit echelon; internal 1,000/500/100 billets are strictly subordinate and remain fixed through casualties."
+    },
+    "establishment_rule": "Unit commander/deputy occupy the Unit echelon outside fighting strength; internal 1,000/500/100 billets are generated only from authorized establishment and never from casualty-depleted current manpower."
+  },
+  "doctrine_ref": "household_combined_arms",
+  "equipment_units_by_role": {
+    "household_retainer": 1800,
+    "archer": 800,
+    "missile_crossbow": 800,
+    "cavalry": 600
+  },
+  "equipment_completeness": "0.9000",
+  "experience": "trained",
+  "fatigue": 0,
+  "cohesion": 78,
+  "morale": 80,
+  "readiness": 78,
+  "mobilized": false,
+  "status": "ready",
+  "mounts": {
+    "horse_war_military": 600
+  },
+  "logistics": {
+    "food_kg": 0,
+    "fodder_kg": 0,
+    "war_arrows": 144000,
+    "war_bolts": 120000
+  },
+  "higher_command_ref": "cmdgrp.house_kanki_retinue_house.field_army",
+  "establishment_composition": {
+    "household_retainer": 1800,
+    "archer": 800,
+    "missile_crossbow": 800,
+    "cavalry": 600
+  },
+  "establishment_personnel": 4000,
+  "formation_class": "unit",
+  "authorized_strength": 4000
+}

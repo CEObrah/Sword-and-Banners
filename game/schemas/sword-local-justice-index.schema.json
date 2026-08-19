@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "authority", "cases", "open_refs"],
+  "properties": {
+    "schema": {"const": "sword-local-justice-index"},
+    "authority": {"const": false},
+    "cases": {"type": "object", "additionalProperties": {"type": "string"}},
+    "open_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "additionalProperties": true
+}

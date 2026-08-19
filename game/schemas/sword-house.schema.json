@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "house_ref": {},
+    "lineage_cohort": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-house"
+    },
+    "state": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "house_ref",
+    "state",
+    "lineage_cohort"
+  ],
+  "type": "object"
+}

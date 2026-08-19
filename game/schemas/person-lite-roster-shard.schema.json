@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "representation",
+    "record_count",
+    "records",
+    "scope_rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "person-lite-roster-shard"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "representation": {
+      "const": "person_lite_roster_shard"
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "records": {
+      "type": "object"
+    },
+    "scope_rule": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": true
+}

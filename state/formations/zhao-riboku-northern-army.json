@@ -1,0 +1,208 @@
+{
+  "administrative_owner": "state_zhao",
+  "cohesion": 93,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_zhao_3ab1c5f63a28",
+      "count": 8000
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_e0975907884c",
+      "count": 3500
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_0819e8d48f95",
+      "count": 1500
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_2021c7d4a810",
+      "count": 1000
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_d8acc16f1aea",
+      "count": 500
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_ef25a0c224b5",
+      "count": 500
+    }
+  ],
+  "command_authority": "state_zhao",
+  "command_structure": {
+    "internal_hierarchy": [
+      {
+        "scale": 1000,
+        "count": 15,
+        "authorized_count": 15,
+        "full_elements": 15,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "aggregate_command_slots",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      },
+      {
+        "scale": 500,
+        "count": 30,
+        "authorized_count": 30,
+        "full_elements": 30,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "aggregate_command_slots",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      },
+      {
+        "scale": 100,
+        "count": 150,
+        "authorized_count": 150,
+        "full_elements": 150,
+        "partial_tail_personnel": 0,
+        "current_strength_fraction": 1.0,
+        "representation": "aggregate_command_slots",
+        "deputy_policy": "normally_none",
+        "inside_fighting_establishment": true
+      }
+    ],
+    "officer_cadre": {
+      "active_billets": {
+        "1000_commander": 13,
+        "100_commander": 150,
+        "500_commander": 30
+      },
+      "cadre_reserve": {
+        "1000_commander": 0,
+        "100_commander": 0,
+        "500_commander": 0
+      },
+      "last_reorganization_reason": "clean_baseline_officer_cadre",
+      "last_reorganized_at": "244-BCE-07-29T20:22:48+08:00",
+      "materialized_refs_by_rank": {
+        "1000_commander": [],
+        "100_commander": [],
+        "500_commander": []
+      },
+      "promotion_history": [],
+      "promotion_training_hours": 0,
+      "rank_inventory": {
+        "1000_commander": 13,
+        "100_commander": 150,
+        "500_commander": 30
+      },
+      "representation": "aggregate_by_default",
+      "rule": "Rank survives casualties. Reorganization changes billets, not earned rank. Aggregate officers have no individual sheet until causally materialized.",
+      "vacant_billets": {
+        "1000_commander": 2,
+        "100_commander": 0,
+        "500_commander": 0
+      }
+    },
+    "unit_command": {
+      "commander_post": "materialize_when_relevant",
+      "commander_ref": null,
+      "deputy_post": "materialize_when_relevant",
+      "external_to_fighting_establishment": true
+    },
+    "establishment_topology": {
+      "formation_class": "unit",
+      "unit_command_scale": 15000,
+      "direct_subordinates": [
+        {
+          "scale": 1000,
+          "count": 15
+        }
+      ],
+      "children_per_parent": {
+        "1000": [
+          {
+            "scale": 500,
+            "count": 2
+          }
+        ],
+        "500": [
+          {
+            "scale": 100,
+            "count": 5
+          }
+        ]
+      },
+      "summary_counts": {
+        "1000": 15,
+        "500": 30,
+        "100": 150
+      },
+      "rule": "Unit commander/deputy own the Unit echelon; internal 1,000/500/100 billets are strictly subordinate and remain fixed through casualties."
+    },
+    "establishment_rule": "Unit commander/deputy occupy the Unit echelon outside fighting strength; internal 1,000/500/100 billets are generated only from authorized establishment and never from casualty-depleted current manpower."
+  },
+  "commander_ref": null,
+  "composition": {
+    "cavalry": 1500,
+    "line_infantry": 8000,
+    "logistics": 1000,
+    "missile_crossbow": 3500,
+    "siege_engineering": 500,
+    "signal": 500
+  },
+  "deputy_ref": null,
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 60,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.external_state_force.standard",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "cavalry": 1500,
+    "line_infantry": 8000,
+    "logistics": 1000,
+    "missile_crossbow": 3500,
+    "siege_engineering": 500,
+    "signal": 500
+  },
+  "establishment_composition": {
+    "cavalry": 1500,
+    "line_infantry": 8000,
+    "logistics": 1000,
+    "missile_crossbow": 3500,
+    "siege_engineering": 500,
+    "signal": 500
+  },
+  "establishment_personnel": 15000,
+  "experience": "veteran",
+  "fatigue": 0,
+  "formation_identity": {
+    "capability_rule": "Elite identity is expressed through persistent organization, readiness, cohesion, experience, command and later earned training. It does not replace the conserved cohort capability underneath or grant a flat combat multiplier.",
+    "persistent_elite_or_prestige_formation": true,
+    "state_force_ownership_preserved": true
+  },
+  "formation_ref": "formation_zhao_riboku_northern_army",
+  "higher_command_ref": "cmdgrp.riboku.field_army",
+  "location_ref": "loc_gian",
+  "logistics": {
+    "construction_material_units": 0,
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "iron_tonnes": 0,
+    "source_depot_ref": "depot_fort_gian",
+    "timber_tonnes": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 90,
+  "mounts": {
+    "horse_frontier_trained": 1500
+  },
+  "name": "Riboku Northern Army",
+  "owner_force_ref": "force_state_zhao",
+  "personnel": 15000,
+  "readiness": 91,
+  "schema": "sword-formation",
+  "status": "ready",
+  "supply_depot_ref": "depot_fort_gian",
+  "training_progress": 70,
+  "training_ref": null,
+  "formation_class": "unit",
+  "authorized_strength": 15000
+}

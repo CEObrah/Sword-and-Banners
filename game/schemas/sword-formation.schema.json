@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "command_authority": {},
+    "composition": {},
+    "formation_ref": {},
+    "location_ref": {},
+    "logistics": {},
+    "owner_force_ref": {},
+    "personnel": {},
+    "schema": {
+      "const": "sword-formation"
+    }
+  },
+  "required": [
+    "schema",
+    "formation_ref",
+    "owner_force_ref",
+    "personnel",
+    "composition",
+    "location_ref",
+    "command_authority",
+    "logistics"
+  ],
+  "type": "object"
+}

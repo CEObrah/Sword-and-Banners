@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "unit_id",
+    "stats"
+  ],
+  "properties": {
+    "schema": {
+      "const": "unit-capability"
+    },
+    "id": {
+      "type": "string"
+    },
+    "unit_id": {
+      "type": "string"
+    },
+    "stats": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

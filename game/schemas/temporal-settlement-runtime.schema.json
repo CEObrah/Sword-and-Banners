@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "purpose",
+    "scheduled_loop",
+    "continuous_residual",
+    "recurrence_kinds",
+    "postconditions"
+  ],
+  "properties": {
+    "schema": {
+      "const": "temporal-settlement-runtime"
+    }
+  }
+}

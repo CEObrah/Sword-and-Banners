@@ -1,0 +1,56 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.house_tang.house_guard",
+  "authority_ref": "house_tang",
+  "commander_ref": "char_qiu_ren",
+  "deputy_ref": "char_house_tang_house_guard_deputy",
+  "direct_person_refs": [
+    "char_house_tang_house_guard_deputy"
+  ],
+  "parent_command_group_ref": "cmdgrp.house_tang.field_army",
+  "display_name": "House Guard Command",
+  "location": "loc_tang_manor_garrison_yard",
+  "context": "house_force_command",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [
+    "char_house_tang_house_guard_deputy"
+  ],
+  "standing_orders": [
+    {
+      "order_ref": "house_guard_inner_citadel_default",
+      "text": "Default Tang Manor assignment is Inner Citadel defense and close mobile reserve. Preserve this elite force from routine outer-perimeter attrition unless higher command requires its commitment.",
+      "issued_at": "244-BCE-07-29T20:22:48+08:00",
+      "issued_by": "char_tang_zhu"
+    }
+  ],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_house_guard_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_house_guard_02"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_house_guard_03"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 15000,
+    "authorized_direct_unit_slots": 3,
+    "current_recursive_strength": 15000,
+    "current_direct_formation_strength": 15000,
+    "recursive_formation_count": 3,
+    "direct_unit_count": 3,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "house_force_command",
+    "reserve_doctrine": "Preserve surviving Units and officer cadres; casualty losses change strength, not durable rank. Consolidation, dissolution, reassignment and promotion require deliberate authority.",
+    "staffing_policy": "Attach only exact physically available formations or intact nested armies under lawful authority; prefer delegation rather than flattening large subordinate commands.",
+    "history": []
+  }
+}

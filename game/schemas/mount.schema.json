@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "mass_kg",
+    "strength",
+    "speed",
+    "endurance",
+    "comfortable_load_kg"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mount"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mass_kg": {},
+    "strength": {},
+    "speed": {},
+    "endurance": {},
+    "comfortable_load_kg": {},
+    "training_score": {}
+  },
+  "additionalProperties": true,
+  "description": "Current mount record. training_score is present when a record models trained service capability."
+}

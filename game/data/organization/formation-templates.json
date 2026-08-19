@@ -1,0 +1,445 @@
+{
+  "schema": "formation-library",
+  "authority": "Known formation templates, not active battlefield state.",
+  "libraries": {
+    "formation.state_army.standard": {
+      "templates": [
+        {
+          "id": "road_march_column",
+          "purpose": "strategic movement",
+          "roles": [
+            "vanguard",
+            "main_body",
+            "train",
+            "rear_guard"
+          ]
+        },
+        {
+          "id": "standard_battle_line",
+          "purpose": "general field battle",
+          "roles": [
+            "center",
+            "wings",
+            "missile",
+            "reserve"
+          ]
+        },
+        {
+          "id": "offensive_echelon",
+          "purpose": "layered advance with reserve exploitation",
+          "roles": [
+            "first_line",
+            "second_line",
+            "reserve"
+          ]
+        },
+        {
+          "id": "defensive_depth",
+          "purpose": "absorb attack while preserving counterattack reserve",
+          "roles": [
+            "screen",
+            "main_line",
+            "reserve"
+          ]
+        },
+        {
+          "id": "flank_attack",
+          "purpose": "fix front and strike flank",
+          "roles": [
+            "fixing_force",
+            "maneuver_wing",
+            "reserve"
+          ]
+        },
+        {
+          "id": "fighting_withdrawal",
+          "purpose": "ordered disengagement",
+          "roles": [
+            "rear_guard",
+            "main_body",
+            "reserve"
+          ]
+        },
+        {
+          "id": "convoy_screen",
+          "purpose": "protect supply movement",
+          "roles": [
+            "advance_guard",
+            "flanks",
+            "convoy",
+            "rear_guard"
+          ]
+        },
+        {
+          "id": "river_crossing",
+          "purpose": "secure and expand bridgehead",
+          "roles": [
+            "screen",
+            "crossing_force",
+            "engineers",
+            "reserve"
+          ]
+        },
+        {
+          "id": "siege_assault",
+          "purpose": "breach exploitation",
+          "roles": [
+            "engineers",
+            "assault",
+            "missile",
+            "reserve"
+          ]
+        }
+      ]
+    },
+    "formation.mercenary.standard": {
+      "templates": [
+        {
+          "id": "mercenary_contract_line",
+          "purpose": "controlled field engagement",
+          "roles": [
+            "line",
+            "scouts",
+            "support",
+            "reserve"
+          ]
+        },
+        {
+          "id": "mercenary_convoy_guard",
+          "purpose": "contract escort",
+          "roles": [
+            "point",
+            "flanks",
+            "rear",
+            "train"
+          ]
+        },
+        {
+          "id": "mercenary_break_contact",
+          "purpose": "preserve company after contract objective fails",
+          "roles": [
+            "rear_guard",
+            "main_body",
+            "reserve"
+          ]
+        },
+        {
+          "id": "mercenary_camp_defense",
+          "purpose": "protect camp and treasury",
+          "roles": [
+            "perimeter",
+            "headquarters",
+            "reserve"
+          ]
+        }
+      ]
+    },
+    "formation.escort.standard": {
+      "templates": [
+        {
+          "id": "escort_road_box",
+          "purpose": "protect convoy/principal",
+          "roles": [
+            "point",
+            "left",
+            "right",
+            "rear",
+            "protected_center"
+          ]
+        },
+        {
+          "id": "escort_chokepoint_passage",
+          "purpose": "move through constrained danger",
+          "roles": [
+            "advance_clearance",
+            "protected_body",
+            "rear_guard"
+          ]
+        },
+        {
+          "id": "escort_ambush_breakout",
+          "purpose": "escape ambush",
+          "roles": [
+            "shield",
+            "breakout",
+            "protected_body",
+            "rear_guard"
+          ]
+        },
+        {
+          "id": "escort_night_lager",
+          "purpose": "overnight convoy defense",
+          "roles": [
+            "perimeter",
+            "watch",
+            "reserve"
+          ]
+        }
+      ]
+    },
+    "formation.school.mobilization": {
+      "templates": [
+        {
+          "id": "school_guard_defense",
+          "purpose": "defend school grounds",
+          "roles": [
+            "instructor_command",
+            "senior_guard",
+            "evacuation",
+            "reserve"
+          ]
+        },
+        {
+          "id": "school_emergency_company",
+          "purpose": "temporary lawful mobilization",
+          "roles": [
+            "instructor_cadre",
+            "senior_students",
+            "qualified_general_students"
+          ],
+          "requires_mobilization": true
+        },
+        {
+          "id": "school_evacuation_column",
+          "purpose": "protect juniors/support during evacuation",
+          "roles": [
+            "advance",
+            "protected_students",
+            "rear_guard"
+          ]
+        }
+      ]
+    },
+    "formation.house_tang.standard": {
+      "templates": [
+        {
+          "id": "house_guard_defense",
+          "purpose": "estate defense",
+          "roles": [
+            "gate",
+            "wall",
+            "reserve"
+          ]
+        },
+        {
+          "id": "guardian_cavalry_screen",
+          "purpose": "mobile protective screen",
+          "roles": [
+            "forward_screen",
+            "flanks",
+            "reserve"
+          ]
+        },
+        {
+          "id": "sword_manor_response",
+          "purpose": "institutional rapid response",
+          "roles": [
+            "senior_element",
+            "general_element",
+            "reserve"
+          ]
+        }
+      ]
+    },
+    "formation.irregular.standard": {
+      "templates": [
+        {
+          "id": "irregular_disperse_concentrate",
+          "purpose": "avoid fixed battle then mass locally",
+          "roles": [
+            "scouts",
+            "warbands",
+            "reserve"
+          ]
+        },
+        {
+          "id": "irregular_ambush",
+          "purpose": "terrain-based ambush",
+          "roles": [
+            "bait",
+            "strike",
+            "cutoff"
+          ]
+        },
+        {
+          "id": "irregular_withdrawal",
+          "purpose": "break contact into difficult terrain",
+          "roles": [
+            "rear_guard",
+            "dispersal_routes"
+          ]
+        }
+      ]
+    },
+    "formation.steppe.standard": {
+      "templates": [
+        {
+          "id": "steppe_scout_fan",
+          "purpose": "wide reconnaissance and contact screen",
+          "roles": [
+            "scout_pairs",
+            "relay_riders",
+            "reserve"
+          ]
+        },
+        {
+          "id": "steppe_harassment_arc",
+          "purpose": "mounted missile pressure without decisive commitment",
+          "roles": [
+            "archer_wings",
+            "relay",
+            "reserve"
+          ]
+        },
+        {
+          "id": "steppe_lance_echelon",
+          "purpose": "concentrated mounted strike after shaping",
+          "roles": [
+            "screen",
+            "lance_body",
+            "household_reserve"
+          ]
+        },
+        {
+          "id": "steppe_feigned_withdrawal",
+          "purpose": "draw pursuit into prepared reversal",
+          "roles": [
+            "bait",
+            "flank_riders",
+            "countercharge_reserve"
+          ]
+        },
+        {
+          "id": "steppe_camp_ring",
+          "purpose": "protect people, remounts, and stores",
+          "roles": [
+            "outer_scouts",
+            "rider_ring",
+            "herd_core",
+            "reserve"
+          ]
+        }
+      ]
+    },
+    "formation.mountain.standard": {
+      "templates": [
+        {
+          "id": "mountain_route_column",
+          "purpose": "move through restricted terrain",
+          "roles": [
+            "guides",
+            "scouts",
+            "main_body",
+            "rear_guard"
+          ]
+        },
+        {
+          "id": "mountain_ambush_layers",
+          "purpose": "attack from vertical/concealed terrain",
+          "roles": [
+            "trigger",
+            "missile_skirmish",
+            "shock_body",
+            "cutoff"
+          ]
+        },
+        {
+          "id": "mountain_pass_block",
+          "purpose": "hold chokepoint",
+          "roles": [
+            "forward_skirmish",
+            "main_block",
+            "height_control",
+            "reserve"
+          ]
+        },
+        {
+          "id": "mountain_shock_wedge",
+          "purpose": "elite close assault on restricted frontage",
+          "roles": [
+            "champion_front",
+            "shock_body",
+            "support"
+          ]
+        },
+        {
+          "id": "mountain_disengagement_web",
+          "purpose": "break contact through known routes",
+          "roles": [
+            "rear_guard",
+            "guides",
+            "main_body",
+            "false_trails"
+          ]
+        }
+      ]
+    },
+    "formation.local_defense.standard": {
+      "templates": [
+        {
+          "id": "local_alarm_muster",
+          "purpose": "rapid local defense",
+          "roles": [
+            "watch",
+            "rally_body",
+            "missile",
+            "reserve"
+          ]
+        },
+        {
+          "id": "local_gate_or_pass_hold",
+          "purpose": "hold prepared access point",
+          "roles": [
+            "front",
+            "missile_support",
+            "engineer_support",
+            "reserve"
+          ]
+        },
+        {
+          "id": "local_convoy_screen",
+          "purpose": "protect local movement",
+          "roles": [
+            "point",
+            "flanks",
+            "rear",
+            "protected_body"
+          ]
+        }
+      ]
+    },
+    "formation.raider.standard": {
+      "templates": [
+        {
+          "id": "raider_scout_and_pounce",
+          "purpose": "identify and strike weak target",
+          "roles": [
+            "scouts",
+            "strike_body",
+            "loot_detail",
+            "rear_security"
+          ]
+        },
+        {
+          "id": "raider_ambush_crescent",
+          "purpose": "short ambush with open escape route",
+          "roles": [
+            "trigger",
+            "wings",
+            "reserve"
+          ]
+        },
+        {
+          "id": "raider_break_contact",
+          "purpose": "disengage after objective or reversal",
+          "roles": [
+            "rear_guard",
+            "main_body",
+            "pack/loot",
+            "scouts"
+          ]
+        }
+      ]
+    }
+  }
+}

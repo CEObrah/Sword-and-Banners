@@ -1,0 +1,35 @@
+{
+  "schema": "sword-mount-pool",
+  "owner_id": "mount_pool_force_house_karin_house",
+  "house_force_ref": "force_house_karin_house",
+  "state": "chu",
+  "total": 1500,
+  "types": {
+    "horse_war_military": 1500
+  },
+  "health": {
+    "fit": 1500,
+    "limited": 0,
+    "recovering": 0,
+    "unfit": 0
+  },
+  "regional_reserve": {},
+  "allocated_to_formations": {
+    "formation_house_karin_house_01": {
+      "horse_war_military": 750
+    },
+    "formation_house_karin_house_02": {
+      "horse_war_military": 750
+    }
+  },
+  "geographic_disposition": {
+    "authority": true,
+    "rule": "Conserved military horses transferred from the host state mount owner during the private-House establishment rebaseline; health partition transferred with the same living animals.",
+    "source_partitions": [
+      [
+        "loc_chu_regional_02",
+        1500
+      ]
+    ]
+  }
+}
