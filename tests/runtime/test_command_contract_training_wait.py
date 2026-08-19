@@ -15,7 +15,9 @@ def test_advance_time_contract_explains_standing_training_activity_policy() -> N
     assert "omitting it means" in activity["rule"]
     assert activity["fields"]["player_standing_training"]["type"] == "boolean"
     assert "explicitly ordered to train" in activity["fields"]["formation_refs"]["rule"]
-    assert "standing_training_settle" in activity["settlement_rule"]
+    assert "same advance_time transaction" in activity["settlement_rule"]
+    assert "pre-existing or manually deferred credit" in activity["settlement_rule"]
+    assert "informational campaign-event notices" in activity["event_boundary_rule"]
     assert "stop_on_player_event" in activity["event_boundary_rule"]
 
 
