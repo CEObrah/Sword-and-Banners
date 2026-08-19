@@ -11,6 +11,7 @@ watchPatterns = [
   "!/README.md"
 ]
 
+# Startup reconciles the persistent campaign checkout with the deployed branch.
 [deploy]
 startCommand = "PYTHONPATH=/app/runtime python -m sword_runtime.bootstrap"
 healthcheckPath = "/health"
