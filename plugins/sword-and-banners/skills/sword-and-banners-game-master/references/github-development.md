@@ -4,7 +4,9 @@ Use this reference only for `OOC DEV:` repository work. GitHub is source/develop
 
 ## Choose the right editing surface
 
-Use the GitHub connector for repository inspection, commit archaeology, small coherent patches, and branch/PR review. Do not make GitHub Actions or hosted CI a release dependency; verification authority is the local repository test suite.
+Use the GitHub connector for repository inspection, commit archaeology, small coherent patches, and branch/PR review. GitHub Actions and hosted CI are not release dependencies; verification authority is the local repository test suite.
+
+Do not query GitHub Actions workflow runs, status checks, jobs, logs, or artifacts as a routine OOC DEV verification step. The absence of Actions is not a verification failure and must never block integration. Consult Actions only when the user explicitly asks to inspect CI or when the defect being diagnosed is specifically a hosted-CI failure. Ordinary verification claims must come from commands that actually ran in the editing workspace.
 
 Prefer an uploaded or local repository workspace when one is available for broad refactors, migrations/repairs, release cleanup, large file replacement, or changes spanning many coupled schemas/runtime/state/tests. Local work is easier to validate atomically and avoids turning connector limitations into architecture decisions.
 
@@ -34,7 +36,7 @@ Do not confuse a safety block with a Git conflict. Do not use accidental probe c
 4. Fetch the exact target-branch file immediately before replacement and use that version's SHA.
 5. Keep runtime, schemas/contracts, tests, data, and Skill references aligned in the same coherent change.
 6. Compare the development branch with the latest `main` before integration.
-7. Run the local structural and changed-path gates on the actual editing workspace; hosted CI is optional evidence only and never required release authority.
+7. Run the local structural and changed-path gates on the actual editing workspace when one is available. If no authorized editing workspace exists, state that local verification did not run; do not substitute GitHub Actions status for it.
 8. Re-read `main` before merge; integrate deliberate concurrent changes rather than force-resetting them.
 9. A normal PR merge is a valid fallback when direct ref movement is unavailable. Never force-push campaign history as a routine workaround.
 
