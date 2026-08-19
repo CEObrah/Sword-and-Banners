@@ -40,11 +40,12 @@ _ADVANCE_TIME_ACTIVITY_POLICY: Mapping[str, Any] = {
         },
     },
     "event_boundary_rule": (
-        "credit is earned only through the campaign time actually reached; stop_on_player_event may end the interval early"
+        "credit is earned only through the campaign time actually reached; stop_on_player_event may end the interval early for a true direct "
+        "player-facing boundary, while informational campaign-event notices are delivered without stopping the standing order"
     ),
     "settlement_rule": (
-        "after the time advance commits, consume earned whole-hour credit with standing_training_settle for each intended target "
-        "before narrating training gains; settlement advances no campaign time"
+        "the same advance_time transaction consumes whole earned credit for explicitly targeted formations and any configured Tang Wei auto-settlement, "
+        "leaving only fractional credit banked; standing_training_settle is reserved for pre-existing or manually deferred credit and advances no campaign time"
     ),
 }
 
