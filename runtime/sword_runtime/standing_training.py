@@ -1,10 +1,14 @@
-"""Standing-training credit accrual and zero-time settlement.
+"""Standing-training credit accrual and deterministic settlement.
 
-Time advancement owns chronology. This module owns only the reconciliation of
-training time that has already been earned during an explicit downtime window.
-It never accepts caller-supplied hours or focuses: Tang Wei's saved standing plan
-and a controlled formation's registered regimen determine accrual, while this
-semantic command consumes only server-owned whole-hour credit.
+Time advancement owns chronology. This module owns the reconciliation of
+training time earned during an explicit downtime window. It never accepts
+caller-supplied hours or focuses: Tang Wei's saved standing plan and a controlled
+formation's registered regimen determine accrual and settlement.
+
+The normal downtime path consumes each targeted formation's whole earned credit
+inside the same advance_time transaction and leaves only fractional credit banked.
+The standalone settlement command remains available for already-existing credits
+and recovery workflows without advancing time.
 
 Exact autonomous NPCs remain outside player training authority. House Tang people
 named in a downtime activity policy accrue evidence under their own saved activity
@@ -36,7 +40,7 @@ _WEEK_SECONDS = 7 * 86400
 
 
 class StandingTrainingSettlementMixin:
-    """Accrue downtime credits, then consume them without advancing time."""
+    """Accrue downtime credits and consume whole earned credit deterministically."""
 
     # ------------------------------------------------------------------
     # Command admission
@@ -62,7 +66,7 @@ class StandingTrainingSettlementMixin:
         self._require_formation_authority(command.actor_id, target_ref)
 
     # ------------------------------------------------------------------
-    # Downtime accrual only
+    # Downtime accrual and same-command settlement
     # ------------------------------------------------------------------
 
     @staticmethod
@@ -215,6 +219,21 @@ class StandingTrainingSettlementMixin:
             result["expired_orphan_credit_hours"] = round(expired_orphan, 6)
         return result
 
+    @staticmethod
+    def _compact_formation_auto_settlement(settled: Mapping[str, Any]) -> dict[str, Any]:
+        """Return bounded user-facing settlement data for one formation."""
+        keys = (
+            "target_ref",
+            "consumed_hours",
+            "remaining_credit_hours",
+            "training_progress",
+            "cohesion",
+            "readiness",
+            "fatigue",
+            "recovery",
+        )
+        return {key: settled[key] for key in keys if key in settled}
+
     def _settle_downtime_policy(
         self,
         start: CampaignTime,
@@ -222,12 +241,14 @@ class StandingTrainingSettlementMixin:
         policy: Mapping[str, Any],
         request_id: str,
     ) -> dict[str, Any]:
-        """Override the older eager settlement with credit-only accrual.
+        """Accrue and reconcile explicit standing training in one time command.
 
-        This keeps time advancement robust and makes training reconciliation a
-        separate zero-time semantic write. The player's declared downtime intent
-        is still preserved because the caller can immediately settle the returned
-        server-owned credits after the event boundary is committed.
+        The player's activity policy already declares which controlled formations
+        train during this interval. Whole server-owned formation credits are
+        therefore deterministic consequences of the same advance_time intent and
+        are consumed before that transaction returns. Only fractional credit is
+        left banked. A separate standing_training_settle command remains available
+        for pre-existing or manually deferred credit.
         """
         result: dict[str, Any] = {"elapsed_seconds": max(0, start.seconds_until(end))}
         if policy.get("player_standing_training") is True:
@@ -240,9 +261,22 @@ class StandingTrainingSettlementMixin:
                     result["player_auto_settlement"] = self._consume_player_standing_credit(end, request_id + ":auto")
         formations: list[dict[str, Any]] = []
         for formation_ref in policy.get("formation_refs", []):
-            formations.append(
-                self._accrue_formation_standing_credit(str(formation_ref), start, end, request_id)
-            )
+            ref = str(formation_ref)
+            accrued = self._accrue_formation_standing_credit(ref, start, end, request_id)
+            entry = dict(accrued)
+            if accrued.get("status") == "accrued":
+                _path, formation_now = self._load_formation(ref)
+                credit = float(formation_now.get("standing_training_time_credit_hours", 0.0) or 0.0)
+                if credit >= 1.0:
+                    settled = self._consume_formation_standing_credit(
+                        ref,
+                        end,
+                        request_id + ":auto",
+                    )
+                    compact = self._compact_formation_auto_settlement(settled)
+                    entry["auto_settlement"] = compact
+                    entry["credit_hours"] = float(compact.get("remaining_credit_hours", 0.0) or 0.0)
+            formations.append(entry)
         if formations:
             result["formations"] = formations
         people: list[dict[str, Any]] = []
@@ -252,7 +286,7 @@ class StandingTrainingSettlementMixin:
             )
         if people:
             result["household_people"] = people
-        result["settlement_rule"] = "credits_only_during_time_advance"
+        result["settlement_rule"] = "auto_settle_whole_credits_during_time_advance"
         return result
 
     # ------------------------------------------------------------------
