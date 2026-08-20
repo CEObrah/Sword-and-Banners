@@ -8,9 +8,31 @@ from sword_runtime.world_arc_report_handoff import settle_player_safe_world_arc_
 from sword_runtime.world_arcs import _schedule_report_route
 
 
+_TEST_ARC_REF = "arc_ryo_fui_northern_wei_campaign"
+
+
 def _planner(campaign):
     planner = CampaignEventPlayerGroupActionPlanner(campaign)
     planner._reset()
+    # The repository fixture copies the current campaign, which may already hold
+    # delivered reports for this live arc. Each handoff test owns a disposable
+    # clone, so remove only prior report-delivery projections for this arc while
+    # preserving their exact source events and all unrelated campaign state.
+    _path, owner0 = read_causal_event_owner(planner)
+    owner = copy.deepcopy(owner0)
+    causal = owner.get("causal_events", {})
+    if isinstance(causal, dict):
+        for event_ref, event in list(causal.items()):
+            if (
+                isinstance(event, dict)
+                and event.get("kind") == "world_arc_report"
+                and event.get("arc_ref") == _TEST_ARC_REF
+            ):
+                causal.pop(event_ref, None)
+    runtime = owner.get("runtime")
+    if isinstance(runtime, dict):
+        runtime.pop("player_safe_world_arc_claims", None)
+    write_causal_event_owner(planner, owner)
     return planner
 
 
@@ -22,7 +44,7 @@ def _install_material_source(planner, event_ref: str, at: str, evidence: dict) -
         "status": "triggered",
         "due_at": at,
         "triggered_at": at,
-        "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+        "arc_ref": _TEST_ARC_REF,
         "actor_ref": "state_qin",
         "basis_goal": "prepare a northern operation",
         "result": "material_action_settled",
@@ -48,7 +70,7 @@ def _install_material_source(planner, event_ref: str, at: str, evidence: dict) -
 def _scheduled_host(planner, source_event_ref: str, at: str) -> dict:
     _schedule_report_route(
         planner,
-        arc_ref="arc_ryo_fui_northern_wei_campaign",
+        arc_ref=_TEST_ARC_REF,
         source_event_ref=source_event_ref,
         at=at,
         route="House Tang direct report",
