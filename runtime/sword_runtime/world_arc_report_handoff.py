@@ -4,12 +4,13 @@ World arcs may observe exact domain work, but a generic arc result is not itself
 player knowledge. This adapter sits between the low-level report propagator and
 the information ledger. It permits only evidence shapes whose public meaning is
 explicitly bounded, rewrites them into intelligible player-facing language, and
-suppresses opaque material bookkeeping before it can wake standing activity or
+suppresses opaque or semantically duplicate material bookkeeping before it can
 enter Tang Wei's knowledge ledger.
 """
 from __future__ import annotations
 
 import copy
+import hashlib
 from collections.abc import Mapping
 from typing import Any
 
@@ -23,6 +24,8 @@ from sword_runtime.world_arcs import settle_world_arc_report
 
 _RUNTIME_PATH = "state/runtime.json"
 _SAFE_EVIDENCE_KINDS = frozenset({"exact_operation_created"})
+_CLAIM_CACHE_KEY = "player_safe_world_arc_claims"
+_CLAIM_CACHE_LIMIT = 64
 
 
 def _arc_basis(planner: Any, arc_ref: str) -> str:
@@ -68,7 +71,90 @@ def source_has_player_safe_world_arc_report(source: Mapping[str, Any]) -> bool:
     return str(source.get("result", "")) == "material_action_settled" and _safe_material_evidence(source) is not None
 
 
-def _summary(planner: Any, host: Mapping[str, Any], source: Mapping[str, Any]) -> str:
+def _operation_claim_fingerprint(evidence: Mapping[str, Any]) -> str | None:
+    """Return an opaque identity for one exact-operation-created public claim.
+
+    The hidden exact operation ref is used only to decide whether the same claim
+    has already been delivered. It is never copied into player-facing report
+    prose or claim-cache rows.
+    """
+    if str(evidence.get("kind", "")) != "exact_operation_created":
+        return None
+    operation_ref = evidence.get("operation_ref")
+    if not isinstance(operation_ref, str) or not operation_ref:
+        return None
+    return hashlib.sha256(f"exact_operation_created|{operation_ref}".encode("utf-8")).hexdigest()
+
+
+def _claim_cache(owner: dict[str, Any]) -> list[dict[str, Any]]:
+    runtime = owner.setdefault("runtime", {})
+    if not isinstance(runtime, dict):
+        raise ValueError("causal event owner runtime is invalid")
+    claims = runtime.setdefault(_CLAIM_CACHE_KEY, [])
+    if not isinstance(claims, list):
+        raise ValueError("player-safe world-arc claim cache is invalid")
+    return claims
+
+
+def _bootstrap_operation_claims(planner: Any, owner: dict[str, Any], arc_ref: str) -> list[dict[str, Any]]:
+    """Rehydrate recent delivered claims without treating prose as authority.
+
+    The durable source event remains the semantic evidence authority. This cache
+    stores only opaque fingerprints and bounded delivery metadata so a deployment
+    can recognize already-delivered recent operation claims without exposing
+    hidden operation or formation identities.
+    """
+    claims = _claim_cache(owner)
+    known = {
+        (str(row.get("arc_ref", "")), str(row.get("evidence_kind", "")), str(row.get("fingerprint", "")))
+        for row in claims
+        if isinstance(row, Mapping)
+    }
+    causal = owner.get("causal_events") if isinstance(owner.get("causal_events"), Mapping) else {}
+    for report in causal.values():
+        if not isinstance(report, Mapping):
+            continue
+        if report.get("kind") != "world_arc_report" or report.get("status") != "triggered":
+            continue
+        if str(report.get("arc_ref", "")) != arc_ref:
+            continue
+        source_ref = report.get("source_event_ref")
+        if not isinstance(source_ref, str):
+            continue
+        source = causal.get(source_ref)
+        if not isinstance(source, Mapping):
+            source = get_causal_event(planner, source_ref)
+        if not isinstance(source, Mapping):
+            continue
+        evidence = _safe_material_evidence(source)
+        if evidence is None:
+            continue
+        fingerprint = _operation_claim_fingerprint(evidence)
+        if fingerprint is None:
+            continue
+        key = (arc_ref, str(evidence.get("kind")), fingerprint)
+        if key in known:
+            continue
+        claims.append(
+            {
+                "arc_ref": arc_ref,
+                "evidence_kind": str(evidence.get("kind")),
+                "fingerprint": fingerprint,
+                "delivered_at": str(report.get("triggered_at", report.get("due_at", ""))),
+            }
+        )
+        known.add(key)
+    del claims[:-_CLAIM_CACHE_LIMIT]
+    return claims
+
+
+def _summary(
+    planner: Any,
+    host: Mapping[str, Any],
+    source: Mapping[str, Any],
+    *,
+    prior_same_kind_deliveries: int = 0,
+) -> str:
     evidence = _safe_material_evidence(source)
     if evidence is None:
         raise ValueError("opaque world-arc source cannot be rendered for the player")
@@ -76,6 +162,15 @@ def _summary(planner: Any, host: Mapping[str, Any], source: Mapping[str, Any]) -
     route = str(host.get("route", "ordinary reports"))
     basis = _arc_basis(planner, arc_ref)
     if str(evidence.get("kind")) == "exact_operation_created":
+        if prior_same_kind_deliveries > 0:
+            return (
+                f"Reports reaching Tang Wei through {route} concern {basis}. "
+                "They now establish a further military commitment: another active military "
+                "operation has been opened and an existing formation assigned to it. This is "
+                "additional material action beyond the operation already reported. The reports "
+                "do not by themselves establish the new operation's exact force, route, commander, "
+                "supply state, combat contact, result, or immediate objective beyond the already-known campaign basis."
+            )
         return (
             f"Reports reaching Tang Wei through {route} concern {basis}. "
             "They now establish a concrete escalation: the reported campaign has produced "
@@ -112,27 +207,88 @@ def settle_player_safe_world_arc_report(
 
     # Do not even perform a delivery/exposure roll for material bookkeeping whose
     # public meaning is undefined. Retire the transport route before it can create
-    # a vague report, a wake, or a searchable information claim.
+    # a vague report, a notice, or a searchable information claim.
     if not source_has_player_safe_world_arc_report(source):
         _terminate_opaque_route(planner, host)
         return None
 
+    evidence = _safe_material_evidence(source)
+    if evidence is None:
+        _terminate_opaque_route(planner, host)
+        return None
+    arc_ref = str(host.get("arc_ref", source.get("arc_ref", "")))
+    fingerprint = _operation_claim_fingerprint(evidence)
+
+    # A report route is information transport, not world-event authority. Preserve
+    # every exact source event, but suppress another delivery of the same exact
+    # operation-created claim. Distinct exact operations remain distinct material
+    # evidence and are rendered as an additional player-safe commitment instead.
+    _path, owner_before = read_causal_event_owner(planner)
+    indexed_owner = copy.deepcopy(owner_before)
+    claims_before = _bootstrap_operation_claims(planner, indexed_owner, arc_ref)
+    same_kind_claims = [
+        row
+        for row in claims_before
+        if isinstance(row, Mapping)
+        and str(row.get("arc_ref", "")) == arc_ref
+        and str(row.get("evidence_kind", "")) == str(evidence.get("kind"))
+    ]
+    if fingerprint is not None and any(str(row.get("fingerprint", "")) == fingerprint for row in same_kind_claims):
+        if indexed_owner != owner_before:
+            write_causal_event_owner(planner, indexed_owner)
+        _terminate_opaque_route(planner, host)
+        return None
+
+    prior_same_kind_deliveries = len({
+        str(row.get("fingerprint", ""))
+        for row in same_kind_claims
+        if isinstance(row, Mapping) and str(row.get("fingerprint", ""))
+    })
+
+    # The low-level propagator may return a campaign_event-shaped handoff for an
+    # acute direct delivery. The causal scheduler treats that shape as a nonblocking
+    # campaign_event_notice and never persists it as pending_wake. Keep returning it
+    # so the command result can surface the information without stopping time.
     wake = settle_world_arc_report(planner, host, at)
     report_ref = f"{source_event_ref}.report"
     report = get_causal_event(planner, report_ref)
     if not isinstance(report, Mapping):
         return None
 
-    summary = _summary(planner, host, source)
+    summary = _summary(
+        planner,
+        host,
+        source,
+        prior_same_kind_deliveries=prior_same_kind_deliveries,
+    )
     _path, owner = read_causal_event_owner(planner)
     current = owner.get("causal_events", {}).get(report_ref)
     if not isinstance(current, Mapping):
         return None
     updated = copy.deepcopy(owner)
     updated["causal_events"][report_ref]["summary"] = summary
-    updated["causal_events"][report_ref].setdefault("provenance", {})["player_safe_evidence_kind"] = str(
-        _safe_material_evidence(source).get("kind")
+    provenance = updated["causal_events"][report_ref].setdefault("provenance", {})
+    provenance["player_safe_evidence_kind"] = str(evidence.get("kind"))
+    provenance["player_safe_delta"] = (
+        "additional_operation_created" if prior_same_kind_deliveries > 0 else "operation_created"
     )
+    claims = _bootstrap_operation_claims(planner, updated, arc_ref)
+    if fingerprint is not None and not any(
+        isinstance(row, Mapping)
+        and str(row.get("arc_ref", "")) == arc_ref
+        and str(row.get("evidence_kind", "")) == str(evidence.get("kind"))
+        and str(row.get("fingerprint", "")) == fingerprint
+        for row in claims
+    ):
+        claims.append(
+            {
+                "arc_ref": arc_ref,
+                "evidence_kind": str(evidence.get("kind")),
+                "fingerprint": fingerprint,
+                "delivered_at": at,
+            }
+        )
+        del claims[:-_CLAIM_CACHE_LIMIT]
     write_causal_event_owner(planner, updated)
     if isinstance(wake, dict):
         wake["reason"] = summary
