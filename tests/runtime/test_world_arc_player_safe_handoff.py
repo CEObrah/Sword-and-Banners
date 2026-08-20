@@ -65,6 +65,17 @@ def _scheduled_host(planner, source_event_ref: str, at: str) -> dict:
     return copy.deepcopy(rows[0])
 
 
+def _operation_evidence(operation_ref: str, formation_ref: str) -> dict:
+    return {
+        "kind": "exact_operation_created",
+        "operation_ref": operation_ref,
+        "formation_ref": formation_ref,
+        "formation_status_before": "ready",
+        "formation_status_after": "mobilized",
+        "evidence_stage": "domain_action",
+    }
+
+
 def test_exact_operation_evidence_becomes_clear_bounded_report(campaign) -> None:
     planner = _planner(campaign)
     at = str(planner.read("state/runtime.json")["world_time"])
@@ -73,18 +84,11 @@ def test_exact_operation_evidence_becomes_clear_bounded_report(campaign) -> None
         planner,
         source_ref,
         at,
-        {
-            "kind": "exact_operation_created",
-            "operation_ref": "operation_test_northern_wei",
-            "formation_ref": "formation_test_qin",
-            "formation_status_before": "ready",
-            "formation_status_after": "mobilized",
-            "evidence_stage": "domain_action",
-        },
+        _operation_evidence("operation_test_northern_wei", "formation_test_qin"),
     )
     host = _scheduled_host(planner, source_ref, at)
 
-    wake = settle_player_safe_world_arc_report(planner, host, at)
+    notice = settle_player_safe_world_arc_report(planner, host, at)
 
     report = get_causal_event(planner, source_ref + ".report")
     assert report is not None
@@ -92,9 +96,83 @@ def test_exact_operation_evidence_becomes_clear_bounded_report(campaign) -> None
     assert "preparation, intent" in report["summary"]
     assert "exact force, route, commander" in report["summary"]
     assert "material domain work that actually settled" not in report["summary"]
+    assert "operation_test_northern_wei" not in report["summary"]
+    assert "formation_test_qin" not in report["summary"]
     assert report["provenance"]["player_safe_evidence_kind"] == "exact_operation_created"
-    assert wake is not None
-    assert wake["reason"] == report["summary"]
+    assert report["provenance"]["player_safe_delta"] == "operation_created"
+    # The acute direct shape is a campaign-event notice for the causal scheduler.
+    # It is not itself a persistent decision wake.
+    assert notice is not None
+    assert notice["kind"] == "campaign_event"
+    assert notice["reason"] == report["summary"]
+
+
+def test_distinct_operation_creation_reports_additional_commitment_without_hidden_ids(campaign) -> None:
+    planner = _planner(campaign)
+    at = str(planner.read("state/runtime.json")["world_time"])
+
+    first_ref = "event_test_player_safe_operation_first"
+    _install_material_source(
+        planner,
+        first_ref,
+        at,
+        _operation_evidence("operation_hidden_first", "formation_hidden_first"),
+    )
+    first_host = _scheduled_host(planner, first_ref, at)
+    assert settle_player_safe_world_arc_report(planner, first_host, at) is not None
+
+    second_ref = "event_test_player_safe_operation_second"
+    _install_material_source(
+        planner,
+        second_ref,
+        at,
+        _operation_evidence("operation_hidden_second", "formation_hidden_second"),
+    )
+    second_host = _scheduled_host(planner, second_ref, at)
+    notice = settle_player_safe_world_arc_report(planner, second_host, at)
+
+    report = get_causal_event(planner, second_ref + ".report")
+    assert report is not None
+    assert notice is not None
+    assert "further military commitment" in report["summary"]
+    assert "another active military operation" in report["summary"]
+    assert "additional material action" in report["summary"]
+    assert "operation_hidden_first" not in report["summary"]
+    assert "operation_hidden_second" not in report["summary"]
+    assert "formation_hidden_first" not in report["summary"]
+    assert "formation_hidden_second" not in report["summary"]
+    assert report["provenance"]["player_safe_delta"] == "additional_operation_created"
+
+
+def test_repeat_of_same_exact_operation_claim_is_suppressed_without_deleting_source(campaign) -> None:
+    planner = _planner(campaign)
+    at = str(planner.read("state/runtime.json")["world_time"])
+    evidence = _operation_evidence("operation_hidden_repeat", "formation_hidden_repeat")
+
+    first_ref = "event_test_player_safe_repeat_first"
+    _install_material_source(planner, first_ref, at, evidence)
+    first_host = _scheduled_host(planner, first_ref, at)
+    assert settle_player_safe_world_arc_report(planner, first_host, at) is not None
+    assert get_causal_event(planner, first_ref + ".report") is not None
+
+    duplicate_ref = "event_test_player_safe_repeat_second"
+    _install_material_source(planner, duplicate_ref, at, evidence)
+    duplicate_host = _scheduled_host(planner, duplicate_ref, at)
+    assert settle_player_safe_world_arc_report(planner, duplicate_host, at) is None
+
+    # Exact causal source history remains intact. Only redundant information
+    # delivery is suppressed.
+    assert get_causal_event(planner, duplicate_ref) is not None
+    assert get_causal_event(planner, duplicate_ref + ".report") is None
+    runtime_host = planner.read("state/runtime.json")["hosts"][duplicate_host["host_id"]]
+    assert runtime_host["recurrence_seconds"] == 0
+
+    _path, owner = read_causal_event_owner(planner)
+    claims = owner.get("runtime", {}).get("player_safe_world_arc_claims", [])
+    exact_claims = [row for row in claims if row.get("evidence_kind") == "exact_operation_created"]
+    assert len(exact_claims) == 1
+    assert "operation_hidden_repeat" not in str(exact_claims)
+    assert "formation_hidden_repeat" not in str(exact_claims)
 
 
 def test_opaque_material_evidence_is_removed_before_player_handoff(campaign) -> None:
@@ -114,9 +192,9 @@ def test_opaque_material_evidence_is_removed_before_player_handoff(campaign) -> 
     )
     host = _scheduled_host(planner, source_ref, at)
 
-    wake = settle_player_safe_world_arc_report(planner, host, at)
+    notice = settle_player_safe_world_arc_report(planner, host, at)
 
-    assert wake is None
+    assert notice is None
     assert get_causal_event(planner, source_ref + ".report") is None
 
 
