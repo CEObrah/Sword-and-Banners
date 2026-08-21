@@ -6,6 +6,7 @@
     "schema",
     "formulas",
     "rules",
+    "military_field_supply_policy",
     "planning_water_liters_per_day",
     "party_size_factor",
     "movement_mode_factor",
@@ -22,6 +23,41 @@
     },
     "rules": {
       "type": "object"
+    },
+    "military_field_supply_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "food_kg_per_person_day",
+        "fodder_kg_per_mount_day",
+        "commanded_initial_reserve_days",
+        "qin_support_review_delay_hours",
+        "rule"
+      ],
+      "properties": {
+        "food_kg_per_person_day": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "fodder_kg_per_mount_day": {
+          "type": "number",
+          "minimum": 0
+        },
+        "commanded_initial_reserve_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 365
+        },
+        "qin_support_review_delay_hours": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 168
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     },
     "planning_water_liters_per_day": {
       "type": "object"
