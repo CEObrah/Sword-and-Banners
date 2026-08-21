@@ -4,10 +4,13 @@ import copy
 
 from sword_runtime.formation_subsistence import (
     _consume_one,
+    _interval_seconds,
+    _unsettled_seconds,
     settle_player_formation_subsistence,
     sync_player_formation_subsistence_host,
 )
 from sword_runtime.production_runtime_planner import ProductionCampaignPlanner
+from sword_runtime.sim.calendar import CampaignTime
 
 
 HOUSE_GUARD = "formation_tang_wei_house_guard"
@@ -148,6 +151,38 @@ def test_short_carried_supply_may_draw_only_from_colocated_material_depot(campai
     assert after["subsistence"]["food_from_carried_kg"] == 200
     assert after["subsistence"]["food_from_depot_kg"] == 600
     assert depot_after["stocks"]["grain_kg"] == 4400
+
+
+def test_daily_interval_resumes_from_last_exact_settlement(campaign):
+    planner = _planner(campaign)
+    path = planner.owner_path(HOUSE_GUARD)
+    formation = copy.deepcopy(planner.read(path))
+    now = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
+    due = now.add_seconds(24 * 3600)
+    formation["subsistence"] = {"last_settled_at": str(due.add_seconds(-6 * 3600))}
+
+    assert _interval_seconds(formation, str(due)) == 6 * 3600
+
+
+def test_partial_stationary_gap_can_be_settled_before_movement(campaign):
+    planner = _planner(campaign)
+    path = planner.owner_path(HOUSE_GUARD)
+    formation = copy.deepcopy(planner.read(path))
+    start = CampaignTime.parse(str(planner.read("state/runtime.json")["world_time"]))
+    command_start = start.add_seconds(22 * 3600)
+
+    assert _unsettled_seconds(
+        formation,
+        str(command_start),
+        fallback_start_text=str(start),
+    ) == 22 * 3600
+
+    formation["subsistence"] = {"last_settled_at": str(start.add_seconds(10 * 3600))}
+    assert _unsettled_seconds(
+        formation,
+        str(command_start),
+        fallback_start_text=str(start),
+    ) == 12 * 3600
 
 
 def test_command_target_can_defer_daily_settlement_until_stale_copy_is_finished(campaign):
