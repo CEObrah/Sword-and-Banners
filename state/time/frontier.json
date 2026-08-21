@@ -1,0 +1,409 @@
+{
+  "processes": [
+    {
+      "coverage": [],
+      "id": "activity_char_tang_kai",
+      "next_due": "245-BCE-12-05T06:00:00+08:00",
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-02T06:00:00+08:00",
+      "settlement_mode": "event",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "arc_ryo_fui_northern_wei_campaign",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-03T06:00:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "arc_ryo_fui_northern_wei_campaign_stage_002",
+      "next_due": "245-BCE-12-10T06:00:00+08:00",
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-03T06:00:00+08:00",
+      "settlement_mode": "event",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "arc_shin_hyou_departure",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-03T06:00:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "arc_shin_hyou_departure_stage_002",
+      "next_due": "245-BCE-12-10T06:00:00+08:00",
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-03T06:00:00+08:00",
+      "settlement_mode": "event",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "process_autonomous_world_heartbeat",
+      "next_due": "245-BCE-12-05T06:00:00+08:00",
+      "recurrence": {
+        "accrual_mode": "boundary_only",
+        "interval_seconds": 86400,
+        "kind": "fixed_interval"
+      },
+      "settled_through": "245-BCE-12-04T06:00:00+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "process_canon_life_course_aggregate",
+      "next_due": "244-BCE-01-01T00:00:00+08:00",
+      "recurrence": {
+        "accrual_mode": "boundary_only",
+        "clock": "00:00:00",
+        "kind": "calendar_year_start"
+      },
+      "settled_through": "245-BCE-12-02T06:00:00+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage_ref": "state/time/coverage/process_external_state_ecosystem.json",
+      "id": "process_external_state_ecosystem",
+      "next_due": "245-BCE-12-31T23:59:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "23:59:00",
+        "kind": "calendar_month_end"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "process_house_tang_development_aggregate",
+      "next_due": "244-BCE-03-31T23:59:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "23:59:00",
+        "kind": "calendar_quarter_end"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage": [
+        "institution_role_slots"
+      ],
+      "id": "process_house_tang_operations_aggregate",
+      "next_due": "245-BCE-12-31T23:59:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "23:59:00",
+        "kind": "calendar_month_end"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "process_house_tang_resources_aggregate",
+      "next_due": "245-BCE-12-31T23:59:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "23:59:00",
+        "kind": "calendar_month_end"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage_ref": "state/time/coverage/process_independent_world_ecosystem.json",
+      "id": "process_independent_world_ecosystem",
+      "next_due": "244-BCE-04-01T00:00:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "00:00:00",
+        "kind": "calendar_quarter_start"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "process_main_gate_arrival_001",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-02T07:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_player_unit_doctrines",
+      "next_due": "245-BCE-12-31T23:59:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "23:59:00",
+        "kind": "calendar_month_end"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-02T06:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis_stage_002",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-02T12:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis_stage_003",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-02T18:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis_stage_004",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-03T00:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis_stage_005",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-03T06:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis_stage_006",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-03T12:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis_stage_007",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-03T18:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis_stage_008",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-04T00:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis_stage_009",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-04T06:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage": [],
+      "id": "process_qin_royal_crisis_stage_010",
+      "next_due": "245-BCE-12-04T12:30:00+08:00",
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-04T06:30:00+08:00",
+      "settlement_mode": "event",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "process_sword_manor_aggregate",
+      "next_due": "245-BCE-12-31T23:59:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "23:59:00",
+        "kind": "calendar_month_end"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage": [],
+      "id": "process_sword_manor_opening_council_001",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "event",
+        "kind": "one_shot"
+      },
+      "settled_through": "245-BCE-12-02T08:00:00+08:00",
+      "settlement_mode": "event",
+      "status": "completed"
+    },
+    {
+      "coverage_ref": "state/time/coverage/process_personal_force_life_weekly.json",
+      "id": "process_personal_force_life_weekly",
+      "next_due": "245-BCE-12-09T06:00:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "interval_seconds": 604800,
+        "kind": "fixed_interval"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage_ref": "state/time/coverage/process_named_character_life_monthly.json",
+      "id": "process_named_character_life_monthly",
+      "next_due": "245-BCE-12-31T23:59:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "23:59:00",
+        "kind": "calendar_month_end"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage_ref": "state/time/coverage/process_mass_force_development_monthly.json",
+      "id": "process_mass_force_development_monthly",
+      "next_due": "245-BCE-12-31T23:59:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "23:59:00",
+        "kind": "calendar_month_end"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage_ref": "state/time/coverage/process_living_factions_monthly.json",
+      "id": "process_living_factions_monthly",
+      "next_due": "245-BCE-12-31T06:00:00+08:00",
+      "recurrence": {
+        "accrual_mode": "continuous",
+        "clock": "06:00:00",
+        "kind": "calendar_month_end"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    },
+    {
+      "coverage": [
+        "registry.living_world_events"
+      ],
+      "id": "process_living_world_event_triggers",
+      "next_due": null,
+      "recurrence": {
+        "accrual_mode": "triggered",
+        "kind": "triggered"
+      },
+      "settled_through": "245-BCE-12-04T07:22:48+08:00",
+      "settlement_mode": "triggered",
+      "status": "active",
+      "trigger": "evaluate event archetypes only on relevant state change, scheduled event, or explicit settlement dependency"
+    },
+    {
+      "coverage": [],
+      "id": "process_tang_wei_qin_command_petitions",
+      "next_due": "245-BCE-12-05T06:15:00+08:00",
+      "recurrence": {
+        "accrual_mode": "boundary_only",
+        "interval_seconds": 86400,
+        "kind": "fixed_interval"
+      },
+      "settled_through": "245-BCE-12-04T06:15:00+08:00",
+      "settlement_mode": "batchable",
+      "status": "active"
+    }
+  ],
+  "schema": "temporal-frontier",
+  "world_time": "245-BCE-12-04T07:22:48+08:00"
+}

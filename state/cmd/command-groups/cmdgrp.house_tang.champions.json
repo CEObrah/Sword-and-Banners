@@ -1,0 +1,58 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.house_tang.champions",
+  "authority_ref": "house_tang",
+  "commander_ref": "char_house_tang_champion_commander",
+  "deputy_ref": "char_house_tang_champion_deputy",
+  "direct_person_refs": [
+    "char_house_tang_champion_deputy"
+  ],
+  "parent_command_group_ref": "cmdgrp.house_tang.field_army",
+  "display_name": "Tang Champions Command",
+  "location": "loc_tang_manor_garrison_yard",
+  "context": "house_force_command",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [
+    "char_house_tang_champion_deputy"
+  ],
+  "standing_orders": [
+    {
+      "order_ref": "champions_decisive_reserve_default",
+      "text": "Default Tang Manor assignment is the highest-quality Inner Citadel and decisive reserve. Commit when the tactical or strategic value justifies risking the House elite; this is a preference, never a prohibition on urgent reassignment.",
+      "issued_at": "244-BCE-07-29T20:22:48+08:00",
+      "issued_by": "char_tang_zhu"
+    }
+  ],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_tang_champion_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_tang_champion_02"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_tang_champion_03"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_tang_champion_04"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 3500,
+    "authorized_direct_unit_slots": 4,
+    "current_recursive_strength": 3500,
+    "current_direct_formation_strength": 3500,
+    "recursive_formation_count": 4,
+    "direct_unit_count": 4,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "house_force_command",
+    "history": []
+  }
+}

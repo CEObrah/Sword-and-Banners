@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "canon-capability-calibration",
+  "type": "object",
+  "required": [
+    "schema",
+    "calibration_ref",
+    "effective_at",
+    "authority",
+    "rules",
+    "characters"
+  ],
+  "properties": {
+    "schema": {
+      "const": "canon-capability-calibration"
+    },
+    "calibration_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "effective_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rules": {
+      "type": "object"
+    },
+    "characters": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "tier",
+          "aptitude_floors",
+          "attribute_floors",
+          "skill_floors"
+        ],
+        "properties": {
+          "tier": {
+            "type": "string",
+            "minLength": 1
+          },
+          "aptitude_floors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "attribute_floors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "skill_floors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

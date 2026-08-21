@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "outbreak_ref",
+    "location_ref",
+    "native_state",
+    "syndrome",
+    "transmission_route",
+    "severity_band",
+    "status",
+    "known_cases",
+    "incubating_cases",
+    "symptomatic_cases",
+    "recovered_cases",
+    "deaths",
+    "exposed_susceptible",
+    "created_at",
+    "last_review_at"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-settlement-outbreak"
+    },
+    "outbreak_ref": {
+      "type": "string"
+    },
+    "location_ref": {
+      "type": "string"
+    },
+    "native_state": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "resolved"
+      ]
+    },
+    "known_cases": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "incubating_cases": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "symptomatic_cases": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "recovered_cases": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "deaths": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exposed_susceptible": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": true
+}

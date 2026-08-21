@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "source_id",
+    "relationship_edges"
+  ],
+  "properties": {
+    "schema": {
+      "const": "relationship-edge-shard"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "relationship_edges": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

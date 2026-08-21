@@ -1,0 +1,34 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.retsubi.garrison",
+  "authority_ref": "state_zhao",
+  "commander_ref": "char_kochou",
+  "deputy_ref": null,
+  "direct_person_refs": [],
+  "parent_command_group_ref": null,
+  "display_name": "Retsubi Garrison Command",
+  "location": "loc_retsubi",
+  "context": "state_garrison_command",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_zhao_retsubi_gate_command"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 8000,
+    "authorized_direct_unit_slots": 1,
+    "current_recursive_strength": 8000,
+    "current_direct_formation_strength": 8000,
+    "recursive_formation_count": 1,
+    "direct_unit_count": 1,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "state_garrison_command",
+    "history": []
+  }
+}

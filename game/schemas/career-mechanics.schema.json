@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "qualification_factors",
+    "command_factor_bounds",
+    "ecc_thresholds",
+    "merit_adjustment_rule",
+    "materialization_rng",
+    "promotion_rule",
+    "service_models",
+    "character_materialization_variation",
+    "character_attribute_order",
+    "character_skill_order",
+    "professional_skill_order",
+    "character_role_templates"
+  ],
+  "properties": {
+    "schema": {
+      "const": "career-mechanics"
+    },
+    "formulas": {},
+    "qualification_factors": {},
+    "command_factor_bounds": {},
+    "ecc_thresholds": {},
+    "merit_adjustment_rule": {},
+    "materialization_rng": {},
+    "promotion_rule": {},
+    "service_models": {},
+    "character_materialization_variation": {},
+    "character_attribute_order": {},
+    "character_skill_order": {},
+    "character_role_templates": {},
+    "professional_skill_order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}

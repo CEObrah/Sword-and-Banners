@@ -1,0 +1,45 @@
+{
+  "schema": "sword-manor-officer-establishment",
+  "institution_ref": "force_sword_manor",
+  "scope_rule": "This officer representation standard is force-wide for Sword Manor. It does not depend on assignment to Tang Wei.",
+  "army_command": {
+    "commander_ref": "char_wei_jian",
+    "deputy_ref": "char_ren_qiao",
+    "commander_representation": "full_character",
+    "deputy_representation": "full_character",
+    "external_to_fighting_strength": true,
+    "loadout_ref": "loadout_house_champion"
+  },
+  "persistent_unit_command_rule": "Every persistent Sword Manor unit commander and formal unit deputy uses full-character representation and remains separately conserved command establishment above that unit's fighting strength.",
+  "fighting_establishment": 30000,
+  "rank_internal_commanders": {
+    "trainee": {
+      "personnel": 20000,
+      "commanders_1000": 20,
+      "commanders_500": 40,
+      "aggregate_100_man_commanders": 200
+    },
+    "junior_disciple": {
+      "personnel": 5000,
+      "commanders_1000": 5,
+      "commanders_500": 10,
+      "aggregate_100_man_commanders": 50
+    },
+    "general_disciple": {
+      "personnel": 3500,
+      "commanders_1000": 3,
+      "commanders_500": 7,
+      "aggregate_100_man_commanders": 35
+    },
+    "senior_disciple": {
+      "personnel": 1500,
+      "commanders_1000": 1,
+      "commanders_500": 3,
+      "aggregate_100_man_commanders": 15
+    }
+  },
+  "automatic_person_lite_total": 89,
+  "internal_representation_rule": "All 1,000/500 Sword Manor commanders are persistent person-lite officers with real stats and development state while remaining conserved fighting-establishment bodies. 100-man command remains aggregate unless independently salient.",
+  "training_delegation_rule": "Sword Manor internal military training may delegate role-aware adaptive development to its aggregate ranks and represented officer chain without requiring Tang Wei to choose individual focuses. Training still consumes only lawfully earned institutional training time.",
+  "internal_loadout_rule": "all current Sword Manor ranks are non-cavalry, so their 1,000/500 commanders use House Guard loadout; future cavalry officer billets use House Champion loadout."
+}

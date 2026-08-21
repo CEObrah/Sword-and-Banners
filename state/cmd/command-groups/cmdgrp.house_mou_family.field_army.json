@@ -1,0 +1,38 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.house_mou_family.field_army",
+  "authority_ref": "house_mou_family",
+  "commander_ref": "char_mou_gou",
+  "deputy_ref": null,
+  "direct_person_refs": [],
+  "parent_command_group_ref": "cmdgrp.mou_gou.field_army",
+  "display_name": "House Mou Family Field Army",
+  "location": "loc_qin_regional_01",
+  "context": "private_house_field_army",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_house_mou_family_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_mou_family_02"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 6000,
+    "authorized_direct_unit_slots": 2,
+    "current_recursive_strength": 6000,
+    "current_direct_formation_strength": 6000,
+    "recursive_formation_count": 2,
+    "direct_unit_count": 2,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "private_house_field_army",
+    "history": []
+  }
+}

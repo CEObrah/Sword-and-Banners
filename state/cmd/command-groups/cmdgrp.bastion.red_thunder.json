@@ -1,0 +1,50 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.bastion.red_thunder",
+  "authority_ref": "house_tang",
+  "commander_ref": "char_luo_zhen",
+  "deputy_ref": "char_pei_an",
+  "direct_person_refs": [
+    "char_pei_an"
+  ],
+  "parent_command_group_ref": "cmdgrp.house_tang.bastions",
+  "display_name": "Red Thunder Corps Command",
+  "location": "loc_tang_manor_defense_camp",
+  "context": "corps_command",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [
+    "char_pei_an"
+  ],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_bastion_red_thunder_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_bastion_red_thunder_02"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_bastion_red_thunder_03"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_bastion_red_thunder_04"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 16000,
+    "authorized_direct_unit_slots": 4,
+    "current_recursive_strength": 16000,
+    "current_direct_formation_strength": 16000,
+    "recursive_formation_count": 4,
+    "direct_unit_count": 4,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "corps_command",
+    "history": []
+  }
+}

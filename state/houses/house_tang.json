@@ -1,0 +1,121 @@
+{
+  "administrative_programs": {
+    "four_bastion_corps": {
+      "command_ref": "cmdgrp.house_tang.bastions",
+      "establishment": 110000,
+      "institution_ref": "institution_four_bastion_corps",
+      "payroll_model": "professional House military payroll; never mercenary contract expense",
+      "policy_ref": "game/data/mechanics/bastion-corps.json",
+      "status": "permanent"
+    },
+    "sword_manor_initiate_intake": {
+      "last_intake": 60,
+      "last_review_at": "244-BCE-07-23T01:22:48+08:00",
+      "status": "active"
+    },
+    "wei_field_preparation": {
+      "champions_formation_ref": "formation_tang_champions_first",
+      "champions_personnel": 500,
+      "equipment_issue_status": "issued_for_departure",
+      "kai_training_disposition": "remain_home_age_appropriate_verified_training",
+      "manufacturing_truth": "House Tang has no monthly item-factory tick. Unissued equipment is conserved as aggregate complete role-outfitting sets; new sets and repairs require real labor, material, silver and elapsed work, while ammunition and living mounts remain separate exact stocks.",
+      "material_issued_at": "244-BCE-07-23T10:22:48+08:00",
+      "policy_ref": "game/data/mechanics/house-tang-field-service.json#field_service_preparation",
+      "principal_ref": "char_tang_wei",
+      "requested_at": "244-BCE-07-23T10:22:48+08:00",
+      "reserve_days": 120,
+      "shortfalls": [],
+      "status": "issued_for_departure",
+      "wei_house_guard_formation_ref": "formation_tang_wei_house_guard",
+      "wei_house_guard_personnel": 3000,
+      "outfitting_rules_ref": "game/data/mechanics/outfitting.json"
+    }
+  },
+  "autonomous_reviews": [
+    {
+      "at": "244-BCE-06-04T07:22:48+08:00",
+      "kind": "estate_and_retainer_review",
+      "projects_settled": 0
+    }
+  ],
+  "coordination_runtime": {
+    "last_review": "244-BCE-08-15T00:00:48+08:00",
+    "reviews": 8
+  },
+  "duty_assignments": {
+    "char_tang_ling": {
+      "assigned_at": "244-BCE-01-25T01:22:48+08:00",
+      "duty": "Investigate the assigned Qin formation: commander, strength, route, mission, supply, and any concrete need for additional officers or troops.",
+      "grantor_ref": "char_tang_wei",
+      "house_ref": "house_tang"
+    }
+  },
+  "estate_support": {
+    "depot_ref": "depot_house_tang",
+    "fodder_monthly_output_kg": 4000000,
+    "food_monthly_output_kg": 14000000,
+    "house_mounts": 12000,
+    "master_plan_ref": "game/data/world/tang-manor-master-plan.json",
+    "population_ref": "population_tang_manor",
+    "strategic_autarky": true,
+    "strategic_fodder_reserve_kg": 180000000,
+    "strategic_food_reserve_kg": 450000000,
+    "supported_fighting_personnel": 170060,
+    "treasury_ref": "treasury_house_tang"
+  },
+  "force_employment_policy_ref": "game/data/mechanics/house-tang-force-policy.json",
+  "goals": [
+    "preserve household",
+    "improve standing"
+  ],
+  "house_ref": "house_tang",
+  "last_review": "244-BCE-07-23T01:22:48+08:00",
+  "leader_ref": "char_tang_zhu",
+  "lineage_cohort": {
+    "adults": 3,
+    "children": 1,
+    "elders": 0,
+    "exact_member_refs": [
+      "char_tang_kai",
+      "char_tang_ling",
+      "char_tang_wei",
+      "char_tang_zhu"
+    ],
+    "last_close": "244-BCE-06-04T07:22:48+08:00",
+    "marriages": 1
+  },
+  "military_command": {
+    "bastion_command_ref": "cmdgrp.house_tang.bastions",
+    "command_group_ref": "cmdgrp.house_tang.field_army",
+    "commander_ref": "char_tang_zhu",
+    "deputy_ref": "char_tang_ling",
+    "field_army_command_ref": "cmdgrp.house_tang.field_army",
+    "force_ref": "force_house_tang",
+    "sword_manor_field_ref": "cmdgrp.sword_manor.field"
+  },
+  "military_force_ref": "force_house_tang",
+  "military_force_refs": [
+    "force_house_tang",
+    "force_bastion_iron_wall",
+    "force_bastion_red_thunder",
+    "force_bastion_white_blade",
+    "force_bastion_stone_spear"
+  ],
+  "owner_id": "house_tang",
+  "projects": [],
+  "schema": "sword-house",
+  "state": "qin",
+  "threat_level": "0.1",
+  "treasury_ref": "treasury_house_tang",
+  "politics": {
+    "influence": 37,
+    "patronage": 67,
+    "information_access": 64,
+    "court_access": 95,
+    "relationships": {},
+    "rule": "shared House political-capacity fields; effects use common House/politics mechanics rather than owner-specific code"
+  },
+  "nobility": {
+    "grade": "recognized_house"
+  }
+}

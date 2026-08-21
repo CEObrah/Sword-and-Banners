@@ -1,0 +1,204 @@
+{
+  "schema": "generic-object",
+  "owner_id": "world_representation_authority_model",
+  "authority": true,
+  "purpose": "Canonical ownership/conservation contract for geography-aware world representation. This class model constrains runtime/data design; exact mutable facts remain in their domain owners.",
+  "classes": {
+    "population_owner": {
+      "owns": [
+        "bodies",
+        "service_strata",
+        "demographic_partition"
+      ],
+      "does_not_own_by_implication": [
+        "formation",
+        "command",
+        "territory",
+        "route"
+      ],
+      "authorities": [
+        "state/population/*.json"
+      ]
+    },
+    "state_force": {
+      "owns": [
+        "conserved_state_military_bodies",
+        "force_equipment_reserve",
+        "regional_military_disposition"
+      ],
+      "links": [
+        "population_service_allocation",
+        "state_mount_pool",
+        "formations"
+      ],
+      "rule": "available_by_location and cohort reserve_by_location partition the same force bodies; they are not second owners"
+    },
+    "house_private_force": {
+      "owns": [
+        "conserved_private_bodies",
+        "force_equipment_reserve",
+        "home_and_deployment_disposition"
+      ],
+      "rule": "state service or player command never transfers manpower title without an explicit lawful transfer"
+    },
+    "personal_force": {
+      "owns": [
+        "only bodies actually transferred/recruited into that exact personal force"
+      ],
+      "rule": "assigned House or state formations remain owned by their source forces"
+    },
+    "institutional_manpower": {
+      "owns": [
+        "institutional people only where an exact institutional force/manpower owner exists"
+      ],
+      "rule": "institution staff/capacity fields do not become field troops unless current exact authority says so"
+    },
+    "mercenary_company": {
+      "owns": [
+        "its own conserved bodies",
+        "company equipment",
+        "company treasury",
+        "company deployment"
+      ],
+      "rule": "employer/contract never duplicates or transfers company bodies"
+    },
+    "military_contract": {
+      "owns": [
+        "terms",
+        "payment",
+        "duty",
+        "participating_force_refs",
+        "deployment_obligations"
+      ],
+      "owns_bodies": false
+    },
+    "command_group": {
+      "owns": [
+        "authority_relationships",
+        "delegation",
+        "hierarchy"
+      ],
+      "owns_bodies": false
+    },
+    "capability_profile": {
+      "owns": [
+        "representation_neutral_capability_description"
+      ],
+      "owns_bodies": false,
+      "rule": "a capability profile never proves a current troop pool exists"
+    },
+    "faction_readiness": {
+      "owns": [
+        "political_agenda",
+        "readiness",
+        "pressure",
+        "knowledge_window"
+      ],
+      "owns_bodies": false
+    },
+    "regional_military_disposition": {
+      "owns": [
+        "spatial_partition_only"
+      ],
+      "owns_bodies": false,
+      "rule": "nested inside the exact force owner"
+    },
+    "formation": {
+      "owns": [
+        "persistent_assignment",
+        "organization",
+        "local_logistics_custody",
+        "formation_history"
+      ],
+      "creates_bodies": false,
+      "rule": "personnel are allocated from exact source force/manpower ancestry"
+    },
+    "operation_battle_siege": {
+      "owns": [
+        "temporary_or_operational_arrangement",
+        "objectives",
+        "participant_refs",
+        "domain_state"
+      ],
+      "creates_bodies": false
+    },
+    "mount_pool": {
+      "owns": [
+        "conserved_aggregate_mounts",
+        "regional_reserve",
+        "formation_allocations"
+      ],
+      "rule": "regional reserve + formation allocations equals exact type totals"
+    },
+    "depot_inventory": {
+      "owns": [
+        "physical_stock_at_location"
+      ],
+      "owns_population": false,
+      "rule": "surrounding rural population/economy belongs to legitimate demographic/economic owners"
+    },
+    "location": {
+      "owns": [
+        "static_identity",
+        "containment",
+        "spatial_scale",
+        "static_access_role"
+      ],
+      "owns_population_by_default": false,
+      "rule": "demographic eligibility is explicit; facilities do not become regions"
+    },
+    "strategic_route": {
+      "owns": [
+        "route_identity",
+        "endpoints",
+        "base_travel_inputs",
+        "movement_modes",
+        "border_and_chokepoint_links"
+      ],
+      "rule": "aliases and route indexes never become competing route owners"
+    },
+    "route_state": {
+      "owns": [
+        "persistent_current_usability",
+        "persistent_disruption",
+        "current_control_linkage"
+      ],
+      "rule": "route state never replaces static route identity"
+    },
+    "fortification_blueprint": {
+      "owns": [
+        "static_materialization_baseline",
+        "explicit_route_control_relationship"
+      ],
+      "mutable_condition": false,
+      "rule": "never overwrites already materialized damage/repair state"
+    },
+    "materialized_fortification": {
+      "owns": [
+        "current_integrity",
+        "gates_or_works_as_supported",
+        "garrison_refs",
+        "stored_defense_resources"
+      ],
+      "rule": "child facilities inherit enclosure without duplicating wall authority"
+    },
+    "polity": {
+      "owns": [
+        "political_identity",
+        "recognized_or_claimed_authority_links",
+        "diplomatic_state"
+      ],
+      "rule": "territory, population, treasury, forces and occupation remain linked exact owners rather than being duplicated into polity prose"
+    }
+  },
+  "critical_distinctions": [
+    "command authority != manpower ownership",
+    "contract != force owner",
+    "formation/operation/battle/siege != body creator",
+    "capability/readiness != existing troops",
+    "location/facility != demographic owner",
+    "route alias != route authority",
+    "political control != native population ownership",
+    "static fortification blueprint != current damaged fortification state"
+  ]
+}

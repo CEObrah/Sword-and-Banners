@@ -1,0 +1,586 @@
+{
+  "schema": "career-mechanics",
+  "formulas": {
+    "personal_command_score": "0.22*Leadership+0.22*Formation_Command+0.16*Tactics+0.10*Strategy+0.10*Composure+0.08*Logistics+0.06*Intelligence+0.06*Awareness",
+    "small_unit_personal_command_score": "0.22*Leadership+0.22*Formation_Command+0.26*Tactics+0.10*Composure+0.08*Logistics+0.06*Intelligence+0.06*Awareness when Tactics>Strategy; otherwise standard formula",
+    "army_personal_command_score": "0.22*Leadership+0.22*Formation_Command+0.26*Strategy+0.10*Composure+0.08*Logistics+0.06*Intelligence+0.06*Awareness when Strategy>Tactics; otherwise standard formula",
+    "effective_command_capacity": "personal_command_score*qualification_factor*doctrine_familiarity*staff_factor*subordinate_factor*communications_factor*cohesion_factor*health_factor*fatigue_factor*terrain_complexity_factor*political_authority_factor",
+    "merit_base_value": "objective_value*difficulty*responsibility*result_quality*evidence_reliability*institutional_relevance",
+    "merit_final_value": "merit_base_value*casualty_factor*order_compliance_factor*legality_factor*political_factor*deception_factor"
+  },
+  "qualification_factors": {
+    "unfamiliar": 0.7,
+    "probationary": 0.9,
+    "qualified": 1.0,
+    "advanced": 1.0
+  },
+  "command_factor_bounds": {
+    "minimum": 0.55,
+    "maximum": 1.1
+  },
+  "ecc_thresholds": {
+    "C1": 28,
+    "C2": 36,
+    "C3": 46,
+    "C4": 57,
+    "C5": 68,
+    "C6": 77,
+    "C7": 88,
+    "C8": 103,
+    "C9": 116,
+    "C10": 130
+  },
+  "merit_adjustment_rule": "Each merit adjustment factor must be saved numerically in 0..1.25 before review. Missing factors block the formal assessment; the narrator may not invent them after seeing the desired promotion.",
+  "materialization_rng": "SHA256(namespace|sequence|source_population_id|recruitment_event_id|generation_schema)",
+  "promotion_rule": "Rank, appointment, command, certification, experience and elite selection remain separate; no promotion grants permanent stats.",
+  "service_models": {
+    "army_model_state_professional": {
+      "name": "state professional",
+      "authority_basis": "state or recognized military office",
+      "mobilization_pattern": "continuous",
+      "ordinary_readiness": "high",
+      "ordinary_service_term": "12 months",
+      "cost_structure": "full regular pay and family support",
+      "ui_family": "standing_official",
+      "cash_pay_factor_vs_common_role_baseline": 1.0,
+      "signing_bounty_months_of_selected_ranker_pay": 1.0,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.5,
+      "monthly_family_support_silver_per_combatant": 0.6,
+      "default_numeric_term_months_for_budgeting": 12,
+      "population_and_labor_effect": "low labor disruption after enlistment",
+      "demobilization_or_exit": "formal discharge or transfer"
+    },
+    "army_model_frontier_professional": {
+      "name": "frontier professional",
+      "authority_basis": "frontier office, clan-state compact, or recognized commander",
+      "mobilization_pattern": "continuous",
+      "ordinary_readiness": "high",
+      "ordinary_service_term": "12 months",
+      "cost_structure": "high pay, remount and family burden",
+      "ui_family": "standing_official",
+      "cash_pay_factor_vs_common_role_baseline": 1.1,
+      "signing_bounty_months_of_selected_ranker_pay": 1.25,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.5,
+      "monthly_family_support_silver_per_combatant": 0.75,
+      "default_numeric_term_months_for_budgeting": 12,
+      "population_and_labor_effect": "moderate source-population pressure",
+      "demobilization_or_exit": "formal discharge, reassignment, or settlement"
+    },
+    "army_model_provincial_professional": {
+      "name": "provincial professional",
+      "authority_basis": "provincial or commandery office",
+      "mobilization_pattern": "continuous",
+      "ordinary_readiness": "high",
+      "ordinary_service_term": "6-12 months",
+      "cost_structure": "regular pay, facilities, supply, family support",
+      "ui_family": "standing_official",
+      "cash_pay_factor_vs_common_role_baseline": 0.9,
+      "signing_bounty_months_of_selected_ranker_pay": 0.75,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.5,
+      "monthly_family_support_silver_per_combatant": 0.55,
+      "default_numeric_term_months_for_budgeting": 9,
+      "population_and_labor_effect": "moderate",
+      "demobilization_or_exit": "formal discharge or transfer"
+    },
+    "army_model_state_patrol": {
+      "name": "state patrol",
+      "authority_basis": "local legal office and jurisdiction",
+      "mobilization_pattern": "continuous local duty",
+      "ordinary_readiness": "moderate-high",
+      "ordinary_service_term": "6-12 months",
+      "cost_structure": "regular pay plus local facilities and mounts as assigned",
+      "ui_family": "standing_official",
+      "cash_pay_factor_vs_common_role_baseline": 0.8,
+      "signing_bounty_months_of_selected_ranker_pay": 0.75,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.5,
+      "monthly_family_support_silver_per_combatant": 0.45,
+      "default_numeric_term_months_for_budgeting": 6,
+      "population_and_labor_effect": "low-moderate local labor loss",
+      "demobilization_or_exit": "discharge, reassignment, or retirement"
+    },
+    "army_model_household_retainer": {
+      "name": "household retainer",
+      "authority_basis": "household head with property and patronage",
+      "mobilization_pattern": "continuous",
+      "ordinary_readiness": "high near patron",
+      "ordinary_service_term": "open-ended",
+      "cost_structure": "high bounty, housing, dependents, gifts, status",
+      "ui_family": "personal_commercial",
+      "cash_pay_factor_vs_common_role_baseline": 1.2,
+      "signing_bounty_months_of_selected_ranker_pay": 1.5,
+      "first_pay_advance_months_of_selected_ranker_pay": 1.0,
+      "monthly_family_support_silver_per_combatant": 1.25,
+      "default_numeric_term_months_for_budgeting": 0,
+      "population_and_labor_effect": "low quantity but durable household burden",
+      "demobilization_or_exit": "dismissal, oath release, defection, inheritance"
+    },
+    "army_model_mercenary": {
+      "name": "mercenary",
+      "authority_basis": "enforceable contract and credible payer",
+      "mobilization_pattern": "contract mobilization",
+      "ordinary_readiness": "high while paid",
+      "ordinary_service_term": "campaign term",
+      "cost_structure": "large advance, wages, loot, casualty terms",
+      "ui_family": "personal_commercial",
+      "cash_pay_factor_vs_common_role_baseline": 1.35,
+      "signing_bounty_months_of_selected_ranker_pay": 2.0,
+      "first_pay_advance_months_of_selected_ranker_pay": 1.0,
+      "monthly_family_support_silver_per_combatant": 0.1,
+      "default_numeric_term_months_for_budgeting": 0,
+      "population_and_labor_effect": "little direct tax labor loss if recruited externally",
+      "demobilization_or_exit": "contract completion, breach, renegotiation"
+    },
+    "army_model_caravan_contract": {
+      "name": "caravan contract",
+      "authority_basis": "merchant or caravan contract",
+      "mobilization_pattern": "route or season",
+      "ordinary_readiness": "moderate-high on route",
+      "ordinary_service_term": "route/season",
+      "cost_structure": "advance, route pay, food, lodging, loss terms",
+      "ui_family": "personal_commercial",
+      "cash_pay_factor_vs_common_role_baseline": 1.0,
+      "signing_bounty_months_of_selected_ranker_pay": 0.75,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.5,
+      "monthly_family_support_silver_per_combatant": 0.2,
+      "default_numeric_term_months_for_budgeting": 0,
+      "population_and_labor_effect": "low local labor loss",
+      "demobilization_or_exit": "route completion or contract breach"
+    },
+    "army_model_volunteer_campaign": {
+      "name": "volunteer campaign",
+      "authority_basis": "credible cause and leader",
+      "mobilization_pattern": "campaign muster",
+      "ordinary_readiness": "variable",
+      "ordinary_service_term": "named campaign",
+      "cost_structure": "low bounty, campaign rations, loot or merit expectations",
+      "ui_family": "temporary_cause",
+      "cash_pay_factor_vs_common_role_baseline": 0.55,
+      "signing_bounty_months_of_selected_ranker_pay": 0.25,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.25,
+      "monthly_family_support_silver_per_combatant": 0.15,
+      "default_numeric_term_months_for_budgeting": 0,
+      "population_and_labor_effect": "moderate household disruption",
+      "demobilization_or_exit": "campaign completion, loss of cause, voluntary exit terms"
+    },
+    "army_model_seasonal_militia": {
+      "name": "seasonal militia",
+      "authority_basis": "local office, community compact, or coercive levy authority",
+      "mobilization_pattern": "slow seasonal muster",
+      "ordinary_readiness": "low-moderate",
+      "ordinary_service_term": "30-90 days",
+      "cost_structure": "low cash but full food, equipment, supervision and household loss",
+      "ui_family": "temporary_cause",
+      "cash_pay_factor_vs_common_role_baseline": 0.35,
+      "signing_bounty_months_of_selected_ranker_pay": 0.1,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.25,
+      "monthly_family_support_silver_per_combatant": 0.1,
+      "default_numeric_term_months_for_budgeting": 2,
+      "population_and_labor_effect": "high planting/harvest disruption",
+      "demobilization_or_exit": "mandatory demobilization or renewed lawful call"
+    },
+    "army_model_religious_militia": {
+      "name": "religious militia",
+      "authority_basis": "recognized or coercive religious network",
+      "mobilization_pattern": "network and cause based",
+      "ordinary_readiness": "variable",
+      "ordinary_service_term": "cause-dependent",
+      "cost_structure": "low cash, high belief and household network dependence",
+      "ui_family": "temporary_cause",
+      "cash_pay_factor_vs_common_role_baseline": 0.3,
+      "signing_bounty_months_of_selected_ranker_pay": 0.05,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.1,
+      "monthly_family_support_silver_per_combatant": 0.1,
+      "default_numeric_term_months_for_budgeting": 0,
+      "population_and_labor_effect": "variable and politically volatile",
+      "demobilization_or_exit": "cause change, local dissolution, defection"
+    },
+    "army_model_irregular_raider": {
+      "name": "irregular raider",
+      "authority_basis": "armed leader, fear, loot, kinship, or criminal network",
+      "mobilization_pattern": "rapid local",
+      "ordinary_readiness": "variable",
+      "ordinary_service_term": "loot and leadership dependent",
+      "cost_structure": "low formal pay, high loot and order-compliance risk",
+      "ui_family": "kinship_irregular",
+      "cash_pay_factor_vs_common_role_baseline": 0.2,
+      "signing_bounty_months_of_selected_ranker_pay": 0.0,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.0,
+      "monthly_family_support_silver_per_combatant": 0.0,
+      "default_numeric_term_months_for_budgeting": 0,
+      "population_and_labor_effect": "predatory local damage",
+      "demobilization_or_exit": "dispersal, defection, capture, death, negotiated settlement"
+    },
+    "army_model_clan_warband": {
+      "name": "clan warband",
+      "authority_basis": "clan, tribal, or household compact",
+      "mobilization_pattern": "household muster",
+      "ordinary_readiness": "moderate",
+      "ordinary_service_term": "campaign or customary obligation",
+      "cost_structure": "kinship shares, gifts, food and loot",
+      "ui_family": "kinship_irregular",
+      "cash_pay_factor_vs_common_role_baseline": 0.4,
+      "signing_bounty_months_of_selected_ranker_pay": 0.1,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.25,
+      "monthly_family_support_silver_per_combatant": 0.2,
+      "default_numeric_term_months_for_budgeting": 0,
+      "population_and_labor_effect": "seasonal household and labor burden",
+      "demobilization_or_exit": "customary demobilization or clan decision"
+    },
+    "army_model_military_colony": {
+      "name": "military colony",
+      "authority_basis": "land, households, recognized control, seed, tools and defense",
+      "mobilization_pattern": "slow establishment; seasonal mobilization",
+      "ordinary_readiness": "moderate local, slow distant",
+      "ordinary_service_term": "household/land obligation",
+      "cost_structure": "lower cash food burden but high land, family and infrastructure burden",
+      "ui_family": "land_political",
+      "cash_pay_factor_vs_common_role_baseline": 0.5,
+      "signing_bounty_months_of_selected_ranker_pay": 0.1,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.25,
+      "monthly_family_support_silver_per_combatant": 0.15,
+      "default_numeric_term_months_for_budgeting": 0,
+      "population_and_labor_effect": "farm readiness trades directly with field readiness",
+      "demobilization_or_exit": "household succession, land release, reassignment"
+    },
+    "army_model_allied_contingent": {
+      "name": "allied contingent",
+      "authority_basis": "alliance, vassalage, coalition, tribute, or negotiated aid",
+      "mobilization_pattern": "agreement and route dependent",
+      "ordinary_readiness": "variable",
+      "ordinary_service_term": "exact political term",
+      "cost_structure": "shared or external pay and supply, bargaining and loot rights",
+      "ui_family": "land_political",
+      "cash_pay_factor_vs_common_role_baseline": 1.0,
+      "signing_bounty_months_of_selected_ranker_pay": 0.0,
+      "first_pay_advance_months_of_selected_ranker_pay": 0.0,
+      "monthly_family_support_silver_per_combatant": 0.0,
+      "default_numeric_term_months_for_budgeting": 0,
+      "population_and_labor_effect": "borne partly by ally source population",
+      "demobilization_or_exit": "withdrawal under terms, alliance breach, separate peace"
+    }
+  },
+  "character_materialization_variation": {
+    "hash": "SHA256(profile_seed|field_type|field_name)",
+    "attribute_delta": "(first_uint16 mod 7)-3",
+    "signature_skill_delta": "(first_uint16 mod 9)-4",
+    "nonsignature_skill_delta": "(first_uint16 mod 5)-2",
+    "ordinary_generated_current_clamp": [
+      0,
+      195
+    ],
+    "values_196_plus_require_explicit_evidence": true,
+    "may_change_factual_identity_or_world_state": false
+  },
+  "character_attribute_order": [
+    "Strength",
+    "Agility",
+    "Endurance",
+    "Toughness",
+    "Coordination",
+    "Awareness",
+    "Composure",
+    "Intelligence",
+    "Presence"
+  ],
+  "character_skill_order": [
+    "Sword",
+    "Polearms",
+    "Heavy Weapons",
+    "Bow",
+    "Crossbow",
+    "Shield",
+    "Athletics",
+    "Grappling",
+    "Unarmed",
+    "Riding",
+    "Formation Fighting",
+    "Survival",
+    "Stealth",
+    "Scouting",
+    "Medicine",
+    "Engineering",
+    "Leadership",
+    "Formation Command",
+    "Tactics",
+    "Strategy",
+    "Logistics"
+  ],
+  "character_role_templates": {
+    "civilian_generalist": {
+      "attributes": {
+        "Strength": 45,
+        "Agility": 45,
+        "Endurance": 50,
+        "Toughness": 48,
+        "Coordination": 48,
+        "Awareness": 50,
+        "Composure": 50,
+        "Intelligence": 52,
+        "Presence": 48
+      },
+      "signature_skills": {
+        "Trade": 45,
+        "Survival": 40,
+        "Governance": 35
+      },
+      "unspecified_skill_base": 15
+    },
+    "professional_soldier": {
+      "attributes": {
+        "Strength": 72,
+        "Agility": 68,
+        "Endurance": 78,
+        "Toughness": 76,
+        "Coordination": 72,
+        "Awareness": 68,
+        "Composure": 70,
+        "Intelligence": 58,
+        "Presence": 60
+      },
+      "signature_skills": {
+        "primary_weapon": 75,
+        "Athletics": 72,
+        "Formation Fighting": 68
+      },
+      "unspecified_skill_base": 15
+    },
+    "elite_soldier": {
+      "attributes": {
+        "Strength": 95,
+        "Agility": 92,
+        "Endurance": 105,
+        "Toughness": 102,
+        "Coordination": 98,
+        "Awareness": 95,
+        "Composure": 100,
+        "Intelligence": 75,
+        "Presence": 78
+      },
+      "signature_skills": {
+        "primary_weapon": 115,
+        "Athletics": 108,
+        "Formation Fighting": 108
+      },
+      "unspecified_skill_base": 15
+    },
+    "cavalry_guard": {
+      "attributes": {
+        "Strength": 108,
+        "Agility": 118,
+        "Endurance": 124,
+        "Toughness": 118,
+        "Coordination": 122,
+        "Awareness": 128,
+        "Composure": 128,
+        "Intelligence": 108,
+        "Presence": 96
+      },
+      "signature_skills": {
+        "Sword": 128,
+        "Polearms": 138,
+        "Bow": 122,
+        "Shield": 132,
+        "Athletics": 136,
+        "Riding": 148,
+        "Formation Fighting": 138
+      },
+      "unspecified_skill_base": 15
+    },
+    "junior_officer": {
+      "attributes": {
+        "Strength": 85,
+        "Agility": 82,
+        "Endurance": 95,
+        "Toughness": 92,
+        "Coordination": 88,
+        "Awareness": 95,
+        "Composure": 98,
+        "Intelligence": 92,
+        "Presence": 96
+      },
+      "signature_skills": {
+        "primary_weapon": 105,
+        "Leadership": 100,
+        "Formation Command": 95,
+        "Tactics": 95,
+        "Logistics": 85
+      },
+      "unspecified_skill_base": 15
+    },
+    "senior_officer": {
+      "attributes": {
+        "Strength": 105,
+        "Agility": 100,
+        "Endurance": 118,
+        "Toughness": 115,
+        "Coordination": 108,
+        "Awareness": 120,
+        "Composure": 125,
+        "Intelligence": 118,
+        "Presence": 125
+      },
+      "signature_skills": {
+        "primary_weapon": 135,
+        "Leadership": 135,
+        "Formation Command": 135,
+        "Tactics": 130,
+        "Logistics": 120
+      },
+      "unspecified_skill_base": 15
+    },
+    "general": {
+      "attributes": {
+        "Strength": 130,
+        "Agility": 120,
+        "Endurance": 145,
+        "Toughness": 142,
+        "Coordination": 132,
+        "Awareness": 145,
+        "Composure": 150,
+        "Intelligence": 140,
+        "Presence": 155
+      },
+      "signature_skills": {
+        "primary_weapon": 160,
+        "Formation Fighting": 170,
+        "Leadership": 170,
+        "Formation Command": 170,
+        "Tactics": 165,
+        "Strategy": 150,
+        "Logistics": 150
+      },
+      "unspecified_skill_base": 15
+    },
+    "strategist": {
+      "attributes": {
+        "Strength": 75,
+        "Agility": 78,
+        "Endurance": 100,
+        "Toughness": 92,
+        "Coordination": 92,
+        "Awareness": 145,
+        "Composure": 155,
+        "Intelligence": 170,
+        "Presence": 140
+      },
+      "signature_skills": {
+        "Tactics": 170,
+        "Strategy": 175,
+        "Logistics": 165,
+        "Intelligence Operations": 165,
+        "Formation Command": 150,
+        "Leadership": 145
+      },
+      "unspecified_skill_base": 15
+    },
+    "court_official": {
+      "attributes": {
+        "Strength": 55,
+        "Agility": 55,
+        "Endurance": 65,
+        "Toughness": 62,
+        "Coordination": 65,
+        "Awareness": 120,
+        "Composure": 140,
+        "Intelligence": 155,
+        "Presence": 145
+      },
+      "signature_skills": {
+        "Diplomacy": 155,
+        "Law": 155,
+        "Governance": 160,
+        "Intelligence Operations": 145
+      },
+      "unspecified_skill_base": 15
+    },
+    "ruler": {
+      "attributes": {
+        "Strength": 80,
+        "Agility": 75,
+        "Endurance": 95,
+        "Toughness": 90,
+        "Coordination": 82,
+        "Awareness": 145,
+        "Composure": 170,
+        "Intelligence": 165,
+        "Presence": 180
+      },
+      "signature_skills": {
+        "Leadership": 175,
+        "Diplomacy": 165,
+        "Law": 150,
+        "Governance": 170,
+        "Strategy": 145,
+        "Intelligence Operations": 140
+      },
+      "unspecified_skill_base": 15
+    },
+    "merchant_administrator": {
+      "attributes": {
+        "Strength": 55,
+        "Agility": 58,
+        "Endurance": 70,
+        "Toughness": 65,
+        "Coordination": 68,
+        "Awareness": 115,
+        "Composure": 130,
+        "Intelligence": 145,
+        "Presence": 135
+      },
+      "signature_skills": {
+        "Trade": 170,
+        "Diplomacy": 145,
+        "Governance": 145,
+        "Law": 125,
+        "Logistics": 135,
+        "Intelligence Operations": 125
+      },
+      "unspecified_skill_base": 15
+    },
+    "specialist": {
+      "attributes": {
+        "Strength": 60,
+        "Agility": 65,
+        "Endurance": 75,
+        "Toughness": 70,
+        "Coordination": 80,
+        "Awareness": 120,
+        "Composure": 125,
+        "Intelligence": 145,
+        "Presence": 110
+      },
+      "signature_skills": {
+        "verified_specialty": 150,
+        "Medicine_or_Engineering": 120
+      },
+      "unspecified_skill_base": 15
+    },
+    "assassin_infiltrator": {
+      "attributes": {
+        "Strength": 90,
+        "Agility": 125,
+        "Endurance": 110,
+        "Toughness": 95,
+        "Coordination": 130,
+        "Awareness": 130,
+        "Composure": 125,
+        "Intelligence": 105,
+        "Presence": 85
+      },
+      "signature_skills": {
+        "Sword": 145,
+        "Athletics": 130,
+        "Stealth": 145,
+        "Scouting": 120
+      },
+      "unspecified_skill_base": 15
+    }
+  },
+  "professional_skill_order": [
+    "Intelligence Operations",
+    "Diplomacy",
+    "Law",
+    "Trade",
+    "Governance"
+  ]
+}

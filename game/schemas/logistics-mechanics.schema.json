@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "rules",
+    "planning_water_liters_per_day",
+    "party_size_factor",
+    "movement_mode_factor",
+    "load_factor",
+    "condition_factor_levels",
+    "ready_party_departure_overhead"
+  ],
+  "properties": {
+    "schema": {
+      "const": "logistics-mechanics"
+    },
+    "formulas": {
+      "type": "object"
+    },
+    "rules": {
+      "type": "object"
+    },
+    "planning_water_liters_per_day": {
+      "type": "object"
+    },
+    "party_size_factor": {
+      "type": "array"
+    },
+    "movement_mode_factor": {
+      "type": "object"
+    },
+    "load_factor": {
+      "type": "object"
+    },
+    "condition_factor_levels": {
+      "type": "object"
+    },
+    "ready_party_departure_overhead": {
+      "type": "object",
+      "required": [
+        "base_minutes",
+        "party_step_people",
+        "minutes_per_step",
+        "eligibility"
+      ],
+      "properties": {
+        "base_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "party_step_people": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minutes_per_step": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "eligibility": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

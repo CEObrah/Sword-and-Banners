@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "prefix",
+    "templates"
+  ],
+  "properties": {
+    "schema": {
+      "const": "template-index-shard"
+    },
+    "prefix": {
+      "type": "string"
+    },
+    "templates": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "path",
+          "scope"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "source_schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scope": {
+            "enum": [
+              "mutable_state",
+              "registered_json_structure",
+              "static_data"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

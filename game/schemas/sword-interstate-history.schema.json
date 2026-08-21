@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "authority": {
+      "const": true
+    },
+    "last_review": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "owner_id": {
+      "const": "interstate_warring_states"
+    },
+    "schema": {
+      "const": "sword-interstate-history"
+    },
+    "theaters": {
+      "additionalProperties": {
+        "additionalProperties": true,
+        "properties": {
+          "cycle": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "history": {
+            "type": "array"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "pressure": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "cooldown_reviews": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "phase",
+          "cycle",
+          "pressure",
+          "history"
+        ],
+        "type": "object"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "authority",
+    "theaters"
+  ],
+  "title": "Sword Interstate History",
+  "type": "object"
+}

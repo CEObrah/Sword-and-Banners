@@ -1,0 +1,120 @@
+{
+  "authority": false,
+  "counts": {
+    "courtships": 0,
+    "events": 0,
+    "households": 1,
+    "kinships": 1,
+    "parentage": 2,
+    "proposals": 0,
+    "successions": 5,
+    "unions": 1
+  },
+  "courtships": {},
+  "events": {},
+  "households": {
+    "household.tang_zhu_tang_ling": "state/family/households/household.tang_zhu_tang_ling.json"
+  },
+  "kinships": {
+    "kinship.tang_kai_tang_wei.siblings": "state/family/kinships/kinship.tang_kai_tang_wei.siblings.json"
+  },
+  "parentage": {
+    "parentage.tang_kai.birth_parents": "state/family/parentage/parentage.tang_kai.birth_parents.json",
+    "parentage.tang_wei.birth_parents": "state/family/parentage/parentage.tang_wei.birth_parents.json"
+  },
+  "path_templates": {
+    "courtship": "state/family/courtships/{id}.json",
+    "event": "state/family/events/{id}.json",
+    "household": "state/family/households/{id}.json",
+    "kinship": "state/family/kinships/{id}.json",
+    "parentage": "state/family/parentage/{id}.json",
+    "proposal": "state/family/proposals/{id}.json",
+    "succession": "state/family/successions/{id}.json",
+    "union": "state/family/unions/{id}.json"
+  },
+  "person_index": {
+    "char_tang_kai": {
+      "kinships": [
+        "kinship.tang_kai_tang_wei.siblings"
+      ],
+      "parentage": [
+        "parentage.tang_kai.birth_parents"
+      ]
+    },
+    "char_tang_ling": {
+      "households": [
+        "household.tang_zhu_tang_ling"
+      ],
+      "parentage": [
+        "parentage.tang_wei.birth_parents",
+        "parentage.tang_kai.birth_parents"
+      ],
+      "unions": [
+        "union.tang_zhu_tang_ling"
+      ]
+    },
+    "char_tang_wei": {
+      "kinships": [
+        "kinship.tang_kai_tang_wei.siblings"
+      ],
+      "parentage": [
+        "parentage.tang_wei.birth_parents"
+      ],
+      "successions": [
+        "succession.house_tang"
+      ]
+    },
+    "char_tang_zhu": {
+      "households": [
+        "household.tang_zhu_tang_ling"
+      ],
+      "parentage": [
+        "parentage.tang_wei.birth_parents",
+        "parentage.tang_kai.birth_parents"
+      ],
+      "successions": [
+        "succession.house_tang"
+      ],
+      "unions": [
+        "union.tang_zhu_tang_ling"
+      ]
+    },
+    "char_ei_sei": {
+      "successions": [
+        "succession.qin_crown"
+      ]
+    },
+    "char_tou_jou": {
+      "successions": [
+        "succession.zhao_crown"
+      ]
+    },
+    "char_prince_ka": {
+      "successions": [
+        "succession.zhao_crown"
+      ]
+    },
+    "char_ou_ken": {
+      "successions": [
+        "succession.qi_crown"
+      ]
+    },
+    "char_yotanwa": {
+      "successions": [
+        "succession.yotanwa_confederation"
+      ]
+    }
+  },
+  "proposals": {},
+  "schema": "family-index",
+  "successions": {
+    "succession.house_tang": "state/family/successions/succession.house_tang.json",
+    "succession.qin_crown": "state/family/successions/succession.qin_crown.json",
+    "succession.zhao_crown": "state/family/successions/succession.zhao_crown.json",
+    "succession.qi_crown": "state/family/successions/succession.qi_crown.json",
+    "succession.yotanwa_confederation": "state/family/successions/succession.yotanwa_confederation.json"
+  },
+  "unions": {
+    "union.tang_zhu_tang_ling": "state/family/unions/union.tang_zhu_tang_ling.json"
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "Zhao-Yan frontier",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 167,
+      "sd": 6.6
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 69,
+      "sd": 7.6
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 154000,
+      "basis": "mercenary_ecology current obligation; contract organizes employment but owns zero bodies",
+      "contract_ref": "market_contract_merc_grey_wolf",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "employer_ref": "state_wei",
+      "engagement_kind": "city_security",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 120
+    }
+  ],
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "doctrine": "doc.merc_grey_wolf.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 0,
+    "assigned_war_arrows": 115500,
+    "assigned_war_bolts": 0,
+    "issued_loadouts": [
+      {
+        "count": 4813,
+        "loadout_id": "loadout_mercenary_spear"
+      },
+      {
+        "count": 687,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 0,
+    "reserve_war_arrows": 115500,
+    "reserve_war_bolts": 0
+  },
+  "establishment_strength": 5500,
+  "food_stock_kg": 528000,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 5500,
+  "home_establishment_ref": "establishment.merc_grey_wolf",
+  "home_location_ref": "loc_qin_regional_01",
+  "market_engagement": {
+    "established_at": "244-BCE-07-23T01:22:48+08:00",
+    "kind": "city_security",
+    "short_notice_available": false
+  },
+  "market_tier": "specialist",
+  "name": "Grey Wolf Free Spears",
+  "owner_id": "merc_grey_wolf",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "Independent",
+  "status": "contracted",
+  "subprocess_id": "process_merc_grey_wolf",
+  "training": "train.merc_grey_wolf.standard",
+  "treasury_silver": 440000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 102,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 174,
+            "sd": 6.8
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 64,
+            "sd": 7.4
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            88,
+            84,
+            100,
+            96,
+            90,
+            92,
+            102,
+            76,
+            84
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 46,
+            "Governance": 48,
+            "Intelligence Operations": 50,
+            "Law": 44,
+            "Trade": 48
+          },
+          "skill_values": [
+            88,
+            92,
+            72,
+            72,
+            60,
+            100,
+            100,
+            78,
+            76,
+            52,
+            105,
+            78,
+            58,
+            70,
+            38,
+            58,
+            70,
+            68,
+            72,
+            54,
+            70
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 4813
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 4813
+      },
+      "count": 4813,
+      "display": "Spear Infantry",
+      "doctrine": "doc.merc_grey_wolf.spears",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_spear",
+      "mount_type": null,
+      "pool_id": "merc_grey_wolf:pool_spears",
+      "pool_kind": "unit_manpower",
+      "role": "spears",
+      "specialty": "spears",
+      "training": "train.merc_grey_wolf.spears",
+      "troop_type": "spear_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 107,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 173,
+            "sd": 6.4
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 58,
+            "sd": 7.1
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            68,
+            70,
+            86,
+            76,
+            82,
+            92,
+            98,
+            94,
+            82
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 58,
+            "Governance": 60,
+            "Intelligence Operations": 62,
+            "Law": 54,
+            "Trade": 58
+          },
+          "skill_values": [
+            54,
+            58,
+            44,
+            48,
+            50,
+            62,
+            76,
+            50,
+            50,
+            46,
+            68,
+            66,
+            48,
+            62,
+            95,
+            72,
+            68,
+            58,
+            64,
+            52,
+            105
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 687
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 687
+      },
+      "count": 687,
+      "display": "Reserve Line",
+      "doctrine": "doc.merc_grey_wolf.standard",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_line",
+      "mount_type": null,
+      "pool_id": "merc_grey_wolf:line_reserve:eba7fa51",
+      "pool_kind": "unit_manpower",
+      "role": "line_reserve",
+      "specialty": "reserve_line",
+      "training": "train.merc_grey_wolf.standard",
+      "troop_type": "line_infantry"
+    }
+  ]
+}

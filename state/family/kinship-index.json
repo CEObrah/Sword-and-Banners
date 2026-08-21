@@ -1,0 +1,45 @@
+{
+  "authority": false,
+  "person_links": {
+    "char_tang_kai": {
+      "kinships": [
+        "kinship.tang_kai_tang_wei.siblings"
+      ],
+      "parents": [
+        "char_tang_zhu",
+        "char_tang_ling"
+      ]
+    },
+    "char_tang_ling": {
+      "children": [
+        "char_tang_wei",
+        "char_tang_kai"
+      ],
+      "spouses": [
+        "char_tang_zhu"
+      ]
+    },
+    "char_tang_wei": {
+      "kinships": [
+        "kinship.tang_kai_tang_wei.siblings"
+      ],
+      "parents": [
+        "char_tang_zhu",
+        "char_tang_ling"
+      ],
+      "succession_claims": [
+        "succession.house_tang"
+      ]
+    },
+    "char_tang_zhu": {
+      "children": [
+        "char_tang_wei",
+        "char_tang_kai"
+      ],
+      "spouses": [
+        "char_tang_ling"
+      ]
+    }
+  },
+  "schema": "kinship-index"
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "movement_owner_kind",
+    "movement_owner_ref",
+    "location_ref",
+    "transport_capacity_equivalents",
+    "transport_condition",
+    "baggage_burden_equivalents",
+    "cargo_custody_refs",
+    "status"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-army-train"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "movement_owner_kind": {
+      "enum": [
+        "recursive_army",
+        "standalone_formation"
+      ]
+    },
+    "movement_owner_ref": {
+      "type": "string"
+    },
+    "location_ref": {
+      "type": "string"
+    },
+    "transport_capacity_equivalents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "transport_condition": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "baggage_burden_equivalents": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "service_duty_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "cargo_custody_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "assembled",
+        "in_column",
+        "encamped",
+        "camp_forming",
+        "delayed",
+        "stood_down"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

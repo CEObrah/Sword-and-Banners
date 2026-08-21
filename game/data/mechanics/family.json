@@ -1,0 +1,129 @@
+{
+  "schema": "family-mechanics",
+  "game": "sword",
+  "purpose": "Sparse deterministic family, marriage, household, parentage, guardianship and succession lifecycle. Family status is institutional/life-course state, not a substitute for relationship feelings or reputation.",
+  "authority_boundaries": {
+    "family_status": "state/family/ owns proposals, unions, households, direct recognized kinship, parentage/guardianship and succession state.",
+    "relationships": "Trust, affection, resentment, intimacy posture and personal history remain in the relationship authority.",
+    "reputation": "Audience beliefs about a marriage/House/lineage remain under state/reputation/ after valid evidence delivery.",
+    "property_and_office": "Property, treasury, title, office and command remain in their existing domain owners; family state references but never duplicates them.",
+    "health": "Pregnancy, childbirth injury, illness and recovery, when applicable, use the existing health/body authority rather than family files.",
+    "knowledge": "Private proposals, parentage, marriage terms and household facts are not automatically public knowledge."
+  },
+  "lifecycle": {
+    "courtship": "Optional sparse state only after actual mutual/declared in-world courtship becomes persistent. Attraction or speculation alone does not create a courtship record.",
+    "proposal": "A real in-world offer may persist as pending before acceptance. The target remains free to accept, decline, negotiate, delay or ignore where law/custom permits.",
+    "betrothal": "A recognized engagement/contract distinct from marriage. It can create obligations and political expectations without creating spouse status.",
+    "marriage": "Creates/updates an authoritative union record after actual consent/authority/custom requirements are resolved. Relationship feelings remain separate.",
+    "household": "Created only when residence, dependents, shared obligations/property or domestic administration need persistent state. Marriage alone need not imply co-residence.",
+    "parentage": "Birth/adoption/recognized parentage creates one child person and a parentage record. Never create a duplicate body because a family event occurred.",
+    "guardianship": "Ward/guardian status is explicit, time-bounded or open-ended, and does not rewrite biological/adoptive parentage.",
+    "separation_and_dissolution": "Separation, divorce, annulment and dissolution preserve history, property claims, dependents and reputation consequences instead of deleting the prior union.",
+    "widowhood": "Death changes union status and triggers household/dependent/property/succession settlement through existing authorities.",
+    "remarriage": "Creates a new union while prior unions remain historical state.",
+    "kinship": "Direct sibling/grandparent/in-law/other recognized kinship may be stored when the relationship is known but reconstructing unknown parentage would require invention. Parent-child truth still belongs to parentage records."
+  },
+  "player_agency": {
+    "never_invent_player_romantic_intent": true,
+    "never_accept_or_reject_for_player": true,
+    "never_choose_player_spouse": true,
+    "never_choose_player_parenthood": true,
+    "npc_may_propose_to_player": true,
+    "pending_offer_is_not_player_intent": true,
+    "rule": "A player-facing proposal may exist because an NPC acted, but no player commitment exists until the player character actually communicates/acts in-world and persistence succeeds."
+  },
+  "autonomous_npcs": {
+    "allowed": true,
+    "inputs": [
+      "age/life stage",
+      "existing relationships",
+      "saved goals",
+      "house/clan/family expectations",
+      "political/economic incentives",
+      "reputation actually known",
+      "location/proximity",
+      "law/custom",
+      "health",
+      "existing obligations",
+      "elapsed time",
+      "registered deterministic randomness when a true tie/uncertainty requires it"
+    ],
+    "forbidden": [
+      "automatic marriage merely because two characters are eligible",
+      "free relationship creation",
+      "future-canon back-projection",
+      "marriage as a reward for narrative convenience",
+      "forced survival/death/children to preserve a dynasty"
+    ],
+    "batch_rule": "Cold populations may be batch-settled only when chronologically and statistically equivalent; named/material relationships or threshold crossings wake exact state."
+  },
+  "reproduction_and_birth": {
+    "representation": "abstract life-course only; never simulate or narrate sexual activity as a mechanical step",
+    "eligibility": "Use setting law/custom, adult/life-stage policy, health, existing union/relationship status where relevant, player agency and actual elapsed time.",
+    "birth_transaction": [
+      "resolve pregnancy/parenthood state abstractly when supported",
+      "advance real time",
+      "resolve maternal/child health through health mechanics",
+      "create exactly one child person on live birth",
+      "create parentage record",
+      "update household/dependents",
+      "update succession if relevant",
+      "create reputation/knowledge consequences only through valid information routes"
+    ],
+    "no_free_child": true
+  },
+  "succession_and_inheritance": {
+    "separate_from_marriage": true,
+    "rule": "Marriage or parentage may change candidate eligibility/priority only through the applicable House/clan/state/law/custom rule. Never infer title, property or command transfer from kinship alone.",
+    "death_settlement_order": [
+      "confirm death and surviving claims",
+      "settle union/widowhood",
+      "settle dependents/guardianship",
+      "load relevant succession rule",
+      "resolve property/title/office separately",
+      "persist disputes/claims rather than forcing consensus",
+      "propagate known consequences through reputation/information systems"
+    ]
+  },
+  "determinism": {
+    "same_state_same_result": true,
+    "no_hidden_rng": true,
+    "tie_break": "stable IDs after all causal criteria; registered randomness only where the domain explicitly requires uncertainty and the draw is persisted",
+    "event_receipt": "Every family transition records source refs and exact time. Unknown historical dates stay unknown rather than being fabricated.",
+    "no_duplicate_global_clock": "Use existing life-course/institution/house/process clocks; family state does not create a second world scheduler."
+  },
+  "knowledge_reputation": {
+    "private_by_default": [
+      "courtship",
+      "proposal",
+      "marriage terms",
+      "parentage disputes",
+      "household conflict"
+    ],
+    "publicity_requires_route": true,
+    "reputation_rule": "Marriage/family events may create reputation evidence, prestige, notoriety or political attention only for audiences that learn of the event through valid channels."
+  },
+  "setting_overlay": {
+    "house_and_dynasty": "House alliances, court politics, estates, titles, dowry/bridewealth/settlement terms where applicable, wards and inheritance may be material but must use explicit terms and existing law/property owners.",
+    "political_marriage": "Political advantage may motivate an offer, family negotiation or pressure. It never substitutes for Tang Wei's voluntary choice.",
+    "heirs": "Heir status must be stored in a succession owner with a rule basis; birth order, designation, adoption, legitimacy/status, office/law and disputes are inputs rather than assumptions.",
+    "wards": "Political wards/fosterage/guardianship are explicit dependent records and may carry diplomatic/security consequences."
+  },
+  "autonomous_courtship": {
+    "minimum_age": 16,
+    "eligible_relationship_kinds": [
+      "friend",
+      "companion",
+      "courtship",
+      "romantic_interest",
+      "suitor",
+      "established_relationship"
+    ],
+    "minimum_affection": 55,
+    "minimum_trust": 40,
+    "acceptance_affection": 60,
+    "acceptance_trust": 50,
+    "betrothal_days_before_marriage": 90,
+    "rule": "autonomous NPC courtship uses only pre-existing exact relationship evidence and physical proximity; it never chooses or accepts for the player"
+  }
+}

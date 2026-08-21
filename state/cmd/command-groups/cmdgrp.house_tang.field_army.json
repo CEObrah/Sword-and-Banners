@@ -1,0 +1,81 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.house_tang.field_army",
+  "authority_ref": "house_tang",
+  "commander_ref": "char_tang_zhu",
+  "deputy_ref": "char_tang_ling",
+  "direct_person_refs": [
+    "char_tang_ling"
+  ],
+  "parent_command_group_ref": null,
+  "display_name": "House Tang Grand Field Army Command",
+  "location": "loc_tang_manor",
+  "context": "field_army",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [
+    "char_tang_ling"
+  ],
+  "role_assignments": {
+    "outer_perimeter_defense": "cmdgrp.house_tang.bastions",
+    "city_interior_defense": "cmdgrp.sword_manor.field",
+    "inner_citadel_guard": "cmdgrp.house_tang.house_guard",
+    "mobile_inner_reserve": "cmdgrp.house_tang.guardian_cavalry",
+    "decisive_elite_reserve": "cmdgrp.house_tang.champions"
+  },
+  "standing_orders": [
+    {
+      "order_ref": "house_tang_unified_command",
+      "text": "All permanent House Tang military branches report through this single recursive field army. Sword Manor, the Four Bastion Corps, House Guard, Guardian Cavalry, and Tang Champions are subordinate commands, not independent armies.",
+      "issued_at": "244-BCE-07-29T20:22:48+08:00",
+      "issued_by": "char_tang_zhu"
+    },
+    {
+      "order_ref": "house_tang_layered_home_defense",
+      "text": "At Tang Manor, default defense in depth assigns the Four Bastion Corps to the outer wall, gate, towers, moat, and perimeter; Sword Manor to the city and interior defensive belt; and House Guard, Guardian Cavalry, and Tang Champions to the Inner Citadel and mobile decisive reserve.",
+      "issued_at": "244-BCE-07-29T20:22:48+08:00",
+      "issued_by": "char_tang_zhu"
+    },
+    {
+      "order_ref": "house_tang_reassignment_and_preservation",
+      "text": "The layered assignments preserve high-quality troops from routine attrition but are not hard restrictions. Zhu, Ling when lawfully acting, or a properly delegated commander may reassign any branch or intact subtree when breaches, casualties, fires, sorties, relief, pursuit, field deployment, or urgent operational need require it.",
+      "issued_at": "244-BCE-07-29T20:22:48+08:00",
+      "issued_by": "char_tang_zhu"
+    }
+  ],
+  "units": [
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.sword_manor.field"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.house_tang.bastions"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.house_tang.house_guard"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.house_tang.guardian_cavalry"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.house_tang.champions"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 166560,
+    "authorized_direct_unit_slots": 5,
+    "current_recursive_strength": 166560,
+    "current_direct_formation_strength": 0,
+    "recursive_formation_count": 44,
+    "direct_unit_count": 5,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "field_army",
+    "history": []
+  }
+}

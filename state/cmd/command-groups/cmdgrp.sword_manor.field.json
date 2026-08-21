@@ -1,0 +1,58 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.sword_manor.field",
+  "authority_ref": "force_sword_manor",
+  "commander_ref": "char_wei_jian",
+  "deputy_ref": "char_ren_qiao",
+  "direct_person_refs": [
+    "char_ren_qiao"
+  ],
+  "parent_command_group_ref": "cmdgrp.house_tang.field_army",
+  "display_name": "Sword Manor Field Command",
+  "location": "loc_tang_manor_training_ground",
+  "context": "field_command",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [
+    "char_ren_qiao"
+  ],
+  "standing_orders": [
+    {
+      "order_ref": "sword_manor_city_defense_default",
+      "text": "Default Tang Manor assignment is the populated city and interior defensive belt behind the outer perimeter and before the Inner Citadel. Sword Manor remains a standing troop-house command inside the House Tang Grand Field Army and may reinforce other sectors when ordered.",
+      "issued_at": "244-BCE-07-29T20:22:48+08:00",
+      "issued_by": "char_tang_zhu"
+    }
+  ],
+  "units": [
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.sword_manor.senior"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.sword_manor.general"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.sword_manor.junior"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.sword_manor.trainee"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 30060,
+    "authorized_direct_unit_slots": 4,
+    "current_recursive_strength": 30060,
+    "current_direct_formation_strength": 0,
+    "recursive_formation_count": 7,
+    "direct_unit_count": 4,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "field_command",
+    "history": []
+  }
+}

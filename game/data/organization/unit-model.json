@@ -1,0 +1,82 @@
+{
+  "schema": "unit-model",
+  "id": "unit_model.sword_and_banners",
+  "authority": "game/data/organization/unit-model.json",
+  "definition": {
+    "unit": "One direct operational element in a parent command's ordered OOB.",
+    "allowed_kinds": {
+      "formation": "One persistent mixed-role maneuver formation. It owns counted troop strength through its exact force/cohort allocation and has one top commander and deputy outside that troop strength.",
+      "nested_army": "One zero-body recursive army command. Its commander and deputy are outside all descendant troop strength. The parent spends one direct command slot on the whole nested army regardless of descendant depth."
+    }
+  },
+  "formation_model": {
+    "mixed_roles": true,
+    "composition_rule": "A formation may contain several troop types/roles simultaneously when that is its durable organization. Example: 4,500 troops may contain 3,000 infantry + 500 crossbow + 500 cavalry + 500 archers.",
+    "top_command": "Formation commander and deputy are exact/materialized people outside the stated troop strength.",
+    "embedded_command": "1,000/500/100 commanders are conserved bodies inside the relevant troop-role components and inside stated troop strength.",
+    "independent_order_rule": "Create another persistent formation only when a body of troops needs durable independent command, assignment, history, readiness, or organization. Do not create one file per 100/500/1,000 merely because embedded echelons exist.",
+    "loadout_rule": "Each troop-role component may have its own standard loadout. Equipment shortages remain issue state and do not rewrite the intended organization.",
+    "split_merge_rule": "Split/merge conserves personnel, role composition, mounts, equipment, ammunition, injuries, fatigue, experience, cohesion, morale and lineage. Mixed formations remain mixed unless an explicit lawful reorganization changes them.",
+    "casualty_command_rule": "Casualties reduce the bodies currently under a command echelon; they do not automatically demote, rename, delete, or resize surviving 1,000/500/100 command appointments. A 1,000-commander may lawfully command 998 or far fewer survivors. A shattered former 10,000-person formation may retain several surviving 1,000/500/100 commanders until explicit reorganization, death, promotion, reassignment, consolidation, or relief changes those appointments."
+  },
+  "nested_army_model": {
+    "ordered_oob": "Each command group stores one ordered units[] array. Every entry is typed formation or nested_army.",
+    "recursive_rule": "A nested army may contain any number of direct Units supported by command capacity, and those Units may themselves be formations or nested armies.",
+    "attachment_rule": "Attaching a nested army to a larger army moves one command edge. The subtree remains intact and is never flattened or duplicated.",
+    "parent_load_rule": "A nested army consumes one parent direct command slot. Descendant personnel do not count as parent direct personnel.",
+    "local_load_rule": "The nested army commander/deputy bear the direct load of their own Units under the shared command mechanics."
+  },
+  "promotion_to_general": {
+    "trigger": "A lawful career/appointment decision promotes a formation commander to command a nested army; performance alone creates evidence/opportunity, not automatic rank.",
+    "commander_transition": "The formation's current commander and deputy move upward together to become the new nested army commander and deputy.",
+    "original_formation": "The original formation becomes Unit 1 of the new nested army and keeps its personnel, equipment, history, readiness, casualties and lineage.",
+    "formation_succession": "Qualified embedded officers are elevated into the vacated top formation commander/deputy posts. The best lawful 1,000-echelon officer is the ordinary first candidate for commander; a qualified 500+ officer is the ordinary first candidate for deputy, subject to actual capability/availability.",
+    "embedded_replacement": "Vacated embedded posts may be filled by promoting/reassigning qualified real personnel already inside the formation. Their prior embedded posts may remain vacant or be filled through further lawful internal promotion. Casualty or promotion vacancies never auto-derank surviving officers and never create replacement bodies.",
+    "headcount_reconciliation": "Because the two embedded successors leave counted troop strength when they enter the top formation commander/deputy posts, the formation immediately becomes two bodies understrength. Promotion never auto-pulls reserve or newly recruited bodies. Authorized strength is restored only by a later explicit lawful personnel assignment or reconstitution from conserved manpower.",
+    "no_spawn_rule": "Promotion creates no people, mounts or equipment. It changes command representation and assignments only."
+  },
+  "examples": [
+    {
+      "parent": "Tang Wei Field Army",
+      "units": [
+        {
+          "slot": 1,
+          "kind": "formation",
+          "example": "Wei Central Mixed Formation"
+        },
+        {
+          "slot": 2,
+          "kind": "nested_army",
+          "example": "General Zhao Fen Army"
+        },
+        {
+          "slot": 3,
+          "kind": "nested_army",
+          "example": "General Heki Army"
+        }
+      ]
+    },
+    {
+      "parent": "Ousen Grand Army",
+      "units": [
+        {
+          "slot": 1,
+          "kind": "nested_army",
+          "example": "Ousen Central Army"
+        },
+        {
+          "slot": 2,
+          "kind": "nested_army",
+          "example": "Akou Army"
+        },
+        {
+          "slot": 3,
+          "kind": "nested_army",
+          "example": "Tang Wei Field Army"
+        }
+      ]
+    }
+  ],
+  "command_authority": "game/data/mechanics/command.json",
+  "conservation_authority": "runtime/sword_runtime/cohort_personnel.py"
+}

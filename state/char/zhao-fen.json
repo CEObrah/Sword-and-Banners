@@ -1,0 +1,195 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": "Riding, Spear, Bow, Defense, Formation Fighting, Leadership, Formation Command, Tactics",
+    "mode": "standing_role_training",
+    "training_program_ref": "program.commander_cavalry",
+    "training_regimen_ref": "house_tang_max_sustainable"
+  },
+  "affiliation": "House Tang",
+  "appearance": 86,
+  "aptitude": {
+    "academic_learning": 160,
+    "physical_learning": 156,
+    "social_learning": 172,
+    "tactical_learning": 170,
+    "technical_learning": 163
+  },
+  "attributes": {
+    "Agility": 145,
+    "Awareness": 160,
+    "Composure": 165,
+    "Coordination": 150,
+    "Endurance": 150,
+    "Intelligence": 145,
+    "Presence": 155,
+    "Strength": 130,
+    "Toughness": 145
+  },
+  "authority": "operational command of force_house_guardian_cavalry under Tang Zhu and Tang Wei",
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 8,
+    "enabled": true,
+    "focus_cursor": 212,
+    "fractional_training_hour_credit": 0.714286,
+    "last_completed_at": "244-BCE-08-01T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-08-01T06:22:48+08:00",
+    "next_due": "244-BCE-08-31T06:22:48+08:00",
+    "resolved_through": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_training_regimen_ref": "house_tang_max_sustainable",
+    "reviewed_cycles": 8,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "background": {
+    "origin": "internal_or_local_named"
+  },
+  "birth_date": "286-BCE-04-14",
+  "body": {
+    "adult_height_cm": 169.0,
+    "current_weight_kg": 62.0,
+    "frame": "athletic",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": []
+  },
+  "career_state": {
+    "career_changes": 0,
+    "current_billet": "unit",
+    "current_command_span": 8000,
+    "office_or_command": "House Guardian Cavalry Commander"
+  },
+  "command_assignment": {
+    "billet": "army_commander",
+    "command_group_ref": "cmdgrp.house_tang.guardian_cavalry",
+    "current_command_span": 8000,
+    "external_to_fighting_establishment": true
+  },
+  "current_formation_id": "force_house_guardian_cavalry",
+  "current_location": "loc_tang_manor_garrison_yard",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 2.82,
+      "Awareness": 15.344,
+      "Composure": 12.743,
+      "Coordination": 4.147,
+      "Endurance": 6.011,
+      "Intelligence": 8.002,
+      "Presence": 8.941,
+      "Strength": 9.363,
+      "Toughness": 0.626
+    },
+    "attribute_stimulus_hours_milli": 554400,
+    "autonomous_deterministic_training_cursor": 1344,
+    "completed_reviews": 7,
+    "fatigue_recovery_through": "244-BCE-08-01T06:22:48+08:00",
+    "last_training_program_ref": "program.commander_cavalry",
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 1680,
+    "skill_edu_banks": {
+      "Athletics": 3.741,
+      "Bow": 6.994,
+      "Formation Command": 31.945,
+      "Formation Fighting": 15.014,
+      "Leadership": 24.929,
+      "Logistics": 7.016,
+      "Riding": 28.615,
+      "Polearms": 9.736,
+      "Strategy": 7.016,
+      "Survival": 14.027,
+      "Tactics": 21.366
+    },
+    "training_credit": 0.0,
+    "training_time_ledger": {
+      "active_entries": [],
+      "active_windows": [],
+      "active_floor": "244-BCE-08-18T18:22:48+08:00"
+    },
+    "verified_deliberate_training_hours": 1885
+  },
+  "equipment_loadout_id": "loadout_house_champion",
+  "equipment_manifest": {
+    "carried_ammunition": 36,
+    "individual_custody": true,
+    "items": {
+      "ammunition_item": "ammo_arrow",
+      "body_armor": "armor_heavy",
+      "helmet": "helmet_standard",
+      "horse_armor": "horse_armor_heavy",
+      "mount": "horse",
+      "primary_melee_weapon": "weapon_spear",
+      "ranged_weapon": "weapon_bow",
+      "shield": "shield_standard",
+      "shield_state_when_shooting": "slung",
+      "shield_state_with_lance": "ready_offhand",
+      "sidearm": "weapon_sword",
+      "tack": "tack_standard"
+    },
+    "loadout_id": "loadout_house_champion"
+  },
+  "fatigue": 0,
+  "goal_state": {
+    "current_goals": [
+      "preserve the Guardian Cavalry as a usable reserve while meeting lawful House Tang needs"
+    ],
+    "institutional_duties": [
+      "act within current independent political and military obligations"
+    ]
+  },
+  "health_status": "healthy",
+  "life_status": "active",
+  "loyalty": "permanent maximum covenant",
+  "military_command": {
+    "deputy_ref": "char_house_tang_guardian_cavalry_deputy",
+    "external_to_fighting_strength": true,
+    "formation_scope": "force_house_tang:guardian_cavalry",
+    "higher_commander_ref": "char_tang_zhu",
+    "level": "unit"
+  },
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded"
+  },
+  "name": "Zhao Fen",
+  "owner_id": "char_zhao_fen",
+  "owner_type": "character",
+  "role": "House Guardian Cavalry Commander",
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 155,
+    "Heavy Weapons": 72,
+    "Bow": 150,
+    "Crossbow": 72,
+    "Sword": 150,
+    "Engineering": 85,
+    "Formation Command": 170,
+    "Formation Fighting": 170,
+    "Polearms": 170,
+    "Grappling": 115,
+    "Leadership": 165,
+    "Logistics": 145,
+    "Medicine": 70,
+    "Scouting": 150,
+    "Riding": 175,
+    "Shield": 160,
+    "Stealth": 90,
+    "Strategy": 145,
+    "Survival": 135,
+    "Tactics": 160,
+    "Unarmed": 110
+  },
+  "unit_membership": "separate named commander outside the 300-person anonymous unit",
+  "behavior_profile_ref": "game/data/people/behavior-profiles/char_zhao_fen.json",
+  "professional_skills": {
+    "Intelligence Operations": 120,
+    "Diplomacy": 110,
+    "Law": 105,
+    "Trade": 95,
+    "Governance": 110
+  },
+  "loadout_id": "loadout_tang_mounted"
+}

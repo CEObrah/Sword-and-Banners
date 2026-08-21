@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "owner_id",
+    "owner_type",
+    "sites",
+    "runtime"
+  ],
+  "properties": {
+    "schema": {
+      "const": "strategic-fortification-registry"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "const": "strategic_fortification_registry"
+    },
+    "sites": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "controller_scope",
+          "role",
+          "fortification_class",
+          "materialization_state"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "controller_scope": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "fortification_class": {
+            "type": "string"
+          },
+          "materialization_state": {
+            "enum": [
+              "profile_only",
+              "materialized"
+            ]
+          },
+          "defense_state": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "wall_condition_band",
+              "gate_condition_band",
+              "breach_state",
+              "artillery_refs",
+              "garrison_refs",
+              "supply_refs",
+              "engineer_refs",
+              "repair_backlog_band"
+            ],
+            "properties": {
+              "wall_condition_band": {
+                "type": "string"
+              },
+              "gate_condition_band": {
+                "type": "string"
+              },
+              "breach_state": {
+                "type": "string"
+              },
+              "artillery_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "garrison_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "supply_refs": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "food": {
+                    "type": "string"
+                  },
+                  "water": {
+                    "type": "string"
+                  },
+                  "ammunition": {
+                    "type": "string"
+                  },
+                  "repair_material": {
+                    "type": "string"
+                  }
+                }
+              },
+              "engineer_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "repair_backlog_band": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "materialization_state": {
+                  "const": "materialized"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "defense_state"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "last_settled_at"
+      ],
+      "properties": {
+        "last_settled_at": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

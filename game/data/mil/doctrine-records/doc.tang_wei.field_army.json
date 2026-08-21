@@ -1,0 +1,208 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.tang_wei.field_army",
+  "doctrine": {
+    "label": "Tang Wei Standing Combat Doctrine",
+    "scope": "Tang Wei field army only",
+    "status": "standing_until_explicitly_changed",
+    "command_by_intent": true,
+    "commander_ref": "char_tang_wei",
+    "field_army_deputy_ref": "char_lin_zhen",
+    "first_successor_ref": "char_lin_zhen",
+    "major_decisions_reserved_to_wei": [
+      "army_objective",
+      "major_change_of_plan",
+      "general_withdrawal",
+      "major_pursuit",
+      "irreversible_escalation",
+      "commit_protected_house_forces_outside_established_role"
+    ],
+    "lin_zhen_authority": [
+      "During Field Army operations Lin normally remains with or near Wei command and coordinates army-level communications, reports, reserves, relief, reinforcement and command continuity under Wei intent.",
+      "If Wei is temporarily occupied by personal combat, observation, negotiation or another immediate battlefield task, Lin maintains army-level coordination according to established intent.",
+      "If Wei becomes unable to command, Lin assumes Field Army command unless Wei established another succession order.",
+      "Lin may move among nearby command positions to coordinate but does not leave the command structure for ordinary combat, pursuit or personal glory.",
+      "Outside active Field Army operations Lin normally remains with the army unless Wei orders otherwise.",
+      "Lin personally defends Wei and the command position if threatened but does not replace Duan Jin or Shen Rui as permanent bodyguards."
+    ],
+    "hierarchy": {
+      "qin_2000_unit": {
+        "unit_commander_and_deputy": "external_to_fighting_establishment",
+        "subordinate_echelons": {
+          "1000": 2,
+          "500": 4,
+          "100": 20
+        }
+      },
+      "house_guard_3000": {
+        "commander_ref": "char_gao_yun",
+        "deputy_ref": "char_han_qiu",
+        "subordinate_echelons": {
+          "1000": 3,
+          "500": 6,
+          "100": 30
+        }
+      },
+      "tang_champions_500": {
+        "commander_ref": "char_duan_jin",
+        "deputy_ref": "char_shen_rui",
+        "subordinate_echelons": {
+          "100": 5
+        }
+      },
+      "assignment_rule": "Each commander receives a problem appropriate to his level and divides it among subordinates; orders flow through the hierarchy unless urgency or command disruption requires otherwise."
+    },
+    "battle_philosophy": [
+      "observe",
+      "shape",
+      "fix",
+      "concentrate",
+      "break",
+      "exploit",
+      "avoid_even_symmetrical_fighting_when_local_superiority_can_be_created",
+      "fix_strength_and_concentrate_against_weakness",
+      "threaten_one_place_to_open_another",
+      "probe_to_reveal_reserves_and_intent",
+      "use_terrain_concealment_missile_pressure_demonstrations_controlled_withdrawals_and_maneuver_as_one_system",
+      "preserve_meaningful_reserve",
+      "rotate_tired_or_damaged_troops_before_cohesion_fails",
+      "avoid_prolonged_frontal_attrition_when_maneuver_is_cheaper",
+      "use_simplest_tactic_that_creates_required_advantage"
+    ],
+    "qin_unit_roles": [
+      "hold",
+      "fix",
+      "attack_decisive_point",
+      "maneuver_against_flank",
+      "refuse_flank",
+      "delay",
+      "reinforce",
+      "relieve",
+      "reserve",
+      "seal_penetration",
+      "cover_withdrawal",
+      "exploit_genuine_collapse"
+    ],
+    "formation_methods": [
+      "spear_and_shield_line",
+      "deep_spear_front",
+      "extended_line",
+      "shield_wall",
+      "temporary_shield_roof",
+      "anti_cavalry_defense",
+      "closed_defense",
+      "refused_flank",
+      "oblique_concentration",
+      "echelon_movement",
+      "local_envelopment",
+      "passage_of_lines",
+      "fighting_withdrawal",
+      "relief_in_depth"
+    ],
+    "formation_rule": "Formation is physical geometry; frontage, depth, spacing, facing, reach, shield coverage, terrain and cohesion determine whether it works. Methods may be combined at 100, 500, 1000 or full-Unit scale when physically supported.",
+    "weapon_transition_policy": {
+      "missile": "Use while useful range, ammunition and clear firing lanes remain.",
+      "spear_and_shield": "Use for ordered contact while reach and spacing remain advantageous.",
+      "sword_and_shield": "Use when distance collapses, formations compress, terrain restricts long weapons, spear line is penetrated or close mobility is superior.",
+      "shield": "Orient actively toward actual threat.",
+      "safety": "Do not collapse effective spear geometry merely because swords exist; do not force spears in compressed geometry where sword and shield are superior; avoid unsafe missile fire through friendly troops or confused melee."
+    },
+    "terrain_policy": [
+      "anchor_vulnerable_flanks_on_useful_obstacles",
+      "use_narrow_ground_against_superior_numbers",
+      "channel_cavalry_to_bad_approaches_or_prepared_defenses",
+      "use_elevation_for_observation_and_missiles",
+      "use_woods_buildings_walls_ditches_slopes_rivers_and_broken_ground_to_limit_enemy_movement",
+      "force_enemy_across_difficult_or_exposed_ground",
+      "do_not_attack_through_unfavorable_terrain_merely_because_enemy_is_visible"
+    ],
+    "house_guard": {
+      "priority": [
+        "protect_wei_and_command_position",
+        "detect_shoot_block_or_destroy_threats_approaching_wei",
+        "when_wei_secure_support_qin_units"
+      ],
+      "commander_ref": "char_gao_yun",
+      "deputy_ref": "char_han_qiu",
+      "model": "layered_combined_arms_protection",
+      "weapons": [
+        "bow",
+        "spear",
+        "sword",
+        "shield"
+      ],
+      "rules": [
+        "serious_threat_to_wei_overrides_wider_support",
+        "concentrate_support_where_tactically_valuable_not_evenly",
+        "preserve_wei_defensive_envelope",
+        "do_not_leave_wei_protection_for_ordinary_combat",
+        "fight_decisively_if_enemy_reaches_perimeter"
+      ]
+    },
+    "tang_champions": {
+      "mission": "inner_personal_guard_and_precision_counter_threat",
+      "commander_ref": "char_duan_jin",
+      "deputy_ref": "char_shen_rui",
+      "permanent_bodyguards": [
+        "char_duan_jin",
+        "char_shen_rui"
+      ],
+      "elements": 5,
+      "element_scale": 100,
+      "dynamic_tasks": [
+        "close_protection",
+        "precision_archery",
+        "forward_protection",
+        "flank_or_rear_security",
+        "interception",
+        "emergency_extraction"
+      ],
+      "weapon_rule": "Bow at range; spear and shield for ordered interception; sword and shield when compressed. Use the full actual loadout according to range and geometry.",
+      "target_priority": [
+        "hostile_officers_leading_attack_toward_wei",
+        "elite_fighters",
+        "cavalry_leaders",
+        "dangerous_missile_troops",
+        "breakthrough_forces"
+      ],
+      "restrictions": [
+        "no_unrelated_pursuit",
+        "no_ordinary_scouting",
+        "no_unrelated_line_reinforcement",
+        "no_unrelated_battlefield_exploitation"
+      ],
+      "withdrawal": "Some elements remain immediately with Wei while others establish successive blocking positions and fall back in turn."
+    },
+    "protection_structure": [
+      "qin_units_main_battlefield",
+      "house_guard_outer_protection_and_secondary_support",
+      "champions_inner_protection_and_precision_counter_threat",
+      "duan_jin_and_shen_rui_personally_with_wei",
+      "lin_zhen_near_wei_during_field_operations_for_command_continuity"
+    ],
+    "subordinate_initiative": {
+      "allowed": [
+        "change_formation",
+        "change_weapons",
+        "rotate_troops",
+        "alter_frontage_or_depth",
+        "refuse_flank",
+        "reposition_missile_elements",
+        "reinforce_local_weakness",
+        "limited_local_counterattack",
+        "disengage_bad_local_position",
+        "exploit_immediate_tactical_opening",
+        "coordinate_relief_reinforcement_reserves_and_reporting"
+      ],
+      "information_rule": "Use only information the commander can actually observe or receive; material larger-battle changes are reported upward.",
+      "wei_micromanagement": "not_normally_required"
+    },
+    "governing_principles": [
+      "Wei decides what must be accomplished; Lin Zhen preserves Field Army command continuity and succeeds Wei if Wei cannot command; subordinate commanders decide how to accomplish assigned missions.",
+      "1000 commanders solve major subordinate tactical problems; 500 commanders control local maneuver and formation; 100-man elements execute the fight.",
+      "Fix strength and strike weakness. Concentrate locally. Threaten one place to open another. Use one force to create the opportunity for another.",
+      "Use terrain before blood. Preserve cohesion, reach and fresh reserves. Change formation and weapons when circumstances change.",
+      "Qin Units fight the main battle. House Guard protects Wei first and supports second. Champions continuously protect Wei and destroy threats directed toward him."
+    ]
+  }
+}

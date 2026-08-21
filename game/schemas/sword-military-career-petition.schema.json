@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sword-military-career-petition.schema.json",
+  "title": "Sword military career petition",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "petition_ref",
+    "officer_ref",
+    "state_ref",
+    "request_kind",
+    "status",
+    "submitted_at",
+    "review_due_at",
+    "attraction_milli",
+    "evidence_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-military-career-petition"
+    },
+    "owner_id": {
+      "type": "string",
+      "pattern": "^military_career_petition_"
+    },
+    "petition_ref": {
+      "type": "string",
+      "pattern": "^military_career_petition_"
+    },
+    "officer_ref": {
+      "type": "string"
+    },
+    "state_ref": {
+      "type": "string",
+      "pattern": "^state_"
+    },
+    "service_authority_ref": {
+      "type": "string"
+    },
+    "service_authority_decision": {
+      "enum": [
+        "approved_release",
+        "approved_internal_reassignment",
+        "delayed_release_review",
+        "release_refused"
+      ]
+    },
+    "service_authority_score_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "service_authority_reviewed_at": {
+      "type": "string"
+    },
+    "source_force_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "current_formation_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "current_commander_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "desired_commander_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "desired_state_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "request_kind": {
+      "enum": [
+        "permanent_transfer",
+        "campaign_attachment",
+        "independent_command",
+        "foreign_service_request",
+        "service_entry"
+      ]
+    },
+    "status": {
+      "enum": [
+        "submitted",
+        "delayed",
+        "awaiting_commander_response",
+        "authorized_handoff",
+        "rejected",
+        "cancelled",
+        "completed"
+      ]
+    },
+    "submitted_at": {
+      "type": "string"
+    },
+    "review_due_at": {
+      "type": "string"
+    },
+    "attraction_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "foreign_service_authority_note": {
+      "type": "string"
+    },
+    "institutional_decision": {
+      "type": "string"
+    },
+    "institutional_score_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "political_concentration_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "institution_reviewed_at": {
+      "type": "string"
+    },
+    "delivered_event_ref": {
+      "type": "string"
+    },
+    "prospective_commander_response": {
+      "enum": [
+        "accepted",
+        "rejected"
+      ]
+    },
+    "responded_at": {
+      "type": "string"
+    },
+    "execution_status": {
+      "type": "string"
+    },
+    "execution_blocker": {
+      "type": "string"
+    },
+    "transfer_order_ref": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "personnel_action_handoff": {
+      "type": "object",
+      "required": [
+        "required_authority_ref",
+        "requested_action",
+        "officer_ref",
+        "rule"
+      ],
+      "properties": {
+        "required_authority_ref": {
+          "type": "string"
+        },
+        "requested_action": {
+          "type": "string"
+        },
+        "officer_ref": {
+          "type": "string"
+        },
+        "desired_commander_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rule": {
+          "type": "string"
+        },
+        "executed_by": {
+          "type": "string"
+        },
+        "transfer_order_ref": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "entry_force_ref": {
+      "type": "string"
+    },
+    "entry_role": {
+      "type": "string"
+    },
+    "entry_cost_silver": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "service_authority_review_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

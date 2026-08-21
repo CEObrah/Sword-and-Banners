@@ -1,0 +1,111 @@
+{
+  "administrative_owner": "state_zhao",
+  "attached_unit_command_by_role": {
+    "line_infantry": 2
+  },
+  "authorized_strength": 15000,
+  "autonomous_orders": [
+    {
+      "action_ref": "state_arc_a90e45f7d3272597d1",
+      "arc_ref": "arc_northern_steppe_ganmon_pressure",
+      "at": "244-BCE-08-06T06:22:48+08:00",
+      "goal": "maintain military readiness",
+      "kind": "state_world_arc_operation",
+      "target_ref": "polity_northern_steppe"
+    }
+  ],
+  "cohesion": 93,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_zhao_0819e8d48f95",
+      "count": 1500
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_line_infantry_b551514548ea",
+      "count": 1000
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_3ab1c5f63a28",
+      "count": 8000
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_line_infantry_40cb8436e5c4",
+      "count": 498
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_e0975907884c",
+      "count": 3500
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_line_infantry_3135b648967d",
+      "count": 500
+    }
+  ],
+  "command_attachment_source_force_ref": "force_state_zhao",
+  "command_authority": "state_zhao",
+  "commander_ref": null,
+  "composition": {
+    "cavalry": 1500,
+    "line_infantry": 9998,
+    "missile_crossbow": 3500
+  },
+  "deputy_ref": null,
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 60,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.external_state_force.standard",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "cavalry": 1500,
+    "line_infantry": 10000,
+    "missile_crossbow": 3500
+  },
+  "experience": "veteran",
+  "fatigue": 0,
+  "formation_class": "unit",
+  "formation_identity": {
+    "persistent_elite_or_prestige_formation": true,
+    "state_force_ownership_preserved": true
+  },
+  "formation_ref": "formation_zhao_riboku_northern_army",
+  "higher_command_ref": "cmdgrp.riboku.field_army",
+  "location_ref": "loc_gian",
+  "logistics": {
+    "construction_material_units": 0,
+    "fodder_kg": 0,
+    "food_kg": 0,
+    "iron_tonnes": 0,
+    "source_depot_ref": "depot_fort_gian",
+    "timber_tonnes": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 90,
+  "mounts": {
+    "horse": 1500
+  },
+  "name": "Riboku Northern Army",
+  "officer_cadre": {
+    "materialized_refs_by_rank": {
+      "1000_commander": [],
+      "100_commander": [],
+      "500_commander": []
+    },
+    "rank_inventory": {
+      "1000_commander": 13,
+      "100_commander": 150,
+      "500_commander": 30
+    }
+  },
+  "owner_force_ref": "force_state_zhao",
+  "personnel": 14998,
+  "readiness": 91,
+  "schema": "sword-formation",
+  "status": "mobilized",
+  "supply_depot_ref": "depot_fort_gian",
+  "training_progress": 70,
+  "training_ref": null
+}

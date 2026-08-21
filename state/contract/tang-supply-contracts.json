@@ -1,0 +1,97 @@
+{
+  "name": "Tang Supply Contracts and Delivery Queue",
+  "owner_id": "tang_supply_contracts",
+  "owner_type": "supply_contract_registry",
+  "records": [
+    {
+      "label": "Overview",
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "buyer": "House Tang master treasury",
+        "carrier": "consortium contracted carts and draft animals",
+        "clock_owner": "causal_host:host_house_tang",
+        "commodity": "ordinary food grain and preserved staples",
+        "delivery_location_ref": "loc_tang_manor_outer_gate",
+        "departure": "monthly, timed so custody transfer occurs at the resource month-end close",
+        "escort": "Sword Manor contract allocation or seller security as recorded per convoy",
+        "payment_per_delivery_silver": 48000,
+        "price_silver_per_kg": 0.08,
+        "quantity_per_delivery_kg": 600000,
+        "receiver": "Gu Wen at Tang Manor central warehouse and granary",
+        "route_authority": "game/data/world/routes.json",
+        "route_chain_hint": [
+          "route_kanyou_qin_east_depot",
+          "route_kanyou_tang_manor_gate"
+        ],
+        "route_ref": "route_kanyou_tang_manor_gate",
+        "seller": "Kanyou Grain and Fodder Consortium",
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stock": "owner:regional_depots#state_depot_qin.grain_kg",
+        "active": false,
+        "role": "optional_external_trade_not_required_for_tang_manor_survival"
+      },
+      "label": "contract_tang_monthly_food",
+      "record_id": "contract_tang_monthly_food"
+    },
+    {
+      "facts": {
+        "buyer": "House Tang master treasury",
+        "carrier": "consortium contracted carts and draft animals",
+        "clock_owner": "causal_host:host_house_tang",
+        "commodity": "hay, grain fodder, and preserved feed",
+        "delivery_location_ref": "loc_tang_manor_outer_gate",
+        "departure": "monthly, timed so custody transfer occurs at the resource month-end close",
+        "escort": "Sword Manor contract allocation or seller security as recorded per convoy",
+        "payment_per_delivery_silver": 10000,
+        "price_silver_per_kg": 0.1,
+        "quantity_per_delivery_kg": 100000,
+        "receiver": "Ma Xun and Gu Wen at Tang Manor stable and warehouse custody",
+        "route_authority": "game/data/world/routes.json",
+        "route_chain_hint": [
+          "route_kanyou_qin_east_depot",
+          "route_kanyou_tang_manor_gate"
+        ],
+        "route_ref": "route_kanyou_tang_manor_gate",
+        "seller": "Kanyou Grain and Fodder Consortium",
+        "source_location_ref": "loc_qin_eastern_depot",
+        "source_stock": "owner:regional_depots#state_depot_qin.fodder_kg",
+        "active": false,
+        "role": "optional_external_trade_not_required_for_tang_manor_survival"
+      },
+      "label": "contract_tang_monthly_fodder",
+      "record_id": "contract_tang_monthly_fodder"
+    }
+  ],
+  "runtime": {
+    "last_delivery": {
+      "fodder_kg": 400000,
+      "grain_kg": 2400000,
+      "months": 4,
+      "paid_silver": 232000,
+      "rows": [
+        {
+          "contract_ref": "contract_tang_monthly_food",
+          "delivered": 2400000,
+          "expected": 2400000,
+          "payment_due_silver": 192000,
+          "resource": "grain_kg",
+          "seller": "Kanyou Grain and Fodder Consortium",
+          "source_ref": "state_depot_qin.grain_kg"
+        },
+        {
+          "contract_ref": "contract_tang_monthly_fodder",
+          "delivered": 400000,
+          "expected": 400000,
+          "payment_due_silver": 40000,
+          "resource": "fodder_kg",
+          "seller": "Kanyou Grain and Fodder Consortium",
+          "source_ref": "state_depot_qin.fodder_kg"
+        }
+      ]
+    },
+    "last_settled_at": "244-BCE-06-04T07:22:48+08:00"
+  },
+  "schema": "supply-contract-registry"
+}

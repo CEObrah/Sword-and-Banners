@@ -1,0 +1,544 @@
+{
+  "schema": "canon-capability-calibration",
+  "calibration_ref": "canon_current_244_bce_main_cast",
+  "effective_at": "244-BCE-07-29T20:22:48+08:00",
+  "authority": "User-authorized game-simulation calibration of current saved capability and learning aptitude for major canon cast. Numeric values are Sword & Banners simulation authority, not claimed official guidebook statistics. Future canon events, offices, victories, relationships and allegiance remain uncommitted.",
+  "rules": {
+    "floor_only": true,
+    "never_reduce_saved_capability": true,
+    "never_pregrant_future_office_or_history": true,
+    "aptitude_affects_future_verified_development_only": true,
+    "current_capability_floors_are_explicit_state_repair": true
+  },
+  "characters": {
+    "char_shin": {
+      "tier": "major_emerging_protagonist",
+      "aptitude_floors": {
+        "academic_learning": 70,
+        "physical_learning": 135,
+        "social_learning": 75,
+        "tactical_learning": 105,
+        "technical_learning": 95
+      },
+      "attribute_floors": {
+        "Strength": 85,
+        "Agility": 98,
+        "Endurance": 115,
+        "Toughness": 112,
+        "Coordination": 98,
+        "Awareness": 88,
+        "Composure": 75,
+        "Intelligence": 55,
+        "Presence": 78
+      },
+      "skill_floors": {
+        "Sword": 98,
+        "Athletics": 110,
+        "Grappling": 55,
+        "Unarmed": 58,
+        "Survival": 62,
+        "Leadership": 38,
+        "Formation Fighting": 8,
+        "Tactics": 12
+      }
+    },
+    "char_hyou": {
+      "tier": "major_emerging_leader",
+      "aptitude_floors": {
+        "academic_learning": 115,
+        "physical_learning": 115,
+        "social_learning": 110,
+        "tactical_learning": 105,
+        "technical_learning": 95
+      },
+      "attribute_floors": {
+        "Strength": 82,
+        "Agility": 96,
+        "Endurance": 110,
+        "Toughness": 105,
+        "Coordination": 98,
+        "Awareness": 96,
+        "Composure": 105,
+        "Intelligence": 98,
+        "Presence": 100
+      },
+      "skill_floors": {
+        "Sword": 94,
+        "Athletics": 104,
+        "Leadership": 75,
+        "Diplomacy": 60,
+        "Tactics": 40,
+        "Survival": 45
+      }
+    },
+    "char_karyoten": {
+      "tier": "major_emerging_strategist",
+      "aptitude_floors": {
+        "academic_learning": 155,
+        "physical_learning": 80,
+        "social_learning": 110,
+        "tactical_learning": 155,
+        "technical_learning": 130
+      },
+      "attribute_floors": {
+        "Awareness": 110,
+        "Composure": 105,
+        "Intelligence": 125,
+        "Presence": 95
+      },
+      "skill_floors": {
+        "Strategy": 45,
+        "Tactics": 42,
+        "Logistics": 42,
+        "Intelligence Operations": 35,
+        "Scouting": 62,
+        "Trade": 50,
+        "Survival": 60,
+        "Leadership": 25
+      }
+    },
+    "char_mou_ki": {
+      "tier": "major_emerging_strategist",
+      "aptitude_floors": {
+        "academic_learning": 160,
+        "physical_learning": 85,
+        "social_learning": 105,
+        "tactical_learning": 155,
+        "technical_learning": 135
+      },
+      "attribute_floors": {
+        "Awareness": 112,
+        "Composure": 105,
+        "Intelligence": 130,
+        "Presence": 90
+      },
+      "skill_floors": {
+        "Strategy": 55,
+        "Tactics": 50,
+        "Logistics": 50,
+        "Formation Command": 30,
+        "Intelligence Operations": 40,
+        "Governance": 35,
+        "Law": 30
+      }
+    },
+    "char_mou_ten": {
+      "tier": "major_young_commander",
+      "aptitude_floors": {
+        "academic_learning": 165,
+        "physical_learning": 145,
+        "social_learning": 165,
+        "tactical_learning": 170,
+        "technical_learning": 135
+      },
+      "attribute_floors": {
+        "Intelligence": 148,
+        "Presence": 148,
+        "Awareness": 148
+      },
+      "skill_floors": {
+        "Strategy": 135,
+        "Tactics": 148,
+        "Formation Command": 146,
+        "Leadership": 146,
+        "Polearms": 145
+      }
+    },
+    "char_ou_hon": {
+      "tier": "major_young_commander",
+      "aptitude_floors": {
+        "academic_learning": 165,
+        "physical_learning": 148,
+        "social_learning": 162,
+        "tactical_learning": 170,
+        "technical_learning": 140
+      },
+      "attribute_floors": {
+        "Strength": 112,
+        "Coordination": 142,
+        "Awareness": 150,
+        "Composure": 155
+      },
+      "skill_floors": {
+        "Polearms": 145,
+        "Tactics": 148,
+        "Formation Command": 148,
+        "Leadership": 152,
+        "Riding": 150
+      }
+    },
+    "char_kyoukai": {
+      "tier": "major_elite_martial",
+      "aptitude_floors": {
+        "academic_learning": 180,
+        "physical_learning": 185,
+        "social_learning": 125,
+        "tactical_learning": 165,
+        "technical_learning": 165
+      },
+      "attribute_floors": {
+        "Agility": 195,
+        "Awareness": 190,
+        "Endurance": 175,
+        "Coordination": 198
+      },
+      "skill_floors": {
+        "Sword": 198,
+        "Stealth": 198,
+        "Athletics": 195,
+        "Unarmed": 180,
+        "Grappling": 165,
+        "Scouting": 170
+      }
+    },
+    "char_ei_sei": {
+      "tier": "major_ruler",
+      "aptitude_floors": {
+        "academic_learning": 190,
+        "physical_learning": 95,
+        "social_learning": 190,
+        "tactical_learning": 155,
+        "technical_learning": 120
+      },
+      "attribute_floors": {
+        "Awareness": 155,
+        "Composure": 190,
+        "Intelligence": 185,
+        "Presence": 198
+      },
+      "skill_floors": {
+        "Governance": 190,
+        "Leadership": 195,
+        "Diplomacy": 185,
+        "Strategy": 170,
+        "Law": 180,
+        "Intelligence Operations": 165
+      }
+    },
+    "char_yotanwa": {
+      "tier": "major_warrior_ruler",
+      "aptitude_floors": {
+        "academic_learning": 185,
+        "physical_learning": 185,
+        "social_learning": 185,
+        "tactical_learning": 190,
+        "technical_learning": 150
+      },
+      "attribute_floors": {
+        "Strength": 170,
+        "Agility": 185,
+        "Awareness": 185,
+        "Coordination": 190,
+        "Endurance": 185,
+        "Composure": 190,
+        "Presence": 198
+      },
+      "skill_floors": {
+        "Sword": 195,
+        "Athletics": 190,
+        "Leadership": 198,
+        "Formation Fighting": 190,
+        "Formation Command": 185,
+        "Riding": 185,
+        "Tactics": 185,
+        "Strategy": 178
+      }
+    },
+    "char_ouki": {
+      "tier": "apex_great_general",
+      "aptitude_floors": {
+        "academic_learning": 185,
+        "physical_learning": 185,
+        "social_learning": 185,
+        "tactical_learning": 190,
+        "technical_learning": 190
+      },
+      "attribute_floors": {
+        "Strength": 180,
+        "Endurance": 180,
+        "Toughness": 185,
+        "Awareness": 180,
+        "Composure": 195,
+        "Presence": 198
+      },
+      "skill_floors": {
+        "Polearms": 198,
+        "Leadership": 198,
+        "Formation Fighting": 198,
+        "Formation Command": 195,
+        "Tactics": 190,
+        "Strategy": 185
+      }
+    },
+    "char_riboku": {
+      "tier": "apex_strategist_general",
+      "aptitude_floors": {
+        "academic_learning": 195,
+        "physical_learning": 145,
+        "social_learning": 190,
+        "tactical_learning": 200,
+        "technical_learning": 155
+      },
+      "attribute_floors": {
+        "Intelligence": 200,
+        "Awareness": 198,
+        "Composure": 195,
+        "Presence": 185
+      },
+      "skill_floors": {
+        "Strategy": 200,
+        "Tactics": 198,
+        "Intelligence Operations": 200,
+        "Formation Command": 195,
+        "Logistics": 195,
+        "Leadership": 190,
+        "Formation Fighting": 180
+      }
+    },
+    "char_renpa": {
+      "tier": "apex_great_general",
+      "aptitude_floors": {
+        "academic_learning": 185,
+        "physical_learning": 180,
+        "social_learning": 185,
+        "tactical_learning": 190,
+        "technical_learning": 185
+      },
+      "attribute_floors": {
+        "Presence": 190,
+        "Composure": 185,
+        "Awareness": 180,
+        "Endurance": 178,
+        "Toughness": 175
+      },
+      "skill_floors": {
+        "Formation Fighting": 198,
+        "Leadership": 198,
+        "Formation Command": 192,
+        "Strategy": 185,
+        "Tactics": 185,
+        "Polearms": 185
+      }
+    },
+    "char_karin": {
+      "tier": "apex_strategist_general",
+      "aptitude_floors": {
+        "academic_learning": 195,
+        "physical_learning": 150,
+        "social_learning": 190,
+        "tactical_learning": 198,
+        "technical_learning": 150
+      },
+      "attribute_floors": {
+        "Intelligence": 198,
+        "Composure": 192,
+        "Awareness": 185,
+        "Presence": 185
+      },
+      "skill_floors": {
+        "Strategy": 200,
+        "Tactics": 198,
+        "Formation Command": 195,
+        "Logistics": 192,
+        "Intelligence Operations": 190,
+        "Leadership": 180
+      }
+    },
+    "char_ousen": {
+      "tier": "apex_strategist_general",
+      "aptitude_floors": {
+        "academic_learning": 195,
+        "physical_learning": 155,
+        "social_learning": 185,
+        "tactical_learning": 198,
+        "technical_learning": 155
+      },
+      "attribute_floors": {
+        "Intelligence": 200,
+        "Composure": 200,
+        "Awareness": 192,
+        "Presence": 180
+      },
+      "skill_floors": {
+        "Formation Command": 200,
+        "Strategy": 200,
+        "Tactics": 198,
+        "Intelligence Operations": 195,
+        "Logistics": 195,
+        "Leadership": 182,
+        "Formation Fighting": 182
+      }
+    },
+    "char_mou_bu": {
+      "tier": "apex_martial_general",
+      "aptitude_floors": {
+        "academic_learning": 145,
+        "physical_learning": 200,
+        "social_learning": 185,
+        "tactical_learning": 175,
+        "technical_learning": 145
+      },
+      "attribute_floors": {
+        "Strength": 200,
+        "Endurance": 198,
+        "Toughness": 198,
+        "Presence": 190,
+        "Composure": 178
+      },
+      "skill_floors": {
+        "Heavy Weapons": 200,
+        "Athletics": 198,
+        "Formation Fighting": 195,
+        "Polearms": 190,
+        "Leadership": 190,
+        "Formation Command": 178,
+        "Tactics": 165
+      }
+    },
+    "char_duke_hyou": {
+      "tier": "apex_instinctual_general",
+      "aptitude_floors": {
+        "academic_learning": 185,
+        "physical_learning": 180,
+        "social_learning": 185,
+        "tactical_learning": 192,
+        "technical_learning": 185
+      },
+      "attribute_floors": {
+        "Presence": 192,
+        "Composure": 188,
+        "Awareness": 185,
+        "Endurance": 178
+      },
+      "skill_floors": {
+        "Formation Fighting": 198,
+        "Leadership": 195,
+        "Formation Command": 190,
+        "Tactics": 188,
+        "Polearms": 180
+      }
+    },
+    "char_kanki": {
+      "tier": "apex_irregular_general",
+      "aptitude_floors": {
+        "academic_learning": 185,
+        "physical_learning": 175,
+        "social_learning": 185,
+        "tactical_learning": 192,
+        "technical_learning": 145
+      },
+      "attribute_floors": {
+        "Composure": 185,
+        "Awareness": 185,
+        "Presence": 178,
+        "Intelligence": 175
+      },
+      "skill_floors": {
+        "Tactics": 190,
+        "Intelligence Operations": 185,
+        "Formation Fighting": 182,
+        "Leadership": 180,
+        "Strategy": 180,
+        "Sword": 175
+      }
+    },
+    "char_tou": {
+      "tier": "major_great_general",
+      "aptitude_floors": {
+        "academic_learning": 175,
+        "physical_learning": 175,
+        "social_learning": 185,
+        "tactical_learning": 185,
+        "technical_learning": 155
+      },
+      "attribute_floors": {
+        "Composure": 180,
+        "Presence": 180,
+        "Awareness": 172,
+        "Endurance": 170
+      },
+      "skill_floors": {
+        "Formation Fighting": 182,
+        "Formation Command": 182,
+        "Leadership": 180,
+        "Tactics": 180,
+        "Riding": 170,
+        "Polearms": 170
+      }
+    },
+    "char_go_hou_mei": {
+      "tier": "major_strategist_general",
+      "aptitude_floors": {
+        "academic_learning": 195,
+        "physical_learning": 150,
+        "social_learning": 185,
+        "tactical_learning": 195,
+        "technical_learning": 155
+      },
+      "attribute_floors": {
+        "Intelligence": 198,
+        "Composure": 195,
+        "Awareness": 185
+      },
+      "skill_floors": {
+        "Strategy": 200,
+        "Intelligence Operations": 195,
+        "Tactics": 195,
+        "Formation Command": 190,
+        "Logistics": 190,
+        "Leadership": 178
+      }
+    },
+    "char_shibashou": {
+      "tier": "apex_great_general",
+      "aptitude_floors": {
+        "academic_learning": 188,
+        "physical_learning": 185,
+        "social_learning": 185,
+        "tactical_learning": 192,
+        "technical_learning": 188
+      },
+      "attribute_floors": {
+        "Presence": 195,
+        "Composure": 190,
+        "Awareness": 182,
+        "Endurance": 180,
+        "Toughness": 175
+      },
+      "skill_floors": {
+        "Leadership": 198,
+        "Formation Fighting": 198,
+        "Formation Command": 192,
+        "Polearms": 188,
+        "Tactics": 188,
+        "Strategy": 180
+      }
+    },
+    "char_shou_hei_kun": {
+      "tier": "apex_strategist_minister",
+      "aptitude_floors": {
+        "academic_learning": 195,
+        "physical_learning": 120,
+        "social_learning": 190,
+        "tactical_learning": 198,
+        "technical_learning": 150
+      },
+      "attribute_floors": {
+        "Intelligence": 198,
+        "Composure": 195,
+        "Awareness": 185,
+        "Presence": 180
+      },
+      "skill_floors": {
+        "Strategy": 200,
+        "Intelligence Operations": 198,
+        "Tactics": 195,
+        "Leadership": 185,
+        "Logistics": 190,
+        "Formation Command": 185,
+        "Governance": 175,
+        "Diplomacy": 172
+      }
+    }
+  }
+}

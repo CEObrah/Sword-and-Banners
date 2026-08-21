@@ -1,0 +1,54 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.kankoku.defense_army",
+  "authority_ref": "state_qin",
+  "commander_ref": "officer.qin.kankoku.army.commander",
+  "deputy_ref": "officer.qin.kankoku.army.deputy",
+  "direct_person_refs": [],
+  "parent_command_group_ref": null,
+  "display_name": "Kankoku Defense Army",
+  "location": "loc_kankoku_pass",
+  "context": "grand_pass_defense_army",
+  "communication_ref": null,
+  "standing_order_refs": [],
+  "successor_refs": [],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_qin_kankoku_central_gate"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_kankoku_west_wall"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_kankoku_east_wall"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_kankoku_missile_artillery"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_kankoku_mobile_reserve"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_kankoku_relief_reserve"
+    }
+  ],
+  "organizational_state": {
+    "status": "active",
+    "authorized_strength": 50400,
+    "authorized_direct_unit_slots": 6,
+    "current_recursive_strength": 50400,
+    "current_direct_formation_strength": 50400,
+    "recursive_formation_count": 6,
+    "direct_unit_count": 6,
+    "reorganization_need": "none",
+    "reviewed_at": "244-BCE-07-29T20:22:48+08:00",
+    "mission": "grand_pass_defense_army",
+    "history": []
+  }
+}

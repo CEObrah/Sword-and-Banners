@@ -1,0 +1,49 @@
+{
+  "schema": "fatigue-mechanics",
+  "authority": "Canonical elapsed fatigue accumulation and recovery. Fatigue changes only through registered activity costs or elapsed recovery; narration cannot reset or invent fatigue.",
+  "formation": {
+    "recovery_points_per_8h": {
+      "garrisoned": 14.0,
+      "ready": 12.0,
+      "forming": 10.0,
+      "deployed": 8.0,
+      "combat_effective": 8.0,
+      "routed": 6.0,
+      "default": 8.0
+    },
+    "no_recovery_statuses": [
+      "marching",
+      "moving",
+      "in_combat",
+      "assaulting",
+      "constructing",
+      "destroyed"
+    ],
+    "activity_cost_per_hour": {
+      "training_light": 0.08,
+      "training_standard": 0.18,
+      "training_hard": 0.3,
+      "training_overreach": 0.45,
+      "march": 0.125,
+      "forced_march": 0.25,
+      "construction": 0.125,
+      "battle": 5.0
+    },
+    "rule": "Idle formations recover fatigue through ordinary sleep/rest in proportion to elapsed time and field condition. Training, marching, battle and labor stamp the recovery clock and cannot simultaneously receive free rest recovery. Sustainable standing training already includes ordinary nightly recovery and therefore adds no chronic fatigue unless its registered weekly ceiling is exceeded."
+  },
+  "person": {
+    "recovery_points_per_8h": {
+      "ordinary": 14.0,
+      "resting": 18.0,
+      "recovering": 10.0,
+      "default": 14.0
+    },
+    "no_recovery_states": [
+      "in_combat",
+      "marching",
+      "training",
+      "dead"
+    ],
+    "rule": "Exact-person idle recovery uses elapsed time and saved activity state. Distributed standing-role training uses the standing-training recovery law; explicit recovery treatment remains separate from fatigue rest."
+  }
+}

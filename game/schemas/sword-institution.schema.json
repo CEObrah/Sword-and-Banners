@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "anyOf": [
+    {
+      "required": [
+        "profile_ref"
+      ]
+    },
+    {
+      "required": [
+        "state",
+        "kind"
+      ]
+    }
+  ],
+  "properties": {
+    "capacity": {},
+    "kind": {},
+    "owner_id": {},
+    "profile_ref": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "sword-institution"
+    },
+    "state": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "capacity"
+  ],
+  "type": "object"
+}

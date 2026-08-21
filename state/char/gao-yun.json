@@ -1,0 +1,157 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": "Bow, Spear, Sword, Shield, Defense, Formation Fighting, Riding, Leadership, Formation Command, Tactics, Strategy, Logistics, Training, Athletics",
+    "mode": "standing_role_training",
+    "training_program_ref": "program.commander_guard",
+    "training_regimen_ref": "house_tang_max_sustainable"
+  },
+  "affiliation": [
+    "house_tang",
+    "char_tang_wei"
+  ],
+  "appearance": 62,
+  "aptitude": {
+    "academic_learning": 135,
+    "physical_learning": 135,
+    "social_learning": 135,
+    "tactical_learning": 150,
+    "technical_learning": 135
+  },
+  "attributes": {
+    "Agility": 125,
+    "Awareness": 145,
+    "Composure": 150,
+    "Coordination": 135,
+    "Endurance": 135,
+    "Intelligence": 135,
+    "Presence": 140,
+    "Strength": 125,
+    "Toughness": 135
+  },
+  "authority": "House Tang unit commander under Tang Wei",
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "enabled": true,
+    "focus_cursor": 0,
+    "next_due": "244-BCE-08-22T01:22:48+08:00",
+    "routed_at": "244-BCE-07-23T01:22:48+08:00",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "background": "House Guard veteran commanding Tang Wei's 3,000-man House Guard. The commander and formal deputy are command-establishment people outside the 3,000 fighting strength.",
+  "birth_date": "290-BCE-02-24",
+  "body": {
+    "adult_height_cm": 168.8,
+    "current_weight_kg": 70.4,
+    "frame": "athletic",
+    "growth_end_age": 18,
+    "height_anchors": []
+  },
+  "career_state": {
+    "career_changes": 0,
+    "current_billet": "unit",
+    "current_command_span": 3000,
+    "office_or_command": "Commander of Tang Wei's House Guard"
+  },
+  "command_assignment": {
+    "billet": "formation_commander",
+    "current_command_span": 3000,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "formation_tang_wei_house_guard"
+  },
+  "current_formation_id": "formation_tang_wei_house_guard",
+  "current_location": "loc_qin_eastern_depot",
+  "development_state": {
+    "completed_reviews": 0,
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 0,
+    "skill_edu_banks": {},
+    "training_credit": 0.0,
+    "training_time_ledger": {
+      "active_entries": [],
+      "active_windows": [],
+      "active_floor": "244-BCE-08-18T18:22:48+08:00"
+    }
+  },
+  "equipment_loadout_id": "loadout_house_champion",
+  "equipment_manifest": {
+    "carried_ammunition": 36,
+    "individual_custody": true,
+    "items": {
+      "ammunition_item": "ammo_arrow",
+      "body_armor": "armor_heavy",
+      "helmet": "helmet_standard",
+      "horse_armor": "horse_armor_heavy",
+      "mount": "horse",
+      "primary_melee_weapon": "weapon_spear",
+      "ranged_weapon": "weapon_bow",
+      "shield": "shield_standard",
+      "shield_state_when_shooting": "slung",
+      "shield_state_with_lance": "ready_offhand",
+      "sidearm": "weapon_sword",
+      "tack": "tack_standard"
+    },
+    "loadout_id": "loadout_house_champion"
+  },
+  "fatigue": 0,
+  "goal_state": {
+    "current_goals": [
+      "perform assigned command duty"
+    ],
+    "institutional_duties": [
+      "Commander of Tang Wei's House Guard"
+    ]
+  },
+  "health_status": "fit",
+  "life_status": "active",
+  "military_command": {
+    "deputy_ref": "char_han_qiu",
+    "external_to_fighting_strength": true,
+    "formation_scope": "formation_tang_wei_house_guard",
+    "higher_commander_ref": "char_tang_wei",
+    "level": "unit"
+  },
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded"
+  },
+  "name": "Gao Yun",
+  "owner_id": "char_gao_yun",
+  "owner_type": "character",
+  "role": "Commander of Tang Wei's House Guard",
+  "runtime": {
+    "last_settled_at": "244-BCE-07-23T01:22:48+08:00"
+  },
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 127,
+    "Heavy Weapons": 65,
+    "Bow": 135,
+    "Crossbow": 65,
+    "Sword": 150,
+    "Engineering": 62,
+    "Formation Command": 155,
+    "Formation Fighting": 150,
+    "Polearms": 150,
+    "Grappling": 105,
+    "Leadership": 155,
+    "Logistics": 145,
+    "Medicine": 48,
+    "Scouting": 81,
+    "Riding": 145,
+    "Shield": 145,
+    "Stealth": 63,
+    "Strategy": 140,
+    "Survival": 90,
+    "Tactics": 150,
+    "Unarmed": 94
+  },
+  "behavior_profile_ref": "game/data/people/behavior-profiles/char_gao_yun.json",
+  "professional_skills": {
+    "Intelligence Operations": 77,
+    "Diplomacy": 55,
+    "Law": 86,
+    "Trade": 42,
+    "Governance": 53
+  }
+}

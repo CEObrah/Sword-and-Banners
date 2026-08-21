@@ -1,0 +1,330 @@
+{
+  "administrative_owner": "polity_jo",
+  "allocated_to_formations": {},
+  "authorized_strength": 1500,
+  "available_by_location": {
+    "loc_jo_city": {
+      "city_guard": 500,
+      "line_infantry": 100,
+      "light_infantry": 100
+    },
+    "loc_jo_mountain_region": {
+      "mountain_guard": 700,
+      "light_infantry": 100
+    }
+  },
+  "available_by_role": {
+    "city_guard": 500,
+    "line_infantry": 100,
+    "mountain_guard": 700,
+    "light_infantry": 200
+  },
+  "cohort_ledger": {
+    "cohorts": {
+      "cohort_jo_city_guard": {
+        "allocated_by_formation": {},
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 108.0,
+          "social_learning": 98.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 102.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_means": {
+          "Agility": 66.0,
+          "Awareness": 69.0,
+          "Composure": 74.0,
+          "Coordination": 72.0,
+          "Endurance": 78.0,
+          "Intelligence": 54.0,
+          "Presence": 56.0,
+          "Strength": 74.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_jo_city_guard",
+        "origin": {
+          "provenance_ref": "jo_minor_polity_baseline",
+          "recruited_at": "baseline:jo_minor_polity_baseline",
+          "source_population_ref": "population_jo",
+          "source_stratum": "active_military"
+        },
+        "reserve_by_location": {
+          "loc_jo_city": 500
+        },
+        "role": "city_guard",
+        "service_months_mean": 18.0,
+        "skill_means": {
+          "Athletics": 72.0,
+          "Heavy Weapons": 28.0,
+          "Bow": 28.0,
+          "Crossbow": 22.0,
+          "Sword": 45.0,
+          "Engineering": 22.0,
+          "Formation Command": 28.0,
+          "Formation Fighting": 78.0,
+          "Polearms": 78.0,
+          "Grappling": 30.0,
+          "Leadership": 38.0,
+          "Logistics": 34.0,
+          "Medicine": 18.0,
+          "Scouting": 35.0,
+          "Riding": 24.0,
+          "Shield": 72.0,
+          "Stealth": 28.0,
+          "Strategy": 30.0,
+          "Survival": 58.0,
+          "Tactics": 42.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "tags": [
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 0.0,
+        "verified_training_hours_per_person": 0.0,
+        "professional_skill_means": {
+          "Intelligence Operations": 24.0,
+          "Diplomacy": 18.0,
+          "Law": 16.0,
+          "Trade": 15.0,
+          "Governance": 15.0
+        }
+      },
+      "cohort_force_jo_line_infantry_e6f0b839397a": {
+        "allocated_by_formation": {},
+        "aptitude_means": {
+          "academic_learning": 108.0,
+          "physical_learning": 98.0,
+          "social_learning": 102.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 112.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_means": {
+          "Agility": 66.0,
+          "Awareness": 68.0,
+          "Composure": 70.0,
+          "Coordination": 62.0,
+          "Endurance": 70.0,
+          "Intelligence": 68.0,
+          "Presence": 56.0,
+          "Strength": 62.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_jo_line_infantry_e6f0b839397a",
+        "origin": {
+          "provenance_ref": "jo_minor_polity_baseline",
+          "recruited_at": "baseline:jo_minor_polity_baseline",
+          "source_population_ref": "population_jo",
+          "source_stratum": "active_military"
+        },
+        "reserve_by_location": {
+          "loc_jo_city": 100
+        },
+        "role": "line_infantry",
+        "service_months_mean": 18.0,
+        "skill_means": {
+          "Athletics": 72.0,
+          "Heavy Weapons": 28.0,
+          "Bow": 28.0,
+          "Crossbow": 22.0,
+          "Sword": 28.0,
+          "Engineering": 22.0,
+          "Formation Command": 28.0,
+          "Formation Fighting": 44.0,
+          "Polearms": 26.0,
+          "Grappling": 30.0,
+          "Leadership": 38.0,
+          "Logistics": 78.0,
+          "Medicine": 18.0,
+          "Scouting": 50.0,
+          "Riding": 42.0,
+          "Shield": 72.0,
+          "Stealth": 28.0,
+          "Strategy": 30.0,
+          "Survival": 58.0,
+          "Tactics": 42.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "tags": [
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 0.0,
+        "verified_training_hours_per_person": 0.0,
+        "professional_skill_means": {
+          "Intelligence Operations": 24.0,
+          "Diplomacy": 18.0,
+          "Law": 16.0,
+          "Trade": 42.0,
+          "Governance": 15.0
+        },
+        "last_training_program_ref": "program.line_infantry"
+      },
+      "cohort_jo_mountain_guard": {
+        "allocated_by_formation": {},
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 108.0,
+          "social_learning": 98.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 102.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_means": {
+          "Agility": 66.0,
+          "Awareness": 69.0,
+          "Composure": 74.0,
+          "Coordination": 72.0,
+          "Endurance": 78.0,
+          "Intelligence": 54.0,
+          "Presence": 56.0,
+          "Strength": 74.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_jo_mountain_guard",
+        "origin": {
+          "provenance_ref": "jo_minor_polity_baseline",
+          "recruited_at": "baseline:jo_minor_polity_baseline",
+          "source_population_ref": "population_jo",
+          "source_stratum": "active_military"
+        },
+        "reserve_by_location": {
+          "loc_jo_mountain_region": 700
+        },
+        "role": "mountain_guard",
+        "service_months_mean": 18.0,
+        "skill_means": {
+          "Athletics": 72.0,
+          "Heavy Weapons": 28.0,
+          "Bow": 28.0,
+          "Crossbow": 22.0,
+          "Sword": 45.0,
+          "Engineering": 22.0,
+          "Formation Command": 28.0,
+          "Formation Fighting": 78.0,
+          "Polearms": 78.0,
+          "Grappling": 30.0,
+          "Leadership": 38.0,
+          "Logistics": 34.0,
+          "Medicine": 18.0,
+          "Scouting": 35.0,
+          "Riding": 24.0,
+          "Shield": 72.0,
+          "Stealth": 28.0,
+          "Strategy": 30.0,
+          "Survival": 58.0,
+          "Tactics": 42.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "tags": [
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 0.0,
+        "verified_training_hours_per_person": 0.0,
+        "professional_skill_means": {
+          "Intelligence Operations": 24.0,
+          "Diplomacy": 18.0,
+          "Law": 16.0,
+          "Trade": 15.0,
+          "Governance": 15.0
+        }
+      },
+      "cohort_jo_scout": {
+        "allocated_by_formation": {},
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 108.0,
+          "social_learning": 98.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 102.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_means": {
+          "Agility": 70.0,
+          "Awareness": 80.0,
+          "Composure": 78.0,
+          "Coordination": 76.0,
+          "Endurance": 78.0,
+          "Intelligence": 66.0,
+          "Presence": 56.0,
+          "Strength": 74.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_jo_scout",
+        "origin": {
+          "provenance_ref": "jo_minor_polity_baseline",
+          "recruited_at": "baseline:jo_minor_polity_baseline",
+          "source_population_ref": "population_jo",
+          "source_stratum": "active_military"
+        },
+        "reserve_by_location": {
+          "loc_jo_city": 100,
+          "loc_jo_mountain_region": 100
+        },
+        "role": "light_infantry",
+        "service_months_mean": 18.0,
+        "skill_means": {
+          "Athletics": 72.0,
+          "Heavy Weapons": 28.0,
+          "Bow": 28.0,
+          "Crossbow": 22.0,
+          "Sword": 32.0,
+          "Engineering": 22.0,
+          "Formation Command": 28.0,
+          "Formation Fighting": 56.0,
+          "Polearms": 26.0,
+          "Grappling": 30.0,
+          "Leadership": 48.0,
+          "Logistics": 34.0,
+          "Medicine": 18.0,
+          "Scouting": 58.0,
+          "Riding": 24.0,
+          "Shield": 72.0,
+          "Stealth": 28.0,
+          "Strategy": 30.0,
+          "Survival": 58.0,
+          "Tactics": 48.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "tags": [
+          "evidence_seeded_capability",
+          "reconnaissance_specialized"
+        ],
+        "verified_role_exposure_hours_per_person": 0.0,
+        "verified_training_hours_per_person": 0.0,
+        "professional_skill_means": {
+          "Intelligence Operations": 24.0,
+          "Diplomacy": 18.0,
+          "Law": 16.0,
+          "Trade": 15.0,
+          "Governance": 15.0
+        },
+        "last_training_program_ref": "program.reconnaissance"
+      }
+    },
+    "schema": "force-cohort-ledger"
+  },
+  "geographic_disposition": {
+    "authority": true
+  },
+  "headcount": 1500,
+  "kind": "minor_polity_defense_force",
+  "materialized_people": {},
+  "owner_id": "force_jo",
+  "owner_type": "force",
+  "provenance": {
+    "kind": "game_seed_noncanonical",
+    "population_source_ref": "population_jo",
+    "source_stratum": "active_military"
+  },
+  "schema": "sword-force",
+  "source_location_ref": "loc_jo_city"
+}

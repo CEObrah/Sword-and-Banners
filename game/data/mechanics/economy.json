@@ -1,0 +1,231 @@
+{
+  "ammunition_procurement": {
+    "central_reserve_carried_loads": 1.0,
+    "lot_size": {
+      "war_arrows": 20,
+      "war_bolts": 20
+    },
+    "monthly_purchase_cap": {
+      "war_arrows": 500000,
+      "war_bolts": 350000
+    },
+    "price_key": {
+      "war_arrows": "arrows_20",
+      "war_bolts": "bolts_20"
+    },
+    "principle": "Ammunition is manufactured or procured into an exact depot by spending real treasury silver in registered lots. Formation stocks and in-transit convoys remain separate conserved custody; no ranged attack may create projectiles."
+  },
+  "currency": {
+    "copper_per_silver": 100
+  },
+  "default_rank_structure": {
+    "junior_officer_pay_factor": 3.0,
+    "junior_officer_per_combatants": 100,
+    "named_officers_and_specialists_use_exact_contract": true,
+    "nco_pay_factor": 1.4,
+    "nco_per_combatants": 12,
+    "remaining_combatants_pay_factor": 1.0
+  },
+  "default_support_monthly_pay_silver": {
+    "boatman_or_rigger": 4.0,
+    "clerk": 4.5,
+    "cook": 2.4,
+    "driver": 3.0,
+    "engineer_or_carpenter": 6.5,
+    "groom": 3.0,
+    "medic": 5.0,
+    "porter_or_general_laborer": 2.0,
+    "quartermaster": 7.0,
+    "scout_or_animal_handler": 4.0,
+    "smith_or_farrier": 6.0
+  },
+  "force_posture_hysteresis": {
+    "demobilize_above_feasible_fraction": 1.12,
+    "emergency_mobilization_requires_real_capacity": true,
+    "otherwise": "hold_or_reorganize",
+    "recruit_below_feasible_fraction": 0.95,
+    "authorization_growth": {
+      "recent_threat_window_days": 90,
+      "minimum_threat_severity": 55,
+      "minimum_mobilization_readiness": 40,
+      "authorized_war_intent_pressure": 70,
+      "active_war_pressure": 90,
+      "monthly_growth_fraction_at_threshold": 0.0025,
+      "monthly_growth_fraction_at_full_pressure": 0.01,
+      "maximum_active_military_fraction_of_population": 0.1,
+      "treasury_reserve_months": 2.0,
+      "personnel_granularity": 500,
+      "principle": "Regular-force authorization may expand only under current material strategic pressure and only within conserved population, recruitment-office throughput, treasury reserve, and the shared active-military population ceiling. Authorization creates no troops; ordinary recruitment must fill it from real people and real issue spending."
+    }
+  },
+  "formulas": {
+    "campaign_fixed_cost": "recruiter_pay+travel+lodging+notices_brokers+required_authority_fees_or_bribes",
+    "cash_payroll": "ranker_pay+nco_pay+officer_pay+named_contracts+support_pay+family_support+arrears_settlement",
+    "closing_balance": "opening_balance+realized_income+transfers_in-paid_expenditure-transfers_out",
+    "desired_force": "max(minimum_garrison,active_goal_requirement,current_threat_requirement,committed_contractual_minimum)",
+    "entry_cost_per_recruit": "signing_bounty+first_pay_advance+family_payment+travel_to_muster+muster_food+registration+initial_personal_kit+training_cycle_inputs",
+    "farm_output": "acreage*baseline_yield*seed_completion*agricultural_labor_factor*animal_tool_factor*water_weather*security*harvest_completion",
+    "feasible_force": "min(desired_force,sustainable_affordable_ceiling,recruitable_trainable_ceiling)",
+    "monthly_cash_burden": "cash_payroll+purchased_food_fodder+facility_maintenance+realized_equipment_vehicle_animal_maintenance+medicine+administration+training_consumables+transport+casualty_compensation+other_committed_costs",
+    "monthly_fodder_demand": "sum(current_animals_by_type*30*saved_ration_per_animal_day)",
+    "monthly_food_demand": "current_mouths*30*ration_per_person_day",
+    "monthly_maintenance_reserve": "durable_stock_value*pattern_maintenance_fraction*operating_mode_factor",
+    "ordinary_headroom": "available_military_age_adults-medical_restriction-protected_household_duty-essential_labor_floor-recent_levy_exhaustion-candidate_reservations",
+    "procurement_value": "count*baseline_value*material_labor_factor*condition_target*local_scarcity*bulk_factor",
+    "realization_factor": "clamp(collector_capacity*route_security*compliance*production*administration*(1-disruption),0,1)",
+    "realized_cash_revenue": "min(amount_due,payer_cash,collector_capacity,route_capacity)*compliance*security*collection_integrity",
+    "repair_slot_fraction": "condition_points_restored/100",
+    "routine_maintenance_reserve": "serviceable_stock_value*pattern_maintenance_fraction*operating_mode_factor",
+    "scarcity": "clamp((normal_stock/current_stock)^0.55,0.55,3.50)",
+    "selected_ranker_pay": "class_default_pay*selected_model_pay_factor/class_default_model_pay_factor",
+    "sustainable_force_ceiling": "min(recruitment_quantity,candidate_quality,training_throughput,payroll,food,fodder_animals,equipment,officers,veteran_cadre,support,facilities,transport,political_tolerance)",
+    "unit_price": "base_price*scarcity*demand*insecurity_hoarding_factor"
+  },
+  "house_estate_finance": {
+    "owner_share_fraction_of_realized_output_value": 0.2,
+    "rule": "A privately owned physical estate transfers at most this share of its realized local output value from existing local private-economy cash to its House owner. Empty capacity and unsold output do not mint silver."
+  },
+  "military_finance": {
+    "recruitment_and_basic_issue_cost_silver_per_person": 12,
+    "replacement_requires_population_source": true,
+    "standard_issue_paid_by_organization": true
+  },
+  "operating_mode_factors": {
+    "active_campaign": {
+      "maintenance": 2.25,
+      "medical_replacement": 1.75,
+      "pay_hazard": 1.15,
+      "transport": 1.75
+    },
+    "garrison": {
+      "maintenance": 1.0,
+      "medical_replacement": 1.0,
+      "pay_hazard": 1.0,
+      "transport": 0.5
+    },
+    "marching": {
+      "maintenance": 1.75,
+      "medical_replacement": 1.25,
+      "pay_hazard": 1.05,
+      "transport": 1.5
+    },
+    "siege_or_sustained_river_combat": {
+      "maintenance": 2.75,
+      "medical_replacement": 2.25,
+      "pay_hazard": 1.2,
+      "transport": 2.0
+    },
+    "stored_reserve": {
+      "maintenance": 0.75,
+      "medical_replacement": 0.75,
+      "pay_hazard": 0.9,
+      "transport": 0.25
+    },
+    "training": {
+      "maintenance": 1.25,
+      "medical_replacement": 1.15,
+      "pay_hazard": 1.0,
+      "transport": 0.5
+    },
+    "winter_quarters": {
+      "maintenance": 1.2,
+      "medical_replacement": 1.1,
+      "pay_hazard": 1.0,
+      "transport": 0.75
+    }
+  },
+  "ordinary_market_reference": {
+    "common_riding_horse_silver": 110,
+    "common_sword_silver": 11,
+    "full_heavy_horse_armor_reference_silver": 580,
+    "helmet_reference_silver": 21,
+    "light_lamellar_horse_armor_silver": 170,
+    "marching_ration_per_adult_day_copper": 13,
+    "military_arrows_20_silver": 3,
+    "military_bolts_20_silver": 4,
+    "military_bow_silver": 20,
+    "military_lamellar_cuirass_silver": 72,
+    "military_spear_reference_silver": 7,
+    "military_sword_silver": 23,
+    "pack_animal_reference_silver": 68,
+    "padded_coat_silver": 12,
+    "padded_horse_armor_silver": 48,
+    "partial_lamellar_horse_armor_silver": 300,
+    "professional_soldier_monthly_pay_silver_before_support": 7,
+    "shield_reference_silver": 10,
+    "skilled_daily_wage_copper": 45,
+    "trained_horse_reference_silver": 500,
+    "two_axle_wagon_reference_silver": 115,
+    "unskilled_daily_wage_copper": 15
+  },
+  "prices_silver": {
+    "arrows_20": 3,
+    "bolts_20": 4,
+    "common_sword": 11,
+    "fodder_kg": 0.1,
+    "grain_kg": 0.08,
+    "helmet": 21,
+    "lamellar_cuirass": 72,
+    "military_bow": 20,
+    "military_spear": 7,
+    "military_sword": 23,
+    "pack_animal": 68,
+    "padded_coat": 12,
+    "riding_horse": 110,
+    "shield": 10,
+    "two_axle_wagon": 115
+  },
+  "recruitment_campaign": {
+    "candidate_food_kg_per_person_day": 1.6,
+    "candidate_training_capacity": 6000,
+    "default_contact_cost_key": "contacted_candidate_regional",
+    "final_issue_cost_key": "recruitment_and_basic_issue_cost_silver_per_person",
+    "principle": "Applicants remain civilians reserved from real population. Contact and screening spend cash, candidate training consumes real food over elapsed hours, and only accepted candidates incur military basic-issue cost and transfer into military/private-household manpower.",
+    "screening_cost_key": "screened_candidate_ordinary",
+    "training_day_hours": 24.0
+  },
+  "recruitment_cost_constants": {
+    "contacted_candidate_dangerous_or_secret": 0.2,
+    "contacted_candidate_local": 0.05,
+    "contacted_candidate_regional": 0.1,
+    "screened_candidate_ordinary": 0.1
+  },
+  "retail_rule": "Exact buyer money and materially scarce stock; ordinary sellers settle into aggregate local/private-economy accounts, not individual merchant balance sheets.",
+  "rules": {
+    "current_stock_zero_scarcity": "market unavailable until a positive physical stock source exists; do not divide by zero",
+    "no_negative_stock_from_formula_without_recorded_debt_or_shortage": true
+  },
+  "schema": "sword-economy-mechanics",
+  "service_issue": {
+    "includes": [
+      "primary service weapon",
+      "required basic armor",
+      "helmet/shield when role requires",
+      "campaign rations",
+      "formation ammunition"
+    ],
+    "standard_service_kit_is_state_issue": true
+  },
+  "state_fiscal_model": {
+    "administration_realization": {
+      "diminishing_scale": 80.0,
+      "floor_factor": 0.45,
+      "formula": "floor_factor + marginal_factor * (1 - exp(-administrative_capacity / diminishing_scale))",
+      "marginal_factor": 0.75,
+      "rule": "Administrative capacity has diminishing fiscal returns rather than a hard ceiling."
+    },
+    "civil_administration_silver_per_controlled_civilian_month": 0.18,
+    "conquest_rule": "Current controller may collect from a foreign local tax base only through exact occupation compliance/realization and the native private economy; conquest never clones a tax base.",
+    "military_cash_service_equivalent_fraction": 0.52,
+    "military_support_multiplier": 1.35,
+    "population_rule": "Population affects taxes only through actual labor and realized local output; empty capacity creates no tax base.",
+    "reference_fields_rule": "state.normal_monthly_revenue_silver and normal_monthly_expense_silver are refreshed estimates from the live fiscal model, not fixed sovereign envelopes.",
+    "strategic_maintenance_fraction_of_due_revenue": 0.15,
+    "tax_base_rule": "All sovereign states use the same rate on the same locally realized physical output-value basis; state identity never changes the tax formula.",
+    "universal_tax_rate_fraction_of_taxable_output": 0.1
+  },
+  "wages": {
+    "professional_soldier_monthly_silver": 7.0,
+    "unskilled_monthly_silver": 4.5
+  }
+}

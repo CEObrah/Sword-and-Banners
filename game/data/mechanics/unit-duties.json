@@ -1,0 +1,477 @@
+{
+  "schema": "unit-duty-registry",
+  "authority": "Canonical deterministic standing Unit duties. Duties are temporary assignments to existing formations, never troop types or new manpower owners.",
+  "rules": {
+    "assignment_scope": "A parent command assigns duties to eligible direct Units. Existing 1,000/500/100 command echelons handle routine internal allocation without creating persistent subunits.",
+    "materialization_boundary": "Materialize a detachment only when it physically separates enough for location, command, casualties, supply, or information to diverge from the parent Unit.",
+    "composition_rule": "Suitability uses actual current troop composition. Cavalry, missile troops, infantry, chariots, and artillery matter when a duty benefits from them; no permanent scout, engineer, signal, medical, baggage-guard, or labor troop role exists.",
+    "same_rules_for_npcs": true
+  },
+  "role_tags": {
+    "line_infantry": [
+      "infantry"
+    ],
+    "household_retainer": [
+      "infantry",
+      "guard"
+    ],
+    "cavalry": [
+      "cavalry",
+      "mobile"
+    ],
+    "tang_champion": [
+      "cavalry",
+      "mobile",
+      "elite"
+    ],
+    "archer": [
+      "missile",
+      "infantry"
+    ],
+    "missile_crossbow": [
+      "missile",
+      "infantry"
+    ],
+    "chariot": [
+      "chariot",
+      "mobile",
+      "missile"
+    ],
+    "artillery": [
+      "artillery",
+      "missile"
+    ]
+  },
+  "duties": {
+    "forward_security": {
+      "label": "Forward Security / Reconnaissance",
+      "skill_weights": {
+        "Scouting": 0.3,
+        "Formation Command": 0.18,
+        "Leadership": 0.14,
+        "Tactics": 0.12,
+        "Riding": 0.12,
+        "Survival": 0.08,
+        "Logistics": 0.06
+      },
+      "role_affinity": {
+        "cavalry": 42,
+        "mobile": 24,
+        "chariot": 16,
+        "infantry": 4,
+        "missile": 3
+      }
+    },
+    "main_body": {
+      "label": "Main Body",
+      "skill_weights": {
+        "Formation Command": 0.28,
+        "Leadership": 0.22,
+        "Formation Fighting": 0.18,
+        "Tactics": 0.16,
+        "Logistics": 0.08,
+        "Strategy": 0.08
+      },
+      "role_affinity": {
+        "infantry": 18,
+        "missile": 8,
+        "cavalry": 5,
+        "artillery": 4
+      }
+    },
+    "rear_baggage_security": {
+      "label": "Rear / Baggage Security",
+      "skill_weights": {
+        "Formation Command": 0.24,
+        "Leadership": 0.2,
+        "Scouting": 0.16,
+        "Logistics": 0.16,
+        "Tactics": 0.14,
+        "Formation Fighting": 0.1
+      },
+      "role_affinity": {
+        "infantry": 16,
+        "cavalry": 10,
+        "missile": 8,
+        "mobile": 6
+      }
+    },
+    "ready_reserve": {
+      "label": "Ready Reserve",
+      "skill_weights": {
+        "Formation Command": 0.26,
+        "Leadership": 0.2,
+        "Tactics": 0.2,
+        "Strategy": 0.12,
+        "Formation Fighting": 0.12,
+        "Athletics": 0.1
+      },
+      "role_affinity": {
+        "cavalry": 18,
+        "mobile": 12,
+        "infantry": 10,
+        "missile": 6
+      }
+    },
+    "perimeter_security": {
+      "label": "Camp Perimeter Security",
+      "skill_weights": {
+        "Scouting": 0.22,
+        "Formation Command": 0.22,
+        "Leadership": 0.18,
+        "Formation Fighting": 0.16,
+        "Tactics": 0.12,
+        "Awareness": 0.1
+      },
+      "role_affinity": {
+        "infantry": 16,
+        "missile": 10,
+        "cavalry": 8
+      }
+    },
+    "camp_works": {
+      "label": "Camp Works",
+      "skill_weights": {
+        "Engineering": 0.38,
+        "Logistics": 0.2,
+        "Leadership": 0.16,
+        "Formation Command": 0.12,
+        "Strategy": 0.08,
+        "Athletics": 0.06
+      },
+      "role_affinity": {
+        "infantry": 12,
+        "artillery": 2
+      }
+    },
+    "depot_security": {
+      "label": "Baggage / Depot Security",
+      "skill_weights": {
+        "Formation Command": 0.24,
+        "Leadership": 0.18,
+        "Logistics": 0.18,
+        "Scouting": 0.14,
+        "Formation Fighting": 0.14,
+        "Tactics": 0.12
+      },
+      "role_affinity": {
+        "infantry": 18,
+        "missile": 10,
+        "cavalry": 7
+      }
+    },
+    "fix_hold": {
+      "label": "Fix / Hold",
+      "skill_weights": {
+        "Formation Command": 0.28,
+        "Formation Fighting": 0.24,
+        "Leadership": 0.18,
+        "Tactics": 0.16,
+        "Polearms": 0.08,
+        "Shield": 0.06
+      },
+      "role_affinity": {
+        "infantry": 24,
+        "missile": 6,
+        "artillery": 4
+      }
+    },
+    "maneuver_decisive": {
+      "label": "Maneuver / Decisive Attack",
+      "skill_weights": {
+        "Tactics": 0.24,
+        "Formation Command": 0.22,
+        "Leadership": 0.16,
+        "Strategy": 0.12,
+        "Athletics": 0.1,
+        "Riding": 0.1,
+        "Formation Fighting": 0.06
+      },
+      "role_affinity": {
+        "cavalry": 34,
+        "mobile": 22,
+        "chariot": 16,
+        "infantry": 8
+      }
+    },
+    "screen_secure": {
+      "label": "Screen / Secure",
+      "skill_weights": {
+        "Scouting": 0.26,
+        "Formation Command": 0.22,
+        "Tactics": 0.16,
+        "Leadership": 0.14,
+        "Riding": 0.1,
+        "Formation Fighting": 0.07,
+        "Survival": 0.05
+      },
+      "role_affinity": {
+        "cavalry": 36,
+        "mobile": 22,
+        "chariot": 12,
+        "infantry": 6,
+        "missile": 4
+      }
+    },
+    "reserve_relief": {
+      "label": "Reserve / Relief",
+      "skill_weights": {
+        "Formation Command": 0.24,
+        "Leadership": 0.2,
+        "Tactics": 0.18,
+        "Strategy": 0.12,
+        "Logistics": 0.1,
+        "Formation Fighting": 0.1,
+        "Athletics": 0.06
+      },
+      "role_affinity": {
+        "cavalry": 16,
+        "mobile": 10,
+        "infantry": 10,
+        "missile": 5
+      }
+    },
+    "siege_works": {
+      "label": "Siege Works",
+      "skill_weights": {
+        "Engineering": 0.42,
+        "Logistics": 0.18,
+        "Leadership": 0.14,
+        "Formation Command": 0.12,
+        "Strategy": 0.08,
+        "Tactics": 0.06
+      },
+      "role_affinity": {
+        "infantry": 14,
+        "artillery": 8
+      }
+    },
+    "blockade_containment": {
+      "label": "Blockade / Containment",
+      "skill_weights": {
+        "Formation Command": 0.24,
+        "Leadership": 0.18,
+        "Logistics": 0.16,
+        "Scouting": 0.14,
+        "Tactics": 0.14,
+        "Strategy": 0.08,
+        "Formation Fighting": 0.06
+      },
+      "role_affinity": {
+        "cavalry": 16,
+        "infantry": 14,
+        "missile": 8,
+        "mobile": 7
+      }
+    },
+    "counter_sortie_screen": {
+      "label": "Screen / Counter-Sortie",
+      "skill_weights": {
+        "Scouting": 0.22,
+        "Tactics": 0.2,
+        "Formation Command": 0.2,
+        "Leadership": 0.16,
+        "Formation Fighting": 0.12,
+        "Riding": 0.1
+      },
+      "role_affinity": {
+        "cavalry": 24,
+        "mobile": 14,
+        "infantry": 12,
+        "missile": 8
+      }
+    },
+    "assault_reserve": {
+      "label": "Assault Reserve",
+      "skill_weights": {
+        "Formation Command": 0.24,
+        "Leadership": 0.2,
+        "Tactics": 0.18,
+        "Formation Fighting": 0.16,
+        "Athletics": 0.1,
+        "Strategy": 0.07,
+        "Logistics": 0.05
+      },
+      "role_affinity": {
+        "infantry": 18,
+        "cavalry": 8,
+        "missile": 4
+      }
+    },
+    "rear_guard": {
+      "label": "Rear Guard",
+      "skill_weights": {
+        "Formation Command": 0.26,
+        "Leadership": 0.2,
+        "Tactics": 0.18,
+        "Formation Fighting": 0.16,
+        "Scouting": 0.08,
+        "Logistics": 0.07,
+        "Strategy": 0.05
+      },
+      "role_affinity": {
+        "infantry": 20,
+        "missile": 10,
+        "cavalry": 8
+      }
+    },
+    "route_security": {
+      "label": "Withdrawal Route Security",
+      "skill_weights": {
+        "Scouting": 0.22,
+        "Formation Command": 0.2,
+        "Logistics": 0.16,
+        "Leadership": 0.16,
+        "Tactics": 0.12,
+        "Survival": 0.08,
+        "Riding": 0.06
+      },
+      "role_affinity": {
+        "cavalry": 22,
+        "mobile": 12,
+        "infantry": 10
+      }
+    },
+    "main_body_withdrawal": {
+      "label": "Main Body Withdrawal",
+      "skill_weights": {
+        "Formation Command": 0.26,
+        "Leadership": 0.22,
+        "Logistics": 0.18,
+        "Tactics": 0.14,
+        "Formation Fighting": 0.1,
+        "Strategy": 0.1
+      },
+      "role_affinity": {
+        "infantry": 16,
+        "missile": 6
+      }
+    },
+    "reserve_counterattack": {
+      "label": "Reserve / Counterattack",
+      "skill_weights": {
+        "Tactics": 0.24,
+        "Formation Command": 0.22,
+        "Leadership": 0.18,
+        "Strategy": 0.12,
+        "Formation Fighting": 0.1,
+        "Athletics": 0.08,
+        "Riding": 0.06
+      },
+      "role_affinity": {
+        "cavalry": 26,
+        "mobile": 16,
+        "infantry": 10
+      }
+    },
+    "pursuit": {
+      "label": "Pursuit",
+      "skill_weights": {
+        "Riding": 0.24,
+        "Scouting": 0.2,
+        "Tactics": 0.18,
+        "Formation Command": 0.14,
+        "Leadership": 0.1,
+        "Athletics": 0.08,
+        "Strategy": 0.06
+      },
+      "role_affinity": {
+        "cavalry": 50,
+        "mobile": 30,
+        "chariot": 18,
+        "infantry": 2
+      }
+    },
+    "flank_screening": {
+      "label": "Flank Screening",
+      "skill_weights": {
+        "Scouting": 0.24,
+        "Tactics": 0.2,
+        "Formation Command": 0.18,
+        "Riding": 0.14,
+        "Leadership": 0.12,
+        "Formation Fighting": 0.07,
+        "Survival": 0.05
+      },
+      "role_affinity": {
+        "cavalry": 40,
+        "mobile": 24,
+        "chariot": 12,
+        "infantry": 5
+      }
+    },
+    "battlefield_security": {
+      "label": "Battlefield / Prisoner Security",
+      "skill_weights": {
+        "Formation Command": 0.24,
+        "Leadership": 0.22,
+        "Formation Fighting": 0.18,
+        "Logistics": 0.14,
+        "Scouting": 0.1,
+        "Tactics": 0.08,
+        "Law": 0.04
+      },
+      "role_affinity": {
+        "infantry": 20,
+        "missile": 6,
+        "cavalry": 5
+      }
+    },
+    "reorganization": {
+      "label": "Army Reorganization",
+      "skill_weights": {
+        "Formation Command": 0.24,
+        "Leadership": 0.22,
+        "Logistics": 0.2,
+        "Strategy": 0.12,
+        "Tactics": 0.1,
+        "Medicine": 0.07,
+        "Engineering": 0.05
+      },
+      "role_affinity": {
+        "infantry": 10,
+        "cavalry": 6,
+        "missile": 5,
+        "artillery": 4
+      }
+    }
+  },
+  "phases": {
+    "march": [
+      "forward_security",
+      "main_body",
+      "rear_baggage_security",
+      "ready_reserve"
+    ],
+    "camp": [
+      "perimeter_security",
+      "camp_works",
+      "depot_security",
+      "ready_reserve"
+    ],
+    "battle": [
+      "screen_secure",
+      "fix_hold",
+      "maneuver_decisive",
+      "reserve_relief"
+    ],
+    "siege": [
+      "siege_works",
+      "blockade_containment",
+      "counter_sortie_screen",
+      "assault_reserve"
+    ],
+    "retreat": [
+      "rear_guard",
+      "route_security",
+      "main_body_withdrawal",
+      "reserve_counterattack"
+    ],
+    "pursuit": [
+      "pursuit",
+      "flank_screening",
+      "battlefield_security",
+      "reorganization"
+    ]
+  }
+}

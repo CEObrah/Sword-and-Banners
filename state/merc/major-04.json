@@ -1,0 +1,346 @@
+{
+  "accounting_only": true,
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 5.9
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 62,
+      "sd": 7.4
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 62,
+    "aggression": 58,
+    "casualty_tolerance": 55,
+    "caution": 48,
+    "initiative": 54,
+    "objective_focus": 68,
+    "pursuit_bias": 50
+  },
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 280000,
+      "basis": "mercenary_ecology current obligation; contract organizes employment but owns zero bodies",
+      "contract_ref": "market_contract_merc_major_04",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "employer_ref": "house_mou_family",
+      "engagement_kind": "house_contract",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 120
+    }
+  ],
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "doctrine": "doc.merc.major.04",
+  "doctrine_familiarity": 75,
+  "establishment_strength": 10000,
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 10000,
+  "home_establishment_ref": "establishment.merc.major.04",
+  "home_location_ref": "loc_qin_regional_01",
+  "market_engagement": {
+    "established_at": "244-BCE-07-23T01:22:48+08:00",
+    "kind": "house_contract",
+    "short_notice_available": false
+  },
+  "market_tier": "major_famous",
+  "name": "Bronze River",
+  "owner_id": "merc.major.04",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00"
+  },
+  "schema": "mercenary",
+  "specialty": "river",
+  "status": "contracted",
+  "training": "train.merc.regular",
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 108,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 174,
+            "sd": 6.9
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 66,
+            "sd": 7.4
+          }
+        },
+        "experience_distribution": {
+          "field-tested": 5000
+        },
+        "stats": {
+          "attributes": {
+            "awareness": 55,
+            "combat": 62,
+            "endurance": 60
+          },
+          "discipline": 58,
+          "experience": 55,
+          "morale": 62,
+          "skills": {
+            "formation": 62,
+            "tactics": 50,
+            "weapons": 64
+          }
+        },
+        "tendencies": {
+          "adaptability": 62,
+          "aggression": 58,
+          "caution": 48,
+          "initiative": 54,
+          "objective_focus": 68
+        }
+      },
+      "count": 5000,
+      "doctrine": "doc.merc.major.04",
+      "id": "merc.major.04.light_line",
+      "loadout": "loadout_mercenary_light",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "light_line",
+      "schema": "troop_pool",
+      "specialty": "light_line",
+      "training": "train.merc.regular",
+      "troop_type": "light_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 102,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 174,
+            "sd": 6.9
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 66,
+            "sd": 7.4
+          }
+        },
+        "experience_distribution": {
+          "field-tested": 2000
+        },
+        "stats": {
+          "attributes": {
+            "awareness": 55,
+            "combat": 62,
+            "endurance": 60
+          },
+          "discipline": 58,
+          "experience": 55,
+          "morale": 62,
+          "skills": {
+            "formation": 62,
+            "tactics": 50,
+            "weapons": 64
+          }
+        },
+        "tendencies": {
+          "adaptability": 62,
+          "aggression": 58,
+          "caution": 48,
+          "initiative": 54,
+          "objective_focus": 68
+        }
+      },
+      "count": 2000,
+      "doctrine": "doc.merc.major.04",
+      "id": "merc.major.04.crossbow",
+      "loadout": "loadout_mercenary_crossbow",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "crossbow",
+      "schema": "troop_pool",
+      "specialty": "crossbow",
+      "training": "train.merc.regular",
+      "troop_type": "crossbow_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 107,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 174,
+            "sd": 6.9
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 66,
+            "sd": 7.4
+          }
+        },
+        "experience_distribution": {
+          "field-tested": 1500
+        },
+        "stats": {
+          "attributes": {
+            "awareness": 55,
+            "combat": 62,
+            "endurance": 60
+          },
+          "discipline": 58,
+          "experience": 55,
+          "morale": 62,
+          "skills": {
+            "formation": 62,
+            "tactics": 50,
+            "weapons": 64
+          }
+        },
+        "tendencies": {
+          "adaptability": 62,
+          "aggression": 58,
+          "caution": 48,
+          "initiative": 54,
+          "objective_focus": 68
+        }
+      },
+      "count": 1500,
+      "doctrine": "doc.merc.major.04",
+      "id": "merc.major.04:line_reserve:c013664d",
+      "loadout": "loadout_mercenary_line",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "line_reserve",
+      "schema": "troop_pool",
+      "specialty": "reserve_line",
+      "training": "train.merc.regular",
+      "troop_type": "line_infantry",
+      "display": "Reserve Line"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 94,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 174,
+            "sd": 6.9
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 66,
+            "sd": 7.4
+          }
+        },
+        "experience_distribution": {
+          "field-tested": 1500
+        },
+        "stats": {
+          "attributes": {
+            "awareness": 55,
+            "combat": 62,
+            "endurance": 60
+          },
+          "discipline": 58,
+          "experience": 55,
+          "morale": 62,
+          "skills": {
+            "formation": 62,
+            "tactics": 50,
+            "weapons": 64
+          }
+        },
+        "tendencies": {
+          "adaptability": 62,
+          "aggression": 58,
+          "caution": 48,
+          "initiative": 54,
+          "objective_focus": 68
+        }
+      },
+      "count": 1500,
+      "doctrine": "doc.merc.major.04",
+      "id": "merc.major.04:line_reserve:e3f541ea",
+      "loadout": "loadout_mercenary_line",
+      "pool_kind": "unit_manpower",
+      "quality": "regular",
+      "readiness_class": "regular",
+      "role": "line_reserve",
+      "schema": "troop_pool",
+      "specialty": "reserve_line",
+      "training": "train.merc.regular",
+      "troop_type": "line_infantry",
+      "display": "Reserve Line"
+    }
+  ]
+}

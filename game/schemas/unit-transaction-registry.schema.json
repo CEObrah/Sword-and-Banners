@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "records": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "after": {
+            "additionalProperties": true,
+            "properties": {
+              "equipment_claims": {
+                "type": "object"
+              },
+              "named_member_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "personnel_total": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "unit_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "unit_ids",
+              "personnel_total"
+            ],
+            "type": "object"
+          },
+          "authority": {
+            "type": "string"
+          },
+          "before": {
+            "additionalProperties": true,
+            "properties": {
+              "equipment_claims": {
+                "type": "object"
+              },
+              "named_member_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "personnel_total": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "unit_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "unit_ids",
+              "personnel_total"
+            ],
+            "type": "object"
+          },
+          "capability_evidence": {
+            "additionalProperties": true,
+            "properties": {
+              "cache_rebuild_refs": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "distribution_method": {
+                "type": "string"
+              },
+              "partition_authority": {
+                "const": "game/data/mechanics/unit-partition.json"
+              },
+              "selection_evidence_ref": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "partition_authority",
+              "distribution_method"
+            ],
+            "type": "object"
+          },
+          "conservation": {
+            "additionalProperties": true,
+            "properties": {
+              "ammunition_supplies": {
+                "type": "string"
+              },
+              "animals_or_mounts": {
+                "type": "string"
+              },
+              "equipment": {
+                "type": "string"
+              },
+              "experience": {
+                "type": "string"
+              },
+              "history": {
+                "type": "string"
+              },
+              "injuries": {
+                "type": "string"
+              },
+              "people": {
+                "type": "string"
+              },
+              "personnel_delta": {
+                "const": 0
+              }
+            },
+            "required": [
+              "personnel_delta",
+              "people",
+              "equipment",
+              "injuries",
+              "experience",
+              "history"
+            ],
+            "type": "object"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "split",
+              "merge",
+              "reorganization"
+            ]
+          },
+          "method": {
+            "enum": [
+              "neutral_proportional",
+              "explicit_selection",
+              "merge_pooling",
+              "structural_reorganization"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "timestamp",
+          "authority",
+          "method",
+          "before",
+          "after",
+          "conservation",
+          "capability_evidence"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "unit-transaction-registry"
+    }
+  },
+  "required": [
+    "schema",
+    "records"
+  ],
+  "title": "Unit transaction registry",
+  "type": "object"
+}

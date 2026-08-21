@@ -1,0 +1,324 @@
+{
+  "schema": "sword-force",
+  "owner_id": "force_northern_steppe",
+  "administrative_owner": "polity_northern_steppe",
+  "headcount": 120000,
+  "authorized_strength": 120000,
+  "source_location_ref": "loc_northern_steppe_confederation",
+  "available_by_role": {
+    "mounted_archer": 55000,
+    "cavalry": 30000,
+    "light_infantry": 10000
+  },
+  "available_by_location": {
+    "loc_northern_steppe_confederation": {
+      "mounted_archer": 55000,
+      "cavalry": 30000,
+      "light_infantry": 10000
+    }
+  },
+  "allocated_to_formations": {
+    "formation_northern_steppe_field_host": {
+      "personnel": 25000,
+      "role": "mounted_archer"
+    }
+  },
+  "service_class": "native_military",
+  "state": "northern_steppe",
+  "materialized_people": {},
+  "materialized_assignments": {},
+  "cohort_ledger": {
+    "schema": "force-cohort-ledger",
+    "cohorts": {
+      "cohort_force_northern_steppe_5aeeffb20f55": {
+        "cohort_id": "cohort_force_northern_steppe_5aeeffb20f55",
+        "role": "cavalry",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "source_stratum": null,
+          "source_location_ref": "loc_northern_steppe_confederation",
+          "recruited_at": null,
+          "recorded_at": "244-BCE-08-18T18:22:48+08:00"
+        },
+        "reserve_by_location": {
+          "loc_northern_steppe_confederation": 30000
+        },
+        "allocated_by_formation": {},
+        "allocated_external_by_formation": {},
+        "age_distribution": {},
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 110.0,
+          "social_learning": 98.0,
+          "tactical_learning": 108.0,
+          "technical_learning": 108.0
+        },
+        "attribute_means": {
+          "Strength": 72.0,
+          "Agility": 78.0,
+          "Endurance": 80.0,
+          "Toughness": 74.0,
+          "Coordination": 80.0,
+          "Awareness": 76.0,
+          "Composure": 78.0,
+          "Intelligence": 58.0,
+          "Presence": 60.0
+        },
+        "attribute_sd": 10.0,
+        "skill_means": {
+          "Sword": 50.0,
+          "Polearms": 76.0,
+          "Heavy Weapons": 28.0,
+          "Bow": 68.0,
+          "Crossbow": 25.0,
+          "Shield": 48.0,
+          "Athletics": 74.0,
+          "Grappling": 32.0,
+          "Unarmed": 32.0,
+          "Riding": 82.0,
+          "Formation Fighting": 72.0,
+          "Survival": 62.0,
+          "Stealth": 34.0,
+          "Scouting": 60.0,
+          "Medicine": 16.0,
+          "Engineering": 18.0,
+          "Leadership": 42.0,
+          "Formation Command": 34.0,
+          "Tactics": 48.0,
+          "Strategy": 35.0,
+          "Logistics": 40.0
+        },
+        "skill_sd": 12.0,
+        "skill_edu_banks": {},
+        "attribute_edu_banks": {},
+        "service_months_mean": 20.0,
+        "verified_training_hours_per_person": 0.0,
+        "verified_role_exposure_hours_per_person": 0.0,
+        "tags": [
+          "standing_establishment",
+          "ancestry_unasserted",
+          "evidence_seeded_capability"
+        ],
+        "aptitude_sd": 12.0
+      },
+      "cohort_force_northern_steppe_ecf04d8e3908": {
+        "cohort_id": "cohort_force_northern_steppe_ecf04d8e3908",
+        "role": "light_infantry",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "source_stratum": null,
+          "source_location_ref": "loc_northern_steppe_confederation",
+          "recruited_at": null,
+          "recorded_at": "244-BCE-08-18T18:22:48+08:00"
+        },
+        "reserve_by_location": {
+          "loc_northern_steppe_confederation": 10000
+        },
+        "allocated_by_formation": {},
+        "allocated_external_by_formation": {},
+        "age_distribution": {},
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 108.0,
+          "social_learning": 98.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 102.0
+        },
+        "attribute_means": {
+          "Strength": 74.0,
+          "Agility": 66.0,
+          "Endurance": 78.0,
+          "Toughness": 76.0,
+          "Coordination": 72.0,
+          "Awareness": 69.0,
+          "Composure": 74.0,
+          "Intelligence": 54.0,
+          "Presence": 56.0
+        },
+        "attribute_sd": 10.0,
+        "skill_means": {
+          "Sword": 45.0,
+          "Polearms": 78.0,
+          "Heavy Weapons": 28.0,
+          "Bow": 28.0,
+          "Crossbow": 22.0,
+          "Shield": 72.0,
+          "Athletics": 72.0,
+          "Grappling": 30.0,
+          "Unarmed": 32.0,
+          "Riding": 24.0,
+          "Formation Fighting": 78.0,
+          "Survival": 58.0,
+          "Stealth": 28.0,
+          "Scouting": 35.0,
+          "Medicine": 18.0,
+          "Engineering": 22.0,
+          "Leadership": 38.0,
+          "Formation Command": 28.0,
+          "Tactics": 42.0,
+          "Strategy": 30.0,
+          "Logistics": 34.0
+        },
+        "skill_sd": 12.0,
+        "skill_edu_banks": {},
+        "attribute_edu_banks": {},
+        "service_months_mean": 18.0,
+        "verified_training_hours_per_person": 0.0,
+        "verified_role_exposure_hours_per_person": 0.0,
+        "tags": [
+          "standing_establishment",
+          "ancestry_unasserted",
+          "evidence_seeded_capability"
+        ],
+        "aptitude_sd": 12.0
+      },
+      "cohort_force_northern_steppe_d169a7e6e4e7": {
+        "cohort_id": "cohort_force_northern_steppe_d169a7e6e4e7",
+        "role": "mounted_archer",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "source_stratum": null,
+          "source_location_ref": "loc_northern_steppe_confederation",
+          "recruited_at": null,
+          "recorded_at": "244-BCE-08-18T18:22:48+08:00"
+        },
+        "reserve_by_location": {
+          "loc_northern_steppe_confederation": 55000
+        },
+        "allocated_by_formation": {},
+        "allocated_external_by_formation": {},
+        "age_distribution": {},
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 110.0,
+          "social_learning": 98.0,
+          "tactical_learning": 108.0,
+          "technical_learning": 108.0
+        },
+        "attribute_means": {
+          "Strength": 72.0,
+          "Agility": 78.0,
+          "Endurance": 80.0,
+          "Toughness": 74.0,
+          "Coordination": 80.0,
+          "Awareness": 76.0,
+          "Composure": 78.0,
+          "Intelligence": 58.0,
+          "Presence": 60.0
+        },
+        "attribute_sd": 10.0,
+        "skill_means": {
+          "Sword": 50.0,
+          "Polearms": 76.0,
+          "Heavy Weapons": 28.0,
+          "Bow": 68.0,
+          "Crossbow": 25.0,
+          "Shield": 48.0,
+          "Athletics": 74.0,
+          "Grappling": 32.0,
+          "Unarmed": 32.0,
+          "Riding": 82.0,
+          "Formation Fighting": 72.0,
+          "Survival": 62.0,
+          "Stealth": 34.0,
+          "Scouting": 60.0,
+          "Medicine": 16.0,
+          "Engineering": 18.0,
+          "Leadership": 42.0,
+          "Formation Command": 34.0,
+          "Tactics": 48.0,
+          "Strategy": 35.0,
+          "Logistics": 40.0
+        },
+        "skill_sd": 12.0,
+        "skill_edu_banks": {},
+        "attribute_edu_banks": {},
+        "service_months_mean": 20.0,
+        "verified_training_hours_per_person": 0.0,
+        "verified_role_exposure_hours_per_person": 0.0,
+        "tags": [
+          "standing_establishment",
+          "ancestry_unasserted",
+          "evidence_seeded_capability"
+        ],
+        "aptitude_sd": 12.0
+      },
+      "cohort_force_northern_steppe_41a3946b8aeb": {
+        "cohort_id": "cohort_force_northern_steppe_41a3946b8aeb",
+        "role": "mounted_archer",
+        "origin": {
+          "kind": "standing_formation_allocation",
+          "population_ref": null,
+          "source_stratum": null,
+          "source_location_ref": null,
+          "recruited_at": null,
+          "recorded_at": "244-BCE-08-18T18:22:48+08:00"
+        },
+        "reserve_by_location": {},
+        "allocated_by_formation": {
+          "formation_northern_steppe_field_host": 25000
+        },
+        "allocated_external_by_formation": {},
+        "age_distribution": {},
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 110.0,
+          "social_learning": 98.0,
+          "tactical_learning": 108.0,
+          "technical_learning": 108.0
+        },
+        "attribute_means": {
+          "Strength": 72.0,
+          "Agility": 78.0,
+          "Endurance": 80.0,
+          "Toughness": 74.0,
+          "Coordination": 80.0,
+          "Awareness": 76.0,
+          "Composure": 78.0,
+          "Intelligence": 58.0,
+          "Presence": 60.0
+        },
+        "attribute_sd": 10.0,
+        "skill_means": {
+          "Sword": 50.0,
+          "Polearms": 76.0,
+          "Heavy Weapons": 28.0,
+          "Bow": 68.0,
+          "Crossbow": 25.0,
+          "Shield": 48.0,
+          "Athletics": 74.0,
+          "Grappling": 32.0,
+          "Unarmed": 32.0,
+          "Riding": 82.0,
+          "Formation Fighting": 72.0,
+          "Survival": 62.0,
+          "Stealth": 34.0,
+          "Scouting": 60.0,
+          "Medicine": 16.0,
+          "Engineering": 18.0,
+          "Leadership": 42.0,
+          "Formation Command": 34.0,
+          "Tactics": 48.0,
+          "Strategy": 35.0,
+          "Logistics": 40.0
+        },
+        "skill_sd": 12.0,
+        "skill_edu_banks": {},
+        "attribute_edu_banks": {},
+        "service_months_mean": 20.0,
+        "verified_training_hours_per_person": 0.0,
+        "verified_role_exposure_hours_per_person": 0.0,
+        "tags": [
+          "standing_establishment",
+          "ancestry_unasserted",
+          "evidence_seeded_capability"
+        ],
+        "aptitude_sd": 12.0
+      }
+    },
+    "last_reconciled_at": "244-BCE-08-18T18:22:48+08:00"
+  }
+}

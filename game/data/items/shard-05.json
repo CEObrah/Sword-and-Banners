@@ -1,0 +1,91 @@
+{
+  "schema": "items-shard",
+  "items": {
+    "tool_rope_10m": {
+      "id": "tool_rope_10m",
+      "mass_kg": 2.0,
+      "length_m": 10,
+      "safe_static_load_kg": 220,
+      "baseline_value_silver": 0.8,
+      "schema": "field_tool"
+    },
+    "tool_sewing_kit": {
+      "id": "tool_sewing_kit",
+      "mass_kg": 0.25,
+      "repair_uses": 30,
+      "baseline_value_silver": 0.4,
+      "schema": "field_tool"
+    },
+    "tool_siege_hook_rope_set": {
+      "id": "tool_siege_hook_rope_set",
+      "name": "Siege Hook and Rope Set",
+      "mass_kg": 42,
+      "rope_length_m": 30,
+      "safe_static_load_kg": 1600,
+      "crew_minimum": 4,
+      "baseline_value_silver": 18,
+      "schema": "siege_equipment"
+    },
+    "tool_siege_mining_set": {
+      "id": "tool_siege_mining_set",
+      "name": "Mining Tool Set",
+      "mass_kg": 800,
+      "supported_workers": 20,
+      "soil_excavation_m3_per_labor_hour": 0.12,
+      "packed_earth_excavation_m3_per_labor_hour": 0.07,
+      "rock_excavation_m3_per_labor_hour": 0.02,
+      "baseline_value_silver": 120,
+      "schema": "engineering_equipment"
+    },
+    "tool_whetstone": {
+      "id": "tool_whetstone",
+      "mass_kg": 0.4,
+      "maintenance_uses": 100,
+      "baseline_value_silver": 0.35,
+      "schema": "field_tool"
+    },
+    "weapon_bow": {
+      "id": "weapon_bow",
+      "name": "Bow",
+      "baseline_value_silver": 24,
+      "routine_monthly_maintenance_fraction": 0.007,
+      "family": "bow",
+      "hands_required": 2,
+      "mass_kg": 1.15,
+      "draw_power_index": 72,
+      "effective_range_m": 120,
+      "maximum_direct_range_m": 240,
+      "maximum_flight_range_m": 300,
+      "handling": 0.92,
+      "base_shot_cycle_seconds": 5.0,
+      "full_draw_fatigue_base": 0.9,
+      "minimum_stable_draw_fraction": 0.55,
+      "mounted_compatibility": "excellent",
+      "schema": "bow",
+      "performance_rule": "Catalog range is a reference envelope. Runtime derives practical range, cadence and launch power from Bow skill, Strength, Coordination, Awareness, fatigue, condition, weather, elevation and shot geometry."
+    },
+    "weapon_crossbow": {
+      "id": "weapon_crossbow",
+      "schema": "crossbow",
+      "baseline_value_silver": 42,
+      "routine_monthly_maintenance_fraction": 0.009,
+      "family": "crossbow",
+      "hands_required": 2,
+      "mass_kg": 4.2,
+      "draw_power_index": 112,
+      "effective_range_m": 135,
+      "maximum_direct_range_m": 245,
+      "maximum_flight_range_m": 310,
+      "handling": 0.78,
+      "base_reload_cycle_seconds": 14.0,
+      "spanning_strength_requirement": 45,
+      "minimum_stable_span_fraction": 1.0,
+      "belt_hook_minimum_span_ratio": 0.7,
+      "lever_minimum_span_ratio": 0.4,
+      "windlass_or_crew_minimum_span_ratio": 0.2,
+      "latched_power_rule": "full fixed mechanism power or no shot",
+      "mounted_compatibility": "poor",
+      "reload_requires_two_hands": true
+    }
+  }
+}

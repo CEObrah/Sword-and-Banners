@@ -1,0 +1,1312 @@
+{
+  "administrative_owner": "house_tang",
+  "allocated_to_formations": {
+    "formation_sword_manor_general_01": {
+      "composition": {
+        "general_disciple": 3498
+      },
+      "personnel": 3498
+    },
+    "formation_sword_manor_junior_01": {
+      "composition": {
+        "junior_disciple": 4998
+      },
+      "personnel": 4998
+    },
+    "formation_sword_manor_senior_01": {
+      "composition": {
+        "senior_disciple": 1498
+      },
+      "personnel": 1498
+    },
+    "formation_sword_manor_trainee_01": {
+      "composition": {
+        "trainee": 5013
+      },
+      "personnel": 5013
+    },
+    "formation_sword_manor_trainee_02": {
+      "composition": {
+        "trainee": 5013
+      },
+      "personnel": 5013
+    },
+    "formation_sword_manor_trainee_03": {
+      "composition": {
+        "trainee": 5013
+      },
+      "personnel": 5013
+    },
+    "formation_sword_manor_trainee_04": {
+      "composition": {
+        "trainee": 5013
+      },
+      "personnel": 5013
+    }
+  },
+  "authorized_by_role": {
+    "general_disciple": 3500,
+    "junior_disciple": 5000,
+    "senior_disciple": 1500,
+    "trainee": 20060
+  },
+  "authorized_strength": 30060,
+  "available_by_location": {
+    "loc_tang_manor_training_ground": {
+      "command_personnel": 0,
+      "general_disciple": 0,
+      "junior_disciple": 0,
+      "senior_disciple": 0,
+      "trainee": 0
+    }
+  },
+  "available_by_role": {
+    "command_personnel": 0,
+    "general_disciple": 0,
+    "junior_disciple": 0,
+    "senior_disciple": 0,
+    "trainee": 0
+  },
+  "available_equipment_by_location": {
+    "loc_tang_manor_training_ground": {
+      "general_disciple": 0,
+      "junior_disciple": 0,
+      "senior_disciple": 0,
+      "trainee": 0
+    }
+  },
+  "available_equipment_units_by_role": {
+    "general_disciple": 0,
+    "junior_disciple": 0,
+    "senior_disciple": 0,
+    "trainee": 0
+  },
+  "capacity_policy": {
+    "current_physical_capacity_ref": "state/infrastructure/settlements.json#/sites/loc_tang_manor/sword_manor"
+  },
+  "cohort_ledger": {
+    "cohorts": {
+      "cohort_force_sword_manor_b7582ab63fe9": {
+        "age_distribution": {
+          "max": 32.0,
+          "mean": 24.083,
+          "min": 14.0,
+          "sd": 7.5
+        },
+        "allocated_by_formation": {
+          "formation_sword_manor_trainee_04": 60
+        },
+        "allocated_external_by_formation": {},
+        "aptitude_means": {
+          "academic_learning": 93.36,
+          "physical_learning": 119.278,
+          "social_learning": 94.0,
+          "tactical_learning": 102.919,
+          "technical_learning": 99.879
+        },
+        "aptitude_sd": {
+          "academic_learning": 10.722,
+          "physical_learning": 7.44,
+          "social_learning": 12.0,
+          "tactical_learning": 7.847,
+          "technical_learning": 9.764
+        },
+        "attribute_edu_banks": {
+          "Agility": 30.926,
+          "Composure": 29.989,
+          "Coordination": 28.527
+        },
+        "attribute_means": {
+          "Agility": 68.548,
+          "Awareness": 68.758,
+          "Composure": 69.239,
+          "Coordination": 70.318,
+          "Endurance": 82.318,
+          "Intelligence": 50.0,
+          "Presence": 50.0,
+          "Strength": 72.399,
+          "Toughness": 73.469
+        },
+        "attribute_sd": {
+          "Agility": 6.82,
+          "Awareness": 7.528,
+          "Composure": 7.486,
+          "Coordination": 6.82,
+          "Endurance": 6.82,
+          "Intelligence": 11.0,
+          "Presence": 11.0,
+          "Strength": 8.806,
+          "Toughness": 7.779
+        },
+        "cohort_id": "cohort_force_sword_manor_b7582ab63fe9",
+        "correlation_groups": [
+          [
+            "Strength",
+            "Endurance",
+            "Toughness",
+            "Athletics"
+          ],
+          [
+            "Awareness",
+            "Survival",
+            "Scouting"
+          ]
+        ],
+        "origin": {
+          "background_profile": "agricultural_laborer",
+          "kind": "recruitment",
+          "population_ref": "population_qin",
+          "recruited_at": "244-BCE-07-23T01:22:48+08:00",
+          "selection_profile": "sword_manor_screened_initiate",
+          "selection_retain_fraction": 0.2,
+          "source_location_ref": "loc_tang_manor_training_ground",
+          "source_stratum": "agricultural"
+        },
+        "professional_skill_means": {
+          "Trade": 12.0
+        },
+        "reserve_by_location": {},
+        "role": "trainee",
+        "service_months_mean": 1.0,
+        "skill_edu_banks": {
+          "Formation Fighting": 19.158,
+          "Polearms": 10.464,
+          "Shield": 19.507,
+          "Sword": 19.507
+        },
+        "skill_means": {
+          "Athletics": 72.698,
+          "Bow": 23.879,
+          "Engineering": 14.0,
+          "Formation Fighting": 12.24,
+          "Medicine": 10.0,
+          "Polearms": 18.0,
+          "Riding": 24.0,
+          "Scouting": 28.0,
+          "Shield": 12.0,
+          "Survival": 57.249,
+          "Sword": 12.0
+        },
+        "skill_sd": {
+          "Athletics": 8.68,
+          "Bow": 11.764,
+          "Engineering": 11.0,
+          "Formation Fighting": 10.0,
+          "Medicine": 9.0,
+          "Polearms": 11.0,
+          "Riding": 16.0,
+          "Scouting": 14.0,
+          "Shield": 9.0,
+          "Survival": 13.003,
+          "Sword": 9.0,
+          "Trade": 10.0
+        },
+        "smart_training_cursor": 1,
+        "tags": [
+          "prospective_recruitment",
+          "agricultural",
+          "agricultural_laborer"
+        ],
+        "verified_role_exposure_hours_per_person": 137.143,
+        "verified_training_hours_per_person": 240.0
+      },
+      "cohort_force_sword_manor_general_disciple_standing": {
+        "age_distribution": {},
+        "allocated_by_formation": {
+          "formation_sword_manor_general_01": 3488
+        },
+        "allocated_external_by_formation": {
+          "formation_sword_manor_general_01": 2
+        },
+        "aptitude_means": {
+          "academic_learning": 120,
+          "physical_learning": 135,
+          "social_learning": 115,
+          "tactical_learning": 130,
+          "technical_learning": 130
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Awareness": 29.046,
+          "Composure": 21.683,
+          "Intelligence": 50.047
+        },
+        "attribute_means": {
+          "Agility": 92,
+          "Awareness": 92.0,
+          "Composure": 98.0,
+          "Coordination": 96,
+          "Endurance": 100,
+          "Intelligence": 78.0,
+          "Presence": 82,
+          "Strength": 92,
+          "Toughness": 94
+        },
+        "attribute_sd": 8.0,
+        "cohort_id": "cohort_force_sword_manor_general_disciple_standing",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-07-23T01:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_tang_manor_training_ground",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 45,
+          "Governance": 45,
+          "Intelligence Operations": 45,
+          "Law": 40,
+          "Trade": 45
+        },
+        "reserve_by_location": {},
+        "role": "general_disciple",
+        "service_months_mean": 19.0,
+        "skill_edu_banks": {
+          "Athletics": 39.48,
+          "Formation Fighting": 87.863,
+          "Leadership": 4.564,
+          "Strategy": 29.422,
+          "Tactics": 10.543
+        },
+        "skill_means": {
+          "Athletics": 100.0,
+          "Bow": 90,
+          "Crossbow": 75,
+          "Engineering": 50,
+          "Formation Command": 65,
+          "Formation Fighting": 105,
+          "Grappling": 75,
+          "Heavy Weapons": 70,
+          "Leadership": 71.0,
+          "Logistics": 60,
+          "Medicine": 45,
+          "Polearms": 90,
+          "Riding": 70,
+          "Scouting": 70,
+          "Shield": 95,
+          "Stealth": 65,
+          "Strategy": 49.0,
+          "Survival": 80,
+          "Sword": 95,
+          "Tactics": 66.0,
+          "Unarmed": 72
+        },
+        "skill_sd": 10.0,
+        "smart_training_cursor": 1,
+        "tags": [
+          "standing_establishment"
+        ],
+        "verified_role_exposure_hours_per_person": 1637.143,
+        "verified_training_hours_per_person": 2040.0
+      },
+      "cohort_force_sword_manor_junior_disciple_standing": {
+        "age_distribution": {},
+        "allocated_by_formation": {
+          "formation_sword_manor_junior_01": 4983
+        },
+        "allocated_external_by_formation": {
+          "formation_sword_manor_junior_01": 2
+        },
+        "aptitude_means": {
+          "academic_learning": 115,
+          "physical_learning": 130,
+          "social_learning": 110,
+          "tactical_learning": 120,
+          "technical_learning": 125
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Awareness": 39.527,
+          "Coordination": 33.749,
+          "Strength": 39.527
+        },
+        "attribute_means": {
+          "Agility": 86,
+          "Awareness": 84.0,
+          "Composure": 90,
+          "Coordination": 88.0,
+          "Endurance": 92,
+          "Intelligence": 70,
+          "Presence": 74,
+          "Strength": 84.0,
+          "Toughness": 87
+        },
+        "attribute_sd": 8.0,
+        "cohort_id": "cohort_force_sword_manor_junior_disciple_standing",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-07-23T01:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_tang_manor_training_ground",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 32,
+          "Governance": 30,
+          "Intelligence Operations": 30,
+          "Law": 28,
+          "Trade": 32
+        },
+        "reserve_by_location": {},
+        "role": "junior_disciple",
+        "service_months_mean": 13.0,
+        "skill_edu_banks": {
+          "Bow": 3.599,
+          "Formation Fighting": 84.484,
+          "Polearms": 3.599,
+          "Shield": 84.484
+        },
+        "skill_means": {
+          "Athletics": 82,
+          "Bow": 69.0,
+          "Crossbow": 55,
+          "Engineering": 38,
+          "Formation Command": 35,
+          "Formation Fighting": 76.0,
+          "Grappling": 58,
+          "Heavy Weapons": 50,
+          "Leadership": 42,
+          "Logistics": 40,
+          "Medicine": 35,
+          "Polearms": 69.0,
+          "Riding": 55,
+          "Scouting": 58,
+          "Shield": 72.0,
+          "Stealth": 55,
+          "Strategy": 28,
+          "Survival": 62,
+          "Sword": 72,
+          "Tactics": 38,
+          "Unarmed": 60
+        },
+        "skill_sd": 10.0,
+        "smart_training_cursor": 1,
+        "tags": [
+          "standing_establishment"
+        ],
+        "verified_role_exposure_hours_per_person": 1637.143,
+        "verified_training_hours_per_person": 2040.0
+      },
+      "cohort_force_sword_manor_senior_disciple_standing": {
+        "age_distribution": {},
+        "allocated_by_formation": {
+          "formation_sword_manor_senior_01": 1494
+        },
+        "allocated_external_by_formation": {
+          "formation_sword_manor_senior_01": 2
+        },
+        "aptitude_means": {
+          "academic_learning": 130,
+          "physical_learning": 145,
+          "social_learning": 125,
+          "tactical_learning": 145,
+          "technical_learning": 140
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 17.137,
+          "Intelligence": 31.198,
+          "Presence": 25.339
+        },
+        "attribute_means": {
+          "Agility": 104.0,
+          "Awareness": 106,
+          "Composure": 112,
+          "Coordination": 108,
+          "Endurance": 112,
+          "Intelligence": 92.0,
+          "Presence": 96.0,
+          "Strength": 105,
+          "Toughness": 106
+        },
+        "attribute_sd": 8.0,
+        "cohort_id": "cohort_force_sword_manor_senior_disciple_standing",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-07-23T01:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_tang_manor_training_ground",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 55,
+          "Governance": 55,
+          "Intelligence Operations": 60,
+          "Law": 50,
+          "Trade": 50
+        },
+        "reserve_by_location": {},
+        "role": "senior_disciple",
+        "service_months_mean": 31.0,
+        "skill_edu_banks": {
+          "Formation Command": 84.526,
+          "Logistics": 8.533,
+          "Shield": 9.423,
+          "Strategy": 14.702,
+          "Tactics": 71.051
+        },
+        "skill_means": {
+          "Athletics": 130,
+          "Bow": 115,
+          "Crossbow": 85,
+          "Engineering": 60,
+          "Formation Command": 85.0,
+          "Formation Fighting": 135,
+          "Grappling": 95,
+          "Heavy Weapons": 80,
+          "Leadership": 95,
+          "Logistics": 76.0,
+          "Medicine": 55,
+          "Polearms": 110,
+          "Riding": 90,
+          "Scouting": 90,
+          "Shield": 120.0,
+          "Stealth": 80,
+          "Strategy": 71.0,
+          "Survival": 95,
+          "Sword": 125,
+          "Tactics": 90.0,
+          "Unarmed": 90
+        },
+        "skill_sd": 10.0,
+        "smart_training_cursor": 1,
+        "tags": [
+          "standing_establishment"
+        ],
+        "verified_role_exposure_hours_per_person": 1637.143,
+        "verified_training_hours_per_person": 2040.0
+      },
+      "cohort_force_sword_manor_trainee_standing": {
+        "age_distribution": {},
+        "allocated_by_formation": {
+          "formation_sword_manor_trainee_01": 4998,
+          "formation_sword_manor_trainee_02": 4998,
+          "formation_sword_manor_trainee_03": 4998,
+          "formation_sword_manor_trainee_04": 4938
+        },
+        "allocated_external_by_formation": {
+          "formation_sword_manor_trainee_01": 2,
+          "formation_sword_manor_trainee_02": 2,
+          "formation_sword_manor_trainee_03": 2,
+          "formation_sword_manor_trainee_04": 2
+        },
+        "aptitude_means": {
+          "academic_learning": 110,
+          "physical_learning": 125,
+          "social_learning": 105,
+          "tactical_learning": 115,
+          "technical_learning": 120
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 50.507,
+          "Composure": 50.507,
+          "Coordination": 50.507
+        },
+        "attribute_means": {
+          "Agility": 56.0,
+          "Awareness": 56,
+          "Composure": 58.0,
+          "Coordination": 58.0,
+          "Endurance": 64,
+          "Intelligence": 48,
+          "Presence": 48,
+          "Strength": 58,
+          "Toughness": 60
+        },
+        "attribute_sd": 8.0,
+        "cohort_id": "cohort_force_sword_manor_trainee_standing",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-07-23T01:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_tang_manor_training_ground",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 20,
+          "Governance": 16,
+          "Intelligence Operations": 18,
+          "Law": 18,
+          "Trade": 20
+        },
+        "reserve_by_location": {},
+        "role": "trainee",
+        "service_months_mean": 7.0,
+        "skill_edu_banks": {
+          "Athletics": 14.191,
+          "Bow": 26.903,
+          "Formation Fighting": 22.793,
+          "Shield": 20.69,
+          "Sword": 22.793
+        },
+        "skill_means": {
+          "Athletics": 57.0,
+          "Bow": 45.0,
+          "Crossbow": 38,
+          "Engineering": 22,
+          "Formation Command": 18,
+          "Formation Fighting": 49.0,
+          "Grappling": 40,
+          "Heavy Weapons": 35,
+          "Leadership": 24,
+          "Logistics": 22,
+          "Medicine": 20,
+          "Polearms": 52,
+          "Riding": 30,
+          "Scouting": 40,
+          "Shield": 51.0,
+          "Stealth": 38,
+          "Strategy": 14,
+          "Survival": 45,
+          "Sword": 49.0,
+          "Tactics": 20,
+          "Unarmed": 42
+        },
+        "skill_sd": 10.0,
+        "smart_training_cursor": 1,
+        "tags": [
+          "standing_establishment"
+        ],
+        "verified_role_exposure_hours_per_person": 1637.143,
+        "verified_training_hours_per_person": 2040.0
+      }
+    },
+    "last_reconciled_at": "244-BCE-07-23T01:22:48+08:00",
+    "schema": "force-cohort-ledger"
+  },
+  "cohort_training_closes": 1,
+  "command_group_ref": "cmdgrp.sword_manor.field",
+  "commander_ref": "char_wei_jian",
+  "deputy_ref": "char_ren_qiao",
+  "external_personnel_allocations": {
+    "formation_sword_manor_general_01": {
+      "general_disciple": 2
+    },
+    "formation_sword_manor_junior_01": {
+      "junior_disciple": 2
+    },
+    "formation_sword_manor_senior_01": {
+      "senior_disciple": 2
+    },
+    "formation_sword_manor_trainee_01": {
+      "trainee": 2
+    },
+    "formation_sword_manor_trainee_02": {
+      "trainee": 2
+    },
+    "formation_sword_manor_trainee_03": {
+      "trainee": 2
+    },
+    "formation_sword_manor_trainee_04": {
+      "trainee": 2
+    }
+  },
+  "fighting_establishment": 30060,
+  "force_role": "permanent_house_tang_troop_house",
+  "headcount": 30060,
+  "kind": "house_military_force",
+  "last_review": "244-BCE-07-29T06:00:00+08:00",
+  "materialized_assignments": {
+    "officer.sword_manor.general_disciple.1000.001": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.general_disciple.1000.002": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.general_disciple.1000.003": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.general_disciple.500.001": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.general_disciple.500.002": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.general_disciple.500.003": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.general_disciple.500.004": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.general_disciple.500.005": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.general_disciple.500.006": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.general_disciple.500.007": {
+      "formation_ref": "formation_sword_manor_general_01",
+      "personnel": 1,
+      "role": "general_disciple"
+    },
+    "officer.sword_manor.junior_disciple.1000.001": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.1000.002": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.1000.003": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.1000.004": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.1000.005": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.001": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.002": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.003": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.004": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.005": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.006": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.007": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.008": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.009": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.junior_disciple.500.010": {
+      "formation_ref": "formation_sword_manor_junior_01",
+      "personnel": 1,
+      "role": "junior_disciple"
+    },
+    "officer.sword_manor.senior_disciple.1000.001": {
+      "formation_ref": "formation_sword_manor_senior_01",
+      "personnel": 1,
+      "role": "senior_disciple"
+    },
+    "officer.sword_manor.senior_disciple.500.001": {
+      "formation_ref": "formation_sword_manor_senior_01",
+      "personnel": 1,
+      "role": "senior_disciple"
+    },
+    "officer.sword_manor.senior_disciple.500.002": {
+      "formation_ref": "formation_sword_manor_senior_01",
+      "personnel": 1,
+      "role": "senior_disciple"
+    },
+    "officer.sword_manor.senior_disciple.500.003": {
+      "formation_ref": "formation_sword_manor_senior_01",
+      "personnel": 1,
+      "role": "senior_disciple"
+    },
+    "officer.sword_manor.trainee.1000.001": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.002": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.003": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.004": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.005": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.006": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.007": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.008": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.009": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.010": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.011": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.012": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.013": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.014": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.015": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.016": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.017": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.018": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.019": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.1000.020": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.001": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.002": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.003": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.004": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.005": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.006": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.007": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.008": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.009": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.010": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.011": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.012": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.013": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.014": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.015": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.016": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.017": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.018": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.019": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.020": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.021": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.022": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.023": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.024": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.025": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.026": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.027": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.028": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.029": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.030": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.031": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.032": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.033": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.034": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.035": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.036": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.037": {
+      "formation_ref": "formation_sword_manor_trainee_01",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.038": {
+      "formation_ref": "formation_sword_manor_trainee_02",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.039": {
+      "formation_ref": "formation_sword_manor_trainee_03",
+      "personnel": 1,
+      "role": "trainee"
+    },
+    "officer.sword_manor.trainee.500.040": {
+      "formation_ref": "formation_sword_manor_trainee_04",
+      "personnel": 1,
+      "role": "trainee"
+    }
+  },
+  "materialized_people": {
+    "officer.sword_manor.general_disciple.1000.001": 1,
+    "officer.sword_manor.general_disciple.1000.002": 1,
+    "officer.sword_manor.general_disciple.1000.003": 1,
+    "officer.sword_manor.general_disciple.500.001": 1,
+    "officer.sword_manor.general_disciple.500.002": 1,
+    "officer.sword_manor.general_disciple.500.003": 1,
+    "officer.sword_manor.general_disciple.500.004": 1,
+    "officer.sword_manor.general_disciple.500.005": 1,
+    "officer.sword_manor.general_disciple.500.006": 1,
+    "officer.sword_manor.general_disciple.500.007": 1,
+    "officer.sword_manor.junior_disciple.1000.001": 1,
+    "officer.sword_manor.junior_disciple.1000.002": 1,
+    "officer.sword_manor.junior_disciple.1000.003": 1,
+    "officer.sword_manor.junior_disciple.1000.004": 1,
+    "officer.sword_manor.junior_disciple.1000.005": 1,
+    "officer.sword_manor.junior_disciple.500.001": 1,
+    "officer.sword_manor.junior_disciple.500.002": 1,
+    "officer.sword_manor.junior_disciple.500.003": 1,
+    "officer.sword_manor.junior_disciple.500.004": 1,
+    "officer.sword_manor.junior_disciple.500.005": 1,
+    "officer.sword_manor.junior_disciple.500.006": 1,
+    "officer.sword_manor.junior_disciple.500.007": 1,
+    "officer.sword_manor.junior_disciple.500.008": 1,
+    "officer.sword_manor.junior_disciple.500.009": 1,
+    "officer.sword_manor.junior_disciple.500.010": 1,
+    "officer.sword_manor.senior_disciple.1000.001": 1,
+    "officer.sword_manor.senior_disciple.500.001": 1,
+    "officer.sword_manor.senior_disciple.500.002": 1,
+    "officer.sword_manor.senior_disciple.500.003": 1,
+    "officer.sword_manor.trainee.1000.001": 1,
+    "officer.sword_manor.trainee.1000.002": 1,
+    "officer.sword_manor.trainee.1000.003": 1,
+    "officer.sword_manor.trainee.1000.004": 1,
+    "officer.sword_manor.trainee.1000.005": 1,
+    "officer.sword_manor.trainee.1000.006": 1,
+    "officer.sword_manor.trainee.1000.007": 1,
+    "officer.sword_manor.trainee.1000.008": 1,
+    "officer.sword_manor.trainee.1000.009": 1,
+    "officer.sword_manor.trainee.1000.010": 1,
+    "officer.sword_manor.trainee.1000.011": 1,
+    "officer.sword_manor.trainee.1000.012": 1,
+    "officer.sword_manor.trainee.1000.013": 1,
+    "officer.sword_manor.trainee.1000.014": 1,
+    "officer.sword_manor.trainee.1000.015": 1,
+    "officer.sword_manor.trainee.1000.016": 1,
+    "officer.sword_manor.trainee.1000.017": 1,
+    "officer.sword_manor.trainee.1000.018": 1,
+    "officer.sword_manor.trainee.1000.019": 1,
+    "officer.sword_manor.trainee.1000.020": 1,
+    "officer.sword_manor.trainee.500.001": 1,
+    "officer.sword_manor.trainee.500.002": 1,
+    "officer.sword_manor.trainee.500.003": 1,
+    "officer.sword_manor.trainee.500.004": 1,
+    "officer.sword_manor.trainee.500.005": 1,
+    "officer.sword_manor.trainee.500.006": 1,
+    "officer.sword_manor.trainee.500.007": 1,
+    "officer.sword_manor.trainee.500.008": 1,
+    "officer.sword_manor.trainee.500.009": 1,
+    "officer.sword_manor.trainee.500.010": 1,
+    "officer.sword_manor.trainee.500.011": 1,
+    "officer.sword_manor.trainee.500.012": 1,
+    "officer.sword_manor.trainee.500.013": 1,
+    "officer.sword_manor.trainee.500.014": 1,
+    "officer.sword_manor.trainee.500.015": 1,
+    "officer.sword_manor.trainee.500.016": 1,
+    "officer.sword_manor.trainee.500.017": 1,
+    "officer.sword_manor.trainee.500.018": 1,
+    "officer.sword_manor.trainee.500.019": 1,
+    "officer.sword_manor.trainee.500.020": 1,
+    "officer.sword_manor.trainee.500.021": 1,
+    "officer.sword_manor.trainee.500.022": 1,
+    "officer.sword_manor.trainee.500.023": 1,
+    "officer.sword_manor.trainee.500.024": 1,
+    "officer.sword_manor.trainee.500.025": 1,
+    "officer.sword_manor.trainee.500.026": 1,
+    "officer.sword_manor.trainee.500.027": 1,
+    "officer.sword_manor.trainee.500.028": 1,
+    "officer.sword_manor.trainee.500.029": 1,
+    "officer.sword_manor.trainee.500.030": 1,
+    "officer.sword_manor.trainee.500.031": 1,
+    "officer.sword_manor.trainee.500.032": 1,
+    "officer.sword_manor.trainee.500.033": 1,
+    "officer.sword_manor.trainee.500.034": 1,
+    "officer.sword_manor.trainee.500.035": 1,
+    "officer.sword_manor.trainee.500.036": 1,
+    "officer.sword_manor.trainee.500.037": 1,
+    "officer.sword_manor.trainee.500.038": 1,
+    "officer.sword_manor.trainee.500.039": 1,
+    "officer.sword_manor.trainee.500.040": 1
+  },
+  "officer_establishment": {
+    "army_command": {
+      "commander_ref": "char_wei_jian",
+      "deputy_ref": "char_ren_qiao",
+      "external_to_fighting_strength": true,
+      "loadout_ref": "loadout_house_champion"
+    },
+    "rank_commands": {
+      "general_disciple": {
+        "aggregate_100_man_commanders": 35,
+        "commander_loadout_ref": "loadout_house_champion",
+        "commander_ref": "char_sword_manor_general_commander",
+        "commanders_1000": [
+          "officer.sword_manor.general_disciple.1000.001",
+          "officer.sword_manor.general_disciple.1000.002",
+          "officer.sword_manor.general_disciple.1000.003"
+        ],
+        "commanders_500": [
+          "officer.sword_manor.general_disciple.500.001",
+          "officer.sword_manor.general_disciple.500.002",
+          "officer.sword_manor.general_disciple.500.003",
+          "officer.sword_manor.general_disciple.500.004",
+          "officer.sword_manor.general_disciple.500.005",
+          "officer.sword_manor.general_disciple.500.006",
+          "officer.sword_manor.general_disciple.500.007"
+        ],
+        "deputy_loadout_ref": "loadout_house_champion",
+        "deputy_ref": "char_sword_manor_general_deputy",
+        "internal_loadout_ref": "loadout_house_guard"
+      },
+      "junior_disciple": {
+        "aggregate_100_man_commanders": 50,
+        "commander_loadout_ref": "loadout_house_champion",
+        "commander_ref": "char_sword_manor_junior_commander",
+        "commanders_1000": [
+          "officer.sword_manor.junior_disciple.1000.001",
+          "officer.sword_manor.junior_disciple.1000.002",
+          "officer.sword_manor.junior_disciple.1000.003",
+          "officer.sword_manor.junior_disciple.1000.004",
+          "officer.sword_manor.junior_disciple.1000.005"
+        ],
+        "commanders_500": [
+          "officer.sword_manor.junior_disciple.500.001",
+          "officer.sword_manor.junior_disciple.500.002",
+          "officer.sword_manor.junior_disciple.500.003",
+          "officer.sword_manor.junior_disciple.500.004",
+          "officer.sword_manor.junior_disciple.500.005",
+          "officer.sword_manor.junior_disciple.500.006",
+          "officer.sword_manor.junior_disciple.500.007",
+          "officer.sword_manor.junior_disciple.500.008",
+          "officer.sword_manor.junior_disciple.500.009",
+          "officer.sword_manor.junior_disciple.500.010"
+        ],
+        "deputy_loadout_ref": "loadout_house_champion",
+        "deputy_ref": "char_sword_manor_junior_deputy",
+        "internal_loadout_ref": "loadout_house_guard"
+      },
+      "senior_disciple": {
+        "aggregate_100_man_commanders": 15,
+        "commander_loadout_ref": "loadout_house_champion",
+        "commander_ref": "char_sword_manor_senior_commander",
+        "commanders_1000": [
+          "officer.sword_manor.senior_disciple.1000.001"
+        ],
+        "commanders_500": [
+          "officer.sword_manor.senior_disciple.500.001",
+          "officer.sword_manor.senior_disciple.500.002",
+          "officer.sword_manor.senior_disciple.500.003"
+        ],
+        "deputy_loadout_ref": "loadout_house_champion",
+        "deputy_ref": "char_sword_manor_senior_deputy",
+        "internal_loadout_ref": "loadout_house_guard"
+      },
+      "trainee": {
+        "aggregate_100_man_commanders": 200,
+        "commander_loadout_ref": "loadout_house_champion",
+        "commander_ref": "char_sword_manor_trainee_commander",
+        "commanders_1000": [
+          "officer.sword_manor.trainee.1000.001",
+          "officer.sword_manor.trainee.1000.002",
+          "officer.sword_manor.trainee.1000.003",
+          "officer.sword_manor.trainee.1000.004",
+          "officer.sword_manor.trainee.1000.005",
+          "officer.sword_manor.trainee.1000.006",
+          "officer.sword_manor.trainee.1000.007",
+          "officer.sword_manor.trainee.1000.008",
+          "officer.sword_manor.trainee.1000.009",
+          "officer.sword_manor.trainee.1000.010",
+          "officer.sword_manor.trainee.1000.011",
+          "officer.sword_manor.trainee.1000.012",
+          "officer.sword_manor.trainee.1000.013",
+          "officer.sword_manor.trainee.1000.014",
+          "officer.sword_manor.trainee.1000.015",
+          "officer.sword_manor.trainee.1000.016",
+          "officer.sword_manor.trainee.1000.017",
+          "officer.sword_manor.trainee.1000.018",
+          "officer.sword_manor.trainee.1000.019",
+          "officer.sword_manor.trainee.1000.020"
+        ],
+        "commanders_500": [
+          "officer.sword_manor.trainee.500.001",
+          "officer.sword_manor.trainee.500.002",
+          "officer.sword_manor.trainee.500.003",
+          "officer.sword_manor.trainee.500.004",
+          "officer.sword_manor.trainee.500.005",
+          "officer.sword_manor.trainee.500.006",
+          "officer.sword_manor.trainee.500.007",
+          "officer.sword_manor.trainee.500.008",
+          "officer.sword_manor.trainee.500.009",
+          "officer.sword_manor.trainee.500.010",
+          "officer.sword_manor.trainee.500.011",
+          "officer.sword_manor.trainee.500.012",
+          "officer.sword_manor.trainee.500.013",
+          "officer.sword_manor.trainee.500.014",
+          "officer.sword_manor.trainee.500.015",
+          "officer.sword_manor.trainee.500.016",
+          "officer.sword_manor.trainee.500.017",
+          "officer.sword_manor.trainee.500.018",
+          "officer.sword_manor.trainee.500.019",
+          "officer.sword_manor.trainee.500.020",
+          "officer.sword_manor.trainee.500.021",
+          "officer.sword_manor.trainee.500.022",
+          "officer.sword_manor.trainee.500.023",
+          "officer.sword_manor.trainee.500.024",
+          "officer.sword_manor.trainee.500.025",
+          "officer.sword_manor.trainee.500.026",
+          "officer.sword_manor.trainee.500.027",
+          "officer.sword_manor.trainee.500.028",
+          "officer.sword_manor.trainee.500.029",
+          "officer.sword_manor.trainee.500.030",
+          "officer.sword_manor.trainee.500.031",
+          "officer.sword_manor.trainee.500.032",
+          "officer.sword_manor.trainee.500.033",
+          "officer.sword_manor.trainee.500.034",
+          "officer.sword_manor.trainee.500.035",
+          "officer.sword_manor.trainee.500.036",
+          "officer.sword_manor.trainee.500.037",
+          "officer.sword_manor.trainee.500.038",
+          "officer.sword_manor.trainee.500.039",
+          "officer.sword_manor.trainee.500.040"
+        ],
+        "deputy_loadout_ref": "loadout_house_champion",
+        "deputy_ref": "char_sword_manor_trainee_deputy",
+        "internal_loadout_ref": "loadout_house_guard"
+      }
+    }
+  },
+  "owner_id": "force_sword_manor",
+  "owner_type": "force",
+  "schema": "sword-force",
+  "source_location_ref": "loc_tang_manor_training_ground",
+  "standing_formation_refs": [
+    "formation_sword_manor_senior_01",
+    "formation_sword_manor_general_01",
+    "formation_sword_manor_junior_01",
+    "formation_sword_manor_trainee_01",
+    "formation_sword_manor_trainee_02",
+    "formation_sword_manor_trainee_03",
+    "formation_sword_manor_trainee_04"
+  ]
+}

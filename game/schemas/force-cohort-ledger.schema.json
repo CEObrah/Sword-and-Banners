@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "cohorts"
+  ],
+  "properties": {
+    "schema": {
+      "const": "force-cohort-ledger"
+    },
+    "cohorts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "cohort_id",
+          "role",
+          "origin",
+          "reserve_by_location",
+          "allocated_by_formation"
+        ],
+        "properties": {
+          "cohort_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "origin": {
+            "type": "object"
+          },
+          "reserve_by_location": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "allocated_by_formation": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

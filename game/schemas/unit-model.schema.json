@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "definition",
+    "formation_model",
+    "nested_army_model",
+    "promotion_to_general"
+  ],
+  "properties": {
+    "schema": {
+      "const": "unit-model"
+    },
+    "id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

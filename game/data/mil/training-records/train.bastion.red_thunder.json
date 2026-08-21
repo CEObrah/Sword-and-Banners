@@ -1,0 +1,12 @@
+{
+  "schema": "training-profile-record",
+  "id": "train.bastion.red_thunder",
+  "profile": {
+    "id": "train.bastion.red_thunder",
+    "inherits": "train.house_tang_internal.standard",
+    "resource_gated": true,
+    "qualification_policy_ref": "game/data/mechanics/bastion-corps.json#corps.red_thunder",
+    "deterministic_program_policy": "role_resolved",
+    "gain_authority": "game/data/mil/deterministic-training-programs.json + game/data/mechanics/training.json"
+  }
+}

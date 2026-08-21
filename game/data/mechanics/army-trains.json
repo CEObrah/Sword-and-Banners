@@ -1,0 +1,16 @@
+{
+  "schema": "army-train-mechanics",
+  "service_duty_personnel_per_transport_equivalent": 1.25,
+  "camp_footprint": {
+    "m2_per_person": 18,
+    "m2_per_mount": 18,
+    "m2_per_transport_equivalent": 38
+  },
+  "principles": {
+    "one_transport_owner": "A materially moving recursive army or standalone formation uses one compact aggregate transport owner, never one object per wagon or cart team.",
+    "cargo_custody": "Food, fodder, ammunition and engineering stores remain in formation logistics ledgers. The transport owner references those stocks and never duplicates them.",
+    "transport_capacity": "Depot carts are treated only as aggregate wagon-equivalent transport capacity. Allocation conserves that capacity; the train stores one capacity number and one condition factor rather than serviceable/damaged/destroyed cart ledgers.",
+    "service_duty": "Transport work consumes a derived fraction of already-conserved formation personnel. Drivers and baggage guards are Unit Duties, not separate bodies or persistent job species.",
+    "camp": "Camp state stores one physical footprint, readiness time and cargo references. Kitchens, latrines, medical tents, pickets and baggage sectors are derived when needed rather than persisted as separate subowners."
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "schema": "sword-battlefield-operations",
+  "redeployment": {
+    "seconds_per_distance_unit": {
+      "forced": 240,
+      "standard": 360,
+      "cautious": 540
+    },
+    "mounted_speed_bonus_milli": 450,
+    "size_bands": [
+      {
+        "max_personnel": 500,
+        "time_milli": 850
+      },
+      {
+        "max_personnel": 2000,
+        "time_milli": 1000
+      },
+      {
+        "max_personnel": 10000,
+        "time_milli": 1200
+      },
+      {
+        "max_personnel": 50000,
+        "time_milli": 1450
+      },
+      {
+        "max_personnel": 1000000,
+        "time_milli": 1750
+      }
+    ]
+  },
+  "orders": {
+    "hold": {
+      "power_milli": 1000,
+      "pressure_milli": 1000
+    },
+    "attack": {
+      "power_milli": 1100,
+      "pressure_milli": 1120
+    },
+    "breakthrough": {
+      "power_milli": 1180,
+      "pressure_milli": 1240
+    },
+    "delay": {
+      "power_milli": 880,
+      "pressure_milli": 850
+    },
+    "reserve": {
+      "power_milli": 720,
+      "pressure_milli": 700
+    },
+    "withdraw": {
+      "power_milli": 520,
+      "pressure_milli": 520
+    }
+  },
+  "pressure": {
+    "base_milli_per_hour": 95,
+    "recovery_milli_per_hour": 70,
+    "imbalance_weight_milli": 500,
+    "critical_milli": 720,
+    "collapse_milli": 920,
+    "report_reset_hysteresis_milli": 120
+  },
+  "information": {
+    "mounted_messenger_base_seconds": 420,
+    "mounted_messenger_seconds_per_distance_unit": 90,
+    "max_retained_delivered_reports": 32
+  },
+  "delegated_initiative": {
+    "enabled": true,
+    "reserve_commit_pressure_milli": 760,
+    "reserve_pace": "standard",
+    "reserve_order": "attack",
+    "max_autonomous_commits_per_boundary": 1
+  },
+  "layouts": {
+    "battlefield.layout.line_three": {
+      "frontline_keys": [
+        "left",
+        "center",
+        "right"
+      ],
+      "reserve_key": "reserve",
+      "command_key": "command",
+      "sectors": [
+        {
+          "key": "left",
+          "name": "Left Wing"
+        },
+        {
+          "key": "center",
+          "name": "Center"
+        },
+        {
+          "key": "right",
+          "name": "Right Wing"
+        },
+        {
+          "key": "reserve",
+          "name": "Reserve"
+        },
+        {
+          "key": "command",
+          "name": "Command Rear"
+        }
+      ],
+      "edges": [
+        {
+          "a": "left",
+          "b": "center",
+          "distance_units": 2
+        },
+        {
+          "a": "center",
+          "b": "right",
+          "distance_units": 2
+        },
+        {
+          "a": "left",
+          "b": "reserve",
+          "distance_units": 2
+        },
+        {
+          "a": "center",
+          "b": "reserve",
+          "distance_units": 1
+        },
+        {
+          "a": "right",
+          "b": "reserve",
+          "distance_units": 2
+        },
+        {
+          "a": "reserve",
+          "b": "command",
+          "distance_units": 1
+        }
+      ]
+    },
+    "battlefield.layout.deep_five": {
+      "frontline_keys": [
+        "left",
+        "center",
+        "right",
+        "forward"
+      ],
+      "reserve_key": "reserve",
+      "command_key": "command",
+      "sectors": [
+        {
+          "key": "forward",
+          "name": "Forward Screen"
+        },
+        {
+          "key": "left",
+          "name": "Left Wing"
+        },
+        {
+          "key": "center",
+          "name": "Center"
+        },
+        {
+          "key": "right",
+          "name": "Right Wing"
+        },
+        {
+          "key": "reserve",
+          "name": "Reserve"
+        },
+        {
+          "key": "command",
+          "name": "Command Rear"
+        }
+      ],
+      "edges": [
+        {
+          "a": "forward",
+          "b": "left",
+          "distance_units": 1
+        },
+        {
+          "a": "forward",
+          "b": "center",
+          "distance_units": 1
+        },
+        {
+          "a": "forward",
+          "b": "right",
+          "distance_units": 1
+        },
+        {
+          "a": "left",
+          "b": "center",
+          "distance_units": 2
+        },
+        {
+          "a": "center",
+          "b": "right",
+          "distance_units": 2
+        },
+        {
+          "a": "left",
+          "b": "reserve",
+          "distance_units": 2
+        },
+        {
+          "a": "center",
+          "b": "reserve",
+          "distance_units": 1
+        },
+        {
+          "a": "right",
+          "b": "reserve",
+          "distance_units": 2
+        },
+        {
+          "a": "reserve",
+          "b": "command",
+          "distance_units": 1
+        }
+      ]
+    }
+  },
+  "invariants": [
+    "Operational battlefield pressure is a command-position signal, not automatic casualties or victory.",
+    "battle_resolve remains exact casualty and local combat outcome authority.",
+    "Formations redeploy through sector edges with elapsed time and do not contribute to either endpoint while in transit.",
+    "Battlefield reports become player-visible only after physical command-channel latency unless Tang Wei directly commands in that sector.",
+    "Sector assignment never changes formation ownership, administrative authority, strategic location, occupation, or sovereignty.",
+    "Operational owners retain current battlefield state and bounded recent reports only; durable battle chronology belongs to authoritative event and battle owners rather than an ever-growing battlefield history tail."
+  ]
+}

@@ -1,0 +1,435 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "Qin-Han fortified corridor",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 5.5
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 68,
+      "sd": 7.2
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 182000,
+      "basis": "mercenary_ecology current obligation; contract organizes employment but owns zero bodies",
+      "contract_ref": "market_contract_merc_ashen_wall",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "employer_ref": "house_ou_family",
+      "engagement_kind": "house_contract",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 120
+    }
+  ],
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "doctrine": "doc.merc_ashen_wall.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 0,
+    "assigned_war_arrows": 0,
+    "assigned_war_bolts": 145364,
+    "issued_loadouts": [
+      {
+        "count": 5318,
+        "loadout_id": "loadout_mercenary_heavy_infantry"
+      },
+      {
+        "count": 591,
+        "loadout_id": "loadout_mercenary_crossbow"
+      },
+      {
+        "count": 591,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 0,
+    "reserve_war_arrows": 0,
+    "reserve_war_bolts": 145364
+  },
+  "establishment_strength": 6500,
+  "food_stock_kg": 624000,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 6500,
+  "home_establishment_ref": "establishment.merc_ashen_wall",
+  "home_location_ref": "loc_qin_regional_01",
+  "market_engagement": {
+    "established_at": "244-BCE-07-23T01:22:48+08:00",
+    "kind": "house_contract",
+    "short_notice_available": false
+  },
+  "market_tier": "specialist",
+  "name": "Ashen Wall Veterans",
+  "owner_id": "merc_ashen_wall",
+  "owner_type": "mercenary_company",
+  "reconstitution_policy_ref": "reconstitution.mercenary",
+  "runtime": {
+    "completed_quarterly_reviews": 2,
+    "last_settled_at": "244-BCE-06-01T07:22:48+08:00",
+    "material_event_count": 0
+  },
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "Independent",
+  "status": "contracted",
+  "subprocess_id": "process_merc_ashen_wall",
+  "training": "train.merc_ashen_wall.standard",
+  "treasury_silver": 520000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 105,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 170,
+            "sd": 5.8
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 64,
+            "sd": 7.3
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            98,
+            82,
+            106,
+            104,
+            88,
+            90,
+            104,
+            72,
+            82
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 36,
+            "Governance": 36,
+            "Intelligence Operations": 40,
+            "Law": 34,
+            "Trade": 40
+          },
+          "skill_values": [
+            96,
+            100,
+            88,
+            58,
+            46,
+            104,
+            102,
+            84,
+            80,
+            42,
+            108,
+            74,
+            46,
+            58,
+            34,
+            52,
+            62,
+            58,
+            64,
+            44,
+            62
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 5318
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 5318
+      },
+      "count": 5318,
+      "display": "Veteran Infantry",
+      "doctrine": "doc.merc_ashen_wall.veteran",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_heavy_infantry",
+      "mount_type": null,
+      "pool_id": "merc_ashen_wall:pool_veteran",
+      "pool_kind": "unit_manpower",
+      "role": "veteran",
+      "specialty": "veteran",
+      "training": "train.merc_ashen_wall.veteran",
+      "troop_type": "heavy_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 103,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 174,
+            "sd": 6.8
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 69,
+            "sd": 7.9
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            72,
+            68,
+            90,
+            82,
+            94,
+            92,
+            100,
+            88,
+            82
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 50,
+            "Governance": 52,
+            "Intelligence Operations": 60,
+            "Law": 50,
+            "Trade": 48
+          },
+          "skill_values": [
+            58,
+            60,
+            50,
+            64,
+            88,
+            70,
+            84,
+            55,
+            55,
+            40,
+            78,
+            66,
+            50,
+            62,
+            42,
+            105,
+            72,
+            78,
+            82,
+            68,
+            90
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 591
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 591
+      },
+      "count": 591,
+      "display": "Crossbow Troops",
+      "doctrine": "doc.merc_ashen_wall.crossbow",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_crossbow",
+      "mount_type": null,
+      "pool_id": "merc_ashen_wall:pool_crossbow",
+      "pool_kind": "unit_manpower",
+      "role": "crossbow",
+      "specialty": "crossbow",
+      "training": "train.merc_ashen_wall.crossbow",
+      "troop_type": "crossbow_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 107,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 171,
+            "sd": 5.9
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 59,
+            "sd": 7.6
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            68,
+            70,
+            86,
+            76,
+            82,
+            92,
+            98,
+            94,
+            82
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 58,
+            "Governance": 60,
+            "Intelligence Operations": 62,
+            "Law": 54,
+            "Trade": 58
+          },
+          "skill_values": [
+            54,
+            58,
+            44,
+            48,
+            50,
+            62,
+            76,
+            50,
+            50,
+            46,
+            68,
+            66,
+            48,
+            62,
+            95,
+            72,
+            68,
+            58,
+            64,
+            52,
+            105
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 591
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 591
+      },
+      "count": 591,
+      "display": "Reserve Line",
+      "doctrine": "doc.merc_ashen_wall.standard",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_line",
+      "mount_type": null,
+      "pool_id": "merc_ashen_wall:line_reserve:67cbd91b",
+      "pool_kind": "unit_manpower",
+      "role": "line_reserve",
+      "specialty": "reserve_line",
+      "training": "train.merc_ashen_wall.standard",
+      "troop_type": "line_infantry"
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "mode": "standing_role_training",
+    "training_regimen_ref": "regular_army"
+  },
+  "age_stage": "adult",
+  "appearance": 63,
+  "aptitude": {
+    "academic_learning": 185,
+    "physical_learning": 175,
+    "social_learning": 185,
+    "tactical_learning": 192,
+    "technical_learning": 145
+  },
+  "attributes": {
+    "Agility": 155,
+    "Awareness": 185,
+    "Composure": 185,
+    "Coordination": 164,
+    "Endurance": 160,
+    "Intelligence": 175,
+    "Presence": 178,
+    "Strength": 146,
+    "Toughness": 152
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 8,
+    "enabled": true,
+    "focus_cursor": 212,
+    "fractional_training_hour_credit": 0.714286,
+    "last_completed_at": "244-BCE-08-01T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-08-01T06:22:48+08:00",
+    "next_due": "244-BCE-08-31T06:22:48+08:00",
+    "resolved_through": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_training_regimen_ref": "elite_command",
+    "reviewed_cycles": 8,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "background": {
+    "origin": "Qin"
+  },
+  "birth_date": "286-BCE-07-27",
+  "body": {
+    "adult_height_cm": 166.0,
+    "current_weight_kg": 58.4,
+    "frame": "slight",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": []
+  },
+  "career_state": {
+    "career_changes": 0,
+    "current_billet": "army_commander",
+    "current_command_span": 17000,
+    "office_or_command": "Commander, Kanki Field Army"
+  },
+  "command_assignment": {
+    "billet": "army_commander",
+    "command_group_ref": "cmdgrp.kanki.field_army",
+    "current_command_span": 17000,
+    "external_to_fighting_establishment": true,
+    "secondary_command_group_refs": [
+      "cmdgrp.house_kanki_retinue_house.field_army"
+    ]
+  },
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.438,
+      "Awareness": 34.013,
+      "Composure": 33.838,
+      "Coordination": 0.73,
+      "Endurance": 4.713,
+      "Intelligence": 12.368,
+      "Presence": 12.244,
+      "Strength": 0.511,
+      "Toughness": 0.584
+    },
+    "attribute_stimulus_hours_milli": 482650,
+    "autonomous_deterministic_training_cursor": 1253,
+    "completed_months": 0,
+    "completed_reviews": 18,
+    "fatigue_recovery_through": "244-BCE-08-01T06:22:48+08:00",
+    "last_training_program_ref": "program.commander_combined_arms",
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 1379,
+    "skill_edu_banks": {
+      "Formation Command": 160.508,
+      "Polearms": 3.487,
+      "Leadership": 101.449,
+      "Logistics": 4.884,
+      "Formation Fighting": 31.306,
+      "Stealth": 3.487,
+      "Strategy": 54.358,
+      "Survival": 37.802,
+      "Sword": 3.487,
+      "Tactics": 44.708
+    },
+    "training_credit": 0.0,
+    "training_time_ledger": {
+      "active_entries": [],
+      "active_windows": [],
+      "active_floor": "244-BCE-08-18T18:22:48+08:00"
+    },
+    "verified_deliberate_training_hours": 1645
+  },
+  "equipment_loadout_id": "loadout_named_sword",
+  "goal_state": {
+    "current_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Qin authority and resources"
+    ],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Qin authority and resources"
+    ],
+    "personal_desires": [
+      "break enemies psychologically and exploit structures conventional generals overlook"
+    ]
+  },
+  "health_status": "healthy",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_status": "active",
+  "location_scope": "state_qin_unresolved",
+  "military_rank": {
+    "durable": true,
+    "grade": "general"
+  },
+  "name": "Kanki",
+  "owner_id": "char_kanki",
+  "owner_type": "character",
+  "rank": "general",
+  "role_archetype": "irregular_general",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 170,
+    "Heavy Weapons": 16,
+    "Bow": 16,
+    "Crossbow": 15,
+    "Sword": 175,
+    "Engineering": 14,
+    "Formation Command": 155,
+    "Formation Fighting": 182,
+    "Polearms": 158,
+    "Grappling": 17,
+    "Leadership": 180,
+    "Logistics": 24,
+    "Medicine": 19,
+    "Scouting": 32,
+    "Riding": 16,
+    "Shield": 15,
+    "Stealth": 143,
+    "Strategy": 180,
+    "Survival": 42,
+    "Tactics": 190,
+    "Unarmed": 16
+  },
+  "state": "Qin",
+  "behavior_profile_ref": "game/data/people/behavior-profiles/char_kanki.json",
+  "professional_skills": {
+    "Intelligence Operations": 185,
+    "Diplomacy": 23,
+    "Law": 21,
+    "Trade": 27,
+    "Governance": 22
+  },
+  "house_ref": "house_kanki_retinue_house"
+}

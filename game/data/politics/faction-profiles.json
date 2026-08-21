@@ -1,0 +1,496 @@
+{
+  "profiles": {
+    "faction_chu_frontier_command": {
+      "action": "frontier_readiness",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "maintain southern and western field readiness",
+        "secure supplies for frontier armies"
+      ],
+      "partners": [],
+      "pressure_per_review": 10,
+      "representative_refs": [
+        "char_kouen",
+        "char_kanmei"
+      ],
+      "resource_caps": {
+        "influence": 60
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 22,
+        "influence": 60,
+        "military_access": 74
+      },
+      "review_seconds": 1814400,
+      "rivals": [
+        "faction_chu_great_court"
+      ],
+      "state": "chu",
+      "urgent_review_seconds": 86400
+    },
+    "faction_chu_great_court": {
+      "action": "court_resistance",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "preserve great-house court leverage",
+        "resist excessive central interference"
+      ],
+      "house_member_refs": [
+        "house_karin_house"
+      ],
+      "partners": [],
+      "pressure_per_review": 10,
+      "representative_refs": [
+        "char_shun_shin_kun",
+        "char_karin"
+      ],
+      "resource_caps": {
+        "influence": 64
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 26,
+        "court_access": 72,
+        "influence": 64
+      },
+      "review_seconds": 1814400,
+      "rivals": [
+        "faction_chu_frontier_command"
+      ],
+      "state": "chu",
+      "urgent_review_seconds": 86400
+    },
+    "faction_han_fortress_bureau": {
+      "action": "engineering_priority",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "strengthen fortress networks",
+        "protect vulnerable strategic corridors"
+      ],
+      "partners": [],
+      "pressure_per_review": 11,
+      "representative_refs": [
+        "char_sei_kai"
+      ],
+      "resource_caps": {
+        "influence": 58
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 20,
+        "influence": 58,
+        "technical_access": 74
+      },
+      "review_seconds": 1814400,
+      "rivals": [
+        "faction_han_legal_reform"
+      ],
+      "state": "han",
+      "urgent_review_seconds": 86400
+    },
+    "faction_han_legal_reform": {
+      "action": "administrative_reform",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "improve law and administration",
+        "reduce waste in court procedure"
+      ],
+      "partners": [],
+      "pressure_per_review": 9,
+      "representative_refs": [
+        "char_kan_pishi"
+      ],
+      "resource_caps": {
+        "influence": 50
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "administrative_access": 64,
+        "agents": 16,
+        "influence": 50
+      },
+      "review_seconds": 1814400,
+      "rivals": [
+        "faction_han_fortress_bureau"
+      ],
+      "state": "han",
+      "urgent_review_seconds": 86400
+    },
+    "faction_qi_royal_administration": {
+      "action": "administrative_reform",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "maintain capable royal administration",
+        "protect commercial and coastal stability"
+      ],
+      "pressure_per_review": 10,
+      "representative_refs": [
+        "char_ou_ken"
+      ],
+      "resource_caps": {
+        "influence": 58
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "administrative_access": 70,
+        "agents": 20,
+        "influence": 58
+      },
+      "review_seconds": 1814400,
+      "state": "qi",
+      "urgent_review_seconds": 86400
+    },
+    "faction_qin_court_reform": {
+      "action": "administrative_reform",
+      "cost": {
+        "influence": 6
+      },
+      "goals": [
+        "increase administrative capacity",
+        "reduce hereditary obstruction"
+      ],
+      "partners": [
+        "faction_qin_frontier_officers"
+      ],
+      "pressure_per_review": 12,
+      "relationship_seed": {
+        "house_ryo_fui_household": {
+          "kind": "political_rivalry",
+          "strength": 60
+        },
+        "state_qin": {
+          "kind": "administrative_reform_constituency",
+          "strength": 70
+        }
+      },
+      "representative_refs": [
+        "char_shou_hei_kun",
+        "char_ri_shi"
+      ],
+      "resource_caps": {
+        "influence": 62
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "administrative_access": 75,
+        "agents": 25,
+        "influence": 62
+      },
+      "review_seconds": 1814400,
+      "rivals": [
+        "faction_qin_noble_patrons"
+      ],
+      "state": "qin",
+      "urgent_review_seconds": 86400
+    },
+    "faction_qin_frontier_officers": {
+      "action": "frontier_readiness",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "maintain frontier readiness",
+        "secure field commands and reserve supply"
+      ],
+      "partners": [
+        "faction_qin_court_reform"
+      ],
+      "pressure_per_review": 10,
+      "representative_refs": [
+        "char_ousen",
+        "char_duke_hyou"
+      ],
+      "resource_caps": {
+        "influence": 58
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 22,
+        "influence": 58,
+        "military_access": 72
+      },
+      "review_seconds": 1814400,
+      "rivals": [],
+      "state": "qin",
+      "urgent_review_seconds": 86400
+    },
+    "faction_qin_noble_patrons": {
+      "action": "patronage_lobbying",
+      "cost": {
+        "funds_silver": 120,
+        "influence": 5
+      },
+      "goals": [
+        "expand noble patronage",
+        "secure court access for allied Houses"
+      ],
+      "house_member_refs": [
+        "house_ryo_fui_household"
+      ],
+      "partners": [],
+      "pressure_per_review": 9,
+      "representative_refs": [
+        "char_ryo_fui",
+        "char_sai_taku"
+      ],
+      "resource_caps": {
+        "influence": 66
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 18,
+        "funds_silver": 3600,
+        "influence": 66
+      },
+      "review_seconds": 1814400,
+      "rivals": [
+        "faction_qin_court_reform"
+      ],
+      "state": "qin",
+      "urgent_review_seconds": 86400
+    },
+    "faction_wei_engineering_circle": {
+      "action": "engineering_priority",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "expand siege and fortification capacity",
+        "prioritize military engineering"
+      ],
+      "house_member_refs": [
+        "house_go_military_house"
+      ],
+      "partners": [
+        "faction_wei_warrior_houses"
+      ],
+      "pressure_per_review": 11,
+      "representative_refs": [
+        "char_go_hou_mei",
+        "char_rei_ou"
+      ],
+      "resource_caps": {
+        "influence": 61
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 20,
+        "influence": 61,
+        "technical_access": 78
+      },
+      "review_seconds": 1814400,
+      "rivals": [],
+      "state": "wei",
+      "urgent_review_seconds": 86400
+    },
+    "faction_wei_warrior_houses": {
+      "action": "frontier_readiness",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "preserve field-army strength",
+        "secure commands and readiness funding"
+      ],
+      "partners": [
+        "faction_wei_engineering_circle"
+      ],
+      "pressure_per_review": 9,
+      "representative_refs": [
+        "char_gai_mou",
+        "char_earl_shi",
+        "char_renpa"
+      ],
+      "resource_caps": {
+        "influence": 57
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 19,
+        "influence": 57,
+        "military_access": 69
+      },
+      "review_seconds": 1814400,
+      "rivals": [],
+      "state": "wei",
+      "urgent_review_seconds": 86400
+    },
+    "faction_yan_frontier_council": {
+      "action": "frontier_readiness",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "maintain northern and eastern frontier readiness",
+        "protect field-army autonomy"
+      ],
+      "pressure_per_review": 11,
+      "representative_refs": [
+        "char_ordo",
+        "char_geki_shin"
+      ],
+      "resource_caps": {
+        "influence": 60
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 21,
+        "influence": 60,
+        "military_access": 76
+      },
+      "review_seconds": 1814400,
+      "state": "yan",
+      "urgent_review_seconds": 86400
+    },
+    "faction_zhao_court_conservatives": {
+      "action": "court_resistance",
+      "cost": {
+        "influence": 6
+      },
+      "goals": [
+        "preserve court prerogatives",
+        "limit disruptive military centralization"
+      ],
+      "partners": [],
+      "pressure_per_review": 12,
+      "relationship_seed": {
+        "house_riboku_household": {
+          "kind": "political_rivalry",
+          "strength": 60
+        },
+        "state_zhao": {
+          "kind": "court_establishment",
+          "strength": 80
+        }
+      },
+      "representative_refs": [
+        "char_tou_jou",
+        "char_kaku_kai"
+      ],
+      "resource_caps": {
+        "influence": 68
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 28,
+        "court_access": 85,
+        "influence": 68
+      },
+      "review_seconds": 1814400,
+      "rivals": [
+        "faction_zhao_defense_council",
+        "faction_zhao_princely_reform"
+      ],
+      "state": "zhao",
+      "urgent_review_seconds": 86400
+    },
+    "faction_zhao_defense_council": {
+      "action": "frontier_readiness",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "strengthen frontier defense",
+        "preserve professional field command"
+      ],
+      "house_member_refs": [
+        "house_riboku_household"
+      ],
+      "partners": [
+        "faction_zhao_princely_reform"
+      ],
+      "pressure_per_review": 11,
+      "representative_refs": [
+        "char_riboku",
+        "char_kochou"
+      ],
+      "resource_caps": {
+        "influence": 62
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "agents": 24,
+        "influence": 62,
+        "military_access": 78
+      },
+      "review_seconds": 1814400,
+      "rivals": [
+        "faction_zhao_court_conservatives"
+      ],
+      "state": "zhao",
+      "urgent_review_seconds": 86400
+    },
+    "faction_zhao_princely_reform": {
+      "action": "administrative_reform",
+      "cost": {
+        "influence": 5
+      },
+      "goals": [
+        "improve provincial administration",
+        "broaden competent appointments"
+      ],
+      "partners": [
+        "faction_zhao_defense_council"
+      ],
+      "pressure_per_review": 9,
+      "representative_refs": [
+        "char_prince_ka",
+        "char_kisui"
+      ],
+      "resource_caps": {
+        "influence": 52
+      },
+      "resource_regeneration": {
+        "influence": 2
+      },
+      "resource_seed": {
+        "administrative_access": 58,
+        "agents": 18,
+        "influence": 52
+      },
+      "review_seconds": 1814400,
+      "rivals": [
+        "faction_zhao_court_conservatives"
+      ],
+      "state": "zhao",
+      "urgent_review_seconds": 86400
+    }
+  }
+}

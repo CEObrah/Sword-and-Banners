@@ -1,0 +1,28 @@
+{
+  "force_ref": "force_sword_manor",
+  "command_group_ref": "cmdgrp.sword_manor.field",
+  "house_ref": "house_tang",
+  "rule": "Sword Manor is a permanent military troop house under House Tang. It is not a public school and has no mobilize/stand-down state. Its conserved personnel remain in standing formations; internal training develops those same troops.",
+  "field_commander_ref": "char_wei_jian",
+  "field_deputy_ref": "char_ren_qiao",
+  "rank_command_group_refs": [
+    "cmdgrp.sword_manor.senior",
+    "cmdgrp.sword_manor.general",
+    "cmdgrp.sword_manor.junior",
+    "cmdgrp.sword_manor.trainee"
+  ],
+  "formation_refs": [
+    "formation_sword_manor_senior_01",
+    "formation_sword_manor_general_01",
+    "formation_sword_manor_junior_01",
+    "formation_sword_manor_trainee_01",
+    "formation_sword_manor_trainee_02",
+    "formation_sword_manor_trainee_03",
+    "formation_sword_manor_trainee_04"
+  ],
+  "current_strength": 30060,
+  "training_ground_ref": "loc_tang_manor_training_ground",
+  "outsider_instruction_allowed": false,
+  "command_accounting": "Top field/rank/unit commander and deputy billets are outside fighting troop strength. Embedded 1,000/500/100 command echelons are conserved bodies inside the relevant troop strength.",
+  "growth_rule": "No artificial headcount cap. Growth requires conserved recruits, internal selection/training, real vacancies or new formations, officers, equipment, housing, food, and physical training capacity."
+}

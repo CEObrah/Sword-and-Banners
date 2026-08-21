@@ -1,0 +1,49 @@
+{
+  "schema": "officer-representation-policy",
+  "authority": "Static representation policy only; manpower, formation, ownership and appointment truth remain in native owners.",
+  "default_representation": "aggregate",
+  "institutional_scopes": {
+    "house_tang": {
+      "owner_ref": "house_tang",
+      "force_ref": "force_house_tang",
+      "application": "institution_wide"
+    },
+    "sword_manor": {
+      "institution_ref": "force_sword_manor",
+      "application": "institution_wide"
+    },
+    "wei_assigned_qin": {
+      "player_ref": "char_tang_wei",
+      "administrative_owner_ref": "state_qin",
+      "application": "only_while_lawfully_assigned_under_tang_wei_command"
+    }
+  },
+  "automatic_full_character": {
+    "roles": [
+      "army_commander",
+      "army_deputy",
+      "persistent_unit_commander",
+      "persistent_unit_deputy"
+    ],
+    "rule": "Top command posts require an individually addressable saved person, but representation is person-lite by default unless the officer is already a full character or becomes socially, politically, narratively, or mechanically important. No role alone forces a heavyweight full-character sheet."
+  },
+  "automatic_person_lite": {
+    "triggers": [
+      "promotion_into_top_command",
+      "direct_player_interaction",
+      "recurring_named_command_responsibility",
+      "saved_exceptional_performance",
+      "individual_injury_capture_or_death",
+      "political_or_social_consequence"
+    ],
+    "rule": "Ordinary 1,000/500/100 officers remain aggregate inside the formation cadre. Materialize only the exact conserved officer who becomes individually relevant. Materialization changes representation, never headcount.",
+    "storage": "Person-lite records are grouped in routed roster shards; shard partitioning is a read-performance mechanism, never a world population cap."
+  },
+  "training_rule": "A registered formation or institutional training regimen may delegate role-aware adaptive development to its troops and officer chain. The runtime chooses weak useful, promotion-relevant, loadout-relevant and command/logistics focuses from saved state; the player does not need to micromanage every subordinate focus, and no training time is created by delegation.",
+  "external_command_rule": "Army commander/deputy and persistent unit commander/deputy are outside fighting-strength troop numbers and must still be conserved from an exact owning or lawfully attached force.",
+  "loadout_rule": "Army/field commanders and deputies, plus persistent-unit commanders and deputies, use the mounted loadout_house_champion standard. Internal 1,000/500 commanders use the same combat loadout as the troops they command: infantry uses loadout_house_guard; cavalry and Tang Champion commands use loadout_house_champion. A cavalry lance is a spear-family weapon and uses Polearms skill. Qin formations assigned under Tang Wei follow the same troop-type rule without changing Qin ownership.",
+  "materialization_rule": "Every internal person-lite consumes one conserved fighting body. Promoting an already-materialized officer representation never creates an additional body. Representation never creates manpower.",
+  "capability_rule": "Officer capability must fit both billet scale and actual loadout. Command, leadership, tactics, logistics and strategy scale with command responsibility. Polearms covers infantry spear, cavalry lance, glaive, and staff systems. Mounted command billets require Riding plus Polearms, Shield, Sword and Bow competence; infantry 1,000/500 billets require the unit spear, shield, sword and bow system without artificial Riding inflation. Unrelated weapon skills are never promoted merely because a person holds command.",
+  "rank_billet_rule": "Earned military rank/grade, current billet, and current commanded headcount are separate facts. Casualties never silently promote or demote rank. Reorganization may move a surviving officer between active billet and cadre reserve while preserving rank and history.",
+  "aggregate_cadre_rule": "Aggregate officers have no individual sheets. Each formation stores compact rank inventory, active billets, cadre reserve, vacancies, and aggregate promotion history. Surplus veteran officers remain attached to the unit for later evaluation/reassignment/rebuilding."
+}

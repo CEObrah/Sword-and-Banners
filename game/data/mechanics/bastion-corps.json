@@ -1,0 +1,235 @@
+{
+  "authority": "House Tang Bastion Corps combat establishments. Technical/support work is commanded temporary duty from corps manpower, not permanent support troop classes.",
+  "command_accounting": {
+    "embedded_echelon_commanders_count_inside_troop_strength": true,
+    "embedded_echelons": [
+      1000,
+      500,
+      100
+    ],
+    "fighting_establishment_includes_top_formation_commanders": false,
+    "fighting_establishment_includes_top_formation_deputies": false,
+    "rule": "A persistent maneuver formation may contain multiple troop roles. Its top commander and deputy are outside stated troop strength. Embedded 1,000/500/100 command echelons are bodies within the role components they command; aggregate representation never adds extra manpower."
+  },
+  "common_induction_days": 180,
+  "corps": {
+    "stone_spear": {
+      "candidate_source_mix": {
+        "administration_and_education": 0.1,
+        "agricultural": 0.3,
+        "craft_and_industry": 0.45,
+        "household_and_service": 0.15
+      },
+      "establishment": 9000,
+      "force_ref": "force_bastion_stone_spear",
+      "mission": [
+        "breach assault",
+        "fortified-terrain assault",
+        "working-party security",
+        "counter-siege security",
+        "assault reserve"
+      ],
+      "qualification_days": 540,
+      "selection": [
+        "durability",
+        "spatial reasoning",
+        "endurance",
+        "composure",
+        "formation aptitude"
+      ],
+      "selection_profile_ref": "bastion_stone_spear_screen",
+      "specialist_training_days": 360
+    },
+    "iron_wall": {
+      "candidate_source_mix": {
+        "administration_and_education": 0.05,
+        "agricultural": 0.45,
+        "craft_and_industry": 0.2,
+        "household_and_service": 0.25,
+        "merchant_and_transport": 0.05
+      },
+      "establishment": 75000,
+      "force_ref": "force_bastion_iron_wall",
+      "mission": [
+        "outer wall",
+        "towers",
+        "gate defense",
+        "breach response",
+        "internal rapid response"
+      ],
+      "qualification_days": 360,
+      "selection": [
+        "durability",
+        "discipline",
+        "coordination",
+        "formation aptitude",
+        "composure"
+      ],
+      "selection_profile_ref": "bastion_iron_wall_screen",
+      "specialist_training_days": 180
+    },
+    "red_thunder": {
+      "candidate_source_mix": {
+        "administration_and_education": 0.25,
+        "agricultural": 0.1,
+        "craft_and_industry": 0.45,
+        "household_and_service": 0.15,
+        "merchant_and_transport": 0.05
+      },
+      "establishment": 16000,
+      "force_ref": "force_bastion_red_thunder",
+      "mission": [
+        "fortress artillery",
+        "ammunition handling",
+        "counter-battery",
+        "artillery maintenance"
+      ],
+      "qualification_days": 540,
+      "selection": [
+        "coordination",
+        "spatial judgment",
+        "numeracy",
+        "mechanical aptitude",
+        "composure",
+        "crew discipline"
+      ],
+      "selection_profile_ref": "bastion_red_thunder_screen",
+      "specialist_training_days": 360
+    },
+    "white_blade": {
+      "candidate_source_mix": {
+        "administration_and_education": 0.35,
+        "camp_medical_support": 0.05,
+        "craft_and_industry": 0.2,
+        "household_and_service": 0.25,
+        "merchant_and_transport": 0.15
+      },
+      "establishment": 10000,
+      "force_ref": "force_bastion_white_blade",
+      "mission": [
+        "headquarters protection",
+        "relay-route security",
+        "ammunition-route protection",
+        "emergency response",
+        "casualty-route security",
+        "reserve infantry"
+      ],
+      "qualification_days": 450,
+      "selection": [
+        "awareness",
+        "organization",
+        "reliability",
+        "composure",
+        "formation aptitude",
+        "emergency judgment"
+      ],
+      "selection_profile_ref": "bastion_white_blade_screen",
+      "specialist_training_days": 270
+    }
+  },
+  "house_ref": "house_tang",
+  "institution_ref": "institution_four_bastion_corps",
+  "mercenary_status": false,
+  "qualification_regimen": {
+    "deliberate_hours_per_30d": 205.714286,
+    "equipment_grade": "correct",
+    "facility_grade": "excellent",
+    "recovery_grade": "good",
+    "role_exposure_hours_per_30d": 96.0,
+    "rule": "Full-time Bastion induction/specialist training uses the same universal active/enrolled 48-hour-per-seven-day deliberate clock as every other professional military path. Bastion advantage comes from registered specialist curriculum, instructors, facilities, equipment and selection, not extra calendar time; hours accrue only while the candidate occupies physical Bastion training capacity."
+  },
+  "recruitment": {
+    "emergency_rule": "Emergency militia remain militia until they complete the applicable Corps qualification path.",
+    "forecast_annual_normal_separation_basis_points": 180,
+    "forecast_rule": "This is a planning forecast for training-pipeline depth, not an automatic retirement/death rate. Actual separations remain causal; unused qualified candidates remain conserved reserved people until admitted or released.",
+    "outside_applicant_runtime": {
+      "conservation_rule": "Bodies leave an exact source civilian locality, travel through the population-mobility owner, and enter Tang Manor civilian population on arrival before any candidate reservation or Corps transfer.",
+      "guarantee_rule": "Relocation guarantees residence and consideration eligibility only. It never guarantees selection, training completion, rank, billet, or active-service appointment.",
+      "semantic_action": "house_action:accept_bastion_applicants",
+      "sequence": [
+        "accept willing applicants",
+        "physical migration to Tang Manor",
+        "arrival as ordinary resident applicants",
+        "Corps selection",
+        "qualification training",
+        "admission only into a real vacancy"
+      ]
+    },
+    "ownership_rule": "Applicants become permanent House Tang service personnel, never contract mercenaries.",
+    "replacement_rule": "Forecast vacancies from retirement, death, disability, lawful departure, and authorized expansion; recruit early enough that training pipelines can overlap expected vacancies.",
+    "source_priority": [
+      "Tang Manor civilians for future normal replacement/expansion",
+      "lawful outside applicants who permanently relocate to Tang Manor"
+    ],
+    "throughput_rule": "Training throughput is derived from instructors, barracks, ranges, workshops, practice works, equipment, food, and time. No arbitrary monthly recruitment cap is authoritative."
+  },
+  "retirement": {
+    "body_rule": "Due aggregate rank-and-file return to Tang Manor civilian veteran strata. The same force loses those bodies and gains vacancies; no replacement is created by retirement.",
+    "cadre_rule": "Surviving earned officer grades remain attached to the formation/corps unless explicitly retired, transferred, promoted, demoted, or killed.",
+    "completion_window_months": 60,
+    "minimum_service_months": 240,
+    "named_person_rule": "Named/person-lite/full officers retire only through explicit career/service events; aggregate retirement never silently removes them."
+  },
+  "role_training_focuses": {
+    "bastion_archer": {
+      "attributes": [
+        "Coordination",
+        "Awareness",
+        "Agility",
+        "Endurance",
+        "Composure"
+      ],
+      "skills": [
+        "Bow",
+        "Formation Fighting",
+        "Scouting",
+        "Athletics"
+      ]
+    },
+    "bastion_artillery": {
+      "attributes": [
+        "Coordination",
+        "Awareness",
+        "Intelligence",
+        "Composure",
+        "Endurance"
+      ],
+      "skills": [
+        "Engineering",
+        "Crossbow",
+        "Logistics",
+        "Formation Fighting"
+      ]
+    },
+    "bastion_crossbow": {
+      "attributes": [
+        "Coordination",
+        "Awareness",
+        "Composure",
+        "Endurance"
+      ],
+      "skills": [
+        "Crossbow",
+        "Formation Fighting",
+        "Athletics"
+      ]
+    },
+    "bastion_heavy_infantry": {
+      "attributes": [
+        "Strength",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Composure"
+      ],
+      "skills": [
+        "Polearms",
+        "Shield",
+        "Formation Fighting",
+        "Athletics"
+      ]
+    }
+  },
+  "schema": "bastion-corps-policy",
+  "status": "permanent_house_military_institution"
+}

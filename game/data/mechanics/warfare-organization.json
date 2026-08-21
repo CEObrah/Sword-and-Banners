@@ -1,0 +1,558 @@
+{
+  "accounting_modes": {
+    "mercenary_company": {
+      "non_fighting_role_tokens": [
+        "support",
+        "staff",
+        "command",
+        "signal",
+        "messenger",
+        "medical",
+        "quartermaster",
+        "logistics",
+        "transport"
+      ],
+      "rule": "Mercenary headcount is total company personnel. Command and support are carved from that already conserved total by default. They do not increase company headcount unless a separate exact external attachment owner proves additional bodies.",
+      "scope": [
+        "mercenary"
+      ],
+      "support_storage": "inside_total_company_headcount",
+      "total_headcount_field": "headcount",
+      "troop_pools_field": "troop_pools"
+    },
+    "persistent_formation": {
+      "fighting_establishment_field": "personnel",
+      "rule": "formation.personnel is fighting establishment. Unit command and separately attached support sit above fighting strength only when exact conserved owner-force external_personnel_allocations prove those bodies.",
+      "scope": [
+        "state",
+        "house",
+        "private",
+        "personal",
+        "polity",
+        "rebel"
+      ],
+      "support_storage": "external_personnel_allocation"
+    }
+  },
+  "authority": "Static organizational policy for state, House, private, personal, polity, rebel and mercenary military organizations. Exact manpower, formations, represented people, casualties, operations, ownership, appointments, external-personnel allocations and support allocations remain in their native campaign owners.",
+  "command_casualty_exposure": {
+    "command_personnel": 0.3,
+    "minimum_fighting_loss_fraction_before_aggregate_attachment_loss": 0.02,
+    "rule": "Unit-command bodies and embedded command personnel remain separately conserved where the command model requires them; support duties use ordinary formation manpower and do not create separate casualty pools.",
+    "unit_command": 0.2
+  },
+  "command_effect_scales": {
+    "combined_cap": 1.28,
+    "local_100_200": {
+      "maximum_quality_delta": 0.1,
+      "maximum_scale": 200,
+      "mechanical_domains": [
+        "immediate_cohesion",
+        "formation_keeping",
+        "local_morale",
+        "target_selection",
+        "order_following",
+        "small_tactical_reaction"
+      ],
+      "minimum_scale": 100,
+      "quality_rule": "Aggregate hierarchy provides baseline local command; conserved person-lite internal commanders replace the covered share with their actual saved command quality. No flat elite bonus."
+    },
+    "maneuver_500_1000": {
+      "maximum_quality_delta": 0.12,
+      "maximum_scale": 1000,
+      "mechanical_domains": [
+        "maneuver",
+        "reserve_commitment",
+        "broad_order_interpretation",
+        "subordinate_coordination",
+        "local_terrain_use",
+        "formation_change"
+      ],
+      "minimum_scale": 500,
+      "quality_rule": "Aggregate hierarchy provides baseline maneuver command; conserved person-lite 500/1,000 commanders replace the covered share with actual saved command quality. No phantom bodies or title-only bonus."
+    },
+    "operational_2000_plus": {
+      "maximum_quality_delta": 0.07,
+      "maximum_scale": 1000000,
+      "mechanical_domains": [
+        "multi_thousand_coordination",
+        "wing_maintenance",
+        "large_redeployment",
+        "upward_reporting",
+        "delegation",
+        "synchronization"
+      ],
+      "minimum_scale": 2000
+    },
+    "unit_command": {
+      "deputy_rule": "A deputy primarily improves continuity and throughput. A deputy is not an unrestricted additive stat bonus and cannot duplicate the commander's scale effects.",
+      "maximum_quality_delta": 0.12,
+      "mechanical_domains": [
+        "whole_unit_direction",
+        "command_throughput",
+        "continuity",
+        "reporting",
+        "delegation",
+        "overload_management"
+      ]
+    }
+  },
+  "formation_command_structure": {
+    "deputy_policy": {
+      "field_army": "strongly_expected",
+      "internal_1000": "optional",
+      "internal_2000_plus": "optional_useful",
+      "internal_500_and_below": "normally_none",
+      "persistent_unit": "strongly_expected",
+      "profile_override_rule": "Explicit formation profiles may prohibit internal deputies. Explicit formation profiles may use commander-only 1,000/500/100 subordinate echelons.",
+      "succession_rule": "When a commander becomes dead, captured or incapacitated, a healthy formal unit deputy may act immediately without creating a new body. Internal subcommands without deputies fall to the best already-existing lawful subordinate or later appointment; the system never mints a replacement officer."
+    },
+    "fighting_establishment_field": "personnel",
+    "generic_internal_levels": [
+      1000,
+      500,
+      100
+    ],
+    "generic_representation": "aggregate",
+    "internal_officer_rule": "Every internal command node is an assignment held by a soldier already inside the formation's fighting establishment. Materializing that commander converts one anonymous formation body into a represented person; it does not increase formation personnel.",
+    "minimum_aggregate_staffed_personnel": 500,
+    "routine_support_function_rule": "Routine engineering, logistics, signals, medical handling and administration are duties assigned from existing manpower; they own no extra bodies or command echelon.",
+    "temporary_subdivision_rule": "A persistent cohort or internal command may be divided temporarily for battlefield control without rewriting the conserved cohort ledger or creating another persistent formation.",
+    "unit_command": {
+      "allocation_priority": 100,
+      "commander_billets_per_formation": 1,
+      "default_representation": "aggregate",
+      "deputy_billets_per_formation": 1,
+      "outside_fighting_establishment": true,
+      "rule": "The persistent unit commander and formal unit deputy are command-establishment personnel above the fighting-strength number for normal formations. Exact named people or aggregate command bodies must be conserved from an owning or lawfully attached force and never arise from narration. Scoped House Tang, Sword Manor, and Qin-under-Wei policy upgrades these billets to full characters without changing conservation.",
+      "source_role": "command_personnel"
+    },
+    "unit_slot_cost": 1
+  },
+  "formation_profiles": {
+    "formation_qin_wei_unit_01": {
+      "external_unit_command": {
+        "commander_ref": "char_qin_wei_unit_01_commander",
+        "commander_representation": "full_character",
+        "deputy_ref": "char_qin_wei_unit_01_deputy",
+        "deputy_representation": "full_character",
+        "loadout_ref": "loadout_house_champion",
+        "outside_fighting_establishment": true,
+        "source_force_ref": "force_state_qin",
+        "source_role": "command_personnel"
+      },
+      "fighting_establishment": 2000,
+      "hierarchy_rule": "This is one of four independent Qin-owned 2,000-person formations assigned under Tang Wei. Its commander and deputy are full mounted command characters; its 1,000/500 commanders are conserved infantry members using the unit loadout; 100-man command remains aggregate unless individually salient.",
+      "internal_hierarchy": [
+        {
+          "count": 2,
+          "deputy_policy": "none",
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 1000
+        },
+        {
+          "count": 4,
+          "deputy_policy": "none",
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 500
+        },
+        {
+          "count": 20,
+          "deputy_policy": "none",
+          "representation": "aggregate",
+          "scale": 100
+        }
+      ],
+      "label": "Qin Border Detachment Unit 1"
+    },
+    "formation_qin_wei_unit_02": {
+      "external_unit_command": {
+        "commander_ref": "char_qin_wei_unit_02_commander",
+        "commander_representation": "full_character",
+        "deputy_ref": "char_qin_wei_unit_02_deputy",
+        "deputy_representation": "full_character",
+        "loadout_ref": "loadout_house_champion",
+        "outside_fighting_establishment": true,
+        "source_force_ref": "force_state_qin",
+        "source_role": "command_personnel"
+      },
+      "fighting_establishment": 2000,
+      "hierarchy_rule": "This is one of four independent Qin-owned 2,000-person formations assigned under Tang Wei. Its commander and deputy are full mounted command characters; its 1,000/500 commanders are conserved infantry members using the unit loadout; 100-man command remains aggregate unless individually salient.",
+      "internal_hierarchy": [
+        {
+          "count": 2,
+          "deputy_policy": "none",
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 1000
+        },
+        {
+          "count": 4,
+          "deputy_policy": "none",
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 500
+        },
+        {
+          "count": 20,
+          "deputy_policy": "none",
+          "representation": "aggregate",
+          "scale": 100
+        }
+      ],
+      "label": "Qin Border Detachment Unit 2"
+    },
+    "formation_qin_wei_unit_03": {
+      "external_unit_command": {
+        "commander_ref": "char_qin_wei_unit_03_commander",
+        "commander_representation": "full_character",
+        "deputy_ref": "char_qin_wei_unit_03_deputy",
+        "deputy_representation": "full_character",
+        "loadout_ref": "loadout_house_champion",
+        "outside_fighting_establishment": true,
+        "source_force_ref": "force_state_qin",
+        "source_role": "command_personnel"
+      },
+      "fighting_establishment": 2000,
+      "hierarchy_rule": "This is one of four independent Qin-owned 2,000-person formations assigned under Tang Wei. Its commander and deputy are full mounted command characters; its 1,000/500 commanders are conserved infantry members using the unit loadout; 100-man command remains aggregate unless individually salient.",
+      "internal_hierarchy": [
+        {
+          "count": 2,
+          "deputy_policy": "none",
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 1000
+        },
+        {
+          "count": 4,
+          "deputy_policy": "none",
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 500
+        },
+        {
+          "count": 20,
+          "deputy_policy": "none",
+          "representation": "aggregate",
+          "scale": 100
+        }
+      ],
+      "label": "Qin Border Detachment Unit 3"
+    },
+    "formation_qin_wei_unit_04": {
+      "external_unit_command": {
+        "commander_ref": "char_qin_wei_unit_04_commander",
+        "commander_representation": "full_character",
+        "deputy_ref": "char_qin_wei_unit_04_deputy",
+        "deputy_representation": "full_character",
+        "loadout_ref": "loadout_house_champion",
+        "outside_fighting_establishment": true,
+        "source_force_ref": "force_state_qin",
+        "source_role": "command_personnel"
+      },
+      "fighting_establishment": 2000,
+      "hierarchy_rule": "This is one of four independent Qin-owned 2,000-person formations assigned under Tang Wei. Its commander and deputy are full mounted command characters; its 1,000/500 commanders are conserved infantry members using the unit loadout; 100-man command remains aggregate unless individually salient.",
+      "internal_hierarchy": [
+        {
+          "count": 2,
+          "deputy_policy": "none",
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 1000
+        },
+        {
+          "count": 4,
+          "deputy_policy": "none",
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 500
+        },
+        {
+          "count": 20,
+          "deputy_policy": "none",
+          "representation": "aggregate",
+          "scale": 100
+        }
+      ],
+      "label": "Qin Border Detachment Unit 4"
+    },
+    "formation_tang_champions_first": {
+      "external_unit_command": {
+        "commander_ref": "char_duan_jin",
+        "deputy_ref": "char_shen_rui",
+        "loadout_ref": "loadout_house_champion",
+        "outside_fighting_establishment": true
+      },
+      "fighting_establishment": 500,
+      "hierarchy_rule": "Duan Jin and Shen Rui are established external full-character Unit command. The five 100-man internal commands are conserved person-lite Tang Champion bodies inside the 500 fighting establishment; their actual command capability contributes through the normal internal-command quality kernel.",
+      "internal_hierarchy": [
+        {
+          "count": 5,
+          "representation": "person_lite",
+          "scale": 100
+        }
+      ],
+      "label": "Tang Champions"
+    },
+    "formation_tang_wei_house_guard": {
+      "external_unit_command": {
+        "commander_billets": 1,
+        "commander_representation": "full_character",
+        "deputy_billets": 1,
+        "deputy_representation": "full_character",
+        "loadout_ref": "loadout_house_champion",
+        "outside_fighting_establishment": true,
+        "source_force_ref": "force_house_tang"
+      },
+      "fighting_establishment": 3000,
+      "hierarchy_rule": "House Tang's institution-wide standard applies: full-character persistent unit commander and deputy above fighting strength; 3 x 1,000 and 6 x 500 person-lite commander assignments over conserved fighting bodies; 30 x 100 aggregate command billets.",
+      "internal_hierarchy": [
+        {
+          "count": 3,
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 1000
+        },
+        {
+          "count": 6,
+          "loadout_ref": "loadout_house_guard",
+          "representation": "person_lite",
+          "scale": 500
+        },
+        {
+          "count": 30,
+          "representation": "aggregate",
+          "scale": 100
+        }
+      ],
+      "label": "Tang Wei House Guard"
+    }
+  },
+  "mercenary_command_structure": {
+    "generic_internal_levels": [
+      1000,
+      500,
+      100
+    ],
+    "generic_representation": "aggregate",
+    "routine_support_function_rule": "Routine engineering, logistics, signals, medical handling and administration are duties assigned from existing manpower; they own no extra bodies or command echelon.",
+    "rule": "Mercenary command nodes use the same scale-aware hierarchy, but generic officers remain aggregate. Unit command and support come from the company's existing total headcount unless a separate lawful attachment is saved. Important, exceptional or provenance-backed high-potential officers may later be materialized without changing total company manpower.",
+    "unit_command": {
+      "commander_billets_per_company": 1,
+      "default_representation": "aggregate",
+      "deputy_billets_per_company": 1,
+      "inside_total_headcount": true
+    }
+  },
+  "mercenary_training": {
+    "default_attributes": [
+      "Strength",
+      "Endurance",
+      "Coordination",
+      "Awareness",
+      "Composure"
+    ],
+    "default_skills": [
+      "Formation Fighting",
+      "Athletics",
+      "Leadership"
+    ],
+    "doctrine_familiarity_cap": 100,
+    "doctrine_familiarity_gain_per_review": 2,
+    "equipment_grade": "adequate",
+    "facility_grade": "adequate",
+    "focus_profiles": [
+      {
+        "attributes": [
+          "Awareness",
+          "Coordination",
+          "Endurance",
+          "Composure"
+        ],
+        "skills": [
+          "Engineering",
+          "Formation Fighting",
+          "Logistics"
+        ],
+        "tokens": [
+          "countermining",
+          "sapper",
+          "engineer",
+          "repair"
+        ]
+      },
+      {
+        "attributes": [
+          "Coordination",
+          "Awareness",
+          "Endurance",
+          "Composure"
+        ],
+        "skills": [
+          "Engineering",
+          "Crossbow",
+          "Formation Fighting",
+          "Tactics",
+          "Logistics"
+        ],
+        "tokens": [
+          "artillery",
+          "trebuchet",
+          "crossbow",
+          "stone",
+          "firepot",
+          "siege"
+        ]
+      },
+      {
+        "attributes": [
+          "Strength",
+          "Endurance",
+          "Toughness",
+          "Composure"
+        ],
+        "skills": [
+          "Formation Fighting",
+          "Shield",
+          "Athletics"
+        ],
+        "tokens": [
+          "heavy_infantry",
+          "outer_wall",
+          "guard",
+          "line_infantry"
+        ]
+      },
+      {
+        "attributes": [
+          "Awareness",
+          "Coordination",
+          "Endurance",
+          "Composure"
+        ],
+        "skills": [
+          "Scouting",
+          "Intelligence Operations",
+          "Logistics",
+          "Tactics"
+        ],
+        "tokens": [
+          "signal",
+          "messenger",
+          "reconnaissance"
+        ]
+      },
+      {
+        "attributes": [
+          "Awareness",
+          "Endurance",
+          "Intelligence",
+          "Composure"
+        ],
+        "skills": [
+          "Logistics",
+          "Medicine",
+          "Survival",
+          "Formation Fighting"
+        ],
+        "tokens": [
+          "logistics",
+          "quartermaster",
+          "transport",
+          "medical"
+        ]
+      }
+    ],
+    "hours_per_review_by_status": {
+      "available": 104,
+      "contracted": 96,
+      "deployed": 56
+    },
+    "recovery_grade": "adequate",
+    "review_kind": "quarterly_autonomy",
+    "role_exposure_fraction": 0.35,
+    "rule": "A living mercenary company uses its quarterly causal review to conduct role-specific aggregate drill when not destroyed or dissolved. Training advances the current capability embedded in each exact troop pool under Sword's ordinary diminishing-return training law; it never creates character records or free headcount. Contracted House Tang defense companies therefore continue professional drill while on standing defensive duty, while deployed companies receive less deliberate drill and rely more on field exposure."
+  },
+  "officer_representation_policy": {
+    "default_representation": "aggregate",
+    "high_potential_evidence_rule": "High potential is never inferred from holding a billet. It requires saved screening, cohort, progression, performance, or other exact provenance before individual representation.",
+    "loadout_rule": "Army/unit commander and deputy use House Champion command standard. Internal 1,000/500 commanders use House Guard when infantry and House Champion when cavalry. Qin formations under Tang Wei follow the same troop-type rule while Qin ownership remains unchanged.",
+    "materialization_rule": "Officer materialization reclassifies one already conserved body. It never creates manpower, rank, experience, or a replacement body.",
+    "person_lite_triggers": [
+      "promotion_into_top_command",
+      "direct_player_interaction",
+      "recurring_named_command_responsibility",
+      "individual_injury_capture_or_death",
+      "political_or_social_consequence",
+      "exceptional_saved_performance",
+      "saved_high_potential_evidence"
+    ],
+    "rank_billet_rule": "Rank is durable career state. Billet and current span may change after casualties/reorganization without altering rank. Aggregate surplus officers remain in the unit cadre reserve.",
+    "scale_rule": "All ordinary embedded 1,000/500/100 officers are aggregate by default, including House Tang and units under Tang Wei. Only individually relevant officers materialize to person-lite; full characters are reserved for people whose complete personal simulation matters.",
+    "scoped_policy_ref": "game/data/mechanics/officer-representation.json"
+  },
+  "operation_depth": {
+    "combined_arms_roles": [
+      "line_infantry",
+      "missile_crossbow",
+      "archer",
+      "cavalry",
+      "chariot",
+      "command_personnel"
+    ],
+    "formation_count_by_threat": [
+      {
+        "formation_count": 5,
+        "minimum_severity": 85
+      },
+      {
+        "formation_count": 4,
+        "minimum_severity": 70
+      },
+      {
+        "formation_count": 3,
+        "minimum_severity": 50
+      },
+      {
+        "formation_count": 2,
+        "minimum_severity": 35
+      }
+    ],
+    "rule": "Major operations coordinate persistent fighting formations and command personnel. Siege work, baggage, signals and casualty handling use temporary duty allocations from those same conserved bodies."
+  },
+  "qin_border_detachment": {
+    "aggregate_100_man_commanders_per_unit": 20,
+    "fighting_establishment_per_unit": 2000,
+    "fighting_establishment_total": 8000,
+    "formation_refs": [
+      "formation_qin_wei_unit_01",
+      "formation_qin_wei_unit_02",
+      "formation_qin_wei_unit_03",
+      "formation_qin_wei_unit_04"
+    ],
+    "internal_1000_commanders_per_unit": 2,
+    "internal_500_commanders_per_unit": 4,
+    "label": "Qin Border Detachment",
+    "persistent_unit_count": 4,
+    "rule": "The Qin assignment under Tang Wei is four separate Qin-owned 2,000-person persistent formations. Tang Wei commands the combined detachment through his field-army command group; no extra 8,000-person parent formation exists. Each 2,000-person unit has one full-character mounted commander and deputy outside fighting strength, two conserved 1,000 commanders, four conserved 500 commanders, and twenty aggregate 100-man command billets. Qin retains ownership, allegiance, payroll, and manpower provenance.",
+    "state_owner": "state_qin",
+    "unit_command_external_to_fighting_strength": true,
+    "unit_commander_representation": "full_character",
+    "unit_deputy_representation": "full_character"
+  },
+  "schema": "warfare-organization",
+  "tang_wei_house_contingent": {
+    "fighting_establishment_total": 3500,
+    "formation_refs": [
+      "formation_tang_wei_house_guard",
+      "formation_tang_champions_first"
+    ],
+    "house_guard_fighting_establishment": 3000,
+    "label": "Tang Wei House Contingent",
+    "persistent_unit_slots": 2,
+    "rule": "Both formations remain House Tang property under Wei command. House Tang uses the same unit commander/deputy full-character standard institution-wide, not only in Wei's contingent. Internal 1,000/500 House Guard commanders are conserved person-lite fighting bodies.",
+    "tang_champions_fighting_establishment": 500
+  }
+}

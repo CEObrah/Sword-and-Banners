@@ -1,0 +1,110 @@
+{
+  "autonomous_reviews": [
+    {
+      "at": "244-BCE-06-04T07:22:48+08:00",
+      "kind": "estate_and_retainer_review",
+      "projects_settled": 0
+    }
+  ],
+  "civil_finance": {
+    "arrears_silver": 0,
+    "estate_income_due_silver": 1000,
+    "estate_income_received_silver": 1000,
+    "last_close": "244-BCE-06-04T07:22:48+08:00",
+    "payer_ref": "private_economy_qin",
+    "recruitment_cost_due_silver": 0,
+    "recruitment_cost_paid_silver": 0,
+    "recruits": 0,
+    "regional_economy_ref": "loc_bu_pass"
+  },
+  "goals": [
+    "preserve household",
+    "improve standing"
+  ],
+  "house_ref": "house_shou_bun_kun_household",
+  "last_review": "244-BCE-06-04T07:22:48+08:00",
+  "leader_ref": "char_shou_bun_kun",
+  "lineage_cohort": {
+    "adults": 15,
+    "children": 6,
+    "elders": 2,
+    "last_close": "244-BCE-06-04T07:22:48+08:00",
+    "marriages": 4
+  },
+  "lineage_runtime": {
+    "branches": {
+      "household_core": {
+        "adults": 15,
+        "children": 6,
+        "elders": 2,
+        "marriages": 4
+      }
+    },
+    "representation": "aggregate household branches; no unnamed person is treated as exact",
+    "reviews": [
+      {
+        "at": "244-BCE-06-04T07:22:48+08:00",
+        "deltas": {
+          "adults": 1,
+          "children": 1,
+          "elders": 0,
+          "marriages": 0
+        },
+        "occurrences": 1
+      }
+    ]
+  },
+  "material_directives": [
+    {
+      "action_ref": "house_arc_e0425dcc5521890d13",
+      "arc_ref": "arc_qin_succession_crisis_245",
+      "at": "244-BCE-08-03T06:22:48+08:00",
+      "goal": "protect Ei Sei, preserve the loyal network, and obtain enough force to reverse the coup",
+      "status": "issued",
+      "target_ref": "char_sei_kyou"
+    }
+  ],
+  "military_force_ref": "force_house_shou_bun_kun_household",
+  "owner_id": "house_shou_bun_kun_household",
+  "projects": [],
+  "schema": "sword-house",
+  "state": "qin",
+  "threat_level": "0.1",
+  "treasury_silver": 153600,
+  "world_arc_priorities": [
+    {
+      "action_ref": "house_arc_e0425dcc5521890d13",
+      "arc_observed": false,
+      "arc_ref": "arc_qin_succession_crisis_245",
+      "at": "244-BCE-08-01T06:22:48+08:00",
+      "basis": "exact House treasury funded preparation only; a separate domain consequence is required before arc momentum can increase",
+      "coordination_spent_silver": 100,
+      "evidence_stage": "commitment",
+      "goal": "protect Ei Sei, preserve the loyal network, and obtain enough force to reverse the coup",
+      "kind": "world_arc_house_initiative",
+      "material_evidence": {
+        "action_ref": "house_arc_e0425dcc5521890d13",
+        "evidence_stage": "commitment",
+        "history_event_ref": "autonomous_domain_ca1bac16fbb1868455",
+        "house_ref": "house_shou_bun_kun_household",
+        "kind": "exact_house_directive"
+      },
+      "payee_ref": "private_economy_qin",
+      "payer_ref": "house_shou_bun_kun_household",
+      "settled_at": "244-BCE-08-03T06:22:48+08:00",
+      "status": "commitment_settled",
+      "target_ref": "char_sei_kyou"
+    }
+  ],
+  "politics": {
+    "influence": 69,
+    "patronage": 48,
+    "information_access": 46,
+    "court_access": 65,
+    "relationships": {},
+    "rule": "shared House political-capacity fields; effects use common House/politics mechanics rather than owner-specific code"
+  },
+  "nobility": {
+    "grade": "recognized_house"
+  }
+}

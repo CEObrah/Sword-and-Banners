@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command Group Index",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "count",
+    "refs",
+    "primary_person_group",
+    "primary_formation_group"
+  ],
+  "properties": {
+    "schema": {
+      "const": "command-group-index"
+    },
+    "authority": {
+      "const": false
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "primary_person_group": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "primary_formation_group": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

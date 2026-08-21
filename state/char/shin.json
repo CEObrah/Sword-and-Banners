@@ -1,0 +1,178 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "focus": [
+      "Sword",
+      "Athletics",
+      "Grappling",
+      "Survival",
+      "Leadership"
+    ],
+    "mode": "career_role_training",
+    "training_program_ref": "program.martial_aspirant",
+    "training_regimen_ref": "martial_aspirant"
+  },
+  "age_stage": "adolescent",
+  "appearance": 70,
+  "aptitude": {
+    "academic_learning": 70,
+    "physical_learning": 135,
+    "social_learning": 75,
+    "tactical_learning": 105,
+    "technical_learning": 95
+  },
+  "attributes": {
+    "Agility": 98,
+    "Awareness": 88,
+    "Composure": 75,
+    "Coordination": 98,
+    "Endurance": 115,
+    "Intelligence": 55,
+    "Presence": 78,
+    "Strength": 85,
+    "Toughness": 112
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 8,
+    "enabled": true,
+    "focus_cursor": 212,
+    "fractional_training_hour_credit": 0.714286,
+    "last_completed_at": "244-BCE-08-01T06:22:48+08:00",
+    "last_cycle_at": "244-BCE-08-01T06:22:48+08:00",
+    "next_due": "244-BCE-08-31T06:22:48+08:00",
+    "resolved_through": "244-BCE-08-01T06:22:48+08:00",
+    "resolved_training_regimen_ref": "martial_aspirant",
+    "reviewed_cycles": 8,
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "background": {
+    "origin": "Qin"
+  },
+  "birth_date": "259-BCE-04-06",
+  "body": {
+    "adult_height_cm": 163.0,
+    "current_weight_kg": 44.7,
+    "frame": "lean",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": []
+  },
+  "career_state": {
+    "appointments": [
+      {
+        "assignment_ref": null,
+        "at": "244-BCE-07-29T20:22:48+08:00",
+        "basis": "current_authority",
+        "office_or_command": "No military office; bonded rural laborer and self-trained martial aspirant"
+      }
+    ],
+    "career_changes": 0,
+    "current_assignment_ref": null,
+    "current_professional_path": "martial_aspirant",
+    "future_canon_guaranteed": false,
+    "office_or_command": "No military office; bonded rural laborer and self-trained martial aspirant"
+  },
+  "current_location": "loc_jouto_village",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 21.108,
+      "Awareness": 16.903,
+      "Composure": 11.132,
+      "Coordination": 21.108,
+      "Endurance": 9.575,
+      "Intelligence": 26.746,
+      "Presence": 9.721,
+      "Strength": 69.432,
+      "Toughness": 9.615
+    },
+    "attribute_stimulus_hours_milli": 575750,
+    "autonomous_deterministic_training_cursor": 1253,
+    "completed_months": 0,
+    "completed_reviews": 16,
+    "fatigue_recovery_through": "244-BCE-08-01T06:22:48+08:00",
+    "last_training_program_ref": "program.martial_aspirant",
+    "maintenance_credit": 0.0,
+    "settled_training_hours": 1645,
+    "skill_edu_banks": {
+      "Athletics": 134.494,
+      "Diplomacy": 21.06,
+      "Grappling": 59.093,
+      "Law": 8.685,
+      "Leadership": 37.832,
+      "Scouting": 25.744,
+      "Survival": 46.809,
+      "Sword": 83.896,
+      "Trade": 21.06
+    },
+    "training_credit": 0.0,
+    "training_time_ledger": {
+      "active_entries": [],
+      "active_windows": [],
+      "active_floor": "244-BCE-08-18T18:22:48+08:00"
+    },
+    "verified_deliberate_training_hours": 1645
+  },
+  "equipment_loadout_id": "loadout_named_sword",
+  "goal_state": {
+    "current_goals": [
+      "escape servitude through achievement and earn a real path toward becoming a great general"
+    ],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [
+      "escape servitude through achievement and earn a real path toward becoming a great general"
+    ],
+    "personal_desires": [
+      "rise to Great General through battlefield achievement"
+    ]
+  },
+  "health_status": "healthy",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_status": "active",
+  "location_scope": "Jouto Village",
+  "military_rank": {
+    "durable": true,
+    "grade": "not_formally_recorded"
+  },
+  "name": "Shin",
+  "owner_id": "char_shin",
+  "owner_type": "character",
+  "role": "Jouto bonded laborer and aspiring martial youth",
+  "role_archetype": "youth_warrior",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 110,
+    "Heavy Weapons": 14,
+    "Bow": 0,
+    "Crossbow": 16,
+    "Sword": 98,
+    "Engineering": 13,
+    "Formation Command": 0,
+    "Formation Fighting": 8,
+    "Polearms": 16,
+    "Grappling": 56,
+    "Leadership": 40,
+    "Logistics": 0,
+    "Medicine": 21,
+    "Scouting": 31,
+    "Riding": 0,
+    "Shield": 5,
+    "Stealth": 15,
+    "Strategy": 0,
+    "Survival": 64,
+    "Tactics": 12,
+    "Unarmed": 58
+  },
+  "state": "Qin",
+  "behavior_profile_ref": "game/data/people/behavior-profiles/char_shin.json",
+  "professional_skills": {
+    "Intelligence Operations": 14,
+    "Diplomacy": 26,
+    "Law": 23,
+    "Trade": 26,
+    "Governance": 21
+  }
+}
