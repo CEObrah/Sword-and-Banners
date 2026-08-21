@@ -12,9 +12,13 @@ def test_advance_time_contract_explains_standing_training_activity_policy() -> N
     )
 
     activity = contract["input_guidance"]["activity_policy"]
-    assert "omitting it means" in activity["rule"]
+    assert "continues by default" in activity["rule"]
     assert activity["fields"]["player_standing_training"]["type"] == "boolean"
+    assert "set false to suspend" in activity["fields"]["player_standing_training"]["rule"]
     assert "explicitly ordered to train" in activity["fields"]["formation_refs"]["rule"]
+    assert "scheduler-owned" in activity["fields"]["formation_refs"]["rule"]
+    assert "automatically settles due Runtime-owned causal work" in activity["autonomy_rule"]
+    assert "must not enumerate or replay" in activity["autonomy_rule"]
     assert "same advance_time transaction" in activity["settlement_rule"]
     assert "pre-existing or manually deferred credit" in activity["settlement_rule"]
     assert "informational campaign-event notices" in activity["event_boundary_rule"]
