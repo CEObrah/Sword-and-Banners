@@ -1,20 +1,21 @@
 """Chronology-owned subsistence for authoritative persistent formations.
 
-Travel already consumes the exact food/fodder needed for its movement interval.
-This lifecycle fills the missing stationary-time side: one daily scheduler host
-consumes registered rations for every canonical persistent formation, regardless
-of whether its current owner or commander is the player, a House, or a state.
-Temporary operation/battle arrangements are not material owners and are never
-fed separately. Carried stores are used first. Only a formation's existing
-material-depot authority may cover a shortfall, and only when that depot is
-physically co-located; stock is never minted or pulled remotely.
+Every canonical persistent formation is a material consumer regardless of whether
+its current owner or commander is the player, a House, or a state. Temporary
+operation/battle arrangements are never fed separately because they do not own
+manpower.
 
-Some player commands load a formation before advancing chronology and write it
-again afterwards. To keep scheduler writes from being overwritten by those
-command-local copies, the host defers settlement for such command targets and
-applies the owed interval after the command finishes. Strategic movement is
-separately marked as already covered because those commands consume their own
-route-time rations explicitly.
+Ordinary elapsed chronology consumes the registered food/fodder rates. Carried
+stores are used first. Only a formation's existing material-depot authority may
+cover a shortfall, and only when that depot is physically co-located; stock is
+never minted or pulled remotely.
+
+Travel and formation movement already consume exact route-time rations. The
+subsistence clock therefore settles any stationary gap up to departure, defers
+scheduler writes while the movement command owns stale formation copies, then
+marks the reached time as explicitly covered. The next scheduler settlement
+starts from that exact arrival time instead of charging the movement interval a
+second time.
 """
 from __future__ import annotations
 
@@ -107,20 +108,53 @@ def _command_formation_refs(payload: Mapping[str, Any]) -> set[str]:
     return refs
 
 
+def _parse_optional_time(value: Any) -> CampaignTime | None:
+    if not isinstance(value, str):
+        return None
+    try:
+        return CampaignTime.parse(value)
+    except ValueError:
+        return None
+
+
+def _unsettled_seconds(
+    formation: Mapping[str, Any],
+    end_text: str,
+    *,
+    fallback_start_text: str,
+    maximum_seconds: int | None = None,
+) -> int:
+    """Return exact elapsed seconds not yet covered by formation subsistence."""
+    end = CampaignTime.parse(end_text)
+    start = CampaignTime.parse(fallback_start_text)
+
+    subsistence = formation.get("subsistence")
+    if isinstance(subsistence, Mapping):
+        settled = _parse_optional_time(subsistence.get("last_settled_at"))
+        if settled is not None and settled > start:
+            start = settled
+
+    created = _parse_optional_time(formation.get("created_at"))
+    if created is not None and created > start:
+        start = created
+
+    if start >= end:
+        return 0
+    seconds = max(0, int(start.seconds_until(end)))
+    if maximum_seconds is not None:
+        seconds = min(maximum_seconds, seconds)
+    return seconds
+
+
 def _interval_seconds(formation: Mapping[str, Any], due_text: str) -> int:
     due = CampaignTime.parse(due_text)
-    start = due.add_seconds(-_CADENCE_SECONDS)
-    created_text = formation.get("created_at")
-    if isinstance(created_text, str):
-        try:
-            created = CampaignTime.parse(created_text)
-        except ValueError:
-            created = None
-        if created is not None and created > start:
-            start = created
-    if start >= due:
-        return 0
-    return max(0, min(_CADENCE_SECONDS, int(start.seconds_until(due))))
+    fallback = str(due.add_seconds(-_CADENCE_SECONDS))
+    return _unsettled_seconds(
+        formation,
+        due_text,
+        fallback_start_text=fallback,
+        maximum_seconds=_CADENCE_SECONDS,
+    )
 
 
 def _co_located_material_depot(planner: Any, formation: Mapping[str, Any]) -> tuple[str, dict[str, Any]] | None:
@@ -222,8 +256,24 @@ def _consume_one(planner: Any, formation_ref: str, *, seconds: int, at: str) -> 
     }
 
 
+def _mark_explicitly_covered(planner: Any, formation_ref: str, *, at: str, seconds: int) -> None:
+    """Advance the clock without consuming again; movement already paid the interval."""
+    path = planner.owner_path(formation_ref)
+    formation = copy.deepcopy(planner.read(path))
+    if not isinstance(formation, Mapping) or not _eligible_persistent_formation(formation):
+        return
+    formation = dict(formation)
+    subsistence = formation.setdefault("subsistence", {})
+    if not isinstance(subsistence, dict):
+        raise ValueError(f"formation subsistence state is invalid: {formation_ref}")
+    subsistence["last_settled_at"] = at
+    subsistence["last_explicit_coverage_seconds"] = max(0, int(seconds))
+    subsistence["last_explicit_coverage_kind"] = "movement_route_rations"
+    planner.put(path, formation)
+
+
 def settle_player_formation_subsistence(planner: Any, host: Mapping[str, Any], at: str) -> dict[str, Any]:
-    """Settle one daily interval for every canonical persistent formation."""
+    """Settle one scheduler interval for every canonical persistent formation."""
     deferred = set(getattr(planner, "_subsistence_deferred_refs", set()))
     explicitly_covered = set(getattr(planner, "_subsistence_explicit_covered_refs", set()))
     deferred_seconds = getattr(planner, "_subsistence_deferred_seconds", None)
@@ -308,7 +358,7 @@ def sync_player_formation_subsistence_host(planner: Any, runtime: dict[str, Any]
 
 
 class FormationSubsistenceFlowMixin:
-    """Add automatic daily subsistence to all persistent military formations."""
+    """Add automatic subsistence to all persistent military formations."""
 
     def _advance_runtime(self, target_text: str) -> dict[str, Any]:
         if getattr(self, "_central_scheduler_reconciliation_active", False):
@@ -330,16 +380,56 @@ class FormationSubsistenceFlowMixin:
         previous_covered = getattr(self, "_subsistence_explicit_covered_refs", set())
         previous_seconds = getattr(self, "_subsistence_deferred_seconds", {})
         refs = _command_formation_refs(payload)
+        movement = command.command_type in _MOVEMENT_COMMANDS
+
+        runtime = copy.deepcopy(self.read(_RUNTIME_PATH))
+        sync_player_formation_subsistence_host(self, runtime)
+        start_text = str(runtime.get("world_time"))
+        host = runtime["hosts"][_HOST_ID]
+        fallback_start = str(host.get("resolved_through", start_text))
+        self.put(_RUNTIME_PATH, runtime)
+
+        # Settle the partial stationary interval before command-local formation
+        # copies are allowed to exist. This makes a later movement interval an
+        # exact coverage boundary instead of a whole-day exemption.
+        for formation_ref in sorted(refs):
+            path = self.owner_path(formation_ref)
+            formation = self.read(path)
+            if not isinstance(formation, Mapping) or not _eligible_persistent_formation(formation):
+                continue
+            seconds = _unsettled_seconds(
+                formation,
+                start_text,
+                fallback_start_text=fallback_start,
+            )
+            if seconds > 0:
+                _consume_one(self, formation_ref, seconds=seconds, at=start_text)
+
         self._subsistence_deferred_refs = set(refs)
-        self._subsistence_explicit_covered_refs = set(refs) if command.command_type in _MOVEMENT_COMMANDS else set()
+        self._subsistence_explicit_covered_refs = set(refs) if movement else set()
         self._subsistence_deferred_seconds = {}
         try:
             result = super()._dispatch(command, payload)
             reached = str(self.read(_RUNTIME_PATH).get("world_time"))
-            for formation_ref, seconds in sorted(self._subsistence_deferred_seconds.items()):
-                if formation_ref in self._subsistence_explicit_covered_refs:
-                    continue
-                _consume_one(self, formation_ref, seconds=int(seconds), at=reached)
+            elapsed = max(
+                0,
+                int(CampaignTime.parse(start_text).seconds_until(CampaignTime.parse(reached))),
+            )
+            for formation_ref in sorted(refs):
+                if movement:
+                    _mark_explicitly_covered(
+                        self,
+                        formation_ref,
+                        at=reached,
+                        seconds=elapsed,
+                    )
+                elif elapsed > 0:
+                    _consume_one(
+                        self,
+                        formation_ref,
+                        seconds=elapsed,
+                        at=reached,
+                    )
             return result
         finally:
             self._subsistence_deferred_refs = previous_deferred
