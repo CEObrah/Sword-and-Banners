@@ -1,11 +1,13 @@
-"""Chronology-owned subsistence for Tang Wei-controlled persistent formations.
+"""Chronology-owned subsistence for authoritative persistent formations.
 
 Travel already consumes the exact food/fodder needed for its movement interval.
 This lifecycle fills the missing stationary-time side: one daily scheduler host
-consumes registered rations for persistent formations under Tang Wei's command
-or House Tang ownership. Carried stores are used first. Only a formation's
-existing material-depot authority may cover a shortfall, and only when that
-depot is physically co-located; stock is never minted or pulled remotely.
+consumes registered rations for every canonical persistent formation, regardless
+of whether its current owner or commander is the player, a House, or a state.
+Temporary operation/battle arrangements are not material owners and are never
+fed separately. Carried stores are used first. Only a formation's existing
+material-depot authority may cover a shortfall, and only when that depot is
+physically co-located; stock is never minted or pulled remotely.
 
 Some player commands load a formation before advancing chronology and write it
 again afterwards. To keep scheduler writes from being overwritten by those
@@ -31,9 +33,6 @@ _EVENT_ID = "event_player_formation_subsistence_daily"
 _HOST_KIND = "player_formation_subsistence"
 _CADENCE_SECONDS = 24 * 3600
 _PRIORITY = 20
-_PLAYER_REF = "char_tang_wei"
-_TANG_FORCE_REFS = frozenset({"force_house_tang", "force_tang_wei_personal", "force_sword_manor"})
-_TANG_ADMIN_REFS = frozenset({"house_tang", "char_tang_wei"})
 _MOVEMENT_COMMANDS = frozenset({"travel", "formation_move"})
 _FORMATION_PAYLOAD_KEYS = (
     "formation_ref",
@@ -64,20 +63,19 @@ def _policy(planner: Any) -> Mapping[str, Any]:
     return policy
 
 
-def _managed_formation(planner: Any, formation: Mapping[str, Any]) -> bool:
+def _eligible_persistent_formation(formation: Mapping[str, Any]) -> bool:
+    """Return whether one canonical formation is a live material consumer."""
+    if bool(formation.get("temporary", False)):
+        return False
     if max(0, int(formation.get("personnel", 0))) <= 0:
         return False
     if str(formation.get("status", "")).lower() in {"destroyed", "dissolved", "disbanded"}:
         return False
-    player_ref = str(getattr(planner, "PLAYER_ACTOR", _PLAYER_REF))
-    return (
-        str(formation.get("command_authority", "")) == player_ref
-        or str(formation.get("administrative_owner", "")) in _TANG_ADMIN_REFS
-        or str(formation.get("owner_force_ref", "")) in _TANG_FORCE_REFS
-    )
+    return True
 
 
 def _formation_refs(planner: Any) -> list[str]:
+    """Enumerate canonical persistent formations, never operation arrangements."""
     index = planner.read(_OWNER_INDEX_PATH)
     owners = index.get("owners") if isinstance(index, Mapping) else None
     if not isinstance(owners, Mapping):
@@ -141,17 +139,28 @@ def _co_located_material_depot(planner: Any, formation: Mapping[str, Any]) -> tu
     return path, depot
 
 
+def _mount_count(formation: Mapping[str, Any]) -> int:
+    mounts = formation.get("mounts", {})
+    if isinstance(mounts, Mapping):
+        return sum(max(0, int(value)) for value in mounts.values())
+    if isinstance(mounts, bool):
+        return 0
+    if isinstance(mounts, (int, float)):
+        return max(0, int(mounts))
+    return 0
+
+
 def _consume_one(planner: Any, formation_ref: str, *, seconds: int, at: str) -> dict[str, Any] | None:
     if seconds <= 0:
         return None
     path = planner.owner_path(formation_ref)
     formation = copy.deepcopy(planner.read(path))
-    if not isinstance(formation, Mapping) or not _managed_formation(planner, formation):
+    if not isinstance(formation, Mapping) or not _eligible_persistent_formation(formation):
         return None
     formation = dict(formation)
     policy = _policy(planner)
     personnel = max(0, int(formation.get("personnel", 0)))
-    mounts = sum(max(0, int(value)) for value in (formation.get("mounts", {}) or {}).values())
+    mounts = _mount_count(formation)
     days = float(seconds) / 86400.0
     food_need = max(0, int(math.ceil(personnel * float(policy["food_kg_per_person_day"]) * days)))
     fodder_need = max(0, int(math.ceil(mounts * float(policy["fodder_kg_per_mount_day"]) * days)))
@@ -214,6 +223,7 @@ def _consume_one(planner: Any, formation_ref: str, *, seconds: int, at: str) -> 
 
 
 def settle_player_formation_subsistence(planner: Any, host: Mapping[str, Any], at: str) -> dict[str, Any]:
+    """Settle one daily interval for every canonical persistent formation."""
     deferred = set(getattr(planner, "_subsistence_deferred_refs", set()))
     explicitly_covered = set(getattr(planner, "_subsistence_explicit_covered_refs", set()))
     deferred_seconds = getattr(planner, "_subsistence_deferred_seconds", None)
@@ -226,7 +236,7 @@ def settle_player_formation_subsistence(planner: Any, host: Mapping[str, Any], a
     for formation_ref in _formation_refs(planner):
         path = planner.owner_path(formation_ref)
         formation = planner.read(path)
-        if not isinstance(formation, Mapping) or not _managed_formation(planner, formation):
+        if not isinstance(formation, Mapping) or not _eligible_persistent_formation(formation):
             continue
         seconds = _interval_seconds(formation, at)
         if seconds <= 0:
@@ -250,6 +260,7 @@ def settle_player_formation_subsistence(planner: Any, host: Mapping[str, Any], a
 
 
 def sync_player_formation_subsistence_host(planner: Any, runtime: dict[str, Any]) -> None:
+    """Register the universal persistent-formation ration host once."""
     hosts = runtime.get("hosts")
     events = runtime.get("events")
     if not isinstance(hosts, dict) or not isinstance(events, list):
@@ -264,7 +275,7 @@ def sync_player_formation_subsistence_host(planner: Any, runtime: dict[str, Any]
         host = {
             "host_id": _HOST_ID,
             "kind": _HOST_KIND,
-            "owner_ref": "runtime_player_formation_subsistence",
+            "owner_ref": "runtime_persistent_formation_subsistence",
             "recurrence_seconds": _CADENCE_SECONDS,
             "resolved_through": now_text,
             "next_due": str(due),
@@ -272,11 +283,11 @@ def sync_player_formation_subsistence_host(planner: Any, runtime: dict[str, Any]
         }
         hosts[_HOST_ID] = host
     elif not isinstance(host, dict) or str(host.get("kind", "")) != _HOST_KIND:
-        raise ValueError("player formation subsistence host is invalid")
+        raise ValueError("formation subsistence host is invalid")
 
     matching = [row for row in events if isinstance(row, Mapping) and row.get("target_host") == _HOST_ID]
     if len(matching) > 1:
-        raise ValueError("player formation subsistence host has duplicate events")
+        raise ValueError("formation subsistence host has duplicate events")
     if not matching:
         events.append({
             "event_id": _EVENT_ID,
@@ -288,7 +299,7 @@ def sync_player_formation_subsistence_host(planner: Any, runtime: dict[str, Any]
     else:
         event = matching[0]
         if not isinstance(event, dict):
-            raise ValueError("player formation subsistence event is invalid")
+            raise ValueError("formation subsistence event is invalid")
         event["event_id"] = _EVENT_ID
         event["kind"] = _HOST_KIND
         event["priority"] = _PRIORITY
@@ -297,7 +308,7 @@ def sync_player_formation_subsistence_host(planner: Any, runtime: dict[str, Any]
 
 
 class FormationSubsistenceFlowMixin:
-    """Add automatic daily subsistence to hosted Tang Wei military chronology."""
+    """Add automatic daily subsistence to all persistent military formations."""
 
     def _advance_runtime(self, target_text: str) -> dict[str, Any]:
         if getattr(self, "_central_scheduler_reconciliation_active", False):
