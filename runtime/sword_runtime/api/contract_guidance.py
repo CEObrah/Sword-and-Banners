@@ -14,37 +14,44 @@ from typing import Any
 _ADVANCE_TIME_ACTIVITY_POLICY: Mapping[str, Any] = {
     "type": "object",
     "rule": (
-        "include activity_policy when the player's declared elapsed-time intent includes standing training; "
-        "omitting it means the interval advances without awarding standing-training credit"
+        "activity_policy is an optional per-interval override/addition. Tang Wei's persisted automatic standing-training plan continues by default when "
+        "his saved activity contract has auto_settle_standing_training=true; callers do not need to restate that routine on every time advance"
     ),
     "fields": {
         "player_standing_training": {
             "type": "boolean",
-            "rule": "set true only when Tang Wei is explicitly spending the elapsed interval on his saved standing training plan",
+            "rule": (
+                "omit this field to follow Tang Wei's saved automatic standing-training setting; set false to suspend that routine for this interval, "
+                "or true to explicitly apply the saved standing plan"
+            ),
         },
         "formation_refs": {
             "type": "array",
             "maximum_items": 128,
             "rule": (
                 "use unique exact controlled formation refs only when those formations are explicitly ordered to train during the interval; "
-                "mere co-location, readiness, escort duty, or waiting does not authorize formation training"
+                "mere co-location, readiness, escort duty, or waiting does not authorize extra player-directed formation training, and ordinary institutional force development is scheduler-owned"
             ),
         },
         "household_standing_person_refs": {
             "type": "array",
             "maximum_items": 128,
             "rule": (
-                "use exact House Tang people only to accrue their already-saved autonomous standing-role activity; "
-                "the player does not choose their focus or immediate skill result"
+                "use exact House Tang people only when explicit interim accrual under their already-saved autonomous standing-role activity is required; "
+                "their ordinary autonomous activity remains scheduler-owned and the player does not choose their focus or immediate skill result"
             ),
         },
     },
+    "autonomy_rule": (
+        "advancing chronology automatically settles due Runtime-owned causal work for NPCs, Houses, states, forces, recruitment/development systems, institutions, world arcs, reports, and other registered hosts; "
+        "the caller must not enumerate or replay those autonomous actions merely to make the world catch up"
+    ),
     "event_boundary_rule": (
-        "credit is earned only through the campaign time actually reached; stop_on_player_event may end the interval early for a true direct "
+        "standing credit is earned only through the campaign time actually reached; stop_on_player_event may end the interval early for a true direct "
         "player-facing boundary, while informational campaign-event notices are delivered without stopping the standing order"
     ),
     "settlement_rule": (
-        "the same advance_time transaction consumes whole earned credit for explicitly targeted formations and any configured Tang Wei auto-settlement, "
+        "the same advance_time transaction consumes whole earned credit for explicitly targeted formations and configured Tang Wei auto-settlement, "
         "leaving only fractional credit banked; standing_training_settle is reserved for pre-existing or manually deferred credit and advances no campaign time"
     ),
 }
