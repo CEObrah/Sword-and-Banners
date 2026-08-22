@@ -279,6 +279,11 @@
                   },
                   "late_catch_up": {
                     "type": "boolean"
+                  },
+                  "source_request_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
                   }
                 },
                 "additionalProperties": false
