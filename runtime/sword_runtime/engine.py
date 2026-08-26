@@ -4246,7 +4246,7 @@ class RepositoryCommandPlanner(OperationalBattlefieldMixin, CohortTxSupportMixin
                                         _n=max(0,int(_df.get("personnel",0))); remaining+=_n
                                         if _n>0: morale_rows.append(max(0,min(100,int(_df.get("morale",50)))))
                                     average_morale=sum(morale_rows)/max(1,len(morale_rows)) if morale_rows else 0.0
-                                    pre_defenders=sum(max(0,int(self._load_formation(_ref)[1].get("personnel",0)))+max(0,int(lloss.get(_ref,0))) for _ref in d_contact if _ref)
+                                    pre_defenders=sum(max(0,int(self._load_formation(_ref)[1].get("personnel",0)))+max(0,int((lloss.get(_ref,{}) or {}).get("loss",0))) for _ref in d_contact if _ref)
                                     collapse=remaining<=0 or average_morale<=15.0 or remaining<=max(50,int(pre_defenders*0.25))
                                     if final_current and not collapse:
                                         final_contested=True

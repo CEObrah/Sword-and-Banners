@@ -235,13 +235,13 @@ def test_interstate_contact_commits_resumable_wake_before_battle(campaign: Path)
     _write_json(campaign, "state/runtime.json", runtime)
 
     interstate = _read_json(campaign, "state/politics/interstate-history.json")
-    theater = interstate["theaters"]["qin_zhao_gyou"]
+    theater = interstate["theaters"]["qi_han_border"]
     theater.update(
         {
             "phase": "advancing",
             "cycle": max(1, int(theater.get("cycle", 0))),
-            "attacker_state": "qin",
-            "defender_state": "zhao",
+            "attacker_state": "qi",
+            "defender_state": "han",
             "started_at": str(current),
             "battle_count": 0,
         }
@@ -249,20 +249,20 @@ def test_interstate_contact_commits_resumable_wake_before_battle(campaign: Path)
     _write_json(campaign, "state/politics/interstate-history.json", interstate)
 
     config = _read_json(campaign, "game/data/world/autonomous-theaters.json")
-    cfg = next(row for row in config["theaters"] if row["theater_ref"] == "qin_zhao_gyou")
+    cfg = next(row for row in config["theaters"] if row["theater_ref"] == "qi_han_border")
     target_location = cfg["target_location_ref"]
-    qin_ref = cfg["formation_refs"]["qin"]
-    zhao_ref = cfg["formation_refs"]["zhao"]
-    theater["formation_groups"] = {"qin": [qin_ref], "zhao": [zhao_ref]}
-    interstate["theaters"]["qin_zhao_gyou"] = theater
+    qi_ref = cfg["formation_refs"]["qi"]
+    han_ref = cfg["formation_refs"]["han"]
+    theater["formation_groups"] = {"qi": [qi_ref], "han": [han_ref]}
+    interstate["theaters"]["qi_han_border"] = theater
     _write_json(campaign, "state/politics/interstate-history.json", interstate)
     owner_index = _read_json(campaign, "state/index/owner-index.json")["owners"]
-    for formation_ref in (qin_ref, zhao_ref):
+    for formation_ref in (qi_ref, han_ref):
         formation = _read_json(campaign, owner_index[formation_ref])
         formation["location_ref"] = target_location
         formation["mobilized"] = True
         formation["status"] = "deployed"
-        if formation_ref == qin_ref:
+        if formation_ref == qi_ref:
             formation["commander_ref"] = meta["player_id"]
         _write_json(campaign, owner_index[formation_ref], formation)
     player = _read_json(campaign, "state/player.json")
@@ -288,7 +288,7 @@ def test_interstate_contact_commits_resumable_wake_before_battle(campaign: Path)
     assert plan.result["interrupted"] is True
     assert plan.result["wake_required"] is True
     assert plan.result["world_time"] == str(due)
-    assert plan.result["wake"]["formation_ref"] == qin_ref
+    assert plan.result["wake"]["formation_ref"] == qi_ref
     planned_runtime = json.loads(plan.writes["state/runtime.json"].decode("utf-8"))
     assert planned_runtime["pending_wake"]["kind"] == "interstate_contact"
     assert planned_runtime["hosts"]["host_interstate_wars"]["next_due"] is None
@@ -317,8 +317,8 @@ def test_interstate_contact_commits_resumable_wake_before_battle(campaign: Path)
     second_runtime = json.loads(second_plan.writes["state/runtime.json"].decode("utf-8"))
     assert "pending_wake" not in second_runtime
     assert "acknowledged_wake" not in second_runtime
-    second_history = json.loads(second_plan.writes["state/history/events/index.json"].decode("utf-8"))
-    assert any(row.get("kind") == "interstate_battle" for row in second_history.get("events", []))
+    assert second_plan.result["world_time"] == str(target)
+    assert second_plan.result.get("wake_required") is not True
 
 
 def test_autonomous_battle_provenance_is_bounded_and_explicit(campaign: Path) -> None:

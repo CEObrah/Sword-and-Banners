@@ -31,6 +31,38 @@ def _validate_event_registry(campaign: Path, owner: dict) -> None:
     Draft202012Validator(schema).validate(owner)
 
 
+def _install_test_player_qin_operation(planner, op_ref: str, formation_refs: list[str]) -> str:
+    """Create the exact operation prerequisite locally; current campaign history is not a test fixture."""
+    now = str(planner.read("state/runtime.json")["world_time"])
+    op_path = f"state/operations/{op_ref}.json"
+    operation = {
+        "schema": "sword-operation",
+        "owner_id": op_ref,
+        "operation_ref": op_ref,
+        "kind": "assigned_qin_field_detachment_operation",
+        "status": "active",
+        "created_at": now,
+        "location_ref": "loc_qin_eastern_depot",
+        "objective": "maintain military readiness",
+        "objective_refs": ["arc_ryo_fui_northern_wei_campaign", "state_wei"],
+        "formation_refs": list(formation_refs),
+        "administrative_authority": "char_tang_wei",
+        "administrative_authorities": ["char_tang_wei"],
+        "assignment_authority_ref": "char_tang_wei",
+        "institutional_owner_ref": "state_qin",
+        "source_force_ref": "force_state_qin",
+        "command_group_ref": "cmdgrp.tang_wei.field_army",
+        "autonomous": False,
+        "termination_criteria": ["the objective is withdrawn, superseded, blocked, or settled"],
+        "victory_criteria": ["the saved objective reaches an exact material consequence owned by its target subsystem"],
+    }
+    planner.put(op_path, operation)
+    operation_index = copy.deepcopy(planner.read("state/operations/index.json"))
+    operation_index.setdefault("operations", {})[op_ref] = op_path
+    planner.put("state/operations/index.json", operation_index)
+    return op_path
+
+
 def _release_formation_from_active_operation(planner, formation_ref: str) -> None:
     """Free one exact fixture formation without changing manpower or authority."""
     index = planner.read("state/operations/index.json")
@@ -574,10 +606,10 @@ def test_qin_world_arc_retasks_player_commanded_state_detachment_instead_of_igno
     from sword_runtime.production_planner import ProductionCampaignPlanner
     planner = ProductionCampaignPlanner(campaign); planner._reset()
     now = str(planner.read("state/runtime.json")["world_time"])
-    op_ref = "operation_arc_131572c4e8a2892bbc"
-    op_path = planner.read("state/operations/index.json")["operations"][op_ref]
-    operation = copy.deepcopy(planner.read(op_path))
+    op_ref = "operation_test_qin_player_detachment"
     refs = sorted(["formation_high_guard_qin_a", "formation_high_guard_qin_b"] + [f"formation_black_banner_0{i}{suffix}" for i in range(1, 5) for suffix in ("a", "b")])
+    op_path = _install_test_player_qin_operation(planner, op_ref, refs)
+    operation = copy.deepcopy(planner.read(op_path))
     operation.update({
         "status": "active",
         "kind": "assigned_qin_field_detachment_operation",
@@ -629,11 +661,11 @@ def test_state_operational_order_never_commandeers_house_tang_formations(campaig
     from sword_runtime.production_planner import ProductionCampaignPlanner
     planner = ProductionCampaignPlanner(campaign); planner._reset()
     now = str(planner.read("state/runtime.json")["world_time"])
-    op_ref = "operation_arc_131572c4e8a2892bbc"
-    op_path = planner.read("state/operations/index.json")["operations"][op_ref]
-    operation = copy.deepcopy(planner.read(op_path))
+    op_ref = "operation_test_qin_house_exclusion"
     qin_refs = sorted(["formation_high_guard_qin_a", "formation_high_guard_qin_b"] + [f"formation_black_banner_0{i}{suffix}" for i in range(1, 5) for suffix in ("a", "b")])
     house_refs = ["formation_red_lance_a", "formation_high_guard_infantry_01a"]
+    op_path = _install_test_player_qin_operation(planner, op_ref, qin_refs + house_refs)
+    operation = copy.deepcopy(planner.read(op_path))
     operation.update({
         "status": "active",
         "objective": "maintain military readiness",

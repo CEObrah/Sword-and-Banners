@@ -1872,7 +1872,18 @@ class WarfareDepthMixin:
                 supply = self._autonomy_sustain_march(formation_ref, next_hop, at, operation, "state_operation")
                 ready = str(supply.get("status", "")) != "formation_missing"
                 if ready:
-                    move = self._autonomy_move_formation_step(formation_ref, next_hop, at)
+                    try:
+                        move = self._autonomy_move_formation_step(formation_ref, next_hop, at)
+                    except (ValueError, PermissionError) as exc:
+                        rows.append({
+                            "formation_ref": formation_ref,
+                            "next_hop": next_hop,
+                            "edge_hours": edge_hours,
+                            "supply": dict(supply),
+                            "status": "route_blocked_replan_required",
+                            "reason": str(exc),
+                        })
+                        continue
                     rows.append({"formation_ref": formation_ref, "next_hop": next_hop, "edge_hours": edge_hours, "supply": dict(supply), "move": dict(move), "status": str(move.get("status", "moved"))})
                 else:
                     rows.append({"formation_ref": formation_ref, "next_hop": next_hop, "edge_hours": edge_hours, "supply": dict(supply), "status": str(supply.get("status", "supply_blocked"))})
