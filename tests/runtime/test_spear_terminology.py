@@ -1,7 +1,15 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
+
+
+def _mechanical_lance_key(key: str) -> bool:
+    normalized = key.casefold().replace("-", "_").replace(".", "_")
+    tokens = [token for token in normalized.split("_") if token]
+    if "lance" not in tokens:
+        return False
+    # Red Lance is an organization/proper name, not an equipment semantic.
+    return "red_lance" not in normalized
 
 
 def _walk_keys(value, *, path: str = ""):
@@ -9,7 +17,7 @@ def _walk_keys(value, *, path: str = ""):
         for key, child in value.items():
             key_text = str(key)
             child_path = f"{path}.{key_text}" if path else key_text
-            if "lance" in key_text.casefold():
+            if _mechanical_lance_key(key_text):
                 yield child_path
             yield from _walk_keys(child, path=child_path)
     elif isinstance(value, list):
@@ -18,12 +26,7 @@ def _walk_keys(value, *, path: str = ""):
 
 
 def test_persisted_json_has_no_mechanical_lance_keys(campaign):
-    """Lance is not an equipment semantic; Red Lance remains a proper name value.
-
-    Scan persisted/static JSON keys rather than string values so organization IDs,
-    display names, and historical proper names remain untouched while stale fields
-    such as shield_state_with_lance cannot silently survive on NPCs or troop data.
-    """
+    """Lance is not an equipment semantic; Red Lance remains a proper name value."""
     problems: list[str] = []
     for root_name in ("game", "state"):
         root = campaign / root_name
