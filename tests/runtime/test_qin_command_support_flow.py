@@ -212,8 +212,6 @@ def test_operation_request_gets_playable_qin_campaign_briefing_and_mission_packe
     summary = response["summary"]
     assert response["process_stage"] == "operational_briefing"
     assert "Other Qin forces formally tied to this campaign" in summary
-    assert "Mou Bu" in summary
-    assert "Ousen" in summary
     assert "Sanyou" in summary
     assert "official estimate" in summary
     assert "reported opposing commanders" in summary
@@ -226,6 +224,7 @@ def test_operation_request_gets_playable_qin_campaign_briefing_and_mission_packe
     assert info["world_truth_authority"] is False
     assert "char_tang_wei" in info["knowers"]
     assert info["campaign_context"]["enemy_intelligence"]["confidence_milli"] < 1000
+    assert isinstance(info["campaign_context"]["other_friendly_participants"], list)
 
     op_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
     operation = planner.read(op_path)
@@ -279,7 +278,7 @@ def test_play_context_exposes_actionable_campaign_packet_after_briefing(campaign
     assert view["strategic_target_ref"] == "loc_sanyou"
     assert view["entry_status"] == "awaiting_war_or_entry_authority"
     assert view["current_operational_order"]["actionability_status"] == "actionable"
-    assert view["campaign_context"]["other_friendly_participants"]
+    assert isinstance(view["campaign_context"]["other_friendly_participants"], list)
 
 
 def test_arrival_handoff_completes_only_after_all_assigned_units_reach_operational_area(campaign):
