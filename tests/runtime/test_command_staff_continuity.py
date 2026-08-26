@@ -50,8 +50,6 @@ def test_registered_command_group_staff_survives_player_surface_projection(campa
     operations = EquipmentAwareCampaignOperations(runtime)
     context = operations.play_context()
 
-    # The compact play-context window is intentionally truncated; older controlled
-    # leaves must remain discoverable through the paged controlled-formation surface.
     leaf_commander = "char_duan_jin"
     assert context["controlled_formations_truncated"] is True
     assert "char_lin_zhen" in context["permitted_person_ids"]
@@ -152,7 +150,6 @@ def test_autonomous_move_reconciles_detached_exact_commander_without_deleting_it
     _after_path, after = planner._load_formation(formation_ref)
     assert after["commander_ref"] == commander_ref
     assert after["location_ref"] != origin
-    # Detached personnel remain detached; generic formation movement does not teleport them.
     _person_path, after_commander = planner._command_person(commander_ref)
     assert after_commander["life_status"] == "active"
     assert planner._person_location(after_commander) == detached
@@ -173,7 +170,12 @@ def test_grouped_travel_reconciles_zero_body_child_army_location_only_when_whole
     group["location"] = origin
     _write_json(campaign / group_rel, group)
 
-    touched = ["state/player.json", group_rel]
+    field_rel = "state/cmd/command-groups/cmdgrp.tang_wei.field_army.json"
+    field = json.loads((campaign / field_rel).read_text(encoding="utf-8"))
+    field["location"] = origin
+    _write_json(campaign / field_rel, field)
+
+    touched = ["state/player.json", group_rel, field_rel]
     owner_index = json.loads((campaign / "state/index/owner-index.json").read_text(encoding="utf-8"))["owners"]
     for ref in formation_refs:
         rel_path = str(owner_index[ref])
@@ -181,6 +183,12 @@ def test_grouped_travel_reconciles_zero_body_child_army_location_only_when_whole
         formation["location_ref"] = origin
         _write_json(campaign / rel_path, formation)
         touched.append(rel_path)
+
+    blocker_rel = str(owner_index["formation_high_guard_infantry_01a"])
+    blocker = json.loads((campaign / blocker_rel).read_text(encoding="utf-8"))
+    blocker["location_ref"] = origin
+    _write_json(campaign / blocker_rel, blocker)
+    touched.append(blocker_rel)
     _commit_fixture_state(campaign, *touched)
 
     runtime = ProductionSwordRuntime(campaign, runtime_root=campaign.parent / "runtime-command-group-location")
@@ -193,9 +201,9 @@ def test_grouped_travel_reconciles_zero_body_child_army_location_only_when_whole
     result = runtime.execute(command).receipt.result
     assert "cmdgrp.tang_wei.red_lance" in result.get("command_groups_reconciled", [])
     red = runtime.store.read_json("state/cmd/command-groups/cmdgrp.tang_wei.red_lance.json")
-    field = runtime.store.read_json("state/cmd/command-groups/cmdgrp.tang_wei.field_army.json")
+    field = runtime.store.read_json(field_rel)
     assert red["location"] == destination
-    assert field["location"] != destination
+    assert field["location"] == origin
     for ref in formation_refs:
         path = runtime.store.read_json("state/index/owner-index.json")["owners"][ref]
         assert runtime.store.read_json(path)["location_ref"] == destination
