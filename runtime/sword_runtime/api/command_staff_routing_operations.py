@@ -23,6 +23,20 @@ _COMMAND_PERSON_INDEX_PATH = "state/cmd/command-personnel.json"
 class RoutedCommandStaffAwareCampaignOperations(CommandStaffAwareCampaignOperations):
     """Resolve full controlled command staff through either exact bounded router."""
 
+    def _exact_object_location(self, object_ref: str) -> str | None:
+        """Resolve the player through the authoritative player owner before generic routing."""
+        meta = self._read_optional_mapping("state/meta.json")
+        player_id = meta.get("player_id") if isinstance(meta, Mapping) else None
+        if isinstance(player_id, str) and object_ref == player_id:
+            player = self._read_optional_mapping("state/player.json")
+            if isinstance(player, Mapping):
+                for key in ("current_location", "location_ref", "location", "loc", "site_ref"):
+                    value = player.get(key)
+                    if isinstance(value, str) and value:
+                        return value
+            return None
+        return super()._exact_object_location(object_ref)
+
     def _command_person_path(self, person_id: str) -> str | None:
         index = self._read_optional_mapping(_COMMAND_PERSON_INDEX_PATH)
         records = index.get("record_index", {}) if isinstance(index, Mapping) else {}
