@@ -24,6 +24,7 @@ jobs:
         run: |
           python tools/restore_qin_scenario_temp.py
           python tools/patch_household_scene_contract_temp.py
+          python tools/patch_player_story_fixture_temp.py
       - name: Verify repaired starting scenario
         shell: bash
         run: |
@@ -46,14 +47,15 @@ jobs:
             state/cmd/command-groups/cmdgrp.tang_wei.black_banner.json \
             tests/runtime/test_world_arcs.py \
             tests/runtime/test_household_social_surface.py \
-            tests/runtime/test_long_horizon.py
+            tests/runtime/test_long_horizon.py \
+            tests/runtime/test_player_story_flow.py
           python tools/run_release_suite.py
       - name: Commit repaired scenario and remove temporary migration files
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add runtime/sword_runtime/api/household_operations.py state/operations state/information state/history/events/index.json state/index/owner-index.json state/index/qin-command-support-delivery.json state/cmd/command-groups/cmdgrp.tang_wei.field_army.json state/cmd/command-groups/cmdgrp.tang_wei.red_lance.json state/cmd/command-groups/cmdgrp.tang_wei.high_guard.json state/cmd/command-groups/cmdgrp.tang_wei.black_banner.json tests/runtime/test_world_arcs.py tests/runtime/test_long_horizon.py
-          git rm .github/workflows/temporary-restore-qin-war-order.yml tools/restore_qin_scenario_temp.py tools/patch_household_scene_contract_temp.py
+          git add runtime/sword_runtime/api/household_operations.py state/operations state/information state/history/events/index.json state/index/owner-index.json state/index/qin-command-support-delivery.json state/cmd/command-groups/cmdgrp.tang_wei.field_army.json state/cmd/command-groups/cmdgrp.tang_wei.red_lance.json state/cmd/command-groups/cmdgrp.tang_wei.high_guard.json state/cmd/command-groups/cmdgrp.tang_wei.black_banner.json tests/runtime/test_world_arcs.py tests/runtime/test_long_horizon.py tests/runtime/test_player_story_flow.py
+          git rm .github/workflows/temporary-restore-qin-war-order.yml tools/restore_qin_scenario_temp.py tools/patch_household_scene_contract_temp.py tools/patch_player_story_fixture_temp.py
           git commit -m "Restore Qin war-order starting scenario"
           git push origin HEAD:restore-qin-war-order-20260826
