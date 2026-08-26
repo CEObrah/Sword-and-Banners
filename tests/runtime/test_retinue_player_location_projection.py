@@ -9,9 +9,13 @@ class FakeStore:
             "state/meta.json": {"player_id": "char_tang_wei"},
             "state/player.json": {"location": "loc_kanyou"},
             "state/index/owner-index.json": {
-                "owners": {"char_tang_wei": "state/people/char_tang_wei.json"}
+                "owners": {
+                    "char_tang_wei": "state/people/char_tang_wei.json",
+                    "char_lin_zhen": "state/people/char_lin_zhen.json",
+                }
             },
             "state/people/char_tang_wei.json": {"current_location": "loc_qin_eastern_depot"},
+            "state/people/char_lin_zhen.json": {"current_location": "loc_kanyou"},
             "state/cmd/command-groups/cmdgrp.tang_wei.field_army.json": {
                 "schema": "command-group",
                 "id": "cmdgrp.tang_wei.field_army",
@@ -29,13 +33,20 @@ class FakeStore:
         return self.docs[path]
 
 
-def test_retinue_root_uses_authoritative_player_location_over_stale_generic_owner() -> None:
-    operations = RoutedCommandStaffAwareCampaignOperations.__new__(RoutedCommandStaffAwareCampaignOperations)
-    operations.store = FakeStore()
+def operations() -> RoutedCommandStaffAwareCampaignOperations:
+    result = RoutedCommandStaffAwareCampaignOperations.__new__(RoutedCommandStaffAwareCampaignOperations)
+    result.store = FakeStore()
+    return result
 
-    rows, _, _ = operations._retinue_projection()
+
+def test_retinue_root_uses_authoritative_player_location_over_stale_generic_owner() -> None:
+    rows, _, _ = operations()._retinue_projection()
 
     assert len(rows) == 1
     assert rows[0]["command_group_ref"] == "cmdgrp.tang_wei.field_army"
     assert rows[0]["current_location_ref"] == "loc_kanyou"
     assert rows[0]["location_basis"] == "commander_exact_location"
+
+
+def test_non_player_exact_location_still_uses_generic_owner_route() -> None:
+    assert operations()._exact_object_location("char_lin_zhen") == "loc_kanyou"
