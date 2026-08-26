@@ -26,8 +26,8 @@ EXPECTED_TIME = "244-BCE-09-11T12:22:48+08:00"
 REPAIR_REF = "repair_kanyou_arrival_continuity_20260826"
 
 
-def save(path: Path, document) -> None:
-    path.write_text(json.dumps(document, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+def encode(document) -> bytes:
+    return (json.dumps(document, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
 
 
 def main() -> None:
@@ -121,9 +121,8 @@ def main() -> None:
     else:
         info_ref = report.get("information_ref")
 
-    repair_log_path = ROOT / "state/history/repairs/kanyou-arrival-continuity-20260826.json"
-    repair_log_path.parent.mkdir(parents=True, exist_ok=True)
-    save(repair_log_path, {
+    repair_log_path = "state/history/repairs/kanyou-arrival-continuity-20260826.json"
+    repair_log = {
         "schema": "sword-campaign-repair-provenance.v1",
         "authority": False,
         "repair_ref": REPAIR_REF,
@@ -142,10 +141,19 @@ def main() -> None:
             "phase_information_ref": info_ref,
         },
         "rule": "repair only omitted consequences of the already-committed march; do not advance time, create manpower, or change authority",
-    })
+    }
 
-    # Flush planner writes into the working tree without creating a gameplay revision.
-    planner._flush()
+    # Maintenance scripts may persist a planner overlay directly because this is an
+    # explicit revision-guarded campaign repair, not a gameplay command. Keep meta
+    # untouched so no fictional time or player action is minted.
+    for path, document in sorted(planner._writes.items()):
+        if path == "state/meta.json":
+            raise RuntimeError("repair must not change campaign revision or time")
+        planner.store.replace_image(path, encode(document))
+    for path in sorted(planner._deletes):
+        planner.store.replace_image(path, None)
+    planner.store.replace_image(repair_log_path, encode(repair_log))
+
     print(json.dumps({
         "repair_ref": REPAIR_REF,
         "staff_reconciled": sorted(set(staff_reconciled)),
