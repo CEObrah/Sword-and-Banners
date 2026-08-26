@@ -1,9 +1,19 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
+import re
 
 from sword_runtime.static_records import normalize_spear_loadout
+
+
+_LANCE_TOKEN = re.compile(r"(?:^|[._-])lance(?:$|[._-])", re.IGNORECASE)
+
+
+def _mechanical_lance_key(key: str) -> bool:
+    normalized = key.casefold()
+    if "red_lance" in normalized:
+        return False
+    return bool(_LANCE_TOKEN.search(normalized))
 
 
 def _walk_keys(value, *, path: str = ""):
@@ -11,7 +21,7 @@ def _walk_keys(value, *, path: str = ""):
         for key, child in value.items():
             key_text = str(key)
             child_path = f"{path}.{key_text}" if path else key_text
-            if "lance" in key_text.casefold() and "red_lance" not in key_text.casefold():
+            if _mechanical_lance_key(key_text):
                 yield child_path
             yield from _walk_keys(child, path=child_path)
     elif isinstance(value, list):
