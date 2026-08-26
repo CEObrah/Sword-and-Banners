@@ -15,6 +15,8 @@ from sword_runtime.sim.calendar import CampaignTime
 
 QUALIFICATION_REF = "event_ouki_preliminary_review_disposition_001"
 FORMATION_REF = "formation_qin_mobile_reserve"
+TEST_OPERATION_REF = "operation_test_player_story_qin_vacancy"
+TEST_OPERATION_PATH = "state/operations/operation_test_player_story_qin_vacancy.json"
 
 
 def _planner(campaign):
@@ -87,6 +89,28 @@ def _prepare_offer_fixture(planner) -> None:
                 career_state["current_command_span"] = 0
                 career_state["office_or_command"] = "Qin officer awaiting reassignment"
             planner.put(commander_path, commander)
+
+    # The command-offer lifecycle is the subject of this test, so give it one
+    # exact synthetic operation owner instead of inheriting whichever real
+    # campaign operations happen to exist in the supplied save.
+    operation = {
+        "schema": "sword-operation",
+        "owner_id": TEST_OPERATION_REF,
+        "operation_ref": TEST_OPERATION_REF,
+        "kind": "test_qin_field_operation",
+        "status": "active",
+        "administrative_authority": "state_qin",
+        "administrative_authorities": ["state_qin"],
+        "institutional_owner_ref": "state_qin",
+        "formation_refs": [FORMATION_REF],
+        "objective_refs": ["arc_ryo_fui_northern_wei_campaign"],
+        "objective": "Disposable test operation for one exact Qin command vacancy",
+    }
+    planner.put(TEST_OPERATION_PATH, operation)
+    operation_index = copy.deepcopy(planner.read("state/operations/index.json"))
+    operation_index["operations"] = {TEST_OPERATION_REF: TEST_OPERATION_PATH}
+    operation_index["active_battlefield_operation_refs"] = []
+    planner.put("state/operations/index.json", operation_index)
 
     qin = copy.deepcopy(planner.read("state/states/qin.json"))
     for row in qin.get("appointments", {}).values():
@@ -308,10 +332,19 @@ def test_story_review_surfaces_house_status_and_family_initiative_without_duplic
     wake = settle_player_story_review(planner, {"kind": "player_story_review"}, at)
     refs = _story_event_refs(planner)
     events = [get_causal_event(planner, ref) for ref in refs]
-    summaries = [str(row.get("summary", "")) for row in events if row is not None]
-    assert any("Inner Walls has completed" in summary for summary in summaries)
-    assert any("Inner Walls" in summary for summary in summaries)
-    assert any("family hall" in summary for summary in summaries)
+    house_events = [
+        row for row in events
+        if row is not None and row.get("process_kind") == "house_development_digest"
+    ]
+    family_events = [
+        row for row in events
+        if row is not None and row.get("process_kind") == "family_initiative"
+    ]
+    assert house_events
+    assert family_events
+    assert any("unified House force has completed" in str(row.get("summary", "")) for row in house_events)
+    assert any("Current conserved establishments:" in str(row.get("summary", "")) for row in house_events)
+    assert any("invitation rather than a command" in str(row.get("summary", "")) for row in family_events)
     assert all(row.get("provenance", {}).get("kind") == "causal_runtime_settlement" for row in events if row is not None)
     if wake is None:
         # The current campaign snapshot may already have delivered this exact

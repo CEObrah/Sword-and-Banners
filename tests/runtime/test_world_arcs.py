@@ -58,7 +58,8 @@ def _install_test_player_qin_operation(planner, op_ref: str, formation_refs: lis
     }
     planner.put(op_path, operation)
     operation_index = copy.deepcopy(planner.read("state/operations/index.json"))
-    operation_index.setdefault("operations", {})[op_ref] = op_path
+    operation_index["operations"] = {op_ref: op_path}
+    operation_index["active_battlefield_operation_refs"] = []
     planner.put("state/operations/index.json", operation_index)
     return op_path
 
