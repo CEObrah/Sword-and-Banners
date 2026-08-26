@@ -41,8 +41,11 @@ def _project_equipment_state(
     player_location: object,
 ) -> dict[str, Any]:
     compact = dict(base)
+    # Historical saves may still contain the obsolete compact key. Never expose it
+    # once the authoritative item is weapon_spear.
+    compact.pop("lance", None)
     compact["bow"] = "readied" if _active_personal(equipment, "weapon_bow") else "stored"
-    compact["lance"] = "carried/secured" if _active_personal(equipment, "weapon_spear") else "stored_with_mounted_issue"
+    compact["spear"] = "carried/secured" if _active_personal(equipment, "weapon_spear") else "stored_with_mounted_issue"
     compact["shield"] = "readied/slung" if _active_personal(equipment, "shield_standard") else "stored"
     compact["sword"] = "sheathed_and_carried" if _active_personal(equipment, "weapon_sword") else "sheathed_and_stored"
     worn = [item_key for item_key in ("armor_heavy", "helmet_standard") if _active_personal(equipment, item_key)]
