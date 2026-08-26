@@ -31,13 +31,25 @@ def _routed_person(campaign, person_ref: str):
     return rel_path, document, document
 
 
+def _set_person_location(person: dict, location: str) -> None:
+    if "location" in person:
+        person["location"] = location
+    else:
+        person["current_location"] = location
+
+
 def test_registered_command_group_staff_survives_player_surface_projection(campaign):
+    field_path = "state/cmd/command-groups/cmdgrp.tang_wei.field_army.json"
+    field_group = json.loads((campaign / field_path).read_text(encoding="utf-8"))
+    lin_path, lin_document, lin = _routed_person(campaign, "char_lin_zhen")
+    _set_person_location(lin, str(field_group["location"]))
+    _write_json(campaign / lin_path, lin_document)
+    _commit_fixture_state(campaign, lin_path)
+
     runtime = ProductionSwordRuntime(campaign, runtime_root=campaign.parent / "runtime-command-staff-surface")
     operations = EquipmentAwareCampaignOperations(runtime)
     context = operations.play_context()
 
-    # The compact play-context window is intentionally truncated; older controlled
-    # leaves must remain discoverable through the paged controlled-formation surface.
     leaf_commander = "char_duan_jin"
     assert context["controlled_formations_truncated"] is True
     assert "char_lin_zhen" in context["permitted_person_ids"]
@@ -68,10 +80,7 @@ def test_escorted_formation_travel_musters_only_its_actual_top_commander(campaig
     detached = next(ref for ref in detached_candidates if ref not in {origin, destination})
 
     player = json.loads(player_path.read_text(encoding="utf-8")); player["location"] = origin; _write_json(player_path, player)
-    if "location" in commander:
-        commander["location"] = detached
-    else:
-        commander["current_location"] = detached
+    _set_person_location(commander, detached)
     commander.setdefault("command_assignment", {})["formation_ref"] = formation_ref
     _write_json(campaign / rel_path, person_document)
     _commit_fixture_state(campaign, "state/player.json", rel_path)
@@ -128,10 +137,7 @@ def test_autonomous_move_reconciles_detached_exact_commander_without_deleting_it
     person_path, commander = planner._command_person(commander_ref)
     detached = "loc_kantan" if origin != "loc_kantan" else "loc_zhao_regional_02"
     commander = dict(commander)
-    if "location" in commander:
-        commander["location"] = detached
-    else:
-        commander["current_location"] = detached
+    _set_person_location(commander, detached)
     planner.put(person_path, commander)
     assert planner._person_location(planner.read(person_path)) != origin
 
@@ -144,8 +150,6 @@ def test_autonomous_move_reconciles_detached_exact_commander_without_deleting_it
     _after_path, after = planner._load_formation(formation_ref)
     assert after["commander_ref"] == commander_ref
     assert after["location_ref"] != origin
-    # The movement owner reconciles exact command staff physically rather than
-    # dropping the commander or leaving a stale detached billet behind.
     _person_path, after_commander = planner._command_person(commander_ref)
     assert after_commander["life_status"] == "active"
     assert planner._person_location(after_commander) == detached
@@ -153,20 +157,53 @@ def test_autonomous_move_reconciles_detached_exact_commander_without_deleting_it
 
 
 def test_grouped_travel_reconciles_zero_body_child_army_location_only_when_whole_child_moves(campaign):
+    origin = "loc_qin_eastern_depot"
+    destination = "loc_kanyou"
     formation_refs = ["formation_red_lance_a", "formation_red_lance_b"]
+    player_path = campaign / "state/player.json"
+    player = json.loads(player_path.read_text(encoding="utf-8"))
+    player["location"] = origin
+    _write_json(player_path, player)
+
+    group_rel = "state/cmd/command-groups/cmdgrp.tang_wei.red_lance.json"
+    group = json.loads((campaign / group_rel).read_text(encoding="utf-8"))
+    group["location"] = origin
+    _write_json(campaign / group_rel, group)
+
+    field_rel = "state/cmd/command-groups/cmdgrp.tang_wei.field_army.json"
+    field = json.loads((campaign / field_rel).read_text(encoding="utf-8"))
+    field["location"] = origin
+    _write_json(campaign / field_rel, field)
+
+    touched = ["state/player.json", group_rel, field_rel]
+    owner_index = json.loads((campaign / "state/index/owner-index.json").read_text(encoding="utf-8"))["owners"]
+    for ref in formation_refs:
+        rel_path = str(owner_index[ref])
+        formation = json.loads((campaign / rel_path).read_text(encoding="utf-8"))
+        formation["location_ref"] = origin
+        _write_json(campaign / rel_path, formation)
+        touched.append(rel_path)
+
+    blocker_rel = str(owner_index["formation_high_guard_infantry_01a"])
+    blocker = json.loads((campaign / blocker_rel).read_text(encoding="utf-8"))
+    blocker["location_ref"] = origin
+    _write_json(campaign / blocker_rel, blocker)
+    touched.append(blocker_rel)
+    _commit_fixture_state(campaign, *touched)
+
     runtime = ProductionSwordRuntime(campaign, runtime_root=campaign.parent / "runtime-command-group-location")
     meta = runtime.store.read_json("state/meta.json")
     command = CommandEnvelope(
         campaign_id=meta["campaign_id"], request_id="test-whole-child-grouped-travel-location",
         actor_id=meta["player_id"], command_type="travel", expected_revision=meta["revision"], submitted_at=meta["time"],
-        payload={"destination_ref": "loc_kanyou", "formation_refs": formation_refs, "mode": "foot"}, mode="gameplay",
+        payload={"destination_ref": destination, "formation_refs": formation_refs, "mode": "foot"}, mode="gameplay",
     )
     result = runtime.execute(command).receipt.result
     assert "cmdgrp.tang_wei.red_lance" in result.get("command_groups_reconciled", [])
     red = runtime.store.read_json("state/cmd/command-groups/cmdgrp.tang_wei.red_lance.json")
-    field = runtime.store.read_json("state/cmd/command-groups/cmdgrp.tang_wei.field_army.json")
-    assert red["location"] == "loc_kanyou"
-    assert field["location"] == "loc_qin_eastern_depot"
+    field = runtime.store.read_json(field_rel)
+    assert red["location"] == destination
+    assert field["location"] == origin
     for ref in formation_refs:
         path = runtime.store.read_json("state/index/owner-index.json")["owners"][ref]
-        assert runtime.store.read_json(path)["location_ref"] == "loc_kanyou"
+        assert runtime.store.read_json(path)["location_ref"] == destination

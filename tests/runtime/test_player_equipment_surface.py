@@ -42,7 +42,7 @@ def _reset_equipment(root, *, location="loc_tang_manor_inner_citadel_family_hall
     player["location"] = location
     player["current_equipment_state"] = {
         "bow": "stored",
-        "lance": "stored_with_mounted_issue",
+        "spear": "stored_with_mounted_issue",
         "mount_location": "House Tang cavalry stables",
         "mounted": False,
         "shield": "stored",
@@ -77,6 +77,9 @@ def test_play_context_exposes_exact_player_owned_equipment_keys(campaign):
         "horse_armor_heavy",
     } <= keys
     assert context["player"]["owned_equipment_count"] == len(equipment)
+    equipment_state = context["player"]["equipment_state"]
+    assert "spear" in equipment_state
+    assert "lance" not in equipment_state
     assert context["commands"]["command_types"]["equipment_equip"]["input_guidance"]["item_key"]["rule"].startswith("use an exact item_key")
     horse_rule = context["commands"]["command_types"]["travel"]["input_guidance"]["mode"]["horse_rule"]
     assert "mounts Tang Wei only at departure" in horse_rule
@@ -87,6 +90,8 @@ def test_production_equipment_equip_synchronizes_compact_player_state(campaign):
     execute_production(campaign, "equipment_equip", {"item_key": "armor_heavy", "quantity": 1})
     player = json.loads((campaign / "state/player.json").read_text())
     assert "armor_heavy" in player["current_equipment_state"]["worn"]
+    assert "spear" in player["current_equipment_state"]
+    assert "lance" not in player["current_equipment_state"]
     assert player["current_equipment_state"]["mounted"] is False
     assert "equipped" in _entry(campaign, "armor_heavy")["current_state"]
 
@@ -107,7 +112,7 @@ def test_production_mount_and_barding_prepare_without_mounting_indoors(campaign)
     assert player["current_equipment_state"]["mount_location"] == "House Tang cavalry stables"
 
 
-def test_horse_travel_mounts_at_departure_and_issues_lance(campaign):
+def test_horse_travel_mounts_at_departure_and_secures_spear(campaign):
     _reset_equipment(campaign, location="loc_tang_manor_garrison_yard")
     execute_production(campaign, "equipment_equip", {"item_key": "horse", "quantity": 1})
     execute_production(campaign, "equipment_equip", {"item_key": "tack_standard", "quantity": 1})
@@ -118,7 +123,8 @@ def test_horse_travel_mounts_at_departure_and_issues_lance(campaign):
     assert player["location"] == "loc_kanyou"
     assert player["current_equipment_state"]["mounted"] is True
     assert player["current_equipment_state"]["mount_location"] == "loc_kanyou"
-    assert player["current_equipment_state"]["lance"] == "carried/secured"
+    assert player["current_equipment_state"]["spear"] == "carried/secured"
+    assert "lance" not in player["current_equipment_state"]
     assert "mounted by Tang Wei" in _entry(campaign, "horse")["current_state"]
     assert "fitted to mounted horse" in _entry(campaign, "tack_standard")["current_state"]
     assert "fitted to mounted horse" in _entry(campaign, "horse_armor_heavy")["current_state"]
@@ -138,6 +144,8 @@ def test_foot_travel_from_mounted_state_leaves_horse_at_origin(campaign):
     assert player["location"] == "loc_tang_manor_inner_citadel_family_hall"
     assert player["current_equipment_state"]["mounted"] is False
     assert player["current_equipment_state"]["mount_location"] == "loc_kanyou"
+    assert "spear" in player["current_equipment_state"]
+    assert "lance" not in player["current_equipment_state"]
     assert "assigned/prepared at loc_kanyou" in _entry(campaign, "horse")["current_state"]
     assert _entry(campaign, "weapon_spear")["current_state"] == "stored with mounted issue"
 

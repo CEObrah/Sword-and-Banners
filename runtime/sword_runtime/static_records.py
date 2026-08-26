@@ -22,6 +22,21 @@ def _route(index: Mapping[str, Any], ref: str, *, fallback_template_key: str | N
     return None
 
 
+def normalize_spear_loadout(loadout: Mapping[str, Any]) -> dict[str, Any]:
+    """Return a compatibility-normalized equipment view using spear semantics.
+
+    Historical saves and older canonical records may use the obsolete
+    ``shield_state_with_lance`` label even when the physical weapon is
+    ``weapon_spear``. Normalize that metadata at read boundaries without rewriting
+    campaign truth. Proper names such as Red Lance are outside this equipment view.
+    """
+    out = copy.deepcopy(dict(loadout))
+    if "shield_state_with_spear" not in out and "shield_state_with_lance" in out:
+        out["shield_state_with_spear"] = out["shield_state_with_lance"]
+    out.pop("shield_state_with_lance", None)
+    return out
+
+
 def load_loadout(read_json: Callable[[str], Any], loadout_id: str) -> dict[str, Any]:
     """Resolve a logical loadout id through the canonical static routing index.
 
@@ -42,7 +57,7 @@ def load_loadout(read_json: Callable[[str], Any], loadout_id: str) -> dict[str, 
     row = record.get("loadout", {}) if isinstance(record, Mapping) else {}
     if not isinstance(row, Mapping):
         return {}
-    out = copy.deepcopy(dict(row))
+    out = normalize_spear_loadout(row)
     out["id"] = ref
     return out
 
@@ -86,4 +101,4 @@ def load_training_record(read_json: Callable[[str], Any], training_ref: str) -> 
     return out
 
 
-__all__ = ["load_loadout", "load_doctrine_record", "load_training_record"]
+__all__ = ["load_loadout", "load_doctrine_record", "load_training_record", "normalize_spear_loadout"]

@@ -3,7 +3,7 @@
   "id": "doc.tang_wei.personal_combat",
   "doctrine": {
     "domain": "personal_combat",
-    "combat_identity": "decisive mounted archer and lancer; after dismounting, shield-sword and grappling specialist",
+    "combat_identity": "decisive mounted archer and spearman; after dismounting, shield-sword and grappling specialist",
     "combat_efficiency_rule": "Use the minimum necessary motion and the shortest reliable line to end the authorized fight. Do not spend actions on ornamental movement, redundant attacks, or low-value contact when a safer functional or lethal opening is available. Preserve declared intent, protected disposition decisions, command obligations, terrain, formation safety, and current equipment state.",
     "combat_agency_constraints": [
       "The player decides whether Tang Wei accepts or prolongs a duel.",
@@ -12,87 +12,22 @@
     ],
     "targeting": {
       "disable_priority": [
-        {
-          "purpose": "disable_weapon_control",
-          "structure": "wrist",
-          "target": "weapon-side wrist/hand",
-          "zone": "forearms_hands"
-        },
-        {
-          "purpose": "destroy_or_disrupt_vision",
-          "structure": "eye",
-          "target": "eye",
-          "zone": "head"
-        },
-        {
-          "purpose": "collapse_footing_and_mobility",
-          "structure": "ankle",
-          "target": "ankle",
-          "zone": "lower_legs_feet"
-        },
-        {
-          "purpose": "collapse_weight_bearing_and_mobility",
-          "structure": "knee",
-          "target": "knee",
-          "zone": "thighs"
-        },
-        {
-          "purpose": "attack_exposed_soft_tissue_and_arm_control",
-          "structure": "axilla",
-          "target": "armpit/axilla",
-          "zone": "upper_torso"
-        },
-        {
-          "purpose": "disable_weapon_or_guarding_limb",
-          "structure": "elbow",
-          "target": "elbow/weapon arm",
-          "zone": "upper_arms"
-        },
-        {
-          "purpose": "threaten_vital_line_without_inventing_lethal_intent",
-          "structure": "neck",
-          "target": "neck opening",
-          "zone": "neck"
-        }
+        {"purpose": "disable_weapon_control", "structure": "wrist", "target": "weapon-side wrist/hand", "zone": "forearms_hands"},
+        {"purpose": "destroy_or_disrupt_vision", "structure": "eye", "target": "eye", "zone": "head"},
+        {"purpose": "collapse_footing_and_mobility", "structure": "ankle", "target": "ankle", "zone": "lower_legs_feet"},
+        {"purpose": "collapse_weight_bearing_and_mobility", "structure": "knee", "target": "knee", "zone": "thighs"},
+        {"purpose": "attack_exposed_soft_tissue_and_arm_control", "structure": "axilla", "target": "armpit/axilla", "zone": "upper_torso"},
+        {"purpose": "disable_weapon_or_guarding_limb", "structure": "elbow", "target": "elbow/weapon arm", "zone": "upper_arms"},
+        {"purpose": "threaten_vital_line_without_inventing_lethal_intent", "structure": "neck", "target": "neck opening", "zone": "neck"}
       ],
       "explicit_intent_override": true,
       "lethal_priority": [
-        {
-          "purpose": "fast_lethal_incapacitation",
-          "structure": "neck",
-          "target": "neck/throat",
-          "zone": "neck"
-        },
-        {
-          "purpose": "attack_vital_soft_tissue_and_major_vessel_line",
-          "structure": "axilla",
-          "target": "armpit/axilla",
-          "zone": "upper_torso"
-        },
-        {
-          "purpose": "fast_lethal_or_catastrophic_incapacitation",
-          "structure": "eye",
-          "target": "eye/head opening",
-          "zone": "head"
-        },
-        {
-          "purpose": "remove_immediate_weapon_threat_before_kill",
-          "structure": "wrist",
-          "target": "weapon-side wrist/hand",
-          "zone": "forearms_hands"
-        },
-        {
-          "purpose": "remove_escape_and_base_before_finishing",
-          "structure": "knee",
-          "target": "knee/ankle",
-          "zone": "thighs"
-        },
-        {
-          "purpose": "fast_lethal_incapacitation",
-          "structure": "upper_torso",
-          "target": "upper torso opening",
-          "zone": "upper_torso"
-        }
+        {"purpose": "fast_lethal_incapacitation", "structure": "neck", "target": "neck/throat", "zone": "neck"},
+        {"purpose": "attack_vital_soft_tissue_and_major_vessel_line", "structure": "axilla", "target": "armpit/axilla", "zone": "upper_torso"},
+        {"purpose": "fast_lethal_or_catastrophic_incapacitation", "structure": "eye", "target": "eye/head opening", "zone": "head"},
+        {"purpose": "remove_immediate_weapon_threat_before_kill", "structure": "wrist", "target": "weapon-side wrist/hand", "zone": "forearms_hands"},
+        {"purpose": "remove_escape_and_base_before_finishing", "structure": "knee", "target": "knee/ankle", "zone": "thighs"},
+        {"purpose": "fast_lethal_incapacitation", "structure": "upper_torso", "target": "upper torso opening", "zone": "upper_torso"}
       ],
       "movement_economy": "No wasted movement. Reposition only to create reach, angle, safety, leverage, or a materially better target line.",
       "name": "precision_function_denial",
@@ -102,16 +37,16 @@
     },
     "mounted_bow_posture": [
       "Bow use requires both hands when the registered bow loadout is two-handed.",
-      "Shield remains slung and lance remains secured while firing.",
+      "Shield remains slung and spear remains secured while firing.",
       "Use mobility, distance, terrain, and deliberate high-value shots."
     ],
-    "mounted_lance_posture": [
-      "Cavalry lance is readied in the dominant hand.",
+    "mounted_spear_posture": [
+      "Mounted spear is readied in the dominant hand.",
       "Tang shield is readied in the opposite hand.",
       "Maintain charge geometry, avoid stopping inside enemy reach, and break away or reposition after contact."
     ],
     "dismounted_posture": [
-      "Leave or ground the lance and secure, hand off, or stow the bow.",
+      "Leave or ground the spear and secure, hand off, or stow the bow.",
       "Ready Tang shield and sword.",
       "Control the weapon line, attack the shortest opening, and use grappling after the enemy weapon is trapped, displaced, or lost."
     ],
