@@ -3,14 +3,13 @@ name: Verify Sword and Banners
 on:
   pull_request:
   push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: sword-verify-${{ github.workflow }}-${{ github.ref }}
+  group: sword-verify-${{ github.workflow }}-${{ github.event.pull_request.head.sha || github.sha }}
   cancel-in-progress: true
 
 jobs:
@@ -43,6 +42,9 @@ jobs:
           set -euo pipefail
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             base="${{ github.event.pull_request.base.sha }}"
+          elif [[ "${{ github.event_name }}" == "push" && "$GITHUB_REF" != "refs/heads/main" ]]; then
+            git fetch --no-tags origin main
+            base="$(git merge-base origin/main "$GITHUB_SHA")"
           elif [[ "${{ github.event_name }}" == "push" && "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]]; then
             base="${{ github.event.before }}"
           elif git rev-parse HEAD^ >/dev/null 2>&1; then
