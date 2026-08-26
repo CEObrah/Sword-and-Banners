@@ -1,0 +1,61 @@
+name: temporary-pr120-corrective-fix-v2
+
+on:
+  push:
+    branches:
+      - clean-state-reset-20260826
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply corrected patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import textwrap
+
+          workflow = Path('.github/workflows/temporary-pr120-corrective-fix.yml').read_text(encoding='utf-8')
+          marker = "          python - <<'PY'\n"
+          body = workflow.split(marker, 1)[1].split("\n          PY", 1)[0]
+          exec(compile(textwrap.dedent(body), 'pr120-inline-patch', 'exec'))
+
+          p = Path('tests/runtime/test_living_world_intelligence.py')
+          s = p.read_text(encoding='utf-8')
+          start = s.index('def test_interstate_contact_commits_resumable_wake_before_battle')
+          end = s.index('\ndef test_autonomous_battle_provenance_is_bounded_and_explicit', start)
+          block = s[start:end]
+          block = block.replace('qin_ref = cfg["formation_refs"]["qin"]', 'qi_ref = cfg["formation_refs"]["qi"]')
+          block = block.replace('zhao_ref = cfg["formation_refs"]["zhao"]', 'han_ref = cfg["formation_refs"]["han"]')
+          block = block.replace('theater["formation_groups"] = {"qin": [qin_ref], "zhao": [zhao_ref]}', 'theater["formation_groups"] = {"qi": [qi_ref], "han": [han_ref]}')
+          p.write_text(s[:start] + block + s[end:], encoding='utf-8')
+          PY
+      - name: Run narrow corrected regressions
+        run: |
+          python -m pip install -e '.[service,service-test]'
+          python tools/quick_check.py
+          python tools/run_pytest_module.py -q \
+            tests/runtime/test_living_world_intelligence.py::test_interstate_contact_commits_resumable_wake_before_battle \
+            tests/runtime/test_world_arcs.py::test_qin_world_arc_retasks_player_commanded_state_detachment_instead_of_ignoring_it \
+            tests/runtime/test_world_arcs.py::test_state_operational_order_never_commandeers_house_tang_formations \
+            tests/runtime/test_scheduler_frontier.py::test_regional_state_institutions_have_authoritative_owner_routes \
+            'tests/runtime/test_hosted_horizon_performance.py::test_production_hosted_horizon_is_bounded_atomic_windows[90-30.0]'
+      - name: Commit corrections and remove temporary workflows
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add runtime/sword_runtime/engine.py runtime/sword_runtime/warfare_depth.py state/index/owner-index.json tests/runtime/test_world_arcs.py tests/runtime/test_living_world_intelligence.py tests/runtime/test_scheduler_frontier.py
+          git rm .github/workflows/temporary-pr120-corrective-fix.yml
+          git rm .github/workflows/temporary-pr120-corrective-fix-v2.yml
+          git commit -m "Harden clean-start world simulation"
+          git push origin HEAD:clean-state-reset-20260826
