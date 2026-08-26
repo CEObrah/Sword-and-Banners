@@ -39,6 +39,7 @@ def test_whole_command_group_travel_moves_colocated_headquarters_people_only(cam
     formation_refs = ["formation_red_lance_a", "formation_red_lance_b"]
     group_ref = "cmdgrp.tang_wei.red_lance"
     group_path = campaign / "state/cmd/command-groups" / f"{group_ref}.json"
+    field_rel = "state/cmd/command-groups/cmdgrp.tang_wei.field_army.json"
     player_path = campaign / "state/player.json"
 
     group = json.loads(group_path.read_text(encoding="utf-8"))
@@ -48,17 +49,30 @@ def test_whole_command_group_travel_moves_colocated_headquarters_people_only(cam
     group["successor_refs"] = [detached_ref]
     _write_json(group_path, group)
 
+    field = json.loads((campaign / field_rel).read_text(encoding="utf-8"))
+    field["location"] = origin
+    _write_json(campaign / field_rel, field)
+
     player = json.loads(player_path.read_text(encoding="utf-8"))
     player["location"] = origin
     _write_json(player_path, player)
 
-    touched = ["state/player.json", f"state/cmd/command-groups/{group_ref}.json"]
+    touched = ["state/player.json", f"state/cmd/command-groups/{group_ref}.json", field_rel]
     for filename in ("state/formations/red-lance-a.json", "state/formations/red-lance-b.json"):
         path = campaign / filename
         formation = json.loads(path.read_text(encoding="utf-8"))
         formation["location_ref"] = origin
         _write_json(path, formation)
         touched.append(filename)
+
+    # Keep one different Field Army descendant at the origin so Red Lance movement
+    # is genuinely partial and cannot drag the parent headquarters along.
+    owners = json.loads((campaign / "state/index/owner-index.json").read_text(encoding="utf-8"))["owners"]
+    blocker_rel = str(owners["formation_high_guard_infantry_01a"])
+    blocker = json.loads((campaign / blocker_rel).read_text(encoding="utf-8"))
+    blocker["location_ref"] = origin
+    _write_json(campaign / blocker_rel, blocker)
+    touched.append(blocker_rel)
 
     commander_path, commander_doc, commander = _routed_person(campaign, commander_ref)
     _set_person_location(commander, origin)
@@ -95,7 +109,7 @@ def test_whole_command_group_travel_moves_colocated_headquarters_people_only(cam
     assert commander_ref in result.get("command_group_staff_reconciled", [])
     assert detached_ref not in result.get("command_group_staff_reconciled", [])
     assert runtime.store.read_json(f"state/cmd/command-groups/{group_ref}.json")["location"] == destination
-    assert runtime.store.read_json("state/cmd/command-groups/cmdgrp.tang_wei.field_army.json")["location"] != destination
+    assert runtime.store.read_json(field_rel)["location"] == origin
 
     _, _, moved_commander = _routed_person(campaign, commander_ref)
     _, _, still_detached = _routed_person(campaign, detached_ref)
