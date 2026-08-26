@@ -400,6 +400,13 @@ def dispatch_due_host(planner: Any, host: Mapping[str, Any], due_text: str) -> N
         # scheduler clears _pending_wake_created before dispatch, so preserve
         # whatever the domain deliberately sets here instead of erasing it.
         planner._settle_core_due_host(host, due_text)
+        if kind == "state":
+            # State autonomy can issue or retask a Qin operational order at this
+            # exact frontier. Register a newly pending staff briefing here so the
+            # causal heap can enqueue and settle it inside the same broad advance.
+            runtime = copy.deepcopy(planner.read("state/runtime.json"))
+            sync_qin_command_support(planner, runtime)
+            planner.put("state/runtime.json", runtime)
         return
 
     raise ValueError(f"unsupported causal host kind: {kind or '<missing>'}")
