@@ -21,7 +21,7 @@ _EQUIPMENT_COMMANDS = frozenset({
 _MOUNT_KEY = "horse"
 _TACK_KEY = "tack_standard"
 _BARDING_KEY = "horse_armor_heavy"
-_LANCE_KEY = "weapon_spear"
+_SPEAR_KEY = "weapon_spear"
 _MANIFEST_PATH = "state/player-detail/equipment-manifest.json"
 _PLAYER_PATH = "state/player.json"
 _HOUSE_TANG_STABLES = "House Tang cavalry stables"
@@ -96,8 +96,9 @@ def _mount_accessible(read: Any, player: Mapping[str, Any], origin: str) -> bool
 
 def _sync_compact_player_state(player: dict[str, Any], manifest: Mapping[str, Any]) -> None:
     compact = dict(player.get("current_equipment_state", {}))
+    compact.pop("lance", None)
     compact["bow"] = "readied" if _active_personal_item(manifest, "weapon_bow") else "stored"
-    compact["lance"] = "carried/secured" if _active_personal_item(manifest, _LANCE_KEY) else "stored_with_mounted_issue"
+    compact["spear"] = "carried/secured" if _active_personal_item(manifest, _SPEAR_KEY) else "stored_with_mounted_issue"
     compact["shield"] = "readied/slung" if _active_personal_item(manifest, "shield_standard") else "stored"
     compact["sword"] = "sheathed_and_carried" if _active_personal_item(manifest, "weapon_sword") else "sheathed_and_stored"
 
@@ -302,11 +303,11 @@ class EquipmentStateProjectionMixin:
             _set_item_state(manifest, _TACK_KEY, "equipped: fitted to mounted horse")
             if barding_prepared:
                 _set_item_state(manifest, _BARDING_KEY, "equipped: fitted to mounted horse")
-            if _quantity(manifest, _LANCE_KEY) > 0 and (
-                _state_contains(manifest, _LANCE_KEY, "mounted issue")
-                or _active_personal_item(manifest, _LANCE_KEY)
+            if _quantity(manifest, _SPEAR_KEY) > 0 and (
+                _state_contains(manifest, _SPEAR_KEY, "mounted issue")
+                or _active_personal_item(manifest, _SPEAR_KEY)
             ):
-                _set_item_state(manifest, _LANCE_KEY, "equipped: secured with mounted issue")
+                _set_item_state(manifest, _SPEAR_KEY, "equipped: secured with mounted issue")
             compact = dict(player.get("current_equipment_state", {}))
             compact["mount_location"] = destination
             player["current_equipment_state"] = compact
@@ -315,8 +316,8 @@ class EquipmentStateProjectionMixin:
             _set_item_state(manifest, _TACK_KEY, f"equipped: fitted/prepared on assigned mount at {origin}")
             if barding_prepared:
                 _set_item_state(manifest, _BARDING_KEY, f"equipped: fitted/prepared on assigned mount at {origin}")
-            if _state_contains(manifest, _LANCE_KEY, "secured with mounted issue"):
-                _set_item_state(manifest, _LANCE_KEY, "stored with mounted issue")
+            if _state_contains(manifest, _SPEAR_KEY, "secured with mounted issue"):
+                _set_item_state(manifest, _SPEAR_KEY, "stored with mounted issue")
             compact = dict(player.get("current_equipment_state", {}))
             compact["mounted"] = False
             compact["mount_location"] = origin
