@@ -1,0 +1,94 @@
+{
+  "administrative_owner": "state_qi",
+  "attached_support_by_role": {},
+  "attached_unit_command_by_role": {
+    "command_personnel": 1
+  },
+  "authorized_strength": 10000,
+  "cohesion": 90,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qi_47d96e95b51e",
+      "count": 6000
+    },
+    {
+      "cohort_id": "cohort_force_state_qi_ed41cef4c3ed",
+      "count": 2000
+    },
+    {
+      "cohort_id": "cohort_force_state_qi_62e6f1506162",
+      "count": 1000
+    },
+    {
+      "cohort_id": "cohort_force_state_qi_line_infantry_061097834fcc",
+      "count": 500
+    },
+    {
+      "cohort_id": "cohort_force_state_qi_line_infantry_63589dc4d915",
+      "count": 500
+    }
+  ],
+  "command_attachment_source_force_ref": "force_state_qi",
+  "command_authority": "state_qi",
+  "commander_ref": "char_cmd_qi_rinshi_royal_guard",
+  "composition": {
+    "cavalry": 1000,
+    "line_infantry": 7000,
+    "missile_crossbow": 2000
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 60,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.external_state_force.standard",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "cavalry": 1000,
+    "line_infantry": 7000,
+    "missile_crossbow": 2000
+  },
+  "experience": "veteran",
+  "fatigue": 0,
+  "formation_class": "unit",
+  "formation_identity": {
+    "persistent_elite_or_prestige_formation": true,
+    "state_force_ownership_preserved": true
+  },
+  "formation_ref": "formation_qi_rinshi_royal_guard",
+  "higher_command_ref": "cmdgrp.rinshi.royal_guard",
+  "location_ref": "loc_ei",
+  "logistics": {
+    "construction_material_units": 0,
+    "source_depot_ref": "depot_fort_ei",
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 88,
+  "mounts": {
+    "horse": 1000
+  },
+  "name": "Rinshi Royal Guard",
+  "officer_cadre": {
+    "materialized_refs_by_rank": {
+      "1000_commander": [],
+      "100_commander": [],
+      "500_commander": []
+    },
+    "promotion_training_hours": 86,
+    "rank_inventory": {
+      "1000_commander": 10,
+      "100_commander": 100,
+      "500_commander": 19
+    }
+  },
+  "owner_force_ref": "force_state_qi",
+  "personnel": 10000,
+  "readiness": 87,
+  "schema": "sword-formation",
+  "status": "ready",
+  "supply_depot_ref": "depot_fort_ei",
+  "training_progress": 70,
+  "training_ref": null
+}

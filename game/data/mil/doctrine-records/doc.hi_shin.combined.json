@@ -1,0 +1,23 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.hi_shin.combined",
+  "doctrine": {
+    "label": "Hi Shin Combined-Arms Doctrine",
+    "scope": "mixed_formation",
+    "command_policy_v2": {
+      "strategic_posture": "aggressive_offensive",
+      "risk_tolerance": "assertive",
+      "reserve_posture": "ready_counterstroke",
+      "information_priority": "very_high",
+      "subordinate_initiative": "high",
+      "pursuit_policy": "aggressive_bounded",
+      "revision_speed": "rapid"
+    },
+    "role_policy_refs": {
+      "line_infantry": "doc.hi_shin.line",
+      "archer": "doc.hi_shin.archer",
+      "light_cavalry": "doc.hi_shin.light_cavalry",
+      "heavy_cavalry": "doc.hi_shin.heavy_cavalry"
+    }
+  }
+}

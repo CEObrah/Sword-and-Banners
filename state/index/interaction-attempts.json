@@ -1,0 +1,105 @@
+{
+  "attempts": [
+    {
+      "action": "request",
+      "actor_id": "char_tang_wei",
+      "at": "244-BCE-08-26T18:22:48+08:00",
+      "event_id": "interaction_attempt_caf40768468db0e97df41016",
+      "formation_refs": [
+        "formation_qin_wei_unit_01",
+        "formation_qin_wei_unit_02",
+        "formation_qin_wei_unit_03",
+        "formation_qin_wei_unit_04"
+      ],
+      "player_statement": "The four Qin units carry only 10,000 kg of food each. That is not enough for 8,000 men on campaign. I demand additional food from this depot for the Qin troops.",
+      "posture": null,
+      "process_ref": null,
+      "surface_digest": "caf40768468db0e97df41016307c3275697db71c4ef0318f6857e27a893b1c9f",
+      "target_ref": "loc_qin_eastern_depot",
+      "world_response_status": "not_established_by_attempt"
+    },
+    {
+      "action": "proceed",
+      "actor_id": "char_tang_wei",
+      "at": "244-BCE-08-26T18:22:48+08:00",
+      "event_id": "interaction_attempt_2f6fe23269aba35213d60793",
+      "formation_refs": [
+        "formation_qin_wei_unit_01",
+        "formation_qin_wei_unit_02",
+        "formation_qin_wei_unit_03",
+        "formation_qin_wei_unit_04",
+        "formation_tang_wei_house_guard",
+        "formation_tang_champions_first"
+      ],
+      "player_statement": "The House Guard and Tang Champions will march with the four Qin units. I am committing the full field army to this campaign.",
+      "posture": null,
+      "process_ref": null,
+      "surface_digest": "2f6fe23269aba35213d607932daf19a7fff3d2de196390b2b474fddb87c3b572",
+      "target_ref": "operation_arc_131572c4e8a2892bbc",
+      "world_response_status": "not_established_by_attempt"
+    },
+    {
+      "action": "request",
+      "actor_id": "char_tang_wei",
+      "at": "244-BCE-08-26T18:22:48+08:00",
+      "event_id": "interaction_attempt_940200018c376952bb8cefee",
+      "formation_refs": [],
+      "player_statement": "While we wait for the provisioning decision, bring me current actionable intelligence on the northern Wei campaign: commanders and formations, routes and movement, supply, current contact, and where this field army can enter effectively.",
+      "posture": "Hold at the Qin Eastern Military Depot while intelligence and march planning proceed; do not depart before the provisioning issue is settled.",
+      "process_ref": null,
+      "surface_digest": "940200018c376952bb8cefeebf40a42b4e98d62be256d71c644d11af7b661e56",
+      "target_ref": "operation_arc_131572c4e8a2892bbc",
+      "world_response_status": "not_established_by_attempt"
+    },
+    {
+      "action": "proceed",
+      "actor_id": "char_tang_wei",
+      "at": "244-BCE-08-26T18:22:48+08:00",
+      "event_id": "interaction_attempt_81540dbb9be36cbd1e76f50f",
+      "formation_refs": [
+        "formation_qin_wei_unit_01",
+        "formation_qin_wei_unit_02",
+        "formation_qin_wei_unit_03",
+        "formation_qin_wei_unit_04",
+        "formation_tang_wei_house_guard",
+        "formation_tang_champions_first"
+      ],
+      "player_statement": "Begin preparing the full 11,500-man field army for the march now. Organize the column, command sequence, baggage and movement preparation so we can depart promptly, but do not leave the depot until the provisioning issue is settled.",
+      "posture": "Prepare for movement while holding at the Qin Eastern Military Depot.",
+      "process_ref": null,
+      "surface_digest": "81540dbb9be36cbd1e76f50f9da089e409a1163834866155a07467a5ec04c602",
+      "target_ref": "operation_arc_131572c4e8a2892bbc",
+      "world_response_status": "not_established_by_attempt"
+    },
+    {
+      "action": "report",
+      "actor_id": "char_tang_wei",
+      "at": "244-BCE-09-02T20:22:48+08:00",
+      "event_id": "interaction_attempt_9c1f768b0c970cb7716867f7",
+      "formation_refs": [],
+      "player_statement": "Little brother, Qin has placed me in field command for a northern campaign against Wei. My task is to take the army forward and carry this war through. Do not worry about me. I will win the war and come back to see you soon.",
+      "posture": null,
+      "process_ref": null,
+      "surface_digest": "9c1f768b0c970cb7716867f74e3fd8463031db1e1870bfd73e4b1450b662ca7e",
+      "target_ref": "event_story_family_invitation_003570b5154f67c9c62c",
+      "world_response_status": "not_established_by_attempt"
+    },
+    {
+      "action": "report",
+      "actor_id": "char_tang_wei",
+      "at": "244-BCE-09-09T20:22:48+08:00",
+      "event_id": "interaction_attempt_1a9efd89bf4c64156ec3a72e",
+      "formation_refs": [],
+      "player_statement": "Little brother, I have been given a new field mission in Qin's campaign against northern Wei. I am to command the forces placed under me and carry our part of the war through. I will win this war and be back soon. Until then, keep well.",
+      "posture": null,
+      "process_ref": null,
+      "surface_digest": "1a9efd89bf4c64156ec3a72e6d4a750f0631bdd5bdea10ab05012a781abb83a7",
+      "target_ref": "event_story_family_invitation_003570b5154f67c9c62c",
+      "world_response_status": "not_established_by_attempt"
+    }
+  ],
+  "authority": false,
+  "purpose": "bounded routing ledger for player-authored interaction attempts; never world outcome authority",
+  "schema": "sword-interaction-attempt-ledger",
+  "total_recorded": 6
+}

@@ -1,0 +1,134 @@
+{
+  "id": "regional_institutions.chu",
+  "record_count": 6,
+  "records": {
+    "inst_chu_fortification_bureau": {
+      "backlog": 0,
+      "capacity": 70,
+      "fortification_review": {
+        "at": "244-BCE-08-31T07:22:48+08:00",
+        "priorities": [
+          {
+            "already_fortified": true,
+            "location_ref": "loc_chu_ei",
+            "priority_score": 40
+          },
+          {
+            "already_fortified": true,
+            "location_ref": "loc_chu_north_fort",
+            "priority_score": 40
+          },
+          {
+            "already_fortified": true,
+            "location_ref": "loc_chu_regional_01",
+            "priority_score": 40
+          },
+          {
+            "already_fortified": true,
+            "location_ref": "loc_juuko",
+            "priority_score": 40
+          },
+          {
+            "already_fortified": true,
+            "location_ref": "loc_shintei",
+            "priority_score": 40
+          }
+        ],
+        "project_started_ref": null
+      },
+      "last_review": "244-BCE-08-31T07:22:48+08:00",
+      "owner_id": "inst_chu_fortification_bureau",
+      "profile_ref": "inst_chu_fortification_bureau",
+      "schema": "sword-institution"
+    },
+    "inst_chu_granary_depot_office": {
+      "backlog": 0,
+      "capacity": 85,
+      "last_procurement": {
+        "at": "244-BCE-08-31T07:22:48+08:00",
+        "destination_ref": "state_depot_chu",
+        "grain_kg": 42500,
+        "price_basis": {
+          "base_price": 0.08,
+          "reserve_months": 5.468012848709083,
+          "scarcity_factor": 0.8104982937448496,
+          "shortfall_fraction": 0.0
+        },
+        "regional_source_ref": "loc_chu_regional_01",
+        "silver": 2756,
+        "source_ref": "private_economy_chu",
+        "unit_price_silver": 0.06484
+      },
+      "last_review": "244-BCE-08-31T07:22:48+08:00",
+      "owner_id": "inst_chu_granary_depot_office",
+      "procurement_count": 4,
+      "profile_ref": "inst_chu_granary_depot_office",
+      "schema": "sword-institution"
+    },
+    "inst_chu_horse_administration": {
+      "backlog": 0,
+      "capacity": 75,
+      "last_review": "244-BCE-08-31T07:22:48+08:00",
+      "owner_id": "inst_chu_horse_administration",
+      "profile_ref": "inst_chu_horse_administration",
+      "schema": "sword-institution"
+    },
+    "inst_chu_military_bureau": {
+      "backlog": 0,
+      "capacity": 80,
+      "last_review": "244-BCE-08-31T07:22:48+08:00",
+      "military_review": {
+        "at": "244-BCE-08-31T07:22:48+08:00",
+        "commander_vacancies": [
+          "formation_chu_chariot_screen",
+          "formation_chu_field_reserve",
+          "formation_chu_juuko_defense_army",
+          "formation_chu_karin_state_army",
+          "formation_chu_missile_corps",
+          "formation_chu_reserve_infantry_01",
+          "formation_chu_reserve_infantry_03"
+        ],
+        "formation_count": 9,
+        "low_readiness": [],
+        "trained_formations": [],
+        "undersupplied": [
+          "formation_chu_juuko_defense_army",
+          "formation_chu_karin_state_army"
+        ]
+      },
+      "owner_id": "inst_chu_military_bureau",
+      "profile_ref": "inst_chu_military_bureau",
+      "schema": "sword-institution"
+    },
+    "inst_chu_recruitment_office": {
+      "backlog": 0,
+      "capacity": 12000,
+      "last_review": "244-BCE-08-31T07:22:48+08:00",
+      "owner_id": "inst_chu_recruitment_office",
+      "profile_ref": "inst_chu_recruitment_office",
+      "recruitment_review": {
+        "active_military": 850000,
+        "at": "244-BCE-08-31T07:22:48+08:00",
+        "civil_population_total": 12000000,
+        "force_shortage": 0,
+        "office_capacity": 12000
+      },
+      "schema": "sword-institution"
+    },
+    "inst_chu_regional_administration": {
+      "administration_review": {
+        "at": "244-BCE-08-31T07:22:48+08:00",
+        "governed_site_count": 0,
+        "governed_sites": []
+      },
+      "backlog": 0,
+      "capacity": 78,
+      "last_review": "244-BCE-08-31T07:22:48+08:00",
+      "owner_id": "inst_chu_regional_administration",
+      "profile_ref": "inst_chu_regional_administration",
+      "schema": "sword-institution"
+    }
+  },
+  "schema": "regional-institution-index",
+  "state": "chu"
+}

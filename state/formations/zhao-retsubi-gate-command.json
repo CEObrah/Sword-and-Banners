@@ -1,0 +1,100 @@
+{
+  "administrative_owner": "state_zhao",
+  "attached_support_by_role": {},
+  "attached_unit_command_by_role": {
+    "line_infantry": 1
+  },
+  "authorized_strength": 8000,
+  "autonomous_orders": [
+    {
+      "action_ref": "state_arc_eb69bbf064f025e4c4",
+      "arc_ref": "arc_northern_steppe_ganmon_pressure",
+      "at": "244-BCE-08-26T06:22:48+08:00",
+      "goal": "protect core territory",
+      "kind": "state_world_arc_operation",
+      "target_ref": "polity_northern_steppe"
+    }
+  ],
+  "cohesion": 84,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_zhao_3ab1c5f63a28",
+      "count": 5000
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_e0975907884c",
+      "count": 2000
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_line_infantry_3135b648967d",
+      "count": 500
+    },
+    {
+      "cohort_id": "cohort_force_state_zhao_line_infantry_40cb8436e5c4",
+      "count": 499
+    }
+  ],
+  "command_attachment_source_force_ref": "force_state_zhao",
+  "command_authority": "state_zhao",
+  "commander_ref": "char_cmd_zhao_retsubi_gate_command",
+  "composition": {
+    "line_infantry": 5999,
+    "missile_crossbow": 2000
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 60,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.external_state_force.standard",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "line_infantry": 6001,
+    "missile_crossbow": 2000
+  },
+  "establishment_composition": {
+    "line_infantry": 6000,
+    "missile_crossbow": 2000
+  },
+  "experience": "trained",
+  "fatigue": 0,
+  "formation_class": "unit",
+  "formation_identity": {
+    "persistent_elite_or_prestige_formation": true,
+    "state_force_ownership_preserved": true
+  },
+  "formation_ref": "formation_zhao_retsubi_gate_command",
+  "higher_command_ref": "cmdgrp.retsubi.garrison",
+  "location_ref": "loc_retsubi",
+  "logistics": {
+    "construction_material_units": 0,
+    "source_depot_ref": "depot_fort_retsubi",
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 82,
+  "mounts": {},
+  "name": "Retsubi Gate Command",
+  "officer_cadre": {
+    "materialized_refs_by_rank": {
+      "1000_commander": [],
+      "100_commander": [],
+      "500_commander": []
+    },
+    "promotion_training_hours": 113,
+    "rank_inventory": {
+      "1000_commander": 7,
+      "100_commander": 80,
+      "500_commander": 16
+    }
+  },
+  "owner_force_ref": "force_state_zhao",
+  "personnel": 7999,
+  "readiness": 80,
+  "schema": "sword-formation",
+  "status": "mobilized",
+  "supply_depot_ref": "depot_fort_retsubi",
+  "training_progress": 50,
+  "training_ref": null
+}

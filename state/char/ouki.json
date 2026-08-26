@@ -1,0 +1,176 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "mode": "standing_role_training",
+    "training_regimen_ref": "regular_army"
+  },
+  "age_stage": "adult",
+  "appearance": 58,
+  "aptitude": {
+    "academic_learning": 185,
+    "physical_learning": 185,
+    "social_learning": 185,
+    "tactical_learning": 190,
+    "technical_learning": 190
+  },
+  "attributes": {
+    "Agility": 145,
+    "Awareness": 180,
+    "Composure": 195,
+    "Coordination": 165,
+    "Endurance": 180,
+    "Intelligence": 175,
+    "Presence": 198,
+    "Strength": 180,
+    "Toughness": 185
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 9,
+    "enabled": true,
+    "focus_cursor": 418,
+    "fractional_training_hour_credit": 0.428572,
+    "last_training": {
+      "at": "244-BCE-08-31T06:22:48+08:00",
+      "hours": 206,
+      "program_ref": "program.commander_combined_arms",
+      "resolved_role": null,
+      "training_ref": null
+    },
+    "next_due": "244-BCE-09-30T06:22:48+08:00",
+    "resolved_through": "244-BCE-08-31T06:22:48+08:00",
+    "resolved_training_regimen_ref": "elite_command",
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "background": {
+    "origin": "Qin"
+  },
+  "behavior_profile_ref": "game/data/people/behavior-profiles/char_ouki.json",
+  "birth_date": "281-BCE-03-24",
+  "body": {
+    "adult_height_cm": 171.0,
+    "current_weight_kg": 66.1,
+    "frame": "athletic",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": []
+  },
+  "career_state": {
+    "career_changes": 0,
+    "current_billet": "command_group_commander",
+    "current_command_span": 60094,
+    "office_or_command": "Commander, Ouki Field Army"
+  },
+  "command_assignment": {
+    "billet": "command_group_commander",
+    "command_group_ref": "cmdgrp.ouki.field_army",
+    "current_command_span": 60094,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "cmdgrp.ouki.field_army",
+    "secondary_command_group_refs": [
+      "cmdgrp.house_ouki_household.field_army"
+    ]
+  },
+  "current_location": "loc_qin_regional_02",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 9.192,
+      "Awareness": 57.648,
+      "Composure": 16.923,
+      "Coordination": 1.022,
+      "Endurance": 2.535,
+      "Intelligence": 15.37,
+      "Presence": 13.796,
+      "Strength": 0.51,
+      "Toughness": 0.51
+    },
+    "attribute_stimulus_hours_milli": 539000,
+    "autonomous_deterministic_training_cursor": 1459,
+    "completed_months": 0,
+    "fatigue_recovery_through": "244-BCE-08-31T06:22:48+08:00",
+    "last_training_program_ref": "program.commander_combined_arms",
+    "settled_training_hours": 1540,
+    "skill_edu_banks": {
+      "Athletics": 8.136,
+      "Formation Command": 50.666,
+      "Formation Fighting": 12.005,
+      "Leadership": 35.121,
+      "Logistics": 97.054,
+      "Riding": 4.068,
+      "Strategy": 45.89,
+      "Tactics": 56.499
+    },
+    "verified_deliberate_training_hours": 1851
+  },
+  "equipment_loadout_id": "loadout_named_glaive",
+  "fatigue": 0,
+  "goal_state": {
+    "current_goals": [
+      "observe Qin succession struggle and decide whether the new age is worthy of his command"
+    ],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "long_term_goals": [
+      "observe Qin succession struggle and decide whether the new age is worthy of his command"
+    ],
+    "personal_desires": [
+      "seek wars and protégés worthy of his experience while serving Qin on his own terms"
+    ]
+  },
+  "health_status": "healthy",
+  "house_ref": "house_ouki_household",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_status": "active",
+  "location_scope": "state_qin_unresolved",
+  "military_command": {
+    "external_to_fighting_strength": true,
+    "formation_scope": "cmdgrp.ouki.field_army",
+    "level": "60094_commander"
+  },
+  "military_rank": {
+    "durable": true,
+    "grade": "great_general"
+  },
+  "name": "Ouki",
+  "owner_id": "char_ouki",
+  "owner_type": "character",
+  "professional_skills": {
+    "Diplomacy": 155,
+    "Governance": 135,
+    "Intelligence Operations": 145,
+    "Law": 18,
+    "Trade": 25
+  },
+  "rank": "great_general",
+  "relationship_refs": [
+    "rel.char_ouki.char_tou.commander"
+  ],
+  "role_archetype": "great_general",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 170,
+    "Bow": 135,
+    "Crossbow": 15,
+    "Engineering": 15,
+    "Formation Command": 195,
+    "Formation Fighting": 198,
+    "Grappling": 14,
+    "Heavy Weapons": 15,
+    "Leadership": 198,
+    "Logistics": 170,
+    "Medicine": 21,
+    "Polearms": 198,
+    "Riding": 180,
+    "Scouting": 32,
+    "Shield": 160,
+    "Stealth": 15,
+    "Strategy": 185,
+    "Survival": 38,
+    "Sword": 16,
+    "Tactics": 190,
+    "Unarmed": 13
+  },
+  "state": "Qin"
+}

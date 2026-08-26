@@ -1,0 +1,18 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.yotanwa.mounted_archer",
+  "doctrine": {
+    "label": "Yotanwa Mounted Archer Doctrine",
+    "scope": "formation_role",
+    "formation_policy": {
+      "battlefield_role": "mounted_archer_screen",
+      "contact_style": "elastic",
+      "charge_policy": "advantage_required",
+      "pursuit_policy": "controlled",
+      "disengagement": "mobile_break_contact"
+    },
+    "compatibility": [
+      "mounted_archery"
+    ]
+  }
+}

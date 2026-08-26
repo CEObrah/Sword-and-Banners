@@ -1,0 +1,97 @@
+{
+  "name": "Tang Manor Artillery Runtime State",
+  "owner_id": "tang_manor_artillery",
+  "owner_type": "artillery_state",
+  "records": [
+    {
+      "facts": {
+        "ammunition_owner": "owner:tang_manor_siege_inventory",
+        "crew_owner_ids": [
+          "force_house_tang",
+          "force_house_tang"
+        ],
+        "default_condition_if_unmodified": "100 for every installed weapon",
+        "default_crew_fatigue_if_unmodified": "0 for every crew unit",
+        "overall_commander_ref": "char_mu_zhen"
+      },
+      "label": "Overview",
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "standing_assignment": [
+          {
+            "Red Crane Bed Crossbow Establishment": "1,540 installed systems at full alert"
+          },
+          {
+            "Red Crane Trebuchet Establishment": "140 installed systems at full alert"
+          },
+          {
+            "Red Crane Stone-Drop Establishment": "700 installed systems at full alert"
+          },
+          {
+            "Red Crane Firepot Establishment": "700 installed systems at full alert"
+          },
+          {
+            "White Lantern Support": "signals, ammunition routing, firefighting and mechanisms without duplicating Red Crane crew bodies"
+          },
+          {
+            "Mu Zhen": "overall Four Bastion command; Red Crane command remains under its own commander and explicit staff structure"
+          }
+        ]
+      },
+      "items": [
+        "outer_wall_bed_crossbow: 1400; two per major outer tower",
+        "sword_manor_bed_crossbow: 60",
+        "inner_citadel_bed_crossbow: 40",
+        "main_gate_bed_crossbow: 40",
+        "outer_wall_trebuchet: 112",
+        "sword_manor_trebuchet: 18",
+        "inner_citadel_trebuchet: 10",
+        "outer_wall_stone_drop_crane: 700; one per major outer tower",
+        "outer_wall_firepot_system: 700; one per major outer tower"
+      ],
+      "label": "emplacement_groups",
+      "record_id": "emplacement_groups"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "artillery-state",
+  "owner_ref": "force_house_tang",
+  "institution_ref": "institution_four_bastion_corps",
+  "crew_force_refs": [
+    "force_house_tang",
+    "force_house_tang"
+  ],
+  "command_ref": "cmdgrp.house_tang.outer_wall",
+  "installed_systems": {
+    "bed_crossbows": 1540,
+    "counterweight_trebuchets": 140,
+    "stone_drop_cranes": 700,
+    "firepot_systems": 700
+  },
+  "derivation": {
+    "outer_major_towers": 700,
+    "outer_bed_crossbows": 1400,
+    "sword_manor_bed_crossbows": 60,
+    "inner_citadel_bed_crossbows": 40,
+    "gate_complex_bed_crossbows": 40,
+    "total_bed_crossbows": 1540,
+    "trebuchet_distribution": {
+      "outer_wall": 112,
+      "inner_citadel": 10,
+      "inner_walls": 18
+    },
+    "full_alert_crew_demand": {
+      "bed_crossbows": 7700,
+      "trebuchets": 2800,
+      "stone_drop_cranes": 2100,
+      "firepot_systems": 1400,
+      "active_total": 14000,
+      "maintenance_command_reserve": 2000,
+      "red_thunder_establishment": 16000
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "authority": "Static House Tang recruitment, training, force-employment and home-defense policy. Exact bodies, formations, mounts, equipment and command assignments remain in mutable owners.",
+  "contingency_mercenary_procurement": {
+    "desired_additional_headcount_by_severity": [
+      {
+        "headcount": 50000,
+        "minimum": 80
+      },
+      {
+        "headcount": 30000,
+        "minimum": 65
+      },
+      {
+        "headcount": 15000,
+        "minimum": 45
+      }
+    ],
+    "minimum_threat_severity": 45,
+    "offer_premium_basis_points": 11500,
+    "preferred_deployment_location_ref": "loc_tang_manor_defense_camp",
+    "review": "House causal review plus material threat/war wake",
+    "rule": "Offers are made only to exact available short-notice companies and must pass fair-pay and House treasury checks; accepted contracts are funded from treasury_house_tang and remain independent manpower owners.",
+    "term_days": 90
+  },
+  "force_employment": {
+    "principle": "House Tang has one conserved military force with two troop species: House Infantry and House Cavalry. Training changes capability, not troop identity. Defensive layers are assignments, not castes.",
+    "priority": [
+      "one_house_force",
+      "defense_in_depth_by_actual_capability",
+      "preserve_mobile_cavalry_reserve",
+      "rotate_veteran_cadres_outward",
+      "reassign_immediately_when_threat_geometry_requires"
+    ],
+    "constraints": [
+      "Outer Wall, Inner Walls and Inner Citadel are physical/command layers, not manpower owners.",
+      "House Infantry use one standard foot loadout; House Cavalry use one standard mounted loadout.",
+      "Every House soldier carries a bow under the standard kit; there is no separate House archer troop species.",
+      "Fixed fortress artillery is site equipment crewed by assigned House Infantry; handheld Crossbow skill is not a bed-crossbow crew requirement.",
+      "Formation and command attachment never change manpower ownership."
+    ],
+    "home_defense_doctrine": {
+      "root_command_ref": "cmdgrp.house_tang.field_army",
+      "commander_ref": "char_tang_zhu",
+      "staff_ref": "char_tang_ling",
+      "staff_role": "chief_administrator",
+      "layer_capacity_targets": {
+        "outer_wall_infantry": 110000,
+        "inner_walls_infantry": 36060,
+        "inner_citadel_infantry": 18000,
+        "inner_citadel_cavalry": 12000
+      },
+      "default_layers": [
+        {
+          "layer": "outer_wall",
+          "location_ref": "loc_tang_manor_defense_camp",
+          "troop_role": "house_infantry",
+          "selection": "lowest current deployable formation capability first",
+          "purpose": "hold the largest frontage, absorb routine contact, learn under real duty, and delay without sacrificing the deeper reserve",
+          "cadre_rule": "junior formations must retain competent officers and veteran cadre; raw unready recruits are not thrown onto the wall"
+        },
+        {
+          "layer": "inner_walls",
+          "location_ref": "loc_tang_manor_training_ground",
+          "troop_role": "house_infantry",
+          "selection": "middle current infantry capability",
+          "purpose": "defend the populated middle compound, reinforce threatened outer sectors, and contain penetrations"
+        },
+        {
+          "layer": "inner_citadel",
+          "location_ref": "loc_tang_manor_garrison_yard",
+          "troop_roles": [
+            "house_infantry",
+            "house_cavalry"
+          ],
+          "selection": "highest infantry capability plus all home cavalry unless operationally detached",
+          "purpose": "protect the family seat and preserve the strongest counterattack, sortie, rescue and pursuit reserve"
+        }
+      ],
+      "reassignment_rule": "Capability-ranked home stationing is a peacetime/default defense-in-depth policy, never a suicide rule. Higher command may reinforce any layer immediately when the tactical situation requires it.",
+      "rotation_rule": "At each House military review, home infantry formations are ranked by current trained capability. The least-trained deployable formations fill the Outer Wall target, the middle band fills the Inner Walls, and the strongest infantry fills the Inner Citadel. Existing cohort stats and experience move with the formation."
+    }
+  },
+  "recruitment": {
+    "population_source_ref": "population_qin",
+    "rule": "Recruit directly into a real House Infantry or House Cavalry vacancy from conserved applicants. New cohorts begin at their actual selected starting capability and train upward; no troop-rank promotion ladder exists. Cavalry intake additionally requires real horses and mounted equipment.",
+    "roles": {
+      "house_infantry": {
+        "entry": "direct_house_recruitment",
+        "loadout_ref": "loadout_tang_foot"
+      },
+      "house_cavalry": {
+        "entry": "direct_mounted_house_recruitment",
+        "loadout_ref": "loadout_tang_mounted",
+        "requires_mount": true
+      }
+    }
+  },
+  "schema": "house-tang-force-policy",
+  "training": {
+    "regimen_ref": "house_tang_max_sustainable",
+    "no_free_progress": true,
+    "named_people": "House officers and individually materialized soldiers use the same elapsed-time training law as everyone else.",
+    "cohorts": "Each conserved cohort develops its own skills, attributes and experience. Joining a veteran Unit does not copy veteran stats into new recruits.",
+    "smart_rotation": "Use the registered House Infantry or House Cavalry syllabus and actual equipment/facility access. Do not train toward prestige-rank thresholds because no troop promotion ladder exists.",
+    "home_layer_effect": "Outer-wall, Inner-Walls and Inner-Citadel duty may change role exposure and available facilities, but never grants free stats or changes troop species."
+  }
+}

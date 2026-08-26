@@ -1,0 +1,40 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.ou_hon.gyoku_hou.house_1000",
+  "display_name": "Gyoku Hou Household Wing",
+  "context": "nested_army",
+  "authority_ref": "state_qin",
+  "commander_ref": "char_kan_jou",
+  "direct_person_refs": [],
+  "role_assignments": {},
+  "successor_refs": [],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_gyoku_hou_house_a"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_gyoku_hou_house_b"
+    }
+  ],
+  "standing_order_refs": [],
+  "standing_doctrine_ref": "doc.gyoku_hou.house_cavalry",
+  "communication_ref": null,
+  "location": "loc_qin_regional_01",
+  "parent_command_group_ref": "cmdgrp.ou_hon.gyoku_hou",
+  "created_at": "244-BCE-09-09T20:22:48+08:00",
+  "updated_at": "244-BCE-09-09T20:22:48+08:00",
+  "active_context_ref": "operation_arc_131572c4e8a2892bbc",
+  "organizational_state": {
+    "authorized_direct_unit_slots": 2,
+    "authorized_strength": 1000,
+    "current_direct_formation_strength": 1000,
+    "current_recursive_strength": 1000,
+    "direct_unit_count": 2,
+    "mission": "household_subcommand",
+    "recursive_formation_count": 2,
+    "reorganization_need": "none",
+    "status": "active"
+  }
+}

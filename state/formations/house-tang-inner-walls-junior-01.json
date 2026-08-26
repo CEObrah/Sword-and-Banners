@@ -1,0 +1,73 @@
+{
+  "administrative_owner": "house_tang",
+  "attached_unit_command_by_role": {},
+  "authorized_strength": 5000,
+  "cohesion": 86,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_sword_manor_junior_disciple_standing",
+      "count": 4999
+    }
+  ],
+  "command_attachment_source_force_ref": "force_house_tang",
+  "command_authority": "char_pei_an",
+  "commander_ref": "char_cmd_house_tang_inner_walls_junior_01",
+  "composition": {
+    "house_infantry": 4999
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "high",
+    "reserve_commitment": 50,
+    "withdrawal_threshold": 35
+  },
+  "doctrine_ref": "doc.house_tang.home_defense",
+  "embedded_person_refs": [],
+  "equipment_completeness": "0.9970",
+  "equipment_units_by_role": {
+    "house_infantry": 4999
+  },
+  "establishment_composition": {
+    "house_infantry": 5000
+  },
+  "experience": "trained",
+  "fatigue": 0,
+  "formation_class": "unit",
+  "formation_ref": "formation_house_tang_inner_walls_junior_01",
+  "higher_command_ref": "cmdgrp.house_tang.inner_walls",
+  "location_ref": "loc_tang_manor_training_ground",
+  "logistics": {
+    "construction_material_units": 0,
+    "source_depot_ref": "depot_fort_tang_inner_walls",
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 86,
+  "mounts": {},
+  "name": "Inner Walls Junior Formation",
+  "officer_cadre": {
+    "materialized_refs_by_rank": {
+      "1000_commander": [],
+      "100_commander": [],
+      "500_commander": []
+    },
+    "promotion_training_hours": 86,
+    "rank_inventory": {
+      "1000_commander": 5,
+      "100_commander": 50,
+      "500_commander": 10
+    }
+  },
+  "owner_force_ref": "force_house_tang",
+  "personnel": 4999,
+  "readiness": 84,
+  "registered_loadout_ref": "loadout_tang_foot",
+  "registered_loadouts_by_role": {
+    "house_infantry": "loadout_tang_foot"
+  },
+  "schema": "sword-formation",
+  "status": "home_ready",
+  "supply_depot_ref": "depot_fort_tang_inner_walls",
+  "training_progress": 100,
+  "training_ref": "train.house_tang.house_infantry"
+}

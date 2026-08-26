@@ -1,0 +1,119 @@
+{
+  "administrative_owner": "state_qin",
+  "armor_units_by_role": {
+    "cavalry": 3386,
+    "line_infantry": 23200,
+    "missile_crossbow": 6557
+  },
+  "attached_support_by_role": {},
+  "attached_unit_command_by_role": {
+    "command_personnel": 1
+  },
+  "authorized_strength": 34100,
+  "autonomous_orders": [
+    {
+      "action_ref": "state_arc_5e3def76020ed7587a",
+      "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+      "at": "244-BCE-08-08T06:22:48+08:00",
+      "goal": "protect core territory",
+      "kind": "state_world_arc_operation",
+      "target_ref": "char_ryo_fui"
+    }
+  ],
+  "cohesion": 50,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qin_33c6ae86fd97",
+      "count": 6557
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_3af44f950ac6",
+      "count": 22700
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_536ea6471349",
+      "count": 957
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_b5dfda110120",
+      "count": 3386
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_line_infantry_2dc14d63fe69",
+      "count": 300
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_line_infantry_b5aed6bad60f",
+      "count": 200
+    }
+  ],
+  "command_attachment_source_force_ref": "force_state_qin",
+  "command_authority": "state_qin",
+  "commander_ref": "char_cmd_qin_tou_mobile_army",
+  "composition": {
+    "cavalry": 3386,
+    "chariot": 957,
+    "line_infantry": 23200,
+    "missile_crossbow": 6557
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 60,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.external_state_force.standard",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "cavalry": 3386,
+    "chariot": 957,
+    "line_infantry": 23200,
+    "missile_crossbow": 6557
+  },
+  "experience": "field_tested",
+  "fatigue": 0,
+  "formation_class": "unit",
+  "formation_identity": {
+    "persistent_elite_or_prestige_formation": true,
+    "state_force_ownership_preserved": true
+  },
+  "formation_ref": "formation_qin_tou_mobile_army",
+  "higher_command_ref": "cmdgrp.tou.field_army",
+  "location_ref": "loc_qin_regional_02",
+  "logistics": {
+    "construction_material_units": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 71,
+  "mounts": {
+    "horse": 3386
+  },
+  "name": "Tou Mobile Army",
+  "officer_cadre": {
+    "materialized_refs_by_rank": {
+      "1000_commander": [],
+      "100_commander": [],
+      "500_commander": []
+    },
+    "promotion_training_hours": 113,
+    "rank_inventory": {
+      "1000_commander": 8,
+      "100_commander": 90,
+      "500_commander": 17
+    }
+  },
+  "owner_force_ref": "force_state_qin",
+  "personnel": 34100,
+  "readiness": 64,
+  "schema": "sword-formation",
+  "shield_units_by_role": {
+    "cavalry": 3386,
+    "chariot": 957,
+    "line_infantry": 23200,
+    "missile_crossbow": 6557
+  },
+  "status": "mobilized",
+  "training_progress": 52,
+  "training_ref": null
+}

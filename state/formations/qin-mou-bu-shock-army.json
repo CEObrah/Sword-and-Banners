@@ -1,0 +1,111 @@
+{
+  "administrative_owner": "state_qin",
+  "armor_units_by_role": {
+    "cavalry": 4261,
+    "line_infantry": 27161,
+    "missile_crossbow": 7525
+  },
+  "attached_support_by_role": {},
+  "attached_unit_command_by_role": {
+    "command_personnel": 1
+  },
+  "authorized_strength": 40000,
+  "autonomous_orders": [
+    {
+      "action_ref": "state_arc_1aaf7c91a3baea0772",
+      "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+      "at": "244-BCE-08-10T06:22:48+08:00",
+      "goal": "maintain military readiness",
+      "kind": "state_world_arc_operation",
+      "target_ref": "char_ryo_fui"
+    }
+  ],
+  "cohesion": 51,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qin_33c6ae86fd97",
+      "count": 7525
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_3af44f950ac6",
+      "count": 27161
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_536ea6471349",
+      "count": 1053
+    },
+    {
+      "cohort_id": "cohort_force_state_qin_b5dfda110120",
+      "count": 4261
+    }
+  ],
+  "command_attachment_source_force_ref": "force_state_qin",
+  "command_authority": "state_qin",
+  "commander_ref": "char_cmd_qin_mou_bu_shock_army",
+  "composition": {
+    "cavalry": 4261,
+    "chariot": 1053,
+    "line_infantry": 27161,
+    "missile_crossbow": 7525
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 60,
+    "withdrawal_threshold": 30
+  },
+  "doctrine_ref": "doc.external_state_force.standard",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "cavalry": 4261,
+    "chariot": 1053,
+    "line_infantry": 27161,
+    "missile_crossbow": 7525
+  },
+  "experience": "field_tested",
+  "fatigue": 0,
+  "formation_class": "unit",
+  "formation_identity": {
+    "persistent_elite_or_prestige_formation": true,
+    "state_force_ownership_preserved": true
+  },
+  "formation_ref": "formation_qin_mou_bu_shock_army",
+  "higher_command_ref": "cmdgrp.mou_bu.field_army",
+  "location_ref": "loc_qin_regional_04",
+  "logistics": {
+    "construction_material_units": 0,
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 73,
+  "mounts": {
+    "horse": 4261
+  },
+  "name": "Mou Bu Shock Army",
+  "officer_cadre": {
+    "materialized_refs_by_rank": {
+      "1000_commander": [],
+      "100_commander": [],
+      "500_commander": []
+    },
+    "promotion_training_hours": 113,
+    "rank_inventory": {
+      "1000_commander": 11,
+      "100_commander": 120,
+      "500_commander": 24
+    }
+  },
+  "owner_force_ref": "force_state_qin",
+  "personnel": 40000,
+  "readiness": 65,
+  "schema": "sword-formation",
+  "shield_units_by_role": {
+    "cavalry": 4261,
+    "chariot": 1053,
+    "line_infantry": 27161,
+    "missile_crossbow": 7525
+  },
+  "status": "mobilized",
+  "training_progress": 52,
+  "training_ref": null
+}

@@ -1,0 +1,190 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "mode": "standing_role_training",
+    "training_program_ref": "program.commander_combined_arms",
+    "training_regimen_ref": "professional_officer"
+  },
+  "affiliation": [
+    "house_tang",
+    "Tang Wei Personal Retinue"
+  ],
+  "appearance": 58,
+  "aptitude": {
+    "academic_learning": 130,
+    "physical_learning": 150,
+    "social_learning": 135,
+    "tactical_learning": 160,
+    "technical_learning": 140
+  },
+  "attributes": {
+    "Agility": 125,
+    "Awareness": 145,
+    "Composure": 150,
+    "Coordination": 135,
+    "Endurance": 135,
+    "Intelligence": 135,
+    "Presence": 140,
+    "Strength": 125,
+    "Toughness": 135
+  },
+  "authority": "House Tang field officer under Tang Wei's active field command.",
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 1,
+    "enabled": true,
+    "focus_cursor": 205,
+    "fractional_training_hour_credit": 0.714286,
+    "last_training": {
+      "at": "244-BCE-08-28T20:22:48+08:00",
+      "hours": 205,
+      "program_ref": "program.commander_combined_arms",
+      "resolved_role": null,
+      "training_ref": null
+    },
+    "next_due": "244-BCE-09-27T20:22:48+08:00",
+    "resolved_through": "244-BCE-08-31T06:22:48+08:00",
+    "resolved_training_regimen_ref": "house_tang_max_sustainable",
+    "routed_at": "244-BCE-07-29T20:22:48+08:00",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "background": {
+    "origin": "standing command establishment"
+  },
+  "birth_date": "291-BCE-09-26",
+  "body": {
+    "adult_height_cm": 171.7,
+    "current_weight_kg": 66.9,
+    "frame": "athletic",
+    "growth_end_age": 18
+  },
+  "career_state": {
+    "assignment_history": [
+      {
+        "current_billet": "formation_commander",
+        "current_command_span": 500,
+        "kind": "reassignment_metadata_reconciliation",
+        "prior_authority": "Inner Walls Trainee Commander",
+        "prior_role": "500-man Commander, High Guard Infantry 1",
+        "repair_ref": "baseline_repair_2026_08_26_tang_field_reassignment"
+      }
+    ],
+    "career_changes": 0,
+    "current_billet": "formation_commander",
+    "current_command_span": 500,
+    "office_or_command": "500-man Commander, High Guard Infantry 1"
+  },
+  "command_assignment": {
+    "billet": "formation_commander",
+    "command_group_ref": "cmdgrp.tang_wei.high_guard.unit_1",
+    "current_command_span": 500,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "formation_high_guard_infantry_01a"
+  },
+  "current_formation_id": "formation_high_guard_infantry_01a",
+  "current_location": "loc_qin_eastern_depot",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 1.207,
+      "Awareness": 2.091,
+      "Composure": 1.908,
+      "Coordination": 0.439,
+      "Endurance": 0.755,
+      "Intelligence": 1.14,
+      "Presence": 1.254,
+      "Strength": 0.676
+    },
+    "attribute_stimulus_hours_milli": 71750,
+    "autonomous_deterministic_training_cursor": 205,
+    "fatigue_recovery_through": "244-BCE-08-28T20:22:48+08:00",
+    "last_training_program_ref": "program.commander_combined_arms",
+    "settled_training_hours": 205,
+    "skill_edu_banks": {
+      "Bow": 6.741,
+      "Formation Command": 6.397,
+      "Formation Fighting": 1.004,
+      "Leadership": 4.016,
+      "Logistics": 2.243,
+      "Polearms": 2.009,
+      "Riding": 0.803,
+      "Strategy": 4.237,
+      "Sword": 1.105,
+      "Tactics": 4.016
+    },
+    "verified_deliberate_training_hours": 205
+  },
+  "equipment_loadout_id": "loadout_house_champion",
+  "equipment_manifest": {
+    "carried_ammunition": 36,
+    "individual_custody": true,
+    "items": {
+      "ammunition_item": "ammo_arrow",
+      "body_armor": "armor_heavy",
+      "helmet": "helmet_standard",
+      "horse_armor": "horse_armor_heavy",
+      "mount": "horse",
+      "primary_melee_weapon": "weapon_spear",
+      "ranged_weapon": "weapon_bow",
+      "shield": "shield_standard",
+      "shield_state_when_shooting": "slung",
+      "shield_state_with_lance": "ready_offhand",
+      "sidearm": "weapon_sword",
+      "tack": "tack_standard"
+    },
+    "loadout_id": "loadout_house_champion"
+  },
+  "fatigue": 0,
+  "goal_state": {
+    "institutional_duties": [
+      "500-man Commander, High Guard Infantry 1"
+    ]
+  },
+  "health_status": "healthy",
+  "life_status": "active",
+  "loadout_id": "loadout_tang_mounted",
+  "military_command": {
+    "external_to_fighting_strength": true,
+    "formation_scope": "formation_high_guard_infantry_01a",
+    "higher_commander_ref": "char_tang_command_high_guard_unit_1",
+    "level": "500_commander"
+  },
+  "military_rank": {
+    "durable": true,
+    "grade": "500_commander"
+  },
+  "name": "Sun Ke",
+  "owner_id": "char_sword_manor_trainee_commander",
+  "owner_type": "character",
+  "professional_skills": {
+    "Diplomacy": 70,
+    "Governance": 70,
+    "Intelligence Operations": 75,
+    "Law": 75,
+    "Trade": 60
+  },
+  "role": "500-man Commander, High Guard Infantry 1",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 125,
+    "Bow": 135,
+    "Crossbow": 65,
+    "Engineering": 70,
+    "Formation Command": 155,
+    "Formation Fighting": 150,
+    "Grappling": 95,
+    "Heavy Weapons": 65,
+    "Leadership": 155,
+    "Logistics": 145,
+    "Medicine": 55,
+    "Polearms": 150,
+    "Riding": 145,
+    "Scouting": 105,
+    "Shield": 145,
+    "Stealth": 65,
+    "Strategy": 140,
+    "Survival": 100,
+    "Sword": 150,
+    "Tactics": 150,
+    "Unarmed": 90
+  }
+}

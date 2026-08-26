@@ -1,0 +1,63 @@
+{
+  "schema": "sword-population",
+  "owner_id": "population_quanrong",
+  "state": "quanrong",
+  "population_total": 420000,
+  "strata": {
+    "active_military": 45000,
+    "agricultural": 55000,
+    "craft_and_industry": 30000,
+    "merchant_and_transport": 35000,
+    "household_and_service": 40000,
+    "administration_and_education": 10000,
+    "dependents_children_elderly": 205000
+  },
+  "local_population": {
+    "authority": true,
+    "initialized_from_population_total": 420000,
+    "sites": {
+      "loc_quanrong_highlands": {
+        "location_ref": "loc_quanrong_highlands",
+        "initial_population": 420000,
+        "civilian_strata": {
+          "agricultural": 55000,
+          "craft_and_industry": 30000,
+          "merchant_and_transport": 35000,
+          "household_and_service": 40000,
+          "administration_and_education": 10000,
+          "dependents_children_elderly": 205000
+        },
+        "service_allocations": {
+          "force_quanrong": {
+            "personnel": 45000,
+            "service_class": "native_military",
+            "source_stratum": "active_military"
+          }
+        },
+        "candidate_reservations": {},
+        "displaced": 0,
+        "deaths_cumulative": 0,
+        "civilian_population": 375000,
+        "agricultural_available": 55000,
+        "serving_native_military": 45000,
+        "serving_foreign_military": 0,
+        "rebel_military": 0,
+        "private_household_military": 0,
+        "service_population": 45000,
+        "candidates_reserved": 0,
+        "reserved_candidates": 0
+      }
+    }
+  },
+  "provenance": {
+    "kind": "game_seed_noncanonical",
+    "basis": "sparse minor-polity materialization for living-world simulation; quantities are not claimed historical census facts"
+  },
+  "demography": {
+    "birth_rate_per_thousand": "25.0",
+    "death_rate_per_thousand": "17.0",
+    "closes": 0,
+    "dependent_stratum": "dependents_children_elderly",
+    "maturation_target_stratum": "agricultural"
+  }
+}

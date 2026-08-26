@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "reach_advantage_points",
+    "contact_grades",
+    "experience_control_modifier",
+    "timing_model",
+    "sequencing_rules",
+    "rule",
+    "fit_factors",
+    "recovery_class_base",
+    "recovery_bands",
+    "ranged_cycle_factors",
+    "mounted_method_control_adjustment",
+    "base_contact_wear_percent",
+    "fatigue_factor_piecewise",
+    "impairment_combination",
+    "combat_load_agility_factor",
+    "carriage_balance_factor",
+    "exertion_base_fatigue_per_minute",
+    "load_fatigue_multiplier",
+    "environment_fatigue_multiplier",
+    "recovery_per_minute",
+    "special_formation_weapon_methods",
+    "perception_margin_bands",
+    "fall_surface_factor",
+    "fall_orientation_factor",
+    "ranged_range_bands",
+    "horse_health_factor",
+    "horse_feed_factor",
+    "horse_load_speed_factor",
+    "weapon_wear",
+    "position_modifier_levels",
+    "item_condition_states",
+    "posture_timing",
+    "grapple_model",
+    "embedded_weapon_model",
+    "local_obstacle_model",
+    "projectile_recovery_model"
+  ],
+  "properties": {
+    "schema": {
+      "const": "combat-mechanics"
+    },
+    "formulas": {},
+    "reach_advantage_points": {},
+    "contact_grades": {},
+    "experience_control_modifier": {},
+    "rule": {},
+    "fit_factors": {},
+    "recovery_class_base": {},
+    "recovery_bands": {},
+    "ranged_cycle_factors": {},
+    "mounted_method_control_adjustment": {},
+    "base_contact_wear_percent": {},
+    "fatigue_factor_piecewise": {},
+    "impairment_combination": {},
+    "combat_load_agility_factor": {},
+    "carriage_balance_factor": {},
+    "exertion_base_fatigue_per_minute": {},
+    "load_fatigue_multiplier": {},
+    "environment_fatigue_multiplier": {},
+    "recovery_per_minute": {},
+    "special_formation_weapon_methods": {},
+    "perception_margin_bands": {},
+    "fall_surface_factor": {},
+    "fall_orientation_factor": {},
+    "ranged_range_bands": {},
+    "horse_health_factor": {},
+    "horse_feed_factor": {},
+    "horse_load_speed_factor": {},
+    "weapon_wear": {},
+    "position_modifier_levels": {},
+    "item_condition_states": {},
+    "timing_model": {
+      "type": "object"
+    },
+    "sequencing_rules": {
+      "type": "object"
+    },
+    "posture_timing": {
+      "type": "object"
+    },
+    "grapple_model": {
+      "type": "object"
+    },
+    "embedded_weapon_model": {
+      "type": "object"
+    },
+    "local_obstacle_model": {
+      "type": "object"
+    },
+    "projectile_recovery_model": {
+      "type": "object"
+    },
+    "active_defense_saturation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule",
+        "recovery_reaction_multiplier",
+        "recovery_min_seconds",
+        "recovery_max_seconds",
+        "minimum_available_factor",
+        "distinct_source_penalty",
+        "max_distinct_source_penalty",
+        "base_commitment",
+        "speed_ratio_weight",
+        "pressure_margin_scale",
+        "pressure_commitment_max",
+        "new_source_commitment",
+        "max_commitment_per_response",
+        "angle_window_seconds",
+        "angle_base_penalty",
+        "angle_conflict_penalty"
+      ],
+      "properties": {
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recovery_reaction_multiplier": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "recovery_min_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "recovery_max_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "minimum_available_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "distinct_source_penalty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "max_distinct_source_penalty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "base_commitment": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "speed_ratio_weight": {
+          "type": "number",
+          "minimum": 0
+        },
+        "pressure_margin_scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "pressure_commitment_max": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "new_source_commitment": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "max_commitment_per_response": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "angle_window_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "angle_base_penalty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "angle_conflict_penalty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  }
+}

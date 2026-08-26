@@ -1,0 +1,73 @@
+{
+  "administrative_owner": "house_tang",
+  "attached_unit_command_by_role": {},
+  "authorized_strength": 5000,
+  "cohesion": 90,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_bastion_iron_wall_bastion_archer",
+      "count": 999
+    },
+    {
+      "cohort_id": "cohort_force_bastion_iron_wall_bastion_crossbow",
+      "count": 1000
+    },
+    {
+      "cohort_id": "cohort_force_bastion_iron_wall_bastion_heavy_infantry",
+      "count": 3000
+    }
+  ],
+  "command_attachment_source_force_ref": "force_house_tang",
+  "command_authority": "char_han_ru",
+  "commander_ref": "char_cmd_house_tang_outer_wall_iron_wall_07",
+  "composition": {
+    "house_infantry": 4999
+  },
+  "doctrine_ref": "doc.house_tang.home_defense",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "house_infantry": 4999
+  },
+  "establishment_composition": {
+    "house_infantry": 5000
+  },
+  "experience": "trained",
+  "fatigue": 0,
+  "formation_class": "unit",
+  "formation_ref": "formation_house_tang_outer_wall_iron_wall_07",
+  "higher_command_ref": "cmdgrp.house_tang.outer_wall",
+  "location_ref": "loc_tang_manor_defense_camp",
+  "logistics": {
+    "source_depot_ref": "depot_fort_tang_inner_walls",
+    "war_arrows": 480000,
+    "war_bolts": 360000
+  },
+  "mobilized": true,
+  "morale": 90,
+  "mounts": {},
+  "name": "Iron Wall Corps 7th Maneuver Formation",
+  "officer_cadre": {
+    "materialized_refs_by_rank": {
+      "1000_commander": [],
+      "100_commander": [],
+      "500_commander": []
+    },
+    "promotion_training_hours": 86,
+    "rank_inventory": {
+      "1000_commander": 5,
+      "100_commander": 50,
+      "500_commander": 10
+    }
+  },
+  "owner_force_ref": "force_house_tang",
+  "personnel": 4999,
+  "readiness": 92,
+  "registered_loadout_ref": "loadout_tang_foot",
+  "registered_loadouts_by_role": {
+    "house_infantry": "loadout_tang_foot"
+  },
+  "schema": "sword-formation",
+  "status": "garrison_ready",
+  "supply_depot_ref": "depot_fort_tang_inner_walls",
+  "training_ref": "train.house_tang.house_infantry_outer_wall"
+}

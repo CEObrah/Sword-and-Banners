@@ -1,0 +1,108 @@
+{
+  "routes": [
+    {
+      "route_ref": "contact_qin_military_bureau_kanyou_northern_wei",
+      "location_ref": "loc_kanyou",
+      "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+      "institution_ref": "inst_qin_military_bureau",
+      "receiving_role": "Qin Military Bureau duty officer",
+      "delay_seconds": 3600,
+      "delivery_route": "Qin Military Bureau receiving office in Kanyou",
+      "audience_summary": "The Qin Military Bureau receiving office makes a duty officer available to hear Tang Wei regarding the northern Wei operation. This establishes a hearing only: Tang Wei has not yet made a substantive request, and Qin has made no appointment, command, deployment decision, or commitment.",
+      "audience_dispositions": [
+        {
+          "disposition_ref": "qin_northern_wei_service_recommendation",
+          "actions": [
+            "ask",
+            "request",
+            "petition"
+          ],
+          "statement_all_terms": [
+            "northern operation"
+          ],
+          "statement_any_phrases": [
+            "put my name forward",
+            "recommend me",
+            "recommendation"
+          ],
+          "delay_seconds": 300,
+          "minimum_prior_present_attempts": 6,
+          "scoring": {
+            "attributes": [
+              "Intelligence",
+              "Awareness",
+              "Composure"
+            ],
+            "skills": [
+              "Strategy",
+              "Tactics",
+              "Leadership",
+              "Logistics",
+              "Formation Command",
+              "Governance",
+              "Intelligence Operations"
+            ],
+            "attribute_weight": 2,
+            "skill_weight": 3,
+            "recommend_threshold": 650,
+            "refer_threshold": 500
+          },
+          "recommended_summary": "The Qin Military Bureau duty officer is willing to put Tang Wei's name forward for consideration for service connected to the northern Wei operation. This is a recommendation only: it creates no Qin rank, office, command, troop custody, deployment authority, or guarantee of appointment.",
+          "referred_summary": "The Qin Military Bureau duty officer will refer Tang Wei's request and examination record for further review concerning service connected to the northern Wei operation. This is a referral only: it creates no Qin rank, office, command, troop custody, deployment authority, recommendation, or guarantee of appointment.",
+          "declined_summary": "The Qin Military Bureau duty officer declines to recommend Tang Wei for service connected to the northern Wei operation on the basis of this hearing. No Qin rank, office, command, troop custody, deployment authority, or appointment is created."
+        }
+      ]
+    }
+  ],
+  "followup_requests": [
+    {
+      "followup_ref": "qin_northern_wei_appointment_request_answer",
+      "source_process_kind": "institutional_disposition",
+      "source_process_stage": "recommended",
+      "source_actor_ref": "inst_qin_military_bureau",
+      "actions": [
+        "ask",
+        "request",
+        "petition"
+      ],
+      "statement_any_terms": [
+        "appoint",
+        "appointment",
+        "command",
+        "service",
+        "post"
+      ],
+      "delay_seconds": 21600,
+      "source_owner_ref": "inst_qin_military_bureau",
+      "actor_ref": "inst_qin_military_bureau",
+      "delivery_route": "Qin Military Bureau receiving office in Kanyou",
+      "response_stage": "answered",
+      "response_summary": "The Qin Military Bureau acknowledges Tang Wei's request for an appointment connected to the northern Wei operation. The prior recommendation remains the Bureau's established disposition, but this channel has no current appointment, rank, command, troop custody, or deployment authority to issue. Any later appointment requires a separate lawful Qin decision."
+    },
+    {
+      "followup_ref": "ouki_preliminary_review_appointment_request_answer",
+      "source_event_ref": "event_ouki_preliminary_review_disposition_001",
+      "source_process_kind": "command_qualification_review",
+      "source_process_stage": "preliminary_review_complete",
+      "actions": [
+        "ask",
+        "request",
+        "petition"
+      ],
+      "statement_any_terms": [
+        "appoint",
+        "appointment",
+        "command",
+        "service",
+        "post"
+      ],
+      "delay_seconds": 21600,
+      "source_owner_ref": "events_messages_and_movement",
+      "delivery_route": "Ouki staff-review channel",
+      "response_stage": "answered",
+      "response_summary": "Ouki's staff acknowledges Tang Wei's request for appointment. His completed preliminary review remains on file, but the staff has no current field-command vacancy or Qin appointment to issue through this review channel. No rank, command, private-unit acceptance, or deployment authority is created."
+    }
+  ],
+  "route_domain": "institutional_contact",
+  "geographic_route_authority": false
+}

@@ -1,0 +1,560 @@
+{
+  "blueprints": {
+    "fortification_gatehouse": {
+      "category": "fortification",
+      "physical_cost_model": {
+        "calibration_rule": "gatehouse enclosed area plus mechanical complexity drives registered material/labor intensity",
+        "critical_path_hours": 1080,
+        "labor_hours_by_class": {
+          "engineering": 6000,
+          "general": 28000,
+          "skilled": 26000
+        },
+        "material_unit_formula": {
+          "floor_area_m2": 2.0
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 260
+      },
+      "physical_geometry": {
+        "floor_area_m2": 900,
+        "gate_count": 1,
+        "height_m": 12
+      },
+      "support_capacity_add": {},
+      "unit_name": "reinforced gatehouse complex",
+      "works_add": {
+        "fortification_gatehouses": 1
+      }
+    },
+    "fortification_rammed_earth_wall_1km": {
+      "category": "fortification",
+      "physical_cost_model": {
+        "calibration_rule": "rammed-earth volume drives material-equivalent handling; gate/tower works are separate blueprints",
+        "critical_path_hours": 2160,
+        "labor_hours_by_class": {
+          "engineering": 20000,
+          "general": 420000,
+          "skilled": 60000
+        },
+        "material_unit_formula": {
+          "wall_volume_m3": 0.42
+        },
+        "reference_local_haul_km": 4,
+        "workfront_capacity_workers": 2200
+      },
+      "physical_geometry": {
+        "average_thickness_m": 6,
+        "height_m": 8,
+        "length_m": 1000,
+        "wall_volume_m3": 48000
+      },
+      "support_capacity_add": {},
+      "unit_name": "1 km rammed-earth wall section",
+      "works_add": {
+        "fortification_wall_length_m": 1000,
+        "fortification_wall_volume_m3": 48000
+      }
+    },
+    "fortification_watchtower": {
+      "category": "fortification",
+      "physical_cost_model": {
+        "calibration_rule": "tower enclosed floor area and height class drive registered material/labor intensity",
+        "critical_path_hours": 720,
+        "labor_hours_by_class": {
+          "engineering": 2000,
+          "general": 10000,
+          "skilled": 9000
+        },
+        "material_unit_formula": {
+          "floor_area_m2": 1.75
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 120
+      },
+      "physical_geometry": {
+        "floor_area_m2": 240,
+        "height_m": 14,
+        "tower_count": 1
+      },
+      "support_capacity_add": {},
+      "unit_name": "fortification watch/defense tower",
+      "works_add": {
+        "fortification_towers": 1
+      }
+    },
+    "military_barracks_1000": {
+      "category": "military_housing",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 2400,
+        "labor_hours_by_class": {
+          "engineering": 6000,
+          "general": 96000,
+          "skilled": 42000
+        },
+        "material_unit_formula": {
+          "design_floor_area_m2": 0.3888888889
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 700
+      },
+      "physical_geometry": {
+        "beds": 1000,
+        "design_floor_area_m2": 18000
+      },
+      "support_capacity_add": {},
+      "unit_name": "barracks for 1,000 personnel",
+      "works_add": {
+        "military_barracks_beds": 1000
+      }
+    },
+    "military_muster_ground_1km2": {
+      "category": "military_ground",
+      "physical_cost_model": {
+        "calibration_rule": "Grading, drainage, lanes and hardstands create open military capacity; no troops or training gain are created.",
+        "critical_path_hours": 720,
+        "labor_hours_by_class": {
+          "engineering": 1000,
+          "general": 35000,
+          "skilled": 4000
+        },
+        "material_unit_formula": {
+          "site_land_area_m2": 0.0004
+        },
+        "reference_local_haul_km": 3,
+        "workfront_capacity_workers": 900
+      },
+      "physical_geometry": {
+        "design_muster_people": 10000,
+        "site_land_area_m2": 1000000
+      },
+      "support_capacity_add": {},
+      "unit_name": "1 km2 prepared military muster and camp ground",
+      "works_add": {
+        "military_open_ground_km2": 1.0,
+        "muster_capacity_people": 10000
+      }
+    },
+    "military_stable_500": {
+      "category": "stabling",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 1440,
+        "labor_hours_by_class": {
+          "engineering": 4000,
+          "general": 60000,
+          "skilled": 26000
+        },
+        "material_unit_formula": {
+          "design_floor_area_m2": 0.36
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 450
+      },
+      "physical_geometry": {
+        "design_floor_area_m2": 12500,
+        "drainage": true,
+        "stalls": 500
+      },
+      "support_capacity_add": {},
+      "unit_name": "stabling complex for 500 horses",
+      "works_add": {
+        "stable_capacity_horses": 500
+      }
+    },
+    "settlement_civic_administration_10000": {
+      "category": "civic",
+      "physical_cost_model": {
+        "calibration_rule": "Administrative floor provides ordinary civic throughput; offices still require actual staff and lawful authority.",
+        "critical_path_hours": 1440,
+        "labor_hours_by_class": {
+          "engineering": 2000,
+          "general": 28000,
+          "skilled": 18000
+        },
+        "material_unit_formula": {
+          "floor_area_m2": 0.35
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 300
+      },
+      "physical_geometry": {
+        "floor_area_m2": 8000,
+        "site_land_area_m2": 12000
+      },
+      "support_capacity_add": {},
+      "unit_name": "civic administration complex for 10,000 residents",
+      "works_add": {
+        "administrative_capacity_people": 10000,
+        "administrative_floor_area_m2": 8000
+      }
+    },
+    "settlement_drainage_latrine_district": {
+      "category": "sanitation",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 720,
+        "labor_hours_by_class": {
+          "engineering": 4000,
+          "general": 68000,
+          "skilled": 28000
+        },
+        "material_unit_formula": {
+          "lined_drain_length_km": 400.0,
+          "public_latrine_points": 4.8
+        },
+        "reference_local_haul_km": 6,
+        "workfront_capacity_workers": 520
+      },
+      "physical_geometry": {
+        "lined_drain_length_km": 12.0,
+        "public_latrine_points": 250
+      },
+      "support_capacity_add": {},
+      "unit_name": "drainage and latrine district for 5,000 residents",
+      "works_add": {
+        "lined_drain_length_km": 12.0,
+        "public_latrine_points": 250
+      }
+    },
+    "settlement_foundation_package": {
+      "category": "settlement_foundation",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 2160,
+        "labor_hours_by_class": {
+          "engineering": 20000,
+          "general": 300000,
+          "skilled": 100000
+        },
+        "material_unit_formula": {
+          "foundation_composite_units": 22000.0
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 1500
+      },
+      "physical_geometry": {
+        "access_road_width_m": 4.0,
+        "design_residents": 1000,
+        "foundation_composite_units": 1.0,
+        "housing_floor_area_m2": 30000,
+        "initial_access_road_km": 5.0,
+        "initial_granary_storage_kg": 350000,
+        "initial_workshop_positions": 40,
+        "public_wells": 6
+      },
+      "support_capacity_add": {},
+      "unit_name": "new settlement foundation for 1,000 residents",
+      "works_add": {}
+    },
+    "settlement_general_depot_1000t": {
+      "category": "general_storage",
+      "physical_cost_model": {
+        "calibration_rule": "Generic durable-goods storage. Commodity identity changes stock contents, not depot construction physics.",
+        "critical_path_hours": 1080,
+        "labor_hours_by_class": {
+          "engineering": 2000,
+          "general": 24000,
+          "skilled": 14000
+        },
+        "material_unit_formula": {
+          "floor_area_m2": 0.225
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 240
+      },
+      "physical_geometry": {
+        "dry_storage_kg": 1000000,
+        "floor_area_m2": 10000,
+        "yard_area_m2": 2500
+      },
+      "support_capacity_add": {},
+      "unit_name": "1,000 tonne general depot complex",
+      "works_add": {
+        "general_depot_floor_area_m2": 10000,
+        "general_storage_capacity_kg": 1000000
+      }
+    },
+    "settlement_granary_1000t": {
+      "category": "food_storage",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 1080,
+        "labor_hours_by_class": {
+          "engineering": 2000,
+          "general": 21000,
+          "skilled": 12000
+        },
+        "material_unit_formula": {
+          "floor_area_m2": 0.25
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 220
+      },
+      "physical_geometry": {
+        "dry_storage_kg": 1000000,
+        "floor_area_m2": 8000,
+        "raised_floor": true
+      },
+      "support_capacity_add": {},
+      "unit_name": "1,000 tonne dry granary complex",
+      "works_add": {
+        "granary_floor_area_m2": 8000,
+        "granary_storage_kg": 1000000
+      }
+    },
+    "settlement_housing_courtyard_block": {
+      "category": "housing",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 720,
+        "labor_hours_by_class": {
+          "engineering": 6000,
+          "general": 150000,
+          "skilled": 64000
+        },
+        "material_unit_formula": {
+          "built_floor_area_m2": 0.3333333333
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 1000
+      },
+      "physical_geometry": {
+        "built_floor_area_m2": 30000,
+        "design_residents": 1000,
+        "district_land_area_m2": 50000
+      },
+      "support_capacity_add": {},
+      "unit_name": "courtyard housing district for 1,000 residents",
+      "works_add": {
+        "housing_floor_area_m2": 30000,
+        "housing_land_area_m2": 50000
+      }
+    },
+    "settlement_irrigation_1km2": {
+      "category": "agriculture",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 1440,
+        "labor_hours_by_class": {
+          "engineering": 6000,
+          "general": 90000,
+          "skilled": 24000
+        },
+        "material_unit_formula": {
+          "canal_length_km": 375.0
+        },
+        "reference_local_haul_km": 4,
+        "workfront_capacity_workers": 700
+      },
+      "physical_geometry": {
+        "canal_length_km": 8.0,
+        "main_canal_design_width_m": 3.0,
+        "served_area_km2": 1.0
+      },
+      "support_capacity_add": {},
+      "unit_name": "irrigation works for 1 km2 of cultivated land",
+      "works_add": {
+        "irrigated_area_km2": 1.0,
+        "irrigation_canal_length_km": 8.0
+      }
+    },
+    "settlement_market_10000": {
+      "category": "market",
+      "physical_cost_model": {
+        "calibration_rule": "Market capacity provides physical exchange space only; trade volume still depends on people, stock, routes and purchasing power.",
+        "critical_path_hours": 1440,
+        "labor_hours_by_class": {
+          "engineering": 2000,
+          "general": 32000,
+          "skilled": 20000
+        },
+        "material_unit_formula": {
+          "floor_area_m2": 0.3
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 360
+      },
+      "physical_geometry": {
+        "floor_area_m2": 12000,
+        "site_land_area_m2": 24000
+      },
+      "support_capacity_add": {},
+      "unit_name": "market district serving 10,000 residents",
+      "works_add": {
+        "market_floor_area_m2": 12000,
+        "market_service_capacity_people": 10000
+      }
+    },
+    "settlement_medical_1000": {
+      "category": "medical",
+      "physical_cost_model": {
+        "calibration_rule": "Beds and clinical floor determine physical capacity; treatment quality still depends on staff, supplies and Medicine capability.",
+        "critical_path_hours": 2160,
+        "labor_hours_by_class": {
+          "engineering": 7000,
+          "general": 105000,
+          "skilled": 48000
+        },
+        "material_unit_formula": {
+          "floor_area_m2": 0.4
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 760
+      },
+      "physical_geometry": {
+        "beds": 1000,
+        "floor_area_m2": 20000,
+        "site_land_area_m2": 30000
+      },
+      "support_capacity_add": {},
+      "unit_name": "medical and recovery complex for 1,000 beds",
+      "works_add": {
+        "medical_beds": 1000,
+        "medical_floor_area_m2": 20000
+      }
+    },
+    "settlement_public_well_cluster": {
+      "category": "water",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 168,
+        "labor_hours_by_class": {
+          "engineering": 600,
+          "general": 4200,
+          "skilled": 3200
+        },
+        "material_unit_formula": {
+          "well_count": 165.0
+        },
+        "reference_local_haul_km": 5,
+        "workfront_capacity_workers": 72
+      },
+      "physical_geometry": {
+        "design_depth_m": 18.0,
+        "shaft_internal_diameter_m": 1.2,
+        "well_count": 6
+      },
+      "support_capacity_add": {},
+      "unit_name": "six-well public water cluster",
+      "works_add": {
+        "potable_water_capacity_liters_per_day": 120000,
+        "public_wells": 6
+      }
+    },
+    "settlement_road_10km": {
+      "category": "transport",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 4320,
+        "labor_hours_by_class": {
+          "engineering": 12000,
+          "general": 180000,
+          "skilled": 48000
+        },
+        "material_unit_formula": {
+          "road_surface_area_m2": 0.25
+        },
+        "reference_local_haul_km": 10,
+        "workfront_capacity_workers": 1200
+      },
+      "physical_geometry": {
+        "carriageway_width_m": 6.0,
+        "drainage_ditches": true,
+        "length_km": 10.0,
+        "road_surface_area_m2": 60000.0
+      },
+      "support_capacity_add": {},
+      "unit_name": "10 km all-weather trunk-road section",
+      "works_add": {
+        "improved_road_length_km": 10.0
+      }
+    },
+    "settlement_waterworks_100000": {
+      "category": "water",
+      "physical_cost_model": {
+        "calibration_rule": "Large-site water capacity aggregates the same per-resident physical standard as public wells without materializing thousands of small well records.",
+        "critical_path_hours": 4320,
+        "labor_hours_by_class": {
+          "engineering": 60000,
+          "general": 420000,
+          "skilled": 320000
+        },
+        "material_unit_formula": {
+          "site_land_area_m2": 0.198
+        },
+        "reference_local_haul_km": 5,
+        "workfront_capacity_workers": 5200
+      },
+      "physical_geometry": {
+        "design_residents": 100000,
+        "reservoir_and_cistern_area_m2": 420000,
+        "service_area_m2": 80000,
+        "site_land_area_m2": 500000
+      },
+      "support_capacity_add": {},
+      "unit_name": "large waterworks for 100,000 residents",
+      "works_add": {
+        "large_waterworks_capacity_people": 100000,
+        "potable_water_capacity_liters_per_day": 12000000
+      }
+    },
+    "settlement_workshop_court_120": {
+      "category": "industry",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 1800,
+        "labor_hours_by_class": {
+          "engineering": 4000,
+          "general": 50000,
+          "skilled": 34000
+        },
+        "material_unit_formula": {
+          "floor_area_m2": 0.4166666667
+        },
+        "reference_local_haul_km": 8,
+        "workfront_capacity_workers": 420
+      },
+      "physical_geometry": {
+        "floor_area_m2": 12000,
+        "workstations": 120
+      },
+      "support_capacity_add": {},
+      "unit_name": "120-workstation craft court",
+      "works_add": {
+        "skilled_workstations": 120,
+        "workshop_floor_area_m2": 12000
+      }
+    },
+    "training_complex_1000": {
+      "category": "training",
+      "physical_cost_model": {
+        "calibration_rule": "registered physical intensity; runtime derives cash price, worker requirement, calendar duration and support outputs from shared construction/economy standards",
+        "critical_path_hours": 720,
+        "labor_hours_by_class": {
+          "engineering": 2000,
+          "general": 21000,
+          "skilled": 7000
+        },
+        "material_unit_formula": {
+          "training_ground_area_m2": 0.015
+        },
+        "reference_local_haul_km": 5,
+        "workfront_capacity_workers": 500
+      },
+      "physical_geometry": {
+        "simultaneous_trainees": 1000,
+        "training_ground_area_m2": 120000
+      },
+      "support_capacity_add": {},
+      "unit_name": "training complex for 1,000 simultaneous trainees",
+      "works_add": {
+        "training_capacity_people": 1000,
+        "training_ground_area_m2": 120000
+      }
+    }
+  },
+  "measurement_policy": "Blueprint geometry is the sole construction-capacity basis. Runtime derives material-equivalent demand, labor, cash cost and calendar duration from the same shared physics for every owner.",
+  "schema": "infrastructure-blueprints"
+}

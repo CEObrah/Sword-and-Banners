@@ -1,0 +1,16 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.house_tang.house_cavalry",
+  "doctrine": {
+    "inherits": "doc.world_force.standard",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#house_cavalry",
+    "institution_overlay_ref": "game/data/mil/institution-doctrine-overlays.json#house_tang",
+    "principles": [
+      "Use the standard bow from the saddle for harassment and shaping fire.",
+      "Charge only with favorable ground, cohesion and target disorder.",
+      "Use lance and shield for shock, then sword and shield once mounted reach collapses.",
+      "House Cavalry remains House Cavalry at every training level; veteran quality lives in cohort capability, not a prestige troop label."
+    ],
+    "weapon_transition_rule": "MOUNTED BOW -> LANCE + SHIELD -> SWORD + SHIELD"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.mou_ten.gaku_ka",
+  "display_name": "Gaku Ka",
+  "context": "independent_field_command",
+  "authority_ref": "state_qin",
+  "commander_ref": "char_mou_ten",
+  "direct_person_refs": [],
+  "role_assignments": {},
+  "successor_refs": [
+    "char_riku_sen"
+  ],
+  "units": [
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.mou_ten.gaku_ka.house_1000"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_qin_gaku_ka_core"
+    }
+  ],
+  "standing_order_refs": [],
+  "standing_doctrine_ref": "doc.gaku_ka.command",
+  "communication_ref": null,
+  "location": "loc_qin_regional_01",
+  "parent_command_group_ref": null,
+  "created_at": "244-BCE-09-09T20:22:48+08:00",
+  "updated_at": "244-BCE-09-09T20:22:48+08:00",
+  "active_context_ref": "operation_arc_131572c4e8a2892bbc",
+  "organizational_state": {
+    "authorized_direct_unit_slots": 2,
+    "authorized_strength": 1500,
+    "current_direct_formation_strength": 500,
+    "current_recursive_strength": 1500,
+    "direct_unit_count": 2,
+    "mission": "young_independent_command",
+    "recursive_formation_count": 1,
+    "reorganization_need": "none",
+    "status": "active"
+  }
+}

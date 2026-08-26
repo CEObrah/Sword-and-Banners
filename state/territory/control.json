@@ -1,0 +1,828 @@
+{
+  "owner_id": "territory_control",
+  "route_state_authority": {
+    "authority": true
+  },
+  "route_states": {},
+  "schema": "sword-territory-control",
+  "sites": {
+    "loc_atsuyo": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 101088,
+        "population_allocation": 120502,
+        "relative_weight": 1.0
+      }
+    },
+    "loc_bu_pass": {
+      "controller": "state_qin",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 80383,
+        "population_allocation": 94170,
+        "relative_weight": 0.35
+      },
+      "parent_location_ref": "loc_qin_regional_04"
+    },
+    "loc_bujou": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 101088,
+        "population_allocation": 120502,
+        "relative_weight": 1.0
+      }
+    },
+    "loc_chu_ei": {
+      "controller": "state_chu",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 1532676,
+        "population_allocation": 1885978,
+        "relative_weight": 5.1
+      }
+    },
+    "loc_chu_north_fort": {
+      "controller": "state_chu",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 165289,
+        "population_allocation": 203390,
+        "relative_weight": 0.55
+      },
+      "parent_location_ref": "loc_chu_regional_02"
+    },
+    "loc_chu_regional_01": {
+      "controller": "state_chu",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 1292257,
+        "population_allocation": 1590139,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_chu_regional_02": {
+      "controller": "state_chu",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 1292257,
+        "population_allocation": 1590139,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_chu_regional_03": {
+      "controller": "state_chu",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 1292257,
+        "population_allocation": 1590139,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_chu_regional_04": {
+      "controller": "state_chu",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 1292256,
+        "population_allocation": 1590138,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_dairyou": {
+      "controller": "state_wei",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 938037,
+        "population_allocation": 1129412,
+        "relative_weight": 8.6
+      },
+      "parent_location_ref": "loc_wei_regional_01"
+    },
+    "loc_ei": {
+      "controller": "state_qi",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 2034063,
+        "monthly_tax_base_silver": 1865451,
+        "population_allocation": 2141119,
+        "relative_weight": 8.0
+      },
+      "parent_location_ref": "loc_qi_regional_01"
+    },
+    "loc_gian": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 515549,
+        "population_allocation": 614561,
+        "relative_weight": 5.1
+      }
+    },
+    "loc_gyou": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 515549,
+        "population_allocation": 614561,
+        "relative_weight": 5.1
+      },
+      "parent_location_ref": "loc_zhao_regional_02"
+    },
+    "loc_han_capital": {
+      "controller": "state_han",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 539706,
+        "population_allocation": 649057,
+        "relative_weight": 8.6
+      },
+      "parent_location_ref": "loc_han_regional_01"
+    },
+    "loc_han_frontier_fort": {
+      "controller": "state_han",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 34516,
+        "population_allocation": 41510,
+        "relative_weight": 0.55
+      },
+      "parent_location_ref": "loc_han_regional_02"
+    },
+    "loc_han_regional_01": {
+      "controller": "state_han",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 269853,
+        "population_allocation": 324528,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_han_regional_02": {
+      "controller": "state_han",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 269853,
+        "population_allocation": 324528,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_han_regional_03": {
+      "controller": "state_han",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 269853,
+        "population_allocation": 324528,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_han_regional_04": {
+      "controller": "state_han",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 269853,
+        "population_allocation": 324528,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_hango": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 515549,
+        "population_allocation": 614561,
+        "relative_weight": 5.1
+      }
+    },
+    "loc_heiyou": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 101088,
+        "population_allocation": 120502,
+        "relative_weight": 1.0
+      }
+    },
+    "loc_hika": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 262828,
+        "population_allocation": 313305,
+        "relative_weight": 2.6
+      }
+    },
+    "loc_houshi": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 515549,
+        "population_allocation": 614561,
+        "relative_weight": 5.1
+      }
+    },
+    "loc_ji": {
+      "controller": "state_yan",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 1525060,
+        "monthly_tax_base_silver": 1316132,
+        "population_allocation": 1635036,
+        "relative_weight": 8.0
+      },
+      "parent_location_ref": "loc_yan_regional_01"
+    },
+    "loc_jo_city": {
+      "controller": "polity_jo",
+      "demographic_role": "settlement",
+      "fortified": true,
+      "native_polity_ref": "polity_jo",
+      "parent_location_ref": "loc_jo_mountain_region",
+      "population_source_ref": "population_jo"
+    },
+    "loc_jo_mountain_region": {
+      "controller": "polity_jo",
+      "demographic_role": "territorial_region",
+      "fortified": false,
+      "native_polity_ref": "polity_jo",
+      "parent_location_ref": null,
+      "population_source_ref": "population_jo"
+    },
+    "loc_juuko": {
+      "controller": "state_chu",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 300525,
+        "population_allocation": 369800,
+        "relative_weight": 1.0
+      }
+    },
+    "loc_kankoku_pass": {
+      "controller": "state_qin",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 80383,
+        "population_allocation": 94170,
+        "relative_weight": 0.35
+      },
+      "parent_location_ref": "loc_qin_regional_02"
+    },
+    "loc_kantan": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 899683,
+        "population_allocation": 1072468,
+        "relative_weight": 8.9
+      },
+      "parent_location_ref": "loc_zhao_regional_01"
+    },
+    "loc_kanyou": {
+      "controller": "state_qin",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 2044041,
+        "population_allocation": 2394619,
+        "relative_weight": 8.9
+      },
+      "parent_location_ref": "loc_qin_regional_01"
+    },
+    "loc_kanyou_officer_bureau": {
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_qin_regional_01",
+      "demographic_role": "facility",
+      "fortified": false,
+      "parent_location_ref": "loc_kanyou"
+    },
+    "loc_keiyou": {
+      "controller": "state_wei",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 556277,
+        "population_allocation": 669767,
+        "relative_weight": 5.1
+      },
+      "parent_location_ref": "loc_wei_regional_02"
+    },
+    "loc_koukei": {
+      "controller": "state_han",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 21965,
+        "population_allocation": 26415,
+        "relative_weight": 0.35
+      }
+    },
+    "loc_nanyou": {
+      "controller": "state_han",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 320059,
+        "population_allocation": 384906,
+        "relative_weight": 5.1
+      }
+    },
+    "loc_northern_steppe_confederation": {
+      "controller": "polity_northern_steppe",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 0,
+        "population_allocation": 1400000,
+        "relative_weight": 1.0
+      }
+    },
+    "loc_qi_regional_01": {
+      "controller": "state_qi",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 762776,
+        "monthly_tax_base_silver": 699546,
+        "population_allocation": 802920,
+        "relative_weight": 3.0
+      }
+    },
+    "loc_qi_regional_02": {
+      "controller": "state_qi",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 762774,
+        "monthly_tax_base_silver": 699544,
+        "population_allocation": 802920,
+        "relative_weight": 3.0
+      }
+    },
+    "loc_qi_regional_03": {
+      "controller": "state_qi",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 762773,
+        "monthly_tax_base_silver": 699543,
+        "population_allocation": 802920,
+        "relative_weight": 3.0
+      }
+    },
+    "loc_qi_regional_04": {
+      "controller": "state_qi",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 762771,
+        "monthly_tax_base_silver": 699542,
+        "population_allocation": 802919,
+        "relative_weight": 3.0
+      }
+    },
+    "loc_qi_west_fort": {
+      "controller": "state_qi",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 139843,
+        "monthly_tax_base_silver": 128251,
+        "population_allocation": 147202,
+        "relative_weight": 0.55
+      },
+      "parent_location_ref": "loc_qi_regional_02"
+    },
+    "loc_qin_eastern_depot": {
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_qin_regional_02",
+      "demographic_role": "facility",
+      "fortified": false,
+      "parent_location_ref": "loc_qin_regional_02"
+    },
+    "loc_qin_regional_01": {
+      "controller": "state_qin",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 987571,
+        "population_allocation": 1156951,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_qin_regional_02": {
+      "controller": "state_qin",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 987570,
+        "population_allocation": 1156951,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_qin_regional_03": {
+      "controller": "state_qin",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 987570,
+        "population_allocation": 1156951,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_qin_regional_04": {
+      "controller": "state_qin",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 987570,
+        "population_allocation": 1156951,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_qin_western_fort": {
+      "controller": "state_qin",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 126317,
+        "population_allocation": 147982,
+        "relative_weight": 0.55
+      },
+      "parent_location_ref": "loc_qin_regional_03"
+    },
+    "loc_quanrong_highlands": {
+      "controller": "polity_quanrong",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 0,
+        "population_allocation": 420000,
+        "relative_weight": 1.0
+      }
+    },
+    "loc_retsubi": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 101088,
+        "population_allocation": 120502,
+        "relative_weight": 1.0
+      }
+    },
+    "loc_roumou": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 101088,
+        "population_allocation": 120502,
+        "relative_weight": 1.0
+      }
+    },
+    "loc_ryouyou": {
+      "controller": "polity_quanrong",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 0,
+        "population_allocation": 0,
+        "relative_weight": 0.0
+      }
+    },
+    "loc_sai": {
+      "controller": "state_qin",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 1171304,
+        "population_allocation": 1372197,
+        "relative_weight": 5.1
+      },
+      "parent_location_ref": "loc_qin_regional_02"
+    },
+    "loc_sanyou": {
+      "controller": "state_wei",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 556277,
+        "population_allocation": 669767,
+        "relative_weight": 5.1
+      }
+    },
+    "loc_seika": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 515549,
+        "population_allocation": 614561,
+        "relative_weight": 5.1
+      }
+    },
+    "loc_shintei": {
+      "controller": "state_chu",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 2584513,
+        "population_allocation": 3180277,
+        "relative_weight": 8.6
+      },
+      "parent_location_ref": "loc_chu_regional_01"
+    },
+    "loc_tang_inner_walls": {
+      "contained_by_fortification_site_ref": "loc_tang_manor",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_tang_manor",
+      "demographic_role": "institutional_compound",
+      "fortified": true,
+      "parent_location_ref": "loc_tang_manor",
+      "private_owner_ref": "house_tang"
+    },
+    "loc_tang_inner_walls_outer_gate": {
+      "contained_by_fortification_site_ref": "loc_tang_manor",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_tang_manor",
+      "demographic_role": "access_node",
+      "fortified": true,
+      "parent_location_ref": "loc_tang_manor"
+    },
+    "loc_tang_inner_citadel": {
+      "contained_by_fortification_site_ref": "loc_tang_inner_walls",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_tang_manor",
+      "demographic_role": "institutional_compound",
+      "fortified": true,
+      "parent_location_ref": "loc_tang_inner_walls",
+      "private_owner_ref": "house_tang"
+    },
+    "loc_tang_inner_citadel_gate": {
+      "contained_by_fortification_site_ref": "loc_tang_inner_walls",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_tang_manor",
+      "demographic_role": "access_node",
+      "fortified": true,
+      "parent_location_ref": "loc_tang_inner_walls"
+    },
+    "loc_tang_manor": {
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_qin_regional_01",
+      "demographic_role": "private_estate",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 229667,
+        "population_allocation": 269058,
+        "relative_weight": 1.0
+      },
+      "parent_location_ref": "loc_qin_regional_01",
+      "private_owner_ref": "house_tang",
+      "private_population_ref": "population_tang_manor"
+    },
+    "loc_tang_manor_defense_camp": {
+      "contained_by_fortification_site_ref": "loc_tang_manor",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_qin_regional_01",
+      "demographic_role": "temporary_military",
+      "fortified": false,
+      "parent_location_ref": "loc_tang_manor"
+    },
+    "loc_tang_manor_garrison_yard": {
+      "contained_by_fortification_site_ref": "loc_tang_manor",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_qin_regional_01",
+      "demographic_role": "facility",
+      "fortified": false,
+      "parent_location_ref": "loc_tang_manor"
+    },
+    "loc_tang_manor_inner_citadel_family_hall": {
+      "contained_by_fortification_site_ref": "loc_tang_inner_citadel",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_qin_regional_01",
+      "demographic_role": "facility",
+      "fortified": false,
+      "parent_location_ref": "loc_tang_inner_citadel"
+    },
+    "loc_tang_manor_market_gate": {
+      "contained_by_fortification_site_ref": "loc_tang_manor",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_qin_regional_01",
+      "demographic_role": "facility",
+      "fortified": false,
+      "parent_location_ref": "loc_tang_manor"
+    },
+    "loc_tang_manor_outer_gate": {
+      "contained_by_fortification_site_ref": "loc_tang_manor",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_qin_regional_01",
+      "demographic_role": "access_node",
+      "fortified": true,
+      "parent_location_ref": "loc_tang_manor"
+    },
+    "loc_tang_manor_training_ground": {
+      "contained_by_fortification_site_ref": "loc_tang_inner_walls",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_qin_regional_01",
+      "demographic_role": "facility",
+      "fortified": false,
+      "parent_location_ref": "loc_tang_inner_walls"
+    },
+    "loc_wei_regional_01": {
+      "controller": "state_wei",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 469019,
+        "population_allocation": 564706,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_wei_regional_02": {
+      "controller": "state_wei",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 469018,
+        "population_allocation": 564706,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_wei_regional_03": {
+      "controller": "state_wei",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 469018,
+        "population_allocation": 564706,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_wei_regional_04": {
+      "controller": "state_wei",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 469018,
+        "population_allocation": 564706,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_wei_west_fort": {
+      "controller": "state_wei",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 59991,
+        "population_allocation": 72230,
+        "relative_weight": 0.55
+      },
+      "parent_location_ref": "loc_wei_regional_02"
+    },
+    "loc_yan_regional_01": {
+      "controller": "state_yan",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 571900,
+        "monthly_tax_base_silver": 493552,
+        "population_allocation": 613139,
+        "relative_weight": 3.0
+      }
+    },
+    "loc_yan_regional_02": {
+      "controller": "state_yan",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 571898,
+        "monthly_tax_base_silver": 493550,
+        "population_allocation": 613139,
+        "relative_weight": 3.0
+      }
+    },
+    "loc_yan_regional_03": {
+      "controller": "state_yan",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 571898,
+        "monthly_tax_base_silver": 493550,
+        "population_allocation": 613139,
+        "relative_weight": 3.0
+      }
+    },
+    "loc_yan_regional_04": {
+      "controller": "state_yan",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 571896,
+        "monthly_tax_base_silver": 493548,
+        "population_allocation": 613138,
+        "relative_weight": 3.0
+      }
+    },
+    "loc_yan_south_fort": {
+      "controller": "state_yan",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "initial_taxable_civilian_population": 104848,
+        "monthly_tax_base_silver": 90484,
+        "population_allocation": 112409,
+        "relative_weight": 0.55
+      },
+      "parent_location_ref": "loc_yan_regional_02"
+    },
+    "loc_yotanwa_mountain_confederation": {
+      "controller": "polity_yotanwa_confederation",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 0,
+        "population_allocation": 650000,
+        "relative_weight": 1.0
+      }
+    },
+    "loc_zhao_border_fort": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 55598,
+        "population_allocation": 66276,
+        "relative_weight": 0.55
+      },
+      "parent_location_ref": "loc_zhao_regional_02"
+    },
+    "loc_zhao_regional_01": {
+      "controller": "state_zhao",
+      "fortified": true,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 434679,
+        "population_allocation": 518159,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_zhao_regional_02": {
+      "controller": "state_zhao",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 434679,
+        "population_allocation": 518159,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_zhao_regional_03": {
+      "controller": "state_zhao",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 434679,
+        "population_allocation": 518159,
+        "relative_weight": 4.3
+      }
+    },
+    "loc_zhao_regional_04": {
+      "controller": "state_zhao",
+      "fortified": false,
+      "local_baseline": {
+        "authority": false,
+        "monthly_tax_base_silver": 434678,
+        "population_allocation": 518159,
+        "relative_weight": 4.3
+      }
+    }
+  }
+}

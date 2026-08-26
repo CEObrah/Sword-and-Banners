@@ -1,0 +1,59 @@
+{
+  "schema": "command-group",
+  "id": "cmdgrp.house_tang.inner_walls",
+  "display_name": "Inner Walls",
+  "context": "nested_army",
+  "authority_ref": "house_tang",
+  "commander_ref": "char_pei_an",
+  "direct_person_refs": [],
+  "role_assignments": {},
+  "successor_refs": [],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_inner_walls_general_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_inner_walls_junior_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_inner_walls_senior_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_inner_walls_trainee_01"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_inner_walls_trainee_02"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_inner_walls_trainee_03"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_house_tang_inner_walls_trainee_04"
+    }
+  ],
+  "standing_order_refs": [],
+  "standing_doctrine_ref": "doc.house_tang.home_defense",
+  "communication_ref": null,
+  "location": "loc_tang_manor",
+  "parent_command_group_ref": "cmdgrp.house_tang.field_army",
+  "created_at": "244-BCE-09-09T20:22:48+08:00",
+  "updated_at": "244-BCE-09-09T20:22:48+08:00",
+  "organizational_state": {
+    "authorized_direct_unit_slots": 7,
+    "authorized_strength": 30053,
+    "current_direct_formation_strength": 30053,
+    "current_recursive_strength": 30053,
+    "direct_unit_count": 7,
+    "mission": "inner_walls_defense",
+    "recursive_formation_count": 7,
+    "reorganization_need": "none",
+    "status": "active"
+  }
+}
