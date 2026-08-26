@@ -8,6 +8,8 @@ on:
 permissions:
   contents: read
 
+# A branch push and its PR synchronization may describe the same exact head.
+# Deduplicate by source SHA so either delivery path can verify that head once.
 concurrency:
   group: sword-verify-${{ github.workflow }}-${{ github.event.pull_request.head.sha || github.sha }}
   cancel-in-progress: true
