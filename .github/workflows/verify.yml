@@ -49,10 +49,11 @@ jobs:
           python tools/repair_kanyou_arrival_continuity_20260826.py
           python tools/quick_check.py
           git diff --check
-          git diff -- state/meta.json | grep -q '^$' || {
+          if ! git diff --quiet -- state/meta.json; then
             echo 'repair attempted to modify campaign meta' >&2
+            git diff -- state/meta.json
             exit 1
-          }
+          fi
           git status --short
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
