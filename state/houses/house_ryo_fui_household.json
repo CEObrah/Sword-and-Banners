@@ -10,25 +10,28 @@
   "leader_ref": "char_ryo_fui",
   "lineage_cohort": {
     "adults": 1,
+    "aggregate_marriages": 0,
     "children": 0,
     "elders": 0,
     "exact_member_refs": [
       "char_ryo_fui"
     ],
-    "unmaterialized_members": {
-      "children": 0,
-      "adults": 0,
-      "elders": 0
-    },
     "population_ref": "population_qin",
-    "aggregate_marriages": 0
+    "unmaterialized_members": {
+      "adults": 0,
+      "children": 0,
+      "elders": 0
+    }
+  },
+  "nobility": {
+    "grade": "recognized_house"
   },
   "owner_id": "house_ryo_fui_household",
   "politics": {
-    "influence": 6,
-    "patronage": 82,
-    "information_access": 70,
     "court_access": 78,
+    "influence": 6,
+    "information_access": 70,
+    "patronage": 82,
     "relationships": {
       "faction_qin_court_reform": {
         "stance": "rival",
@@ -40,8 +43,5 @@
   "schema": "sword-house",
   "state": "qin",
   "threat_level": "0.1",
-  "treasury_silver": 2175000,
-  "nobility": {
-    "grade": "recognized_house"
-  }
+  "treasury_silver": 2175000
 }

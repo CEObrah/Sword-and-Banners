@@ -33,6 +33,21 @@
     "union": "state/family/unions/{id}.json"
   },
   "person_index": {
+    "char_ei_sei": {
+      "successions": [
+        "succession.qin_crown"
+      ]
+    },
+    "char_ou_ken": {
+      "successions": [
+        "succession.qi_crown"
+      ]
+    },
+    "char_prince_ka": {
+      "successions": [
+        "succession.zhao_crown"
+      ]
+    },
     "char_tang_kai": {
       "kinships": [
         "kinship.tang_kai_tang_wei.siblings"
@@ -79,24 +94,9 @@
         "union.tang_zhu_tang_ling"
       ]
     },
-    "char_ei_sei": {
-      "successions": [
-        "succession.qin_crown"
-      ]
-    },
     "char_tou_jou": {
       "successions": [
         "succession.zhao_crown"
-      ]
-    },
-    "char_prince_ka": {
-      "successions": [
-        "succession.zhao_crown"
-      ]
-    },
-    "char_ou_ken": {
-      "successions": [
-        "succession.qi_crown"
       ]
     },
     "char_yotanwa": {
@@ -109,10 +109,10 @@
   "schema": "family-index",
   "successions": {
     "succession.house_tang": "state/family/successions/succession.house_tang.json",
-    "succession.qin_crown": "state/family/successions/succession.qin_crown.json",
-    "succession.zhao_crown": "state/family/successions/succession.zhao_crown.json",
     "succession.qi_crown": "state/family/successions/succession.qi_crown.json",
-    "succession.yotanwa_confederation": "state/family/successions/succession.yotanwa_confederation.json"
+    "succession.qin_crown": "state/family/successions/succession.qin_crown.json",
+    "succession.yotanwa_confederation": "state/family/successions/succession.yotanwa_confederation.json",
+    "succession.zhao_crown": "state/family/successions/succession.zhao_crown.json"
   },
   "unions": {
     "union.tang_zhu_tang_ling": "state/family/unions/union.tang_zhu_tang_ling.json"

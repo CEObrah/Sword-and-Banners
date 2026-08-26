@@ -468,12 +468,6 @@
   "headcount": 6000,
   "kind": "house_force",
   "materialized_people": {
-    "char_tou_house_field_commander": {
-      "personnel": 1,
-      "role": "household_retainer",
-      "source_mode": "materialized_exact_person",
-      "source_cohort_ref": "cohort_force_house_tou_household_household_retainer_standing"
-    },
     "char_cmd_house_tou_household_01": {
       "personnel": 1,
       "role": "archer",
@@ -485,6 +479,12 @@
       "role": "archer",
       "source_cohort_ref": "cohort_force_house_tou_household_archer_standing",
       "source_mode": "existing_external_command_slot"
+    },
+    "char_tou_house_field_commander": {
+      "personnel": 1,
+      "role": "household_retainer",
+      "source_cohort_ref": "cohort_force_house_tou_household_household_retainer_standing",
+      "source_mode": "materialized_exact_person"
     }
   },
   "owner_id": "force_house_tou_household",

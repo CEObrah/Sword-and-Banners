@@ -353,9 +353,7 @@
       "tension": 31
     }
   },
-  "diplomatic_route_refs": [
-    "diplomatic_proposal_fab7959e569a2fa490"
-  ],
+  "diplomatic_route_refs": [],
   "fiscal_model": "dynamic_population_control_and_force_costs",
   "fiscal_snapshot": {
     "controlled_living_population": 6664500,
@@ -364,50 +362,11 @@
     "modeled_monthly_revenue_silver": 6040009
   },
   "frontier_runtime": {
-    "incident_count": 1,
-    "last_incident": {
-      "at": "244-BCE-08-31T07:22:48+08:00",
-      "location_ref": "loc_gyou",
-      "severity": 75,
-      "sides": [
-        "state_qin",
-        "state_zhao"
-      ],
-      "tension_delta": 11,
-      "theater_ref": "qin_zhao_gyou"
-    }
+    "incident_count": 0
   },
   "internal_stability": 56,
-  "known_threats": {
-    "frontier_incident_89bfc6afaf88_zhao": {
-      "basis": "deterministic contested-frontier contact between existing sovereign military systems",
-      "kind": "frontier_incident",
-      "location_ref": "loc_gyou",
-      "observed_at": "244-BCE-08-31T07:22:48+08:00",
-      "severity": 75,
-      "source_ref": "state_qin",
-      "theater_ref": "qin_zhao_gyou"
-    }
-  },
+  "known_threats": {},
   "last_review": "244-BCE-08-31T07:22:48+08:00",
-  "last_war_intent_review": {
-    "at": "244-BCE-08-31T07:22:48+08:00",
-    "basis": {
-      "claim_strength": 0,
-      "disposition_adjustment": -2,
-      "frontier_friction": 28,
-      "goal_interest": 0,
-      "power_ratio": 0.7859,
-      "readiness": 58,
-      "tension": 59,
-      "threat_score": 75,
-      "treasury_silver": 16570020
-    },
-    "best_score": 39.54,
-    "location_ref": "loc_gyou",
-    "status": "no_intent",
-    "target_ref": "state_qin"
-  },
   "military_administration": {
     "commander_vacancy_count": 8,
     "last_review": "244-BCE-08-31T07:22:48+08:00",
@@ -418,13 +377,12 @@
   "mobilization_readiness": 58,
   "normal_monthly_expense_silver": 3914539,
   "normal_monthly_revenue_silver": 818627,
-  "outgoing_diplomatic_proposal_refs": [
-    "diplomatic_proposal_680eb5e6a679db8de1"
-  ],
+  "outgoing_diplomatic_proposal_refs": [],
   "owner_id": "state_zhao",
   "schema": "sword-state",
   "sovereign_ref": "char_tou_jou",
   "state": "zhao",
+  "strategic_directives": [],
   "strategic_goals": [
     "protect core territory",
     "maintain military readiness"
@@ -449,9 +407,7 @@
         "formation_ref": "formation_zhao_riboku_northern_army",
         "formation_status_after": "mobilized",
         "formation_status_before": "ready",
-        "history_event_ref": "autonomous_domain_f6d0fe73ef82ebee36",
-        "kind": "exact_operation_created",
-        "operation_ref": "operation_arc_8ce4cc4cbc93cecda4"
+        "kind": "exact_operation_created"
       },
       "payee_ref": "private_economy_zhao",
       "payer_ref": "state_zhao",
@@ -474,9 +430,7 @@
         "formation_ref": "formation_zhao_seika_field_army",
         "formation_status_after": "mobilized",
         "formation_status_before": "ready",
-        "history_event_ref": "autonomous_domain_a8bfa0ff7d25ff9bf2",
-        "kind": "exact_operation_created",
-        "operation_ref": "operation_arc_b4cc18a88478d1e99c"
+        "kind": "exact_operation_created"
       },
       "payee_ref": "private_economy_zhao",
       "payer_ref": "state_zhao",
@@ -499,9 +453,7 @@
         "formation_ref": "formation_zhao_retsubi_gate_command",
         "formation_status_after": "mobilized",
         "formation_status_before": "ready",
-        "history_event_ref": "autonomous_domain_cb808cd5305ec29f0c",
-        "kind": "exact_operation_created",
-        "operation_ref": "operation_arc_4194d3c03c6032d127"
+        "kind": "exact_operation_created"
       },
       "payee_ref": "private_economy_zhao",
       "payer_ref": "state_zhao",

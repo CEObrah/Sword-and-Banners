@@ -1,20 +1,11 @@
 {
-  "schema": "sword-mount-pool",
-  "owner_id": "mount_pool_yotanwa_confederation",
-  "state": "yotanwa_confederation",
-  "total": 18000,
-  "types": {
-    "horse": 18000
-  },
-  "regional_reserve": {
-    "loc_yotanwa_mountain_confederation": {
-      "horse": 6000
-    }
-  },
   "allocated_to_formations": {
     "formation_yotanwa_confederation_field_host": {
       "horse": 12000
     }
+  },
+  "geographic_disposition": {
+    "authority": true
   },
   "health": {
     "fit": 18000,
@@ -22,7 +13,16 @@
     "recovering": 0,
     "unfit": 0
   },
-  "geographic_disposition": {
-    "authority": true
+  "owner_id": "mount_pool_yotanwa_confederation",
+  "regional_reserve": {
+    "loc_yotanwa_mountain_confederation": {
+      "horse": 6000
+    }
+  },
+  "schema": "sword-mount-pool",
+  "state": "yotanwa_confederation",
+  "total": 18000,
+  "types": {
+    "horse": 18000
   }
 }

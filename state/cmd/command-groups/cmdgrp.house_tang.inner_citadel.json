@@ -1,12 +1,29 @@
 {
-  "schema": "command-group",
-  "id": "cmdgrp.house_tang.inner_citadel",
-  "display_name": "Inner Citadel",
-  "context": "nested_army",
   "authority_ref": "house_tang",
   "commander_ref": "char_wei_song",
+  "communication_ref": null,
+  "context": "nested_army",
+  "created_at": "244-BCE-09-09T20:22:48+08:00",
   "direct_person_refs": [],
+  "display_name": "Inner Citadel",
+  "id": "cmdgrp.house_tang.inner_citadel",
+  "location": "loc_tang_manor",
+  "organizational_state": {
+    "authorized_direct_unit_slots": 11,
+    "authorized_strength": 25477,
+    "current_direct_formation_strength": 25477,
+    "current_recursive_strength": 25477,
+    "direct_unit_count": 11,
+    "mission": "inner_citadel_reserve",
+    "recursive_formation_count": 11,
+    "reorganization_need": "none",
+    "status": "active"
+  },
+  "parent_command_group_ref": "cmdgrp.house_tang.field_army",
   "role_assignments": {},
+  "schema": "command-group",
+  "standing_doctrine_ref": "doc.house_tang.home_defense",
+  "standing_order_refs": [],
   "successor_refs": [],
   "units": [
     {
@@ -54,22 +71,5 @@
       "ref": "formation_house_tang_infantry_03"
     }
   ],
-  "standing_order_refs": [],
-  "standing_doctrine_ref": "doc.house_tang.home_defense",
-  "communication_ref": null,
-  "location": "loc_tang_manor",
-  "parent_command_group_ref": "cmdgrp.house_tang.field_army",
-  "created_at": "244-BCE-09-09T20:22:48+08:00",
-  "updated_at": "244-BCE-09-09T20:22:48+08:00",
-  "organizational_state": {
-    "authorized_direct_unit_slots": 11,
-    "authorized_strength": 25477,
-    "current_direct_formation_strength": 25477,
-    "current_recursive_strength": 25477,
-    "direct_unit_count": 11,
-    "mission": "inner_citadel_reserve",
-    "recursive_formation_count": 11,
-    "reorganization_need": "none",
-    "status": "active"
-  }
+  "updated_at": "244-BCE-09-09T20:22:48+08:00"
 }

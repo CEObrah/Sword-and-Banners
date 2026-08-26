@@ -73,13 +73,15 @@
     ],
     "career_changes": 0,
     "current_assignment_ref": null,
+    "current_billet": "deceased",
+    "current_command_span": 0,
     "current_professional_path": "deceased",
     "future_canon_guaranteed": false,
-    "office_or_command": "Deceased; royal body-double service ended during Qin succession crisis",
-    "current_billet": "deceased",
-    "current_command_span": 0
+    "office_or_command": "Deceased; royal body-double service ended during Qin succession crisis"
   },
   "current_location": "loc_jouto_village",
+  "death_reason": "killed while serving as royal body-double during the Qin succession crisis",
+  "death_terminalized_at": "244-BCE-09-01T18:00:00+08:00",
   "development_state": {
     "attribute_edu_banks": {
       "Agility": 2.49,
@@ -112,6 +114,7 @@
     },
     "verified_deliberate_training_hours": 1851
   },
+  "died_at": "244-BCE-09-01T18:00:00+08:00",
   "equipment_loadout_id": "loadout_named_sword",
   "fatigue": 0,
   "goal_state": {
@@ -120,8 +123,8 @@
     "terminated_goals": [
       {
         "goal": "train beside Shin and seize the first lawful opportunity to enter the world of generals",
-        "terminated_at": "244-BCE-09-01T18:00:00+08:00",
-        "reason": "death"
+        "reason": "death",
+        "terminated_at": "244-BCE-09-01T18:00:00+08:00"
       }
     ]
   },
@@ -158,7 +161,6 @@
         "material_evidence": {
           "action_ref": "person_arc_eb93078658f74ef5d4",
           "evidence_stage": "commitment",
-          "history_event_ref": "autonomous_domain_d87708729b17be96b4",
           "kind": "exact_person_commitment",
           "person_ref": "char_hyou"
         },
@@ -192,8 +194,5 @@
     "Tactics": 40,
     "Unarmed": 15
   },
-  "state": "Qin",
-  "died_at": "244-BCE-09-01T18:00:00+08:00",
-  "death_reason": "killed while serving as royal body-double during the Qin succession crisis",
-  "death_terminalized_at": "244-BCE-09-01T18:00:00+08:00"
+  "state": "Qin"
 }

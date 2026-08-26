@@ -23,7 +23,6 @@
         "formation_black_banner_04a",
         "formation_black_banner_04b"
       ],
-      "operation_ref": "operation_arc_131572c4e8a2892bbc",
       "person_ref": "char_tang_wei",
       "personnel": 5000,
       "report_to_location_ref": "loc_qin_eastern_depot",
@@ -273,48 +272,11 @@
     "modeled_monthly_revenue_silver": 7682376
   },
   "frontier_runtime": {
-    "incident_count": 1,
-    "last_incident": {
-      "at": "244-BCE-08-31T07:22:48+08:00",
-      "location_ref": "loc_gyou",
-      "severity": 75,
-      "sides": [
-        "state_qin",
-        "state_zhao"
-      ],
-      "tension_delta": 11,
-      "theater_ref": "qin_zhao_gyou"
-    }
+    "incident_count": 0
   },
   "internal_stability": 68,
-  "known_threats": {
-    "frontier_incident_89bfc6afaf88_qin": {
-      "basis": "deterministic contested-frontier contact between existing sovereign military systems",
-      "kind": "frontier_incident",
-      "location_ref": "loc_gyou",
-      "observed_at": "244-BCE-08-31T07:22:48+08:00",
-      "severity": 75,
-      "source_ref": "state_zhao",
-      "theater_ref": "qin_zhao_gyou"
-    }
-  },
+  "known_threats": {},
   "last_review": "244-BCE-08-31T07:22:48+08:00",
-  "last_war_intent_review": {
-    "at": "244-BCE-08-31T07:22:48+08:00",
-    "basis": {
-      "claim_strength": 0,
-      "disposition_adjustment": 8,
-      "frontier_friction": 28,
-      "goal_interest": 0,
-      "power_ratio": 1.2796,
-      "readiness": 55,
-      "tension": 59,
-      "threat_score": 75,
-      "treasury_silver": 22896528
-    },
-    "intent_ref": "war_intent_e78e3d7184bc986b",
-    "status": "authorized"
-  },
   "military_administration": {
     "commander_vacancy_count": 11,
     "last_review": "244-BCE-08-31T07:22:48+08:00",
@@ -325,17 +287,8 @@
   "mobilization_readiness": 55,
   "normal_monthly_expense_silver": 4937059,
   "normal_monthly_revenue_silver": 1068050,
-  "outgoing_diplomatic_proposal_refs": [
-    "diplomatic_proposal_1464ffffdc12aba407"
-  ],
+  "outgoing_diplomatic_proposal_refs": [],
   "owner_id": "state_qin",
-  "political_pressure": {
-    "faction_qin_noble_patrons": {
-      "at": "244-BCE-08-19T06:22:48+08:00",
-      "influence": 61,
-      "kind": "patronage_lobbying"
-    }
-  },
   "schema": "sword-state",
   "sovereign_ref": "char_ei_sei",
   "state": "qin",
@@ -347,30 +300,7 @@
   "succession_ref": "succession.qin_crown",
   "territorial_control": [],
   "treasury_silver": 22876379,
-  "war_intents": [
-    {
-      "authorization_basis": {
-        "claim_strength": 0,
-        "disposition_adjustment": 8,
-        "frontier_friction": 28,
-        "goal_interest": 0,
-        "power_ratio": 1.2796,
-        "readiness": 55,
-        "tension": 59,
-        "threat_score": 75,
-        "treasury_silver": 22896528
-      },
-      "authorized_at": "244-BCE-08-31T07:22:48+08:00",
-      "decision_score": 59.132,
-      "expires_at": "243-BCE-08-31T07:22:48+08:00",
-      "intent_ref": "war_intent_e78e3d7184bc986b",
-      "kind": "npc_sovereign_strategic_intent",
-      "location_ref": "loc_gyou",
-      "objective": "pursue the saved strategic interest at loc_gyou",
-      "status": "authorized",
-      "target_ref": "state_zhao"
-    }
-  ],
+  "war_intents": [],
   "world_arc_priorities": [
     {
       "action_ref": "state_arc_4efe6b82e34fe0a66e",
@@ -387,9 +317,7 @@
         "formation_ref": "formation_qin_ousen_central",
         "formation_status_after": "mobilized",
         "formation_status_before": "ready",
-        "history_event_ref": "autonomous_domain_95fccb5577be8f28f9",
-        "kind": "exact_operation_created",
-        "operation_ref": "operation_arc_fc2ad9d90305148fc9"
+        "kind": "exact_operation_created"
       },
       "payee_ref": "private_economy_qin",
       "payer_ref": "state_qin",
@@ -412,9 +340,7 @@
         "formation_ref": "formation_qin_tou_mobile_army",
         "formation_status_after": "mobilized",
         "formation_status_before": "ready",
-        "history_event_ref": "autonomous_domain_84bb584f9bb589ba44",
-        "kind": "exact_operation_created",
-        "operation_ref": "operation_arc_1183814c96a451b510"
+        "kind": "exact_operation_created"
       },
       "payee_ref": "private_economy_qin",
       "payer_ref": "state_qin",
@@ -437,9 +363,7 @@
         "formation_ref": "formation_qin_mou_bu_shock_army",
         "formation_status_after": "mobilized",
         "formation_status_before": "ready",
-        "history_event_ref": "autonomous_domain_ab513890b7f1b76694",
-        "kind": "exact_operation_created",
-        "operation_ref": "operation_arc_54754a3da76f03f723"
+        "kind": "exact_operation_created"
       },
       "payee_ref": "private_economy_qin",
       "payer_ref": "state_qin",
@@ -466,12 +390,10 @@
           "formation_qin_wei_unit_03",
           "formation_qin_wei_unit_04"
         ],
-        "history_event_ref": "autonomous_domain_8bc7968a8f69da79dd",
         "issuer_ref": "state_qin",
         "kind": "player_command_operational_order_issued",
         "movement_committed": false,
         "objective": "participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority",
-        "operation_ref": "operation_arc_131572c4e8a2892bbc",
         "order_ref": "operational_order_669dd21e8390d23c6b",
         "tactical_decision_committed": false,
         "target_ref": "char_ryo_fui"
@@ -501,12 +423,10 @@
           "formation_qin_wei_unit_03",
           "formation_qin_wei_unit_04"
         ],
-        "history_event_ref": "autonomous_domain_9d485c7a7a400435f8",
         "issuer_ref": "state_qin",
         "kind": "player_command_operational_order_reaffirmed",
         "movement_committed": false,
         "objective": "participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority",
-        "operation_ref": "operation_arc_131572c4e8a2892bbc",
         "order_ref": "operational_order_669dd21e8390d23c6b",
         "tactical_decision_committed": false,
         "target_ref": "state_wei"
@@ -536,12 +456,10 @@
           "formation_qin_wei_unit_03",
           "formation_qin_wei_unit_04"
         ],
-        "history_event_ref": "autonomous_domain_32582699165eba8988",
         "issuer_ref": "state_qin",
         "kind": "player_command_operational_order_reaffirmed",
         "movement_committed": false,
         "objective": "participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority",
-        "operation_ref": "operation_arc_131572c4e8a2892bbc",
         "order_ref": "operational_order_669dd21e8390d23c6b",
         "tactical_decision_committed": false,
         "target_ref": "state_wei"
@@ -571,12 +489,10 @@
           "formation_qin_wei_unit_03",
           "formation_qin_wei_unit_04"
         ],
-        "history_event_ref": "autonomous_domain_b99d154b1a36fe6de9",
         "issuer_ref": "state_qin",
         "kind": "player_command_operational_order_reaffirmed",
         "movement_committed": false,
         "objective": "participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority",
-        "operation_ref": "operation_arc_131572c4e8a2892bbc",
         "order_ref": "operational_order_669dd21e8390d23c6b",
         "tactical_decision_committed": false,
         "target_ref": "char_ryo_fui"

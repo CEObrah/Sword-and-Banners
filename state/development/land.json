@@ -231,6 +231,31 @@
       "state": "jo",
       "terrain": "mountain_valleys"
     },
+    "loc_northern_steppe_confederation": {
+      "area_basis": {
+        "basis": "game-seed sparse territory area; not claimed historical survey data",
+        "density_people_per_km2": 17.5,
+        "nested_top_level_site_area_km2": 0.0,
+        "rural_population": 1400000
+      },
+      "area_km2": 80000.0,
+      "land_use_km2": {
+        "agriculture": 1800.0,
+        "extraction": 1000.0,
+        "open_developable": 10000.0,
+        "pasture": 30000.0,
+        "transport": 1200.0,
+        "unsuitable": 26000.0,
+        "water": 2000.0,
+        "woodland": 8000.0
+      },
+      "name": "Northern Steppe Confederation Territory",
+      "nested_site_parcels_km2": 0.0,
+      "polity_ref": "polity_northern_steppe",
+      "region_ref": "loc_northern_steppe_confederation",
+      "state": "northern_steppe",
+      "terrain": "steppe_edge"
+    },
     "loc_qi_regional_01": {
       "area_basis": {
         "density_people_per_km2": 80.0,
@@ -424,29 +449,29 @@
       "terrain": "river_hills"
     },
     "loc_quanrong_highlands": {
-      "region_ref": "loc_quanrong_highlands",
-      "name": "Quanrong Highlands",
-      "state": "quanrong",
-      "polity_ref": "polity_quanrong",
-      "terrain": "mountain_highlands",
+      "area_basis": {
+        "basis": "game-seed sparse territory area; not claimed historical survey data",
+        "density_people_per_km2": 35.0,
+        "nested_top_level_site_area_km2": 0.0,
+        "rural_population": 420000
+      },
       "area_km2": 12000.0,
       "land_use_km2": {
         "agriculture": 800.0,
-        "pasture": 3000.0,
-        "woodland": 3500.0,
         "extraction": 700.0,
-        "water": 400.0,
-        "transport": 200.0,
         "open_developable": 1000.0,
-        "unsuitable": 2400.0
+        "pasture": 3000.0,
+        "transport": 200.0,
+        "unsuitable": 2400.0,
+        "water": 400.0,
+        "woodland": 3500.0
       },
+      "name": "Quanrong Highlands",
       "nested_site_parcels_km2": 0.0,
-      "area_basis": {
-        "density_people_per_km2": 35.0,
-        "rural_population": 420000,
-        "nested_top_level_site_area_km2": 0.0,
-        "basis": "game-seed sparse territory area; not claimed historical survey data"
-      }
+      "polity_ref": "polity_quanrong",
+      "region_ref": "loc_quanrong_highlands",
+      "state": "quanrong",
+      "terrain": "mountain_highlands"
     },
     "loc_wei_regional_01": {
       "area_basis": {
@@ -640,6 +665,31 @@
       "state": "yan",
       "terrain": "coastal_plain"
     },
+    "loc_yotanwa_mountain_confederation": {
+      "area_basis": {
+        "basis": "game-seed sparse territory area; not claimed historical survey data",
+        "density_people_per_km2": 36.111,
+        "nested_top_level_site_area_km2": 0.0,
+        "rural_population": 650000
+      },
+      "area_km2": 18000.0,
+      "land_use_km2": {
+        "agriculture": 1000.0,
+        "extraction": 500.0,
+        "open_developable": 1500.0,
+        "pasture": 2500.0,
+        "transport": 300.0,
+        "unsuitable": 5700.0,
+        "water": 500.0,
+        "woodland": 6000.0
+      },
+      "name": "Yotanwa Mountain Confederation Territory",
+      "nested_site_parcels_km2": 0.0,
+      "polity_ref": "polity_yotanwa_confederation",
+      "region_ref": "loc_yotanwa_mountain_confederation",
+      "state": "yotanwa_confederation",
+      "terrain": "mountain_highlands"
+    },
     "loc_zhao_regional_01": {
       "area_basis": {
         "density_people_per_km2": 80.0,
@@ -735,56 +785,6 @@
       "region_ref": "loc_zhao_regional_04",
       "state": "zhao",
       "terrain": "broken_hills"
-    },
-    "loc_yotanwa_mountain_confederation": {
-      "region_ref": "loc_yotanwa_mountain_confederation",
-      "name": "Yotanwa Mountain Confederation Territory",
-      "state": "yotanwa_confederation",
-      "polity_ref": "polity_yotanwa_confederation",
-      "terrain": "mountain_highlands",
-      "area_km2": 18000.0,
-      "land_use_km2": {
-        "agriculture": 1000.0,
-        "pasture": 2500.0,
-        "woodland": 6000.0,
-        "extraction": 500.0,
-        "water": 500.0,
-        "transport": 300.0,
-        "open_developable": 1500.0,
-        "unsuitable": 5700.0
-      },
-      "nested_site_parcels_km2": 0.0,
-      "area_basis": {
-        "density_people_per_km2": 36.111,
-        "rural_population": 650000,
-        "nested_top_level_site_area_km2": 0.0,
-        "basis": "game-seed sparse territory area; not claimed historical survey data"
-      }
-    },
-    "loc_northern_steppe_confederation": {
-      "region_ref": "loc_northern_steppe_confederation",
-      "name": "Northern Steppe Confederation Territory",
-      "state": "northern_steppe",
-      "polity_ref": "polity_northern_steppe",
-      "terrain": "steppe_edge",
-      "area_km2": 80000.0,
-      "land_use_km2": {
-        "agriculture": 1800.0,
-        "pasture": 30000.0,
-        "woodland": 8000.0,
-        "extraction": 1000.0,
-        "water": 2000.0,
-        "transport": 1200.0,
-        "open_developable": 10000.0,
-        "unsuitable": 26000.0
-      },
-      "nested_site_parcels_km2": 0.0,
-      "area_basis": {
-        "density_people_per_km2": 17.5,
-        "rural_population": 1400000,
-        "nested_top_level_site_area_km2": 0.0,
-        "basis": "game-seed sparse territory area; not claimed historical survey data"
-      }
     }
   },
   "schema": "land-development-registry",
@@ -855,65 +855,25 @@
         "transport": 1.793022,
         "water": 0.72856
       },
-      "external_land_use_km2": {
-        "agriculture": 0.255898,
-        "extraction": 0.022579,
-        "pasture": 0.10537,
-        "unsuitable": 0.03763,
-        "water": 0.030106,
-        "woodland": 0.10537,
-        "transport": 0.316416,
-        "open_developable": 0.884496
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 7.0,
-        "moat_width_m": 22.0,
-        "wall_base_thickness_m": 9.0,
-        "wall_crown_thickness_m": 5.5,
-        "wall_height_m": 16.0,
-        "constructed_outer_perimeter_km": 19.887676,
-        "outer_wall_length_built_cumulative_km": 19.887676,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 120,
-        "gate_count": 1
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 7.95507,
-        "width_km": 1.988768,
-        "aspect_ratio": 4.0
-      },
-      "kind": "pass",
-      "name": "Bu Pass",
-      "parcel_area_km2": 17.578651,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_qin_regional_04",
-      "reserved_land_km2": {},
-      "site_ref": "loc_bu_pass",
-      "state": "qin",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_bu_pass.outer_city",
-          "kind": "outer_city",
           "area_km2": 15.820786,
-          "nesting_depth": 0,
-          "protected_population_capacity": 130100,
+          "enclosure_ref": "loc_bu_pass.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 19.887676,
+            "gate_count": 1,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 7.0,
             "moat_width_m": 22.0,
+            "outer_wall_length_built_cumulative_km": 19.887676,
+            "tower_count": 120,
             "wall_base_thickness_m": 9.0,
             "wall_crown_thickness_m": 5.5,
-            "wall_height_m": 16.0,
-            "constructed_outer_perimeter_km": 19.887676,
-            "outer_wall_length_built_cumulative_km": 19.887676,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 120,
-            "gate_count": 1
+            "wall_height_m": 16.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 0.530808,
             "fortification": 0.958319,
@@ -924,27 +884,27 @@
             "training": 0.000396,
             "transport": 1.793022,
             "water": 0.72856
-          }
+          },
+          "protected_population_capacity": 130100
         },
         {
-          "enclosure_ref": "loc_bu_pass.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 1.582079,
-          "nesting_depth": 1,
-          "protected_population_capacity": 13010,
+          "enclosure_ref": "loc_bu_pass.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 6.289036,
+            "gate_count": 1,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.04,
             "moat_width_m": 15.84,
+            "outer_wall_length_built_cumulative_km": 6.289036,
+            "tower_count": 38,
             "wall_base_thickness_m": 6.48,
             "wall_crown_thickness_m": 3.96,
-            "wall_height_m": 11.52,
-            "constructed_outer_perimeter_km": 6.289036,
-            "outer_wall_length_built_cumulative_km": 6.289036,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 38,
-            "gate_count": 1
+            "wall_height_m": 11.52
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.053081,
             "fortification": 0.095832,
@@ -955,9 +915,49 @@
             "training": 4e-05,
             "transport": 0.179302,
             "water": 0.072856
-          }
+          },
+          "protected_population_capacity": 13010
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.255898,
+        "extraction": 0.022579,
+        "open_developable": 0.884496,
+        "pasture": 0.10537,
+        "transport": 0.316416,
+        "unsuitable": 0.03763,
+        "water": 0.030106,
+        "woodland": 0.10537
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 19.887676,
+        "gate_count": 1,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 7.0,
+        "moat_width_m": 22.0,
+        "outer_wall_length_built_cumulative_km": 19.887676,
+        "tower_count": 120,
+        "wall_base_thickness_m": 9.0,
+        "wall_crown_thickness_m": 5.5,
+        "wall_height_m": 16.0
+      },
+      "geometry": {
+        "aspect_ratio": 4.0,
+        "length_km": 7.95507,
+        "shape": "rectangle",
+        "width_km": 1.988768
+      },
+      "kind": "pass",
+      "name": "Bu Pass",
+      "parcel_area_km2": 17.578651,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_qin_regional_04",
+      "reserved_land_km2": {},
+      "site_ref": "loc_bu_pass",
+      "state": "qin",
+      "terrain": "default"
     },
     "loc_bujou": {
       "enclosed_area_km2": 4.792899,
@@ -1078,65 +1078,25 @@
         "transport": 5.712508,
         "water": 2.56536
       },
-      "external_land_use_km2": {
-        "agriculture": 0.204302,
-        "extraction": 0.018027,
-        "pasture": 0.084124,
-        "unsuitable": 0.030044,
-        "water": 0.024036,
-        "woodland": 0.084124,
-        "transport": 1.00809,
-        "open_developable": 4.147752
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 5.0,
-        "moat_width_m": 16.0,
-        "wall_base_thickness_m": 6.0,
-        "wall_crown_thickness_m": 3.8,
-        "wall_height_m": 11.0,
-        "constructed_outer_perimeter_km": 30.121102,
-        "outer_wall_length_built_cumulative_km": 30.121102,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 181,
-        "gate_count": 2
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 10.040367,
-        "width_km": 5.020184,
-        "aspect_ratio": 2.0
-      },
-      "kind": "fort",
-      "name": "Chu Northern Fort",
-      "parcel_area_km2": 56.004986,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_chu_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_chu_north_fort",
-      "state": "chu",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_chu_north_fort.outer_city",
-          "kind": "outer_city",
           "area_km2": 50.404487,
-          "nesting_depth": 0,
-          "protected_population_capacity": 458100,
+          "enclosure_ref": "loc_chu_north_fort.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 30.121102,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.0,
             "moat_width_m": 16.0,
+            "outer_wall_length_built_cumulative_km": 30.121102,
+            "tower_count": 181,
             "wall_base_thickness_m": 6.0,
             "wall_crown_thickness_m": 3.8,
-            "wall_height_m": 11.0,
-            "constructed_outer_perimeter_km": 30.121102,
-            "outer_wall_length_built_cumulative_km": 30.121102,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 181,
-            "gate_count": 2
+            "wall_height_m": 11.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 1.869048,
             "fortification": 1.142657,
@@ -1147,27 +1107,27 @@
             "training": 1.199232,
             "transport": 5.712508,
             "water": 2.56536
-          }
+          },
+          "protected_population_capacity": 458100
         },
         {
-          "enclosure_ref": "loc_chu_north_fort.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 5.040449,
-          "nesting_depth": 1,
-          "protected_population_capacity": 45810,
+          "enclosure_ref": "loc_chu_north_fort.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 9.525129,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 3.6,
             "moat_width_m": 11.52,
+            "outer_wall_length_built_cumulative_km": 9.525129,
+            "tower_count": 58,
             "wall_base_thickness_m": 4.32,
             "wall_crown_thickness_m": 2.736,
-            "wall_height_m": 7.92,
-            "constructed_outer_perimeter_km": 9.525129,
-            "outer_wall_length_built_cumulative_km": 9.525129,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 58,
-            "gate_count": 2
+            "wall_height_m": 7.92
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.186905,
             "fortification": 0.114266,
@@ -1178,9 +1138,49 @@
             "training": 0.119923,
             "transport": 0.571251,
             "water": 0.256536
-          }
+          },
+          "protected_population_capacity": 45810
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.204302,
+        "extraction": 0.018027,
+        "open_developable": 4.147752,
+        "pasture": 0.084124,
+        "transport": 1.00809,
+        "unsuitable": 0.030044,
+        "water": 0.024036,
+        "woodland": 0.084124
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 30.121102,
+        "gate_count": 2,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 5.0,
+        "moat_width_m": 16.0,
+        "outer_wall_length_built_cumulative_km": 30.121102,
+        "tower_count": 181,
+        "wall_base_thickness_m": 6.0,
+        "wall_crown_thickness_m": 3.8,
+        "wall_height_m": 11.0
+      },
+      "geometry": {
+        "aspect_ratio": 2.0,
+        "length_km": 10.040367,
+        "shape": "rectangle",
+        "width_km": 5.020184
+      },
+      "kind": "fort",
+      "name": "Chu Northern Fort",
+      "parcel_area_km2": 56.004986,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_chu_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_chu_north_fort",
+      "state": "chu",
+      "terrain": "default"
     },
     "loc_dairyou": {
       "enclosed_area_km2": 236.166528,
@@ -1195,65 +1195,25 @@
         "transport": 33.456925,
         "water": 9.57768
       },
-      "external_land_use_km2": {
-        "agriculture": 3.3048,
-        "extraction": 0.2916,
-        "pasture": 1.3608,
-        "unsuitable": 0.486,
-        "water": 0.3888,
-        "woodland": 1.3608,
-        "transport": 5.904163,
-        "open_developable": 13.143762
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 7.0,
-        "moat_width_m": 25.0,
-        "wall_base_thickness_m": 9.0,
-        "wall_crown_thickness_m": 5.5,
-        "wall_height_m": 15.0,
-        "constructed_outer_perimeter_km": 62.738416,
-        "outer_wall_length_built_cumulative_km": 62.738416,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 377,
-        "gate_count": 4
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 18.821525,
-        "width_km": 12.547683,
-        "aspect_ratio": 1.5
-      },
-      "kind": "capital",
-      "name": "Dairyou",
-      "parcel_area_km2": 262.407253,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_wei_regional_01",
-      "reserved_land_km2": {},
-      "site_ref": "loc_dairyou",
-      "state": "wei",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_dairyou.outer_city",
-          "kind": "outer_city",
           "area_km2": 236.166528,
-          "nesting_depth": 0,
-          "protected_population_capacity": 1710300,
+          "enclosure_ref": "loc_dairyou.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 62.738416,
+            "gate_count": 4,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 7.0,
             "moat_width_m": 25.0,
+            "outer_wall_length_built_cumulative_km": 62.738416,
+            "tower_count": 377,
             "wall_base_thickness_m": 9.0,
             "wall_crown_thickness_m": 5.5,
-            "wall_height_m": 15.0,
-            "constructed_outer_perimeter_km": 62.738416,
-            "outer_wall_length_built_cumulative_km": 62.738416,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 377,
-            "gate_count": 4
+            "wall_height_m": 15.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 6.978024,
             "fortification": 4.247301,
@@ -1264,27 +1224,27 @@
             "training": 0.75564,
             "transport": 33.456925,
             "water": 9.57768
-          }
+          },
+          "protected_population_capacity": 1710300
         },
         {
-          "enclosure_ref": "loc_dairyou.inner_city",
-          "kind": "inner_city",
           "area_km2": 59.041632,
-          "nesting_depth": 1,
-          "protected_population_capacity": 427575,
+          "enclosure_ref": "loc_dairyou.inner_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 31.369208,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.74,
             "moat_width_m": 20.5,
+            "outer_wall_length_built_cumulative_km": 31.369208,
+            "tower_count": 189,
             "wall_base_thickness_m": 7.38,
             "wall_crown_thickness_m": 4.51,
-            "wall_height_m": 12.3,
-            "constructed_outer_perimeter_km": 31.369208,
-            "outer_wall_length_built_cumulative_km": 31.369208,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 189,
-            "gate_count": 2
+            "wall_height_m": 12.3
           },
+          "kind": "inner_city",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 1.744506,
             "fortification": 1.061825,
@@ -1295,27 +1255,27 @@
             "training": 0.18891,
             "transport": 8.364231,
             "water": 2.39442
-          }
+          },
+          "protected_population_capacity": 427575
         },
         {
-          "enclosure_ref": "loc_dairyou.citadel",
-          "kind": "citadel",
           "area_km2": 18.893322,
-          "nesting_depth": 2,
-          "protected_population_capacity": 136823,
+          "enclosure_ref": "loc_dairyou.citadel",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 17.745104,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 4.76,
             "moat_width_m": 17.0,
+            "outer_wall_length_built_cumulative_km": 17.745104,
+            "tower_count": 107,
             "wall_base_thickness_m": 6.12,
             "wall_crown_thickness_m": 3.74,
-            "wall_height_m": 10.2,
-            "constructed_outer_perimeter_km": 17.745104,
-            "outer_wall_length_built_cumulative_km": 17.745104,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 107,
-            "gate_count": 2
+            "wall_height_m": 10.2
           },
+          "kind": "citadel",
+          "nesting_depth": 2,
           "protected_land_use_km2": {
             "civic_storage": 0.558242,
             "fortification": 0.339784,
@@ -1326,9 +1286,49 @@
             "training": 0.060451,
             "transport": 2.676554,
             "water": 0.766214
-          }
+          },
+          "protected_population_capacity": 136823
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 3.3048,
+        "extraction": 0.2916,
+        "open_developable": 13.143762,
+        "pasture": 1.3608,
+        "transport": 5.904163,
+        "unsuitable": 0.486,
+        "water": 0.3888,
+        "woodland": 1.3608
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 62.738416,
+        "gate_count": 4,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 7.0,
+        "moat_width_m": 25.0,
+        "outer_wall_length_built_cumulative_km": 62.738416,
+        "tower_count": 377,
+        "wall_base_thickness_m": 9.0,
+        "wall_crown_thickness_m": 5.5,
+        "wall_height_m": 15.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 18.821525,
+        "shape": "rectangle",
+        "width_km": 12.547683
+      },
+      "kind": "capital",
+      "name": "Dairyou",
+      "parcel_area_km2": 262.407253,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_wei_regional_01",
+      "reserved_land_km2": {},
+      "site_ref": "loc_dairyou",
+      "state": "wei",
+      "terrain": "default"
     },
     "loc_ei": {
       "enclosed_area_km2": 291.833412,
@@ -1343,65 +1343,25 @@
         "transport": 41.343067,
         "water": 13.41088
       },
-      "external_land_use_km2": {
-        "agriculture": 4.08,
-        "extraction": 0.36,
-        "pasture": 1.68,
-        "unsuitable": 0.6,
-        "water": 0.48,
-        "woodland": 1.68,
-        "transport": 7.295835,
-        "open_developable": 16.2501
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 8.0,
-        "moat_width_m": 28.0,
-        "wall_base_thickness_m": 9.0,
-        "wall_crown_thickness_m": 5.5,
-        "wall_height_m": 15.0,
-        "constructed_outer_perimeter_km": 69.741596,
-        "outer_wall_length_built_cumulative_km": 69.741596,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 419,
-        "gate_count": 4
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 20.922479,
-        "width_km": 13.948319,
-        "aspect_ratio": 1.5
-      },
-      "kind": "capital",
-      "name": "Rinshi",
-      "parcel_area_km2": 324.259347,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_qi_regional_01",
-      "reserved_land_km2": {},
-      "site_ref": "loc_ei",
-      "state": "qi",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_ei.outer_city",
-          "kind": "outer_city",
           "area_km2": 291.833412,
-          "nesting_depth": 0,
-          "protected_population_capacity": 2394800,
+          "enclosure_ref": "loc_ei.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 69.741596,
+            "gate_count": 4,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 8.0,
             "moat_width_m": 28.0,
+            "outer_wall_length_built_cumulative_km": 69.741596,
+            "tower_count": 419,
             "wall_base_thickness_m": 9.0,
             "wall_crown_thickness_m": 5.5,
-            "wall_height_m": 15.0,
-            "constructed_outer_perimeter_km": 69.741596,
-            "outer_wall_length_built_cumulative_km": 69.741596,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 419,
-            "gate_count": 4
+            "wall_height_m": 15.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 9.770784,
             "fortification": 5.056654,
@@ -1412,27 +1372,27 @@
             "training": 0.579744,
             "transport": 41.343067,
             "water": 13.41088
-          }
+          },
+          "protected_population_capacity": 2394800
         },
         {
-          "enclosure_ref": "loc_ei.inner_city",
-          "kind": "inner_city",
           "area_km2": 72.958353,
-          "nesting_depth": 1,
-          "protected_population_capacity": 598700,
+          "enclosure_ref": "loc_ei.inner_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 34.870798,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 6.56,
             "moat_width_m": 22.96,
+            "outer_wall_length_built_cumulative_km": 34.870798,
+            "tower_count": 210,
             "wall_base_thickness_m": 7.38,
             "wall_crown_thickness_m": 4.51,
-            "wall_height_m": 12.3,
-            "constructed_outer_perimeter_km": 34.870798,
-            "outer_wall_length_built_cumulative_km": 34.870798,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 210,
-            "gate_count": 2
+            "wall_height_m": 12.3
           },
+          "kind": "inner_city",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 2.442696,
             "fortification": 1.264163,
@@ -1443,27 +1403,27 @@
             "training": 0.144936,
             "transport": 10.335767,
             "water": 3.35272
-          }
+          },
+          "protected_population_capacity": 598700
         },
         {
-          "enclosure_ref": "loc_ei.citadel",
-          "kind": "citadel",
           "area_km2": 23.346673,
-          "nesting_depth": 2,
-          "protected_population_capacity": 191584,
+          "enclosure_ref": "loc_ei.citadel",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 19.725902,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.44,
             "moat_width_m": 19.04,
+            "outer_wall_length_built_cumulative_km": 19.725902,
+            "tower_count": 119,
             "wall_base_thickness_m": 6.12,
             "wall_crown_thickness_m": 3.74,
-            "wall_height_m": 10.2,
-            "constructed_outer_perimeter_km": 19.725902,
-            "outer_wall_length_built_cumulative_km": 19.725902,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 119,
-            "gate_count": 2
+            "wall_height_m": 10.2
           },
+          "kind": "citadel",
+          "nesting_depth": 2,
           "protected_land_use_km2": {
             "civic_storage": 0.781663,
             "fortification": 0.404532,
@@ -1474,9 +1434,49 @@
             "training": 0.04638,
             "transport": 3.307445,
             "water": 1.07287
-          }
+          },
+          "protected_population_capacity": 191584
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 4.08,
+        "extraction": 0.36,
+        "open_developable": 16.2501,
+        "pasture": 1.68,
+        "transport": 7.295835,
+        "unsuitable": 0.6,
+        "water": 0.48,
+        "woodland": 1.68
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 69.741596,
+        "gate_count": 4,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 8.0,
+        "moat_width_m": 28.0,
+        "outer_wall_length_built_cumulative_km": 69.741596,
+        "tower_count": 419,
+        "wall_base_thickness_m": 9.0,
+        "wall_crown_thickness_m": 5.5,
+        "wall_height_m": 15.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 20.922479,
+        "shape": "rectangle",
+        "width_km": 13.948319
+      },
+      "kind": "capital",
+      "name": "Rinshi",
+      "parcel_area_km2": 324.259347,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_qi_regional_01",
+      "reserved_land_km2": {},
+      "site_ref": "loc_ei",
+      "state": "qi",
+      "terrain": "default"
     },
     "loc_gian": {
       "enclosed_area_km2": 19.44,
@@ -1544,65 +1544,25 @@
         "transport": 26.381777,
         "water": 8.04832
       },
-      "external_land_use_km2": {
-        "agriculture": 2.6112,
-        "extraction": 0.2304,
-        "pasture": 1.0752,
-        "unsuitable": 0.384,
-        "water": 0.3072,
-        "woodland": 1.0752,
-        "transport": 4.655608,
-        "open_developable": 10.352782
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 9.0,
-        "moat_width_m": 30.0,
-        "wall_base_thickness_m": 11.0,
-        "wall_crown_thickness_m": 6.5,
-        "wall_height_m": 18.0,
-        "constructed_outer_perimeter_km": 55.711207,
-        "outer_wall_length_built_cumulative_km": 55.711207,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 335,
-        "gate_count": 3
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 16.713362,
-        "width_km": 11.142241,
-        "aspect_ratio": 1.5
-      },
-      "kind": "city",
-      "name": "Gyou",
-      "parcel_area_km2": 206.915903,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_zhao_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_gyou",
-      "state": "zhao",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_gyou.outer_city",
-          "kind": "outer_city",
           "area_km2": 186.224313,
-          "nesting_depth": 0,
-          "protected_population_capacity": 1437200,
+          "enclosure_ref": "loc_gyou.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 55.711207,
+            "gate_count": 3,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 9.0,
             "moat_width_m": 30.0,
+            "outer_wall_length_built_cumulative_km": 55.711207,
+            "tower_count": 335,
             "wall_base_thickness_m": 11.0,
             "wall_crown_thickness_m": 6.5,
-            "wall_height_m": 18.0,
-            "constructed_outer_perimeter_km": 55.711207,
-            "outer_wall_length_built_cumulative_km": 55.711207,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 335,
-            "gate_count": 3
+            "wall_height_m": 18.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 5.863776,
             "fortification": 3.334293,
@@ -1613,27 +1573,27 @@
             "training": 0.6138,
             "transport": 26.381777,
             "water": 8.04832
-          }
+          },
+          "protected_population_capacity": 1437200
         },
         {
-          "enclosure_ref": "loc_gyou.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 18.622431,
-          "nesting_depth": 1,
-          "protected_population_capacity": 143719,
+          "enclosure_ref": "loc_gyou.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 17.61743,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 6.48,
             "moat_width_m": 21.6,
+            "outer_wall_length_built_cumulative_km": 17.61743,
+            "tower_count": 106,
             "wall_base_thickness_m": 7.92,
             "wall_crown_thickness_m": 4.68,
-            "wall_height_m": 12.96,
-            "constructed_outer_perimeter_km": 17.61743,
-            "outer_wall_length_built_cumulative_km": 17.61743,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 106,
-            "gate_count": 2
+            "wall_height_m": 12.96
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.586378,
             "fortification": 0.333429,
@@ -1644,9 +1604,49 @@
             "training": 0.06138,
             "transport": 2.638178,
             "water": 0.804832
-          }
+          },
+          "protected_population_capacity": 143719
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 2.6112,
+        "extraction": 0.2304,
+        "open_developable": 10.352782,
+        "pasture": 1.0752,
+        "transport": 4.655608,
+        "unsuitable": 0.384,
+        "water": 0.3072,
+        "woodland": 1.0752
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 55.711207,
+        "gate_count": 3,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 9.0,
+        "moat_width_m": 30.0,
+        "outer_wall_length_built_cumulative_km": 55.711207,
+        "tower_count": 335,
+        "wall_base_thickness_m": 11.0,
+        "wall_crown_thickness_m": 6.5,
+        "wall_height_m": 18.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 16.713362,
+        "shape": "rectangle",
+        "width_km": 11.142241
+      },
+      "kind": "city",
+      "name": "Gyou",
+      "parcel_area_km2": 206.915903,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_zhao_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_gyou",
+      "state": "zhao",
+      "terrain": "default"
     },
     "loc_han_capital": {
       "enclosed_area_km2": 142.971199,
@@ -1661,65 +1661,25 @@
         "transport": 20.254253,
         "water": 5.82512
       },
-      "external_land_use_km2": {
-        "agriculture": 1.9992,
-        "extraction": 0.1764,
-        "pasture": 0.8232,
-        "unsuitable": 0.294,
-        "water": 0.2352,
-        "woodland": 0.8232,
-        "transport": 3.57428,
-        "open_developable": 7.960209
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 7.0,
-        "moat_width_m": 24.0,
-        "wall_base_thickness_m": 8.0,
-        "wall_crown_thickness_m": 4.8,
-        "wall_height_m": 13.0,
-        "constructed_outer_perimeter_km": 48.814479,
-        "outer_wall_length_built_cumulative_km": 48.814479,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 293,
-        "gate_count": 4
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 14.644344,
-        "width_km": 9.762896,
-        "aspect_ratio": 1.5
-      },
-      "kind": "capital",
-      "name": "Shintei",
-      "parcel_area_km2": 158.856888,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_han_regional_01",
-      "reserved_land_km2": {},
-      "site_ref": "loc_han_capital",
-      "state": "han",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_han_capital.outer_city",
-          "kind": "outer_city",
           "area_km2": 142.971199,
-          "nesting_depth": 0,
-          "protected_population_capacity": 1040200,
+          "enclosure_ref": "loc_han_capital.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 48.814479,
+            "gate_count": 4,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 7.0,
             "moat_width_m": 24.0,
+            "outer_wall_length_built_cumulative_km": 48.814479,
+            "tower_count": 293,
             "wall_base_thickness_m": 8.0,
             "wall_crown_thickness_m": 4.8,
-            "wall_height_m": 13.0,
-            "constructed_outer_perimeter_km": 48.814479,
-            "outer_wall_length_built_cumulative_km": 48.814479,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 293,
-            "gate_count": 4
+            "wall_height_m": 13.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 4.244016,
             "fortification": 3.159969,
@@ -1730,27 +1690,27 @@
             "training": 0.34704,
             "transport": 20.254253,
             "water": 5.82512
-          }
+          },
+          "protected_population_capacity": 1040200
         },
         {
-          "enclosure_ref": "loc_han_capital.inner_city",
-          "kind": "inner_city",
           "area_km2": 35.7428,
-          "nesting_depth": 1,
-          "protected_population_capacity": 260050,
+          "enclosure_ref": "loc_han_capital.inner_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 24.407239,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.74,
             "moat_width_m": 19.68,
+            "outer_wall_length_built_cumulative_km": 24.407239,
+            "tower_count": 147,
             "wall_base_thickness_m": 6.56,
             "wall_crown_thickness_m": 3.936,
-            "wall_height_m": 10.66,
-            "constructed_outer_perimeter_km": 24.407239,
-            "outer_wall_length_built_cumulative_km": 24.407239,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 147,
-            "gate_count": 2
+            "wall_height_m": 10.66
           },
+          "kind": "inner_city",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 1.061004,
             "fortification": 0.789992,
@@ -1761,27 +1721,27 @@
             "training": 0.08676,
             "transport": 5.063563,
             "water": 1.45628
-          }
+          },
+          "protected_population_capacity": 260050
         },
         {
-          "enclosure_ref": "loc_han_capital.citadel",
-          "kind": "citadel",
           "area_km2": 11.437696,
-          "nesting_depth": 2,
-          "protected_population_capacity": 83216,
+          "enclosure_ref": "loc_han_capital.citadel",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 13.80682,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 4.76,
             "moat_width_m": 16.32,
+            "outer_wall_length_built_cumulative_km": 13.80682,
+            "tower_count": 83,
             "wall_base_thickness_m": 5.44,
             "wall_crown_thickness_m": 3.264,
-            "wall_height_m": 8.84,
-            "constructed_outer_perimeter_km": 13.80682,
-            "outer_wall_length_built_cumulative_km": 13.80682,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 83,
-            "gate_count": 2
+            "wall_height_m": 8.84
           },
+          "kind": "citadel",
+          "nesting_depth": 2,
           "protected_land_use_km2": {
             "civic_storage": 0.339521,
             "fortification": 0.252798,
@@ -1792,9 +1752,49 @@
             "training": 0.027763,
             "transport": 1.62034,
             "water": 0.46601
-          }
+          },
+          "protected_population_capacity": 83216
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 1.9992,
+        "extraction": 0.1764,
+        "open_developable": 7.960209,
+        "pasture": 0.8232,
+        "transport": 3.57428,
+        "unsuitable": 0.294,
+        "water": 0.2352,
+        "woodland": 0.8232
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 48.814479,
+        "gate_count": 4,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 7.0,
+        "moat_width_m": 24.0,
+        "outer_wall_length_built_cumulative_km": 48.814479,
+        "tower_count": 293,
+        "wall_base_thickness_m": 8.0,
+        "wall_crown_thickness_m": 4.8,
+        "wall_height_m": 13.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 14.644344,
+        "shape": "rectangle",
+        "width_km": 9.762896
+      },
+      "kind": "capital",
+      "name": "Shintei",
+      "parcel_area_km2": 158.856888,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_han_regional_01",
+      "reserved_land_km2": {},
+      "site_ref": "loc_han_capital",
+      "state": "han",
+      "terrain": "default"
     },
     "loc_han_frontier_fort": {
       "enclosed_area_km2": 11.590733,
@@ -1809,65 +1809,25 @@
         "transport": 1.313616,
         "water": 0.50792
       },
-      "external_land_use_km2": {
-        "agriculture": 0.188889,
-        "extraction": 0.016667,
-        "pasture": 0.077778,
-        "unsuitable": 0.027778,
-        "water": 0.022222,
-        "woodland": 0.077778,
-        "transport": 0.231815,
-        "open_developable": 0.644932
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 5.0,
-        "moat_width_m": 15.0,
-        "wall_base_thickness_m": 5.5,
-        "wall_crown_thickness_m": 3.5,
-        "wall_height_m": 10.0,
-        "constructed_outer_perimeter_km": 14.44414,
-        "outer_wall_length_built_cumulative_km": 14.44414,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 87,
-        "gate_count": 2
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 4.814713,
-        "width_km": 2.407357,
-        "aspect_ratio": 2.0
-      },
-      "kind": "fort",
-      "name": "Han Frontier Fort",
-      "parcel_area_km2": 12.878592,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_han_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_han_frontier_fort",
-      "state": "han",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_han_frontier_fort.outer_city",
-          "kind": "outer_city",
           "area_km2": 11.590733,
-          "nesting_depth": 0,
-          "protected_population_capacity": 90700,
+          "enclosure_ref": "loc_han_frontier_fort.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 14.44414,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.0,
             "moat_width_m": 15.0,
+            "outer_wall_length_built_cumulative_km": 14.44414,
+            "tower_count": 87,
             "wall_base_thickness_m": 5.5,
             "wall_crown_thickness_m": 3.5,
-            "wall_height_m": 10.0,
-            "constructed_outer_perimeter_km": 14.44414,
-            "outer_wall_length_built_cumulative_km": 14.44414,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 87,
-            "gate_count": 2
+            "wall_height_m": 10.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 0.370056,
             "fortification": 0.523119,
@@ -1878,27 +1838,27 @@
             "training": 0.22392,
             "transport": 1.313616,
             "water": 0.50792
-          }
+          },
+          "protected_population_capacity": 90700
         },
         {
-          "enclosure_ref": "loc_han_frontier_fort.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 1.159073,
-          "nesting_depth": 1,
-          "protected_population_capacity": 9069,
+          "enclosure_ref": "loc_han_frontier_fort.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 4.567638,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 3.6,
             "moat_width_m": 10.8,
+            "outer_wall_length_built_cumulative_km": 4.567638,
+            "tower_count": 28,
             "wall_base_thickness_m": 3.96,
             "wall_crown_thickness_m": 2.52,
-            "wall_height_m": 7.2,
-            "constructed_outer_perimeter_km": 4.567638,
-            "outer_wall_length_built_cumulative_km": 4.567638,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 28,
-            "gate_count": 2
+            "wall_height_m": 7.2
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.037006,
             "fortification": 0.052312,
@@ -1909,9 +1869,49 @@
             "training": 0.022392,
             "transport": 0.131362,
             "water": 0.050792
-          }
+          },
+          "protected_population_capacity": 9069
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.188889,
+        "extraction": 0.016667,
+        "open_developable": 0.644932,
+        "pasture": 0.077778,
+        "transport": 0.231815,
+        "unsuitable": 0.027778,
+        "water": 0.022222,
+        "woodland": 0.077778
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 14.44414,
+        "gate_count": 2,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 5.0,
+        "moat_width_m": 15.0,
+        "outer_wall_length_built_cumulative_km": 14.44414,
+        "tower_count": 87,
+        "wall_base_thickness_m": 5.5,
+        "wall_crown_thickness_m": 3.5,
+        "wall_height_m": 10.0
+      },
+      "geometry": {
+        "aspect_ratio": 2.0,
+        "length_km": 4.814713,
+        "shape": "rectangle",
+        "width_km": 2.407357
+      },
+      "kind": "fort",
+      "name": "Han Frontier Fort",
+      "parcel_area_km2": 12.878592,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_han_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_han_frontier_fort",
+      "state": "han",
+      "terrain": "default"
     },
     "loc_hango": {
       "enclosed_area_km2": 24.0,
@@ -2138,65 +2138,25 @@
         "transport": 29.302223,
         "water": 10.10408
       },
-      "external_land_use_km2": {
-        "agriculture": 2.6112,
-        "extraction": 0.2304,
-        "pasture": 1.0752,
-        "unsuitable": 0.384,
-        "water": 0.3072,
-        "woodland": 1.0752,
-        "transport": 5.17098,
-        "open_developable": 12.127955
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 7.0,
-        "moat_width_m": 24.0,
-        "wall_base_thickness_m": 8.0,
-        "wall_crown_thickness_m": 4.8,
-        "wall_height_m": 13.0,
-        "constructed_outer_perimeter_km": 58.713885,
-        "outer_wall_length_built_cumulative_km": 58.713885,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 353,
-        "gate_count": 4
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 17.614166,
-        "width_km": 11.742777,
-        "aspect_ratio": 1.5
-      },
-      "kind": "capital",
-      "name": "Ji",
-      "parcel_area_km2": 229.821354,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_yan_regional_01",
-      "reserved_land_km2": {},
-      "site_ref": "loc_ji",
-      "state": "yan",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_ji.outer_city",
-          "kind": "outer_city",
           "area_km2": 206.839219,
-          "nesting_depth": 0,
-          "protected_population_capacity": 1804300,
+          "enclosure_ref": "loc_ji.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 58.713885,
+            "gate_count": 4,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 7.0,
             "moat_width_m": 24.0,
+            "outer_wall_length_built_cumulative_km": 58.713885,
+            "tower_count": 353,
             "wall_base_thickness_m": 8.0,
             "wall_crown_thickness_m": 4.8,
-            "wall_height_m": 13.0,
-            "constructed_outer_perimeter_km": 58.713885,
-            "outer_wall_length_built_cumulative_km": 58.713885,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 353,
-            "gate_count": 4
+            "wall_height_m": 13.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 7.361544,
             "fortification": 3.8008,
@@ -2207,27 +2167,27 @@
             "training": 0.526272,
             "transport": 29.302223,
             "water": 10.10408
-          }
+          },
+          "protected_population_capacity": 1804300
         },
         {
-          "enclosure_ref": "loc_ji.inner_city",
-          "kind": "inner_city",
           "area_km2": 51.709805,
-          "nesting_depth": 1,
-          "protected_population_capacity": 451075,
+          "enclosure_ref": "loc_ji.inner_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 29.356943,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.74,
             "moat_width_m": 19.68,
+            "outer_wall_length_built_cumulative_km": 29.356943,
+            "tower_count": 177,
             "wall_base_thickness_m": 6.56,
             "wall_crown_thickness_m": 3.936,
-            "wall_height_m": 10.66,
-            "constructed_outer_perimeter_km": 29.356943,
-            "outer_wall_length_built_cumulative_km": 29.356943,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 177,
-            "gate_count": 2
+            "wall_height_m": 10.66
           },
+          "kind": "inner_city",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 1.840386,
             "fortification": 0.9502,
@@ -2238,27 +2198,27 @@
             "training": 0.131568,
             "transport": 7.325556,
             "water": 2.52602
-          }
+          },
+          "protected_population_capacity": 451075
         },
         {
-          "enclosure_ref": "loc_ji.citadel",
-          "kind": "citadel",
           "area_km2": 16.547138,
-          "nesting_depth": 2,
-          "protected_population_capacity": 144344,
+          "enclosure_ref": "loc_ji.citadel",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 16.606795,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 4.76,
             "moat_width_m": 16.32,
+            "outer_wall_length_built_cumulative_km": 16.606795,
+            "tower_count": 100,
             "wall_base_thickness_m": 5.44,
             "wall_crown_thickness_m": 3.264,
-            "wall_height_m": 8.84,
-            "constructed_outer_perimeter_km": 16.606795,
-            "outer_wall_length_built_cumulative_km": 16.606795,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 100,
-            "gate_count": 2
+            "wall_height_m": 8.84
           },
+          "kind": "citadel",
+          "nesting_depth": 2,
           "protected_land_use_km2": {
             "civic_storage": 0.588924,
             "fortification": 0.304064,
@@ -2269,9 +2229,49 @@
             "training": 0.042102,
             "transport": 2.344178,
             "water": 0.808326
-          }
+          },
+          "protected_population_capacity": 144344
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 2.6112,
+        "extraction": 0.2304,
+        "open_developable": 12.127955,
+        "pasture": 1.0752,
+        "transport": 5.17098,
+        "unsuitable": 0.384,
+        "water": 0.3072,
+        "woodland": 1.0752
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 58.713885,
+        "gate_count": 4,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 7.0,
+        "moat_width_m": 24.0,
+        "outer_wall_length_built_cumulative_km": 58.713885,
+        "tower_count": 353,
+        "wall_base_thickness_m": 8.0,
+        "wall_crown_thickness_m": 4.8,
+        "wall_height_m": 13.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 17.614166,
+        "shape": "rectangle",
+        "width_km": 11.742777
+      },
+      "kind": "capital",
+      "name": "Ji",
+      "parcel_area_km2": 229.821354,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_yan_regional_01",
+      "reserved_land_km2": {},
+      "site_ref": "loc_ji",
+      "state": "yan",
+      "terrain": "default"
     },
     "loc_jo_city": {
       "enclosed_area_km2": 2.16,
@@ -2436,65 +2436,25 @@
         "transport": 4.006089,
         "water": 1.15304
       },
-      "external_land_use_km2": {
-        "agriculture": 0.57577,
-        "extraction": 0.050803,
-        "pasture": 0.237082,
-        "unsuitable": 0.08467,
-        "water": 0.067738,
-        "woodland": 0.237082,
-        "transport": 0.706957,
-        "open_developable": 1.967436
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 9.0,
-        "moat_width_m": 28.0,
-        "wall_base_thickness_m": 14.0,
-        "wall_crown_thickness_m": 8.0,
-        "wall_height_m": 22.0,
-        "constructed_outer_perimeter_km": 29.727026,
-        "outer_wall_length_built_cumulative_km": 29.727026,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 179,
-        "gate_count": 1
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 11.890811,
-        "width_km": 2.972703,
-        "aspect_ratio": 4.0
-      },
-      "kind": "pass",
-      "name": "Kankoku Pass",
-      "parcel_area_km2": 39.275382,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_qin_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_kankoku_pass",
-      "state": "qin",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_kankoku_pass.outer_city",
-          "kind": "outer_city",
           "area_km2": 35.347844,
-          "nesting_depth": 0,
-          "protected_population_capacity": 205900,
+          "enclosure_ref": "loc_kankoku_pass.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 29.727026,
+            "gate_count": 1,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 9.0,
             "moat_width_m": 28.0,
+            "outer_wall_length_built_cumulative_km": 29.727026,
+            "tower_count": 179,
             "wall_base_thickness_m": 14.0,
             "wall_crown_thickness_m": 8.0,
-            "wall_height_m": 22.0,
-            "constructed_outer_perimeter_km": 29.727026,
-            "outer_wall_length_built_cumulative_km": 29.727026,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 179,
-            "gate_count": 1
+            "wall_height_m": 22.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 0.840072,
             "fortification": 1.788274,
@@ -2505,27 +2465,27 @@
             "training": 0.791172,
             "transport": 4.006089,
             "water": 1.15304
-          }
+          },
+          "protected_population_capacity": 205900
         },
         {
-          "enclosure_ref": "loc_kankoku_pass.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 3.534784,
-          "nesting_depth": 1,
-          "protected_population_capacity": 20589,
+          "enclosure_ref": "loc_kankoku_pass.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 9.400511,
+            "gate_count": 1,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 6.48,
             "moat_width_m": 20.16,
+            "outer_wall_length_built_cumulative_km": 9.400511,
+            "tower_count": 57,
             "wall_base_thickness_m": 10.08,
             "wall_crown_thickness_m": 5.76,
-            "wall_height_m": 15.84,
-            "constructed_outer_perimeter_km": 9.400511,
-            "outer_wall_length_built_cumulative_km": 9.400511,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 57,
-            "gate_count": 1
+            "wall_height_m": 15.84
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.084007,
             "fortification": 0.178827,
@@ -2536,9 +2496,49 @@
             "training": 0.079117,
             "transport": 0.400609,
             "water": 0.115304
-          }
+          },
+          "protected_population_capacity": 20589
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.57577,
+        "extraction": 0.050803,
+        "open_developable": 1.967436,
+        "pasture": 0.237082,
+        "transport": 0.706957,
+        "unsuitable": 0.08467,
+        "water": 0.067738,
+        "woodland": 0.237082
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 29.727026,
+        "gate_count": 1,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 9.0,
+        "moat_width_m": 28.0,
+        "outer_wall_length_built_cumulative_km": 29.727026,
+        "tower_count": 179,
+        "wall_base_thickness_m": 14.0,
+        "wall_crown_thickness_m": 8.0,
+        "wall_height_m": 22.0
+      },
+      "geometry": {
+        "aspect_ratio": 4.0,
+        "length_km": 11.890811,
+        "shape": "rectangle",
+        "width_km": 2.972703
+      },
+      "kind": "pass",
+      "name": "Kankoku Pass",
+      "parcel_area_km2": 39.275382,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_qin_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_kankoku_pass",
+      "state": "qin",
+      "terrain": "default"
     },
     "loc_kantan": {
       "enclosed_area_km2": 352.608652,
@@ -2553,65 +2553,25 @@
         "transport": 49.952893,
         "water": 14.23912
       },
-      "external_land_use_km2": {
-        "agriculture": 4.9368,
-        "extraction": 0.4356,
-        "pasture": 2.0328,
-        "unsuitable": 0.726,
-        "water": 0.5808,
-        "woodland": 2.0328,
-        "transport": 8.815216,
-        "open_developable": 19.618723
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 8.0,
-        "moat_width_m": 28.0,
-        "wall_base_thickness_m": 10.0,
-        "wall_crown_thickness_m": 6.0,
-        "wall_height_m": 16.0,
-        "constructed_outer_perimeter_km": 76.66036,
-        "outer_wall_length_built_cumulative_km": 76.66036,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 460,
-        "gate_count": 4
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 22.998108,
-        "width_km": 15.332072,
-        "aspect_ratio": 1.5
-      },
-      "kind": "capital",
-      "name": "Kantan",
-      "parcel_area_km2": 391.787391,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_zhao_regional_01",
-      "reserved_land_km2": {},
-      "site_ref": "loc_kantan",
-      "state": "zhao",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_kantan.outer_city",
-          "kind": "outer_city",
           "area_km2": 352.608652,
-          "nesting_depth": 0,
-          "protected_population_capacity": 2542700,
+          "enclosure_ref": "loc_kantan.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 76.66036,
+            "gate_count": 4,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 8.0,
             "moat_width_m": 28.0,
+            "outer_wall_length_built_cumulative_km": 76.66036,
+            "tower_count": 460,
             "wall_base_thickness_m": 10.0,
             "wall_crown_thickness_m": 6.0,
-            "wall_height_m": 16.0,
-            "constructed_outer_perimeter_km": 76.66036,
-            "outer_wall_length_built_cumulative_km": 76.66036,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 460,
-            "gate_count": 4
+            "wall_height_m": 16.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 10.374216,
             "fortification": 5.65043,
@@ -2622,27 +2582,27 @@
             "training": 0.9627,
             "transport": 49.952893,
             "water": 14.23912
-          }
+          },
+          "protected_population_capacity": 2542700
         },
         {
-          "enclosure_ref": "loc_kantan.inner_city",
-          "kind": "inner_city",
           "area_km2": 88.152163,
-          "nesting_depth": 1,
-          "protected_population_capacity": 635675,
+          "enclosure_ref": "loc_kantan.inner_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 38.33018,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 6.56,
             "moat_width_m": 22.96,
+            "outer_wall_length_built_cumulative_km": 38.33018,
+            "tower_count": 230,
             "wall_base_thickness_m": 8.2,
             "wall_crown_thickness_m": 4.92,
-            "wall_height_m": 13.12,
-            "constructed_outer_perimeter_km": 38.33018,
-            "outer_wall_length_built_cumulative_km": 38.33018,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 230,
-            "gate_count": 2
+            "wall_height_m": 13.12
           },
+          "kind": "inner_city",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 2.593554,
             "fortification": 1.412608,
@@ -2653,27 +2613,27 @@
             "training": 0.240675,
             "transport": 12.488223,
             "water": 3.55978
-          }
+          },
+          "protected_population_capacity": 635675
         },
         {
-          "enclosure_ref": "loc_kantan.citadel",
-          "kind": "citadel",
           "area_km2": 28.208692,
-          "nesting_depth": 2,
-          "protected_population_capacity": 203415,
+          "enclosure_ref": "loc_kantan.citadel",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 21.682824,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.44,
             "moat_width_m": 19.04,
+            "outer_wall_length_built_cumulative_km": 21.682824,
+            "tower_count": 131,
             "wall_base_thickness_m": 6.8,
             "wall_crown_thickness_m": 4.08,
-            "wall_height_m": 10.88,
-            "constructed_outer_perimeter_km": 21.682824,
-            "outer_wall_length_built_cumulative_km": 21.682824,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 131,
-            "gate_count": 2
+            "wall_height_m": 10.88
           },
+          "kind": "citadel",
+          "nesting_depth": 2,
           "protected_land_use_km2": {
             "civic_storage": 0.829937,
             "fortification": 0.452034,
@@ -2684,9 +2644,49 @@
             "training": 0.077016,
             "transport": 3.996231,
             "water": 1.13913
-          }
+          },
+          "protected_population_capacity": 203415
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 4.9368,
+        "extraction": 0.4356,
+        "open_developable": 19.618723,
+        "pasture": 2.0328,
+        "transport": 8.815216,
+        "unsuitable": 0.726,
+        "water": 0.5808,
+        "woodland": 2.0328
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 76.66036,
+        "gate_count": 4,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 8.0,
+        "moat_width_m": 28.0,
+        "outer_wall_length_built_cumulative_km": 76.66036,
+        "tower_count": 460,
+        "wall_base_thickness_m": 10.0,
+        "wall_crown_thickness_m": 6.0,
+        "wall_height_m": 16.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 22.998108,
+        "shape": "rectangle",
+        "width_km": 15.332072
+      },
+      "kind": "capital",
+      "name": "Kantan",
+      "parcel_area_km2": 391.787391,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_zhao_regional_01",
+      "reserved_land_km2": {},
+      "site_ref": "loc_kantan",
+      "state": "zhao",
+      "terrain": "default"
     },
     "loc_kanyou": {
       "enclosed_area_km2": 420.424006,
@@ -2701,65 +2701,25 @@
         "transport": 59.560068,
         "water": 15.53496
       },
-      "external_land_use_km2": {
-        "agriculture": 5.8752,
-        "extraction": 0.5184,
-        "pasture": 2.4192,
-        "unsuitable": 0.864,
-        "water": 0.6912,
-        "woodland": 2.4192,
-        "transport": 10.5106,
-        "open_developable": 23.415978
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 8.0,
-        "moat_width_m": 30.0,
-        "wall_base_thickness_m": 10.0,
-        "wall_crown_thickness_m": 6.0,
-        "wall_height_m": 16.0,
-        "constructed_outer_perimeter_km": 83.708224,
-        "outer_wall_length_built_cumulative_km": 83.708224,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 503,
-        "gate_count": 4
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 25.112467,
-        "width_km": 16.741645,
-        "aspect_ratio": 1.5
-      },
-      "kind": "capital",
-      "name": "Kanyou",
-      "parcel_area_km2": 467.137784,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_qin_regional_01",
-      "reserved_land_km2": {},
-      "site_ref": "loc_kanyou",
-      "state": "qin",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_kanyou.outer_city",
-          "kind": "outer_city",
           "area_km2": 420.424006,
-          "nesting_depth": 0,
-          "protected_population_capacity": 2774100,
+          "enclosure_ref": "loc_kanyou.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 83.708224,
+            "gate_count": 4,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 8.0,
             "moat_width_m": 30.0,
+            "outer_wall_length_built_cumulative_km": 83.708224,
+            "tower_count": 503,
             "wall_base_thickness_m": 10.0,
             "wall_crown_thickness_m": 6.0,
-            "wall_height_m": 16.0,
-            "constructed_outer_perimeter_km": 83.708224,
-            "outer_wall_length_built_cumulative_km": 83.708224,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 503,
-            "gate_count": 4
+            "wall_height_m": 16.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 11.318328,
             "fortification": 6.438166,
@@ -2770,27 +2730,27 @@
             "training": 1.480308,
             "transport": 59.560068,
             "water": 15.53496
-          }
+          },
+          "protected_population_capacity": 2774100
         },
         {
-          "enclosure_ref": "loc_kanyou.inner_city",
-          "kind": "inner_city",
           "area_km2": 105.106002,
-          "nesting_depth": 1,
-          "protected_population_capacity": 693525,
+          "enclosure_ref": "loc_kanyou.inner_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 41.854112,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 6.56,
             "moat_width_m": 24.6,
+            "outer_wall_length_built_cumulative_km": 41.854112,
+            "tower_count": 252,
             "wall_base_thickness_m": 8.2,
             "wall_crown_thickness_m": 4.92,
-            "wall_height_m": 13.12,
-            "constructed_outer_perimeter_km": 41.854112,
-            "outer_wall_length_built_cumulative_km": 41.854112,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 252,
-            "gate_count": 2
+            "wall_height_m": 13.12
           },
+          "kind": "inner_city",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 2.829582,
             "fortification": 1.609542,
@@ -2801,27 +2761,27 @@
             "training": 0.370077,
             "transport": 14.890017,
             "water": 3.88374
-          }
+          },
+          "protected_population_capacity": 693525
         },
         {
-          "enclosure_ref": "loc_kanyou.citadel",
-          "kind": "citadel",
           "area_km2": 33.63392,
-          "nesting_depth": 2,
-          "protected_population_capacity": 221927,
+          "enclosure_ref": "loc_kanyou.citadel",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 23.676261,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.44,
             "moat_width_m": 20.4,
+            "outer_wall_length_built_cumulative_km": 23.676261,
+            "tower_count": 143,
             "wall_base_thickness_m": 6.8,
             "wall_crown_thickness_m": 4.08,
-            "wall_height_m": 10.88,
-            "constructed_outer_perimeter_km": 23.676261,
-            "outer_wall_length_built_cumulative_km": 23.676261,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 143,
-            "gate_count": 2
+            "wall_height_m": 10.88
           },
+          "kind": "citadel",
+          "nesting_depth": 2,
           "protected_land_use_km2": {
             "civic_storage": 0.905466,
             "fortification": 0.515053,
@@ -2832,9 +2792,49 @@
             "training": 0.118425,
             "transport": 4.764805,
             "water": 1.242797
-          }
+          },
+          "protected_population_capacity": 221927
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 5.8752,
+        "extraction": 0.5184,
+        "open_developable": 23.415978,
+        "pasture": 2.4192,
+        "transport": 10.5106,
+        "unsuitable": 0.864,
+        "water": 0.6912,
+        "woodland": 2.4192
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 83.708224,
+        "gate_count": 4,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 8.0,
+        "moat_width_m": 30.0,
+        "outer_wall_length_built_cumulative_km": 83.708224,
+        "tower_count": 503,
+        "wall_base_thickness_m": 10.0,
+        "wall_crown_thickness_m": 6.0,
+        "wall_height_m": 16.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 25.112467,
+        "shape": "rectangle",
+        "width_km": 16.741645
+      },
+      "kind": "capital",
+      "name": "Kanyou",
+      "parcel_area_km2": 467.137784,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_qin_regional_01",
+      "reserved_land_km2": {},
+      "site_ref": "loc_kanyou",
+      "state": "qin",
+      "terrain": "default"
     },
     "loc_keiyou": {
       "enclosed_area_km2": 108.568962,
@@ -2849,65 +2849,25 @@
         "transport": 15.380603,
         "water": 5.32784
       },
-      "external_land_use_km2": {
-        "agriculture": 1.02,
-        "extraction": 0.09,
-        "pasture": 0.42,
-        "unsuitable": 0.15,
-        "water": 0.12,
-        "woodland": 0.42,
-        "transport": 2.714224,
-        "open_developable": 7.128994
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 5.0,
-        "moat_width_m": 18.0,
-        "wall_base_thickness_m": 6.0,
-        "wall_crown_thickness_m": 4.0,
-        "wall_height_m": 11.0,
-        "constructed_outer_perimeter_km": 42.538015,
-        "outer_wall_length_built_cumulative_km": 42.538015,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 256,
-        "gate_count": 3
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 12.761404,
-        "width_km": 8.507603,
-        "aspect_ratio": 1.5
-      },
-      "kind": "city",
-      "name": "Keiyou",
-      "parcel_area_km2": 120.63218,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_wei_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_keiyou",
-      "state": "wei",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_keiyou.outer_city",
-          "kind": "outer_city",
           "area_km2": 108.568962,
-          "nesting_depth": 0,
-          "protected_population_capacity": 951400,
+          "enclosure_ref": "loc_keiyou.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 42.538015,
+            "gate_count": 3,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.0,
             "moat_width_m": 18.0,
+            "outer_wall_length_built_cumulative_km": 42.538015,
+            "tower_count": 256,
             "wall_base_thickness_m": 6.0,
             "wall_crown_thickness_m": 4.0,
-            "wall_height_m": 11.0,
-            "constructed_outer_perimeter_km": 42.538015,
-            "outer_wall_length_built_cumulative_km": 42.538015,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 256,
-            "gate_count": 3
+            "wall_height_m": 11.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 3.881712,
             "fortification": 1.723366,
@@ -2918,27 +2878,27 @@
             "training": 0.31344,
             "transport": 15.380603,
             "water": 5.32784
-          }
+          },
+          "protected_population_capacity": 951400
         },
         {
-          "enclosure_ref": "loc_keiyou.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 10.856896,
-          "nesting_depth": 1,
-          "protected_population_capacity": 95139,
+          "enclosure_ref": "loc_keiyou.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 13.451701,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 3.6,
             "moat_width_m": 12.96,
+            "outer_wall_length_built_cumulative_km": 13.451701,
+            "tower_count": 81,
             "wall_base_thickness_m": 4.32,
             "wall_crown_thickness_m": 2.88,
-            "wall_height_m": 7.92,
-            "constructed_outer_perimeter_km": 13.451701,
-            "outer_wall_length_built_cumulative_km": 13.451701,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 81,
-            "gate_count": 2
+            "wall_height_m": 7.92
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.388171,
             "fortification": 0.172337,
@@ -2949,9 +2909,49 @@
             "training": 0.031344,
             "transport": 1.53806,
             "water": 0.532784
-          }
+          },
+          "protected_population_capacity": 95139
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 1.02,
+        "extraction": 0.09,
+        "open_developable": 7.128994,
+        "pasture": 0.42,
+        "transport": 2.714224,
+        "unsuitable": 0.15,
+        "water": 0.12,
+        "woodland": 0.42
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 42.538015,
+        "gate_count": 3,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 5.0,
+        "moat_width_m": 18.0,
+        "outer_wall_length_built_cumulative_km": 42.538015,
+        "tower_count": 256,
+        "wall_base_thickness_m": 6.0,
+        "wall_crown_thickness_m": 4.0,
+        "wall_height_m": 11.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 12.761404,
+        "shape": "rectangle",
+        "width_km": 8.507603
+      },
+      "kind": "city",
+      "name": "Keiyou",
+      "parcel_area_km2": 120.63218,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_wei_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_keiyou",
+      "state": "wei",
+      "terrain": "default"
     },
     "loc_kokuhi_village": {
       "enclosed_area_km2": 0.0,
@@ -3116,65 +3116,25 @@
         "transport": 2.366597,
         "water": 1.03936
       },
-      "external_land_use_km2": {
-        "agriculture": 0.204302,
-        "extraction": 0.018027,
-        "pasture": 0.084124,
-        "unsuitable": 0.030044,
-        "water": 0.024036,
-        "woodland": 0.084124,
-        "transport": 0.417635,
-        "open_developable": 1.457901
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 5.0,
-        "moat_width_m": 15.0,
-        "wall_base_thickness_m": 5.5,
-        "wall_crown_thickness_m": 3.5,
-        "wall_height_m": 10.0,
-        "constructed_outer_perimeter_km": 19.387402,
-        "outer_wall_length_built_cumulative_km": 19.387402,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 117,
-        "gate_count": 2
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 6.462467,
-        "width_km": 3.231234,
-        "aspect_ratio": 2.0
-      },
-      "kind": "fort",
-      "name": "Qi Western Fort",
-      "parcel_area_km2": 23.201935,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_qi_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_qi_west_fort",
-      "state": "qi",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_qi_west_fort.outer_city",
-          "kind": "outer_city",
           "area_km2": 20.881742,
-          "nesting_depth": 0,
-          "protected_population_capacity": 185600,
+          "enclosure_ref": "loc_qi_west_fort.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 19.387402,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.0,
             "moat_width_m": 15.0,
+            "outer_wall_length_built_cumulative_km": 19.387402,
+            "tower_count": 117,
             "wall_base_thickness_m": 5.5,
             "wall_crown_thickness_m": 3.5,
-            "wall_height_m": 10.0,
-            "constructed_outer_perimeter_km": 19.387402,
-            "outer_wall_length_built_cumulative_km": 19.387402,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 117,
-            "gate_count": 2
+            "wall_height_m": 10.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 0.757248,
             "fortification": 0.702147,
@@ -3185,27 +3145,27 @@
             "training": 0.257664,
             "transport": 2.366597,
             "water": 1.03936
-          }
+          },
+          "protected_population_capacity": 185600
         },
         {
-          "enclosure_ref": "loc_qi_west_fort.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 2.088174,
-          "nesting_depth": 1,
-          "protected_population_capacity": 18559,
+          "enclosure_ref": "loc_qi_west_fort.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 6.130835,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 3.6,
             "moat_width_m": 10.8,
+            "outer_wall_length_built_cumulative_km": 6.130835,
+            "tower_count": 37,
             "wall_base_thickness_m": 3.96,
             "wall_crown_thickness_m": 2.52,
-            "wall_height_m": 7.2,
-            "constructed_outer_perimeter_km": 6.130835,
-            "outer_wall_length_built_cumulative_km": 6.130835,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 37,
-            "gate_count": 2
+            "wall_height_m": 7.2
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.075725,
             "fortification": 0.070215,
@@ -3216,9 +3176,49 @@
             "training": 0.025766,
             "transport": 0.23666,
             "water": 0.103936
-          }
+          },
+          "protected_population_capacity": 18559
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.204302,
+        "extraction": 0.018027,
+        "open_developable": 1.457901,
+        "pasture": 0.084124,
+        "transport": 0.417635,
+        "unsuitable": 0.030044,
+        "water": 0.024036,
+        "woodland": 0.084124
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 19.387402,
+        "gate_count": 2,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 5.0,
+        "moat_width_m": 15.0,
+        "outer_wall_length_built_cumulative_km": 19.387402,
+        "tower_count": 117,
+        "wall_base_thickness_m": 5.5,
+        "wall_crown_thickness_m": 3.5,
+        "wall_height_m": 10.0
+      },
+      "geometry": {
+        "aspect_ratio": 2.0,
+        "length_km": 6.462467,
+        "shape": "rectangle",
+        "width_km": 3.231234
+      },
+      "kind": "fort",
+      "name": "Qi Western Fort",
+      "parcel_area_km2": 23.201935,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_qi_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_qi_west_fort",
+      "state": "qi",
+      "terrain": "default"
     },
     "loc_qin_western_fort": {
       "enclosed_area_km2": 27.210709,
@@ -3233,65 +3233,25 @@
         "transport": 3.083881,
         "water": 1.35744
       },
-      "external_land_use_km2": {
-        "agriculture": 0.254169,
-        "extraction": 0.022427,
-        "pasture": 0.104658,
-        "unsuitable": 0.037378,
-        "water": 0.029902,
-        "woodland": 0.104658,
-        "transport": 0.544214,
-        "open_developable": 1.926007
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 6.0,
-        "moat_width_m": 18.0,
-        "wall_base_thickness_m": 6.5,
-        "wall_crown_thickness_m": 4.0,
-        "wall_height_m": 12.0,
-        "constructed_outer_perimeter_km": 22.131262,
-        "outer_wall_length_built_cumulative_km": 22.131262,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 133,
-        "gate_count": 2
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 7.377087,
-        "width_km": 3.688544,
-        "aspect_ratio": 2.0
-      },
-      "kind": "fort",
-      "name": "Qin Western Regional Fort",
-      "parcel_area_km2": 30.234122,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_qin_regional_03",
-      "reserved_land_km2": {},
-      "site_ref": "loc_qin_western_fort",
-      "state": "qin",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_qin_western_fort.outer_city",
-          "kind": "outer_city",
           "area_km2": 27.210709,
-          "nesting_depth": 0,
-          "protected_population_capacity": 242400,
+          "enclosure_ref": "loc_qin_western_fort.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 22.131262,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 6.0,
             "moat_width_m": 18.0,
+            "outer_wall_length_built_cumulative_km": 22.131262,
+            "tower_count": 133,
             "wall_base_thickness_m": 6.5,
             "wall_crown_thickness_m": 4.0,
-            "wall_height_m": 12.0,
-            "constructed_outer_perimeter_km": 22.131262,
-            "outer_wall_length_built_cumulative_km": 22.131262,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 133,
-            "gate_count": 2
+            "wall_height_m": 12.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 0.988992,
             "fortification": 0.903409,
@@ -3302,27 +3262,27 @@
             "training": 0.396,
             "transport": 3.083881,
             "water": 1.35744
-          }
+          },
+          "protected_population_capacity": 242400
         },
         {
-          "enclosure_ref": "loc_qin_western_fort.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 2.721071,
-          "nesting_depth": 1,
-          "protected_population_capacity": 24240,
+          "enclosure_ref": "loc_qin_western_fort.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 6.99852,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 4.32,
             "moat_width_m": 12.96,
+            "outer_wall_length_built_cumulative_km": 6.99852,
+            "tower_count": 42,
             "wall_base_thickness_m": 4.68,
             "wall_crown_thickness_m": 2.88,
-            "wall_height_m": 8.64,
-            "constructed_outer_perimeter_km": 6.99852,
-            "outer_wall_length_built_cumulative_km": 6.99852,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 42,
-            "gate_count": 2
+            "wall_height_m": 8.64
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.098899,
             "fortification": 0.090341,
@@ -3333,9 +3293,49 @@
             "training": 0.0396,
             "transport": 0.308388,
             "water": 0.135744
-          }
+          },
+          "protected_population_capacity": 24240
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.254169,
+        "extraction": 0.022427,
+        "open_developable": 1.926007,
+        "pasture": 0.104658,
+        "transport": 0.544214,
+        "unsuitable": 0.037378,
+        "water": 0.029902,
+        "woodland": 0.104658
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 22.131262,
+        "gate_count": 2,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 6.0,
+        "moat_width_m": 18.0,
+        "outer_wall_length_built_cumulative_km": 22.131262,
+        "tower_count": 133,
+        "wall_base_thickness_m": 6.5,
+        "wall_crown_thickness_m": 4.0,
+        "wall_height_m": 12.0
+      },
+      "geometry": {
+        "aspect_ratio": 2.0,
+        "length_km": 7.377087,
+        "shape": "rectangle",
+        "width_km": 3.688544
+      },
+      "kind": "fort",
+      "name": "Qin Western Regional Fort",
+      "parcel_area_km2": 30.234122,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_qin_regional_03",
+      "reserved_land_km2": {},
+      "site_ref": "loc_qin_western_fort",
+      "state": "qin",
+      "terrain": "default"
     },
     "loc_retsubi": {
       "enclosed_area_km2": 8.52071,
@@ -3498,65 +3498,25 @@
         "transport": 24.558086,
         "water": 8.56296
       },
-      "external_land_use_km2": {
-        "agriculture": 0.528768,
-        "extraction": 0.046656,
-        "pasture": 0.217728,
-        "unsuitable": 0.07776,
-        "water": 0.062208,
-        "woodland": 0.217728,
-        "transport": 4.33378,
-        "open_developable": 13.776616
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 5.0,
-        "moat_width_m": 18.0,
-        "wall_base_thickness_m": 6.5,
-        "wall_crown_thickness_m": 4.0,
-        "wall_height_m": 12.0,
-        "constructed_outer_perimeter_km": 53.751154,
-        "outer_wall_length_built_cumulative_km": 53.751154,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 323,
-        "gate_count": 2
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 16.125346,
-        "width_km": 10.750231,
-        "aspect_ratio": 1.5
-      },
-      "kind": "city",
-      "name": "Sai",
-      "parcel_area_km2": 192.612438,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_qin_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_sai",
-      "state": "qin",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_sai.outer_city",
-          "kind": "outer_city",
           "area_km2": 173.351194,
-          "nesting_depth": 0,
-          "protected_population_capacity": 1529100,
+          "enclosure_ref": "loc_sai.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 53.751154,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.0,
             "moat_width_m": 18.0,
+            "outer_wall_length_built_cumulative_km": 53.751154,
+            "tower_count": 323,
             "wall_base_thickness_m": 6.5,
             "wall_crown_thickness_m": 4.0,
-            "wall_height_m": 12.0,
-            "constructed_outer_perimeter_km": 53.751154,
-            "outer_wall_length_built_cumulative_km": 53.751154,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 323,
-            "gate_count": 2
+            "wall_height_m": 12.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 6.238728,
             "fortification": 2.194149,
@@ -3567,27 +3527,27 @@
             "training": 0.479472,
             "transport": 24.558086,
             "water": 8.56296
-          }
+          },
+          "protected_population_capacity": 1529100
         },
         {
-          "enclosure_ref": "loc_sai.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 17.335119,
-          "nesting_depth": 1,
-          "protected_population_capacity": 152909,
+          "enclosure_ref": "loc_sai.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 16.997607,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 3.6,
             "moat_width_m": 12.96,
+            "outer_wall_length_built_cumulative_km": 16.997607,
+            "tower_count": 102,
             "wall_base_thickness_m": 4.68,
             "wall_crown_thickness_m": 2.88,
-            "wall_height_m": 8.64,
-            "constructed_outer_perimeter_km": 16.997607,
-            "outer_wall_length_built_cumulative_km": 16.997607,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 102,
-            "gate_count": 2
+            "wall_height_m": 8.64
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.623873,
             "fortification": 0.219415,
@@ -3598,9 +3558,49 @@
             "training": 0.047947,
             "transport": 2.455809,
             "water": 0.856296
-          }
+          },
+          "protected_population_capacity": 152909
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.528768,
+        "extraction": 0.046656,
+        "open_developable": 13.776616,
+        "pasture": 0.217728,
+        "transport": 4.33378,
+        "unsuitable": 0.07776,
+        "water": 0.062208,
+        "woodland": 0.217728
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 53.751154,
+        "gate_count": 2,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 5.0,
+        "moat_width_m": 18.0,
+        "outer_wall_length_built_cumulative_km": 53.751154,
+        "tower_count": 323,
+        "wall_base_thickness_m": 6.5,
+        "wall_crown_thickness_m": 4.0,
+        "wall_height_m": 12.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 16.125346,
+        "shape": "rectangle",
+        "width_km": 10.750231
+      },
+      "kind": "city",
+      "name": "Sai",
+      "parcel_area_km2": 192.612438,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_qin_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_sai",
+      "state": "qin",
+      "terrain": "default"
     },
     "loc_sanyou": {
       "enclosed_area_km2": 11.76,
@@ -3721,65 +3721,25 @@
         "transport": 82.600171,
         "water": 28.84224
       },
-      "external_land_use_km2": {
-        "agriculture": 2.14455,
-        "extraction": 0.189225,
-        "pasture": 0.88305,
-        "unsuitable": 0.315375,
-        "water": 0.2523,
-        "woodland": 0.88305,
-        "transport": 14.576501,
-        "open_developable": 45.540397
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 7.0,
-        "moat_width_m": 24.0,
-        "wall_base_thickness_m": 8.0,
-        "wall_crown_thickness_m": 4.8,
-        "wall_height_m": 13.0,
-        "constructed_outer_perimeter_km": 98.578229,
-        "outer_wall_length_built_cumulative_km": 98.578229,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 592,
-        "gate_count": 4
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 29.573469,
-        "width_km": 19.715646,
-        "aspect_ratio": 1.5
-      },
-      "kind": "capital",
-      "name": "Chin",
-      "parcel_area_km2": 647.844482,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_chu_regional_01",
-      "reserved_land_km2": {},
-      "site_ref": "loc_shintei",
-      "state": "chu",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_shintei.outer_city",
-          "kind": "outer_city",
           "area_km2": 583.060034,
-          "nesting_depth": 0,
-          "protected_population_capacity": 5150400,
+          "enclosure_ref": "loc_shintei.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 98.578229,
+            "gate_count": 4,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 7.0,
             "moat_width_m": 24.0,
+            "outer_wall_length_built_cumulative_km": 98.578229,
+            "tower_count": 592,
             "wall_base_thickness_m": 8.0,
             "wall_crown_thickness_m": 4.8,
-            "wall_height_m": 13.0,
-            "constructed_outer_perimeter_km": 98.578229,
-            "outer_wall_length_built_cumulative_km": 98.578229,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 592,
-            "gate_count": 4
+            "wall_height_m": 13.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 21.013632,
             "fortification": 6.381388,
@@ -3790,27 +3750,27 @@
             "training": 1.658964,
             "transport": 82.600171,
             "water": 28.84224
-          }
+          },
+          "protected_population_capacity": 5150400
         },
         {
-          "enclosure_ref": "loc_shintei.inner_city",
-          "kind": "inner_city",
           "area_km2": 145.765008,
-          "nesting_depth": 1,
-          "protected_population_capacity": 1287599,
+          "enclosure_ref": "loc_shintei.inner_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 49.289114,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.74,
             "moat_width_m": 19.68,
+            "outer_wall_length_built_cumulative_km": 49.289114,
+            "tower_count": 296,
             "wall_base_thickness_m": 6.56,
             "wall_crown_thickness_m": 3.936,
-            "wall_height_m": 10.66,
-            "constructed_outer_perimeter_km": 49.289114,
-            "outer_wall_length_built_cumulative_km": 49.289114,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 296,
-            "gate_count": 2
+            "wall_height_m": 10.66
           },
+          "kind": "inner_city",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 5.253408,
             "fortification": 1.595347,
@@ -3821,27 +3781,27 @@
             "training": 0.414741,
             "transport": 20.650043,
             "water": 7.21056
-          }
+          },
+          "protected_population_capacity": 1287599
         },
         {
-          "enclosure_ref": "loc_shintei.citadel",
-          "kind": "citadel",
           "area_km2": 46.644803,
-          "nesting_depth": 2,
-          "protected_population_capacity": 412032,
+          "enclosure_ref": "loc_shintei.citadel",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 27.882134,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 4.76,
             "moat_width_m": 16.32,
+            "outer_wall_length_built_cumulative_km": 27.882134,
+            "tower_count": 168,
             "wall_base_thickness_m": 5.44,
             "wall_crown_thickness_m": 3.264,
-            "wall_height_m": 8.84,
-            "constructed_outer_perimeter_km": 27.882134,
-            "outer_wall_length_built_cumulative_km": 27.882134,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 168,
-            "gate_count": 2
+            "wall_height_m": 8.84
           },
+          "kind": "citadel",
+          "nesting_depth": 2,
           "protected_land_use_km2": {
             "civic_storage": 1.681091,
             "fortification": 0.510511,
@@ -3852,77 +3812,67 @@
             "training": 0.132717,
             "transport": 6.608014,
             "water": 2.307379
-          }
+          },
+          "protected_population_capacity": 412032
         }
-      ]
-    },
-    "loc_tang_inner_walls": {
-      "enclosed_area_km2": 500.0,
-      "enclosed_land_use_km2": {
-        "agriculture": 0.0,
-        "pasture": 0.0,
-        "woodland": 0.0,
-        "water": 20.0,
-        "extraction": 0.0,
-        "residential": 125.0,
-        "industry": 50.0,
-        "civic_storage": 30.0,
-        "military": 40.0,
-        "training": 60.0,
-        "transport": 75.0,
-        "fortification": 10.0,
-        "open_developable": 40.0,
-        "unsuitable": 0.0
+      ],
+      "external_land_use_km2": {
+        "agriculture": 2.14455,
+        "extraction": 0.189225,
+        "open_developable": 45.540397,
+        "pasture": 0.88305,
+        "transport": 14.576501,
+        "unsuitable": 0.315375,
+        "water": 0.2523,
+        "woodland": 0.88305
       },
-      "external_land_use_km2": {},
       "fortification": {
         "active": true,
-        "constructed_outer_perimeter_km": 90.0,
-        "gate_count": 12,
+        "constructed_outer_perimeter_km": 98.578229,
+        "gate_count": 4,
         "internal_absorbed_wall_km": 0.0,
-        "moat_depth_m": 15.0,
-        "moat_width_m": 45.0,
-        "outer_wall_length_built_cumulative_km": 90.0,
-        "tower_count": 360,
-        "wall_base_thickness_m": 16.0,
-        "wall_crown_thickness_m": 10.0,
-        "wall_height_m": 26.0
+        "moat_depth_m": 7.0,
+        "moat_width_m": 24.0,
+        "outer_wall_length_built_cumulative_km": 98.578229,
+        "tower_count": 592,
+        "wall_base_thickness_m": 8.0,
+        "wall_crown_thickness_m": 4.8,
+        "wall_height_m": 13.0
       },
       "geometry": {
+        "aspect_ratio": 1.5,
+        "length_km": 29.573469,
         "shape": "rectangle",
-        "length_km": 25.0,
-        "width_km": 20.0,
-        "aspect_ratio": 1.25
+        "width_km": 19.715646
       },
-      "kind": "fortress",
-      "name": "Inner Walls",
-      "parcel_area_km2": 500.0,
-      "parent_site_ref": "loc_tang_manor",
-      "private_owner_ref": "house_tang",
-      "region_ref": "loc_qin_regional_01",
+      "kind": "capital",
+      "name": "Chin",
+      "parcel_area_km2": 647.844482,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_chu_regional_01",
       "reserved_land_km2": {},
-      "site_ref": "loc_tang_inner_walls",
-      "state": "qin",
-      "terrain": "default",
-      "placement_zone_in_parent": "inside_defended_perimeter"
+      "site_ref": "loc_shintei",
+      "state": "chu",
+      "terrain": "default"
     },
     "loc_tang_inner_citadel": {
       "enclosed_area_km2": 50.0,
       "enclosed_land_use_km2": {
         "agriculture": 0.0,
-        "pasture": 0.0,
-        "woodland": 0.0,
-        "water": 5.0,
-        "extraction": 0.0,
-        "residential": 4.0,
-        "industry": 2.0,
         "civic_storage": 15.0,
+        "extraction": 0.0,
+        "fortification": 4.0,
+        "industry": 2.0,
         "military": 8.0,
+        "open_developable": 4.0,
+        "pasture": 0.0,
+        "residential": 4.0,
         "training": 0.0,
         "transport": 8.0,
-        "fortification": 4.0,
-        "open_developable": 4.0,
-        "unsuitable": 0.0
+        "unsuitable": 0.0,
+        "water": 5.0,
+        "woodland": 0.0
       },
       "external_land_use_km2": {},
       "fortification": {
@@ -3939,40 +3889,90 @@
         "wall_height_m": 30.0
       },
       "geometry": {
-        "shape": "rectangle",
+        "aspect_ratio": 2.0,
         "length_km": 10.0,
-        "width_km": 5.0,
-        "aspect_ratio": 2.0
+        "shape": "rectangle",
+        "width_km": 5.0
       },
       "kind": "fortress",
       "name": "Tang Inner Citadel",
       "parcel_area_km2": 50.0,
       "parent_site_ref": "loc_tang_inner_walls",
+      "placement_zone_in_parent": "inside_defended_perimeter",
       "private_owner_ref": "house_tang",
       "region_ref": "loc_qin_regional_01",
       "reserved_land_km2": {},
       "site_ref": "loc_tang_inner_citadel",
       "state": "qin",
-      "terrain": "default",
-      "placement_zone_in_parent": "inside_defended_perimeter"
+      "terrain": "default"
+    },
+    "loc_tang_inner_walls": {
+      "enclosed_area_km2": 500.0,
+      "enclosed_land_use_km2": {
+        "agriculture": 0.0,
+        "civic_storage": 30.0,
+        "extraction": 0.0,
+        "fortification": 10.0,
+        "industry": 50.0,
+        "military": 40.0,
+        "open_developable": 40.0,
+        "pasture": 0.0,
+        "residential": 125.0,
+        "training": 60.0,
+        "transport": 75.0,
+        "unsuitable": 0.0,
+        "water": 20.0,
+        "woodland": 0.0
+      },
+      "external_land_use_km2": {},
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 90.0,
+        "gate_count": 12,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 15.0,
+        "moat_width_m": 45.0,
+        "outer_wall_length_built_cumulative_km": 90.0,
+        "tower_count": 360,
+        "wall_base_thickness_m": 16.0,
+        "wall_crown_thickness_m": 10.0,
+        "wall_height_m": 26.0
+      },
+      "geometry": {
+        "aspect_ratio": 1.25,
+        "length_km": 25.0,
+        "shape": "rectangle",
+        "width_km": 20.0
+      },
+      "kind": "fortress",
+      "name": "Inner Walls",
+      "parcel_area_km2": 500.0,
+      "parent_site_ref": "loc_tang_manor",
+      "placement_zone_in_parent": "inside_defended_perimeter",
+      "private_owner_ref": "house_tang",
+      "region_ref": "loc_qin_regional_01",
+      "reserved_land_km2": {},
+      "site_ref": "loc_tang_inner_walls",
+      "state": "qin",
+      "terrain": "default"
     },
     "loc_tang_manor": {
       "enclosed_area_km2": 6000.0,
       "enclosed_land_use_km2": {
         "agriculture": 4300.0,
-        "pasture": 50.0,
-        "woodland": 250.0,
-        "water": 160.0,
-        "extraction": 120.0,
-        "residential": 0.0,
-        "industry": 0.0,
         "civic_storage": 0.0,
+        "extraction": 120.0,
+        "fortification": 30.0,
+        "industry": 0.0,
         "military": 0.0,
+        "open_developable": 500.0,
+        "pasture": 50.0,
+        "residential": 0.0,
         "training": 0.0,
         "transport": 90.0,
-        "fortification": 30.0,
-        "open_developable": 500.0,
-        "unsuitable": 0.0
+        "unsuitable": 0.0,
+        "water": 160.0,
+        "woodland": 250.0
       },
       "external_land_use_km2": {},
       "fortification": {
@@ -3989,11 +3989,19 @@
         "wall_height_m": 24.0
       },
       "geometry": {
-        "shape": "stadium",
         "radius_km": 35.843528,
+        "shape": "stadium",
         "straight_length_km": 27.394234
       },
       "kind": "estate",
+      "labor_access": {
+        "average_commute_distance_km": 17.0,
+        "commute_required_for_productive_land": true,
+        "outer_estate_permanent_hamlets": false,
+        "permanent_residence_site_ref": "loc_tang_inner_walls",
+        "resident_gate_site_ref": "loc_tang_inner_walls",
+        "transport_land_category": "transport"
+      },
       "name": "Tang Manor Fortified Estate",
       "parcel_area_km2": 6000.0,
       "parent_site_ref": null,
@@ -4002,15 +4010,7 @@
       "reserved_land_km2": {},
       "site_ref": "loc_tang_manor",
       "state": "qin",
-      "terrain": "cultivated_estate",
-      "labor_access": {
-        "permanent_residence_site_ref": "loc_tang_inner_walls",
-        "outer_estate_permanent_hamlets": false,
-        "commute_required_for_productive_land": true,
-        "average_commute_distance_km": 17.0,
-        "resident_gate_site_ref": "loc_tang_inner_walls",
-        "transport_land_category": "transport"
-      }
+      "terrain": "cultivated_estate"
     },
     "loc_wei_west_fort": {
       "enclosed_area_km2": 15.320013,
@@ -4025,65 +4025,25 @@
         "transport": 1.736268,
         "water": 0.75712
       },
-      "external_land_use_km2": {
-        "agriculture": 0.22032,
-        "extraction": 0.01944,
-        "pasture": 0.09072,
-        "unsuitable": 0.0324,
-        "water": 0.02592,
-        "woodland": 0.09072,
-        "transport": 0.3064,
-        "open_developable": 0.916304
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 5.0,
-        "moat_width_m": 16.0,
-        "wall_base_thickness_m": 6.0,
-        "wall_crown_thickness_m": 3.8,
-        "wall_height_m": 11.0,
-        "constructed_outer_perimeter_km": 16.60603,
-        "outer_wall_length_built_cumulative_km": 16.60603,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 100,
-        "gate_count": 2
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 5.535343,
-        "width_km": 2.767672,
-        "aspect_ratio": 2.0
-      },
-      "kind": "fort",
-      "name": "Wei Western Fort",
-      "parcel_area_km2": 17.022237,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_wei_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_wei_west_fort",
-      "state": "wei",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_wei_west_fort.outer_city",
-          "kind": "outer_city",
           "area_km2": 15.320013,
-          "nesting_depth": 0,
-          "protected_population_capacity": 135200,
+          "enclosure_ref": "loc_wei_west_fort.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 16.60603,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.0,
             "moat_width_m": 16.0,
+            "outer_wall_length_built_cumulative_km": 16.60603,
+            "tower_count": 100,
             "wall_base_thickness_m": 6.0,
             "wall_crown_thickness_m": 3.8,
-            "wall_height_m": 11.0,
-            "constructed_outer_perimeter_km": 16.60603,
-            "outer_wall_length_built_cumulative_km": 16.60603,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 100,
-            "gate_count": 2
+            "wall_height_m": 11.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 0.551616,
             "fortification": 0.629957,
@@ -4094,27 +4054,27 @@
             "training": 0.23508,
             "transport": 1.736268,
             "water": 0.75712
-          }
+          },
+          "protected_population_capacity": 135200
         },
         {
-          "enclosure_ref": "loc_wei_west_fort.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 1.532001,
-          "nesting_depth": 1,
-          "protected_population_capacity": 13519,
+          "enclosure_ref": "loc_wei_west_fort.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 5.251287,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 3.6,
             "moat_width_m": 11.52,
+            "outer_wall_length_built_cumulative_km": 5.251287,
+            "tower_count": 32,
             "wall_base_thickness_m": 4.32,
             "wall_crown_thickness_m": 2.736,
-            "wall_height_m": 7.92,
-            "constructed_outer_perimeter_km": 5.251287,
-            "outer_wall_length_built_cumulative_km": 5.251287,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 32,
-            "gate_count": 2
+            "wall_height_m": 7.92
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.055162,
             "fortification": 0.062996,
@@ -4125,9 +4085,49 @@
             "training": 0.023508,
             "transport": 0.173627,
             "water": 0.075712
-          }
+          },
+          "protected_population_capacity": 13519
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.22032,
+        "extraction": 0.01944,
+        "open_developable": 0.916304,
+        "pasture": 0.09072,
+        "transport": 0.3064,
+        "unsuitable": 0.0324,
+        "water": 0.02592,
+        "woodland": 0.09072
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 16.60603,
+        "gate_count": 2,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 5.0,
+        "moat_width_m": 16.0,
+        "outer_wall_length_built_cumulative_km": 16.60603,
+        "tower_count": 100,
+        "wall_base_thickness_m": 6.0,
+        "wall_crown_thickness_m": 3.8,
+        "wall_height_m": 11.0
+      },
+      "geometry": {
+        "aspect_ratio": 2.0,
+        "length_km": 5.535343,
+        "shape": "rectangle",
+        "width_km": 2.767672
+      },
+      "kind": "fort",
+      "name": "Wei Western Fort",
+      "parcel_area_km2": 17.022237,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_wei_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_wei_west_fort",
+      "state": "wei",
+      "terrain": "default"
     },
     "loc_yan_south_fort": {
       "enclosed_area_km2": 17.096012,
@@ -4142,65 +4142,25 @@
         "transport": 1.937548,
         "water": 0.85176
       },
-      "external_land_use_km2": {
-        "agriculture": 0.188889,
-        "extraction": 0.016667,
-        "pasture": 0.077778,
-        "unsuitable": 0.027778,
-        "water": 0.022222,
-        "woodland": 0.077778,
-        "transport": 0.34192,
-        "open_developable": 1.146525
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 5.0,
-        "moat_width_m": 15.0,
-        "wall_base_thickness_m": 5.5,
-        "wall_crown_thickness_m": 3.5,
-        "wall_height_m": 10.0,
-        "constructed_outer_perimeter_km": 17.542184,
-        "outer_wall_length_built_cumulative_km": 17.542184,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 106,
-        "gate_count": 2
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 5.847395,
-        "width_km": 2.923697,
-        "aspect_ratio": 2.0
-      },
-      "kind": "fort",
-      "name": "Yan Southern Fort",
-      "parcel_area_km2": 18.995569,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_yan_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_yan_south_fort",
-      "state": "yan",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_yan_south_fort.outer_city",
-          "kind": "outer_city",
           "area_km2": 17.096012,
-          "nesting_depth": 0,
-          "protected_population_capacity": 152100,
+          "enclosure_ref": "loc_yan_south_fort.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 17.542184,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.0,
             "moat_width_m": 15.0,
+            "outer_wall_length_built_cumulative_km": 17.542184,
+            "tower_count": 106,
             "wall_base_thickness_m": 5.5,
             "wall_crown_thickness_m": 3.5,
-            "wall_height_m": 10.0,
-            "constructed_outer_perimeter_km": 17.542184,
-            "outer_wall_length_built_cumulative_km": 17.542184,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 106,
-            "gate_count": 2
+            "wall_height_m": 10.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 0.620568,
             "fortification": 0.635319,
@@ -4211,27 +4171,27 @@
             "training": 0.32892,
             "transport": 1.937548,
             "water": 0.85176
-          }
+          },
+          "protected_population_capacity": 152100
         },
         {
-          "enclosure_ref": "loc_yan_south_fort.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 1.709601,
-          "nesting_depth": 1,
-          "protected_population_capacity": 15209,
+          "enclosure_ref": "loc_yan_south_fort.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 5.547325,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 3.6,
             "moat_width_m": 10.8,
+            "outer_wall_length_built_cumulative_km": 5.547325,
+            "tower_count": 34,
             "wall_base_thickness_m": 3.96,
             "wall_crown_thickness_m": 2.52,
-            "wall_height_m": 7.2,
-            "constructed_outer_perimeter_km": 5.547325,
-            "outer_wall_length_built_cumulative_km": 5.547325,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 34,
-            "gate_count": 2
+            "wall_height_m": 7.2
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.062057,
             "fortification": 0.063532,
@@ -4242,9 +4202,49 @@
             "training": 0.032892,
             "transport": 0.193755,
             "water": 0.085176
-          }
+          },
+          "protected_population_capacity": 15209
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.188889,
+        "extraction": 0.016667,
+        "open_developable": 1.146525,
+        "pasture": 0.077778,
+        "transport": 0.34192,
+        "unsuitable": 0.027778,
+        "water": 0.022222,
+        "woodland": 0.077778
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 17.542184,
+        "gate_count": 2,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 5.0,
+        "moat_width_m": 15.0,
+        "outer_wall_length_built_cumulative_km": 17.542184,
+        "tower_count": 106,
+        "wall_base_thickness_m": 5.5,
+        "wall_crown_thickness_m": 3.5,
+        "wall_height_m": 10.0
+      },
+      "geometry": {
+        "aspect_ratio": 2.0,
+        "length_km": 5.847395,
+        "shape": "rectangle",
+        "width_km": 2.923697
+      },
+      "kind": "fort",
+      "name": "Yan Southern Fort",
+      "parcel_area_km2": 18.995569,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_yan_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_yan_south_fort",
+      "state": "yan",
+      "terrain": "default"
     },
     "loc_zhao_border_fort": {
       "enclosed_area_km2": 25.289735,
@@ -4259,65 +4259,25 @@
         "transport": 2.86617,
         "water": 1.27288
       },
-      "external_land_use_km2": {
-        "agriculture": 0.236942,
-        "extraction": 0.020907,
-        "pasture": 0.097564,
-        "unsuitable": 0.034844,
-        "water": 0.027876,
-        "woodland": 0.097564,
-        "transport": 0.505795,
-        "open_developable": 1.788479
-      },
-      "fortification": {
-        "active": true,
-        "moat_depth_m": 5.0,
-        "moat_width_m": 16.0,
-        "wall_base_thickness_m": 6.0,
-        "wall_crown_thickness_m": 3.8,
-        "wall_height_m": 11.0,
-        "constructed_outer_perimeter_km": 21.335773,
-        "outer_wall_length_built_cumulative_km": 21.335773,
-        "internal_absorbed_wall_km": 0.0,
-        "tower_count": 129,
-        "gate_count": 2
-      },
-      "geometry": {
-        "shape": "rectangle",
-        "length_km": 7.111924,
-        "width_km": 3.555962,
-        "aspect_ratio": 2.0
-      },
-      "kind": "fort",
-      "name": "Zhao Southern Border Fort",
-      "parcel_area_km2": 28.099706,
-      "parent_site_ref": null,
-      "private_owner_ref": null,
-      "region_ref": "loc_zhao_regional_02",
-      "reserved_land_km2": {},
-      "site_ref": "loc_zhao_border_fort",
-      "state": "zhao",
-      "terrain": "default",
       "enclosures": [
         {
-          "enclosure_ref": "loc_zhao_border_fort.outer_city",
-          "kind": "outer_city",
           "area_km2": 25.289735,
-          "nesting_depth": 0,
-          "protected_population_capacity": 227300,
+          "enclosure_ref": "loc_zhao_border_fort.outer_city",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 21.335773,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 5.0,
             "moat_width_m": 16.0,
+            "outer_wall_length_built_cumulative_km": 21.335773,
+            "tower_count": 129,
             "wall_base_thickness_m": 6.0,
             "wall_crown_thickness_m": 3.8,
-            "wall_height_m": 11.0,
-            "constructed_outer_perimeter_km": 21.335773,
-            "outer_wall_length_built_cumulative_km": 21.335773,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 129,
-            "gate_count": 2
+            "wall_height_m": 11.0
           },
+          "kind": "outer_city",
+          "nesting_depth": 0,
           "protected_land_use_km2": {
             "civic_storage": 0.927384,
             "fortification": 0.809381,
@@ -4328,27 +4288,27 @@
             "training": 0.6138,
             "transport": 2.86617,
             "water": 1.27288
-          }
+          },
+          "protected_population_capacity": 227300
         },
         {
-          "enclosure_ref": "loc_zhao_border_fort.inner_keep",
-          "kind": "inner_keep",
           "area_km2": 2.528974,
-          "nesting_depth": 1,
-          "protected_population_capacity": 22730,
+          "enclosure_ref": "loc_zhao_border_fort.inner_keep",
           "fortification": {
             "active": true,
+            "constructed_outer_perimeter_km": 6.746965,
+            "gate_count": 2,
+            "internal_absorbed_wall_km": 0.0,
             "moat_depth_m": 3.6,
             "moat_width_m": 11.52,
+            "outer_wall_length_built_cumulative_km": 6.746965,
+            "tower_count": 41,
             "wall_base_thickness_m": 4.32,
             "wall_crown_thickness_m": 2.736,
-            "wall_height_m": 7.92,
-            "constructed_outer_perimeter_km": 6.746965,
-            "outer_wall_length_built_cumulative_km": 6.746965,
-            "internal_absorbed_wall_km": 0.0,
-            "tower_count": 41,
-            "gate_count": 2
+            "wall_height_m": 7.92
           },
+          "kind": "inner_keep",
+          "nesting_depth": 1,
           "protected_land_use_km2": {
             "civic_storage": 0.092738,
             "fortification": 0.080938,
@@ -4359,9 +4319,49 @@
             "training": 0.06138,
             "transport": 0.286617,
             "water": 0.127288
-          }
+          },
+          "protected_population_capacity": 22730
         }
-      ]
+      ],
+      "external_land_use_km2": {
+        "agriculture": 0.236942,
+        "extraction": 0.020907,
+        "open_developable": 1.788479,
+        "pasture": 0.097564,
+        "transport": 0.505795,
+        "unsuitable": 0.034844,
+        "water": 0.027876,
+        "woodland": 0.097564
+      },
+      "fortification": {
+        "active": true,
+        "constructed_outer_perimeter_km": 21.335773,
+        "gate_count": 2,
+        "internal_absorbed_wall_km": 0.0,
+        "moat_depth_m": 5.0,
+        "moat_width_m": 16.0,
+        "outer_wall_length_built_cumulative_km": 21.335773,
+        "tower_count": 129,
+        "wall_base_thickness_m": 6.0,
+        "wall_crown_thickness_m": 3.8,
+        "wall_height_m": 11.0
+      },
+      "geometry": {
+        "aspect_ratio": 2.0,
+        "length_km": 7.111924,
+        "shape": "rectangle",
+        "width_km": 3.555962
+      },
+      "kind": "fort",
+      "name": "Zhao Southern Border Fort",
+      "parcel_area_km2": 28.099706,
+      "parent_site_ref": null,
+      "private_owner_ref": null,
+      "region_ref": "loc_zhao_regional_02",
+      "reserved_land_km2": {},
+      "site_ref": "loc_zhao_border_fort",
+      "state": "zhao",
+      "terrain": "default"
     }
   }
 }

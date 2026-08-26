@@ -2,8 +2,8 @@
   "activity_contract": {
     "adult_regimen_prohibited": true,
     "mode": "age_appropriate_household_training",
-    "training_regimen_ref": "age_appropriate_household_development",
     "training_program_ref": "program.tang_heir_child",
+    "training_regimen_ref": "age_appropriate_household_development",
     "training_resource_access": [
       "mount",
       "tack"
@@ -33,6 +33,7 @@
   "background": {
     "origin": "internal_or_local_named"
   },
+  "behavior_profile_ref": "game/data/people/behavior-profiles/char_tang_kai.json",
   "birth_date": "250-BCE-12-05",
   "body": {
     "adult_height_cm": 170.0,
@@ -54,6 +55,7 @@
   },
   "equipment_loadout_id": "loadout_named_court",
   "fatigue": 0,
+  "future_field_loadout_ref": "loadout_tang_mounted",
   "goal_state": {
     "current_goals": [
       "remain near Tang Wei on his birthday morning and understand why the adults are treating the day as important"
@@ -81,6 +83,13 @@
   "name": "Tang Kai",
   "owner_id": "char_tang_kai",
   "owner_type": "character",
+  "professional_skills": {
+    "Diplomacy": 35,
+    "Governance": 22,
+    "Intelligence Operations": 25,
+    "Law": 18,
+    "Trade": 28
+  },
   "relationship_refs": [
     "rel.char_tang_kai.char_tang_wei.younger_brother"
   ],
@@ -91,24 +100,24 @@
   "schema": "sab_character",
   "skills": {
     "Athletics": 62,
-    "Heavy Weapons": 0,
     "Bow": 30,
     "Crossbow": 0,
-    "Sword": 28,
     "Engineering": 35,
     "Formation Command": 0,
     "Formation Fighting": 26,
-    "Polearms": 34,
     "Grappling": 42,
+    "Heavy Weapons": 0,
     "Leadership": 18,
     "Logistics": 30,
     "Medicine": 28,
-    "Scouting": 52,
+    "Polearms": 34,
     "Riding": 38,
+    "Scouting": 52,
     "Shield": 24,
     "Stealth": 44,
     "Strategy": 35,
     "Survival": 35,
+    "Sword": 28,
     "Tactics": 20,
     "Unarmed": 46
   },
@@ -128,14 +137,5 @@
     {
       "Strategic Pattern Recognition": 110
     }
-  ],
-  "behavior_profile_ref": "game/data/people/behavior-profiles/char_tang_kai.json",
-  "professional_skills": {
-    "Intelligence Operations": 25,
-    "Diplomacy": 35,
-    "Law": 18,
-    "Trade": 28,
-    "Governance": 22
-  },
-  "future_field_loadout_ref": "loadout_tang_mounted"
+  ]
 }

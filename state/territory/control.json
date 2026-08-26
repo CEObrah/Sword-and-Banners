@@ -559,23 +559,6 @@
       },
       "parent_location_ref": "loc_chu_regional_01"
     },
-    "loc_tang_inner_walls": {
-      "contained_by_fortification_site_ref": "loc_tang_manor",
-      "controller": "state_qin",
-      "demographic_parent_ref": "loc_tang_manor",
-      "demographic_role": "institutional_compound",
-      "fortified": true,
-      "parent_location_ref": "loc_tang_manor",
-      "private_owner_ref": "house_tang"
-    },
-    "loc_tang_inner_walls_outer_gate": {
-      "contained_by_fortification_site_ref": "loc_tang_manor",
-      "controller": "state_qin",
-      "demographic_parent_ref": "loc_tang_manor",
-      "demographic_role": "access_node",
-      "fortified": true,
-      "parent_location_ref": "loc_tang_manor"
-    },
     "loc_tang_inner_citadel": {
       "contained_by_fortification_site_ref": "loc_tang_inner_walls",
       "controller": "state_qin",
@@ -592,6 +575,23 @@
       "demographic_role": "access_node",
       "fortified": true,
       "parent_location_ref": "loc_tang_inner_walls"
+    },
+    "loc_tang_inner_walls": {
+      "contained_by_fortification_site_ref": "loc_tang_manor",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_tang_manor",
+      "demographic_role": "institutional_compound",
+      "fortified": true,
+      "parent_location_ref": "loc_tang_manor",
+      "private_owner_ref": "house_tang"
+    },
+    "loc_tang_inner_walls_outer_gate": {
+      "contained_by_fortification_site_ref": "loc_tang_manor",
+      "controller": "state_qin",
+      "demographic_parent_ref": "loc_tang_manor",
+      "demographic_role": "access_node",
+      "fortified": true,
+      "parent_location_ref": "loc_tang_manor"
     },
     "loc_tang_manor": {
       "controller": "state_qin",

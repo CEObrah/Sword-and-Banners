@@ -2,17 +2,17 @@
   "activity_contract": {
     "autonomous_enabled": true,
     "mode": "standing_role_training",
-    "training_regimen_ref": "professional_officer",
-    "training_program_ref": "program.strategist"
+    "training_program_ref": "program.strategist",
+    "training_regimen_ref": "professional_officer"
   },
   "age_stage": "adolescent",
   "appearance": 63,
   "aptitude": {
-    "physical_learning": 100,
-    "tactical_learning": 200,
-    "technical_learning": 185,
     "academic_learning": 195,
-    "social_learning": 170
+    "physical_learning": 100,
+    "social_learning": 170,
+    "tactical_learning": 200,
+    "technical_learning": 185
   },
   "attributes": {
     "Agility": 68,
@@ -79,11 +79,17 @@
     ],
     "career_changes": 0,
     "current_assignment_ref": "cmdgrp.shin.hi_shin",
+    "current_billet": "Strategist / 100-man HQ defense",
+    "current_command_span": 100,
     "current_professional_path": "strategist",
     "future_canon_guaranteed": false,
-    "office_or_command": "Strategist and 100-man HQ Defense Commander, Hi Shin",
-    "current_billet": "Strategist / 100-man HQ defense",
-    "current_command_span": 100
+    "office_or_command": "Strategist and 100-man HQ Defense Commander, Hi Shin"
+  },
+  "command_assignment": {
+    "billet": "staff_or_internal_command",
+    "command_group_ref": "cmdgrp.shin.hi_shin",
+    "current_command_span": 100,
+    "external_to_fighting_establishment": true
   },
   "current_location": "loc_qin_eastern_depot",
   "development_state": {
@@ -140,6 +146,7 @@
   "name": "Karyoten",
   "owner_id": "char_karyoten",
   "owner_type": "character",
+  "personal_loadout_ref": "loadout_tang_mounted",
   "professional_skills": {
     "Diplomacy": 60,
     "Governance": 45,
@@ -173,12 +180,5 @@
     "Tactics": 135,
     "Unarmed": 13
   },
-  "state": "Independent",
-  "command_assignment": {
-    "external_to_fighting_establishment": true,
-    "command_group_ref": "cmdgrp.shin.hi_shin",
-    "billet": "staff_or_internal_command",
-    "current_command_span": 100
-  },
-  "personal_loadout_ref": "loadout_tang_mounted"
+  "state": "Independent"
 }
