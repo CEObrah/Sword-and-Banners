@@ -1,3 +1,4 @@
+"""Regression coverage for authoritative retinue command-group location routing."""
 from __future__ import annotations
 
 from sword_runtime.api.command_staff_routing_operations import RoutedCommandStaffAwareCampaignOperations
