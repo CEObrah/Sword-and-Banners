@@ -13,6 +13,8 @@ import copy
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.campaign_briefing import reconcile_campaign_arrival
+
 
 class CommandStaffMovementMixin:
     """Keep exact command personnel aligned with physically moved command owners."""
@@ -341,6 +343,79 @@ class CommandStaffMovementMixin:
             changed.append(group_ref)
         return changed
 
+    def _reconcile_campaign_arrivals_after_movement(
+        self,
+        refs: list[str],
+        destination: str,
+    ) -> list[dict[str, Any]]:
+        """Close exact campaign movement phases whose saved arrival condition is now true.
+
+        The operations index is routing only. Each candidate exact operation remains
+        authority, and ``reconcile_campaign_arrival`` revalidates the complete saved
+        participant set before changing phase or delivering a field report. This means
+        the final straggler may complete staging, while partial movement cannot.
+        """
+        if not refs or not destination:
+            return []
+        try:
+            index = self.read("state/operations/index.json")
+        except (KeyError, ValueError, FileNotFoundError):
+            return []
+        routes = index.get("operations", {}) if isinstance(index, Mapping) else {}
+        if not isinstance(routes, Mapping):
+            return []
+        moved = set(refs)
+        reports: list[dict[str, Any]] = []
+        for operation_ref, path in sorted(routes.items()):
+            if not isinstance(operation_ref, str) or not operation_ref or not isinstance(path, str) or not path:
+                continue
+            try:
+                operation = self.read(path)
+            except (KeyError, ValueError, FileNotFoundError):
+                continue
+            if not isinstance(operation, Mapping):
+                continue
+            participants = {
+                str(ref)
+                for ref in operation.get("formation_refs", [])
+                if isinstance(ref, str) and ref
+            }
+            if not moved.intersection(participants):
+                continue
+            orders = operation.get("operational_orders") if isinstance(operation.get("operational_orders"), list) else []
+            last_ref = str(operation.get("last_operational_order_ref", ""))
+            order: Mapping[str, Any] | None = None
+            for row in reversed(orders):
+                if not isinstance(row, Mapping):
+                    continue
+                if last_ref and str(row.get("order_ref", "")) != last_ref:
+                    continue
+                order = row
+                break
+            if not isinstance(order, Mapping):
+                continue
+            packet = order.get("mission_packet") if isinstance(order.get("mission_packet"), Mapping) else None
+            if not isinstance(packet, Mapping):
+                continue
+            if str(packet.get("destination_ref", "")) != destination:
+                continue
+            if str(packet.get("phase_status", "")) == "completed":
+                continue
+            report = reconcile_campaign_arrival(
+                self,
+                operation_ref,
+                destination_ref=destination,
+                at=str(self._world_time()),
+                unit_duties=[],
+            )
+            if report is not None:
+                reports.append({
+                    "operation_ref": operation_ref,
+                    "phase": report.get("phase"),
+                    "information_ref": report.get("information_ref"),
+                })
+        return reports
+
     def _autonomy_move_formation_step(self, formation_ref: str, destination: str, at: str) -> dict[str, Any]:
         """Move every co-located full formal command-establishment person once."""
         try:
@@ -363,7 +438,12 @@ class CommandStaffMovementMixin:
         if reconciled:
             out = dict(result)
             out["command_staff_reconciled"] = sorted(set(reconciled))
-            return out
+            result = out
+        reports = self._reconcile_campaign_arrivals_after_movement([formation_ref], reached)
+        if reports:
+            out = dict(result)
+            out["campaign_arrival_reports"] = reports
+            result = out
         return result
 
     def _command_layer_command_staff_movement(self, command: Any, payload: Mapping[str, Any], next_dispatch: Any) -> dict[str, Any]:
@@ -394,6 +474,10 @@ class CommandStaffMovementMixin:
             if group_staff:
                 result = dict(result)
                 result["command_group_staff_reconciled"] = sorted(set(group_staff))
+            reports = self._reconcile_campaign_arrivals_after_movement(refs, destination)
+            if reports:
+                result = dict(result)
+                result["campaign_arrival_reports"] = reports
 
         muster_hours = int(muster.get("hours", 0) or 0)
         mustered_refs = [str(ref) for ref in muster.get("refs", []) if isinstance(ref, str)]
