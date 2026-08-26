@@ -1,0 +1,218 @@
+{
+  "campaign_context": {
+    "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+    "campaign_commander_name": null,
+    "campaign_commander_ref": null,
+    "coordination_authority_ref": "inst_qin_military_bureau",
+    "enemy_intelligence": {
+      "basis": "Qin operational intelligence synthesis from campaign activity and forces able to reach the selected theater within roughly two days",
+      "confidence_milli": 700,
+      "confirmed_contact": null,
+      "contact_status": "no confirmed battle contact",
+      "estimated_strength_high": 156000,
+      "estimated_strength_low": 94000,
+      "reported_commanders": [
+        {
+          "basis": "campaign_association",
+          "confidence_milli": 760,
+          "name": "Gai Mou",
+          "person_ref": "char_gai_mou"
+        },
+        {
+          "basis": "campaign_association",
+          "confidence_milli": 760,
+          "name": "Jing Rong",
+          "person_ref": "char_cmd_wei_disciplined_line"
+        },
+        {
+          "basis": "campaign_association",
+          "confidence_milli": 760,
+          "name": "Rei Ou",
+          "person_ref": "char_rei_ou"
+        },
+        {
+          "basis": "theater_reinforcement_potential",
+          "confidence_milli": 620,
+          "name": "Deng Shan",
+          "person_ref": "char_cmd_wei_engineered_line"
+        },
+        {
+          "basis": "theater_reinforcement_potential",
+          "confidence_milli": 620,
+          "name": "Go Hou Mei",
+          "person_ref": "char_go_hou_mei"
+        },
+        {
+          "basis": "theater_reinforcement_potential",
+          "confidence_milli": 620,
+          "name": "Huan Zhen",
+          "person_ref": "char_cmd_wei_crossbow_corps"
+        },
+        {
+          "basis": "theater_reinforcement_potential",
+          "confidence_milli": 620,
+          "name": "Jing Ning",
+          "person_ref": "char_cmd_wei_reserve_infantry_03"
+        },
+        {
+          "basis": "theater_reinforcement_potential",
+          "confidence_milli": 620,
+          "name": "Luo Qian",
+          "person_ref": "char_cmd_wei_reserve_infantry_01"
+        },
+        {
+          "basis": "theater_reinforcement_potential",
+          "confidence_milli": 620,
+          "name": "Qiao He",
+          "person_ref": "char_cmd_wei_reserve_infantry_02"
+        },
+        {
+          "basis": "theater_reinforcement_potential",
+          "confidence_milli": 620,
+          "name": "Qiao Jie",
+          "person_ref": "char_cmd_wei_chariot_screen"
+        }
+      ],
+      "reported_formation_count": 10
+    },
+    "friendly_total_strength": 176800,
+    "objective": "participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority",
+    "operational_area": {
+      "destination_name": "Kanyou",
+      "destination_ref": "loc_kanyou",
+      "entry_status": "awaiting_war_or_entry_authority",
+      "hostile_entry_authorized": false,
+      "route_hours_from_current_assembly": 11,
+      "selection_basis": "nearest lawful friendly strategic staging node on the approach to the target theater",
+      "strategic_target_name": "Sanyou",
+      "strategic_target_ref": "loc_sanyou",
+      "target_state_ref": "state_wei"
+    },
+    "other_friendly_participants": [
+      {
+        "commanders": [
+          {
+            "name": "Kanki",
+            "person_ref": "char_kanki"
+          },
+          {
+            "name": "Mou Gou",
+            "person_ref": "char_mou_gou"
+          },
+          {
+            "name": "Ousen",
+            "person_ref": "char_ousen"
+          }
+        ],
+        "formation_count": 3,
+        "location_refs": [
+          "loc_qin_regional_01",
+          "loc_qin_regional_03"
+        ],
+        "objective": "maintain military readiness",
+        "strength": 73200
+      },
+      {
+        "commanders": [
+          {
+            "name": "Ouki",
+            "person_ref": "char_ouki"
+          },
+          {
+            "name": "Tou",
+            "person_ref": "char_tou"
+          }
+        ],
+        "formation_count": 2,
+        "location_refs": [
+          "loc_qin_regional_02"
+        ],
+        "objective": "protect core territory",
+        "strength": 46100
+      },
+      {
+        "commanders": [
+          {
+            "name": "Mou Bu",
+            "person_ref": "char_mou_bu"
+          }
+        ],
+        "formation_count": 1,
+        "location_refs": [
+          "loc_qin_regional_04"
+        ],
+        "objective": "maintain military readiness",
+        "strength": 40000
+      },
+      {
+        "commanders": [
+          {
+            "name": "Fan Yi",
+            "person_ref": "char_cmd_qin_mobile_reserve"
+          }
+        ],
+        "formation_count": 1,
+        "location_refs": [
+          "loc_qin_regional_01"
+        ],
+        "objective": "maintain military readiness",
+        "strength": 5000
+      },
+      {
+        "commanders": [
+          {
+            "name": "Shou Hei Kun",
+            "person_ref": "char_shou_hei_kun"
+          }
+        ],
+        "formation_count": 1,
+        "location_refs": [
+          "loc_qin_eastern_depot"
+        ],
+        "objective": "protect core territory",
+        "strength": 3000
+      }
+    ],
+    "own_assigned_strength": 9500,
+    "own_auxiliary_strength": 0,
+    "own_location_refs": [
+      "loc_qin_eastern_depot"
+    ],
+    "own_strength": 9500,
+    "target_state_ref": "state_wei"
+  },
+  "claim": "Qin Military Bureau operational briefing. Campaign objective: participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority. Tang Wei's present field command is 9,500 troops in 19 formation(s), currently at Qin Eastern Military Depot. Other Qin forces identified by the Bureau for this campaign: 73,200 troops in 3 formation(s), under Kanki, Mou Gou, Ousen, at Qin Capital Basin, Qin Northern Frontier, task: maintain military readiness; 46,100 troops in 2 formation(s), under Ouki, Tou, at Qin Eastern March, task: protect core territory; 40,000 troops in 1 formation(s), under Mou Bu, at Qin Southern March, task: maintain military readiness; 5,000 troops in 1 formation(s), under Fan Yi, at Qin Capital Basin, task: maintain military readiness; 3,000 troops in 1 formation(s), under Shou Hei Kun, at Qin Eastern Military Depot, task: protect core territory. Combined Qin strength represented by this current Bureau campaign force picture is 176,800. Current operational area selected by staff planning is Kanyou. Immediate lawful staging is Kanyou; hostile entry is not yet authorized, so Sanyou remains the strategic target rather than the current march destination. Enemy picture: an official estimate of roughly 94,000-156,000 troops able to influence the theater; reported opposing commanders: Gai Mou, Jing Rong, Rei Ou, Deng Shan, Go Hou Mei, Huan Zhen, Jing Ning, Luo Qian, Qiao He, Qiao Jie; no confirmed battle contact. These enemy figures are command-intelligence estimates, not omniscient exact truth. Executable staff packet: phase campaign_muster_and_staging; the field command is assembled at Qin Eastern Military Depot and is to march to Kanyou when the commander executes the order. Success condition: the current field command physically assembles at the lawful staging area and completes deployment. Arrival at staging causes a field-command situation report. Crossing into the target state still requires lawful war/entry authority and does not happen automatically.",
+  "claim_status": "runtime_established_estimate",
+  "classification": "command_intelligence",
+  "confidence": "0.800",
+  "confidence_milli": 800,
+  "created_at": "244-BCE-09-09T20:22:48+08:00",
+  "deliveries": [],
+  "discoverability_milli": 1000,
+  "epistemic_kind": "official_military_briefing",
+  "evidence_refs": [
+    "operation_arc_131572c4e8a2892bbc"
+  ],
+  "fact": "Qin Military Bureau operational briefing. Campaign objective: participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority. Tang Wei's present field command is 9,500 troops in 19 formation(s), currently at Qin Eastern Military Depot. Other Qin forces identified by the Bureau for this campaign: 73,200 troops in 3 formation(s), under Kanki, Mou Gou, Ousen, at Qin Capital Basin, Qin Northern Frontier, task: maintain military readiness; 46,100 troops in 2 formation(s), under Ouki, Tou, at Qin Eastern March, task: protect core territory; 40,000 troops in 1 formation(s), under Mou Bu, at Qin Southern March, task: maintain military readiness; 5,000 troops in 1 formation(s), under Fan Yi, at Qin Capital Basin, task: maintain military readiness; 3,000 troops in 1 formation(s), under Shou Hei Kun, at Qin Eastern Military Depot, task: protect core territory. Combined Qin strength represented by this current Bureau campaign force picture is 176,800. Current operational area selected by staff planning is Kanyou. Immediate lawful staging is Kanyou; hostile entry is not yet authorized, so Sanyou remains the strategic target rather than the current march destination. Enemy picture: an official estimate of roughly 94,000-156,000 troops able to influence the theater; reported opposing commanders: Gai Mou, Jing Rong, Rei Ou, Deng Shan, Go Hou Mei, Huan Zhen, Jing Ning, Luo Qian, Qiao He, Qiao Jie; no confirmed battle contact. These enemy figures are command-intelligence estimates, not omniscient exact truth. Executable staff packet: phase campaign_muster_and_staging; the field command is assembled at Qin Eastern Military Depot and is to march to Kanyou when the commander executes the order. Success condition: the current field command physically assembles at the lawful staging area and completes deployment. Arrival at staging causes a field-command situation report. Crossing into the target state still requires lawful war/entry authority and does not happen automatically.",
+  "holder_states": {
+    "char_tang_wei": {
+      "channel": "Qin Military Bureau operational briefing",
+      "confidence_milli": 800,
+      "epistemic_kind": "official_military_briefing",
+      "learned_at": "244-BCE-09-09T20:22:48+08:00",
+      "source_ref": "arc_ryo_fui_northern_wei_campaign"
+    }
+  },
+  "information_ref": "information.qin_campaign_briefing.b4554e2a86b4c3edae39",
+  "investigation_discoverable": false,
+  "knowers": [
+    "char_tang_wei"
+  ],
+  "location_ref": "loc_qin_eastern_depot",
+  "origin_authority": "runtime_established",
+  "owner_id": "information.qin_campaign_briefing.b4554e2a86b4c3edae39",
+  "provenance": "Qin Military Bureau operational briefing",
+  "schema": "sword-information",
+  "subject_ref": "arc_ryo_fui_northern_wei_campaign",
+  "world_truth_authority": false
+}

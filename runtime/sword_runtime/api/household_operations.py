@@ -542,6 +542,26 @@ class HouseholdAwareCampaignOperations(StableCampaignOperations):
                         "relation": "House Tang Inner Walls command",
                     }]
 
+        scene = context.get("scene")
+        cast = scene.get("scene_cast") if isinstance(scene, Mapping) else None
+        present_people = cast.get("present_people") if isinstance(cast, Mapping) else None
+        if isinstance(scene, dict) and isinstance(present_people, list) and any(
+            isinstance(row, Mapping) and isinstance(row.get("person_id"), str)
+            for row in present_people
+        ):
+            scene["scene_local_narration_contract"] = {
+                "mode": "presentation_only_reversible",
+                "direct_local_contact_rule": (
+                    "A person listed in scene.scene_cast.present_people is already physically accessible for ordinary local conversation; "
+                    "do not manufacture an audience request, seek_contact action, courier, or waiting interval merely to begin speaking."
+                ),
+                "persistent_consequences_require_runtime": True,
+                "persistent_consequence_rule": (
+                    "Any proposal, petition, offer, report, promise, resource request, commitment, or other durable consequential intent "
+                    "must still be persisted through the supported runtime interaction path before it becomes campaign truth."
+                ),
+            }
+
         self._decorate_present_identity_awareness(context)
 
         interaction = context.get("commands", {}).get("command_types", {}).get("interaction_action")

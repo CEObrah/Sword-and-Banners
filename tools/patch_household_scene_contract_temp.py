@@ -1,9 +1,0 @@
-from pathlib import Path
-
-path = Path("runtime/sword_runtime/api/household_operations.py")
-text = path.read_text(encoding="utf-8")
-needle = '''        self._decorate_present_identity_awareness(context)\n\n        interaction = context.get("commands", {}).get("command_types", {}).get("interaction_action")\n'''
-replacement = '''        scene = context.get("scene")\n        cast = scene.get("scene_cast") if isinstance(scene, Mapping) else None\n        present_people = cast.get("present_people") if isinstance(cast, Mapping) else None\n        if isinstance(scene, dict) and isinstance(present_people, list) and any(\n            isinstance(row, Mapping) and isinstance(row.get("person_id"), str)\n            for row in present_people\n        ):\n            scene["scene_local_narration_contract"] = {\n                "mode": "presentation_only_reversible",\n                "direct_local_contact_rule": (\n                    "A person listed in scene.scene_cast.present_people is already physically accessible for ordinary local conversation; "\n                    "do not manufacture an audience request, seek_contact action, courier, or waiting interval merely to begin speaking."\n                ),\n                "persistent_consequences_require_runtime": True,\n                "persistent_consequence_rule": (\n                    "Any proposal, petition, offer, report, promise, resource request, commitment, or other durable consequential intent "\n                    "must still be persisted through the supported runtime interaction path before it becomes campaign truth."\n                ),\n            }\n\n        self._decorate_present_identity_awareness(context)\n\n        interaction = context.get("commands", {}).get("command_types", {}).get("interaction_action")\n'''
-if needle not in text:
-    raise RuntimeError("household play-context insertion point not found")
-path.write_text(text.replace(needle, replacement, 1), encoding="utf-8")
