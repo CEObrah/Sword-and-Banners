@@ -277,10 +277,10 @@ def ensure_checkout(settings: CheckoutSettings) -> Path:
     remote_ref = f"refs/remotes/{settings.remote}/{settings.branch}"
     remote_head = _run(settings, ("rev-parse", "--verify", remote_ref), cwd=settings.campaign_root)
 
-    if _checkout_status(settings):
-        if local_head != remote_head:
-            raise BootstrapError("dirty campaign checkout does not match the remote branch")
-        return settings.campaign_root
+    # The persistent checkout is executable campaign authority, not a scratch tree.
+    # Never start from uncommitted files even when HEAD already equals the remote:
+    # those files would silently override the exact committed campaign image.
+    _assert_clean(settings)
     if local_head == remote_head:
         return settings.campaign_root
     if _is_ancestor(settings, local_head, remote_head):
