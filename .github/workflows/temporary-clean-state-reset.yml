@@ -1,0 +1,46 @@
+name: temporary-clean-state-reset
+
+on:
+  push:
+    branches:
+      - clean-state-reset-20260826
+
+permissions:
+  contents: write
+
+jobs:
+  reset-and-validate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Reset accumulated campaign state
+        run: python tools/reset_campaign_snapshot_20260826.py
+
+      - name: Fast structural gate
+        run: python tools/quick_check.py
+
+      - name: Full release validation
+        run: python tools/validate_release.py
+
+      - name: Commit clean revision-1 state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A state
+          git rm tools/reset_campaign_snapshot_20260826.py
+          git rm .github/workflows/temporary-clean-state-reset.yml
+          git commit -m "Reset campaign to clean revision-1 state"
+          git push origin HEAD:clean-state-reset-20260826
