@@ -39,7 +39,6 @@ def test_whole_command_group_travel_moves_colocated_headquarters_people_only(cam
     formation_refs = ["formation_red_lance_a", "formation_red_lance_b"]
     group_ref = "cmdgrp.tang_wei.red_lance"
     group_path = campaign / "state/cmd/command-groups" / f"{group_ref}.json"
-    field_path = campaign / "state/cmd/command-groups/cmdgrp.tang_wei.field_army.json"
     player_path = campaign / "state/player.json"
 
     group = json.loads(group_path.read_text(encoding="utf-8"))
@@ -54,13 +53,9 @@ def test_whole_command_group_travel_moves_colocated_headquarters_people_only(cam
     _write_json(player_path, player)
 
     touched = ["state/player.json", f"state/cmd/command-groups/{group_ref}.json"]
-    for formation_ref, filename in (
-        ("formation_red_lance_a", "state/formations/red-lance-a.json"),
-        ("formation_red_lance_b", "state/formations/red-lance-b.json"),
-    ):
+    for filename in ("state/formations/red-lance-a.json", "state/formations/red-lance-b.json"):
         path = campaign / filename
         formation = json.loads(path.read_text(encoding="utf-8"))
-        assert formation["id"] == formation_ref
         formation["location_ref"] = origin
         _write_json(path, formation)
         touched.append(filename)
