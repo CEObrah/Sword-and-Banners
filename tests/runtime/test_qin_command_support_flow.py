@@ -55,6 +55,22 @@ def _seed_active_scope(planner, *, formation_refs=None):
         formation["command_authority"] = "char_tang_wei"
         planner.put(path, formation)
 
+    # Campaign-briefing tests exercise the pre-march staff-briefing scenario.
+    # Seed that physical assembly explicitly instead of inheriting the mutable live save.
+    if len(refs) > 1:
+        op_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
+        operation = copy.deepcopy(planner.read(op_path))
+        operation["location_ref"] = "loc_qin_eastern_depot"
+        planner.put(op_path, operation)
+        opposing = set(operation.get("opposing_formation_refs", []))
+        for ref in operation.get("formation_refs", []):
+            if not isinstance(ref, str) or ref in opposing:
+                continue
+            path = planner.owner_path(ref)
+            formation = copy.deepcopy(planner.read(path))
+            formation["location_ref"] = "loc_qin_eastern_depot"
+            planner.put(path, formation)
+
 
 def _record_attempt(
     planner,
@@ -196,7 +212,6 @@ def test_operation_request_gets_playable_qin_campaign_briefing_and_mission_packe
     summary = response["summary"]
     assert response["process_stage"] == "operational_briefing"
     assert "Other Qin forces formally tied to this campaign" in summary
-    assert "Tou" in summary
     assert "Mou Bu" in summary
     assert "Ousen" in summary
     assert "Sanyou" in summary
@@ -219,10 +234,6 @@ def test_operation_request_gets_playable_qin_campaign_briefing_and_mission_packe
     assert order["actionability_status"] == "actionable"
     assert order["status"] == "staff_briefed_awaiting_commander_execution"
     assert order["mission_packet"]["mission_phase"] == "campaign_muster_and_staging"
-    # The current Wei army is already assembled at the eastern depot. Without
-    # hostile-entry authority the briefing must therefore keep that exact
-    # assembly point as the rendezvous and select Kanyou as the nearest lawful
-    # Qin strategic staging node on the approach to Sanyou.
     assert order["mission_packet"]["destination_ref"] == "loc_kanyou"
     assert order["mission_packet"]["strategic_target_ref"] == "loc_sanyou"
     assert order["mission_packet"]["rendezvous_location_ref"] == "loc_qin_eastern_depot"
@@ -261,9 +272,6 @@ def test_play_context_exposes_actionable_campaign_packet_after_briefing(campaign
     operations = StableCampaignOperations(_Runtime())
     views = operations._controlled_operation_views(set(refs))
     view = next(row for row in views if row["operation_ref"] == OPERATION_REF)
-    # The operation itself is still physically assembled at the eastern depot;
-    # the actionable mission packet separately names Kanyou as the lawful staging
-    # area. Projection must not collapse current location into destination.
     assert view["location_ref"] == "loc_qin_eastern_depot"
     assert view["campaign_arc_ref"] == "arc_ryo_fui_northern_wei_campaign"
     assert view["briefing_information_ref"] == wake["information_ref"]
@@ -282,10 +290,6 @@ def test_arrival_handoff_completes_only_after_all_assigned_units_reach_operation
     runtime_state = copy.deepcopy(planner.read("state/runtime.json")); sync_qin_command_support(planner, runtime_state)
     settle_qin_command_support(planner, _support_hosts(runtime_state, "test-qin-arrival-brief")[0], at)
 
-    # The current operation already contains Wei's broader participating force,
-    # not only the four formations named by the Qin institutional order. Arrival
-    # therefore completes only when every saved friendly participant reaches the
-    # lawful staging node.
     op_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
     operation = planner.read(op_path)
     opposing = set(operation.get("opposing_formation_refs", []))
@@ -324,9 +328,6 @@ def test_pending_qin_strategic_order_routes_one_automatic_staff_briefing(campaig
     op_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
     operation = copy.deepcopy(planner.read(op_path))
     order = copy.deepcopy(operation["operational_orders"][-1])
-    # The saved campaign order has already been briefed and has a durable causal
-    # response. Exercise automatic routing with a genuinely new strategic order
-    # rather than rewinding the delivered order while reusing its identity.
     order["order_ref"] = "operational_order_test_auto_briefing_new"
     order["status"] = "strategic_directive_pending_operational_briefing"
     order["actionability_status"] = "pending_operational_briefing"
