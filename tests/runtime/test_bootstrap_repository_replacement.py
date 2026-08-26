@@ -70,6 +70,21 @@ def replace_remote_history(source: Path, revision: int, *, note: str | None = No
     return git(source, "rev-parse", "HEAD")
 
 
+def test_same_head_dirty_checkout_is_rejected(tmp_path: Path) -> None:
+    source, remote = source_and_remote(tmp_path, revision=2)
+    configured = settings(tmp_path, remote)
+    checkout = ensure_checkout(configured)
+
+    assert git(checkout, "rev-parse", "HEAD") == git(source, "rev-parse", "HEAD")
+    (checkout / "state" / "meta.json").write_text(
+        meta(2, note="uncommitted persistent override"),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(BootstrapError, match="persistent campaign checkout is dirty"):
+        ensure_checkout(configured)
+
+
 def test_rehomes_replaced_history_when_state_json_is_semantically_identical(tmp_path: Path) -> None:
     source, remote = source_and_remote(tmp_path)
     configured = settings(tmp_path, remote)
