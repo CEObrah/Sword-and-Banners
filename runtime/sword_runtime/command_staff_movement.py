@@ -1,12 +1,11 @@
-"""Reconcile exact formation command staff when controlled formations move.
+"""Reconcile exact formation and command-group staff when controlled formations move.
 
-The formation owner remains command-role authority. The named top commander
-remains a separate exact owner, so movement must not leave that person record
-silently behind. Player escorted travel treats the selected formation as including
-its saved exact top command establishment: an assigned commander who is detached
-at another routable location physically musters to the formation
-before departure, with real campaign time charged for the slowest parallel muster
-route. Generic formation movement still never teleports detached staff.
+The formation owner remains command-role authority. Named commanders and command-group
+staff remain separate exact owners, so movement must not leave those person records
+silently behind. Player escorted travel treats a selected formation as including its
+saved exact top command establishment. A zero-body command group moves only when its
+whole descendant formation tree moves, and only co-located attached headquarters
+personnel move with it. Detached staff are never teleported.
 """
 from __future__ import annotations
 
@@ -16,7 +15,7 @@ from typing import Any
 
 
 class CommandStaffMovementMixin:
-    """Keep the exact top commander state aligned with formation movement."""
+    """Keep exact command personnel aligned with physically moved command owners."""
 
     def _movement_formation_refs(self, command: Any, payload: Mapping[str, Any]) -> list[str]:
         if command.command_type == "formation_move":
@@ -52,7 +51,6 @@ class CommandStaffMovementMixin:
                             refs.append(ref)
                     else:
                         children.append(str(row["ref"]))
-                # Reverse push preserves saved Unit order in depth-first traversal.
                 stack.extend(reversed(children))
             return refs
         if command.command_type == "travel":
@@ -66,6 +64,29 @@ class CommandStaffMovementMixin:
         """Return the one external top-command ref, excluding embedded ranks."""
         value = formation.get("commander_ref")
         return [value] if isinstance(value, str) and value else []
+
+    @staticmethod
+    def _command_group_person_refs(group: Mapping[str, Any]) -> list[str]:
+        """Return exact people physically attached to a zero-body headquarters.
+
+        Authority refs are deliberately excluded: institutional authority is not a
+        physical headquarters attachment. Commander, direct staff, assigned role
+        holders, and declared successors are physical people when co-located.
+        """
+        refs: list[str] = []
+        commander = group.get("commander_ref")
+        if isinstance(commander, str) and commander:
+            refs.append(commander)
+        direct = group.get("direct_person_refs", [])
+        if isinstance(direct, list):
+            refs.extend(str(ref) for ref in direct if isinstance(ref, str) and ref)
+        roles = group.get("role_assignments", {})
+        if isinstance(roles, Mapping):
+            refs.extend(str(ref) for ref in roles if isinstance(ref, str) and ref)
+        successors = group.get("successor_refs", [])
+        if isinstance(successors, list):
+            refs.extend(str(ref) for ref in successors if isinstance(ref, str) and ref)
+        return list(dict.fromkeys(refs))
 
     def _command_staff_snapshots(self, refs: list[str]) -> list[tuple[str, str, str, str]]:
         rows: list[tuple[str, str, str, str]] = []
@@ -86,16 +107,7 @@ class CommandStaffMovementMixin:
         payload: Mapping[str, Any],
         snapshots: list[tuple[str, str, str, str]],
     ) -> dict[str, Any]:
-        """Physically reunite assigned exact staff before one escorted player march.
-
-        Selecting a controlled formation for player travel already means taking
-        that formation's saved command establishment. The exact top commander remains a separate conserved owner, so detached staff first travel
-        to the common column origin. Those individual muster routes run in
-        parallel and consume the slowest route duration once. If a route cannot
-        be established, the existing fail-closed movement boundary remains in
-        force rather than teleporting the person.
-        """
-
+        """Physically reunite assigned exact staff before one escorted player march."""
         if command.command_type != "travel" or not payload.get("formation_refs"):
             return {"hours": 0, "refs": []}
 
@@ -107,8 +119,6 @@ class CommandStaffMovementMixin:
         planned: dict[str, dict[str, Any]] = {}
         muster_hours = 0
         for formation_ref, person_ref, path, formation_origin in snapshots:
-            # Grouped travel itself remains authority for formation/player
-            # co-location. Do not use staff muster to conceal a detached unit.
             if formation_origin != origin:
                 continue
 
@@ -126,8 +136,6 @@ class CommandStaffMovementMixin:
             if current_location == formation_origin:
                 continue
             if not isinstance(current_location, str) or not current_location:
-                # An unresolved person location cannot be reconciled into physical
-                # muster; normal commander validation will fail if that person is required.
                 continue
 
             hours = int(
@@ -204,13 +212,51 @@ class CommandStaffMovementMixin:
                 reconciled.append(person_ref)
         return reconciled
 
-    def _reconcile_command_group_locations(self, refs: list[str], destination: str) -> list[str]:
+    def _reconcile_group_people(
+        self,
+        group: Mapping[str, Any],
+        origin: str,
+        destination: str,
+    ) -> list[str]:
+        """Move only exact headquarters people who were physically with the group."""
+        if not origin or origin == destination:
+            return []
+        reconciled: list[str] = []
+        for person_ref in self._command_group_person_refs(group):
+            try:
+                path = self.owner_path(person_ref)
+                person0 = self.read(path)
+            except (KeyError, ValueError, FileNotFoundError):
+                continue
+            if not isinstance(person0, Mapping):
+                continue
+            person = copy.deepcopy(dict(person0))
+            current_location = self._person_location(person)
+            if current_location == destination:
+                reconciled.append(person_ref)
+                continue
+            if current_location != origin:
+                continue
+            self._set_person_location(person, destination)
+            self.put(path, person)
+            reconciled.append(person_ref)
+        return reconciled
+
+    def _reconcile_command_group_locations(
+        self,
+        refs: list[str],
+        destination: str,
+        *,
+        staff_reconciled: list[str] | None = None,
+    ) -> list[str]:
         """Move zero-body command owners only when their whole formation tree moved.
 
         Formation owners are physical authority. Command groups own no bodies, so a
         grouped travel command must not leave their saved headquarters location behind
         after every descendant formation has reached the same destination. Partial
-        detachment movement deliberately leaves the parent group in place.
+        detachment movement deliberately leaves the parent group and its personnel in
+        place. When a group does move, only attached exact people who were co-located
+        at its old headquarters move with it; detached people are never teleported.
         """
         if not refs or not destination:
             return []
@@ -239,8 +285,7 @@ class CommandStaffMovementMixin:
         from sword_runtime.command_units import recursive_refs
 
         changed: list[str] = []
-        # Children first makes the persisted hierarchy internally consistent before
-        # any parent is updated. Depth is bounded by the explicit command tree.
+
         def depth(group_ref: str) -> int:
             n = 0
             current = group_ref
@@ -283,9 +328,13 @@ class CommandStaffMovementMixin:
                     break
             if not all_here:
                 continue
-            group = copy.deepcopy(dict(group0))
-            if str(group.get("location", "")) == destination:
+            origin = str(group0.get("location", ""))
+            if origin == destination:
                 continue
+            reconciled_people = self._reconcile_group_people(group0, origin, destination)
+            if staff_reconciled is not None:
+                staff_reconciled.extend(reconciled_people)
+            group = copy.deepcopy(dict(group0))
             group["location"] = destination
             group["updated_at"] = str(self._world_time())
             self.put(path, group)
@@ -333,10 +382,18 @@ class CommandStaffMovementMixin:
             if reconciled:
                 result = dict(result)
                 result["command_staff_reconciled"] = sorted(set(reconciled))
-            moved_groups = self._reconcile_command_group_locations(refs, destination)
+            group_staff: list[str] = []
+            moved_groups = self._reconcile_command_group_locations(
+                refs,
+                destination,
+                staff_reconciled=group_staff,
+            )
             if moved_groups:
                 result = dict(result)
                 result["command_groups_reconciled"] = sorted(set(moved_groups))
+            if group_staff:
+                result = dict(result)
+                result["command_group_staff_reconciled"] = sorted(set(group_staff))
 
         muster_hours = int(muster.get("hours", 0) or 0)
         mustered_refs = [str(ref) for ref in muster.get("refs", []) if isinstance(ref, str)]
