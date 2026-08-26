@@ -123,8 +123,8 @@ def main() -> None:
 
     repair_log_path = "state/history/repairs/kanyou-arrival-continuity-20260826.json"
     repair_log = {
-        "schema": "sword-campaign-repair-provenance.v1",
         "authority": False,
+        "kind": "campaign_repair_provenance",
         "repair_ref": REPAIR_REF,
         "campaign_revision": EXPECTED_REVISION,
         "world_time": EXPECTED_TIME,
