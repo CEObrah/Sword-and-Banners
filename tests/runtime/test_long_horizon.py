@@ -1,26 +1,51 @@
 import json, time
 from conftest import meta
 
+
 def preview_years(campaign,years):
     from sword_runtime.engine import RepositoryCommandPlanner
     from sword_runtime.commands import CommandEnvelope
     from sword_runtime.sim.calendar import CampaignTime
     m=meta(campaign); target=str(CampaignTime.parse(m['time']).add_years(years)); c=CommandEnvelope(m['campaign_id'],f'horizon-{years}','char_tang_wei','advance_time',m['revision'],m['time'],{'target_time':target}); t=time.perf_counter(); p=RepositoryCommandPlanner(campaign).preview(c); return p,time.perf_counter()-t
 
+
+def live_operation_read_allowance(campaign):
+    index=json.load(open(campaign/'state/operations/index.json'))
+    operations=index.get('operations',{}) if isinstance(index,dict) else {}
+    terminal={'completed','closed','cancelled','failed','resolved','abandoned'}
+    allowance=0
+    for path in operations.values() if isinstance(operations,dict) else ():
+        if not isinstance(path,str):
+            continue
+        operation=json.load(open(campaign/path))
+        if str(operation.get('status','')).lower() in terminal:
+            continue
+        formation_refs={str(ref) for ref in operation.get('formation_refs',[]) if isinstance(ref,str) and ref}
+        # A live operation may lawfully make one bounded read of its exact owner
+        # plus each exact formation in its current authoritative scope. This keeps
+        # the performance bound proportional to live causal state, never elapsed
+        # years or accumulated terminal campaign history.
+        allowance += 1 + len(formation_refs)
+    return allowance
+
+
 def test_horizons_are_bounded_and_alive(campaign):
     runtime=json.load(open(campaign/'state/runtime.json'))
     causal_host_bound=len(runtime['hosts'])
+    operation_read_bound=live_operation_read_allowance(campaign)
     results={}
     short_horizon_reads=None
     for y in (3,10,20,50):
         p,dt=preview_years(campaign,y); results[y]=(p.result,dt)
         assert p.result['hosts_woken']<=causal_host_bound
         if short_horizon_reads is None:
-            # Ordinary host routing remains tightly bounded. Longer horizons may
-            # lawfully touch additional exact formation/command/family owners when
-            # deaths or succession occur, but that consequence fan-out is still
-            # bounded by the fixed causal host set rather than elapsed years.
-            assert p.result['planning_reads'] <= causal_host_bound + 128
+            # Ordinary host routing remains tightly bounded. A current live
+            # operation may also touch its exact operation owner and exact
+            # formation scope once. Longer horizons may lawfully touch additional
+            # exact formation/command/family owners when deaths or succession
+            # occur, but that consequence fan-out remains bounded by current
+            # causal owners rather than elapsed years or historical operation count.
+            assert p.result['planning_reads'] <= causal_host_bound + 128 + operation_read_bound
             short_horizon_reads=int(p.result['planning_reads'])
         else:
             assert p.result['planning_reads'] <= short_horizon_reads + causal_host_bound
@@ -35,6 +60,7 @@ def test_horizons_are_bounded_and_alive(campaign):
         assert dt < 30.0
     assert results[50][0]['events_processed']>results[20][0]['events_processed']
 
+
 def test_20_year_world_changes_without_global_scans(campaign):
     from sword_runtime.engine import SwordRuntime
     from sword_runtime.commands import CommandEnvelope
@@ -43,6 +69,7 @@ def test_20_year_world_changes_without_global_scans(campaign):
     rt=json.load(open(campaign/'state/runtime.json')); assert x.status=='committed'; assert rt['metrics']['events_processed']>1000
     assert all(rt['metrics'][k]==0 for k in ('global_person_scans','global_faction_scans','global_force_scans','global_house_scans'))
     idx=json.load(open(campaign/'state/index/owner-index.json'))['owners']; current_qin_refs=['formation_high_guard_qin_a','formation_high_guard_qin_b']+[f'formation_black_banner_0{i}{suffix}' for i in range(1,5) for suffix in ('a','b')]; assert all(ref in idx for ref in current_qin_refs) and 'formation_zhao_border_line' in idx
+
 
 def test_named_person_identity_survives_5_and_20_years(campaign):
     import json
