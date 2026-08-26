@@ -4,23 +4,23 @@
   "owner_type": "inventory_registry",
   "records": [
     {
-      "record_id": "house_tang_outfitting_sets",
-      "label": "House Tang aggregate outfitting reserve",
       "facts": {
-        "standard_role_sets_reserve": 18765,
-        "crossbow_role_sets_reserve": 4625,
-        "mounted_harness_sets_reserve": 3000,
         "ammunition_owner_ref": "depot_house_tang",
-        "mount_stock_owner_ref": "mount_pool_force_house_tang"
-      }
+        "crossbow_role_sets_reserve": 4625,
+        "mount_stock_owner_ref": "mount_pool_force_house_tang",
+        "mounted_harness_sets_reserve": 3000,
+        "standard_role_sets_reserve": 18765
+      },
+      "label": "House Tang aggregate outfitting reserve",
+      "record_id": "house_tang_outfitting_sets"
     },
     {
-      "record_id": "defensive_siege_inventory",
-      "label": "Defensive siege inventory",
       "facts": {
         "exact_owner": "owner:tang_manor_siege_inventory",
         "runtime_state_owner": "owner:tang_manor_artillery"
-      }
+      },
+      "label": "Defensive siege inventory",
+      "record_id": "defensive_siege_inventory"
     }
   ],
   "runtime": {

@@ -455,17 +455,17 @@
   "headcount": 4000,
   "kind": "house_force",
   "materialized_people": {
-    "char_shou_bun_kun_house_field_commander": {
-      "personnel": 1,
-      "role": "household_retainer",
-      "source_mode": "materialized_exact_person",
-      "source_cohort_ref": "cohort_force_house_shou_bun_kun_household_household_retainer_standing"
-    },
     "char_cmd_house_shou_bun_kun_household_01": {
       "personnel": 1,
       "role": "archer",
       "source_cohort_ref": "cohort_force_house_shou_bun_kun_household_archer_standing",
       "source_mode": "existing_external_command_slot"
+    },
+    "char_shou_bun_kun_house_field_commander": {
+      "personnel": 1,
+      "role": "household_retainer",
+      "source_cohort_ref": "cohort_force_house_shou_bun_kun_household_household_retainer_standing",
+      "source_mode": "materialized_exact_person"
     }
   },
   "owner_id": "force_house_shou_bun_kun_household",

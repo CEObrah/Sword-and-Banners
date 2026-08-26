@@ -1,6 +1,41 @@
 {
+  "command_ref": "cmdgrp.house_tang.outer_wall",
+  "crew_force_refs": [
+    "force_house_tang",
+    "force_house_tang"
+  ],
+  "derivation": {
+    "full_alert_crew_demand": {
+      "active_total": 14000,
+      "bed_crossbows": 7700,
+      "firepot_systems": 1400,
+      "maintenance_command_reserve": 2000,
+      "red_thunder_establishment": 16000,
+      "stone_drop_cranes": 2100,
+      "trebuchets": 2800
+    },
+    "gate_complex_bed_crossbows": 40,
+    "inner_citadel_bed_crossbows": 40,
+    "outer_bed_crossbows": 1400,
+    "outer_major_towers": 700,
+    "sword_manor_bed_crossbows": 60,
+    "total_bed_crossbows": 1540,
+    "trebuchet_distribution": {
+      "inner_citadel": 10,
+      "inner_walls": 18,
+      "outer_wall": 112
+    }
+  },
+  "installed_systems": {
+    "bed_crossbows": 1540,
+    "counterweight_trebuchets": 140,
+    "firepot_systems": 700,
+    "stone_drop_cranes": 700
+  },
+  "institution_ref": "institution_four_bastion_corps",
   "name": "Tang Manor Artillery Runtime State",
   "owner_id": "tang_manor_artillery",
+  "owner_ref": "force_house_tang",
   "owner_type": "artillery_state",
   "records": [
     {
@@ -58,40 +93,5 @@
   "runtime": {
     "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
   },
-  "schema": "artillery-state",
-  "owner_ref": "force_house_tang",
-  "institution_ref": "institution_four_bastion_corps",
-  "crew_force_refs": [
-    "force_house_tang",
-    "force_house_tang"
-  ],
-  "command_ref": "cmdgrp.house_tang.outer_wall",
-  "installed_systems": {
-    "bed_crossbows": 1540,
-    "counterweight_trebuchets": 140,
-    "stone_drop_cranes": 700,
-    "firepot_systems": 700
-  },
-  "derivation": {
-    "outer_major_towers": 700,
-    "outer_bed_crossbows": 1400,
-    "sword_manor_bed_crossbows": 60,
-    "inner_citadel_bed_crossbows": 40,
-    "gate_complex_bed_crossbows": 40,
-    "total_bed_crossbows": 1540,
-    "trebuchet_distribution": {
-      "outer_wall": 112,
-      "inner_citadel": 10,
-      "inner_walls": 18
-    },
-    "full_alert_crew_demand": {
-      "bed_crossbows": 7700,
-      "trebuchets": 2800,
-      "stone_drop_cranes": 2100,
-      "firepot_systems": 1400,
-      "active_total": 14000,
-      "maintenance_command_reserve": 2000,
-      "red_thunder_establishment": 16000
-    }
-  }
+  "schema": "artillery-state"
 }

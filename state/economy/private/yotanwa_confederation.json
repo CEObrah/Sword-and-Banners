@@ -1,17 +1,14 @@
 {
-  "schema": "sword-private-economy",
-  "owner_id": "private_economy_yotanwa_confederation",
-  "state": "yotanwa_confederation",
   "cash_silver": 6500000,
   "commodity_stock": {
-    "grain_kg": 100000000,
-    "construction_material_units": 240000
+    "construction_material_units": 240000,
+    "grain_kg": 100000000
   },
   "finished_goods": {
     "arrows_20": 2000,
+    "common_sword": 250,
     "military_bow": 300,
     "military_spear": 500,
-    "common_sword": 250,
     "padded_coat": 600,
     "shield": 400
   },
@@ -23,34 +20,37 @@
     "authority": true,
     "regions": {
       "loc_yotanwa_mountain_confederation": {
-        "location_ref": "loc_yotanwa_mountain_confederation",
-        "resident_population": 590000,
         "cash_silver": 6500000,
         "commodity_stock": {
-          "grain_kg": 100000000,
-          "construction_material_units": 240000
+          "construction_material_units": 240000,
+          "grain_kg": 100000000
         },
         "finished_goods": {
           "arrows_20": 2000,
+          "common_sword": 250,
           "military_bow": 300,
           "military_spear": 500,
-          "common_sword": 250,
           "padded_coat": 600,
           "shield": 400
         },
+        "location_ref": "loc_yotanwa_mountain_confederation",
         "production_runtime": {
           "completed_monthly_closes": 0,
           "last_close": null
-        }
+        },
+        "resident_population": 590000
       }
     }
   },
+  "owner_id": "private_economy_yotanwa_confederation",
   "production_runtime": {
     "completed_monthly_closes": 0,
     "last_close": null
   },
   "provenance": {
-    "kind": "game_seed_noncanonical",
-    "economic_identity": "sparse exact minor-polity local economy"
-  }
+    "economic_identity": "sparse exact minor-polity local economy",
+    "kind": "game_seed_noncanonical"
+  },
+  "schema": "sword-private-economy",
+  "state": "yotanwa_confederation"
 }

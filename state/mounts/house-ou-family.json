@@ -1,31 +1,16 @@
 {
-  "schema": "sword-mount-pool",
-  "owner_id": "mount_pool_force_house_ou_family",
-  "house_force_ref": "force_house_ou_family",
-  "state": "qin",
-  "total": 1500,
-  "types": {
-    "horse": 1500
-  },
-  "health": {
-    "fit": 1500,
-    "limited": 0,
-    "recovering": 0,
-    "unfit": 0
-  },
-  "regional_reserve": {},
   "allocated_to_formations": {
-    "formation_house_ou_family_01": {
-      "horse": 175
-    },
-    "formation_house_ou_family_02": {
-      "horse": 325
-    },
     "formation_gyoku_hou_house_a": {
       "horse": 500
     },
     "formation_gyoku_hou_house_b": {
       "horse": 500
+    },
+    "formation_house_ou_family_01": {
+      "horse": 175
+    },
+    "formation_house_ou_family_02": {
+      "horse": 325
     }
   },
   "geographic_disposition": {
@@ -36,5 +21,20 @@
         1500
       ]
     ]
+  },
+  "health": {
+    "fit": 1500,
+    "limited": 0,
+    "recovering": 0,
+    "unfit": 0
+  },
+  "house_force_ref": "force_house_ou_family",
+  "owner_id": "mount_pool_force_house_ou_family",
+  "regional_reserve": {},
+  "schema": "sword-mount-pool",
+  "state": "qin",
+  "total": 1500,
+  "types": {
+    "horse": 1500
   }
 }

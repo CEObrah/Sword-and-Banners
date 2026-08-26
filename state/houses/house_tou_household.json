@@ -19,34 +19,34 @@
   "leader_ref": "char_tou",
   "lineage_cohort": {
     "adults": 15,
+    "aggregate_marriages": 4,
     "children": 6,
     "elders": 2,
     "exact_member_refs": [
       "char_tou"
     ],
-    "unmaterialized_members": {
-      "children": 6,
-      "adults": 14,
-      "elders": 2
-    },
     "population_ref": "population_qin",
-    "aggregate_marriages": 4
+    "unmaterialized_members": {
+      "adults": 14,
+      "children": 6,
+      "elders": 2
+    }
   },
   "military_force_ref": "force_house_tou_household",
+  "nobility": {
+    "grade": "recognized_house"
+  },
   "owner_id": "house_tou_household",
+  "politics": {
+    "court_access": 38,
+    "influence": 51,
+    "information_access": 36,
+    "patronage": 39,
+    "relationships": {}
+  },
   "projects": [],
   "schema": "sword-house",
   "state": "qin",
   "threat_level": "0.1",
-  "treasury_silver": 155400,
-  "politics": {
-    "influence": 51,
-    "patronage": 39,
-    "information_access": 36,
-    "court_access": 38,
-    "relationships": {}
-  },
-  "nobility": {
-    "grade": "recognized_house"
-  }
+  "treasury_silver": 155400
 }

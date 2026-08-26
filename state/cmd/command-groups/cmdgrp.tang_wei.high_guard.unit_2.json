@@ -1,30 +1,13 @@
 {
-  "schema": "command-group",
-  "id": "cmdgrp.tang_wei.high_guard.unit_2",
-  "display_name": "High Guard Infantry Thousand 2",
-  "context": "nested_army",
   "authority_ref": "char_tang_wei",
   "commander_ref": "char_tang_command_high_guard_unit_2",
-  "direct_person_refs": [],
-  "role_assignments": {},
-  "successor_refs": [],
-  "units": [
-    {
-      "kind": "formation",
-      "ref": "formation_high_guard_infantry_02a"
-    },
-    {
-      "kind": "formation",
-      "ref": "formation_high_guard_infantry_02b"
-    }
-  ],
-  "standing_order_refs": [],
-  "standing_doctrine_ref": "doc.tang_wei.high_guard",
   "communication_ref": null,
-  "location": "loc_qin_eastern_depot",
-  "parent_command_group_ref": "cmdgrp.tang_wei.high_guard.foot_wing",
-  "updated_at": "244-BCE-09-09T20:22:48+08:00",
+  "context": "nested_army",
   "created_at": "244-BCE-09-09T20:22:48+08:00",
+  "direct_person_refs": [],
+  "display_name": "High Guard Infantry Thousand 2",
+  "id": "cmdgrp.tang_wei.high_guard.unit_2",
+  "location": "loc_qin_eastern_depot",
   "organizational_state": {
     "authorized_direct_unit_slots": 2,
     "authorized_strength": 1000,
@@ -36,5 +19,21 @@
     "reorganization_need": "none",
     "status": "active"
   },
-  "active_context_ref": "operation_arc_131572c4e8a2892bbc"
+  "parent_command_group_ref": "cmdgrp.tang_wei.high_guard.foot_wing",
+  "role_assignments": {},
+  "schema": "command-group",
+  "standing_doctrine_ref": "doc.tang_wei.high_guard",
+  "standing_order_refs": [],
+  "successor_refs": [],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_high_guard_infantry_02a"
+    },
+    {
+      "kind": "formation",
+      "ref": "formation_high_guard_infantry_02b"
+    }
+  ],
+  "updated_at": "244-BCE-09-09T20:22:48+08:00"
 }

@@ -665,6 +665,33 @@
       },
       "site_ref": "loc_shintei"
     },
+    "loc_tang_inner_citadel": {
+      "condition": 1.0,
+      "effective_resident_support_capacity_people": 100000,
+      "master_plan_ref": "game/data/world/tang-manor-master-plan.json",
+      "military_support": {
+        "current_intended_resident_troops": 30000,
+        "permanent_bed_capacity_people": 50000,
+        "stable_capacity_horses": 12000
+      },
+      "physical_support": {
+        "food_storage_distribution_capacity_people": 3000000,
+        "housing_capacity_people": 100000,
+        "ordinary_work_access_capacity_people": 100000,
+        "sanitation_capacity_people": 150000,
+        "water_capacity_people": 150000
+      },
+      "site_ref": "loc_tang_inner_citadel",
+      "strategic_storage_capacity": {
+        "construction_material_units": 96250,
+        "defensive_stores_units": 780000,
+        "grain_kg": 760000000,
+        "medicine_lots": 787500,
+        "war_arrows": 180000000,
+        "war_bolts": 35000000,
+        "water_reserve_person_days": 9000000
+      }
+    },
     "loc_tang_inner_walls": {
       "condition": 1.0,
       "effective_resident_support_capacity_people": 2500000,
@@ -697,33 +724,6 @@
       "site_ref": "loc_tang_inner_walls",
       "training_support": {
         "simultaneous_trainee_capacity": 500000
-      }
-    },
-    "loc_tang_inner_citadel": {
-      "condition": 1.0,
-      "effective_resident_support_capacity_people": 100000,
-      "master_plan_ref": "game/data/world/tang-manor-master-plan.json",
-      "military_support": {
-        "current_intended_resident_troops": 30000,
-        "permanent_bed_capacity_people": 50000,
-        "stable_capacity_horses": 12000
-      },
-      "physical_support": {
-        "food_storage_distribution_capacity_people": 3000000,
-        "housing_capacity_people": 100000,
-        "ordinary_work_access_capacity_people": 100000,
-        "sanitation_capacity_people": 150000,
-        "water_capacity_people": 150000
-      },
-      "site_ref": "loc_tang_inner_citadel",
-      "strategic_storage_capacity": {
-        "construction_material_units": 96250,
-        "defensive_stores_units": 780000,
-        "grain_kg": 760000000,
-        "medicine_lots": 787500,
-        "war_arrows": 180000000,
-        "war_bolts": 35000000,
-        "water_reserve_person_days": 9000000
       }
     },
     "loc_tang_manor": {

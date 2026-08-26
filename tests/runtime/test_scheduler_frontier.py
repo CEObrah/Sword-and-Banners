@@ -440,3 +440,13 @@ def test_bounded_long_horizon_windows_match_single_heap_and_remain_atomic(campai
     # pre-command snapshot until the outer transaction coordinator commits.
     assert original_disk_time2 == original_disk_time
     assert str(windowed.store.read_json("state/runtime.json")["world_time"]) == original_disk_time
+
+
+def test_regional_state_institutions_have_authoritative_owner_routes(campaign):
+    import json
+    owners = json.loads((campaign / "state/index/owner-index.json").read_text(encoding="utf-8"))["owners"]
+    for state in ("qin", "zhao", "chu", "wei", "han", "yan", "qi"):
+        rel = f"state/institutions/regional-{state}.json"
+        records = json.loads((campaign / rel).read_text(encoding="utf-8"))["records"]
+        for ref in records:
+            assert owners.get(ref) == f"{rel}#/records/{ref}"

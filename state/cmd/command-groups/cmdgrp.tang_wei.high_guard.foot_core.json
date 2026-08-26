@@ -1,30 +1,13 @@
 {
-  "schema": "command-group",
-  "id": "cmdgrp.tang_wei.high_guard.foot_core",
-  "display_name": "High Guard Permanent Tang Infantry Core",
-  "context": "nested_army",
   "authority_ref": "char_tang_wei",
   "commander_ref": "char_tang_command_high_guard_foot_core",
-  "direct_person_refs": [],
-  "role_assignments": {},
-  "successor_refs": [],
-  "units": [
-    {
-      "kind": "nested_army",
-      "ref": "cmdgrp.tang_wei.high_guard.foot_wing"
-    },
-    {
-      "kind": "nested_army",
-      "ref": "cmdgrp.tang_wei.high_guard.unit_3"
-    }
-  ],
-  "standing_order_refs": [],
-  "standing_doctrine_ref": "doc.tang_wei.high_guard",
   "communication_ref": null,
-  "location": "loc_qin_eastern_depot",
-  "parent_command_group_ref": "cmdgrp.tang_wei.high_guard",
-  "updated_at": "244-BCE-09-09T20:22:48+08:00",
+  "context": "nested_army",
   "created_at": "244-BCE-09-09T20:22:48+08:00",
+  "direct_person_refs": [],
+  "display_name": "High Guard Permanent Tang Infantry Core",
+  "id": "cmdgrp.tang_wei.high_guard.foot_core",
+  "location": "loc_qin_eastern_depot",
   "organizational_state": {
     "authorized_direct_unit_slots": 2,
     "authorized_strength": 3000,
@@ -36,5 +19,21 @@
     "reorganization_need": "none",
     "status": "active"
   },
-  "active_context_ref": "operation_arc_131572c4e8a2892bbc"
+  "parent_command_group_ref": "cmdgrp.tang_wei.high_guard",
+  "role_assignments": {},
+  "schema": "command-group",
+  "standing_doctrine_ref": "doc.tang_wei.high_guard",
+  "standing_order_refs": [],
+  "successor_refs": [],
+  "units": [
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.tang_wei.high_guard.foot_wing"
+    },
+    {
+      "kind": "nested_army",
+      "ref": "cmdgrp.tang_wei.high_guard.unit_3"
+    }
+  ],
+  "updated_at": "244-BCE-09-09T20:22:48+08:00"
 }
