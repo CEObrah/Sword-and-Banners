@@ -10,7 +10,7 @@ Use this reference for `OOC DEV:` source routing. `runtime/contracts/repository-
 
 `state/` — current mutable campaign truth. Records explicitly marked `authority: false` are indexes/projections/routing only.
 
-`plugins/sword-and-banners/skills/sword-and-banners-game-master/` — canonical GM Skill source; not mechanical authority.
+`plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/` — canonical GM Skill source; not mechanical authority.
 
 `tests/runtime/` — current runtime/invariant/integration verification.
 

@@ -203,7 +203,7 @@ def test_mcp_attestation_is_exact_short_lived_and_tamper_evident():
 
 def test_railway_and_mcp_files_present():
     root=Path(__file__).resolve().parents[2]
-    skill=root/'plugins/sword-and-banners/skills/sword-and-banners-game-master'
+    skill=root/'plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master'
     assert (root/'railway.toml').is_file()
     assert not (root/'railway.json').exists()
     railway=(root/'railway.toml').read_text()

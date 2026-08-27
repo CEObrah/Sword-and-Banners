@@ -28,7 +28,7 @@ _BRANCH_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$")
 _OBJECT_ID = re.compile(r"^(?:[0-9a-f]{40}|[0-9a-f]{64})$")
 _RUNTIME_NEUTRAL_PATH_PREFIXES = (
     "docs/",
-    "plugins/sword-and-banners/skills/",
+    "plugins/sword-and-banners/sword-and-banners-skill/",
     "tests/",
     "tools/",
 )

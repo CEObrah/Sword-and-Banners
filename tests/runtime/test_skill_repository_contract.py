@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SKILL = ROOT / 'plugins/sword-and-banners/skills/sword-and-banners-game-master'
+SKILL = ROOT / 'plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master'
 
 
 def test_sword_skill_is_self_contained():

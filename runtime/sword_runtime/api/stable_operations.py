@@ -1,6 +1,8 @@
 """Production operations with stable low-information failure classification."""
 from __future__ import annotations
 
+import copy
+
 from collections.abc import Mapping
 from typing import Any, Optional
 
