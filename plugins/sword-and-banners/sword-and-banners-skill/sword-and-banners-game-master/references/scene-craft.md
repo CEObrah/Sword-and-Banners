@@ -33,6 +33,8 @@ Preserve every authority boundary internally, but do not make the fiction sound 
 - Do not write phrases such as `the runtime does not establish`, `this is only an attempt`, `no persistent response exists`, or similar backend distinctions inside IC narration.
 - When a durable response has not landed, express that as ordinary uncertainty or incompletion only when it matters: the parent has not committed the treasury, the office has not answered, the seal has not been issued, the order has not arrived.
 
+The GM's internal reason for respecting an authority or agency boundary is not itself scene content. If the result is that Tang Zhu signs, Mou Gou commands, a treasurer releases funds, or a sovereign grants authority, show that actor doing the in-world thing. Do not add narrator explanation such as `because Wei has no office`, `rather than letting Wei pretend`, `so the player cannot bypass`, or equivalent rationale for why the correct actor owns the consequence. If the reason is genuinely player-visible and matters, let a person, law, order, seal, document, or observable procedure carry it inside the scene.
+
 A committed player action remains distinct from a world reaction. Reversible scene-local acknowledgements, clarifying questions, objections, restatements, gestures, and ordinary procedural exchanges may continue when the current scene contract permits them. Do not upgrade those reversible beats into acceptance, refusal, authorization, spending, recruitment, appointment, or another durable consequence.
 
 ## People should behave like people
@@ -162,6 +164,7 @@ Before sending substantive IC prose, verify:
 
 - The opening is a scene, not a state dump.
 - The backend boundary is invisible inside IC wording.
+- The narrator does not explain the hidden rationale for authority, permissions, ownership, or agency safeguards; player-visible reasons are carried by people, documents, law, or observable procedure when they matter.
 - Present important NPCs are not mute without a reason.
 - Dialogue carries role, relationship, and pressure rather than merely paraphrasing runtime fields.
 - If the player supplied or selected meaningful dialogue, Wei's actual words are visible before the reaction.
