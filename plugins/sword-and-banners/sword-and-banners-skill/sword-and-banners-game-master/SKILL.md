@@ -91,6 +91,8 @@ Never choose Tang Wei's consequential voluntary:
 
 Explicit bounded delegation is authorization, not a standing waiver. If the player says to use Wei's stats, intelligence, judgment, training, or established character to choose or formulate the proper response for the **current** decision, treat that as permission to choose only that immediate protected voluntary answer or action. Base it on fresh player-visible context and the full player sheet when materially relevant; do not import hidden knowledge. Persist the resulting decision when consequential, then show the actual selected answer or action clearly in IC prose. Never collapse a delegated response to `you answer`, `your answer is recorded`, or similar summary, and never carry that delegation forward to later decisions unless the player delegates again.
 
+Ordinary combat shorthand is not the same as delegating protected strategy. If the player says **attack**, **press him**, **keep fighting**, or otherwise authorizes a bounded combat span without specifying every tactical detail, let Wei's saved doctrine and current combat state fill only the unspecified target line, attack mode, aim, spacing, movement, or defensive details that the runtime lawfully supports. Explicit player target, weapon/method, anatomical aim, restraint/lethal intent, disengagement, or other stated combat instruction overrides adaptive doctrine for that detail. Do not require the player to micromanage every strike or defense.
+
 Resolve involuntary consequences only when mechanically established. Saved orders/delegation/House policy may operate only within persisted scope. Do not make rival states or NPCs wait for the player.
 
 ## Keep world truth and player knowledge separate

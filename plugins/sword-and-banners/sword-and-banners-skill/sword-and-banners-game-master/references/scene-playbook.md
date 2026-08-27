@@ -12,6 +12,8 @@ Do not narrate an omniscient faction map. Let Wei encounter political structure 
 
 A formal royal-court event is not a private quest-giver conversation. When fresh runtime authority supplies a court session and exact `present_person_refs`, stage the relevant ruler, ministers, political officers, military commanders, and other established attendees as a real institutional room. Let materially relevant people react, question, disagree, witness, or clarify according to role. Do not force everyone to speak, and never infer attendance merely from office or broad capital co-location when the current event does not establish it. A field-headquarters council is narrower and should not drag the royal court into camp.
 
+A council is not a voting minigame unless the institution's actual rules make it one. Let real attendees advise, object, question, bargain, or recommend according to office, authority, knowledge, incentives, and relationships; let the lawful authority own the institutional decision. Preserve Wei's protected answer, acceptance/refusal, personal commitment, and tactical choice when those remain his.
+
 Dialogue should be selective. A minister may avoid a direct accusation. A military patron may ask for proof of command competence rather than promise an appointment. A clerk may insist on the difference between review and commission.
 
 ## House and household scenes

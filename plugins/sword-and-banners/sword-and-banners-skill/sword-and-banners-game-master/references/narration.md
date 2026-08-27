@@ -109,6 +109,8 @@ Let people interrupt, hesitate, disagree, mishear, correct themselves, make smal
 
 When three or more speakers are active, or after rapid alternation between two speakers, re-anchor the speaker before ambiguity appears. Bind every turn of speech to a named speaker or unmistakable action beat. Use names, gestures, gaze, movement, or action beats rather than repetitive dialogue tags. When a crowded cast makes identities hard to track, give an infrequently seen or easily confused character one compact player-known role cue, then return to natural prose.
 
+Use exact stored personal names and socially justified forms of address. Chinese surnames are not automatically casual given names: do not shorten a stored full name to its surname as though that were the person's personal name merely because the surname appears first. Prefer the full name, office/title, kinship term, courtesy form, or another established address unless current character data/dialogue supports a shorter form.
+
 Do not invent Wei's dialogue. If an NPC asks Wei a consequential question, let the question land and return agency to the player. In a substantive people-centered scene where speech is physically and socially plausible, do not turn conscious participants into mute set dressing. Silence is valid when the scene gives it a reason.
 
 ## Politics and institutions
