@@ -49,7 +49,7 @@ def _runtime_sources_text() -> str:
 def validate_repository_routes() -> None:
     docs = [
         ROOT / "runtime" / "contracts" / "repository-map.json",
-        ROOT / "plugins" / "sword-and-banners" / "skills" / "sword-and-banners-game-master" / "references" / "repository-map.md",
+        ROOT / "plugins" / "sword-and-banners" / "sword-and-banners-skill" / "sword-and-banners-game-master" / "references" / "repository-map.md",
     ]
     runtime_text = _runtime_sources_text()
     missing: list[str] = []
@@ -439,7 +439,7 @@ def main() -> int:
         "runtime/contracts/repository-map.json",
         "tools/test_changed.py",
         "tools/run_release_suite.py",
-        "plugins/sword-and-banners/skills/sword-and-banners-game-master/SKILL.md",
+        "plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/SKILL.md",
     ):
         if not (ROOT / required).is_file():
             raise SystemExit(f"required authority missing: {required}")
