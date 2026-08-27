@@ -27,12 +27,20 @@ jobs:
 
           path = Path('tools/quick_check.py')
           text = path.read_text(encoding='utf-8')
-          old = 'plugins/sword-and-banners/skills/sword-and-banners-game-master'
-          new = 'plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master'
-          count = text.count(old)
-          if count != 2:
-              raise SystemExit(f'expected 2 stale quick_check skill routes, found {count}')
-          path.write_text(text.replace(old, new), encoding='utf-8')
+
+          literal_old = 'plugins/sword-and-banners/skills/sword-and-banners-game-master'
+          literal_new = 'plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master'
+          if text.count(literal_old) != 1:
+              raise SystemExit(f'expected 1 stale literal skill route, found {text.count(literal_old)}')
+          text = text.replace(literal_old, literal_new, 1)
+
+          component_old = 'ROOT / "plugins" / "sword-and-banners" / "skills" / "sword-and-banners-game-master" / "references" / "repository-map.md"'
+          component_new = 'ROOT / "plugins" / "sword-and-banners" / "sword-and-banners-skill" / "sword-and-banners-game-master" / "references" / "repository-map.md"'
+          if text.count(component_old) != 1:
+              raise SystemExit(f'expected 1 stale component skill route, found {text.count(component_old)}')
+          text = text.replace(component_old, component_new, 1)
+
+          path.write_text(text, encoding='utf-8')
           Path('.github/workflows/apply-quick-check-skill-route-fix.yml').unlink()
           PY
 
