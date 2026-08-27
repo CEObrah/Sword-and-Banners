@@ -1,0 +1,47 @@
+name: Apply quick check skill route fix
+
+on:
+  push:
+    branches:
+      - fix/stable-operations-copy-import
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out fix branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/stable-operations-copy-import
+
+      - name: Repair stale skill route in quick check
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('tools/quick_check.py')
+          text = path.read_text(encoding='utf-8')
+          old = 'plugins/sword-and-banners/skills/sword-and-banners-game-master'
+          new = 'plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master'
+          count = text.count(old)
+          if count != 2:
+              raise SystemExit(f'expected 2 stale quick_check skill routes, found {count}')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          Path('.github/workflows/apply-quick-check-skill-route-fix.yml').unlink()
+          PY
+
+      - name: Commit route repair to branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/quick_check.py .github/workflows/apply-quick-check-skill-route-fix.yml
+          git commit -m 'fix: follow restructured skill path in quick check'
+          git push origin HEAD:fix/stable-operations-copy-import
