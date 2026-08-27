@@ -381,6 +381,15 @@ def fresh_runtime_projection(
     current_handles = [item for item in handles if item.get("triggered_at") == campaign.get("world_time")]
     recent_world_reports = [item for item in handles if item.get("kind") == "world_arc_report"][-3:]
     pressures = _dedupe_handles(current_handles + recent_world_reports)
+    active_questions = [
+        {
+            key: item.get(key)
+            for key in ("event_id", "at", "target_ref", "player_statement", "posture")
+            if item.get(key) not in (None, "")
+        }
+        for item in attempts
+        if item.get("action") == "ask" and isinstance(item.get("player_statement"), str) and item.get("player_statement")
+    ][:4]
     return {
         "projection_status": "fresh_runtime_projection",
         "projection_provenance": "exact_current_owners_triggered_events_and_typed_player_attempts",
@@ -402,7 +411,7 @@ def fresh_runtime_projection(
         "scene_local_narration_contract": SCENE_LOCAL_NARRATION_CONTRACT,
         "unresolved_decision": None,
         "known_clock_boundaries": [],
-        "active_questions": [],
+        "active_questions": active_questions,
         "pending_information_paths": [],
     }
 
