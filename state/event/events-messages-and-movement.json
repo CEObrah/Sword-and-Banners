@@ -1,0 +1,233 @@
+{
+  "archive_segment_size": 256,
+  "archived_event_count": 0,
+  "archives": [],
+  "causal_events": {
+    "event_qin_command_support_2ae37c4577b99c85001d": {
+      "actor_ref": "inst_qin_military_bureau",
+      "basis_goal": "Qin Military Bureau delivers Tang Wei the current northern Wei campaign orders and force picture",
+      "delivery": {
+        "location_ref": "loc_kanyou",
+        "route": "Qin field-command military dispatch channel",
+        "target_ref": "char_tang_wei"
+      },
+      "due_at": "244-BCE-09-16T20:22:48+08:00",
+      "event_ref": "event_qin_command_support_2ae37c4577b99c85001d",
+      "kind": "institutional_response",
+      "process_kind": "qin_field_command_support",
+      "process_stage": "operational_briefing",
+      "provenance": {
+        "kind": "causal_runtime_settlement",
+        "late_catch_up": false,
+        "source_owner_ref": "inst_qin_military_bureau",
+        "source_work_ref": "auto_qin_campaign_briefing_18e94cb25da67de12bb5",
+        "work_ref": "event_qin_command_support_2ae37c4577b99c85001d"
+      },
+      "source_event_ref": "operation_arc_131572c4e8a2892bbc",
+      "status": "triggered",
+      "summary": "Qin Military Bureau briefing. Tang Wei's field command numbers 9,500 troops in 19 formation(s), currently at Kanyou. Of these, 5,000 are Qin-assigned troops and 4,500 are House or retinue troops accompanying under Tang Wei's own authority. Other Qin forces on the campaign roster: 73,200 troops in 3 formation(s), under Kanki, Mou Gou, Ousen, at Qin Capital Basin, Qin Northern Frontier, task: concentrate Mou Gou, Ousen, and Kanki field forces for the northern Wei campaign; 46,100 troops in 2 formation(s), under Ouki, Tou, at Qin Eastern March, task: concentrate Ouki and Tou field forces for the northern Wei campaign; 40,000 troops in 1 formation(s), under Mou Bu, at Qin Southern March, task: hold Mou Bu's shock army ready for the northern Wei campaign; 5,000 troops in 1 formation(s), under Fan Yi, at Qin Capital Basin, task: maintain the Qin mobile reserve as a participant in the northern Wei campaign; 3,000 troops in 1 formation(s), under Shou Hei Kun, at Qin Eastern Military Depot, task: maintain the eastern reserve as a participant in the northern Wei campaign. Combined Qin strength on the current campaign roster is 176,800. The staff designate Kanyou as the present operational area. The field command has completed its lawful staging at Kanyou; Sanyou remains the strategic target, but Qin has not yet authorized entry into Wei territory. Intelligence estimate: an official estimate of roughly 94,000-156,000 troops able to influence the theater; reported opposing commanders: Deng Shan, Gai Mou, Go Hou Mei, Huan Zhen, Jing Ning, Jing Rong, Luo Qian, Qiao He, Qiao Jie, Rei Ou; no confirmed battle contact. These are staff estimates rather than confirmed enemy counts. The Bureau's standing orders record concentration at Kanyou as complete. Further advance into Wei territory awaits new lawful entry authority.",
+      "target_ref": "char_tang_wei",
+      "triggered_at": "244-BCE-09-16T20:22:48+08:00"
+    },
+    "event_story_family_invitation_003570b5154f67c9c62c": {
+      "actor_ref": "char_tang_kai",
+      "delivery": {
+        "location_ref": "loc_kanyou",
+        "route": "House Tang household messenger",
+        "target_ref": "char_tang_wei"
+      },
+      "due_at": "244-BCE-09-16T20:22:48+08:00",
+      "event_ref": "event_story_family_invitation_003570b5154f67c9c62c",
+      "kind": "message",
+      "process_kind": "family_initiative",
+      "process_stage": "invitation_delivered",
+      "provenance": {
+        "kind": "causal_runtime_settlement",
+        "late_catch_up": false,
+        "source_owner_ref": "char_tang_kai",
+        "work_ref": "event_story_family_invitation_003570b5154f67c9c62c"
+      },
+      "status": "triggered",
+      "summary": "A household messenger brings a personal note from Tang Kai. Tang Kai sends a note asking when his elder brother will come see him at the family hall. It is an invitation rather than a command or automatic scene transition; Tang Wei may answer it, postpone it, or continue with other duties.",
+      "target_ref": "char_tang_wei",
+      "triggered_at": "244-BCE-09-16T20:22:48+08:00"
+    },
+    "event_story_house_digest_c3e3670a8b3ea0d23210": {
+      "actor_ref": "char_tang_ling",
+      "delivery": {
+        "location_ref": "loc_kanyou",
+        "route": "House Tang direct report",
+        "target_ref": "char_tang_wei"
+      },
+      "due_at": "244-BCE-09-16T20:22:48+08:00",
+      "event_ref": "event_story_house_digest_c3e3670a8b3ea0d23210",
+      "kind": "message",
+      "process_kind": "house_development_digest",
+      "process_stage": "delivered",
+      "provenance": {
+        "kind": "causal_runtime_settlement",
+        "late_catch_up": false,
+        "source_owner_ref": "house_tang",
+        "work_ref": "event_story_house_digest_c3e3670a8b3ea0d23210"
+      },
+      "status": "triggered",
+      "summary": "Tang Ling sends Tang Wei the current House military ledger. The House force has completed 0 monthly training cycle(s). Current authorized strength: 164,060/164,060 House Infantry, 12,000/12,000 House Cavalry. The current authorized formations are fully manned. That does not mean House Tang has reached its military growth ceiling. Further expansion can authorize additional formations, but the new bodies, equipment, training capacity, and cavalry remounts must still exist and be conserved. Immediate replacement intake into existing formations is 0, with assessment capacity of 6,000 candidates per 30 days before equipment or remount limits. The report does not create soldiers; replacement and expansion still conserve population, equipment, mounts, and force structure.",
+      "target_ref": "char_tang_wei",
+      "triggered_at": "244-BCE-09-16T20:22:48+08:00"
+    },
+    "event_world_arc_14c22ecd6bd11b190c2b": {
+      "actor_ref": "state_zhao",
+      "arc_ref": "arc_northern_steppe_ganmon_pressure",
+      "basis_goal": "maintain military readiness",
+      "due_at": "244-BCE-09-13T20:22:48+08:00",
+      "event_ref": "event_world_arc_14c22ecd6bd11b190c2b",
+      "evidence_stage": "intent",
+      "initiative_kind": "strategic_initiative",
+      "kind": "world_arc_activity",
+      "pressure_stage": "developing",
+      "provenance": {
+        "arc_owner_ref": "kingdom_arcs",
+        "domain_action_ref": "state_arc_a90e45f7d3272597d1",
+        "domain_status": "work_queued",
+        "evidence_stage": "intent",
+        "kind": "world_arc_orchestration",
+        "required_evidence_stage": "domain_action",
+        "review_count": 1
+      },
+      "required_evidence_stage": "domain_action",
+      "result": "work_queued",
+      "status": "triggered",
+      "summary": "arc_northern_steppe_ganmon_pressure: state_zhao queues actor-owned work (state_strategic_priority), but no material consequence has settled yet. Arc momentum does not increase from the queue record.",
+      "target_ref": "polity_northern_steppe",
+      "triggered_at": "244-BCE-09-13T20:22:48+08:00",
+      "visibility_class": "hidden"
+    },
+    "event_world_arc_6d84b9ed09f15a54994c": {
+      "actor_ref": "char_yotanwa",
+      "arc_ref": "arc_yotanwa_mountain_unification",
+      "basis_goal": "preserve the mountain confederation and expand unity without surrendering independent authority",
+      "due_at": "244-BCE-09-13T20:22:48+08:00",
+      "event_ref": "event_world_arc_6d84b9ed09f15a54994c",
+      "evidence_stage": "intent",
+      "initiative_kind": "strategic_initiative",
+      "kind": "world_arc_activity",
+      "pressure_stage": "developing",
+      "provenance": {
+        "arc_owner_ref": "kingdom_arcs",
+        "domain_action_ref": "person_arc_39c4cb77825e345238",
+        "domain_status": "work_queued",
+        "evidence_stage": "intent",
+        "kind": "world_arc_orchestration",
+        "required_evidence_stage": "domain_action",
+        "review_count": 1
+      },
+      "required_evidence_stage": "domain_action",
+      "result": "work_queued",
+      "status": "triggered",
+      "summary": "arc_yotanwa_mountain_unification: char_yotanwa queues actor-owned work (personal_initiative_attempt), but no material consequence has settled yet. Arc momentum does not increase from the queue record.",
+      "target_ref": null,
+      "triggered_at": "244-BCE-09-13T20:22:48+08:00",
+      "visibility_class": "hidden"
+    },
+    "event_world_arc_706f02c8118135d9fcd2": {
+      "actor_ref": "state_qin",
+      "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+      "basis_goal": "protect core territory",
+      "due_at": "244-BCE-09-15T20:22:48+08:00",
+      "event_ref": "event_world_arc_706f02c8118135d9fcd2",
+      "evidence_stage": "commitment",
+      "initiative_kind": "strategic_initiative",
+      "kind": "world_arc_activity",
+      "pressure_stage": "material",
+      "provenance": {
+        "arc_owner_ref": "kingdom_arcs",
+        "domain_action_ref": "state_arc_5a50316d0cec0f0a20",
+        "domain_status": "work_queued",
+        "evidence_stage": "commitment",
+        "kind": "world_arc_orchestration",
+        "material_evidence": {
+          "evidence_stage": "commitment",
+          "excluded_non_state_formation_refs": [
+            "formation_high_guard_cavalry",
+            "formation_high_guard_infantry_01a",
+            "formation_high_guard_infantry_01b",
+            "formation_high_guard_infantry_02a",
+            "formation_high_guard_infantry_02b",
+            "formation_high_guard_infantry_03a",
+            "formation_high_guard_infantry_03b",
+            "formation_red_lance_a",
+            "formation_red_lance_b"
+          ],
+          "formation_refs": [
+            "formation_black_banner_01a",
+            "formation_black_banner_01b",
+            "formation_black_banner_02a",
+            "formation_black_banner_02b",
+            "formation_black_banner_03a",
+            "formation_black_banner_03b",
+            "formation_black_banner_04a",
+            "formation_black_banner_04b",
+            "formation_high_guard_qin_a",
+            "formation_high_guard_qin_b"
+          ],
+          "issuer_ref": "state_qin",
+          "kind": "player_command_operational_order_reaffirmed",
+          "movement_committed": false,
+          "objective": "participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority",
+          "operation_ref": "operation_arc_131572c4e8a2892bbc",
+          "order_ref": "operational_order_669dd21e8390d23c6b",
+          "semantic_key": "a7f16128b063afafa20d598c",
+          "tactical_decision_committed": false,
+          "target_ref": "char_ryo_fui",
+          "history_event_ref": "autonomous_domain_f46a781723ba214983"
+        },
+        "required_evidence_stage": "domain_action",
+        "review_count": 2
+      },
+      "required_evidence_stage": "domain_action",
+      "result": "work_queued",
+      "status": "triggered",
+      "summary": "arc_ryo_fui_northern_wei_campaign: state_qin queues actor-owned work (actor_commitment_settled), but no material consequence has settled yet. Arc momentum does not increase from the queue record.",
+      "target_ref": "char_ryo_fui",
+      "triggered_at": "244-BCE-09-15T20:22:48+08:00",
+      "visibility_class": "discoverable"
+    },
+    "event_world_arc_cf2a4fd7c3a67092a63b": {
+      "actor_ref": "state_qin",
+      "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+      "basis_goal": "protect core territory",
+      "due_at": "244-BCE-09-11T20:22:48+08:00",
+      "event_ref": "event_world_arc_cf2a4fd7c3a67092a63b",
+      "evidence_stage": "intent",
+      "initiative_kind": "strategic_initiative",
+      "kind": "world_arc_activity",
+      "pressure_stage": "material",
+      "provenance": {
+        "arc_owner_ref": "kingdom_arcs",
+        "domain_action_ref": "state_arc_5a50316d0cec0f0a20",
+        "domain_status": "work_queued",
+        "evidence_stage": "intent",
+        "kind": "world_arc_orchestration",
+        "required_evidence_stage": "domain_action",
+        "review_count": 1
+      },
+      "required_evidence_stage": "domain_action",
+      "result": "work_queued",
+      "status": "triggered",
+      "summary": "arc_ryo_fui_northern_wei_campaign: state_qin queues actor-owned work (state_strategic_priority), but no material consequence has settled yet. Arc momentum does not increase from the queue record.",
+      "target_ref": "char_ryo_fui",
+      "triggered_at": "244-BCE-09-11T20:22:48+08:00",
+      "visibility_class": "discoverable"
+    }
+  },
+  "head_limit": 512,
+  "name": "13 Events Messages Arcs And Movement",
+  "next_archive_seq": 1,
+  "owner_id": "events_messages_and_movement",
+  "owner_type": "event_registry",
+  "records": [],
+  "runtime": {
+    "last_settled_at": "244-BCE-09-16T20:22:48+08:00"
+  },
+  "schema": "event-registry"
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "schema",
+    "campaign_id",
+    "game",
+    "time",
+    "revision",
+    "player_id",
+    "temporal_frontier"
+  ],
+  "properties": {
+    "schema": {
+      "const": "meta"
+    },
+    "campaign_id": {},
+    "campaign_started": {},
+    "game": {},
+    "player_id": {},
+    "revision": {},
+    "temporal_frontier": {},
+    "time": {},
+    "world_seed": {}
+  },
+  "additionalProperties": false,
+  "title": ""
+}

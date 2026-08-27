@@ -1,0 +1,11 @@
+{
+  "schema": "training-profile-record",
+  "id": "train.house_tang.house_infantry_outer_wall",
+  "profile": {
+    "id": "train.house_tang.house_infantry_outer_wall",
+    "inherits": "train.house_tang.house_infantry",
+    "resource_gated": true,
+    "deterministic_program_policy": "program.house_infantry_outer_wall",
+    "gain_authority": "game/data/mil/deterministic-training-programs.json + game/data/mechanics/training.json"
+  }
+}

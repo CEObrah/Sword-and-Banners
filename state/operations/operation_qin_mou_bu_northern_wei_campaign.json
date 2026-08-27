@@ -1,0 +1,37 @@
+{
+  "administrative_authorities": [
+    "state_qin"
+  ],
+  "administrative_authority": "state_qin",
+  "assignment_authority_ref": "state_qin",
+  "authority_basis": {
+    "campaign_arc_ref": "arc_ryo_fui_northern_wei_campaign",
+    "institutional_owner_ref": "state_qin",
+    "rule": "fresh-snapshot repair restores the exact Qin campaign roster as explicit operation owners; formation ownership, manpower, command hierarchy, and locations are unchanged"
+  },
+  "autonomous": true,
+  "command_group_ref": "cmdgrp.mou_bu.field_army",
+  "created_at": "244-BCE-09-16T20:22:48+08:00",
+  "formation_refs": [
+    "formation_qin_mou_bu_shock_army"
+  ],
+  "institutional_owner_ref": "state_qin",
+  "kind": "qin_campaign_participant_operation",
+  "location_ref": "loc_qin_regional_04",
+  "objective": "hold Mou Bu's shock army ready for the northern Wei campaign",
+  "objective_refs": [
+    "arc_ryo_fui_northern_wei_campaign",
+    "state_wei"
+  ],
+  "operation_ref": "operation_qin_mou_bu_northern_wei_campaign",
+  "owner_id": "operation_qin_mou_bu_northern_wei_campaign",
+  "schema": "sword-operation",
+  "source_force_ref": "force_state_qin",
+  "status": "active",
+  "termination_criteria": [
+    "the campaign participant is explicitly withdrawn, completed, defeated, superseded, or the campaign ends"
+  ],
+  "victory_criteria": [
+    "the campaign objective reaches an exact material consequence owned by its target subsystem"
+  ]
+}

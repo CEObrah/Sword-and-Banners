@@ -1,0 +1,502 @@
+{
+  "authority": true,
+  "schema": "institutional-awareness",
+  "subjects": {
+    "char_tang_wei": {
+      "audiences": {
+        "audience:state_chu:court": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_chu:military_officers": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_han:court": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_han:military_officers": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_qi:court": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_qi:military_officers": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_qin:court": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_family_identity",
+            "public_house_status",
+            "current_registered_qin_office"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_qin:merchant_network": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_qin:military_officers": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status",
+            "current_registered_qin_office"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_qin:nobility": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_family_identity",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_wei:court": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_wei:military_officers": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_yan:court": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_yan:military_officers": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_zhao:court": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "private_wealth",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        },
+        "audience:state_zhao:military_officers": {
+          "known_fact_classes": [
+            "name",
+            "house_affiliation",
+            "public_house_status"
+          ],
+          "restricted_fact_classes": [
+            "private_stats",
+            "secret_missions",
+            "exact_private_force_strength",
+            "confidential_current_command"
+          ],
+          "status": "institutionally_known"
+        }
+      },
+      "subject_type": "person"
+    },
+    "house_tang": {
+      "audiences": {
+        "audience:state_chu:court": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_chu:military_officers": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_han:court": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_han:military_officers": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_qi:court": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_qi:military_officers": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_qin:court": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_qin:military_officers": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_wei:court": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_wei:military_officers": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_yan:court": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_yan:military_officers": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_zhao:court": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        },
+        "audience:state_zhao:military_officers": {
+          "known_fact_classes": [
+            "institution_name",
+            "state_affiliation",
+            "Tang_Manor",
+            "Sword_Manor",
+            "major_private_military_institutions",
+            "public_commercial_presence"
+          ],
+          "restricted_fact_classes": [
+            "exact_private_force_strength",
+            "private_treasury",
+            "private_doctrine",
+            "secret_operations",
+            "private_family_matters"
+          ],
+          "status": "widely_known_in_network"
+        }
+      },
+      "subject_type": "house"
+    }
+  }
+}

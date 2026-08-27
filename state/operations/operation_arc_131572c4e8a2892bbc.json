@@ -1,0 +1,162 @@
+{
+  "administrative_authorities": [
+    "char_tang_wei"
+  ],
+  "administrative_authority": "char_tang_wei",
+  "assignment_authority_ref": "char_tang_wei",
+  "authority_basis": {
+    "assignment_authority_ref": "char_tang_wei",
+    "command_group_ref": "cmdgrp.tang_wei.field_army",
+    "institutional_owner_ref": "state_qin",
+    "source_event_ref": "event_story_qin_command_offer_17220ee53f8f08820e41",
+    "source_force_ref": "force_state_qin"
+  },
+  "autonomous": false,
+  "auxiliary_formation_refs": [
+    "formation_high_guard_cavalry",
+    "formation_high_guard_infantry_01a",
+    "formation_high_guard_infantry_01b",
+    "formation_high_guard_infantry_02a",
+    "formation_high_guard_infantry_02b",
+    "formation_high_guard_infantry_03a",
+    "formation_high_guard_infantry_03b",
+    "formation_red_lance_a",
+    "formation_red_lance_b"
+  ],
+  "auxiliary_participation_rule": "House/retinue formations may accompany Tang Wei under his own authority; participation does not transfer ownership to Qin and Qin orders do not automatically bind them.",
+  "briefing_information_ref": "information.qin_campaign_briefing.a98b9575d13e9931a873",
+  "campaign_participant_operation_refs": [
+    "operation_qin_mou_gou_northern_wei_campaign",
+    "operation_qin_ouki_northern_wei_campaign",
+    "operation_qin_mou_bu_northern_wei_campaign",
+    "operation_qin_mobile_reserve_northern_wei_campaign",
+    "operation_qin_eastern_reserve_northern_wei_campaign"
+  ],
+  "campaign_participant_roster_updated_at": "244-BCE-09-16T20:22:48+08:00",
+  "campaign_phase": "awaiting_entry_authority",
+  "command_group_ref": "cmdgrp.tang_wei.field_army",
+  "created_at": "244-BCE-07-26T06:23:48+08:00",
+  "formation_refs": [
+    "formation_red_lance_a",
+    "formation_red_lance_b",
+    "formation_high_guard_infantry_01a",
+    "formation_high_guard_infantry_01b",
+    "formation_high_guard_infantry_02a",
+    "formation_high_guard_infantry_02b",
+    "formation_high_guard_infantry_03a",
+    "formation_high_guard_infantry_03b",
+    "formation_high_guard_cavalry",
+    "formation_high_guard_qin_a",
+    "formation_high_guard_qin_b",
+    "formation_black_banner_01a",
+    "formation_black_banner_01b",
+    "formation_black_banner_02a",
+    "formation_black_banner_02b",
+    "formation_black_banner_03a",
+    "formation_black_banner_03b",
+    "formation_black_banner_04a",
+    "formation_black_banner_04b"
+  ],
+  "institutional_owner_ref": "state_qin",
+  "kind": "assigned_qin_field_detachment_operation",
+  "last_operational_order_at": "244-BCE-08-20T06:22:48+08:00",
+  "last_operational_order_ref": "operational_order_669dd21e8390d23c6b",
+  "last_phase_completed_at": "244-BCE-09-11T12:22:48+08:00",
+  "location_ref": "loc_kanyou",
+  "objective": "participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority",
+  "objective_refs": [
+    "arc_ryo_fui_northern_wei_campaign",
+    "state_wei",
+    "char_ryo_fui"
+  ],
+  "operation_ref": "operation_arc_131572c4e8a2892bbc",
+  "operational_orders": [
+    {
+      "actionability_status": "completed",
+      "applies_to_formation_refs": [
+        "formation_black_banner_01a",
+        "formation_black_banner_01b",
+        "formation_black_banner_02a",
+        "formation_black_banner_02b",
+        "formation_black_banner_03a",
+        "formation_black_banner_03b",
+        "formation_black_banner_04a",
+        "formation_black_banner_04b",
+        "formation_high_guard_qin_a",
+        "formation_high_guard_qin_b"
+      ],
+      "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+      "excluded_non_state_formation_refs": [
+        "formation_high_guard_cavalry",
+        "formation_high_guard_infantry_01a",
+        "formation_high_guard_infantry_01b",
+        "formation_high_guard_infantry_02a",
+        "formation_high_guard_infantry_02b",
+        "formation_high_guard_infantry_03a",
+        "formation_high_guard_infantry_03b",
+        "formation_red_lance_a",
+        "formation_red_lance_b"
+      ],
+      "follow_on_requirement": "The field army is assembled at lawful friendly staging. Hostile entry into the target state requires a new exact war/entry authority or other lawful basis; the staff may continue reconnaissance and reporting without crossing the border or inventing tactics.",
+      "issued_at": "244-BCE-08-20T06:22:48+08:00",
+      "issuer_ref": "state_qin",
+      "mission_packet": {
+        "actual_arrival_ref": "loc_kanyou",
+        "agency_rule": "These Qin instructions establish the lawful staging and coordination requirement but do not move Tang Wei, commandeer privately owned auxiliaries, commit him to battle, or choose his tactics.",
+        "completed_at": "244-BCE-09-11T12:22:48+08:00",
+        "coordination_authority_ref": "inst_qin_military_bureau",
+        "destination_name": "Kanyou",
+        "destination_ref": "loc_kanyou",
+        "enemy_estimate": {
+          "confidence_milli": 700,
+          "contact_status": "no confirmed battle contact",
+          "strength_high": 156000,
+          "strength_low": 94000
+        },
+        "entry_status": "awaiting_war_or_entry_authority",
+        "friendly_participant_operation_refs": [
+          "operation_qin_mou_gou_northern_wei_campaign",
+          "operation_qin_ouki_northern_wei_campaign",
+          "operation_qin_mou_bu_northern_wei_campaign",
+          "operation_qin_mobile_reserve_northern_wei_campaign",
+          "operation_qin_eastern_reserve_northern_wei_campaign"
+        ],
+        "hostile_entry_authorized": false,
+        "issued_at": "244-BCE-09-09T20:22:48+08:00",
+        "mission_phase": "campaign_muster_and_staging",
+        "next_phase_trigger": "Arrival at staging causes a field-command situation report. Crossing into the target state still requires lawful war/entry authority and does not happen automatically.",
+        "phase_status": "completed",
+        "rendezvous_location_ref": "loc_qin_eastern_depot",
+        "rendezvous_name": "Qin Eastern Military Depot",
+        "strategic_target_name": "Sanyou",
+        "strategic_target_ref": "loc_sanyou",
+        "success_condition": "the current field command physically assembles at the lawful staging area and completes deployment"
+      },
+      "objective": "participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority",
+      "order_ref": "operational_order_669dd21e8390d23c6b",
+      "semantic_key": "a7f16128b063afafa20d598c",
+      "staff_briefed_at": "244-BCE-09-09T20:22:48+08:00",
+      "status": "staged_awaiting_entry_authority",
+      "strategic_pressure_target_ref": "char_ryo_fui",
+      "target_ref": "char_ryo_fui"
+    }
+  ],
+  "order_status": "awaiting_entry_authority",
+  "owner_id": "operation_arc_131572c4e8a2892bbc",
+  "runtime": {
+    "peer_qin_command_group_refs": [
+      "cmdgrp.shin.hi_shin",
+      "cmdgrp.mou_ten.gaku_ka",
+      "cmdgrp.ou_hon.gyoku_hou"
+    ]
+  },
+  "schema": "sword-operation",
+  "source_force_ref": "force_state_qin",
+  "status": "active",
+  "termination_criteria": [
+    "the objective is withdrawn, superseded, blocked, or settled"
+  ],
+  "victory_criteria": [
+    "the saved objective reaches an exact material consequence owned by its target subsystem"
+  ]
+}

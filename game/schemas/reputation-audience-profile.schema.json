@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reputation audience profile",
+  "type": "object",
+  "required": [
+    "schema",
+    "subject_id",
+    "audience_id",
+    "as_of",
+    "standing",
+    "dimensions",
+    "authority"
+  ],
+  "properties": {
+    "schema": {
+      "const": "reputation-audience-profile"
+    },
+    "subject_id": {
+      "type": "string"
+    },
+    "audience_id": {
+      "type": "string"
+    },
+    "as_of": {
+      "type": "string"
+    },
+    "authority": {
+      "const": true
+    },
+    "standing": {
+      "type": "object"
+    },
+    "dimensions": {
+      "type": "object"
+    },
+    "evidence_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "last_event_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "memory_class": {
+      "enum": [
+        "ephemeral",
+        "normal",
+        "durable",
+        "historical"
+      ]
+    }
+  }
+}

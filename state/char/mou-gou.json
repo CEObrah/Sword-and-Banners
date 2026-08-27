@@ -1,0 +1,170 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "mode": "standing_role_training",
+    "training_regimen_ref": "regular_army"
+  },
+  "age_stage": "adult",
+  "appearance": 74,
+  "aptitude": {
+    "academic_learning": 183,
+    "physical_learning": 170,
+    "social_learning": 180,
+    "tactical_learning": 185,
+    "technical_learning": 179
+  },
+  "attributes": {
+    "Agility": 137,
+    "Awareness": 173,
+    "Composure": 182,
+    "Coordination": 158,
+    "Endurance": 172,
+    "Intelligence": 168,
+    "Presence": 182,
+    "Strength": 163,
+    "Toughness": 162
+  },
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "completed_cycles": 9,
+    "enabled": true,
+    "focus_cursor": 418,
+    "fractional_training_hour_credit": 0.428572,
+    "last_training": {
+      "at": "244-BCE-08-31T06:22:48+08:00",
+      "hours": 206,
+      "program_ref": "program.commander_combined_arms",
+      "resolved_role": null,
+      "training_ref": null
+    },
+    "next_due": "244-BCE-09-30T06:22:48+08:00",
+    "resolved_through": "244-BCE-08-31T06:22:48+08:00",
+    "resolved_training_regimen_ref": "elite_command",
+    "routed_at": "245-BCE-12-05T06:22:48+08:00",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "background": {
+    "origin": "Qin"
+  },
+  "birth_date": "289-BCE-07-24",
+  "body": {
+    "adult_height_cm": 186.0,
+    "current_weight_kg": 82.7,
+    "frame": "athletic",
+    "growth_end_age": 18,
+    "growth_profile_id": "human_height_to_18",
+    "height_anchors": []
+  },
+  "career_state": {
+    "career_changes": 0,
+    "current_billet": "command_group_commander",
+    "current_command_span": 95191,
+    "office_or_command": "Commander, Mou Gou Field Army"
+  },
+  "command_assignment": {
+    "billet": "command_group_commander",
+    "command_group_ref": "cmdgrp.mou_gou.field_army",
+    "current_command_span": 95191,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "cmdgrp.mou_gou.field_army",
+    "secondary_command_group_refs": [
+      "cmdgrp.house_mou_family.field_army"
+    ]
+  },
+  "current_location": "loc_qin_regional_01",
+  "development_state": {
+    "attribute_edu_banks": {
+      "Agility": 0.663,
+      "Awareness": 15.152,
+      "Composure": 15.829,
+      "Coordination": 0.737,
+      "Endurance": 2.063,
+      "Intelligence": 14.197,
+      "Presence": 13.496,
+      "Strength": 0.516,
+      "Toughness": 0.221
+    },
+    "attribute_stimulus_hours_milli": 534100,
+    "autonomous_deterministic_training_cursor": 1459,
+    "completed_months": 0,
+    "fatigue_recovery_through": "244-BCE-08-31T06:22:48+08:00",
+    "last_training_program_ref": "program.commander_combined_arms",
+    "settled_training_hours": 1526,
+    "skill_edu_banks": {
+      "Athletics": 3.529,
+      "Formation Command": 46.723,
+      "Formation Fighting": 11.025,
+      "Leadership": 32.62,
+      "Logistics": 63.983,
+      "Polearms": 3.529,
+      "Riding": 3.529,
+      "Strategy": 13.952,
+      "Tactics": 32.475
+    },
+    "verified_deliberate_training_hours": 1851
+  },
+  "equipment_loadout_id": "loadout_named_glaive",
+  "fatigue": 0,
+  "goal_state": {
+    "current_goals": [
+      "preserve command capacity and pursue only supported military opportunities within Qin authority and resources"
+    ],
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ]
+  },
+  "health_status": "healthy",
+  "house_ref": "house_mou_family",
+  "last_settled_at": "245-BCE-12-02T06:00:00+08:00",
+  "life_status": "active",
+  "location_scope": "state_qin_unresolved",
+  "military_command": {
+    "external_to_fighting_strength": true,
+    "formation_scope": "cmdgrp.mou_gou.field_army",
+    "level": "95191_commander"
+  },
+  "military_rank": {
+    "durable": true,
+    "grade": "great_general"
+  },
+  "name": "Mou Gou",
+  "owner_id": "char_mou_gou",
+  "owner_type": "character",
+  "professional_skills": {
+    "Diplomacy": 24,
+    "Governance": 21,
+    "Intelligence Operations": 15,
+    "Law": 18,
+    "Trade": 24
+  },
+  "rank": "great_general",
+  "relationship_refs": [
+    "rel.char_mou_gou.char_mou_bu.father"
+  ],
+  "role_archetype": "great_general",
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 164,
+    "Bow": 17,
+    "Crossbow": 17,
+    "Engineering": 16,
+    "Formation Command": 189,
+    "Formation Fighting": 188,
+    "Grappling": 17,
+    "Heavy Weapons": 14,
+    "Leadership": 189,
+    "Logistics": 163,
+    "Medicine": 20,
+    "Polearms": 173,
+    "Riding": 168,
+    "Scouting": 32,
+    "Shield": 16,
+    "Stealth": 16,
+    "Strategy": 179,
+    "Survival": 40,
+    "Sword": 16,
+    "Tactics": 177,
+    "Unarmed": 16
+  },
+  "state": "Qin"
+}

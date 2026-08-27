@@ -1,0 +1,131 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "mode": "standing_role_training",
+    "training_program_ref": "program.commander_combined_arms",
+    "training_regimen_ref": "regular_army"
+  },
+  "affiliation": [
+    "Qin",
+    "state_qin",
+    "house_tou_household"
+  ],
+  "appearance": 70,
+  "aptitude": {
+    "academic_learning": 105,
+    "physical_learning": 111,
+    "social_learning": 110,
+    "tactical_learning": 132,
+    "technical_learning": 119
+  },
+  "attributes": {
+    "Agility": 78,
+    "Awareness": 82,
+    "Composure": 86,
+    "Coordination": 80,
+    "Endurance": 84,
+    "Intelligence": 64,
+    "Presence": 68,
+    "Strength": 82,
+    "Toughness": 82
+  },
+  "authority": "Exact commander of cmdgrp.house_tou_household.field_army; materialized from one already-conserved household military body.",
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "enabled": true,
+    "focus_cursor": 0,
+    "next_due": "244-BCE-10-09T20:22:48+08:00",
+    "routed_at": "244-BCE-09-09T20:22:48+08:00",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "background": "Existing senior Qin household officer made exact when the persistent 500+ no-double-hat command rule was enforced. The same body was removed from formation_house_tou_household_01; force headcount did not change.",
+  "birth_date": "280-BCE-11-27",
+  "body": {
+    "adult_height_cm": 173.8,
+    "current_weight_kg": 71.8,
+    "frame": "average",
+    "growth_end_age": 18,
+    "height_anchors": []
+  },
+  "career_state": {
+    "current_billet": "command_group_commander",
+    "current_command_span": 5996,
+    "office_or_command": "Tou Household Army Commander"
+  },
+  "command_assignment": {
+    "billet": "command_group_commander",
+    "command_group_ref": "cmdgrp.house_tou_household.field_army",
+    "current_command_span": 5996,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "cmdgrp.house_tou_household.field_army"
+  },
+  "current_location": "loc_qin_regional_02",
+  "development_state": {
+    "verified_role_exposure_hours": 0.0,
+    "verified_training_hours": 0.0
+  },
+  "equipment_loadout_id": "loadout_state_line_infantry",
+  "fatigue": 0,
+  "goal_state": {
+    "current_goals": [
+      "command Tou Household Army Commander effectively"
+    ],
+    "institutional_duties": [
+      "Tou Household Army Commander"
+    ]
+  },
+  "health_status": "fit",
+  "life_status": "active",
+  "loadout_id": "loadout_state_line_infantry",
+  "materialized_from_force_ref": "force_house_tou_household",
+  "military_command": {
+    "external_to_fighting_strength": true,
+    "formation_scope": "cmdgrp.house_tou_household.field_army",
+    "higher_commander_ref": "char_tou",
+    "level": "5996_commander"
+  },
+  "military_rank": {
+    "durable": true,
+    "grade": "4000_commander"
+  },
+  "name": "Gao Lin",
+  "owner_id": "char_tou_house_field_commander",
+  "owner_type": "character",
+  "personal_loadout_ref": "loadout_state_line_infantry",
+  "professional_skills": {
+    "Diplomacy": 49,
+    "Governance": 19,
+    "Intelligence Operations": 21,
+    "Law": 16,
+    "Trade": 38
+  },
+  "role": "Tou Household Army Commander",
+  "runtime": {
+    "last_settled_at": "244-BCE-09-09T20:22:48+08:00"
+  },
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 82,
+    "Bow": 58,
+    "Crossbow": 40,
+    "Engineering": 25,
+    "Formation Command": 75,
+    "Formation Fighting": 86,
+    "Grappling": 48,
+    "Heavy Weapons": 42,
+    "Leadership": 71,
+    "Logistics": 69,
+    "Medicine": 24,
+    "Polearms": 82,
+    "Riding": 58,
+    "Scouting": 55,
+    "Shield": 78,
+    "Stealth": 45,
+    "Strategy": 59,
+    "Survival": 68,
+    "Sword": 78,
+    "Tactics": 66,
+    "Unarmed": 50
+  },
+  "source_cohort_ref": "cohort_force_house_tou_household_household_retainer_standing"
+}

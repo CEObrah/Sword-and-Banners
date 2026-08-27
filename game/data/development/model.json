@@ -1,0 +1,123 @@
+{
+  "schema": "development-model",
+  "aptitude_scale": {
+    "min": 0,
+    "typical": 100,
+    "gifted": 130,
+    "exceptional": 160,
+    "prodigy": 180,
+    "extraordinary_reference": 190,
+    "legendary_reference": 200
+  },
+  "capability_scale": {
+    "routine_training_ceiling": 180,
+    "extraordinary_reference": 190,
+    "legendary_reference": 200,
+    "rule": "Reference values describe rarity and expected performance. Exceptional progression may continue beyond reference bands when supported by lawful evidence and consolidation."
+  },
+  "exceptional_progression": {
+    "exact_person_only": true,
+    "points_per_resolution": 1,
+    "evidence_consumed_once_per_person": true,
+    "target_specific_consolidation_required": true,
+    "distinct_contexts_required": true,
+    "caller_asserted_evidence_forbidden": true,
+    "existing_exceptional_values_preserved": true,
+    "bands": [
+      {
+        "starting_value_min": 180,
+        "starting_value_max": 199,
+        "evidence_count": 2,
+        "distinct_contexts": 2,
+        "cooldown_days": 7,
+        "next_point_cost_fraction_for_consolidation": 0.25
+      },
+      {
+        "starting_value_min": 200,
+        "starting_value_max": 224,
+        "evidence_count": 3,
+        "distinct_contexts": 2,
+        "cooldown_days": 14,
+        "next_point_cost_fraction_for_consolidation": 0.35
+      },
+      {
+        "starting_value_min": 225,
+        "starting_value_max": null,
+        "evidence_count": 4,
+        "distinct_contexts": 3,
+        "cooldown_days": 30,
+        "next_point_cost_fraction_for_consolidation": 0.5
+      }
+    ],
+    "warring_states_evidence_examples": [
+      "battlefield or duel exposure relevant to the trained martial capability",
+      "campaign command under real logistical and casualty pressure",
+      "siege, relief, withdrawal, pursuit, or defensive action with material consequences",
+      "governance, diplomacy, intelligence, engineering, medicine, logistics, trade, or administration under real institutional pressure relevant to the trained capability",
+      "teaching or doctrine work only when later field evidence demonstrates the capability under consequential conditions"
+    ]
+  },
+  "representation_efficiency": {
+    "exact": 1.0,
+    "individual_lite": 1.0,
+    "unit": 1.0
+  },
+  "development_inputs": [
+    "starting_capability",
+    "aptitude",
+    "age_body_development",
+    "scheduled_training",
+    "attendance",
+    "instructor_access",
+    "instructor_quality",
+    "student_to_instructor_ratio",
+    "facility_quality",
+    "equipment_availability",
+    "nutrition",
+    "health",
+    "fatigue",
+    "recovery",
+    "curriculum_relevance",
+    "difficulty_fit",
+    "field_experience",
+    "combat_experience",
+    "current_mastery",
+    "diminishing_returns"
+  ],
+  "capacity_rules": {
+    "instructor_time_conserved": true,
+    "facility_capacity_conserved": true,
+    "equipment_capacity_conserved": true,
+    "elite_training_scales_poorly": true,
+    "mass_basic_training_scales_better_than_elite_training": true
+  },
+  "experience_rules": {
+    "field_experience_required_for_high_tier_progression": true,
+    "command_experience_cannot_be_awarded_by_classroom_only": true,
+    "combat_experience_cannot_be_bulk_created": true
+  },
+  "promotion_rule": {
+    "mode": "qualified_subset_transfer",
+    "personnel_conservation_required": true,
+    "whole_unit_promotion_forbidden": true
+  },
+  "batching_rule": {
+    "batch_equivalence_required": true,
+    "split_on_causal_change": true,
+    "causal_split_examples": [
+      "injury",
+      "promotion",
+      "assignment_change",
+      "war",
+      "supply_change",
+      "instructor_change",
+      "facility_change",
+      "equipment_shortage"
+    ]
+  },
+  "elite_resolution_rule": {
+    "enabled": true,
+    "principle": "Higher rank, rarity, specialization, political importance, and capability require progressively finer representation. Routine aggregate or cohort training cannot manufacture legendary individuals or legendary population means."
+  },
+  "formula_authority": "game/rules/growth.md + game/data/mechanics/training.json + runtime/sword_runtime/development.py"
+}

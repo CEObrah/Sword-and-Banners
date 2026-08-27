@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Military career network routing projection",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "people",
+    "commanders",
+    "public_commander_refs",
+    "state_pressure"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-military-career-network"
+    },
+    "authority": {
+      "const": false
+    },
+    "people": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "commanders": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "public_commander_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "state_pressure": {
+      "type": "object"
+    },
+    "career_interest": {
+      "type": "object"
+    },
+    "formation_attention": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      }
+    },
+    "formation_attention_cursor": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "last_route_sync_at": {
+      "type": "string"
+    },
+    "routed_person_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": true
+}

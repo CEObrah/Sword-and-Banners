@@ -1,0 +1,69 @@
+{
+  "civil_recruitment_policy": {
+    "candidate_constraints": [
+      "voluntary acceptance or lawful resettlement authority",
+      "physical route",
+      "housing",
+      "water",
+      "food",
+      "work or support",
+      "public order"
+    ],
+    "mode": "capacity_and_willingness_limited_settlement"
+  },
+  "demography": {
+    "authority": "parent_population_only",
+    "closes": 0,
+    "dependent_stratum": "dependents_and_nonworking_children",
+    "maturation_target_stratum": "agricultural_workers_and_supervisors",
+    "working_strata": [
+      "agricultural_workers_and_supervisors",
+      "construction_and_maintenance_workers",
+      "craft_and_industry",
+      "merchant_and_transport",
+      "resource_extraction_and_forestry",
+      "stable_remount_and_carriage_workers",
+      "inner_walls_civilian_medical",
+      "warehouse_and_granary_workers",
+      "water_sanitation_and_firefighting",
+      "administrative_clerks",
+      "household_and_civic_services"
+    ]
+  },
+  "geographic_partition": {
+    "authority": true,
+    "body_count_authority_ref": "state/population/qin.json#/local_population/sites/loc_tang_manor",
+    "location_ref": "loc_tang_manor",
+    "outer_estate_permanent_hamlets": false,
+    "owner_ref": "population_tang_manor",
+    "permanent_residence_site_ref": "loc_tang_inner_walls"
+  },
+  "owner_id": "population_tang_manor",
+  "parent_population_ref": "population_qin",
+  "population_total": 719000,
+  "recruitment_runtime": {
+    "last_civil_intake": 0,
+    "last_house_requested_intake": 60,
+    "last_house_requested_intake_at": "244-BCE-07-23T01:22:48+08:00",
+    "last_inner_walls_intake": 6000,
+    "last_review": "244-BCE-08-28T06:00:00+08:00"
+  },
+  "schema": "sword-population",
+  "state": "qin",
+  "strata": {
+    "administrative_clerks": 20056,
+    "agricultural_workers_and_supervisors": 147409,
+    "construction_and_maintenance_workers": 60167,
+    "craft_and_industry": 115320,
+    "dependents_and_nonworking_children": 215600,
+    "household_and_civic_services": 10028,
+    "inner_walls_civilian_medical": 10027,
+    "merchant_and_transport": 80223,
+    "resource_extraction_and_forestry": 10029,
+    "stable_remount_and_carriage_workers": 10029,
+    "veterans_and_retired_service": 0,
+    "warehouse_and_granary_workers": 20056,
+    "water_sanitation_and_firefighting": 20056
+  },
+  "subset_of_parent": true
+}

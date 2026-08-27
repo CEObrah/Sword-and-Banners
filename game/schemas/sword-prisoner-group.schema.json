@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "personnel",
+    "location_ref",
+    "status",
+    "legal_status",
+    "guards_allocated",
+    "guard_requirement"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-prisoner-group"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "personnel": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "location_ref": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "legal_status": {
+      "type": "string"
+    },
+    "guards_allocated": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "guard_requirement": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": true
+}

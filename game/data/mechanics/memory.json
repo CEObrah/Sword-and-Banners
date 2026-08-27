@@ -1,0 +1,29 @@
+{
+  "schema": "memory-mechanics",
+  "formulas": {
+    "relationship_delta": "stated_magnitude*evidence_confidence*attribution_confidence*salience*persistence*saturation"
+  },
+  "input_ranges": {
+    "evidence_confidence": [
+      0,
+      1
+    ],
+    "attribution_confidence": [
+      0,
+      1
+    ],
+    "salience": [
+      0,
+      1.5
+    ],
+    "persistence": [
+      0,
+      1.5
+    ],
+    "saturation": [
+      0,
+      1
+    ]
+  },
+  "rule": "Relationship change requires a saved causal event and attribution; narrative attention alone produces zero delta."
+}
