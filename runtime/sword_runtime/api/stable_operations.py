@@ -55,6 +55,78 @@ _TRANSACTION_CODES = {
     ConcurrentModificationError: "transaction_concurrent_modification",
 }
 
+_COMMAND_SCENE_EVENT_KINDS = frozenset({
+    "campaign_command_council", "campaign_command_superior_order", "campaign_command_after_action_review",
+    "campaign_command_dawn_briefing", "campaign_command_evening_sitrep",
+})
+
+
+def _compact_interaction_attempts(attempts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Keep player-authored conversational continuity without importing outcomes."""
+    return [
+        {
+            key: row.get(key)
+            for key in (
+                "event_id", "at", "action", "target_ref", "process_ref", "formation_refs",
+                "player_statement", "posture",
+            )
+            if row.get(key) not in (None, [], "")
+        }
+        for row in attempts
+    ]
+
+
+def _campaign_command_present_refs(
+    handles: list[dict[str, Any]],
+    *,
+    current_time: object,
+    player_location: object,
+    runtime: Mapping[str, Any],
+) -> set[str]:
+    """Return exact command-event people whose scene window is still live.
+
+    Most command events are point-in-time handoffs. A formal war council is a
+    multi-hour physical session: its exact attendees remain scene-present until
+    the deterministic council-return host retires. This preserves the event's
+    physical truth across interaction writes and conservative in-scene time
+    advances without turning broad city co-location into same-room presence.
+    """
+    hosts = runtime.get("hosts") if isinstance(runtime, Mapping) else None
+    active_council_cycles = {
+        str(host.get("cycle_ref"))
+        for host in hosts.values()
+        if isinstance(hosts, Mapping)
+        for host in [host]
+        if isinstance(host, Mapping)
+        and host.get("kind") == "campaign_command_council_return"
+        and isinstance(host.get("cycle_ref"), str)
+        and host.get("cycle_ref")
+    } if isinstance(hosts, Mapping) else set()
+
+    refs: set[str] = set()
+    for row in handles:
+        if not isinstance(row, Mapping):
+            continue
+        kind = row.get("kind")
+        if kind not in _COMMAND_SCENE_EVENT_KINDS:
+            continue
+        cycle_ref = row.get("campaign_command_cycle_ref")
+        active_council = (
+            kind == "campaign_command_council"
+            and isinstance(cycle_ref, str)
+            and cycle_ref in active_council_cycles
+        )
+        if row.get("triggered_at") != current_time and not active_council:
+            continue
+        delivery = row.get("delivery") if isinstance(row.get("delivery"), Mapping) else {}
+        if delivery.get("location_ref") != player_location:
+            continue
+        for ref in row.get("present_person_refs", []) if isinstance(row.get("present_person_refs"), list) else []:
+            if isinstance(ref, str) and ref.startswith("char_"):
+                refs.add(ref)
+    return refs
+
+
 _WAKE_VISIBLE_FIELDS = (
     "wake_ref", "kind", "at", "theater_ref", "formation_ref", "location_ref",
     "opponent_state", "operation_ref", "battlefield_ref",
@@ -510,14 +582,7 @@ class StableCampaignOperations(CampaignOperations):
                 else:
                     compact["summary"] = summary
             compact_handles.append(compact)
-        compact_attempts = [
-            {
-                key: row.get(key)
-                for key in ("event_id", "at", "action", "target_ref", "process_ref", "formation_refs")
-                if row.get(key) not in (None, [], "")
-            }
-            for row in attempts
-        ]
+        compact_attempts = _compact_interaction_attempts(attempts)
         player_processes = self._player_process_views(player_id)
         context["active_player_processes"] = player_processes
         durable_decisions = self._durable_player_decisions(player_id, player_processes)
@@ -574,19 +639,12 @@ class StableCampaignOperations(CampaignOperations):
         # attendance from a report summary.
         current_time = context.get("campaign", {}).get("world_time")
         player_location_for_cast = context.get("player", {}).get("location")
-        command_present_refs: set[str] = set()
-        for row in handles:
-            if row.get("triggered_at") != current_time or row.get("kind") not in {
-                "campaign_command_council", "campaign_command_superior_order", "campaign_command_after_action_review",
-                "campaign_command_dawn_briefing", "campaign_command_evening_sitrep"
-            }:
-                continue
-            delivery = row.get("delivery") if isinstance(row.get("delivery"), Mapping) else {}
-            if delivery.get("location_ref") != player_location_for_cast:
-                continue
-            for ref in row.get("present_person_refs", []) if isinstance(row.get("present_person_refs"), list) else []:
-                if isinstance(ref, str) and ref.startswith("char_"):
-                    command_present_refs.add(ref)
+        command_present_refs = _campaign_command_present_refs(
+            handles,
+            current_time=current_time,
+            player_location=player_location_for_cast,
+            runtime=self.runtime.store.read_json("state/runtime.json"),
+        )
         if command_present_refs and isinstance(context.get("scene"), dict):
             owner_index = self.store.read_json("state/index/owner-index.json")
             owners = owner_index.get("owners", {}) if isinstance(owner_index, Mapping) else {}
@@ -600,6 +658,9 @@ class StableCampaignOperations(CampaignOperations):
                 except FileNotFoundError:
                     continue
                 if not isinstance(person, Mapping):
+                    continue
+                person_location = person.get("current_location") or person.get("location_ref") or person.get("location")
+                if person_location != player_location_for_cast:
                     continue
                 cast_rows.append({
                     "person_id": ref,
@@ -615,7 +676,7 @@ class StableCampaignOperations(CampaignOperations):
             cast.setdefault("nearby_people", [])
             cast.setdefault("referenced_people", [])
             cast["generic_participation_rule"] = (
-                "Campaign-command attendance is exact only for people carried by the current delivered campaign-command event and co-located with Tang Wei."
+                "Campaign-command attendance is exact only for people carried by a current command event or a still-open formal council and revalidated at Tang Wei's exact location."
             )
             context["permitted_person_ids"] = sorted(set(context.get("permitted_person_ids", [])) | command_present_refs)
 
