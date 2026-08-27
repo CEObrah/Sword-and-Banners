@@ -71,6 +71,9 @@ jobs:
           fi
           python tools/test_changed.py "${changed_paths[@]}"
 
+      - name: GM Skill presentation contract
+        run: python tools/run_pytest_module.py -q tests/runtime/test_skill_repository_contract.py tests/runtime/test_diegetic_skill_contract.py
+
   battle-integration:
     runs-on: ubuntu-latest
     timeout-minutes: 10
