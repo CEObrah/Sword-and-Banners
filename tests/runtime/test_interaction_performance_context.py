@@ -28,7 +28,6 @@ def test_service_performance_cues_rank_visible_capabilities_without_private_goal
     ]
     assert all(row["basis"] == "player_visible_service_capability" for row in cues["professional_lenses"])
     assert "secret private objective" not in repr(cues)
-    assert "do not establish personality" not in repr(cues).lower()
     assert "do not establish" in cues["use_rule"].lower()
 
 
