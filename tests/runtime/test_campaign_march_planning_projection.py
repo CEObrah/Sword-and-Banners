@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from sword_runtime.campaign_briefing import build_campaign_dossier, safe_campaign_context
-from sword_runtime.campaign_march_planning import project_route_path
+from sword_runtime.campaign_march_planning import _campaign_command_hierarchy, project_route_path
 
 
 def _read(path: str):
@@ -57,6 +57,49 @@ def test_route_projection_exposes_physical_capacity_without_inventing_orders():
     assert "assigned_route" not in projected
     assert "departure_time" not in projected
     assert "required_wagons" not in projected
+
+
+def test_campaign_hierarchy_nests_intact_armies_under_supreme_command():
+    hierarchy = _campaign_command_hierarchy(
+        [
+            {
+                "command_ref": "cmd_main",
+                "commander_ref": "char_main",
+                "commander_name": "Main",
+                "objective_ref": "loc_anchor",
+                "objective_name": "Anchor",
+                "personnel": 40000,
+            },
+            {
+                "command_ref": "cmd_detached",
+                "commander_ref": "char_detached",
+                "commander_name": "Detached",
+                "objective_ref": "loc_secondary",
+                "objective_name": "Secondary",
+                "personnel": 20000,
+            },
+        ],
+        [
+            {
+                "command_ref": "cmd_reserve",
+                "commander_ref": "char_reserve",
+                "commander_name": "Reserve",
+                "personnel": 10000,
+            }
+        ],
+        strategic_anchor="loc_anchor",
+    )
+
+    assert hierarchy["kind"] == "supreme_campaign_field_army"
+    assert hierarchy["root_role"] == "supreme_campaign_command"
+    assert hierarchy["subordinate_command_refs"] == ["cmd_main", "cmd_detached", "cmd_reserve"]
+    assert hierarchy["main_body_command_refs"] == ["cmd_main"]
+    assert [row["command_ref"] for row in hierarchy["operational_detachments"]] == ["cmd_detached"]
+    assert hierarchy["operational_detachments"][0]["objective_ref"] == "loc_secondary"
+    assert hierarchy["strategic_reserve_command_refs"] == ["cmd_reserve"]
+    assert hierarchy["state_owned_strength"] == 70000
+    assert "remain under the campaign supreme command" in hierarchy["subordination_rule"]
+    assert "does not make it an independent campaign" in hierarchy["separation_rule"]
 
 
 def test_safe_campaign_context_preserves_bounded_march_planning_projection():
@@ -119,6 +162,31 @@ def test_current_campaign_dossier_surfaces_real_campaign_scheme_and_route_capaci
     assert "hidden enemy deployments are not used" in scheme["planning_basis"]
     assert "does not issue an order" in scheme["authority_rule"]
 
+    hierarchy = scheme["command_hierarchy"]
+    assert hierarchy["kind"] == "supreme_campaign_field_army"
+    assert hierarchy["root_role"] == "supreme_campaign_command"
+    planned_command_refs = {
+        row["command_ref"]
+        for row in scheme["command_assignments"] + scheme["strategic_reserve_commands"]
+    }
+    assert set(hierarchy["subordinate_command_refs"]) == planned_command_refs
+    assert set(hierarchy["main_body_command_refs"]) == {
+        row["command_ref"]
+        for row in scheme["command_assignments"]
+        if row["objective_ref"] == scheme["primary_objective_ref"]
+    }
+    assert set(hierarchy["strategic_reserve_command_refs"]) == {
+        row["command_ref"] for row in scheme["strategic_reserve_commands"]
+    }
+    assert {row["command_ref"] for row in hierarchy["operational_detachments"]} == {
+        row["command_ref"]
+        for row in scheme["command_assignments"]
+        if row["objective_ref"] != scheme["primary_objective_ref"]
+    }
+    assert hierarchy["state_owned_strength"] == scheme["state_owned_planned_strength"]
+    assert "remain under the campaign supreme command" in hierarchy["subordination_rule"]
+    assert "internal command integrity alone does not make it an independent campaign" in hierarchy["separation_rule"]
+
     # Sanyou is the strategic anchor for a regional campaign, not the whole
     # campaign geography compressed into one city node.
     assert scheme["campaign_scope_kind"] == "regional_campaign"
@@ -153,3 +221,4 @@ def test_current_campaign_dossier_surfaces_real_campaign_scheme_and_route_capaci
 
     safe = safe_campaign_context(dossier)
     assert safe["march_planning"]["campaign_scheme"]["kind"] == "pre_entry_campaign_staff_scheme"
+    assert safe["march_planning"]["campaign_scheme"]["command_hierarchy"]["kind"] == "supreme_campaign_field_army"

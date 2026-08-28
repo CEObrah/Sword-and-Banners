@@ -31,6 +31,22 @@ def test_interaction_contract_preserves_common_ground_instead_of_schema_checklis
     assert "The shared premise is that the field armies have not yet met the enemy" in text
 
 
+def test_command_speech_states_actual_hierarchy_instead_of_straw_alternatives():
+    text = SCENE_CONTRACT.read_text(encoding="utf-8")
+
+    assert "### Decision-bearing command speech" in text
+    assert "positive military structure, assignment, constraint, or decision" in text
+    assert "Do not use **straw-alternative exposition** as filler" in text
+    assert "we will not march one hundred seventy-six thousand men as one enormous army" in text
+    assert "we will not scatter every general onto his own campaign" in text
+    assert "who is under whose command" in text
+    assert "Internal command integrity is not strategic independence" in text
+    assert "march_planning.campaign_scheme.command_hierarchy" in text
+    assert "supreme_campaign_field_army" in text
+    assert "a distinct objective/axis or reserve role is what marks an operational detachment" in text
+    assert "lack of a binding order is not a reason to replace available specifics with vague prose" in text
+
+
 def test_interaction_contract_rejects_round_robin_and_analytic_chorus():
     text = SCENE_CONTRACT.read_text(encoding="utf-8")
 
