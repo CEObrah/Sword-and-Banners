@@ -12,5 +12,5 @@ def test_choices_require_access_before_direct_npc_interaction() -> None:
     assert "## Access-stage guard for people" in choices
     assert "must not collapse `seek/contact` and `speak/press/petition`" in choices
     assert "`nearby_people`" in choices
-    assert "do not narrate face-to-face speech" in choices
+    assert "Do not narrate face-to-face speech" in choices
     assert "refresh context after the access or routing step" in choices
