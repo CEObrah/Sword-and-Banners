@@ -20,6 +20,10 @@ def _operation(context: dict) -> dict:
     )
 
 
+def _encoded_size(value) -> int:
+    return len(json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+
+
 def test_live_context_overlays_current_planning_without_rewriting_legacy_briefing(campaign):
     root = Path(campaign)
     briefing_path = root / _BRIEFING_PATH
@@ -92,7 +96,27 @@ def test_compact_live_context_keeps_campaign_decisions_and_drops_redundant_bulk(
 
     compact = compact_play_context(full)
     encoded = json.dumps(compact, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    assert len(encoded) < 48_000
+    top_sizes = sorted(
+        ((key, _encoded_size(value)) for key, value in compact.items()),
+        key=lambda item: item[1],
+        reverse=True,
+    )[:12]
+    operation_sizes = sorted(
+        ((key, _encoded_size(value)) for key, value in _operation(compact).items()),
+        key=lambda item: item[1],
+        reverse=True,
+    )[:12]
+    command_sizes = sorted(
+        ((key, _encoded_size(value)) for key, value in _operation(compact)["campaign_command"].items()),
+        key=lambda item: item[1],
+        reverse=True,
+    )[:12]
+    assert len(encoded) < 48_000, {
+        "total": len(encoded),
+        "top": top_sizes,
+        "operation": operation_sizes,
+        "campaign_command": command_sizes,
+    }
 
     operation = _operation(compact)
     campaign_context = operation["campaign_context"]
