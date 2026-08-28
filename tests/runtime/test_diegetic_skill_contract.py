@@ -43,3 +43,15 @@ def test_choices_do_not_reoffer_setup_or_leak_implementation() -> None:
     assert "## Keep implementation state out of IC choices" in choices
     assert "fictionally worse but executable workaround" in choices
     assert "separate OOC note" in choices
+
+
+def test_skill_requires_visible_choices_at_player_action_handoffs() -> None:
+    skill = _text("SKILL.md")
+    choices = _text("references/choices.md")
+
+    assert "any turn that is about to hand control back by asking what Wei does next" in skill
+    assert "A deliberate player-action handoff is different." in skill
+    assert "This applies even when `scene.unresolved_decision` is null." in skill
+    assert "Never end a normal playable turn with only `What do you do?`" in skill
+    assert "Before ending on a player-action handoff, apply `references/choices.md`." in skill
+    assert "## Narrated-fork guard" in choices
