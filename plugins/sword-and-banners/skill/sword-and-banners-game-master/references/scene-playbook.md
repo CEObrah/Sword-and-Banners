@@ -40,6 +40,7 @@ Subordinates should bring recommendations, incomplete reports, objections, and r
 
 A serious invasion conference must establish the **campaign design before route minutiae**. When fresh campaign context exposes `march_planning.campaign_scheme`, make the following legible before spending substantial scene time on roads, supply, or traffic:
 - the operational purpose and primary objective;
+- the campaign theater/region when one exists, separately from any strategic anchor city, fort, pass, or other site inside it;
 - how many current campaign objectives/axes the staff plan contains and the exact named locations involved;
 - which intact commands and commanders are proposed for each objective;
 - which command remains strategic reserve;
@@ -47,7 +48,13 @@ A serious invasion conference must establish the **campaign design before route 
 - what completing the current campaign phase means;
 - what is still outside the campaign plan, especially political war termination, annexation, treaty terms, or later follow-on operations.
 
+**Do not confuse a campaign region with its strategic anchor.** When `campaign_scope_kind` is `regional_campaign`, `campaign_region_name` is the theater-scale military objective and `strategic_anchor_name` is one important site inside that region. Capturing or approaching the anchor does not by itself mean the region has been secured. The concrete `objectives` and their command assignments are the staff's current operational decomposition of that regional goal.
+
+For example, if current authority exposes a **Sanyou Region** with Sanyou as its strategic anchor and other named strategic sites in the same region, the council should speak about securing the region and then identify the actual cities, forts, or passes assigned to the armies. It must not speak as though the city of Sanyou and the whole campaign are the same object. Do not invent Kourou, Kinrikan, or any other site merely because outside canon contains it; only use exact locations the Sword runtime/game data currently exposes to Wei.
+
 Do not reduce a campaign to `advance toward Sanyou`, `maintain flexibility`, or another single broad target when the runtime exposes several objective fronts and assignments. Conversely, do not invent extra cities merely because a large invasion feels as though it should have several. State the actual objective count and actual assignment scheme supplied by the current projection.
+
+**Do not make officers speak in schema language.** Phrases such as `Sanyou is named`, `only Sanyou is fixed`, `the record names Sanyou`, `the field is present`, or `the target is populated` are database-shaped paraphrases, not human command speech. Translate the authoritative distinction into the in-world military fact: the campaign is for a region, the first objective is a city, the army has orders for one axis but not another, or supreme command has not yet assigned the follow-on objective. A commander may naturally refer to an order, map, dispatch, seal, or written objective when that document itself matters; the dialogue must not expose that the GM is reasoning from a field name.
 
 A pre-entry `campaign_scheme` is a **staff plan, not yet a movement order**. Its command-to-objective assignments answer what the campaign headquarters is planning to do if/when entry authority and exact orders arrive. Do not narrate planned axes as armies already marching, do not turn the scheme into territorial conquest already authorized, and do not silently treat excluded private auxiliaries as Qin manpower. If the campaign needs an exact binding assignment or a new operational order, use the lawful runtime owner for that consequence.
 
@@ -59,7 +66,9 @@ Prefer concrete operational questions over vague abstractions when the substrate
 
 Do not invent wagon counts, grain tonnage, forage demand, water stocks, departure intervals, courier times, traffic-control detachments, bridge condition, or enemy interference merely to make the meeting sound technical. If the runtime does not expose a required quantity, keep it unresolved, let a commander ask for it when naturally motivated, or treat the missing operational substrate as an OOC QA/development finding. Never silently turn the planning baseline into orders or movement.
 
-A senior command discussion should usually move from **campaign purpose and objective assignment** to concrete constraint, sequencing, responsibility, reserves, sustainment, contingencies, and finally lawful orders when those facts and decisions exist. Avoid vague abstractions such as `flexibility`, `pressure`, or `options` when a player-safe objective, assignment, route, capacity, timing, or ownership fact can state the actual military problem.
+A senior command discussion should usually move from **campaign theater and operational end state -> concrete objective sites/axes -> command assignments and reserve -> sequencing and sustainment -> routes and bottlenecks -> lawful orders** when those facts and decisions exist. Do not begin by asking individual commanders where they want to be used before supreme command has established the campaign scheme that makes such a preference meaningful. A commander may be asked about capability, constraints, or a genuine choice within their authority; campaign command owns the wider assignment unless current authority says otherwise.
+
+Avoid vague abstractions such as `flexibility`, `pressure`, or `options` when a player-safe objective, assignment, route, capacity, timing, or ownership fact can state the actual military problem.
 
 If Wei has delegated authority, let subordinates act within it. Escalate only decisions outside their scope or decisions the runtime makes player-protected.
 
@@ -105,7 +114,7 @@ Compress uneventful known travel. Expand arrivals, dangerous crossings, unexpect
 
 ## Intelligence and investigation
 
-Keep source quality explicit. A scout sighting, merchant rumor, prisoner statement, intercepted letter, official dispatch, and Wei's own observation do not carry the same confidence.
+Keep source quality explicit. A scout sighting, merchant rumor, prisoner statement, intercepted letter, and Wei's own observation do not carry the same confidence.
 
 Do not reveal hidden truth merely because the investigation points toward it. Let evidence accumulate.
 
