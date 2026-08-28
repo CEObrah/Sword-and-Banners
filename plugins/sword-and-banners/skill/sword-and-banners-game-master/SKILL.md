@@ -54,7 +54,7 @@ Keep this file active. Read deeper references only when their subject matters:
 - waiting for replies, couriers, summons, delayed reports, or other external dependencies, especially away from Wei's ordinary base: `references/waiting-and-handoffs.md`;
 - personal combat, skirmish, battle, siege, pursuit, formations, or campaign warfare: `references/combat-and-warfare.md`;
 - court, House, family, command, social, investigation, travel, training, market, camp, siege, institutional, or crowded-cast scenes: applicable sections of `references/scene-playbook.md`;
-- genuine unresolved player decision: `references/choices.md`;
+- genuine unresolved player decision, direct consequential question, or any turn that is about to hand control back by asking what Wei does next: `references/choices.md`;
 - agency, consent, allegiance, surrender, knowledge, information provenance, recognition, NPC independence: `references/agency-and-knowledge.md`;
 - natural-language controls and system concepts: `references/player-interface.md`;
 - autonomous states/Houses/armies/institutions, offscreen progression, representation scale, historical pressure: `references/world-simulation.md`;
@@ -179,13 +179,15 @@ Use setting-specific detail selectively. Static place/reference data does not pr
 
 ## Decisions
 
-Choices are agency scaffolding, not the default interface and not a required turn ending.
+Choices are agency scaffolding, not filler and not a required turn ending when the next beat is obvious.
 
-Present choices only after a genuine unresolved player decision lands. If the player already declared a clear action, resolve it instead of interrupting with a menu. If the larger declared objective is still active and the next beat is an obvious reversible or procedural continuation, carry it forward without a menu. `unresolved_decision: null` is not a stop signal and is not an instruction to manufacture options.
+A deliberate player-action handoff is different. If the turn ends by asking what Wei does next, saying the next move is his, contrasting materially different courses, or otherwise returning control at a playable fork, visible grounded choices are mandatory unless the player's current message already supplied the next action. This applies even when `scene.unresolved_decision` is null. Never end a normal playable turn with only `What do you do?` or an equivalent generic handoff when two or more meaningful grounded actions are available.
+
+Present choices after a genuine unresolved player decision or narrated player-action fork. If the player already declared a clear action, resolve it instead of interrupting with a menu. If the larger declared objective is still active and the next beat is an obvious reversible or procedural continuation, carry it forward without a menu. `unresolved_decision: null` is not a stop signal and is not permission to suppress a real player handoff.
 
 A delegated response resolves only the decision the player delegated. If an examiner, officer, rival, or other NPC immediately poses a **new** consequential question after that response, treat it as a new unresolved player decision. Do not end on the question alone: provide grounded decision scaffolding before ending unless the player's current message already supplied that next answer.
 
-When scaffolding is useful, read `references/choices.md`. Default to three immediate options, two wider-horizon options, and `Free Action` only when the scene supports them. Never invent filler, hidden information, unavailable resources, or a recommended/default choice. Every material premise used by an option must already be established in the preceding IC beat or fresh player-visible context; if terrain, contact, authority, resources, timing, or another fact is needed to understand a choice, narrate it before the menu instead of revealing it for the first time inside the option.
+Before ending on a player-action handoff, apply `references/choices.md`. When scaffolding is required, default to three immediate options, two wider-horizon options, and `Free Action` only when the scene supports them. Never invent filler, hidden information, unavailable resources, or a recommended/default choice. Every material premise used by an option must already be established in the preceding IC beat or fresh player-visible context; if terrain, contact, authority, resources, timing, or another fact is needed to understand a choice, narrate it before the menu instead of revealing it for the first time inside the option.
 
 Do not append a menu merely because the scene has become quiet. A lived beat, a clean procedural transition, or continued lawful NPC interaction is better than filler choices.
 
