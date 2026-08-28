@@ -107,13 +107,12 @@ def _compact_mapping_rows(value: Any, keys: tuple[str, ...]) -> list[dict[str, A
 
 
 def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
-    """Keep decision-bearing campaign facts while dropping transport-heavy detail."""
+    """Keep decision-bearing campaign facts while demand-loading repeated policy prose."""
     out = _pick(
         planning,
         (
             "kind", "strategic_target_ref", "strategic_target_name",
             "campaign_region_ref", "campaign_region_name",
-            "authority_rule", "capacity_rule", "knowledge_rule",
         ),
     )
     scheme = planning.get("campaign_scheme")
@@ -122,20 +121,17 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
             scheme,
             (
                 "kind", "status", "campaign_scope_kind", "campaign_region_ref",
-                "campaign_region_name", "geography_region_name",
-                "strategic_anchor_ref", "strategic_anchor_name",
-                "primary_objective_ref", "primary_objective_name",
-                "concentration_mode", "objective_count", "state_owned_planned_strength",
-                "excluded_non_state_strength", "operational_end_state",
-                "authority_rule", "ownership_rule",
+                "campaign_region_name", "strategic_anchor_ref", "strategic_anchor_name",
+                "primary_objective_ref", "primary_objective_name", "concentration_mode",
+                "objective_count", "state_owned_planned_strength", "excluded_non_state_strength",
+                "operational_end_state",
             ),
         )
         compact_scheme["objectives"] = _compact_mapping_rows(
             scheme.get("objectives"),
             (
                 "objective_ref", "objective_name", "priority", "kind", "fortified",
-                "regional_role", "axis_role", "assigned_command_refs",
-                "assigned_commanders", "assigned_strength",
+                "regional_role", "axis_role", "assigned_strength",
             ),
         )
         hierarchy = scheme.get("command_hierarchy")
@@ -145,7 +141,7 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
                 (
                     "kind", "root_role", "subordinate_command_refs",
                     "main_body_command_refs", "strategic_reserve_command_refs",
-                    "state_owned_strength", "subordination_rule", "separation_rule",
+                    "state_owned_strength",
                 ),
             )
             hierarchy_out["operational_detachments"] = _compact_mapping_rows(
@@ -172,16 +168,16 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
     out["command_routes"] = _compact_mapping_rows(
         planning.get("command_routes"),
         (
-            "command_ref", "commander_name", "role", "strength", "origin_ref",
-            "origin_name", "objective_ref", "objective_name", "duration_hours", "path_names",
+            "command_ref", "commander_name", "role", "strength", "origin_name",
+            "objective_ref", "objective_name", "duration_hours", "path_names",
         ),
     )
     out["shared_bottlenecks"] = _compact_mapping_rows(
         planning.get("shared_bottlenecks"),
         (
             "route_ref", "from_name", "to_name", "daily_troop_throughput",
-            "daily_wagon_throughput", "command_refs", "objective_refs",
-            "combined_strength", "minimum_troop_clearance_days_floor",
+            "daily_wagon_throughput", "command_refs", "combined_strength",
+            "minimum_troop_clearance_days_floor",
         ),
     )
     return out
@@ -190,14 +186,14 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
 def _compact_identity_awareness(value: Any) -> dict[str, Any] | None:
     if not isinstance(value, Mapping):
         return None
-    out = _pick(value, ("status", "known_fact_classes"))
+    out = _pick(value, ("status",))
     return out or None
 
 
 def _compact_scene_people(value: Any) -> list[dict[str, Any]]:
     rows = _compact_mapping_rows(
         value,
-        ("person_id", "name", "role", "location", "scene_basis"),
+        ("person_id", "name", "role"),
     )
     source_rows = value if isinstance(value, list) else []
     for out, source in zip(rows, [row for row in source_rows if isinstance(row, Mapping)]):
@@ -227,6 +223,7 @@ def _compact_scene(scene: Mapping[str, Any], root_session: Any) -> dict[str, Any
     cast = scene.get("scene_cast")
     if isinstance(cast, Mapping):
         cast_out = dict(cast)
+        cast_out.pop("generic_participation_rule", None)
         present = _compact_scene_people(cast.get("present_people"))
         visible = _compact_scene_people(cast.get("visible_people"))
         nearby = _compact_scene_people(cast.get("nearby_people"))
