@@ -106,6 +106,9 @@ def test_pending_wake_context_and_preview_share_one_response_contract(campaign: 
         operations.preview_command(blocked)
     assert exc_info.value.code == "high_salience_wake_required"
 
+    advance_payload = {"hours": 1}
+    if context.get("active_scene_session"):
+        advance_payload["scene_policy"] = "preserve_active_scene"
     allowed = CommandEnvelope(
         campaign_id=meta["campaign_id"],
         request_id="wake.preview.continue-contact",
@@ -113,7 +116,7 @@ def test_pending_wake_context_and_preview_share_one_response_contract(campaign: 
         command_type="advance_time",
         expected_revision=meta["revision"],
         submitted_at=meta["time"],
-        payload={"hours": 1},
+        payload=advance_payload,
         mode="gameplay",
     )
     preview = operations.preview_command(allowed)
@@ -210,6 +213,11 @@ def test_campaign_event_settlement_commits_through_production_transaction(campai
         campaign,
         runtime_root=campaign.parent / "runtime-campaign-event-transaction",
     )
+    operations = StableCampaignOperations(runtime)
+    context = operations.play_context()
+    advance_payload = {"hours": 1}
+    if context.get("active_scene_session"):
+        advance_payload["scene_policy"] = "preserve_active_scene"
     command = CommandEnvelope(
         campaign_id=meta["campaign_id"],
         request_id="campaign-event.transaction.advance",
@@ -217,7 +225,7 @@ def test_campaign_event_settlement_commits_through_production_transaction(campai
         command_type="advance_time",
         expected_revision=meta["revision"],
         submitted_at=meta["time"],
-        payload={"hours": 1},
+        payload=advance_payload,
         mode="gameplay",
     )
     execution = runtime.execute(command)
@@ -235,7 +243,6 @@ def test_campaign_event_settlement_commits_through_production_transaction(campai
     ]
     assert len(fixture_notices) == 1
 
-    operations = StableCampaignOperations(runtime)
     context = operations.play_context()
     assert context.get("pending_wake") is None
     owners = runtime.store.read_json("state/index/owner-index.json")["owners"]
