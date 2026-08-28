@@ -17,7 +17,7 @@ from sword_runtime.causal_event_store import get_causal_event_from_reader
 from sword_runtime.contact_request_flow import _response_ref
 from sword_runtime.sim.calendar import CampaignTime
 
-_RULES_PATH = "game/data/mechanics/campaign-command.json"
+_CONTACT_ROUTES_PATH = "game/data/politics/contact-routes.json"
 _HISTORY_WINDOW = 256
 
 
@@ -42,13 +42,39 @@ def _read_owner_ref(planner: Any, owner_ref: str) -> Mapping[str, Any] | None:
     return value if isinstance(value, Mapping) else None
 
 
-def _campaign_command_delay_seconds(planner: Any) -> int:
-    rules = planner.read(_RULES_PATH)
-    cycle_rules = rules.get("campaign_command_cycle") if isinstance(rules, Mapping) else None
-    minutes = cycle_rules.get("named_superior_contact_delay_minutes") if isinstance(cycle_rules, Mapping) else None
-    if isinstance(minutes, bool) or not isinstance(minutes, int) or minutes <= 0:
-        raise ValueError("campaign command named-superior contact delay is invalid")
-    return minutes * 60
+def _campaign_command_receiving_route(
+    planner: Any,
+    *,
+    venue_ref: str,
+    institution_ref: str,
+) -> Mapping[str, Any] | None:
+    """Return the one existing institutional route matching this headquarters.
+
+    The active campaign cycle already identifies the exact venue and coordinating
+    institution. Reuse the authored institutional receiving route for that pair
+    instead of inventing a second contact cadence. Ambiguity fails closed.
+    """
+    doc = planner.read(_CONTACT_ROUTES_PATH)
+    routes = doc.get("routes") if isinstance(doc, Mapping) else None
+    if not isinstance(routes, list):
+        raise ValueError("institutional contact route registry is invalid")
+    matches = [
+        row
+        for row in routes
+        if isinstance(row, Mapping)
+        and row.get("location_ref") == venue_ref
+        and row.get("institution_ref") == institution_ref
+    ]
+    if len(matches) != 1:
+        return None
+    route = matches[0]
+    delay = route.get("delay_seconds")
+    if isinstance(delay, bool) or not isinstance(delay, int) or delay <= 0:
+        raise ValueError("campaign command receiving route delay is invalid")
+    for key in ("route_ref", "receiving_role", "delivery_route"):
+        if not isinstance(route.get(key), str) or not route.get(key):
+            raise ValueError(f"campaign command receiving route lost {key}")
+    return route
 
 
 def _campaign_command_route_for_attempt(planner: Any, attempt: Mapping[str, Any]) -> Mapping[str, Any] | None:
@@ -95,24 +121,32 @@ def _campaign_command_route_for_attempt(planner: Any, attempt: Mapping[str, Any]
     if not isinstance(player, Mapping) or player.get("location") != venue_ref:
         return None
 
+    receiving_route = _campaign_command_receiving_route(
+        planner,
+        venue_ref=venue_ref,
+        institution_ref=institution_ref,
+    )
+    if receiving_route is None:
+        return None
+
     target = _read_owner_ref(planner, target_ref)
     target_name = target.get("name") if isinstance(target, Mapping) else None
     if not isinstance(target_name, str) or not target_name.strip():
         target_name = target_ref
 
     return {
-        "route_ref": f"{process_ref}.named_superior_contact.{target_ref}",
+        "route_ref": f"{receiving_route['route_ref']}.named_superior.{target_ref}",
         "route_domain": "campaign_command_contact",
         "campaign_command_cycle_ref": process_ref,
         "institution_ref": institution_ref,
         "target_person_ref": target_ref,
         "target_person_name": target_name,
-        "delay_seconds": _campaign_command_delay_seconds(planner),
-        "receiving_role": "campaign command receiving staff",
-        "delivery_route": "active campaign-command receiving channel",
+        "delay_seconds": int(receiving_route["delay_seconds"]),
+        "receiving_role": str(receiving_route["receiving_role"]),
+        "delivery_route": str(receiving_route["delivery_route"]),
         "audience_summary": (
-            f"Campaign command staff receive Tang Wei's effort to reach {target_name} and open the current "
-            f"receiving channel for that business. This establishes contact with the receiving staff only; "
+            f"Campaign command staff receive Tang Wei's effort to reach {target_name} through the current "
+            f"headquarters channel. This establishes contact with the receiving staff only; "
             f"{target_name} has not yet received Tang Wei in person or answered him."
         ),
     }
