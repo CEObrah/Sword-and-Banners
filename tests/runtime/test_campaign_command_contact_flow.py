@@ -16,6 +16,7 @@ from sword_runtime.sim.calendar import CampaignTime
 
 CYCLE_REF = "campaign_command_cycle.885d1dbce1823cdb2495"
 MOU_GOU_REF = "char_mou_gou"
+CONTACT_DELAY_SECONDS = 3600
 
 
 def _planner(campaign: Path) -> ProductionCampaignPlanner:
@@ -74,7 +75,10 @@ def test_named_superior_seek_routes_through_active_campaign_command_staff(campai
     assert route["target_person_ref"] == MOU_GOU_REF
     assert route["target_person_name"] == "Mou Gou"
     assert route["route_domain"] == "campaign_command_contact"
-    assert route["delay_seconds"] == 30 * 60
+    assert route["route_ref"].startswith("contact_qin_military_bureau_kanyou_northern_wei.named_superior.")
+    assert route["delay_seconds"] == CONTACT_DELAY_SECONDS
+    assert route["receiving_role"] == "Qin Military Bureau duty officer"
+    assert route["delivery_route"] == "Qin Military Bureau receiving office in Kanyou"
     assert "receiving staff only" in route["audience_summary"]
     assert "has not yet received Tang Wei in person or answered him" in route["audience_summary"]
 
@@ -103,7 +107,7 @@ def test_prepare_registers_existing_seek_attempt_without_waiting_for_global_reco
     planner.put("state/runtime.json", runtime)
     current = CampaignTime.parse(str(runtime["world_time"]))
 
-    planner._prepare_scheduler_for_advance(str(current.add_hours(1)))
+    planner._prepare_scheduler_for_advance(str(current.add_hours(2)))
 
     after = planner.read("state/runtime.json")
     host_id, scheduler_event_id = _request_ids(event_id)
@@ -115,7 +119,7 @@ def test_prepare_registers_existing_seek_attempt_without_waiting_for_global_reco
     assert host["source_process_ref"] == CYCLE_REF
     assert host["route_domain"] == "campaign_command_contact"
     assert host["requested_person_ref"] == MOU_GOU_REF
-    assert host["next_due"] == str(current.add_seconds(30 * 60))
+    assert host["next_due"] == str(current.add_seconds(CONTACT_DELAY_SECONDS))
     assert any(
         row.get("event_id") == scheduler_event_id and row.get("target_host") == host_id
         for row in after["events"]
