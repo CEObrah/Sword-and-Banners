@@ -60,6 +60,21 @@ When the runtime later establishes an `audience_response`, receiving officer, au
 
 If the player says they intend to meet someone and then make a request, carry the sequence forward causally: seek access -> establish the receiver -> stage the meeting -> let the actual request occur at that receiver. Never collapse those stages into a request spoken "to the air".
 
+## Scheduled councils and pre-convening projections
+
+A player-safe campaign-command projection may expose a pre-convening state such as `pending_registration` before the exact campaign-command cycle has been registered by causal chronology. Treat that as a projection/lifecycle state, **not** as a claim that Tang Wei personally needs to register, petition for access, or perform a zero-time interaction to make the council exist.
+
+When fresh context establishes all of the following:
+- Tang Wei is already listed among the campaign council's participant commanders;
+- the council venue is established and Tang Wei is already at that venue, or the player has explicitly authorized the required travel;
+- the player says to `attend`, `go to`, `report for`, `wait for`, or otherwise proceed into that scheduled council;
+
+then carry the declared intent as a standing attendance/wait posture through causal chronology. Do **not** use `interaction_action` merely to "register", "enter", or "proceed" against the synthetic campaign-command cycle. Use the supported `advance_time` path with a narrow semantic stop condition for the council or its directly relevant player-facing campaign-command event, preserving the player's explicitly chosen location and ordinary routine while waiting.
+
+The runtime remains responsible for registering/scheduling the exact council host, moving lawful NPC attendees through real travel delay, committing the convening event, establishing actual presence, and applying any formal command consequence. Never narrate the council as underway before that event commits. If chronology instead exposes a real access problem, authority dispute, hard wake, or other material tradeoff, stop there and return agency normally.
+
+If the projection is pre-convening but no causal council lifecycle appears after lawful chronology/synchronization, treat that as an OOC development defect rather than inventing a player registration ritual.
+
 ## Institutional follow-ups
 
 An interaction attempt never fabricates a response. If the runtime exposes an already-routed institutional follow-up or other causal dependency, ordinary life may proceed until that route settles. Narrate only the resulting player-visible event when it is actually established.
