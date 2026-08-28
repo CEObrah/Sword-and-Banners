@@ -1,0 +1,73 @@
+{
+  "administrative_owner": "state_zhao",
+  "attached_support_by_role": {},
+  "attached_unit_command_by_role": {},
+  "authorized_strength": 5000,
+  "autonomous_orders": [
+    {
+      "action_ref": "state_arc_841766204bb346e786",
+      "arc_ref": "arc_northern_steppe_ganmon_pressure",
+      "at": "244-BCE-01-27T06:22:48+08:00",
+      "goal": "protect core territory",
+      "kind": "state_world_arc_operation",
+      "target_ref": "polity_northern_steppe"
+    }
+  ],
+  "cohesion": 73,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_zhao_mobile_mounted_archer",
+      "count": 5000
+    }
+  ],
+  "command_attachment_source_force_ref": "force_state_zhao",
+  "command_authority": "state_zhao",
+  "commander_ref": "char_bananji",
+  "composition": {
+    "mounted_archer": 5000
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 70,
+    "withdrawal_threshold": 35
+  },
+  "doctrine_ref": "doc.external_state_force.mounted_archer",
+  "equipment_completeness": "0.9",
+  "experience": "formed",
+  "fatigue": 0,
+  "fatigue_recovery_through": "244-BCE-08-31T07:22:48+08:00",
+  "formation_class": "unit",
+  "formation_ref": "formation_zhao_mobile_reserve",
+  "location_ref": "loc_zhao_regional_03",
+  "logistics": {
+    "war_arrows": 180000,
+    "war_bolts": 0
+  },
+  "mobilized": false,
+  "morale": 70,
+  "mounts": {
+    "horse": 5000
+  },
+  "name": "ZHAO Mobile Reserve",
+  "officer_cadre": {
+    "materialized_refs_by_rank": {
+      "1000_commander": [],
+      "100_commander": [],
+      "500_commander": []
+    },
+    "promotion_training_hours": 113,
+    "rank_inventory": {
+      "1000_commander": 5,
+      "100_commander": 50,
+      "500_commander": 10
+    }
+  },
+  "owner_force_ref": "force_state_zhao",
+  "personnel": 5000,
+  "readiness": 73,
+  "registered_loadout_ref": "loadout_zhao_mounted_archer",
+  "schema": "sword-formation",
+  "status": "ready",
+  "training_progress": 31,
+  "training_ref": "train.state_zhao.mounted_archer"
+}

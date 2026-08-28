@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "groups",
+    "active_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-prisoner-index"
+    },
+    "authority": {
+      "const": false
+    },
+    "groups": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "active_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

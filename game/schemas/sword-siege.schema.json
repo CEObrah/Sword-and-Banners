@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "attacker_formation_refs": {},
+    "defender_formation_refs": {},
+    "fortification_ref": {},
+    "schema": {
+      "const": "sword-siege"
+    },
+    "siege_ref": {},
+    "status": {}
+  },
+  "required": [
+    "schema",
+    "siege_ref",
+    "fortification_ref",
+    "attacker_formation_refs",
+    "defender_formation_refs",
+    "status"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,15 @@
+{
+  "authority": false,
+  "campaign_revision": 1,
+  "corrected": {
+    "canonical_artillery_ref": "artillery_fort_sword_manor",
+    "depot_ref": "depot_fort_tang_inner_walls",
+    "reason": "The revision-1 export still contained a second mutable owner for the same fixed Inner Walls battery already represented by artillery_fort_sword_manor. The new deployment baseline routes to the pre-existing exact fixture authority and removes the duplicate owner before play resumes.",
+    "removed_duplicate_owner_ref": "artillery_fort_tang_inner_walls",
+    "site_ref": "loc_tang_inner_walls"
+  },
+  "kind": "campaign_truth_repair_provenance",
+  "repair_ref": "repair_tang_inner_walls_artillery_authority_20260827",
+  "rule": "revision-1 deployment-baseline identity/ownership correction only; no equipment is created, destroyed, moved, repaired, damaged, fired, resupplied, or otherwise changed",
+  "world_time": "244-BCE-09-16T20:22:48+08:00"
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mercenary company",
+  "type": "object",
+  "required": [
+    "base_or_current_contract",
+    "troop_pools",
+    "combat_tendencies",
+    "doctrine",
+    "doctrine_familiarity",
+    "equipment_and_mounts",
+    "food_stock_kg",
+    "force_class",
+    "headcount",
+    "name",
+    "owner_id",
+    "owner_type",
+    "schema",
+    "state_alignment",
+    "subprocess_id",
+    "training",
+    "treasury_silver"
+  ],
+  "properties": {
+    "base_or_current_contract": {
+      "type": "string"
+    },
+    "combat_tendencies": {
+      "type": "object"
+    },
+    "doctrine": {
+      "type": "string"
+    },
+    "doctrine_familiarity": {
+      "type": "integer"
+    },
+    "equipment_and_mounts": {
+      "type": "object"
+    },
+    "food_stock_kg": {
+      "type": "integer"
+    },
+    "force_class": {
+      "type": "string"
+    },
+    "headcount": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "state_alignment": {
+      "type": "string"
+    },
+    "subprocess_id": {
+      "type": "string"
+    },
+    "training": {
+      "type": "string"
+    },
+    "treasury_silver": {
+      "type": "integer"
+    },
+    "troop_pools": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current schema contract."
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reputation event",
+  "type": "object",
+  "required": [
+    "schema",
+    "event_id",
+    "subject_id",
+    "event_type",
+    "occurred_at",
+    "signals",
+    "visibility",
+    "authority"
+  ],
+  "properties": {
+    "schema": {
+      "const": "reputation-event"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "subject_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string"
+    },
+    "occurred_at": {
+      "type": "string"
+    },
+    "source_event_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "authority": {
+      "const": true
+    },
+    "signals": {
+      "type": "object"
+    },
+    "standing_signals": {
+      "type": "object"
+    },
+    "visibility": {
+      "type": "object"
+    },
+    "witnesses": {
+      "type": "array"
+    },
+    "report_routes": {
+      "type": "array"
+    },
+    "deliveries": {
+      "type": "object"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

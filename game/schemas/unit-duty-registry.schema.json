@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "rules",
+    "role_tags",
+    "duties",
+    "phases"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "unit-duty-registry"
+    },
+    "authority": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "object"
+    },
+    "role_tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "duties": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "label",
+          "skill_weights",
+          "role_affinity"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "skill_weights": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "role_affinity": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "internal_only": {
+            "type": "boolean"
+          },
+          "command_scale_personnel": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "physical_purpose": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "phases": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "uniqueItems": true
+      }
+    },
+    "internal_duties_by_phase": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "uniqueItems": true
+      }
+    }
+  }
+}

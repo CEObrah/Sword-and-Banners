@@ -1,0 +1,70 @@
+{
+  "schema": "fatigue-mechanics",
+  "authority": "Canonical elapsed fatigue accumulation and recovery. Fatigue changes only through registered activity costs or elapsed recovery; narration cannot reset or invent fatigue.",
+  "formation": {
+    "recovery_points_per_8h": {
+      "garrisoned": 14.0,
+      "ready": 12.0,
+      "forming": 10.0,
+      "deployed": 8.0,
+      "combat_effective": 8.0,
+      "routed": 6.0,
+      "default": 8.0
+    },
+    "no_recovery_statuses": [
+      "marching",
+      "moving",
+      "in_combat",
+      "assaulting",
+      "constructing",
+      "destroyed"
+    ],
+    "activity_cost_per_hour": {
+      "training_light": 0.08,
+      "training_standard": 0.18,
+      "training_hard": 0.3,
+      "training_overreach": 0.45,
+      "march": 0.125,
+      "forced_march": 0.25,
+      "construction": 0.125,
+      "battle": 5.0
+    },
+    "rule": "Idle formations recover fatigue through ordinary sleep/rest in proportion to elapsed time and field condition. Training, marching, battle and labor stamp the recovery clock and cannot simultaneously receive free rest recovery. Sustainable standing training already includes ordinary nightly recovery and therefore adds no chronic fatigue unless its registered weekly ceiling is exceeded."
+  },
+  "person": {
+    "recovery_points_per_8h": {
+      "ordinary": 14.0,
+      "resting": 18.0,
+      "recovering": 10.0,
+      "default": 14.0
+    },
+    "no_recovery_states": [
+      "in_combat",
+      "marching",
+      "training",
+      "dead"
+    ],
+    "rule": "Exact-person idle recovery uses elapsed time and saved activity state. Distributed standing-role training uses the standing-training recovery law; explicit recovery treatment remains separate from fatigue rest.",
+    "battle_activity": {
+      "base_points_per_hour_by_role": {
+        "commander": 2.0,
+        "staff": 1.4,
+        "specialist": 3.5,
+        "notable": 4.0,
+        "embedded": 5.0,
+        "internal_100_commander": 3.8,
+        "internal_500_commander": 3.2,
+        "internal_1000_commander": 2.8,
+        "higher_commander": 0.6,
+        "default": 3.0
+      },
+      "contact_points_per_minute": 0.1,
+      "contact_points_per_sqrt_contact": 0.8,
+      "maximum_burden_multiplier": 2.25,
+      "minimum_gain_if_duty": 1,
+      "maximum_gain_per_battle": 70,
+      "rule": "Named people gain fatigue from the full battle-duty interval and local contact intensity. Endurance scales fatigue accumulation; a bounded hero-contact physics sample never limits total battle exertion."
+    },
+    "performance_rule": "Saved fatigue degrades control, action tempo, movement, and short-term exertion capacity. Endurance slows fatigue accumulation but never cancels an already exhausted state."
+  }
+}

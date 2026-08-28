@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "orders",
+    "redeployment",
+    "information",
+    "pressure",
+    "layouts",
+    "invariants"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-battlefield-operations"
+    },
+    "orders": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "redeployment": {
+      "type": "object"
+    },
+    "information": {
+      "type": "object"
+    },
+    "pressure": {
+      "type": "object"
+    },
+    "layouts": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "delegated_initiative": {
+      "type": "object"
+    },
+    "autonomous_contacts": {
+      "type": "object"
+    },
+    "battle_terminal": {
+      "type": "object"
+    }
+  }
+}

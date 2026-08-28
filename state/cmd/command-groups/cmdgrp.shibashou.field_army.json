@@ -1,0 +1,42 @@
+{
+  "authority_ref": "state_zhao",
+  "commander_ref": "char_shibashou",
+  "communication_ref": null,
+  "context": "state_field_army",
+  "direct_person_refs": [],
+  "display_name": "Shi Ba Shou Field Army",
+  "id": "cmdgrp.shibashou.field_army",
+  "location": "loc_seika",
+  "organizational_state": {
+    "authorized_direct_unit_slots": 1,
+    "authorized_strength": 12000,
+    "baseline_unit_strengths": {
+      "formation_zhao_seika_field_army": 11998
+    },
+    "current_direct_formation_strength": 11998,
+    "current_recursive_strength": 11998,
+    "direct_unit_count": 1,
+    "mission": "state_field_army",
+    "recursive_formation_count": 1,
+    "reorganization_need": "none",
+    "status": "active",
+    "unit_statuses": [
+      {
+        "current_strength": 11998,
+        "kind": "formation",
+        "ref": "formation_zhao_seika_field_army",
+        "status": "mobilized"
+      }
+    ]
+  },
+  "parent_command_group_ref": null,
+  "schema": "command-group",
+  "standing_order_refs": [],
+  "successor_refs": [],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_zhao_seika_field_army"
+    }
+  ]
+}

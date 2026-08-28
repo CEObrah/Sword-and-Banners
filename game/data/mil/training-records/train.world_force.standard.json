@@ -1,0 +1,16 @@
+{
+  "schema": "training-profile-record",
+  "id": "train.world_force.standard",
+  "profile": {
+    "id": "train.world_force.standard",
+    "domains": [
+      "troop-type drill",
+      "formation execution",
+      "march/field discipline",
+      "command response"
+    ],
+    "resource_gated": true,
+    "deterministic_program_policy": "role_resolved",
+    "gain_authority": "game/data/mil/deterministic-training-programs.json + game/data/mechanics/training.json"
+  }
+}

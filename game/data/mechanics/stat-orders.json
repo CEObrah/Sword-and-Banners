@@ -1,0 +1,50 @@
+{
+  "schema": "stat-order-registry",
+  "authority": "Sword and Banners only",
+  "profiles": {
+    "military_person": {
+      "attribute_order": [
+        "Strength",
+        "Agility",
+        "Endurance",
+        "Toughness",
+        "Coordination",
+        "Awareness",
+        "Composure",
+        "Intelligence",
+        "Presence"
+      ],
+      "skill_order": [
+        "Sword",
+        "Polearms",
+        "Heavy Weapons",
+        "Bow",
+        "Crossbow",
+        "Shield",
+        "Athletics",
+        "Grappling",
+        "Unarmed",
+        "Riding",
+        "Formation Fighting",
+        "Survival",
+        "Stealth",
+        "Scouting",
+        "Medicine",
+        "Engineering",
+        "Leadership",
+        "Formation Command",
+        "Tactics",
+        "Strategy",
+        "Logistics"
+      ],
+      "vector_rule": "Aggregate skill vectors align to the 21 core skills. Professional disciplines are sparse named maps and are never padded into every person or cohort.",
+      "professional_skill_order": [
+        "Intelligence Operations",
+        "Diplomacy",
+        "Law",
+        "Trade",
+        "Governance"
+      ]
+    }
+  }
+}

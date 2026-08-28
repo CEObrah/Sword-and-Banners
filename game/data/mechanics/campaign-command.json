@@ -1,0 +1,33 @@
+{
+  "schema": "generic-object",
+  "authority": "Campaign headquarters cadence only. Exact operations, formations, people, orders, battles, casualties, supply, territory, merit and court rewards remain authoritative in their existing owners.",
+  "campaign_command_cycle": {
+    "minimum_war_council_notice_hours": 1,
+    "war_council_duration_hours": 4,
+    "daily_cycle_seconds": 86400,
+    "dawn_briefing_rule": "After a formal campaign command conference, active player field commands receive a headquarters briefing at the next deterministic sunrise and each civil day thereafter once the operation has entered a field-operational phase. Pre-entry staging and closed campaign phases do not generate empty recurring headquarters events.",
+    "evening_sitrep_rule": "After a formal campaign command conference, active player field commands receive an evening headquarters situation conference at the next deterministic sunset and each civil day thereafter once the operation has entered a field-operational phase. Pre-entry staging and closed campaign phases remain event-driven instead.",
+    "superior_order_rule": "The campaign cycle transmits and reviews exact operational orders already owned by the campaign operation. It never invents movement, battle intent, enemy knowledge, troop ownership changes or Tang Wei's protected tactics.",
+    "upward_report_rule": "Routine dawn/evening headquarters accounting may report already-saved command facts upward through the accepted military chain. It does not create facts or choose voluntary tactics for Tang Wei.",
+    "supreme_command_appointment_rule": "If a multi-operation state campaign reaches its formal command conference without an explicit named campaign commander, the coordinating state institution may appoint one from physically present participating exact commanders using durable formal military rank first and current lawful command span second. The appointment is operational authority only and never transfers troop ownership, sovereign authority, durable rank, or Tang Wei player agency.",
+    "formal_council_forums": {
+      "state_qin": {
+        "forum_kind": "royal_court",
+        "venue_ref": "loc_kanyou",
+        "court_state_ref": "state_qin",
+        "attendance_rule": "When the campaign command conference is held at Kanyou before hostile entry, it is a formal Qin royal-court war council. Campaign commanders and revalidated Qin court candidates may attend; exact person location remains presence authority."
+      }
+    },
+    "superior_order_delivery_delay_minutes": 15,
+    "after_action_review_delay_minutes": 60,
+    "superior_order_delivery_rule": "A newly saved exact superior operational order is delivered as its own player-facing campaign headquarters event after a bounded command-channel delay. The cycle never authors the legal mission itself; it transmits the exact operation order and preserves institutional issuer versus named commander.",
+    "after_action_review_rule": "Every concluded operational battlefield with an exact after-action staff picture receives a separate field-headquarters review. It consolidates already-settled outcome, casualties, command condition, service appraisal evidence, superior follow-on direction and upward reporting without ending the wider campaign or granting rewards.",
+    "postwar_handoff_rule": "Campaign command review and sovereign reward adjudication remain distinct. Exact war closure schedules the existing royal-court ceremony and opens evidence-backed reward reviews; material grants remain under court reward authority.",
+    "daily_cycle_suppressed_phases": [
+      "campaign_concentration",
+      "awaiting_entry_authority",
+      "operation_closed_awaiting_campaign_direction",
+      "war_closed_available_for_owner_reassignment"
+    ]
+  }
+}

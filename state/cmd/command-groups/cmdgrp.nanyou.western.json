@@ -1,0 +1,42 @@
+{
+  "authority_ref": "state_han",
+  "commander_ref": "char_sei_kai",
+  "communication_ref": null,
+  "context": "state_frontier_command",
+  "direct_person_refs": [],
+  "display_name": "Nanyou Western Command",
+  "id": "cmdgrp.nanyou.western",
+  "location": "loc_nanyou",
+  "organizational_state": {
+    "authorized_direct_unit_slots": 1,
+    "authorized_strength": 9000,
+    "baseline_unit_strengths": {
+      "formation_han_nanyou_western_command": 8998
+    },
+    "current_direct_formation_strength": 8998,
+    "current_recursive_strength": 8998,
+    "direct_unit_count": 1,
+    "mission": "state_frontier_command",
+    "recursive_formation_count": 1,
+    "reorganization_need": "none",
+    "status": "active",
+    "unit_statuses": [
+      {
+        "current_strength": 8998,
+        "kind": "formation",
+        "ref": "formation_han_nanyou_western_command",
+        "status": "ready"
+      }
+    ]
+  },
+  "parent_command_group_ref": null,
+  "schema": "command-group",
+  "standing_order_refs": [],
+  "successor_refs": [],
+  "units": [
+    {
+      "kind": "formation",
+      "ref": "formation_han_nanyou_western_command"
+    }
+  ]
+}

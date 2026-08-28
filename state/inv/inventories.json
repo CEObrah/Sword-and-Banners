@@ -1,0 +1,30 @@
+{
+  "name": "Institutional Equipment and Issue Inventories",
+  "owner_id": "equipment_inventories",
+  "owner_type": "inventory_registry",
+  "records": [
+    {
+      "facts": {
+        "ammunition_owner_ref": "depot_house_tang",
+        "crossbow_role_sets_reserve": 4625,
+        "mount_stock_owner_ref": "mount_pool_force_house_tang",
+        "mounted_harness_sets_reserve": 3000,
+        "standard_role_sets_reserve": 18765
+      },
+      "label": "House Tang aggregate outfitting reserve",
+      "record_id": "house_tang_outfitting_sets"
+    },
+    {
+      "facts": {
+        "exact_owner": "owner:tang_manor_siege_inventory",
+        "runtime_state_owner": "owner:tang_manor_artillery"
+      },
+      "label": "Defensive siege inventory",
+      "record_id": "defensive_siege_inventory"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "inventory-registry"
+}
