@@ -19,12 +19,49 @@ from typing import Any
 from sword_runtime.api.warfare_operations import WarfareCampaignOperations
 from sword_runtime.campaign_briefing import build_campaign_dossier
 
+_INTERACTION_ATTEMPT_LEDGER_PATH = "state/index/interaction-attempts.json"
+
 
 class CampaignPlanningAwareOperations(WarfareCampaignOperations):
     """Expose current safe campaign planning beside immutable briefing history."""
 
+    def _stabilize_same_time_attempt_order(self, context: dict[str, Any]) -> None:
+        """Prefer persisted ledger order to hash order for public recent attempts.
+
+        Interaction attempts consume zero campaign time, so multiple attempts may
+        share one timestamp. The lower-level bounded reader uses event identity as
+        a deterministic tie-breaker, but a hash is not causal chronology. The
+        routing ledger already preserves insertion order within its retained
+        unresolved/recent buckets; use that bounded order for the public hot list
+        without changing the persisted ledger or claiming a world outcome.
+        """
+        attempts = context.get("recent_interaction_attempts")
+        if not isinstance(attempts, list) or len(attempts) < 2:
+            return
+        try:
+            ledger = self.store.read_json(_INTERACTION_ATTEMPT_LEDGER_PATH)
+        except (FileNotFoundError, KeyError, ValueError):
+            return
+        raw_rows = ledger.get("attempts") if isinstance(ledger, Mapping) else None
+        if not isinstance(raw_rows, list):
+            return
+        positions = {
+            str(row.get("event_id")): index
+            for index, row in enumerate(raw_rows)
+            if isinstance(row, Mapping) and isinstance(row.get("event_id"), str)
+        }
+        if not positions:
+            return
+        context["recent_interaction_attempts"] = sorted(
+            attempts,
+            key=lambda row: positions.get(str(row.get("event_id")), -1)
+            if isinstance(row, Mapping) else -1,
+            reverse=True,
+        )
+
     def play_context(self) -> dict[str, Any]:
         context = super().play_context()
+        self._stabilize_same_time_attempt_order(context)
         planner = getattr(self.runtime, "planner", None)
         if planner is None:
             return context
