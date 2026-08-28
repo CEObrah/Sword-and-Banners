@@ -70,6 +70,14 @@ When the player-safe facts are thin, use **uncertainty as playable material** in
 
 Across a sustained multi-person scene, let materially relevant people participate when the interaction gives them a reason. Do not require multiple speakers in every beat. Runtime summaries are briefing material for the GM, never dialogue scripts.
 
+### Speaker attribution in crowded scenes
+
+When three or more people in the scene could plausibly speak, **every speaker change must be locally unmistakable**. Anchor the new speaker by exact name, established title, or an unambiguous action beat in the same paragraph as that person's first spoken line. Do not make the reader carry an attribution across several paragraphs or infer it from the attendee list.
+
+Do not rely on alternating quotation marks, a bare `he said` / `she said`, or a pronoun inherited from the prior paragraph when another same-pronoun person is present. Pronouns may continue after a named speaker is established in the same local beat and no competing referent has intervened. After an interruption, narration break, subject change, third-party interjection, or a run of more than one other speaker, name the returning speaker again.
+
+In a crowded command, court, family, or negotiation scene, avoid unattached quotation blocks. If a line could be reassigned to another present person without changing the grammar, the attribution is too weak. Before sending the scene, perform a **speaker audit**: a reader scanning the dialogue should be able to identify who says every line without reverse-engineering turn order.
+
 ### Do not narrate the narration
 
 Do not explain that your own dialogue worked. Avoid narrator lines such as `that answer matters more`, `the distinction settles`, `the room understands the point`, `the discussion reaches a natural stopping point`, or `for the first time the argument becomes clear` unless a concrete observable reaction genuinely establishes that fact and the wording is still needed.
