@@ -1,14 +1,13 @@
 """Causal routing for named-person access through an active campaign command.
 
 A player-facing ``seek_contact`` attempt proves only that Tang Wei tried to reach
-one named commander.  This module gives that attempt a lawful receiving path
+one named commander. This module gives that attempt a lawful receiving path
 through the active campaign command's coordination authority without pretending
 that the named commander is physically present, personally received the request,
 or answered it.
 """
 from __future__ import annotations
 
-import copy
 import hashlib
 from collections.abc import Mapping
 from typing import Any
@@ -18,7 +17,6 @@ from sword_runtime.causal_event_store import get_causal_event_from_reader
 from sword_runtime.contact_request_flow import _response_ref
 from sword_runtime.sim.calendar import CampaignTime
 
-_RUNTIME_PATH = "state/runtime.json"
 _RULES_PATH = "game/data/mechanics/campaign-command.json"
 _HISTORY_WINDOW = 256
 
@@ -46,10 +44,10 @@ def _read_owner_ref(planner: Any, owner_ref: str) -> Mapping[str, Any] | None:
 
 def _campaign_command_delay_seconds(planner: Any) -> int:
     rules = planner.read(_RULES_PATH)
-    command = rules.get("campaign_command") if isinstance(rules, Mapping) else None
-    minutes = command.get("direct_commander_exception_delay_minutes") if isinstance(command, Mapping) else None
+    cycle_rules = rules.get("campaign_command_cycle") if isinstance(rules, Mapping) else None
+    minutes = cycle_rules.get("named_superior_contact_delay_minutes") if isinstance(cycle_rules, Mapping) else None
     if isinstance(minutes, bool) or not isinstance(minutes, int) or minutes <= 0:
-        raise ValueError("campaign command direct-commander contact delay is invalid")
+        raise ValueError("campaign command named-superior contact delay is invalid")
     return minutes * 60
 
 
@@ -171,16 +169,6 @@ class CampaignCommandContactFlowMixin:
             )
             scheduled += 1
         return scheduled
-
-    def _prepare_scheduler_for_advance(self, target_text: str) -> None:
-        # Interaction attempts are zero-time. Register this exact causal route at
-        # the next time-bearing command so an already-persisted attempt is not
-        # stranded merely because it predates this source capability or the
-        # scheduler's next global safety reconciliation.
-        runtime = copy.deepcopy(self.read(_RUNTIME_PATH))
-        if self._sync_campaign_command_contact_routes(runtime):
-            self.put(_RUNTIME_PATH, runtime)
-        super()._prepare_scheduler_for_advance(target_text)
 
 
 __all__ = ["CampaignCommandContactFlowMixin", "_campaign_command_route_for_attempt", "_request_ids"]
