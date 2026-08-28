@@ -21,6 +21,7 @@ from sword_runtime.strategic_war_planning import _assign_commands, _border_objec
 
 _ROUTES_PATH = "game/data/world/routes.json"
 _LOCATIONS_PATH = "game/data/world/locations.json"
+_CAMPAIGN_COMMAND_PATH = "game/data/mechanics/campaign-command.json"
 _COMMAND_GROUP_INDEX = "state/cmd/command-groups/index.json"
 _TERRITORY_PATH = "state/territory/control.json"
 _PLAYER_REF = "char_tang_wei"
@@ -160,33 +161,40 @@ def _campaign_region_context(
     defender: str,
     strategic_anchor_ref: str,
 ) -> dict[str, Any] | None:
-    """Expand a strategic anchor site into its current regional objective set.
+    """Expand an explicitly authored strategic anchor into its regional objectives.
 
-    A campaign may be commonly identified by one important city while the actual
-    military task is to secure the surrounding region.  The authored location
-    hierarchy provides that regional scope; current territory control decides
-    which strategic sites still belong to the defender.  No enemy formation,
-    garrison strength, or hidden deployment is read here.
+    Regional scope is never inferred merely because a city has a parent region.
+    `campaign-command.json` must explicitly identify the anchor and campaign region.
+    Current territory control then determines which strategic sites in that region
+    remain defender-held. No enemy formations, garrison strength, or hidden
+    deployments are read here.
     """
+    mechanics = planner.read(_CAMPAIGN_COMMAND_PATH)
+    cycle = mechanics.get("campaign_command_cycle") if isinstance(mechanics, Mapping) else None
+    anchors = cycle.get("strategic_region_anchors") if isinstance(cycle, Mapping) else None
+    configured = anchors.get(strategic_anchor_ref) if isinstance(anchors, Mapping) else None
+    if not isinstance(configured, Mapping):
+        return None
+
+    defender_owner = _side_owner_ref(defender)
+    configured_target = configured.get("target_state_ref")
+    if isinstance(configured_target, str) and configured_target and configured_target != defender_owner:
+        return None
+
     locations = _location_rows(planner.read)
     anchor = locations.get(str(strategic_anchor_ref))
     if not isinstance(anchor, Mapping):
         return None
-
-    region_ref = anchor.get("region_ref")
-    if not isinstance(region_ref, str) or not region_ref:
-        parent_ref = anchor.get("parent_ref")
-        parent = locations.get(str(parent_ref)) if isinstance(parent_ref, str) else None
-        if isinstance(parent, Mapping) and str(parent.get("kind", "")) == "region":
-            region_ref = parent_ref
+    region_ref = configured.get("campaign_region_ref")
     if not isinstance(region_ref, str) or not region_ref:
         return None
-
     region = locations.get(region_ref)
     if not isinstance(region, Mapping) or str(region.get("kind", "")) != "region":
         return None
-    defender_owner = _side_owner_ref(defender)
     if str(region.get("polity_ref") or "") != defender_owner:
+        return None
+    authored_anchor_region = anchor.get("region_ref") or anchor.get("parent_ref")
+    if str(authored_anchor_region or "") != region_ref:
         return None
 
     territory = planner.read(_TERRITORY_PATH)
@@ -226,14 +234,15 @@ def _campaign_region_context(
         return None
     objectives.sort(key=lambda row: (-int(row["priority"]), str(row["objective_ref"])))
     anchor_name = _location_name(locations, strategic_anchor_ref)
+    campaign_region_name = configured.get("campaign_region_name")
     return {
         "campaign_region_ref": region_ref,
-        "campaign_region_name": f"{anchor_name} Region",
+        "campaign_region_name": str(campaign_region_name or _location_name(locations, region_ref)),
         "geography_region_name": _location_name(locations, region_ref),
         "strategic_anchor_ref": strategic_anchor_ref,
         "strategic_anchor_name": anchor_name,
         "objective_candidates": objectives[:6],
-        "scope_basis": "authored parent region around the strategic anchor plus current defender-controlled strategic sites",
+        "scope_basis": "explicit strategic-region anchor configuration plus authored location hierarchy and current defender territorial control",
     }
 
 
@@ -495,7 +504,7 @@ def _build_campaign_scheme(
             "war_termination_rule": "Political war termination, annexation, treaty terms, and follow-on territorial settlement remain separate sovereign and diplomatic decisions.",
         },
         "planning_basis": (
-            "current campaign roster plus authored strategic geography; when the strategic anchor belongs to a defender region, current defender-controlled strategic sites in that region define the regional campaign objective set; hidden enemy deployments are not used to choose the pre-entry axes"
+            "current campaign roster plus authored strategic geography; explicitly configured regional anchors expand to current defender-controlled strategic sites in the configured region; hidden enemy deployments are not used to choose the pre-entry axes"
         ),
         "authority_rule": "staff planning projection only; it does not issue an order, move a formation, authorize hostile entry, transfer troop ownership, or choose Tang Wei's tactics",
         "ownership_rule": "non-state/private auxiliaries are excluded from Qin planning strength unless a separate lawful commitment and acceptance establishes their use",
@@ -638,5 +647,5 @@ def build_march_planning_baseline(
         "shared_bottlenecks": shared_bottlenecks,
         "authority_rule": "planning projection only; this does not assign a route, authorize hostile entry, move a formation, or issue an order",
         "capacity_rule": "troop clearance is a floor from authored route throughput only; baggage, wagons, supply, rests, traffic spacing, enemy action, and other unrepresented burdens are not invented",
-        "knowledge_rule": "campaign axes use current roster, current territorial control, and authored geography only; the projection does not expose private enemy deployments or fabricate reconnaissance",
+        "knowledge_rule": "campaign axes use current roster, current territorial control, explicit campaign-scope configuration, and authored geography only; the projection does not expose private enemy deployments or fabricate reconnaissance",
     }
