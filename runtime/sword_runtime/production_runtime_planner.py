@@ -5,6 +5,7 @@ The current production planner is the single hosted gameplay authority.
 from sword_runtime.production_planner import ProductionCampaignPlanner as _BaseProductionCampaignPlanner
 from sword_runtime.qin_command_support_flow import QinCommandSupportFlowMixin
 from sword_runtime.qin_operational_order_guard import QinOperationalOrderGuardMixin
+from sword_runtime.sovereign_campaign_authority_mixin import SovereignCampaignAuthorityMixin
 from sword_runtime.time_integration import ProductionTimeIntegrationMixin
 
 
@@ -12,6 +13,7 @@ class ProductionCampaignPlanner(
     ProductionTimeIntegrationMixin,
     QinCommandSupportFlowMixin,
     QinOperationalOrderGuardMixin,
+    SovereignCampaignAuthorityMixin,
     _BaseProductionCampaignPlanner,
 ):
     """Hosted planner with causal field support, order guarding, and derived strategic supply."""
