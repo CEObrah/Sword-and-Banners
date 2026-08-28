@@ -111,5 +111,5 @@ def test_compact_live_context_keeps_campaign_decisions_and_drops_redundant_bulk(
     # per-segment geometry is demand-loaded rather than repeated every turn.
     assert planning["command_routes"]
     assert all("segments" not in route for route in planning["command_routes"])
-    assert all("path_refs" in route for route in planning["command_routes"])
+    assert all("path_names" in route for route in planning["command_routes"])
     assert "shared_bottlenecks" in planning
