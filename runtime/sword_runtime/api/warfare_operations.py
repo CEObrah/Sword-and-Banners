@@ -22,6 +22,27 @@ _COMMAND_SERVICE_FIELDS = (
     "health_status", "health", "fatigue", "attributes", "aptitude", "skills",
     "specializations", "personal_loadout_ref", "equipment_loadout_id", "equipment_standard",
 )
+_SERVICE_INTERACTION_LENSES = {
+    "Strategy": "objectives, sequencing, uncertainty, reserves, and second-order consequences",
+    "Tactics": "timing, local advantage, contact conditions, positioning, and execution risk",
+    "Logistics": "supply, transport, sustainment, route burden, and practical capacity",
+    "Formation Command": "command clarity, coordination, readiness, control, and subordinate execution",
+    "Leadership": "discipline, morale, responsibility, cohesion, and command communication",
+    "Scouting": "source quality, observation gaps, reconnaissance, routes, and what remains unverified",
+    "Engineering": "works, crossings, fortifications, labor, material constraints, and time",
+    "Medicine": "injury, recovery, treatment capacity, and human cost",
+}
+_ROLE_INTERACTION_LENSES = (
+    (("legal", "law"), "law, wording, procedure, authority, evidence, and precedent"),
+    (("chancellor",), "institutional coordination, state capacity, resources, and political consequence"),
+    (("sovereign", "king", "queen", "ruler"), "state purpose, lawful authority, competing obligations, and consequence"),
+    (("strategist",), "assumptions, alternatives, sequencing, uncertainty, and downstream risk"),
+    (("commander", "general"), "command clarity, military feasibility, responsibility, readiness, and execution"),
+    (("treasurer", "steward"), "cost, capacity, accounting, provisioning, and sustainability"),
+    (("merchant", "trader"), "price, delivery, reliability, scarcity, transport, and risk"),
+    (("physician", "doctor", "healer"), "health, treatment, recovery, capacity, and risk"),
+    (("court", "minister"), "procedure, institutional consequence, witnesses, authority, and coordination"),
+)
 _MILITARY_ALLEGIANCE_GUIDANCE = {
     "action": {"allowed_values": ["rebel", "defect", "mutiny", "defy_state_order", "desert"]},
     "formation_refs": {
@@ -36,27 +57,76 @@ _MILITARY_ALLEGIANCE_GUIDANCE = {
 }
 
 
+def _safe_service_performance_cues(projected: Mapping[str, Any]) -> dict[str, Any]:
+    """Derive interaction lenses only from fields already exposed on the person sheet.
+
+    These cues help the GM choose what a person is professionally equipped to
+    notice, question, or emphasize. They are not personality, motive, knowledge,
+    authority, or permission to create facts.
+    """
+    cues: dict[str, Any] = {}
+    role = projected.get("role") or projected.get("rank") or projected.get("family_role")
+    military_rank = projected.get("military_rank")
+    if not role and isinstance(military_rank, Mapping):
+        role = military_rank.get("grade")
+    if isinstance(role, str) and role.strip():
+        public_role = role.strip()[:200]
+        cues["public_role_context"] = public_role
+        lowered = public_role.lower()
+        for tokens, emphasis in _ROLE_INTERACTION_LENSES:
+            if any(token in lowered for token in tokens):
+                cues["role_lens"] = emphasis
+                break
+
+    family_role = projected.get("family_role")
+    if isinstance(family_role, str) and family_role.strip():
+        cues["family_role_context"] = family_role.strip()[:120]
+
+    skills = projected.get("skills") if isinstance(projected.get("skills"), Mapping) else {}
+    lenses: list[tuple[float, str, str]] = []
+    for domain, emphasis in _SERVICE_INTERACTION_LENSES.items():
+        value = skills.get(domain) if isinstance(skills, Mapping) else None
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            lenses.append((float(value), domain, emphasis))
+    lenses.sort(key=lambda row: (-row[0], row[1]))
+    if lenses:
+        cues["professional_lenses"] = [
+            {
+                "domain": domain,
+                "emphasis": emphasis,
+                "basis": "player_visible_service_capability",
+            }
+            for _value, domain, emphasis in lenses[:3]
+        ]
+    if cues:
+        cues["use_rule"] = (
+            "Use these cues only to vary delivery and select lawful questions, objections, clarifications, or advice from established player-safe facts. "
+            "They do not establish personality, motive, knowledge, authority, or outcomes."
+        )
+    return cues
+
+
 class WarfareCampaignOperations(EquipmentAwareCampaignOperations):
     """Stable warfare surface with bounded exact command-person reads."""
 
-    def _safe_scene_performance_cues(self, person_id: str) -> dict[str, Any]:
-        """Return cold presentation cues without private goals, concerns, or motives."""
+    def _safe_scene_performance_cues(self, person_id: str, projected: Mapping[str, Any]) -> dict[str, Any]:
+        """Return safe presentation cues plus role/service fallbacks, never private goals."""
+        cues = _safe_service_performance_cues(projected)
         try:
             index = self.store.read_json(_BEHAVIOR_PROFILE_INDEX_PATH)
         except (FileNotFoundError, KeyError, TypeError, ValueError):
-            return {}
+            return cues
         profiles = index.get("profiles", {}) if isinstance(index, Mapping) else {}
         path = profiles.get(person_id) if isinstance(profiles, Mapping) else None
         if not isinstance(path, str) or not path.startswith("game/data/people/behavior-profiles/"):
-            return {}
+            return cues
         try:
             profile = self.store.read_json(path)
         except (FileNotFoundError, KeyError, TypeError, ValueError):
-            return {}
+            return cues
         if not isinstance(profile, Mapping) or profile.get("schema") != "behavior-profile" or profile.get("person_id") != person_id:
-            return {}
+            return cues
         behavior = profile.get("behavior", {}) if isinstance(profile.get("behavior"), Mapping) else {}
-        cues: dict[str, Any] = {}
         for key in _SAFE_PERFORMANCE_CUE_FIELDS:
             value = behavior.get(key)
             if isinstance(value, str) and value.strip():
@@ -90,7 +160,7 @@ class WarfareCampaignOperations(EquipmentAwareCampaignOperations):
             return result
         projected = result.get("person") if isinstance(result.get("person"), Mapping) else {}
         out = dict(result)
-        performance_cues = self._safe_scene_performance_cues(person_id)
+        performance_cues = self._safe_scene_performance_cues(person_id, projected)
         scene_focus = {
             "kind": session.get("kind"),
             "purpose": session.get("purpose"),
@@ -101,7 +171,7 @@ class WarfareCampaignOperations(EquipmentAwareCampaignOperations):
             "role": projected.get("role") or projected.get("rank") or projected.get("military_rank") or projected.get("family_role"),
             "scene_focus": scene_focus,
             "performance_cues": performance_cues,
-            "performance_cues_rule": "delivery_and_characterization_only; never factual knowledge, private motive, authority, or outcome",
+            "performance_cues_rule": "player-safe delivery and conversational emphasis only; never factual knowledge, private motive, authority, or outcome",
             "may": [
                 "acknowledge", "clarify_player_safe_facts", "offer_nonbinding_advice", "object",
                 "ask_followup", "speculate_from_known_evidence", "express_nonbinding_professional_opinion",

@@ -26,6 +26,24 @@ Generate nonbinding dialogue from player-safe facts only. Preserve uncertainty. 
 
 Ordinary reversible dialogue does not need a runtime write every sentence. Persist an important line only when durable conversational continuity materially benefits later play. Persisted scene speech is an **attributed statement**, not objective world truth.
 
+## Interaction depth and differentiation
+
+Treat substantive interaction as a sequence of **distinct conversational jobs**, not as prose wrapped around a state summary. This rule applies across councils, family scenes, command meetings, audiences, negotiations, briefings, interviews, camp conversations, institutional exchanges, and other multi-turn social scenes.
+
+Before giving a materially relevant present NPC substantive dialogue, retrieve that person's permitted sheet when the compact cast does not already supply enough role/voice context. In a crowded scene, retrieve only the two to four people whose contribution matters to the current beat rather than loading the whole room.
+
+Use `npc_response_envelope.performance_cues` as follows:
+- `public_role_context` and `role_lens` identify the lawful public or social perspective from which the person can naturally question or emphasize established facts;
+- `professional_lenses` identify player-visible areas of demonstrated service competence that may shape what the person notices, tests, clarifies, or advises about;
+- explicit safe speech/temperament cues, when present, may shape delivery but never create knowledge, motive, authority, or outcome;
+- absence of personality cues is **not** a reason to make everyone sound alike. Differentiate speakers first through role, expertise, rank, relationship, audience, and the immediate agenda.
+
+For each speaker selected into the beat, give the line a different job whenever the situation supports it: question an assumption, identify a practical constraint, distinguish fact from estimate, object to a consequence, compare alternatives, ask who bears a burden, clarify authority, recommend a reversible next step, or expose an unresolved tradeoff. Two NPCs should not merely paraphrase the same runtime field unless the repetition itself is meaningful disagreement, confirmation, correction, or hierarchy.
+
+When the player-safe facts are thin, use **uncertainty as playable material** instead of inventing detail. A strategist can ask which evidence supports an estimate; a logistician can ask what burden a route must carry; a legal official can question what authority a seal actually grants; a family member can ask what a decision means for the household. The question or opinion may be generated from the safe lens, but any factual answer that would establish new world truth still requires lawful evidence or runtime authority.
+
+In a substantive multi-person scene, normally let at least two materially relevant NPC voices perform distinct conversational jobs before returning to narrator compression, unless hierarchy, urgency, silence, or focus gives a concrete reason not to. Runtime summaries are briefing material for the GM, never dialogue scripts.
+
 ## Speech versus mechanical speech acts
 
 Examples that may remain bounded scene truth when supported by player-safe context:
