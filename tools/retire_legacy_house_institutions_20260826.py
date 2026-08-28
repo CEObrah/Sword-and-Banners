@@ -384,11 +384,11 @@ for rel in retired:
         path.unlink(); removed += 1
 
 # Skill docs: no active Bastion personnel owner and no stale House Guard display override.
-p = 'plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/references/repository-map.md'; s = read(p)
+p = 'plugins/sword-and-banners/skill/sword-and-banners-game-master/references/repository-map.md'; s = read(p)
 s = s.replace('`runtime/sword_runtime/bastion_personnel.py` + `game/data/mechanics/bastion-corps.json` — permanent Four Bastion Corps applicant reservation, Corps qualification, active-vacancy admission and conserved replacement/reconstitution. Bastion bodies are House Tang military personnel, never mercenary-market bodies.\n\n', '')
 s = s.replace('Large armies, House Tang troops, Sword Manor ranks, and ordinary Tang Champions are aggregate cohorts/formations.', 'Large armies and House Tang troops are cohort-first; House Tang military species are House Infantry and House Cavalry only.')
 write(p, s)
-p = 'plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/references/player-interface.md'; s = read(p)
+p = 'plugins/sword-and-banners/skill/sword-and-banners-game-master/references/player-interface.md'; s = read(p)
 lines = [line for line in s.splitlines() if 'formation_tang_wei_house_guard' not in line]
 write(p, '\n'.join(lines) + '\n')
 

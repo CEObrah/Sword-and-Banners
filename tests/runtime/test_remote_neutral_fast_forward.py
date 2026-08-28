@@ -64,7 +64,7 @@ def test_preflight_fast_forwards_runtime_neutral_remote_descendant(
     _, publisher, worker = _seed_pair(tmp_path)
     original_state = (worker / "state/meta.json").read_text(encoding="utf-8")
     neutral_path = (
-        "plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/"
+        "plugins/sword-and-banners/skill/sword-and-banners-game-master/"
         "references/narration.md"
     )
     remote_head = _commit(publisher, neutral_path, "updated prose\n", "update skill")

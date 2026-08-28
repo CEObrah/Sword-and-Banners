@@ -45,7 +45,7 @@ CERTIFIED_ROOTS = (
     "state",
     "tests/runtime",
     "tools",
-    "plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master",
+    "plugins/sword-and-banners/skill/sword-and-banners-game-master",
 )
 CERTIFIED_TOP_LEVEL_FILES = (
     "pyproject.toml",
