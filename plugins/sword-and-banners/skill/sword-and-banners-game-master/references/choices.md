@@ -76,6 +76,20 @@ Translate the selected option into the fiction and show it. Render the concrete 
 
 If the selected option is consequential, persist that player-authored intent through the lawful runtime path first, then render the committed action from refreshed context. If the resolution produces a new consequential fork, stop there and scaffold the new decision normally.
 
+## Access-stage guard for people
+
+A choice must not collapse `seek/contact` and `speak/press/petition` into one guaranteed direct encounter unless fresh player-visible authority already establishes the target as physically present in the active scene or otherwise grants exact current access. `nearby_people`, `referenced_people`, a permitted person ID, a broad shared region, or a person-sheet availability label do not establish face-to-face access.
+
+When access is not established:
+
+- offer or resolve the first lawful stage only: seek the person, request an audience, send a runner, route a message, present yourself at the relevant office, or use another supported contact path;
+- if a selected menu option bundled the larger objective with that access step, preserve the player's larger intent but refresh context after the access or routing step before attempting direct dialogue or another access-dependent consequence;
+- if the runtime records only an outbound request or contact attempt, narrate only that attempt. Do not narrate face-to-face speech, eye contact, acknowledgement, refusal, or a reply from the named person;
+- player-supplied words may be shown as the contents of a routed message when the chosen channel supports that, but do not present them as words the target personally heard unless co-presence or exact access is established;
+- if a later causal event establishes access or delivers a response, continue from that committed handoff instead of retroactively pretending the earlier attempt was a conversation.
+
+A menu such as `Seek Mou Gou tonight and press him for an answer` is therefore invalid when Mou Gou is not established as present. Offer the access or message step first, then let the response path determine whether a direct exchange actually occurs.
+
 ## Never strand an unresolved decision
 
 Before ending an IC response, check fresh runtime context and the narrated endpoint. If the runtime says a decision is required, or the prose has landed on a genuine unresolved player-facing choice, and the current player message has not already supplied that next action, provide decision scaffolding before ending.
