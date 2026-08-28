@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from sword_runtime.api.campaign_planning_operations import CampaignPlanningAwareOperations
+from sword_runtime.api.command_discovery import compact_play_context
 from sword_runtime.engine import SwordRuntime
 
 
@@ -76,3 +78,38 @@ def test_live_planning_overlay_preserves_staff_plan_authority_boundaries(campaig
         for row in scheme["command_assignments"] + scheme["strategic_reserve_commands"]
     }
     assert set(scheme["command_hierarchy"]["subordinate_command_refs"]) == planned_command_refs
+
+
+def test_compact_live_context_keeps_campaign_decisions_and_drops_redundant_bulk(campaign):
+    operations = CampaignPlanningAwareOperations(SwordRuntime(campaign))
+    full = operations.play_context()
+    full_operation = _operation(full)
+    assert full_operation["campaign_context"]["other_friendly_participants"]
+    assert any(
+        route.get("segments")
+        for route in full_operation["campaign_command"]["march_planning"]["command_routes"]
+    )
+
+    compact = compact_play_context(full)
+    encoded = json.dumps(compact, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    assert len(encoded) < 48_000
+
+    operation = _operation(compact)
+    campaign_context = operation["campaign_context"]
+    assert "other_friendly_participants" not in campaign_context
+    assert campaign_context["other_friendly_participant_count"] >= 1
+
+    planning = operation["campaign_command"]["march_planning"]
+    scheme = planning["campaign_scheme"]
+    assert scheme["objectives"]
+    assert scheme["command_assignments"]
+    assert "strategic_reserve_commands" in scheme
+    assert scheme["command_hierarchy"]["kind"] == "supreme_campaign_field_army"
+    assert scheme["command_hierarchy"]["subordinate_command_refs"]
+
+    # Route paths and real shared bottlenecks remain visible, while verbose
+    # per-segment geometry is demand-loaded rather than repeated every turn.
+    assert planning["command_routes"]
+    assert all("segments" not in route for route in planning["command_routes"])
+    assert all("path_refs" in route for route in planning["command_routes"])
+    assert "shared_bottlenecks" in planning
