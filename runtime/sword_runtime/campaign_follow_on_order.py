@@ -106,11 +106,12 @@ def materialize_reconciled_campaign_follow_on_orders(
             continue
 
         cycle = _cycle(planner, operation)
+        delivered_rows = cycle.get("delivered_superior_order_refs", []) if isinstance(cycle, Mapping) else []
         delivered = {
             str(ref)
-            for ref in cycle.get("delivered_superior_order_refs", [])
-            if isinstance(cycle, Mapping) and isinstance(ref, str) and ref
-        }
+            for ref in delivered_rows
+            if isinstance(ref, str) and ref
+        } if isinstance(delivered_rows, list) else set()
         if base_order_ref not in delivered:
             # The refreshed order has not yet been delivered in this campaign
             # command cycle, so the normal superior-order route can transmit it.
