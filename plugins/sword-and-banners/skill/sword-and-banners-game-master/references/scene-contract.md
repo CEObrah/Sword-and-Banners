@@ -60,7 +60,11 @@ Do not use **straw-alternative exposition** as filler. Lines such as `we will no
 
 Preserve the command hierarchy exactly. An intact subordinate army or command group can retain its own commander and internal organization while still being operationally subordinate to the campaign's supreme commander. **Internal command integrity is not strategic independence.** When `march_planning.campaign_scheme.command_hierarchy` is available, treat its `supreme_campaign_field_army` structure as the positive campaign model: listed state-owned commands are nested beneath supreme campaign command; a distinct objective/axis or reserve role is what marks an operational detachment. Do not describe every named general as running a separate campaign merely because their persistent command group remains intact.
 
+When the live projection distinguishes a Qin-owned subtotal from a larger recursive command span, use the **full recursive command span** for the army's physical size and movement burden while preserving the ownership split. Do not single Tang Wei out as the only commander with private troops when other exact field-command hierarchies also contain House or retinue subcommands. State-owned, House-owned, and other non-state bodies remain separately owned even when they march inside one intact field army.
+
 A staff plan and a binding order remain distinct. If the runtime exposes only a staff scheme, present it as the concrete scheme being proposed or discussed rather than silently promoting it to an issued order. But lack of a binding order is not a reason to replace available specifics with vague prose. State the plan's real objectives, subordinate commands, strengths, axes, reserve, and route/supply constraints that the player can lawfully know; then surface only the actual unresolved decision.
+
+Do not append **authority boilerplate** after a concrete military answer. If entry authority, a withheld seal, or another legal boundary is already shared context, mention it again only when it changes the immediate requested action. Avoid endings such as `the disposition is mine to settle, but crossing is not` when the player asked who is assigned where. End on the actual assignment, unresolved command question, or observable next staff action instead of restating a standing permission boundary.
 
 ### Dialogue choreography
 
