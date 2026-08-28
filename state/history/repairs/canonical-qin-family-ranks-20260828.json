@@ -1,0 +1,36 @@
+{
+  "authority": false,
+  "campaign_revision": 7,
+  "corrected": {
+    "family_parentage": {
+      "char_mou_bu": "char_mou_gou",
+      "char_mou_ki": "char_mou_bu",
+      "char_mou_ten": "char_mou_bu",
+      "char_ou_hon": "char_ousen"
+    },
+    "house_lineage_classification": {
+      "house_mou_family": [
+        "char_mou_bu",
+        "char_mou_gou",
+        "char_mou_ki",
+        "char_mou_ten"
+      ],
+      "house_ou_family": [
+        "char_ou_hon",
+        "char_ousen"
+      ]
+    },
+    "military_rank_baseline": {
+      "char_heki": "general",
+      "char_shou_hei_kun": "general"
+    },
+    "mou_sibling_kinship": [
+      "char_mou_ki",
+      "char_mou_ten"
+    ]
+  },
+  "kind": "campaign_repair_provenance",
+  "repair_ref": "repair_canonical_qin_family_rank_normalization_20260828",
+  "rule": "Normalize already-established Qin family identity and durable military rank without advancing chronology, changing command billets or command spans, creating or removing population, transferring troop ownership, or creating an in-world promotion event.",
+  "world_time": "244-BCE-09-17T18:42:48+08:00"
+}
