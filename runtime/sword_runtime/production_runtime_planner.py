@@ -10,10 +10,10 @@ from sword_runtime.time_integration import ProductionTimeIntegrationMixin
 
 
 class ProductionCampaignPlanner(
+    SovereignCampaignAuthorityMixin,
     ProductionTimeIntegrationMixin,
     QinCommandSupportFlowMixin,
     QinOperationalOrderGuardMixin,
-    SovereignCampaignAuthorityMixin,
     _BaseProductionCampaignPlanner,
 ):
     """Hosted planner with causal field support, order guarding, and derived strategic supply."""
