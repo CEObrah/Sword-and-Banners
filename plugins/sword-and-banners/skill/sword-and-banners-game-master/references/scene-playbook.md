@@ -36,6 +36,14 @@ For campaign headquarters scenes, keep the vertical chain visible: supreme/campa
 
 Subordinates should bring recommendations, incomplete reports, objections, and requests rather than wait silently for Wei to micromanage them.
 
+When fresh campaign context exposes `march_planning`, use it as the concrete staff substrate for movement discussion. Route capacity, segment travel hours, road width, terrain, crossings, command strength, and a shared bottleneck may shape what commanders argue about. A `troop_clearance_days_floor` is only a physical lower bound from route throughput; it is not an assigned route, departure order, complete march table, or guarantee of arrival.
+
+Prefer concrete operational questions over vague abstractions when the substrate exists: which command reaches the chokepoint first, how long a large column physically takes to clear a road, whether two commands share the same bottleneck, where a reserve can leave a route, and what movement must be separated from slower traffic. Do not make everyone recite every capacity figure; let the numbers enter only where they change an argument, responsibility, sequence, or decision.
+
+Do not invent wagon counts, grain tonnage, forage demand, water stocks, departure intervals, courier times, traffic-control detachments, bridge condition, or enemy interference merely to make the meeting sound technical. If the runtime does not expose a required quantity, keep it unresolved, let a commander ask for it when naturally motivated, or treat the missing operational substrate as an OOC QA/development finding. Never silently turn the planning baseline into orders or movement.
+
+A senior command discussion should usually move from the concrete constraint toward sequencing, responsibility, reserves, sustainment, contingencies, and finally lawful orders when those facts and decisions exist. Avoid vague abstractions such as `flexibility`, `pressure`, or `options` when a player-safe route, capacity, timing, or ownership fact can state the actual military problem.
+
 If Wei has delegated authority, let subordinates act within it. Escalate only decisions outside their scope or decisions the runtime makes player-protected.
 
 ## Training scenes
