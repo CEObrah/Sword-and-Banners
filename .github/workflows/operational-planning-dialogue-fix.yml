@@ -1,0 +1,108 @@
+name: Operational planning dialogue fix
+
+on:
+  push:
+    branches:
+      - fix/operational-planning-dialogue-clarity
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/operational-planning-dialogue-clarity
+          fetch-depth: 0
+      - name: Patch bounded planning projection and speaker contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          briefing = Path('runtime/sword_runtime/campaign_briefing.py')
+          text = briefing.read_text()
+          old = 'from sword_runtime.geography import nearest_reachable_destination, shortest_path\n'
+          new = old + 'from sword_runtime.campaign_march_planning import build_march_planning_baseline\n'
+          if text.count(old) != 1:
+              raise SystemExit('campaign_briefing import anchor drifted')
+          text = text.replace(old, new, 1)
+
+          anchor = '    friendly.sort(key=lambda row: (-int(row.get("strength", 0)), str(row.get("operation_ref", ""))))\n    return {\n'
+          replacement = (
+              '    march_planning = build_march_planning_baseline(\n'
+              '        planner, friendly_participants=friendly, operational_area=area\n'
+              '    )\n'
+              '    friendly.sort(key=lambda row: (-int(row.get("strength", 0)), str(row.get("operation_ref", ""))))\n'
+              '    return {\n'
+          )
+          if text.count(anchor) != 1:
+              raise SystemExit('campaign dossier return anchor drifted')
+          text = text.replace(anchor, replacement, 1)
+
+          anchor = '        "operational_area": area,\n        "enemy_intelligence": {\n'
+          replacement = '        "operational_area": area,\n        "march_planning": march_planning,\n        "enemy_intelligence": {\n'
+          if text.count(anchor) != 1:
+              raise SystemExit('campaign dossier operational-area anchor drifted')
+          text = text.replace(anchor, replacement, 1)
+
+          anchor = '        "operational_area": copy.deepcopy(dict(area)) if isinstance(area, Mapping) else None,\n        "enemy_intelligence": {\n'
+          replacement = (
+              '        "operational_area": copy.deepcopy(dict(area)) if isinstance(area, Mapping) else None,\n'
+              '        "march_planning": copy.deepcopy(dict(dossier.get("march_planning"))) if isinstance(dossier.get("march_planning"), Mapping) else None,\n'
+              '        "enemy_intelligence": {\n'
+          )
+          if text.count(anchor) != 1:
+              raise SystemExit('safe campaign context anchor drifted')
+          text = text.replace(anchor, replacement, 1)
+          briefing.write_text(text)
+
+          scene_contract = Path('plugins/sword-and-banners/skill/sword-and-banners-game-master/references/scene-contract.md')
+          text = scene_contract.read_text()
+          anchor = 'Runtime summaries are briefing material for the GM, never dialogue scripts.\n\n### Do not narrate the narration\n'
+          insertion = '''Runtime summaries are briefing material for the GM, never dialogue scripts.
+
+### Speaker attribution in crowded scenes
+
+When three or more people in the scene could plausibly speak, **every speaker change must be locally unmistakable**. Anchor the new speaker by exact name, established title, or an unambiguous action beat in the same paragraph as that person's first spoken line. Do not make the reader carry an attribution across several paragraphs or infer it from the attendee list.
+
+Do not rely on alternating quotation marks, a bare `he said` / `she said`, or a pronoun inherited from the prior paragraph when another same-pronoun person is present. Pronouns may continue after a named speaker is established in the same local beat and no competing referent has intervened. After an interruption, narration break, subject change, third-party interjection, or a run of more than one other speaker, name the returning speaker again.
+
+In a crowded command, court, family, or negotiation scene, avoid unattached quotation blocks. If a line could be reassigned to another present person without changing the grammar, the attribution is too weak. Before sending the scene, perform a **speaker audit**: a reader scanning the dialogue should be able to identify who says every line without reverse-engineering turn order.
+
+### Do not narrate the narration
+'''
+          if text.count(anchor) != 1:
+              raise SystemExit('scene-contract speaker anchor drifted')
+          text = text.replace(anchor, insertion, 1)
+          scene_contract.write_text(text)
+
+          narration = Path('plugins/sword-and-banners/skill/sword-and-banners-game-master/references/narration.md')
+          text = narration.read_text()
+          anchor = 'When three or more speakers are active, or after rapid alternation between two speakers, re-anchor the speaker before ambiguity appears. Bind every turn of speech to a named speaker or unmistakable action beat. Use names, gestures, gaze, movement, or action beats rather than repetitive dialogue tags. When a crowded cast makes identities hard to track, give an infrequently seen or easily confused character one compact player-known role cue, then return to natural prose.\n'
+          replacement = anchor + '\nIn scenes with three or more plausible speakers, treat a speaker change as ambiguous unless the incoming speaker is named, titled, or unambiguously acted in the same local paragraph as the line. Never rely on quote alternation or a pronoun carried across a narration break to identify the voice. Re-name a returning speaker after an interruption, third-party interjection, or subject transition.\n'
+          if text.count(anchor) != 1:
+              raise SystemExit('narration speaker anchor drifted')
+          text = text.replace(anchor, replacement, 1)
+          narration.write_text(text)
+
+          test_path = Path('tests/runtime/test_dialogue_speaker_clarity_contract.py')
+          test_path.write_text('''from pathlib import Path\n\n\nROOT = Path(__file__).resolve().parents[2]\nSCENE_CONTRACT = ROOT / "plugins/sword-and-banners/skill/sword-and-banners-game-master/references/scene-contract.md"\nNARRATION = ROOT / "plugins/sword-and-banners/skill/sword-and-banners-game-master/references/narration.md"\n\n\ndef test_crowded_dialogue_requires_local_speaker_attribution():\n    scene = SCENE_CONTRACT.read_text()\n    narration = NARRATION.read_text()\n    assert "every speaker change must be locally unmistakable" in scene\n    assert "same paragraph" in scene\n    assert "Do not rely on alternating quotation marks" in scene\n    assert "speaker audit" in scene\n    assert "three or more plausible speakers" in narration\n    assert "Never rely on quote alternation" in narration\n''')
+
+          retired = Path('.github/workflows/operational-planning-dialogue-fix.yml')
+          retired.unlink()
+
+          changed = [line.strip() for line in __import__('subprocess').check_output(['git', 'status', '--short'], text=True).splitlines()]
+          if any(' state/' in f' {line}' or line.endswith(' state') for line in changed):
+              raise SystemExit('refusing to modify state/**')
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add runtime/sword_runtime/campaign_briefing.py plugins/sword-and-banners/skill/sword-and-banners-game-master/references/scene-contract.md plugins/sword-and-banners/skill/sword-and-banners-game-master/references/narration.md tests/runtime/test_dialogue_speaker_clarity_contract.py .github/workflows/operational-planning-dialogue-fix.yml
+          git diff --cached --name-only | grep '^state/' && exit 1 || true
+          git commit -m "Expose march planning and clarify speakers"
+          git push origin HEAD:fix/operational-planning-dialogue-clarity
