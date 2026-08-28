@@ -95,12 +95,18 @@ def _pick(mapping: Mapping[str, Any], keys: tuple[str, ...]) -> dict[str, Any]:
     return {key: mapping.get(key) for key in keys if key in mapping}
 
 
+def _compact_mapping_rows(value: Any, keys: tuple[str, ...]) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        return []
+    return [_pick(row, keys) for row in value if isinstance(row, Mapping)]
+
+
 def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
     """Keep decision-bearing campaign facts while dropping transport-heavy detail.
 
-    Full REST/runtime reads retain exact segment geometry. The ordinary MCP turn
-    needs objectives, hierarchy, assignments, reserves, route summaries, and
-    actual bottlenecks rather than every authored road field on every segment.
+    Full REST/runtime reads retain exact formation membership and segment geometry.
+    The ordinary MCP turn carries the hierarchy, objective allocation, reserve,
+    route summaries, and real bottlenecks needed to run the council naturally.
     """
     out = _pick(
         planning,
@@ -139,24 +145,71 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
                 "ownership_rule",
             ),
         )
-        for key in (
-            "objectives",
-            "command_hierarchy",
-            "command_assignments",
-            "strategic_reserve_commands",
-        ):
-            if key in scheme:
-                compact_scheme[key] = scheme[key]
-        out["campaign_scheme"] = compact_scheme
-
-    command_routes = planning.get("command_routes")
-    if isinstance(command_routes, list):
-        route_keys = (
+        compact_scheme["objectives"] = _compact_mapping_rows(
+            scheme.get("objectives"),
+            (
+                "objective_ref",
+                "objective_name",
+                "priority",
+                "kind",
+                "fortified",
+                "regional_role",
+                "axis_role",
+                "assigned_command_refs",
+                "assigned_commanders",
+                "assigned_strength",
+            ),
+        )
+        hierarchy = scheme.get("command_hierarchy")
+        if isinstance(hierarchy, Mapping):
+            hierarchy_out = _pick(
+                hierarchy,
+                (
+                    "kind",
+                    "root_role",
+                    "subordinate_command_refs",
+                    "main_body_command_refs",
+                    "strategic_reserve_command_refs",
+                    "state_owned_strength",
+                    "subordination_rule",
+                    "separation_rule",
+                ),
+            )
+            hierarchy_out["operational_detachments"] = _compact_mapping_rows(
+                hierarchy.get("operational_detachments"),
+                (
+                    "command_ref",
+                    "commander_name",
+                    "objective_ref",
+                    "objective_name",
+                    "personnel",
+                    "detachment_basis",
+                ),
+            )
+            compact_scheme["command_hierarchy"] = hierarchy_out
+        assignment_keys = (
             "command_ref",
             "commander_ref",
             "commander_name",
-            "operation_ref",
-            "operation_refs",
+            "personnel",
+            "role",
+            "objective_ref",
+            "objective_name",
+        )
+        compact_scheme["command_assignments"] = _compact_mapping_rows(
+            scheme.get("command_assignments"), assignment_keys
+        )
+        compact_scheme["strategic_reserve_commands"] = _compact_mapping_rows(
+            scheme.get("strategic_reserve_commands"),
+            ("command_ref", "commander_ref", "commander_name", "personnel", "role"),
+        )
+        out["campaign_scheme"] = compact_scheme
+
+    out["command_routes"] = _compact_mapping_rows(
+        planning.get("command_routes"),
+        (
+            "command_ref",
+            "commander_name",
             "role",
             "strength",
             "origin_ref",
@@ -164,16 +217,12 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
             "objective_ref",
             "objective_name",
             "duration_hours",
-            "path_refs",
             "path_names",
-        )
-        out["command_routes"] = [
-            _pick(row, route_keys) for row in command_routes if isinstance(row, Mapping)
-        ]
-
-    bottlenecks = planning.get("shared_bottlenecks")
-    if isinstance(bottlenecks, list):
-        bottleneck_keys = (
+        ),
+    )
+    out["shared_bottlenecks"] = _compact_mapping_rows(
+        planning.get("shared_bottlenecks"),
+        (
             "route_ref",
             "from_name",
             "to_name",
@@ -183,10 +232,8 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
             "objective_refs",
             "combined_strength",
             "minimum_troop_clearance_days_floor",
-        )
-        out["shared_bottlenecks"] = [
-            _pick(row, bottleneck_keys) for row in bottlenecks if isinstance(row, Mapping)
-        ]
+        ),
+    )
     return out
 
 
@@ -226,13 +273,12 @@ def compact_play_context(context: Mapping[str, Any]) -> dict[str, Any]:
             for row in controlled
         ]
 
-    # Full attributed speech remains available through exact history reads. Keep
-    # the six most recent lines in the ordinary MCP handoff; this preserves the
-    # current conversational thread while preventing accumulated scene prose from
-    # crowding out current decision-bearing campaign facts.
+    # Exact older speech remains demand-loadable through scene history. Four
+    # recent attributed lines are enough to preserve the immediate exchange and
+    # reclaim the small amount of headroom needed by the stable compact contract.
     history = context.get("recent_scene_history")
-    if isinstance(history, list) and len(history) > 6:
-        result["recent_scene_history"] = history[-6:]
+    if isinstance(history, list) and len(history) > 4:
+        result["recent_scene_history"] = history[-4:]
         result["recent_scene_history_truncated"] = True
     return result
 
