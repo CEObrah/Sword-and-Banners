@@ -50,6 +50,8 @@ Do not make people solemnly reconfirm the obvious merely because a status field 
 
 Confirmation is natural when the fact is surprising, disputed, newly changed, legally consequential, or the speaker needs another person to commit to the wording. Otherwise let established facts remain implicit. Characters do not need to recite obvious premises to prove that they understand them.
 
+Avoid the **analytic chorus**: one speaker states a fact, another restates the same inference, a third says `correct`, `better`, or otherwise validates it, and the conversation advances field by field. A second speaker should materially change the point through disagreement, consequence, burden, alternative, authority, or a genuinely new question. If they add nothing, compress the reaction or leave them silent.
+
 Do not manufacture a question solely to give a speaker a conversational job. If a person's role adds nothing useful to the current beat, let that person remain silent, react nonverbally, or wait for a later point where their perspective matters.
 
 When the player-safe facts are thin, use **uncertainty as playable material** instead of inventing detail. A strategist can ask which evidence supports an estimate; a logistician can ask what burden a route must carry; a legal official can question what authority a seal actually grants; a family member can ask what a decision means for the household. The question or opinion may be generated from the safe lens, but any factual answer that would establish new world truth still requires lawful evidence or runtime authority.
