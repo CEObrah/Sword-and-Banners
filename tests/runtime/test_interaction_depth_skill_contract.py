@@ -27,6 +27,7 @@ def test_interaction_contract_preserves_common_ground_instead_of_schema_checklis
     assert "interrogatory checklist" in text
     assert "do not make a commander ask whether battle contact is confirmed" in text
     assert "The shared premise is that the field armies have not yet met the enemy" in text
+    assert "Avoid the **analytic chorus**" in text
     assert "Do not manufacture a question solely to give a speaker a conversational job" in text
 
 
