@@ -40,20 +40,31 @@ def _arc_row(read: Callable[[str], Any], arc_ref: str) -> Mapping[str, Any] | No
     if not arc_ref:
         return None
     registry = read("state/arc/kingdom-arcs.json")
-    rows = registry.get("arcs") if isinstance(registry, Mapping) else None
-    if isinstance(rows, Mapping):
-        row = rows.get(arc_ref)
-        return row if isinstance(row, Mapping) else None
-    if isinstance(rows, list):
-        return next(
-            (
-                row
-                for row in rows
-                if isinstance(row, Mapping)
-                and str(row.get("arc_ref", row.get("id", ""))) == arc_ref
-            ),
-            None,
-        )
+    if not isinstance(registry, Mapping):
+        return None
+    # Current campaign saves use ``records``/``record_id`` while older fixtures
+    # and some generated registries use ``arcs``/``arc_ref``. Both shapes encode
+    # the same exact arc owner and must be read without rewriting campaign state.
+    for key in ("arcs", "records"):
+        rows = registry.get(key)
+        if isinstance(rows, Mapping):
+            row = rows.get(arc_ref)
+            if isinstance(row, Mapping):
+                return row
+            continue
+        if not isinstance(rows, list):
+            continue
+        for row in rows:
+            if not isinstance(row, Mapping):
+                continue
+            identity = (
+                row.get("arc_ref")
+                or row.get("record_id")
+                or row.get("id")
+                or row.get("label")
+            )
+            if str(identity or "") == arc_ref:
+                return row
     return None
 
 
@@ -61,9 +72,11 @@ def _arc_is_active_campaign(read: Callable[[str], Any], arc_ref: str) -> bool:
     row = _arc_row(read, arc_ref)
     if not isinstance(row, Mapping):
         return False
-    if str(row.get("status", "active")) not in {"active", "distant", "ongoing"}:
-        return False
     facts = row.get("facts") if isinstance(row.get("facts"), Mapping) else {}
+    status = str(facts.get("status", row.get("status", "active"))).strip().lower().replace("_", " ")
+    status_tokens = set(status.split())
+    if not status_tokens.intersection({"active", "distant", "ongoing"}):
+        return False
     stage = str(facts.get("stage", row.get("stage", "")))
     return stage in _ACTIVE_ARC_STAGES
 
