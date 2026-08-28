@@ -6,6 +6,11 @@ strategic geography into a bounded pre-entry staff scheme: which intact commands
 are proposed for which objectives, which command remains reserve, and what
 physical route/capacity constraints those proposed axes create.
 
+Persistent subordinate command groups remain intact, but campaign planning treats
+them as nested beneath one supreme campaign command.  A command becomes an
+operational detachment only when the scheme gives it a distinct axis/objective or
+reserve role; internal command integrity alone never makes it a separate campaign.
+
 The scheme is deliberately a planning projection.  Exact campaign-command orders,
 formation movement, troop ownership, interstate war authority, siege outcomes,
 and territorial consequences remain with their existing owners.
@@ -375,6 +380,65 @@ def _command_operation_refs(command: Mapping[str, Any], formation_operation: Map
     })
 
 
+def _campaign_command_hierarchy(
+    assignment_rows: Sequence[Mapping[str, Any]],
+    reserve_rows: Sequence[Mapping[str, Any]],
+    *,
+    strategic_anchor: str,
+) -> dict[str, Any]:
+    """Project temporary campaign subordination without changing persistent parentage.
+
+    The permanent command-group tree remains authoritative for each subordinate
+    army's internal organization.  This projection adds the campaign layer above
+    those intact commands: one supreme field command, with subordinate armies in
+    the main body, on explicit detached axes, or in strategic reserve.
+    """
+    assignments = [dict(row) for row in assignment_rows if isinstance(row, Mapping)]
+    reserves = [dict(row) for row in reserve_rows if isinstance(row, Mapping)]
+    all_rows = assignments + reserves
+    subordinate_refs = list(dict.fromkeys(
+        str(row.get("command_ref")) for row in all_rows
+        if isinstance(row.get("command_ref"), str) and row.get("command_ref")
+    ))
+    main_body_refs = list(dict.fromkeys(
+        str(row.get("command_ref")) for row in assignments
+        if row.get("objective_ref") == strategic_anchor
+        and isinstance(row.get("command_ref"), str) and row.get("command_ref")
+    ))
+    detachments = [
+        {
+            "command_ref": row.get("command_ref"),
+            "commander_ref": row.get("commander_ref"),
+            "commander_name": row.get("commander_name"),
+            "objective_ref": row.get("objective_ref"),
+            "objective_name": row.get("objective_name"),
+            "personnel": max(0, int(row.get("personnel", 0) or 0)),
+            "detachment_basis": "distinct strategic objective under the same supreme campaign command",
+        }
+        for row in assignments
+        if row.get("objective_ref") != strategic_anchor
+    ]
+    reserve_refs = list(dict.fromkeys(
+        str(row.get("command_ref")) for row in reserves
+        if isinstance(row.get("command_ref"), str) and row.get("command_ref")
+    ))
+    return {
+        "kind": "supreme_campaign_field_army",
+        "root_role": "supreme_campaign_command",
+        "subordinate_command_refs": subordinate_refs,
+        "main_body_command_refs": main_body_refs,
+        "operational_detachments": detachments,
+        "strategic_reserve_command_refs": reserve_refs,
+        "state_owned_strength": sum(max(0, int(row.get("personnel", 0) or 0)) for row in all_rows),
+        "subordination_rule": (
+            "All listed state-owned commands remain under the campaign supreme command. Their persistent internal command groups stay intact; this temporary campaign hierarchy does not flatten or permanently reparent formations."
+        ),
+        "separation_rule": (
+            "A subordinate army is operationally separate only when the campaign scheme assigns it a distinct objective/axis or reserve role; internal command integrity alone does not make it an independent campaign."
+        ),
+    }
+
+
 def _build_campaign_scheme(
     planner: Any,
     *,
@@ -444,6 +508,11 @@ def _build_campaign_scheme(
         "personnel": max(0, int(command.get("personnel", 0) or 0)),
         "role": "strategic_reserve",
     } for command in reserve]
+    command_hierarchy = _campaign_command_hierarchy(
+        assignment_rows,
+        reserve_rows,
+        strategic_anchor=strategic_anchor,
+    )
 
     assigned_objective_refs = list(dict.fromkeys(str(row["objective_ref"]) for row in assignment_rows))
     objective_rows: list[dict[str, Any]] = []
@@ -490,6 +559,7 @@ def _build_campaign_scheme(
         "concentration_mode": mode,
         "objective_count": len(objective_rows),
         "objectives": objective_rows,
+        "command_hierarchy": command_hierarchy,
         "command_assignments": assignment_rows,
         "strategic_reserve_commands": reserve_rows,
         "state_owned_planned_strength": sum(int(row.get("personnel", 0) or 0) for row in assignment_rows + reserve_rows),
@@ -506,7 +576,7 @@ def _build_campaign_scheme(
         "planning_basis": (
             "current campaign roster plus authored strategic geography; explicitly configured regional anchors expand to current defender-controlled strategic sites in the configured region; hidden enemy deployments are not used to choose the pre-entry axes"
         ),
-        "authority_rule": "staff planning projection only; it does not issue an order, move a formation, authorize hostile entry, transfer troop ownership, or choose Tang Wei's tactics",
+        "authority_rule": "staff planning projection only; it represents temporary operational subordination beneath campaign supreme command but does not issue an order, move a formation, authorize hostile entry, transfer troop ownership, or choose Tang Wei's tactics",
         "ownership_rule": "non-state/private auxiliaries are excluded from Qin planning strength unless a separate lawful commitment and acceptance establishes their use",
     }
 
