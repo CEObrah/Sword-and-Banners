@@ -133,6 +133,10 @@ def test_scheduler_frontier_never_runs_ahead_of_an_interrupt(campaign: Path) -> 
 
     planner = InterruptPlanner(campaign)
     planner._reset()
+    # Normalize the live campaign's one-time entry-authority lifecycle before
+    # isolating scheduler hosts. This test measures the battlefield frontier,
+    # not the current campaign fixture's follow-on order handoff.
+    planner._reconcile_campaign_entry_authority()
     runtime = copy.deepcopy(planner.read("state/runtime.json"))
     current = CampaignTime.parse(str(runtime["world_time"]))
     # Isolate scheduler activity beyond this window so the assertion measures
