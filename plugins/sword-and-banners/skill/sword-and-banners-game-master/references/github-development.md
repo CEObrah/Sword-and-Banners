@@ -38,7 +38,7 @@ python tools/test_changed.py <changed paths>
 
 4. Push the branch/open the PR. The repository `verify` workflow reruns the structural gate and changed-owner regression selection from a clean standard GitHub runner.
 5. Inspect required checks. Red means diagnose/fix/push/re-run. Green means the clean checkout passed the configured merge gate; it does **not** substitute for local verification.
-6. Re-read/compare latest `main`, integrate deliberate concurrent work, and merge only when required checks remain green. Never force-push campaign history as a routine workaround.
+6. Re-read/compare latest `main`, integrate deliberate concurrent work, and merge only when required checks remain green. For this project, an explicit `OOC DEV:` implementation/fix request includes authority to merge the finished PR automatically once required checks are green and the branch is current, unless the player explicitly says `review only`, `PR only`, `do not merge`, or equivalent. Do not stop to ask for a separate merge confirmation after the requested work is finished. Never force-push campaign history as a routine workaround.
 7. Railway may auto-deploy `main`; verify deployed source head and the smallest safe live smoke path before declaring production updated. Deployment, campaign-state durability, MCP schema refresh, and installed GM Skill refresh remain distinct.
 8. Return to normal play/playtesting. Any mechanical defect found in play should become a focused regression when practical, then re-enter this loop through explicit `OOC DEV:`.
 
