@@ -16,6 +16,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.geography import nearest_reachable_destination, shortest_path
+from sword_runtime.campaign_march_planning import build_march_planning_baseline
 
 _OPERATIONS_INDEX = "state/operations/index.json"
 _COMMAND_GROUP_INDEX = "state/cmd/command-groups/index.json"
@@ -572,6 +573,9 @@ def build_campaign_dossier(planner: Any, operation_ref: str) -> dict[str, Any]:
     if explicit_coordinator is None and friendly_state == "state_qin":
         explicit_coordinator = _QIN_BUREAU_REF
 
+    march_planning = build_march_planning_baseline(
+        planner, friendly_participants=friendly, operational_area=area
+    )
     friendly.sort(key=lambda row: (-int(row.get("strength", 0)), str(row.get("operation_ref", ""))))
     return {
         "operation_ref": operation_ref,
@@ -587,6 +591,7 @@ def build_campaign_dossier(planner: Any, operation_ref: str) -> dict[str, Any]:
         "campaign_commander_name": _person_name(planner, explicit_commander),
         "coordination_authority_ref": explicit_coordinator,
         "operational_area": area,
+        "march_planning": march_planning,
         "enemy_intelligence": {
             "estimated_strength_low": low,
             "estimated_strength_high": high,
@@ -640,6 +645,7 @@ def safe_campaign_context(dossier: Mapping[str, Any]) -> dict[str, Any]:
         "campaign_commander_ref": dossier.get("campaign_commander_ref"), "campaign_commander_name": dossier.get("campaign_commander_name"),
         "coordination_authority_ref": dossier.get("coordination_authority_ref"),
         "operational_area": copy.deepcopy(dict(area)) if isinstance(area, Mapping) else None,
+        "march_planning": copy.deepcopy(dict(dossier.get("march_planning"))) if isinstance(dossier.get("march_planning"), Mapping) else None,
         "enemy_intelligence": {
             "estimated_strength_low": enemy.get("estimated_strength_low"), "estimated_strength_high": enemy.get("estimated_strength_high"),
             "reported_formation_count": enemy.get("reported_formation_count"), "reported_commanders": copy.deepcopy(enemy.get("reported_commanders", [])),
