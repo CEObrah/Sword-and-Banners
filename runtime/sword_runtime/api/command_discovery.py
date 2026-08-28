@@ -91,12 +91,156 @@ def compact_command_family(command_surface: Mapping[str, Any], family: str) -> d
     return out
 
 
+def _pick(mapping: Mapping[str, Any], keys: tuple[str, ...]) -> dict[str, Any]:
+    return {key: mapping.get(key) for key in keys if key in mapping}
+
+
+def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
+    """Keep decision-bearing campaign facts while dropping transport-heavy detail.
+
+    Full REST/runtime reads retain exact segment geometry. The ordinary MCP turn
+    needs objectives, hierarchy, assignments, reserves, route summaries, and
+    actual bottlenecks rather than every authored road field on every segment.
+    """
+    out = _pick(
+        planning,
+        (
+            "kind",
+            "strategic_target_ref",
+            "strategic_target_name",
+            "campaign_region_ref",
+            "campaign_region_name",
+            "authority_rule",
+            "capacity_rule",
+            "knowledge_rule",
+        ),
+    )
+    scheme = planning.get("campaign_scheme")
+    if isinstance(scheme, Mapping):
+        compact_scheme = _pick(
+            scheme,
+            (
+                "kind",
+                "status",
+                "campaign_scope_kind",
+                "campaign_region_ref",
+                "campaign_region_name",
+                "geography_region_name",
+                "strategic_anchor_ref",
+                "strategic_anchor_name",
+                "primary_objective_ref",
+                "primary_objective_name",
+                "concentration_mode",
+                "objective_count",
+                "state_owned_planned_strength",
+                "excluded_non_state_strength",
+                "operational_end_state",
+                "authority_rule",
+                "ownership_rule",
+            ),
+        )
+        for key in (
+            "objectives",
+            "command_hierarchy",
+            "command_assignments",
+            "strategic_reserve_commands",
+        ):
+            if key in scheme:
+                compact_scheme[key] = scheme[key]
+        out["campaign_scheme"] = compact_scheme
+
+    command_routes = planning.get("command_routes")
+    if isinstance(command_routes, list):
+        route_keys = (
+            "command_ref",
+            "commander_ref",
+            "commander_name",
+            "operation_ref",
+            "operation_refs",
+            "role",
+            "strength",
+            "origin_ref",
+            "origin_name",
+            "objective_ref",
+            "objective_name",
+            "duration_hours",
+            "path_refs",
+            "path_names",
+        )
+        out["command_routes"] = [
+            _pick(row, route_keys) for row in command_routes if isinstance(row, Mapping)
+        ]
+
+    bottlenecks = planning.get("shared_bottlenecks")
+    if isinstance(bottlenecks, list):
+        bottleneck_keys = (
+            "route_ref",
+            "from_name",
+            "to_name",
+            "daily_troop_throughput",
+            "daily_wagon_throughput",
+            "command_refs",
+            "objective_refs",
+            "combined_strength",
+            "minimum_troop_clearance_days_floor",
+        )
+        out["shared_bottlenecks"] = [
+            _pick(row, bottleneck_keys) for row in bottlenecks if isinstance(row, Mapping)
+        ]
+    return out
+
+
+def _compact_controlled_operation(operation: Mapping[str, Any]) -> dict[str, Any]:
+    out = dict(operation)
+    campaign_command = operation.get("campaign_command")
+    live_scheme = False
+    if isinstance(campaign_command, Mapping):
+        command_out = dict(campaign_command)
+        planning = campaign_command.get("march_planning")
+        if isinstance(planning, Mapping):
+            command_out["march_planning"] = _compact_march_planning(planning)
+            live_scheme = isinstance(planning.get("campaign_scheme"), Mapping)
+        out["campaign_command"] = command_out
+
+    campaign_context = operation.get("campaign_context")
+    if isinstance(campaign_context, Mapping):
+        context_out = dict(campaign_context)
+        participants = context_out.get("other_friendly_participants")
+        if live_scheme and isinstance(participants, list):
+            context_out["other_friendly_participant_count"] = len(participants)
+            context_out.pop("other_friendly_participants", None)
+        out["campaign_context"] = context_out
+    return out
+
+
 def compact_play_context(context: Mapping[str, Any]) -> dict[str, Any]:
     result = dict(context)
     commands = context.get("commands")
     if isinstance(commands, Mapping):
         result["commands"] = compact_commands(commands)
+
+    controlled = context.get("controlled_operations")
+    if isinstance(controlled, list):
+        result["controlled_operations"] = [
+            _compact_controlled_operation(row) if isinstance(row, Mapping) else row
+            for row in controlled
+        ]
+
+    # Full attributed speech remains available through exact history reads. Keep
+    # the six most recent lines in the ordinary MCP handoff; this preserves the
+    # current conversational thread while preventing accumulated scene prose from
+    # crowding out current decision-bearing campaign facts.
+    history = context.get("recent_scene_history")
+    if isinstance(history, list) and len(history) > 6:
+        result["recent_scene_history"] = history[-6:]
+        result["recent_scene_history_truncated"] = True
     return result
 
 
-__all__ = ["command_domain", "grouped_commands", "compact_commands", "compact_command_family", "compact_play_context"]
+__all__ = [
+    "command_domain",
+    "grouped_commands",
+    "compact_commands",
+    "compact_command_family",
+    "compact_play_context",
+]
