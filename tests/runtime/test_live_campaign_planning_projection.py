@@ -50,7 +50,7 @@ def test_live_context_overlays_current_planning_without_rewriting_legacy_briefin
     assert hierarchy["kind"] == "supreme_campaign_field_army"
     assert hierarchy["root_role"] == "supreme_campaign_command"
     assert hierarchy["subordinate_command_refs"]
-    assert "remain under the campaign supreme command" in hierarchy["subordination_rule"]
+    assert "beneath campaign supreme command" in hierarchy["subordination_rule"]
     assert "does not make it an independent campaign" in hierarchy["separation_rule"]
 
     overlay = campaign_command["march_planning_projection"]
@@ -59,6 +59,50 @@ def test_live_context_overlays_current_planning_without_rewriting_legacy_briefin
     assert "does not rewrite the historical briefing" in overlay["authority_rule"]
     assert "issue an order" in overlay["authority_rule"]
     assert "advance campaign time" in overlay["authority_rule"]
+
+
+def test_live_planning_overlay_counts_recursive_house_subordinates_without_reowning_them(campaign):
+    operations = CampaignPlanningAwareOperations(SwordRuntime(campaign))
+    operation = _operation(operations.play_context())
+    planning = operation["campaign_command"]["march_planning"]
+    scheme = planning["campaign_scheme"]
+    assignments = {row["commander_name"]: row for row in scheme["command_assignments"]}
+
+    mou_gou = assignments["Mou Gou"]
+    assert mou_gou["state_owned_personnel"] == 73200
+    assert mou_gou["non_state_subordinate_personnel"] == 21991
+    assert mou_gou["personnel"] == 95191
+
+    ouki = assignments["Ouki"]
+    assert ouki["state_owned_personnel"] == 46100
+    assert ouki["non_state_subordinate_personnel"] == 13994
+    assert ouki["personnel"] == 60094
+
+    tang_wei = assignments["Tang Wei"]
+    assert tang_wei["state_owned_personnel"] == 5000
+    assert tang_wei["non_state_subordinate_personnel"] == 4500
+    assert tang_wei["personnel"] == 9500
+
+    assert scheme["state_owned_planned_strength"] == 172300
+    assert scheme["non_state_subordinate_strength"] == 40485
+    assert scheme["command_span_planned_strength"] == 212785
+    assert scheme["excluded_non_state_strength"] == 40485
+    assert operation["campaign_context"]["friendly_total_strength"] == 212785
+    assert scheme["command_hierarchy"]["state_owned_strength"] == 172300
+    assert scheme["command_hierarchy"]["command_span_strength"] == 212785
+    assert "does not transfer ownership" in scheme["ownership_rule"]
+
+    sanyou = next(row for row in scheme["objectives"] if row["objective_ref"] == "loc_sanyou")
+    assert sanyou["assigned_strength"] == 109691
+    keiyou = next(row for row in scheme["objectives"] if row["objective_ref"] == "loc_keiyou")
+    assert keiyou["assigned_strength"] == 60094
+
+    route_strengths = {
+        (row["command_ref"], row["origin_ref"]): row["strength"]
+        for row in planning["command_routes"]
+    }
+    assert route_strengths[("cmdgrp.tang_wei.field_army", "loc_kanyou")] == 9500
+    assert any(load["combined_strength"] > 83200 for load in planning["shared_bottlenecks"])
 
 
 def test_live_planning_overlay_preserves_staff_plan_authority_boundaries(campaign):
@@ -101,6 +145,7 @@ def test_compact_live_context_keeps_campaign_decisions_and_drops_redundant_bulk(
     campaign_context = operation["campaign_context"]
     assert "other_friendly_participants" not in campaign_context
     assert campaign_context["other_friendly_participant_count"] >= 1
+    assert campaign_context["friendly_total_strength"] == 212785
 
     planning = operation["campaign_command"]["march_planning"]
     scheme = planning["campaign_scheme"]
@@ -113,3 +158,8 @@ def test_compact_live_context_keeps_campaign_decisions_and_drops_redundant_bulk(
     assert all("segments" not in route for route in planning["command_routes"])
     assert all("path_names" in route for route in planning["command_routes"])
     assert "shared_bottlenecks" in planning
+    assignments = {row["commander_name"]: row for row in scheme["command_assignments"]}
+    assert assignments["Mou Gou"]["personnel"] == 95191
+    assert assignments["Ouki"]["personnel"] == 60094
+    assert assignments["Tang Wei"]["personnel"] == 9500
+    assert "full current recursive command span" in scheme["ownership_rule"]
