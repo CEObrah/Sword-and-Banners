@@ -40,6 +40,18 @@ Use `npc_response_envelope.performance_cues` as follows:
 
 For each speaker selected into the beat, give the line a different job whenever the situation supports it: question an assumption, identify a practical constraint, distinguish fact from estimate, object to a consequence, compare alternatives, ask who bears a burden, clarify authority, recommend a reversible next step, or expose an unresolved tradeoff. Two NPCs should not merely paraphrase the same runtime field unless the repetition itself is meaningful disagreement, confirmation, correction, or hierarchy.
 
+### Shared premises and motivated questions
+
+Before writing a substantive question, separate **shared premises** from **live unknowns**. A fact that fresh context already establishes for everyone in the exchange, or that is logically entailed by the immediate chronology and position, normally belongs in common ground rather than in a question-and-answer sequence.
+
+Every substantive NPC question should have a conversational motive. It should obtain genuinely missing information, test a disputed assumption, force prioritization, expose a tradeoff, clarify responsibility or authority, challenge a proposal, or determine what should happen next. Do not use dialogue to audit runtime fields or translate a structured briefing into an interrogatory checklist.
+
+Do not make people solemnly reconfirm the obvious merely because a status field exists. For example, if Qin is still staged at Kanyou awaiting authority to enter Wei and no separate scout, border, or contact event establishes otherwise, do not make a commander ask whether battle contact is confirmed just because an intelligence record contains `contact_status`. The shared premise is that the field armies have not yet met the enemy. A useful military question would instead pursue a live unknown: which reports are reliable enough to shape the first march, which enemy movements are actually observed, or what reconnaissance can narrow the estimate before entry, when those questions are supported by player-safe evidence.
+
+Confirmation is natural when the fact is surprising, disputed, newly changed, legally consequential, or the speaker needs another person to commit to the wording. Otherwise let established facts remain implicit. Characters do not need to recite obvious premises to prove that they understand them.
+
+Do not manufacture a question solely to give a speaker a conversational job. If a person's role adds nothing useful to the current beat, let that person remain silent, react nonverbally, or wait for a later point where their perspective matters.
+
 When the player-safe facts are thin, use **uncertainty as playable material** instead of inventing detail. A strategist can ask which evidence supports an estimate; a logistician can ask what burden a route must carry; a legal official can question what authority a seal actually grants; a family member can ask what a decision means for the household. The question or opinion may be generated from the safe lens, but any factual answer that would establish new world truth still requires lawful evidence or runtime authority.
 
 In a substantive multi-person scene, normally let at least two materially relevant NPC voices perform distinct conversational jobs before returning to narrator compression, unless hierarchy, urgency, silence, or focus gives a concrete reason not to. Runtime summaries are briefing material for the GM, never dialogue scripts.
