@@ -17,6 +17,19 @@ def test_general_interaction_contract_requires_distinct_conversational_work():
     assert "Runtime summaries are briefing material for the GM, never dialogue scripts" in text
 
 
+def test_interaction_contract_preserves_common_ground_instead_of_schema_checklists():
+    text = SCENE_CONTRACT.read_text(encoding="utf-8")
+
+    assert "### Shared premises and motivated questions" in text
+    assert "shared premises" in text
+    assert "logically entailed by the immediate chronology and position" in text
+    assert "Do not use dialogue to audit runtime fields" in text
+    assert "interrogatory checklist" in text
+    assert "do not make a commander ask whether battle contact is confirmed" in text
+    assert "The shared premise is that the field armies have not yet met the enemy" in text
+    assert "Do not manufacture a question solely to give a speaker a conversational job" in text
+
+
 def test_interaction_depth_contract_still_preserves_hard_truth_boundary():
     text = SCENE_CONTRACT.read_text(encoding="utf-8")
 
