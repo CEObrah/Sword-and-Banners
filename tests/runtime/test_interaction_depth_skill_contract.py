@@ -59,6 +59,18 @@ def test_interaction_contract_does_not_narrate_its_own_dialogue():
     assert "Do not end a topic merely because the narrator declares that the matter is settled" in text
 
 
+def test_interaction_contract_rejects_authorial_negative_contrast():
+    text = SCENE_CONTRACT.read_text(encoding="utf-8")
+
+    assert "Do not narrate **authorial negative contrast**" in text
+    assert "Mou Gou does not ask Shou Hei Kun to read the roster back" in text
+    assert "he does not need to explain the structure" in text
+    assert "there is no need to repeat the figures" in text
+    assert "Delete the contrast and show only what actually happens" in text
+    assert "Negative wording remains valid when the absence itself is an observable in-world event" in text
+    assert "whether Wei can perceive the absence as part of the world" in text
+
+
 def test_interaction_depth_contract_still_preserves_hard_truth_boundary():
     text = SCENE_CONTRACT.read_text(encoding="utf-8")
 
