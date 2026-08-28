@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from sword_runtime.campaign_briefing import safe_campaign_context
+from sword_runtime.campaign_briefing import build_campaign_dossier, safe_campaign_context
 from sword_runtime.campaign_march_planning import project_route_path
 
 
@@ -83,3 +83,23 @@ def test_safe_campaign_context_preserves_bounded_march_planning_projection():
         }
     )
     assert safe["march_planning"] == march_planning
+
+
+def test_current_campaign_dossier_surfaces_real_route_capacity_baseline(campaign):
+    from sword_runtime.engine import RepositoryCommandPlanner
+
+    planner = RepositoryCommandPlanner(campaign)
+    dossier = build_campaign_dossier(planner, "operation_arc_131572c4e8a2892bbc")
+    planning = dossier["march_planning"]
+    assert planning["kind"] == "staff_route_capacity_baseline"
+    assert planning["command_routes"]
+    assert planning["strategic_target_ref"] == dossier["operational_area"]["strategic_target_ref"]
+    assert any(route["segments"] for route in planning["command_routes"])
+    assert any(
+        segment["physical_geometry"].get("daily_troop_throughput")
+        for route in planning["command_routes"]
+        for segment in route["segments"]
+    )
+    assert "does not assign a route" in planning["authority_rule"]
+    safe = safe_campaign_context(dossier)
+    assert safe["march_planning"]["kind"] == "staff_route_capacity_baseline"
