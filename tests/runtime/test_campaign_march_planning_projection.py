@@ -62,6 +62,11 @@ def test_route_projection_exposes_physical_capacity_without_inventing_orders():
 def test_safe_campaign_context_preserves_bounded_march_planning_projection():
     march_planning = {
         "kind": "staff_route_capacity_baseline",
+        "campaign_scheme": {
+            "kind": "pre_entry_campaign_staff_scheme",
+            "objective_count": 1,
+            "objectives": [{"objective_ref": "loc_b", "objective_name": "B"}],
+        },
         "command_routes": [{"operation_ref": "operation_test", "duration_hours": 6}],
         "shared_bottlenecks": [],
         "authority_rule": "planning projection only",
@@ -85,7 +90,7 @@ def test_safe_campaign_context_preserves_bounded_march_planning_projection():
     assert safe["march_planning"] == march_planning
 
 
-def test_current_campaign_dossier_surfaces_real_route_capacity_baseline(campaign):
+def test_current_campaign_dossier_surfaces_real_campaign_scheme_and_route_capacity(campaign):
     from sword_runtime.engine import RepositoryCommandPlanner
 
     planner = RepositoryCommandPlanner(campaign)
@@ -101,5 +106,35 @@ def test_current_campaign_dossier_surfaces_real_route_capacity_baseline(campaign
         for segment in route["segments"]
     )
     assert "does not assign a route" in planning["authority_rule"]
+
+    scheme = planning["campaign_scheme"]
+    assert scheme["kind"] == "pre_entry_campaign_staff_scheme"
+    assert scheme["primary_objective_ref"] == dossier["operational_area"]["strategic_target_ref"]
+    assert scheme["objective_count"] == len(scheme["objectives"])
+    assert scheme["objective_count"] >= 1
+    assert scheme["command_assignments"]
+    assert scheme["operational_end_state"]["required_objective_refs"]
+    assert "Political war termination" in scheme["operational_end_state"]["war_termination_rule"]
+    assert "hidden enemy deployments are not used" in scheme["planning_basis"]
+    assert "does not issue an order" in scheme["authority_rule"]
+
+    expected_private = sum(int(row.get("auxiliary_strength", 0) or 0) for row in dossier["friendly_participants"])
+    assert scheme["excluded_non_state_strength"] == expected_private
+    planned_refs = {
+        ref
+        for row in scheme["command_assignments"] + scheme["strategic_reserve_commands"]
+        for ref in row["formation_refs"]
+    }
+    assert not planned_refs.intersection(set(scheme["excluded_non_state_formation_refs"]))
+
+    reserve_command_refs = {row["command_ref"] for row in scheme["strategic_reserve_commands"]}
+    routed_command_refs = {row.get("command_ref") for row in planning["command_routes"]}
+    assert reserve_command_refs.isdisjoint(routed_command_refs)
+
+    assigned_objectives = {row["objective_ref"] for row in scheme["command_assignments"]}
+    if scheme["objective_count"] > 1:
+        assert len(assigned_objectives) > 1
+        assert any(ref != scheme["primary_objective_ref"] for ref in assigned_objectives)
+
     safe = safe_campaign_context(dossier)
-    assert safe["march_planning"]["kind"] == "staff_route_capacity_baseline"
+    assert safe["march_planning"]["campaign_scheme"]["kind"] == "pre_entry_campaign_staff_scheme"
