@@ -28,21 +28,55 @@ Ordinary reversible dialogue does not need a runtime write every sentence. Persi
 
 ## Interaction depth and differentiation
 
-Treat substantive interaction as a sequence of **distinct conversational jobs**, not as prose wrapped around a state summary. This rule applies across councils, family scenes, command meetings, audiences, negotiations, briefings, interviews, camp conversations, institutional exchanges, and other multi-turn social scenes.
+Treat substantive interaction as a sequence of **meaningful conversational moves**, not as prose wrapped around a state summary and not as turns allocated across the attendee list. This rule applies across councils, family scenes, command meetings, audiences, negotiations, briefings, interviews, camp conversations, institutional exchanges, and other multi-turn social scenes.
 
-Before giving a materially relevant present NPC substantive dialogue, retrieve that person's permitted sheet when the compact cast does not already supply enough role/voice context. In a crowded scene, retrieve only the two to four people whose contribution matters to the current beat rather than loading the whole room.
+Before giving a materially relevant present NPC substantive dialogue, retrieve that person's permitted sheet when the compact cast does not already supply enough role/voice context. In a crowded scene, retrieve only the people whose contribution matters to the current beat rather than loading the whole room.
 
 Use `npc_response_envelope.performance_cues` as follows:
 - `public_role_context` and `role_lens` identify the lawful public or social perspective from which the person can naturally question or emphasize established facts;
 - `professional_lenses` identify player-visible areas of demonstrated service competence that may shape what the person notices, tests, clarifies, or advises about;
 - explicit safe speech/temperament cues, when present, may shape delivery but never create knowledge, motive, authority, or outcome;
-- absence of personality cues is **not** a reason to make everyone sound alike. Differentiate speakers first through role, expertise, rank, relationship, audience, and the immediate agenda.
+- absence of personality cues is **not** a reason to make everyone sound alike. Differentiate speakers first through rank, generation, education, role, demonstrated behavior, relationship, audience, vocabulary, directness, and formality when those are player-safe and established.
 
-For each speaker selected into the beat, give the line a different job whenever the situation supports it: question an assumption, identify a practical constraint, distinguish fact from estimate, object to a consequence, compare alternatives, ask who bears a burden, clarify authority, recommend a reversible next step, or expose an unresolved tradeoff. Two NPCs should not merely paraphrase the same runtime field unless the repetition itself is meaningful disagreement, confirmation, correction, or hierarchy.
+Expertise is a **performance lens, not a speaking quota**. A strategist does not owe the scene a strategy paragraph merely because strategy is being discussed, and a logistician does not have to speak whenever supply appears. Use expertise to shape what a person naturally notices when that person has a reason to enter the exchange.
+
+When a speaker naturally has the floor, let the line do real conversational work when appropriate: question an assumption, identify a practical constraint, object to a consequence, compare alternatives, ask who bears a burden, clarify authority, recommend a reversible next step, or expose an unresolved tradeoff. Do not manufacture a line merely to satisfy one of those categories.
+
+### Shared premises and motivated questions
+
+Before writing a substantive question, separate **shared premises** from **live unknowns**. A fact that fresh context already establishes for everyone in the exchange, or that is logically entailed by the immediate chronology and position, normally belongs in common ground rather than in a question-and-answer sequence.
+
+Every substantive NPC question should have a conversational motive. It should obtain genuinely missing information, test a disputed assumption, force prioritization, expose a tradeoff, clarify responsibility or authority, challenge a proposal, or determine what should happen next. Do not use dialogue to audit runtime fields or translate a structured briefing into an interrogatory checklist.
+
+Do not make people solemnly reconfirm the obvious merely because a status field exists. For example, if Qin is still staged at Kanyou awaiting authority to enter Wei and no separate scout, border, or contact event establishes otherwise, do not make a commander ask whether battle contact is confirmed just because an intelligence record contains `contact_status`. The shared premise is that the field armies have not yet met the enemy. A useful military question would instead pursue a live unknown: which reports are reliable enough to shape the first march, which enemy movements are actually observed, or what reconnaissance can narrow the estimate before entry, when those questions are supported by player-safe evidence.
+
+Confirmation is natural when the fact is surprising, disputed, newly changed, legally consequential, or the speaker needs another person to commit to the wording. Otherwise let established facts remain implicit. Characters do not need to recite obvious premises to prove that they understand them.
+
+### Dialogue choreography
+
+**Information follows the interaction.** A player-safe fact does not require an NPC mouth. Neutral established facts, exact figures, and concise context may be compressed by narration when forcing them into speech would sound artificial. Keep exact mechanically important figures exact when they matter, but do not make several NPCs repeatedly verbalize them just to demonstrate fidelity.
+
+The attendee list is **not a speaking queue**. Do not write round-robin dialogue in which each present named person is handed one line. Uneven participation is expected. One person may dominate several exchanges; another may answer once; another may interrupt; another may remain silent throughout the beat. The same speaker may stay active across follow-up questions when that is how the interaction naturally develops.
+
+Avoid the **analytic chorus**: one speaker states a fact, another supplies the caveat, a third supplies the implication, and the narrator then explains why the exchange mattered. Also avoid `fact -> caveat -> implication -> narrator significance` as a default scene rhythm. A second speaker should enter because they actually change the interaction through disagreement, consequence, burden, alternative, authority, humor, confusion, refusal, or a genuinely new question—not because the prose needs another voice.
+
+People should respond to the **meaning** of what was said, not merely restate the same datum in different words. If someone says the enemy estimate is broad, the next natural response might challenge the plan that depends on the estimate, ask what reconnaissance can narrow it, dismiss it as insufficient for a decision, or move on. It should not normally be another reformulation of `the estimate is uncertain`.
+
+Allow spoken language to remain spoken. Short answers, fragments, hesitation, interruption, silence, correction, deference, refusal, dry humor, unfinished thoughts, and a speaker changing course mid-sentence are valid when consistent with established competence, rank, relationship, and pressure. Do not turn every contribution into a complete explanatory paragraph.
+
+Do not manufacture a question or objection solely to give a speaker a conversational job. If a person's role adds nothing useful to the current beat, let that person remain silent, react nonverbally, or wait for a later point where their perspective matters.
 
 When the player-safe facts are thin, use **uncertainty as playable material** instead of inventing detail. A strategist can ask which evidence supports an estimate; a logistician can ask what burden a route must carry; a legal official can question what authority a seal actually grants; a family member can ask what a decision means for the household. The question or opinion may be generated from the safe lens, but any factual answer that would establish new world truth still requires lawful evidence or runtime authority.
 
-In a substantive multi-person scene, normally let at least two materially relevant NPC voices perform distinct conversational jobs before returning to narrator compression, unless hierarchy, urgency, silence, or focus gives a concrete reason not to. Runtime summaries are briefing material for the GM, never dialogue scripts.
+Across a sustained multi-person scene, let materially relevant people participate when the interaction gives them a reason. Do not require multiple speakers in every beat. Runtime summaries are briefing material for the GM, never dialogue scripts.
+
+### Do not narrate the narration
+
+Do not explain that your own dialogue worked. Avoid narrator lines such as `that answer matters more`, `the distinction settles`, `the room understands the point`, `the discussion reaches a natural stopping point`, or `for the first time the argument becomes clear` unless a concrete observable reaction genuinely establishes that fact and the wording is still needed.
+
+Let significance appear through what people do next: someone changes the proposed plan, stops arguing, asks a sharper question, writes an order, redirects the room, falls silent, or moves to another matter. Do not add a narrator paragraph interpreting a conversation that already demonstrated its own meaning.
+
+Meeting transitions should also be enacted rather than announced. A council moves on because the chair redirects the room, a participant introduces the next matter, a document or messenger changes the subject, a decision closes the issue, or another observable event interrupts. Do not end a topic merely because the narrator declares that the matter is settled.
 
 ## Speech versus mechanical speech acts
 
