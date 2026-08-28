@@ -123,8 +123,9 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
                 "kind", "status", "campaign_scope_kind", "campaign_region_ref",
                 "campaign_region_name", "strategic_anchor_ref", "strategic_anchor_name",
                 "primary_objective_ref", "primary_objective_name", "concentration_mode",
-                "objective_count", "state_owned_planned_strength", "excluded_non_state_strength",
-                "operational_end_state",
+                "objective_count", "state_owned_planned_strength", "command_span_planned_strength",
+                "non_state_subordinate_strength", "excluded_non_state_strength",
+                "operational_end_state", "ownership_rule",
             ),
         )
         compact_scheme["objectives"] = _compact_mapping_rows(
@@ -141,7 +142,7 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
                 (
                     "kind", "root_role", "subordinate_command_refs",
                     "main_body_command_refs", "strategic_reserve_command_refs",
-                    "state_owned_strength",
+                    "state_owned_strength", "command_span_strength", "non_state_subordinate_strength",
                 ),
             )
             hierarchy_out["operational_detachments"] = _compact_mapping_rows(
@@ -155,13 +156,17 @@ def _compact_march_planning(planning: Mapping[str, Any]) -> dict[str, Any]:
         compact_scheme["command_assignments"] = _compact_mapping_rows(
             scheme.get("command_assignments"),
             (
-                "command_ref", "commander_ref", "commander_name", "personnel", "role",
+                "command_ref", "commander_ref", "commander_name", "personnel",
+                "state_owned_personnel", "non_state_subordinate_personnel", "role",
                 "objective_ref", "objective_name",
             ),
         )
         compact_scheme["strategic_reserve_commands"] = _compact_mapping_rows(
             scheme.get("strategic_reserve_commands"),
-            ("command_ref", "commander_ref", "commander_name", "personnel", "role"),
+            (
+                "command_ref", "commander_ref", "commander_name", "personnel",
+                "state_owned_personnel", "non_state_subordinate_personnel", "role",
+            ),
         )
         out["campaign_scheme"] = compact_scheme
 
