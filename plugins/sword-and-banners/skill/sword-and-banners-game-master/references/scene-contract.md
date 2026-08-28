@@ -52,6 +52,16 @@ Do not make people solemnly reconfirm the obvious merely because a status field 
 
 Confirmation is natural when the fact is surprising, disputed, newly changed, legally consequential, or the speaker needs another person to commit to the wording. Otherwise let established facts remain implicit. Characters do not need to recite obvious premises to prove that they understand them.
 
+### Decision-bearing command speech
+
+In a war council, command conference, briefing, or headquarters scene, a commander who has the floor should use it to communicate the **positive military structure, assignment, constraint, or decision** that matters. If fresh context already exposes concrete objectives, command assignments, reserve responsibilities, route facts, or an adopted/proposed hierarchy, put those facts on screen instead of spending dialogue on generic military maxims.
+
+Do not use **straw-alternative exposition** as filler. Lines such as `we will not march one hundred seventy-six thousand men as one enormous army` or `we will not scatter every general onto his own campaign` are useless unless someone actually proposed those alternatives, they are genuinely disputed, or rejecting one of them changes the decision. When nobody proposed them, skip the negations and state the actual arrangement: who is under whose command, which subordinate commands form the main body, which are detached to a separate axis, which are reserve, and what objective or constraint justifies that structure.
+
+Preserve the command hierarchy exactly. An intact subordinate army or command group can retain its own commander and internal organization while still being operationally subordinate to the campaign's supreme commander. **Internal command integrity is not strategic independence.** When `march_planning.campaign_scheme.command_hierarchy` is available, treat its `supreme_campaign_field_army` structure as the positive campaign model: listed state-owned commands are nested beneath supreme campaign command; a distinct objective/axis or reserve role is what marks an operational detachment. Do not describe every named general as running a separate campaign merely because their persistent command group remains intact.
+
+A staff plan and a binding order remain distinct. If the runtime exposes only a staff scheme, present it as the concrete scheme being proposed or discussed rather than silently promoting it to an issued order. But lack of a binding order is not a reason to replace available specifics with vague prose. State the plan's real objectives, subordinate commands, strengths, axes, reserve, and route/supply constraints that the player can lawfully know; then surface only the actual unresolved decision.
+
 ### Dialogue choreography
 
 **Information follows the interaction.** A player-safe fact does not require an NPC mouth. Neutral established facts, exact figures, and concise context may be compressed by narration when forcing them into speech would sound artificial. Keep exact mechanically important figures exact when they matter, but do not make several NPCs repeatedly verbalize them just to demonstrate fidelity.
