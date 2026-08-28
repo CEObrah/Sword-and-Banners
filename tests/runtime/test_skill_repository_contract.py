@@ -49,6 +49,15 @@ def test_player_facing_alias_policy_does_not_require_retired_house_guard_identit
     assert 'never edit `state/` on the live/default branch merely to change prose' in github_dev.lower()
 
 
+def test_royal_council_sovereign_participation_is_explicit():
+    playbook = (SKILL / 'references/scene-playbook.md').read_text(encoding='utf-8').lower()
+
+    assert 'sovereign participation at royal councils' in playbook
+    assert 'do not leave the sovereign as passive scenery' in playbook
+    assert 'military expertise does not displace institutional authority' in playbook
+    assert 'do not fabricate binding authority in dialogue' in playbook
+
+
 def test_railway_watch_policy_matches_runtime_neutral_boundary():
     railway = (ROOT / 'railway.toml').read_text(encoding='utf-8')
     for pattern in (
