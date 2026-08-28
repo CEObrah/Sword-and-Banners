@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SKILL = ROOT / "plugins" / "sword-and-banners" / "sword-and-banners-skill" / "sword-and-banners-game-master"
+SKILL = ROOT / "plugins" / "sword-and-banners" / "skill" / "sword-and-banners-game-master"
 
 
 def _text(name: str) -> str:

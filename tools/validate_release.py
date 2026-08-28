@@ -1221,7 +1221,7 @@ check("zero_global_scan_metrics", all(int(rt.get("metrics",{}).get(k,0))==0 for 
 check("vitality_diagnostic_present", (ROOT/"runtime/sword_runtime/vitality.py").is_file() and "playability_vitality" in (ROOT/"runtime/sword_runtime/api/operations.py").read_text(encoding="utf-8"))
 
 # Skill and routing essentials.
-skill=ROOT/"plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master"
+skill=ROOT/"plugins/sword-and-banners/skill/sword-and-banners-game-master"
 check("skill_entrypoint_present", (skill/"SKILL.md").is_file())
 check("skill_metadata_present", (skill/"agents/openai.yaml").is_file())
 repo_map=j("runtime/contracts/repository-map.json")

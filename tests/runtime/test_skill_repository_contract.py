@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SKILL = ROOT / 'plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master'
+SKILL = ROOT / 'plugins/sword-and-banners/skill/sword-and-banners-game-master'
 
 
 def test_sword_skill_is_self_contained():
@@ -61,3 +61,26 @@ def test_railway_watch_policy_matches_runtime_neutral_boundary():
         '!/README.md',
     ):
         assert f'"{pattern}"' in railway
+
+
+def test_retired_skill_directory_and_references_are_absent():
+    retired = "sword-and-banners-" + "skill"
+    retired_path = ROOT / "plugins" / "sword-and-banners" / retired
+    assert not retired_path.exists()
+
+    text_suffixes = {".py", ".json", ".md", ".toml", ".yml", ".yaml", ".txt"}
+    stale = []
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or path.is_symlink() or ".git" in path.parts:
+            continue
+        if path.is_relative_to(ROOT / "state"):
+            continue
+        if path.suffix not in text_suffixes and path.name not in {"Dockerfile"}:
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        if retired in text:
+            stale.append(path.relative_to(ROOT).as_posix())
+    assert stale == []

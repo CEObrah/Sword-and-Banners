@@ -461,7 +461,7 @@ def select(paths: list[str]) -> list[str]:
             selected.update(STRATEGIC_DEPTH_TESTS)
         if path in {"railway.toml", "pyproject.toml", "requirements.txt"} or path.startswith("runtime/contracts/"):
             selected.update(DEFAULT_TESTS)
-        if path.startswith("plugins/sword-and-banners/sword-and-banners-skill/"):
+        if path.startswith("plugins/sword-and-banners/skill/"):
             selected.update(DEFAULT_TESTS)
             selected.add("tests/runtime/test_skill_repository_contract.py")
         if path.startswith("tests/runtime/") and path.endswith(".py") and path != "tests/runtime/test_runtime_invariants.py":

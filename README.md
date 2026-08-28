@@ -7,7 +7,7 @@ Persistent deterministic Warring States RPG operated through ChatGPT and the Swo
 - `runtime/`: deterministic engine, transactions, scheduling, exact combat, warfare, economy and simulation.
 - `game/`: current mechanics, schemas, rules and world data.
 - `state/`: minimum sufficient current campaign truth.
-- `plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/`: ChatGPT GM procedure and presentation.
+- `plugins/sword-and-banners/skill/sword-and-banners-game-master/`: ChatGPT GM procedure and presentation.
 - `tests/`: current behavior verification.
 
 Development history is not campaign state. The current save contains only current campaign truth; its revision advances normally with committed play. Gameplay idempotency receipts are runtime-private and begin fresh when a new runtime volume starts from this save.

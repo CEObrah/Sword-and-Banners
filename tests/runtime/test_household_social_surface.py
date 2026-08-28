@@ -98,7 +98,7 @@ def test_skill_forbids_turning_present_family_into_an_audience_request():
     root = Path(__file__).resolve().parents[2]
     playbook = (
         root
-        / "plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/references/scene-playbook.md"
+        / "plugins/sword-and-banners/skill/sword-and-banners-game-master/references/scene-playbook.md"
     ).read_text()
     assert "ordinary intent such as `talk to my parents`" in playbook
     assert "Do not translate it into an audience request" in playbook

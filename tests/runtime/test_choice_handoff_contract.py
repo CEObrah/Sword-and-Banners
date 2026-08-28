@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-CHOICES = Path("plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/references/choices.md")
+CHOICES = Path("plugins/sword-and-banners/skill/sword-and-banners-game-master/references/choices.md")
 
 
 def test_choices_contract_forbids_prose_created_dead_ends():

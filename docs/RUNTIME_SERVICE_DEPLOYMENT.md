@@ -116,7 +116,7 @@ After adding, removing, or changing an MCP tool or schema, deployment alone is n
 
 Install the complete validated directory:
 
-`plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/`
+`plugins/sword-and-banners/skill/sword-and-banners-game-master/`
 
 Use `assets/project-instructions.md` for the dedicated ChatGPT Project instructions. A GitHub Skill commit does not automatically update the ChatGPT-installed Skill. Verify the installed copy before claiming it is synchronized.
 

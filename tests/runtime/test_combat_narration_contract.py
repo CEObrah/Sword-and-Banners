@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-COMBAT = ROOT / "plugins/sword-and-banners/sword-and-banners-skill/sword-and-banners-game-master/references/combat-and-warfare.md"
+COMBAT = ROOT / "plugins/sword-and-banners/skill/sword-and-banners-game-master/references/combat-and-warfare.md"
 
 
 def test_combat_narration_requires_aim_contact_and_confirmed_consequence_separation():
