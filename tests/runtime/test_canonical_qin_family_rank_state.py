@@ -111,7 +111,7 @@ def test_heki_and_shou_hei_kun_are_generals_without_free_command_growth(campaign
     assert meta["revision"] == 7
     assert meta["time"] == "244-BCE-09-17T18:42:48+08:00"
 
-    repair = _read(root, "state/history/repairs/canonical-qin-family-ranks-20260828.json")
-    assert repair["authority"] is False
-    assert repair["campaign_revision"] == 7
-    assert "without advancing chronology" in repair["rule"]
+    repair_note = (root / "docs/campaign-repairs/canonical-qin-family-ranks-20260828.md").read_text(encoding="utf-8")
+    assert "Campaign revision: `7`" in repair_note
+    assert "does not advance chronology" in repair_note
+    assert "creates no manpower" in repair_note
