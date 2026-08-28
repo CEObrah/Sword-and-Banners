@@ -3,6 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PLAYBOOK = ROOT / "plugins/sword-and-banners/skill/sword-and-banners-game-master/references/scene-playbook.md"
+SCENE_CONTRACT = ROOT / "plugins/sword-and-banners/skill/sword-and-banners-game-master/references/scene-contract.md"
 
 
 def test_campaign_command_scenes_establish_campaign_scheme_before_route_minutiae():
@@ -54,3 +55,18 @@ def test_campaign_command_scenes_use_concrete_march_planning_substrate_after_sch
     assert "campaign theater and operational end state" in text
     assert "Do not begin by asking individual commanders where they want to be used" in text
     assert "vague abstractions" in text
+
+
+def test_command_scene_uses_full_recursive_strength_without_singling_out_player_private_troops():
+    text = SCENE_CONTRACT.read_text()
+    assert "full recursive command span" in text
+    assert "Do not single Tang Wei out as the only commander with private troops" in text
+    assert "State-owned, House-owned, and other non-state bodies remain separately owned" in text
+
+
+def test_command_scene_does_not_append_repeated_authority_boilerplate_after_concrete_answer():
+    text = SCENE_CONTRACT.read_text()
+    assert "Do not append **authority boilerplate** after a concrete military answer" in text
+    assert "mention it again only when it changes the immediate requested action" in text
+    assert "the disposition is mine to settle, but crossing is not" in text
+    assert "End on the actual assignment" in text
