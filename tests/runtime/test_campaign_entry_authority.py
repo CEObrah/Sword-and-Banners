@@ -78,7 +78,8 @@ def test_reconciliation_reopens_completed_staging_without_moving_army_or_rewriti
     refreshed = planner._reconcile_campaign_entry_authority()
     assert refreshed == [OPERATION_REF]
 
-    operation_after = _raw_operation(root)
+    operation_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
+    operation_after = planner.read(operation_path)
     latest = operation_after["operational_orders"][-1]
     packet = latest["mission_packet"]
     assert operation_after["campaign_phase"] == "campaign_concentration"
@@ -90,7 +91,9 @@ def test_reconciliation_reopens_completed_staging_without_moving_army_or_rewriti
     assert packet["entry_status"] == "authorized"
     assert packet["destination_ref"] != "loc_kanyou"
 
-    assert _formation_locations(root, operation_after) == locations_before
+    # Reconciliation stages only the corrected campaign packet. It does not move
+    # formations or persist a synthetic declaration/war intent by itself.
+    assert _formation_locations(root, operation_before) == locations_before
     assert qin_path.read_bytes() == qin_before
     raw_qin_after = json.loads(qin_path.read_text(encoding="utf-8"))
     assert raw_qin_after["diplomacy"]["state_wei"]["status"] == "neutral"
