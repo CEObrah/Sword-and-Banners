@@ -109,7 +109,8 @@ def test_current_campaign_dossier_surfaces_real_campaign_scheme_and_route_capaci
 
     scheme = planning["campaign_scheme"]
     assert scheme["kind"] == "pre_entry_campaign_staff_scheme"
-    assert scheme["primary_objective_ref"] == dossier["operational_area"]["strategic_target_ref"]
+    assert scheme["strategic_anchor_ref"] == dossier["operational_area"]["strategic_target_ref"]
+    assert scheme["primary_objective_ref"] == scheme["strategic_anchor_ref"]
     assert scheme["objective_count"] == len(scheme["objectives"])
     assert scheme["objective_count"] >= 1
     assert scheme["command_assignments"]
@@ -117,6 +118,20 @@ def test_current_campaign_dossier_surfaces_real_campaign_scheme_and_route_capaci
     assert "Political war termination" in scheme["operational_end_state"]["war_termination_rule"]
     assert "hidden enemy deployments are not used" in scheme["planning_basis"]
     assert "does not issue an order" in scheme["authority_rule"]
+
+    # Sanyou is the strategic anchor for a regional campaign, not the whole
+    # campaign geography compressed into one city node.
+    assert scheme["campaign_scope_kind"] == "regional_campaign"
+    assert scheme["campaign_region_ref"] == "loc_wei_regional_02"
+    assert scheme["campaign_region_name"] == "Sanyou Region"
+    assert scheme["geography_region_name"] == "Wei Western Corridor"
+    assert scheme["strategic_anchor_ref"] == "loc_sanyou"
+    assert scheme["strategic_anchor_name"] == "Sanyou"
+    assert planning["campaign_region_ref"] == scheme["campaign_region_ref"]
+    assert planning["campaign_region_name"] == scheme["campaign_region_name"]
+    assert scheme["objective_count"] >= 2
+    assert any(row["objective_ref"] != "loc_sanyou" for row in scheme["objectives"])
+    assert "anchor alone is not equivalent" in scheme["operational_end_state"]["success_condition"]
 
     expected_private = sum(int(row.get("auxiliary_strength", 0) or 0) for row in dossier["friendly_participants"])
     assert scheme["excluded_non_state_strength"] == expected_private
