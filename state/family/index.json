@@ -4,8 +4,8 @@
     "courtships": 0,
     "events": 0,
     "households": 1,
-    "kinships": 1,
-    "parentage": 2,
+    "kinships": 2,
+    "parentage": 6,
     "proposals": 0,
     "successions": 5,
     "unions": 1
@@ -16,9 +16,14 @@
     "household.tang_zhu_tang_ling": "state/family/households/household.tang_zhu_tang_ling.json"
   },
   "kinships": {
+    "kinship.mou_ki_mou_ten.siblings": "state/family/kinships/kinship.mou_ki_mou_ten.siblings.json",
     "kinship.tang_kai_tang_wei.siblings": "state/family/kinships/kinship.tang_kai_tang_wei.siblings.json"
   },
   "parentage": {
+    "parentage.mou_bu.birth_parents": "state/family/parentage/parentage.mou_bu.birth_parents.json",
+    "parentage.mou_ki.birth_parents": "state/family/parentage/parentage.mou_ki.birth_parents.json",
+    "parentage.mou_ten.birth_parents": "state/family/parentage/parentage.mou_ten.birth_parents.json",
+    "parentage.ou_hon.birth_parents": "state/family/parentage/parentage.ou_hon.birth_parents.json",
     "parentage.tang_kai.birth_parents": "state/family/parentage/parentage.tang_kai.birth_parents.json",
     "parentage.tang_wei.birth_parents": "state/family/parentage/parentage.tang_wei.birth_parents.json"
   },
@@ -38,9 +43,47 @@
         "succession.qin_crown"
       ]
     },
+    "char_mou_bu": {
+      "parentage": [
+        "parentage.mou_bu.birth_parents",
+        "parentage.mou_ki.birth_parents",
+        "parentage.mou_ten.birth_parents"
+      ]
+    },
+    "char_mou_gou": {
+      "parentage": [
+        "parentage.mou_bu.birth_parents"
+      ]
+    },
+    "char_mou_ki": {
+      "kinships": [
+        "kinship.mou_ki_mou_ten.siblings"
+      ],
+      "parentage": [
+        "parentage.mou_ki.birth_parents"
+      ]
+    },
+    "char_mou_ten": {
+      "kinships": [
+        "kinship.mou_ki_mou_ten.siblings"
+      ],
+      "parentage": [
+        "parentage.mou_ten.birth_parents"
+      ]
+    },
+    "char_ou_hon": {
+      "parentage": [
+        "parentage.ou_hon.birth_parents"
+      ]
+    },
     "char_ou_ken": {
       "successions": [
         "succession.qi_crown"
+      ]
+    },
+    "char_ousen": {
+      "parentage": [
+        "parentage.ou_hon.birth_parents"
       ]
     },
     "char_prince_ka": {
