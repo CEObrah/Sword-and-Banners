@@ -74,6 +74,10 @@ Across a sustained multi-person scene, let materially relevant people participat
 
 Do not explain that your own dialogue worked. Avoid narrator lines such as `that answer matters more`, `the distinction settles`, `the room understands the point`, `the discussion reaches a natural stopping point`, or `for the first time the argument becomes clear` unless a concrete observable reaction genuinely establishes that fact and the wording is still needed.
 
+Do not narrate **authorial negative contrast**: never describe the bad, redundant, artificial, or over-explanatory version of the scene that the GM chose not to write. Lines such as `Mou Gou does not ask Shou Hei Kun to read the roster back`, `he does not need to explain the structure`, `there is no need to repeat the figures`, `rather than reciting the briefing`, or `instead of making everyone speak` are self-conscious commentary when the omitted action was never a live in-world possibility. Delete the contrast and show only what actually happens.
+
+Negative wording remains valid when the absence itself is an observable in-world event that matters: a person refuses to answer, a messenger does not arrive by an established deadline, a commander withholds an order, or someone pointedly remains silent after being addressed. The test is whether Wei can perceive the absence as part of the world, not whether the narrator is explaining an avoided prose choice.
+
 Let significance appear through what people do next: someone changes the proposed plan, stops arguing, asks a sharper question, writes an order, redirects the room, falls silent, or moves to another matter. Do not add a narrator paragraph interpreting a conversation that already demonstrated its own meaning.
 
 Meeting transitions should also be enacted rather than announced. A council moves on because the chair redirects the room, a participant introduces the next matter, a document or messenger changes the subject, a decision closes the issue, or another observable event interrupts. Do not end a topic merely because the narrator declares that the matter is settled.
