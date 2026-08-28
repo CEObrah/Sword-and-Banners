@@ -22,7 +22,9 @@ from sword_runtime.strategic_war_planning import _assign_commands, _border_objec
 _ROUTES_PATH = "game/data/world/routes.json"
 _LOCATIONS_PATH = "game/data/world/locations.json"
 _COMMAND_GROUP_INDEX = "state/cmd/command-groups/index.json"
+_TERRITORY_PATH = "state/territory/control.json"
 _PLAYER_REF = "char_tang_wei"
+_STRATEGIC_SITE_KINDS = {"capital", "major_city", "city", "fortress", "fort", "pass"}
 
 
 def _route_rows(read: Callable[[str], Mapping[str, Any]]) -> dict[str, Mapping[str, Any]]:
@@ -146,6 +148,93 @@ def _state_side(value: str | None) -> str | None:
     if not isinstance(value, str) or not value:
         return None
     return value.removeprefix("state_")
+
+
+def _side_owner_ref(side: str) -> str:
+    return side if str(side).startswith("polity_") else f"state_{side}"
+
+
+def _campaign_region_context(
+    planner: Any,
+    *,
+    defender: str,
+    strategic_anchor_ref: str,
+) -> dict[str, Any] | None:
+    """Expand a strategic anchor site into its current regional objective set.
+
+    A campaign may be commonly identified by one important city while the actual
+    military task is to secure the surrounding region.  The authored location
+    hierarchy provides that regional scope; current territory control decides
+    which strategic sites still belong to the defender.  No enemy formation,
+    garrison strength, or hidden deployment is read here.
+    """
+    locations = _location_rows(planner.read)
+    anchor = locations.get(str(strategic_anchor_ref))
+    if not isinstance(anchor, Mapping):
+        return None
+
+    region_ref = anchor.get("region_ref")
+    if not isinstance(region_ref, str) or not region_ref:
+        parent_ref = anchor.get("parent_ref")
+        parent = locations.get(str(parent_ref)) if isinstance(parent_ref, str) else None
+        if isinstance(parent, Mapping) and str(parent.get("kind", "")) == "region":
+            region_ref = parent_ref
+    if not isinstance(region_ref, str) or not region_ref:
+        return None
+
+    region = locations.get(region_ref)
+    if not isinstance(region, Mapping) or str(region.get("kind", "")) != "region":
+        return None
+    defender_owner = _side_owner_ref(defender)
+    if str(region.get("polity_ref") or "") != defender_owner:
+        return None
+
+    territory = planner.read(_TERRITORY_PATH)
+    sites = territory.get("sites", {}) if isinstance(territory, Mapping) else {}
+    objectives: list[dict[str, Any]] = []
+    for ref, row in locations.items():
+        if ref == region_ref or not isinstance(row, Mapping):
+            continue
+        if str(row.get("region_ref") or row.get("parent_ref") or "") != region_ref:
+            continue
+        kind = str(row.get("kind", ""))
+        if kind not in _STRATEGIC_SITE_KINDS or not bool(row.get("strategic_node")):
+            continue
+        site = sites.get(ref, {}) if isinstance(sites, Mapping) else {}
+        controller = str(site.get("controller", "")) if isinstance(site, Mapping) else ""
+        if controller != defender_owner:
+            continue
+
+        priority = 70
+        if ref == strategic_anchor_ref:
+            priority += 60
+        if bool(row.get("fortified")):
+            priority += 20
+        if kind in {"capital", "major_city"}:
+            priority += 30
+        elif kind in {"city", "fortress", "fort", "pass"}:
+            priority += 15
+        objectives.append({
+            "objective_ref": ref,
+            "priority": priority,
+            "kind": kind,
+            "fortified": bool(row.get("fortified")),
+            "regional_role": "strategic_anchor" if ref == strategic_anchor_ref else "regional_objective",
+        })
+
+    if not objectives:
+        return None
+    objectives.sort(key=lambda row: (-int(row["priority"]), str(row["objective_ref"])))
+    anchor_name = _location_name(locations, strategic_anchor_ref)
+    return {
+        "campaign_region_ref": region_ref,
+        "campaign_region_name": f"{anchor_name} Region",
+        "geography_region_name": _location_name(locations, region_ref),
+        "strategic_anchor_ref": strategic_anchor_ref,
+        "strategic_anchor_name": anchor_name,
+        "objective_candidates": objectives[:6],
+        "scope_basis": "authored parent region around the strategic anchor plus current defender-controlled strategic sites",
+    }
 
 
 def _formation(planner: Any, ref: str) -> Mapping[str, Any] | None:
@@ -283,9 +372,9 @@ def _build_campaign_scheme(
     friendly_participants: Sequence[Mapping[str, Any]],
     operational_area: Mapping[str, Any],
 ) -> dict[str, Any] | None:
-    primary_target = operational_area.get("strategic_target_ref")
+    strategic_anchor = operational_area.get("strategic_target_ref")
     target_state_ref = operational_area.get("target_state_ref")
-    if not isinstance(primary_target, str) or not primary_target or not isinstance(target_state_ref, str) or not target_state_ref:
+    if not isinstance(strategic_anchor, str) or not strategic_anchor or not isinstance(target_state_ref, str) or not target_state_ref:
         return None
     campaign_state_ref, eligible_refs, formation_operation, excluded_private, excluded_private_strength = _campaign_force_inputs(
         planner, friendly_participants
@@ -295,9 +384,18 @@ def _build_campaign_scheme(
     if not attacker or not defender or not eligible_refs:
         return None
 
-    objectives = _border_objectives(planner, attacker, defender, primary_target)
+    region_context = _campaign_region_context(
+        planner,
+        defender=defender,
+        strategic_anchor_ref=strategic_anchor,
+    )
+    if isinstance(region_context, Mapping) and isinstance(region_context.get("objective_candidates"), list):
+        objectives = [dict(row) for row in region_context["objective_candidates"] if isinstance(row, Mapping)]
+    else:
+        objectives = _border_objectives(planner, attacker, defender, strategic_anchor)
     if not objectives:
-        objectives = [{"objective_ref": primary_target, "priority": 100, "kind": "strategic", "fortified": False}]
+        objectives = [{"objective_ref": strategic_anchor, "priority": 100, "kind": "strategic", "fortified": False}]
+
     commands = [dict(row) for row in _command_catalog(planner, attacker, list(eligible_refs))]
     covered = {str(ref) for row in commands for ref in row.get("formation_refs", []) if isinstance(ref, str)}
     commands.extend(_player_command_rows(planner, eligible_refs, covered))
@@ -306,9 +404,9 @@ def _build_campaign_scheme(
         return None
 
     # Pre-entry staff planning deliberately does not read hidden enemy formation
-    # power.  If enough intact commands and physical objectives exist, open more
-    # than one axis; otherwise mass on the primary objective.  Exact opposition
-    # can lawfully cause replanning later as reports arrive.
+    # power. If enough intact commands and physical objectives exist, open more
+    # than one axis; otherwise mass on the anchor objective. Exact opposition can
+    # lawfully cause replanning later as reports arrive.
     mode = "multi_axis" if len(objectives) >= 2 and len(commands) >= 4 else "decisive_concentration"
     assignments, reserve = _assign_commands(commands, objectives, mode=mode)
     locations = _location_rows(planner.read)
@@ -316,7 +414,7 @@ def _build_campaign_scheme(
 
     assignment_rows: list[dict[str, Any]] = []
     for command in assignments:
-        objective_ref = str(command.get("objective_ref") or primary_target)
+        objective_ref = str(command.get("objective_ref") or strategic_anchor)
         assignment_rows.append({
             "command_ref": command.get("command_group_ref") or command.get("independent_formation_ref"),
             "commander_ref": command.get("commander_ref"),
@@ -349,20 +447,37 @@ def _build_campaign_scheme(
             "priority": int(source.get("priority", 0) or 0),
             "kind": source.get("kind"),
             "fortified": bool(source.get("fortified")),
-            "axis_role": "primary" if objective_ref == primary_target else "secondary",
+            "regional_role": source.get("regional_role"),
+            "axis_role": "primary" if objective_ref == strategic_anchor else "secondary",
             "assigned_command_refs": [row.get("command_ref") for row in assigned],
             "assigned_commanders": [row.get("commander_name") for row in assigned if row.get("commander_name")],
             "assigned_strength": sum(int(row.get("personnel", 0) or 0) for row in assigned),
         })
-    objective_rows.sort(key=lambda row: (0 if row["objective_ref"] == primary_target else 1, -int(row.get("priority", 0)), str(row["objective_ref"])))
+    objective_rows.sort(key=lambda row: (0 if row["objective_ref"] == strategic_anchor else 1, -int(row.get("priority", 0)), str(row["objective_ref"])))
+
+    regional = isinstance(region_context, Mapping)
+    campaign_region_ref = region_context.get("campaign_region_ref") if regional else None
+    campaign_region_name = region_context.get("campaign_region_name") if regional else None
+    geography_region_name = region_context.get("geography_region_name") if regional else None
+    success_condition = (
+        "Resolve the assigned strategic sites across the campaign region under supreme command; control of the strategic anchor alone is not equivalent to securing the whole region."
+        if regional
+        else "Secure the primary objective and resolve every assigned campaign front before supreme command closes or redirects this campaign phase."
+    )
 
     return {
         "kind": "pre_entry_campaign_staff_scheme",
         "status": "staff_plan_pending_exact_orders_and_entry_authority",
         "campaign_state_ref": campaign_state_ref,
         "target_state_ref": target_state_ref,
-        "primary_objective_ref": primary_target,
-        "primary_objective_name": _location_name(locations, primary_target),
+        "campaign_scope_kind": "regional_campaign" if regional else "site_campaign",
+        "campaign_region_ref": campaign_region_ref,
+        "campaign_region_name": campaign_region_name,
+        "geography_region_name": geography_region_name,
+        "strategic_anchor_ref": strategic_anchor,
+        "strategic_anchor_name": _location_name(locations, strategic_anchor),
+        "primary_objective_ref": strategic_anchor,
+        "primary_objective_name": _location_name(locations, strategic_anchor),
         "concentration_mode": mode,
         "objective_count": len(objective_rows),
         "objectives": objective_rows,
@@ -372,12 +487,16 @@ def _build_campaign_scheme(
         "excluded_non_state_formation_refs": excluded_private,
         "excluded_non_state_strength": excluded_private_strength,
         "operational_end_state": {
+            "campaign_region_ref": campaign_region_ref,
+            "campaign_region_name": campaign_region_name,
             "required_objective_refs": assigned_objective_refs,
-            "primary_objective_ref": primary_target,
-            "success_condition": "Secure the primary objective and resolve every assigned campaign front before supreme command closes or redirects this campaign phase.",
+            "strategic_anchor_ref": strategic_anchor,
+            "success_condition": success_condition,
             "war_termination_rule": "Political war termination, annexation, treaty terms, and follow-on territorial settlement remain separate sovereign and diplomatic decisions.",
         },
-        "planning_basis": "current campaign roster plus authored strategic geography; hidden enemy deployments are not used to choose the pre-entry axes",
+        "planning_basis": (
+            "current campaign roster plus authored strategic geography; when the strategic anchor belongs to a defender region, current defender-controlled strategic sites in that region define the regional campaign objective set; hidden enemy deployments are not used to choose the pre-entry axes"
+        ),
         "authority_rule": "staff planning projection only; it does not issue an order, move a formation, authorize hostile entry, transfer troop ownership, or choose Tang Wei's tactics",
         "ownership_rule": "non-state/private auxiliaries are excluded from Qin planning strength unless a separate lawful commitment and acceptance establishes their use",
     }
@@ -512,10 +631,12 @@ def build_march_planning_baseline(
         "kind": "staff_route_capacity_baseline",
         "strategic_target_ref": strategic_target_ref,
         "strategic_target_name": _location_name(locations, strategic_target_ref),
+        "campaign_region_ref": scheme.get("campaign_region_ref") if isinstance(scheme, Mapping) else None,
+        "campaign_region_name": scheme.get("campaign_region_name") if isinstance(scheme, Mapping) else None,
         "campaign_scheme": scheme,
         "command_routes": command_routes,
         "shared_bottlenecks": shared_bottlenecks,
         "authority_rule": "planning projection only; this does not assign a route, authorize hostile entry, move a formation, or issue an order",
         "capacity_rule": "troop clearance is a floor from authored route throughput only; baggage, wagons, supply, rests, traffic spacing, enemy action, and other unrepresented burdens are not invented",
-        "knowledge_rule": "campaign axes use current roster and authored geography only; the projection does not expose private enemy deployments or fabricate reconnaissance",
+        "knowledge_rule": "campaign axes use current roster, current territorial control, and authored geography only; the projection does not expose private enemy deployments or fabricate reconnaissance",
     }
