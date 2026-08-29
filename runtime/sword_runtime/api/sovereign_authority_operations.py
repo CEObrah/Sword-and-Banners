@@ -1,7 +1,7 @@
 """Player-safe projection of sovereign campaign-entry authority.
 
 This layer corrects stale staging language without mutating campaign state during a
-read.  Exact operations and orders remain authority.  When the same exact sovereign
+read. Exact operations and orders remain authority. When the same exact sovereign
 campaign order already establishes lawful hostile entry, the player surface must not
 continue advertising a second nonexistent war/entry authorization gate.
 """
@@ -12,13 +12,21 @@ from collections.abc import Mapping
 from typing import Any, Optional
 
 from sword_runtime.api.campaign_planning_operations import CampaignPlanningAwareOperations
+from sword_runtime.api.interaction_surface import validate_interaction_payload
 from sword_runtime.api.operations import OperationError
+from sword_runtime.causal_event_store import get_causal_event_from_reader
 from sword_runtime.deployment_attestation import deployment_attestation
+from sword_runtime.interaction_routing_health import summarize_interaction_routing
 from sword_runtime.sovereign_campaign_authority import operation_entry_projection
 
 
+_REMOTE_PERSON_CHANNEL_KINDS = frozenset({
+    "message", "audience_response", "institutional_response", "petition_response",
+})
+
+
 class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
-    """Keep bounded operation and deployment handoffs aligned with exact authority."""
+    """Keep bounded operation, interaction, and deployment handoffs aligned with exact authority."""
 
     def _controlled_operation_views(self, controlled_refs: set[str]) -> list[dict[str, Any]]:
         views = super()._controlled_operation_views(controlled_refs)
@@ -43,9 +51,9 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
             if not isinstance(authority, Mapping) or authority.get("authorized") is not True:
                 continue
 
-            # Do not falsify the saved historical packet.  Surface the effective
+            # Do not falsify the saved historical packet. Surface the effective
             # legal state beside it and correct only fields whose old value claimed
-            # that hostile entry itself was forbidden.  A separate exact march or
+            # that hostile entry itself was forbidden. A separate exact march or
             # tactical order may still be required by the campaign command chain.
             view["entry_status"] = "authorized"
             view["entry_authority"] = copy.deepcopy(dict(authority))
@@ -93,6 +101,41 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
                 view["campaign_command"] = campaign_command
         return views
 
+    def _validate_interaction_authority(self, command) -> None:
+        """Require real access for direct person interaction, not mere visibility."""
+        super()._validate_interaction_authority(command)
+        payload = validate_interaction_payload(command.payload)
+        target_ref = payload["target_ref"]
+        if payload["action"] == "seek_contact" or not target_ref.startswith("char_"):
+            return
+
+        context = self.play_context()
+        scene = context.get("scene") if isinstance(context, Mapping) else None
+        cast = scene.get("scene_cast") if isinstance(scene, Mapping) else None
+        present = cast.get("present_people") if isinstance(cast, Mapping) else []
+        present_refs = {
+            str(row.get("person_id"))
+            for row in present
+            if isinstance(row, Mapping) and isinstance(row.get("person_id"), str)
+        } if isinstance(present, list) else set()
+        if target_ref in present_refs:
+            return
+
+        # A delivered message/response from this exact person is an established
+        # remote channel for replying through that process. It is not physical
+        # co-presence and cannot be reused with an unrelated process.
+        process_ref = payload.get("process_ref")
+        if isinstance(process_ref, str) and process_ref:
+            process = get_causal_event_from_reader(self.store, process_ref)
+            if (
+                isinstance(process, Mapping)
+                and process.get("status") == "triggered"
+                and process.get("kind") in _REMOTE_PERSON_CHANNEL_KINDS
+                and process.get("actor_ref") == target_ref
+            ):
+                return
+        raise OperationError(409, "interaction_person_access_not_established")
+
     def play_context(self) -> dict[str, Any]:
         context = super().play_context()
         authorized = [
@@ -107,11 +150,29 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
                 "When a controlled operation exposes entry_authority.authorized=true, do not narrate a need for another war declaration or hostile-entry authorization. "
                 "Older staging packets/directives may be historical remnants of the prior gate. A distinct march, formation assignment, tactical order, ceasefire, treaty, or war-termination decision must still come from its own authority."
             )
+
+        interaction = context.get("commands", {}).get("command_types", {}).get("interaction_action")
+        if isinstance(interaction, dict):
+            guidance = interaction.setdefault("input_guidance", {})
+            guidance["direct_person_access_rule"] = (
+                "A permitted person ID establishes visibility/read authority, not face-to-face access. Any interaction action other than seek_contact that targets an exact person requires that person in scene.scene_cast.present_people, or an exact triggered message/response process from that same person establishing a remote reply channel. nearby_people, broad co-location, campaign membership, and person-sheet availability do not satisfy this rule."
+            )
+        context.setdefault("limits", {})["direct_person_interaction_requires_access"] = True
         return context
 
     def ooc_audit(self, focus: Optional[str] = None, observations: Optional[list[str]] = None) -> dict[str, Any]:
         result = super().ooc_audit(focus, observations)
         result["deployment"] = deployment_attestation(self.runtime.root)
+        routing = summarize_interaction_routing(self.runtime.planner)
+        result["interaction_routing"] = routing
+        vitality = result.get("playability_vitality")
+        if isinstance(vitality, dict):
+            diagnostics = list(vitality.get("diagnostics", [])) if isinstance(vitality.get("diagnostics"), list) else []
+            suggestions = list(vitality.get("suggestions", [])) if isinstance(vitality.get("suggestions"), list) else []
+            diagnostics.extend(str(value) for value in routing.get("diagnostics", []) if isinstance(value, str))
+            suggestions.extend(str(value) for value in routing.get("suggestions", []) if isinstance(value, str))
+            vitality["diagnostics"] = list(dict.fromkeys(diagnostics))
+            vitality["suggestions"] = list(dict.fromkeys(suggestions))
         return result
 
     def execute_command(self, command):
