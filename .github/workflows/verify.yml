@@ -74,8 +74,8 @@ jobs:
       - name: Deployment source compatibility regressions
         run: python tools/run_pytest_module.py -q tests/runtime/test_deployment_attestation.py
 
-      - name: Interaction access and causal routing regressions
-        run: python tools/run_pytest_module.py -q tests/runtime/test_interaction_route_integrity.py tests/runtime/test_campaign_command_contact.py
+      - name: Interaction access, routing, and entry projection regressions
+        run: python tools/run_pytest_module.py -q tests/runtime/test_interaction_route_integrity.py tests/runtime/test_campaign_command_contact.py tests/runtime/test_entry_authority_projection.py
 
       - name: GM Skill presentation contract
         run: python tools/run_pytest_module.py -q tests/runtime/test_skill_repository_contract.py tests/runtime/test_diegetic_skill_contract.py
