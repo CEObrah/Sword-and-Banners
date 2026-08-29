@@ -11,10 +11,12 @@ watchPatterns = [
   "!/README.md"
 ]
 
-# Startup reconciles the persistent campaign checkout with the deployed branch
-# and performs integrity/recovery checks before Uvicorn begins serving traffic.
+# Startup first reconciles the immutable deployed source revision into a
+# dedicated campaign durability branch, then performs the normal checkout,
+# integrity, recovery, and ASGI startup gates. Source releases therefore do not
+# move the branch used by live gameplay transactions.
 [deploy]
-startCommand = "PYTHONPATH=/app/runtime python -m sword_runtime.bootstrap"
+startCommand = "PYTHONPATH=/app/runtime python -m sword_runtime.branch_bootstrap"
 healthcheckPath = "/health"
 healthcheckTimeout = 120
 restartPolicyType = "ON_FAILURE"
