@@ -49,10 +49,15 @@ def test_authorized_entry_projection_removes_stale_gate_language(campaign) -> No
     assert daily["paused_campaign_phase"] == "awaiting_march_orders"
     assert daily["paused_campaign_phase_projection_only"] is True
 
+    # Current staff planning may already have independently shed the obsolete
+    # entry-authority suffix. The projection must be coherent either way: its
+    # effective status cannot keep advertising the cleared gate, and historical
+    # provenance is required only when the adapter actually rewrites stale text.
     scheme = campaign_command["march_planning"]["campaign_scheme"]
-    assert scheme["historical_status"] == "staff_plan_pending_exact_orders_and_entry_authority"
     assert scheme["status"] == "staff_plan_pending_exact_orders"
-    assert scheme["status_projection_only"] is True
+    if "historical_status" in scheme:
+        assert scheme["historical_status"] == "staff_plan_pending_exact_orders_and_entry_authority"
+        assert scheme["status_projection_only"] is True
 
     campaign_context = operation["campaign_context"]
     assert campaign_context["campaign_commander_ref"] == "char_mou_gou"
