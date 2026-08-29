@@ -1,15 +1,15 @@
 """Prepare a dedicated campaign durability branch before normal Railway bootstrap.
 
 The immutable Railway image is built from the source branch (normally ``main``),
-while gameplay transactions must append to a branch whose head is not moved by
-ordinary source releases.  This wrapper establishes that split on the persistent
+while gameplay transactions append to a branch whose head is not moved by
+ordinary source releases. This wrapper establishes that split on the persistent
 checkout, merges exactly the deployed source revision into the campaign branch,
 and then delegates to :mod:`sword_runtime.bootstrap` with ``SWORD_GIT_BRANCH``
 pointed at the campaign branch.
 
 The split preserves the existing transaction invariants: campaign writes still
 use one exact non-force remote branch, WAL recovery, idempotency receipts, and a
-single-writer lock.  Source releases simply stop being part of that branch's
+single-writer lock. Source releases simply stop being part of that branch's
 preflight condition until a new image performs the controlled source merge.
 """
 from __future__ import annotations
@@ -17,8 +17,6 @@ from __future__ import annotations
 import os
 import re
 import subprocess
-from pathlib import Path
-from typing import Optional
 
 from sword_runtime import bootstrap as legacy_bootstrap
 from sword_runtime.bootstrap import BootstrapError, CheckoutSettings
@@ -123,7 +121,9 @@ def _campaign_branch_name(settings: CheckoutSettings, fallback_commit: str) -> s
         if identity is None:
             identity = legacy_bootstrap._campaign_identity_revision(settings, fallback_commit)
         if identity is None:
-            raise BootstrapError("cannot derive campaign durability branch without state/meta.json identity")
+            raise BootstrapError(
+                "cannot derive campaign durability branch without state/meta.json identity"
+            )
         branch = legacy_bootstrap._safe_ref(
             f"campaign/{identity[0]}",
             "derived campaign branch",
@@ -140,7 +140,13 @@ def _deployed_source_commit(settings: CheckoutSettings, source_head: str) -> str
     advertised = advertised.strip().lower()
     if not _OBJECT_ID.fullmatch(advertised):
         raise BootstrapError("RAILWAY_GIT_COMMIT_SHA is not a valid source commit")
-    if _run(settings, "cat-file", "-e", f"{advertised}^{{commit}}", allow_failure=True) is None:
+    if _run(
+        settings,
+        "cat-file",
+        "-e",
+        f"{advertised}^{{commit}}",
+        allow_failure=True,
+    ) is None:
         raise BootstrapError("deployed source commit is unavailable in persistent Git history")
     if not legacy_bootstrap._is_ancestor(settings, advertised, source_head):
         raise BootstrapError("deployed source commit is not on the configured source branch")
@@ -206,7 +212,9 @@ def _merge_deployed_source(
             stderr=subprocess.DEVNULL,
             check=False,
         )
-        raise BootstrapError("deployed source could not be merged into campaign durability history")
+        raise BootstrapError(
+            "deployed source could not be merged into campaign durability history"
+        )
     after = _head(settings)
     if not legacy_bootstrap._campaign_authority_matches(settings, before, after):
         _run(settings, "reset", "--hard", before)
@@ -218,7 +226,14 @@ def _adopt_remote_campaign(
     settings: CheckoutSettings,
     campaign_branch: str,
     remote_head: str,
-) -> None:
+) -> bool:
+    """Align with remote campaign history and report recoverable local-ahead state.
+
+    ``True`` means the local campaign branch is a strict descendant of its remote.
+    That can be legitimate crash evidence from a transaction committed locally but
+    not yet pushed. The bootstrap wrapper must leave it untouched for the existing
+    WAL/receipt coordinator instead of publishing it directly.
+    """
     current_branch = _current_branch(settings)
     local_head = _head(settings)
     if current_branch != campaign_branch:
@@ -226,29 +241,33 @@ def _adopt_remote_campaign(
         remote_identity = legacy_bootstrap._campaign_identity_revision(settings, remote_head)
         if local_identity is not None and remote_identity is not None:
             if local_identity[0] != remote_identity[0]:
-                raise BootstrapError("local and remote campaign branches refer to different campaign IDs")
+                raise BootstrapError(
+                    "local and remote campaign branches refer to different campaign IDs"
+                )
             if local_identity[1] > remote_identity[1]:
-                raise BootstrapError("local checkout has newer campaign authority than durability branch")
-            if local_identity[1] == remote_identity[1] and not legacy_bootstrap._campaign_authority_matches(
-                settings, local_head, remote_head
+                raise BootstrapError(
+                    "local checkout has newer campaign authority than durability branch"
+                )
+            if (
+                local_identity[1] == remote_identity[1]
+                and not legacy_bootstrap._campaign_authority_matches(
+                    settings,
+                    local_head,
+                    remote_head,
+                )
             ):
                 raise BootstrapError("local checkout conflicts with campaign durability branch")
         _run(settings, "checkout", "-B", campaign_branch, remote_head)
         local_head = remote_head
 
     if local_head == remote_head:
-        return
+        return False
     if legacy_bootstrap._is_ancestor(settings, local_head, remote_head):
         remote_ref = f"refs/remotes/{settings.remote}/{campaign_branch}"
         _run(settings, "merge", "--ff-only", remote_ref)
-        return
+        return False
     if legacy_bootstrap._is_ancestor(settings, remote_head, local_head):
-        # Preserve existing crash-recovery semantics: a local transaction commit
-        # may exist before its required remote push.  Do not rewrite or merge over
-        # it here; the normal coordinator recovery owns that evidence.
-        raise BootstrapError(
-            "local campaign checkout is ahead of durability branch; transaction recovery must complete first"
-        )
+        return True
     raise BootstrapError("local and remote campaign durability histories diverged")
 
 
@@ -261,47 +280,61 @@ def prepare_campaign_branch(settings: CheckoutSettings) -> str:
     source_head = _fetch_branch(settings, settings.branch)
     source_commit = _deployed_source_commit(settings, source_head)
     campaign_branch = _campaign_branch_name(settings, source_commit)
+    local_ahead = False
 
     if _remote_branch_exists(settings, campaign_branch):
         remote_campaign_head = _fetch_branch(settings, campaign_branch)
-        _adopt_remote_campaign(settings, campaign_branch, remote_campaign_head)
+        local_ahead = _adopt_remote_campaign(
+            settings,
+            campaign_branch,
+            remote_campaign_head,
+        )
     else:
         current_branch = _current_branch(settings)
         if current_branch != settings.branch:
-            raise BootstrapError("campaign durability branch is missing while checkout is not on source branch")
-        # Start the new durability lineage from the current committed campaign
-        # checkout so no live state is discarded, then merge the deployed source
-        # commit if source advanced independently during the deployment handoff.
+            raise BootstrapError(
+                "campaign durability branch is missing while checkout is not on source branch"
+            )
+        # Start the durability lineage from the current committed campaign checkout
+        # so no live state is discarded. All later routing uses exact refs rather
+        # than Git's implicit branch-upstream configuration.
         _run(settings, "checkout", "-b", campaign_branch)
         _merge_deployed_source(settings, source_commit)
         _run(
             settings,
             "push",
-            "--set-upstream",
             settings.remote,
             f"HEAD:refs/heads/{campaign_branch}",
         )
+
+    if local_ahead:
+        # A same-source restart may have a transaction commit that exists locally
+        # but not remotely because the process died between commit and push. Let the
+        # established coordinator inspect WAL + trailers and finish or reject it.
+        # Never make a source-merge commit or direct push on top of that evidence.
+        if not legacy_bootstrap._is_ancestor(settings, source_commit, _head(settings)):
+            raise BootstrapError(
+                "pending local campaign transaction must recover before a newer source deployment can reconcile"
+            )
+        legacy_bootstrap._assert_clean(settings)
+        return campaign_branch
 
     _merge_deployed_source(settings, source_commit)
     local_head = _head(settings)
     remote_campaign_head = _fetch_branch(settings, campaign_branch)
     if local_head != remote_campaign_head:
-        # Source reconciliation is the only legitimate local commit created by
-        # this wrapper.  Publish it non-force from the exact fetched campaign head.
+        # At this point local-ahead transaction evidence was excluded above, so the
+        # only legitimate local descendant is the source-reconciliation merge made
+        # by this wrapper. Publish it non-force from the exact fetched campaign head.
         if not legacy_bootstrap._is_ancestor(settings, remote_campaign_head, local_head):
-            raise BootstrapError("source reconciliation no longer descends from campaign durability head")
+            raise BootstrapError(
+                "source reconciliation no longer descends from campaign durability head"
+            )
         _run(settings, "push", settings.remote, f"HEAD:refs/heads/{campaign_branch}")
         remote_campaign_head = _fetch_branch(settings, campaign_branch)
         if _head(settings) != remote_campaign_head:
             raise BootstrapError("campaign durability push did not converge")
 
-    _run(
-        settings,
-        "branch",
-        "--set-upstream-to",
-        f"{settings.remote}/{campaign_branch}",
-        campaign_branch,
-    )
     legacy_bootstrap._assert_clean(settings)
     return campaign_branch
 
@@ -311,10 +344,9 @@ def main() -> int:
     source_branch = source_settings.branch
     campaign_branch = prepare_campaign_branch(source_settings)
 
-    # The normal bootstrap and the production transaction coordinator should now
-    # see only the campaign durability branch.  Keep the source branch separately
-    # available for diagnostics; it is intentionally not part of transaction
-    # synchronization after this point.
+    # The normal bootstrap and production transaction coordinator now see only
+    # the campaign durability branch. Keep the source branch separately available
+    # for diagnostics; it is intentionally not part of transaction synchronization.
     os.environ["SWORD_SOURCE_BRANCH"] = source_branch
     os.environ["SWORD_CAMPAIGN_BRANCH"] = campaign_branch
     os.environ["SWORD_GIT_BRANCH"] = campaign_branch
