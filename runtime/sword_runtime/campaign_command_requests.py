@@ -98,12 +98,39 @@ def _cycle_from_ref(planner: Any, cycle_ref: object) -> Mapping[str, Any] | None
     return cycle
 
 
+def _campaign_contact_process(planner: Any, process_ref: object) -> tuple[Mapping[str, Any], str] | None:
+    """Resolve one settled campaign-headquarters receiving event and its cycle."""
+    if not isinstance(process_ref, str) or not process_ref:
+        return None
+    process = get_causal_event_from_reader(planner, process_ref)
+    if not isinstance(process, Mapping):
+        return None
+    if (
+        process.get("kind") != "audience_response"
+        or process.get("status") != "triggered"
+        or process.get("route_domain") != "campaign_command_contact"
+    ):
+        return None
+    cycle_ref = process.get("campaign_command_cycle_ref") or process.get("source_event_ref")
+    if not isinstance(cycle_ref, str) or not cycle_ref.startswith("campaign_command_cycle."):
+        return None
+    return process, cycle_ref
+
+
 def _cycle_for_attempt(planner: Any, attempt: Mapping[str, Any]) -> Mapping[str, Any] | None:
     process_ref = attempt.get("process_ref")
     cycle = _cycle_from_ref(planner, process_ref)
+    contact_process = _campaign_contact_process(planner, process_ref)
+    if cycle is None and contact_process is not None:
+        _process, cycle_ref = contact_process
+        cycle = _cycle_from_ref(planner, cycle_ref)
     if cycle is None and isinstance(process_ref, str):
         process = get_causal_event_from_reader(planner, process_ref)
-        cycle = _cycle_from_ref(planner, process.get("campaign_command_cycle_ref") if isinstance(process, Mapping) else None)
+        if isinstance(process, Mapping):
+            cycle_ref = process.get("campaign_command_cycle_ref")
+            if not isinstance(cycle_ref, str) and process.get("route_domain") == "campaign_command_contact":
+                cycle_ref = process.get("source_event_ref")
+            cycle = _cycle_from_ref(planner, cycle_ref)
     if cycle is None:
         return None
 
@@ -113,18 +140,29 @@ def _cycle_for_attempt(planner: Any, attempt: Mapping[str, Any]) -> Mapping[str,
     superior_ref = cycle.get("superior_command_ref") or cycle.get("supreme_commander_ref")
     operation_ref = cycle.get("operation_ref")
     coordination_ref = cycle.get("coordination_authority_ref")
+    cycle_ref = cycle.get("cycle_ref")
+    in_scene = isinstance(attempt.get("scene_session_ref"), str) and bool(attempt.get("scene_session_ref"))
+    has_staff_channel = contact_process is not None and contact_process[1] == cycle_ref
 
     if action == "seek_contact":
         if target_ref not in {venue_ref, superior_ref}:
             return None
     elif action in {"ask", "request", "petition", "present", "report"}:
         if target_ref == superior_ref:
-            # Person-targeted substantive speech is routable only when the saved
-            # attempt itself proves an established co-located scene. A permitted
-            # person ID or broad same-city location is never access.
-            if not isinstance(attempt.get("scene_session_ref"), str) or not attempt.get("scene_session_ref"):
+            # Staff-channel receipt is not personal access to the named superior.
+            # Person-targeted substantive speech requires a saved direct scene.
+            if not in_scene:
                 return None
-        elif target_ref not in {cycle.get("cycle_ref"), operation_ref, coordination_ref, venue_ref}:
+        elif target_ref in {cycle_ref, operation_ref, coordination_ref, venue_ref, process_ref}:
+            # A direct substantive request to a headquarters object/location must
+            # come from an established scene or the exact settled receiving event.
+            # Mere visibility of the cycle, institution, operation, or venue is
+            # not itself proof that anyone heard the request.
+            if not (in_scene or has_staff_channel):
+                return None
+            if target_ref == process_ref and not has_staff_channel:
+                return None
+        else:
             return None
     else:
         return None
@@ -403,5 +441,6 @@ class CampaignCommandRequestMixin:
 __all__ = [
     "CampaignCommandRequestMixin",
     "campaign_command_request_response_ref",
+    "_cycle_for_attempt",
     "_operation_for_cycle",
 ]
