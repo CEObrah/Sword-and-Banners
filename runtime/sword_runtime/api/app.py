@@ -11,6 +11,7 @@ from sword_runtime.api.sovereign_authority_operations import SovereignAuthorityA
 from sword_runtime.api.middleware import BodySizeLimitMiddleware
 from sword_runtime.api.operations import OperationError
 from sword_runtime.commands import CommandEnvelope
+from sword_runtime.deployment_attestation import assert_deployment_compatible, public_deployment_health
 from sword_runtime.service_runtime import ProductionSwordRuntime
 
 class StrictModel(BaseModel):
@@ -80,7 +81,8 @@ def create_app(
 ) -> FastAPI:
     if not isinstance(token, str) or len(token) < 32:
         raise ValueError("SWORD_API_TOKEN must be at least 32 characters")
-    runtime = ProductionSwordRuntime(root, runtime_root)
+    campaign_root = Path(root).expanduser().resolve()
+    runtime = ProductionSwordRuntime(campaign_root, runtime_root)
     if recover:
         runtime.recover()
     operations = SovereignAuthorityAwareOperations(runtime)
@@ -93,6 +95,7 @@ def create_app(
     )
     app.state.sword_runtime = runtime
     app.state.campaign_operations = operations
+    app.state.campaign_root = campaign_root
     app.add_middleware(BodySizeLimitMiddleware, max_body_bytes=128 * 1024)
     bearer = HTTPBearer(auto_error=False)
 
@@ -111,8 +114,8 @@ def create_app(
             )
 
     @app.get("/health")
-    def health() -> dict[str, str]:
-        return {"status": "ok"}
+    def health() -> dict[str, Any]:
+        return public_deployment_health(campaign_root)
 
     @app.get("/v1/play/context", dependencies=[Depends(auth)])
     def context() -> dict[str, Any]:
@@ -162,8 +165,15 @@ def create_app_from_env() -> FastAPI:
     if not root or not runtime_root:
         raise RuntimeError("SWORD_CAMPAIGN_ROOT and SWORD_RUNTIME_ROOT are required")
 
+    campaign_root = Path(root)
+    # Bootstrap has already fetched/reconciled the persistent checkout. Before
+    # importing live campaign authority into an image, prove that the immutable
+    # Railway build can safely execute that checkout. Runtime/game/dependency or
+    # deployment-file drift fails startup instead of creating mixed-source play.
+    assert_deployment_compatible(campaign_root)
+
     token = os.environ.get("SWORD_API_TOKEN") or secrets.token_urlsafe(48)
-    app = create_app(Path(root), token, Path(runtime_root), recover=True)
+    app = create_app(campaign_root, token, Path(runtime_root), recover=True)
 
     mcp_environment = (
         "SWORD_MCP_PUBLIC_URL",
