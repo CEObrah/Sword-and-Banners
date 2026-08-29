@@ -23,10 +23,24 @@ from sword_runtime.sovereign_campaign_authority import operation_entry_projectio
 _REMOTE_PERSON_CHANNEL_KINDS = frozenset({
     "message", "audience_response", "institutional_response", "petition_response",
 })
+_STALE_ENTRY_DIRECTIVE_KINDS = frozenset({"hold_staging_and_report"})
 
 
 class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
     """Keep bounded operation, interaction, and deployment handoffs aligned with exact authority."""
+
+    @staticmethod
+    def _campaign_commander_name(campaign_command: Mapping[str, Any], commander_ref: str) -> str | None:
+        planning = campaign_command.get("march_planning") if isinstance(campaign_command.get("march_planning"), Mapping) else {}
+        scheme = planning.get("campaign_scheme") if isinstance(planning.get("campaign_scheme"), Mapping) else {}
+        rows = scheme.get("command_assignments") if isinstance(scheme.get("command_assignments"), list) else []
+        for row in rows:
+            if not isinstance(row, Mapping) or row.get("commander_ref") != commander_ref:
+                continue
+            name = row.get("commander_name")
+            if isinstance(name, str) and name:
+                return name
+        return None
 
     def _controlled_operation_views(self, controlled_refs: set[str]) -> list[dict[str, Any]]:
         views = super()._controlled_operation_views(controlled_refs)
@@ -82,8 +96,24 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
                     packet["hostile_entry_authorized"] = True
                     packet["entry_status"] = "authorized"
                     packet["entry_authority_basis"] = authority.get("basis")
+                    next_trigger = packet.get("next_phase_trigger")
+                    if isinstance(next_trigger, str) and "entry authority" in next_trigger.lower():
+                        packet["historical_next_phase_trigger"] = next_trigger
+                        packet["next_phase_trigger"] = (
+                            "Hostile entry authority is already established. Exact march sequence, timing, command assignment, "
+                            "and tactics remain separate authorities."
+                        )
+                        packet["next_phase_trigger_projection_only"] = True
                     current_order["mission_packet"] = packet
                 current_order["effective_entry_authority"] = copy.deepcopy(dict(authority))
+                follow_on = current_order.get("follow_on_requirement")
+                if isinstance(follow_on, str) and "entry authority" in follow_on.lower():
+                    current_order["historical_follow_on_requirement"] = follow_on
+                    current_order["follow_on_requirement"] = (
+                        "Hostile entry authority is already established. Await or execute the distinct exact march/order handoff; "
+                        "movement, tactics, and temporary campaign roles remain separate decisions."
+                    )
+                    current_order["follow_on_requirement_projection_only"] = True
                 if str(current_order.get("status", "")) == "staged_awaiting_entry_authority":
                     current_order["historical_staging_status"] = current_order.get("status")
                     current_order["status"] = "completed_staging_entry_now_authorized"
@@ -98,6 +128,60 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
                     "Any older directive whose only blocker is missing war/entry authority is no longer a current legal-entry block. "
                     "Exact march sequence, command assignment, and tactical orders remain separate authorities."
                 )
+
+                directive = campaign_command.get("current_superior_directive")
+                if isinstance(directive, Mapping):
+                    directive = copy.deepcopy(dict(directive))
+                    text = str(directive.get("directive_text") or "")
+                    kind = str(directive.get("kind") or "")
+                    if kind in _STALE_ENTRY_DIRECTIVE_KINDS and "entry authority" in text.lower():
+                        directive["historical_status"] = directive.get("status")
+                        directive["historical_directive_text"] = text
+                        directive["status"] = "superseded_by_entry_authority"
+                        directive["status_projection_only"] = True
+                        directive["entry_hold_effective"] = False
+                        directive["effective_directive_rule"] = (
+                            "Maintain readiness, security, reconnaissance, and command reporting while awaiting the distinct exact march/order handoff. "
+                            "The prior hostile-entry prohibition is no longer effective."
+                        )
+                        campaign_command["current_superior_directive"] = directive
+
+                daily = campaign_command.get("daily_cycle")
+                if isinstance(daily, Mapping):
+                    daily = copy.deepcopy(dict(daily))
+                    paused_phase = daily.get("paused_campaign_phase")
+                    if paused_phase == "awaiting_entry_authority" and str(view.get("campaign_phase", "")) != "awaiting_entry_authority":
+                        daily["historical_paused_campaign_phase"] = paused_phase
+                        daily["paused_campaign_phase"] = view.get("campaign_phase")
+                        daily["paused_campaign_phase_projection_only"] = True
+                    campaign_command["daily_cycle"] = daily
+
+                planning = campaign_command.get("march_planning")
+                if isinstance(planning, Mapping):
+                    planning = copy.deepcopy(dict(planning))
+                    scheme = planning.get("campaign_scheme")
+                    if isinstance(scheme, Mapping):
+                        scheme = copy.deepcopy(dict(scheme))
+                        scheme_status = scheme.get("status")
+                        if isinstance(scheme_status, str) and "entry_authority" in scheme_status:
+                            scheme["historical_status"] = scheme_status
+                            scheme["status"] = "staff_plan_pending_exact_orders"
+                            scheme["status_projection_only"] = True
+                        planning["campaign_scheme"] = scheme
+                    campaign_command["march_planning"] = planning
+
+                supreme_ref = campaign_command.get("supreme_commander_ref") or campaign_command.get("superior_command_ref")
+                if isinstance(supreme_ref, str) and supreme_ref:
+                    context = copy.deepcopy(dict(view.get("campaign_context", {})))
+                    if not isinstance(context.get("campaign_commander_ref"), str) or not context.get("campaign_commander_ref"):
+                        context["campaign_commander_ref"] = supreme_ref
+                        context["campaign_commander_projection_only"] = True
+                    if not isinstance(context.get("campaign_commander_name"), str) or not context.get("campaign_commander_name"):
+                        name = self._campaign_commander_name(campaign_command, supreme_ref)
+                        if isinstance(name, str) and name:
+                            context["campaign_commander_name"] = name
+                    view["campaign_context"] = context
+
                 view["campaign_command"] = campaign_command
         return views
 
@@ -148,7 +232,8 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
             guidance = context.setdefault("narration_guidance", {})
             guidance["campaign_entry_authority"] = (
                 "When a controlled operation exposes entry_authority.authorized=true, do not narrate a need for another war declaration or hostile-entry authorization. "
-                "Older staging packets/directives may be historical remnants of the prior gate. A distinct march, formation assignment, tactical order, ceasefire, treaty, or war-termination decision must still come from its own authority."
+                "Fields prefixed historical_ preserve stale pre-authority text only for provenance; projection-only status/directive fields are the effective player-facing reading until chronology commits the next exact order lifecycle. "
+                "A distinct march, formation assignment, tactical order, ceasefire, treaty, or war-termination decision must still come from its own authority."
             )
 
         interaction = context.get("commands", {}).get("command_types", {}).get("interaction_action")
