@@ -3,13 +3,15 @@ name: Verify Sword and Banners
 on:
   pull_request:
   push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
   contents: read
 
-# A branch push and its PR synchronization may describe the same exact head.
-# Deduplicate by source SHA so either delivery path can verify that head once.
+# Pull requests verify feature heads; direct pushes are verified only on main.
+# This avoids duplicate feature-branch push/PR runs contending in one concurrency group.
 concurrency:
   group: sword-verify-${{ github.workflow }}-${{ github.event.pull_request.head.sha || github.sha }}
   cancel-in-progress: true
@@ -73,6 +75,9 @@ jobs:
 
       - name: Deployment source compatibility regressions
         run: python tools/run_pytest_module.py -q tests/runtime/test_deployment_attestation.py
+
+      - name: Interaction access, routing, and entry projection regressions
+        run: python tools/run_pytest_module.py -q tests/runtime/test_interaction_route_integrity.py tests/runtime/test_campaign_command_contact.py tests/runtime/test_campaign_command_request_staging.py tests/runtime/test_entry_authority_projection.py
 
       - name: GM Skill presentation contract
         run: python tools/run_pytest_module.py -q tests/runtime/test_skill_repository_contract.py tests/runtime/test_diegetic_skill_contract.py
