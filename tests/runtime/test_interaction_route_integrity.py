@@ -165,6 +165,7 @@ def test_campaign_contact_then_substantive_request_produces_one_later_superior_r
     request_host = request_hosts[0]
     assert request_host["contact_ref"] == second_ref
     assert request_host["request_topics"] == ["march_orders", "vanguard"]
+    assert request_host["request_dispositions"]["vanguard"] == "unresolved_no_exact_ruling"
     assert CampaignTime.parse(request_host["next_due"]) >= CampaignTime.parse(contact_hosts[0]["next_due"]).add_seconds(15 * 60)
     assert get_causal_event_from_reader(planner, request_host["contact_ref"]) is None
 
@@ -176,7 +177,9 @@ def test_campaign_contact_then_substantive_request_produces_one_later_superior_r
     assert response["actor_ref"] == "char_mou_gou"
     assert response["process_stage"] == "campaign_command_request_answered"
     assert "vanguard" in response["summary"].lower()
-    assert "does not grant" in response["summary"].lower()
+    assert "remains unresolved" in response["summary"].lower()
+    assert "not a denial" in response["summary"].lower()
+    assert "does not grant" not in response["summary"].lower()
     assert "march" in response["summary"].lower()
     assert "move Tang Wei's army" in request_host["response_summary"] or "march order" in request_host["response_summary"]
 

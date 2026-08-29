@@ -58,6 +58,18 @@ def _planner(campaign):
     operation["order_status"] = "awaiting_entry_authority"
     planner.put(op_path, operation)
 
+    # The live campaign can legitimately move Wei and his command staff after
+    # the historical council. These tests are about convening that council, so
+    # restore their disposable fixture to the council venue before scheduling it.
+    player = copy.deepcopy(planner.read("state/player.json"))
+    player["location"] = "loc_kanyou"
+    player["current_location"] = "loc_kanyou"
+    planner.put("state/player.json", player)
+    lin_path = planner.owner_path("char_lin_zhen")
+    lin = copy.deepcopy(planner.read(lin_path))
+    lin["current_location"] = "loc_kanyou"
+    planner.put(lin_path, lin)
+
     if isinstance(cycle_ref, str) and cycle_ref:
         owner_index = copy.deepcopy(planner.read("state/index/owner-index.json"))
         owners = owner_index.get("owners") if isinstance(owner_index, dict) else None

@@ -65,6 +65,30 @@ def execute(root, command_type, payload, *, actor='char_tang_wei', mode='gamepla
 
 def execute_internal(root, command_type, payload, *, request_id=None, mode='autonomous'):
     from sword_runtime.engine import RepositoryCommandPlanner
+    # Tests that materialize an anonymous Qin opponent beside Tang Wei must not
+    # depend on whichever live campaign location happens to be committed in the
+    # repository fixture. If that mutable location has no conserved Qin command
+    # cohort, move only the disposable test player aliases to the stable Qin
+    # eastern depot and source the test body there. This never touches production
+    # state and preserves exact cohort conservation in the command under test.
+    if (
+        command_type == 'person_materialize'
+        and isinstance(payload, dict)
+        and str(payload.get('state', 'qin')) == 'qin'
+        and str(payload.get('role', '')) == 'command_personnel'
+        and str(payload.get('person_ref', '')).startswith('char_test_')
+    ):
+        player_path=Path(root)/'state/player.json'
+        player=json.load(open(player_path))
+        requested_location=str(payload.get('source_location_ref') or '')
+        if requested_location and requested_location == str(player.get('location') or '') and requested_location != 'loc_qin_eastern_depot':
+            player['location']='loc_qin_eastern_depot'
+            player['current_location']='loc_qin_eastern_depot'
+            player_path.write_text(json.dumps(player,ensure_ascii=False,sort_keys=True,separators=(',',':'))+'\n')
+            subprocess.run(['git','-C',str(root),'add',str(player_path.relative_to(root))],check=True)
+            subprocess.run(['git','-C',str(root),'commit','--quiet','-m','test stable Qin opponent location'],check=True)
+            payload=dict(payload)
+            payload['source_location_ref']='loc_qin_eastern_depot'
     return execute(root,command_type,payload,actor=RepositoryCommandPlanner.INTERNAL_ACTOR,mode=mode,request_id=request_id)
 
 def execute_production(root, command_type, payload, *, actor='char_tang_wei', mode='gameplay', request_id=None):

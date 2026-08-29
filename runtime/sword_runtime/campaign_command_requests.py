@@ -307,9 +307,9 @@ def _response_for(
                 "Headquarters confirms that Tang Wei's current exact campaign order/directive already carries the vanguard or advance-guard assignment; that exact owner, not this reply, is the assignment authority."
             )
         else:
-            dispositions["vanguard"] = "not_granted_currently"
+            dispositions["vanguard"] = "unresolved_no_exact_ruling"
             parts.append(
-                "Mou Gou's headquarters does not grant Tang Wei the vanguard or advance-guard lead through this request. His current exact campaign assignment remains controlling. Any later vanguard assignment requires a new exact campaign order or directive."
+                "Current campaign authority contains no exact vanguard or advance-guard assignment for Tang Wei and no explicit refusal of his request. The vanguard request therefore remains unresolved; omission from the march order is not a denial. Any later grant or refusal must come through an explicit authoritative campaign-command disposition."
             )
     if not parts:
         return None

@@ -90,7 +90,18 @@ def test_personal_combat_training_and_recovery_use_exact_people_and_elapsed_time
     with pytest.raises(ValueError):
         execute(campaign,'individual_training',{'focus':'Formation Command','hours':10000})
     opponent='char_test_personal_combat_opponent'
-    player_location=json.load(open(campaign/'state/player.json'))['location']
+    # This invariant must not depend on the mutable live save's current player location.
+    # Put the isolated test fixture at a stable Qin reserve location where a conserved
+    # command-personnel cohort is available, then commit that fixture setup before
+    # exercising transactional runtime commands.
+    player_path=campaign/'state/player.json'
+    player=json.load(open(player_path))
+    player_location='loc_qin_eastern_depot'
+    player['location']=player_location
+    player['current_location']=player_location
+    player_path.write_text(json.dumps(player,ensure_ascii=False,sort_keys=True,separators=(',',':'))+'\n')
+    subprocess.run(['git','-C',str(campaign),'add',str(player_path.relative_to(campaign))],check=True)
+    subprocess.run(['git','-C',str(campaign),'commit','--quiet','-m','test stable personal combat location'],check=True)
     _materialize_test_commander(campaign,state='qin',person_ref=opponent,location_ref=player_location)
     t0=CampaignTime.parse(meta(campaign)['time'])
     execute(campaign,'individual_training',{'focus':'Formation Command','hours':2})
