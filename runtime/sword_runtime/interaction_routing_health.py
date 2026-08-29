@@ -13,6 +13,7 @@ from typing import Any
 
 from sword_runtime.campaign_command_contact import _campaign_cycle_for_attempt
 from sword_runtime.campaign_command_requests import _cycle_for_attempt as _campaign_request_cycle
+from sword_runtime.campaign_command_requests import _operation_for_cycle as _campaign_operation_for_cycle
 from sword_runtime.campaign_command_requests import _request_topics as _campaign_request_topics
 from sword_runtime.causal_event_store import get_causal_event_from_reader, iter_causal_events_newest
 from sword_runtime.contact_request_flow import (
@@ -90,8 +91,11 @@ def _route_available(source: Any, attempt: Mapping[str, Any]) -> bool:
         return True
     if _campaign_cycle_for_attempt(source, attempt) is not None:
         return True
-    if _campaign_request_topics(attempt) and _campaign_request_cycle(source, attempt) is not None:
-        return True
+    topics = _campaign_request_topics(attempt)
+    if topics:
+        cycle = _campaign_request_cycle(source, attempt)
+        if cycle is not None and _campaign_operation_for_cycle(source, cycle) is not None:
+            return True
     if _source_message(source, attempt) is not None:
         return True
     return False
