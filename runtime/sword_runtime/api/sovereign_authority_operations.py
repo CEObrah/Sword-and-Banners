@@ -9,14 +9,16 @@ from __future__ import annotations
 
 import copy
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, Optional
 
 from sword_runtime.api.campaign_planning_operations import CampaignPlanningAwareOperations
+from sword_runtime.api.operations import OperationError
+from sword_runtime.deployment_attestation import deployment_attestation
 from sword_runtime.sovereign_campaign_authority import operation_entry_projection
 
 
 class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
-    """Keep the bounded operation handoff consistent with exact sovereign orders."""
+    """Keep bounded operation and deployment handoffs aligned with exact authority."""
 
     def _controlled_operation_views(self, controlled_refs: set[str]) -> list[dict[str, Any]]:
         views = super()._controlled_operation_views(controlled_refs)
@@ -106,6 +108,25 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
                 "Older staging packets/directives may be historical remnants of the prior gate. A distinct march, formation assignment, tactical order, ceasefire, treaty, or war-termination decision must still come from its own authority."
             )
         return context
+
+    def ooc_audit(self, focus: Optional[str] = None, observations: Optional[list[str]] = None) -> dict[str, Any]:
+        result = super().ooc_audit(focus, observations)
+        result["deployment"] = deployment_attestation(self.runtime.root)
+        return result
+
+    def execute_command(self, command):
+        try:
+            return super().execute_command(command)
+        except OperationError as exc:
+            # An old service discovers a deploy-relevant main revision during
+            # remote-durability preflight before it can mutate campaign truth.
+            # Translate that specific operational condition into actionable UX
+            # rather than making a healthy campaign look generically broken.
+            if exc.code == "transaction_remote_durability_failed":
+                attestation = deployment_attestation(self.runtime.root)
+                if attestation.get("deployment_required") is True:
+                    raise OperationError(503, "deployment_required") from exc
+            raise
 
 
 __all__ = ["SovereignAuthorityAwareOperations"]
