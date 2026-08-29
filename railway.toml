@@ -11,11 +11,12 @@ watchPatterns = [
   "!/README.md"
 ]
 
-# Startup reconciles the persistent campaign checkout with the deployed branch.
+# Startup reconciles the persistent campaign checkout with the deployed branch
+# and performs integrity/recovery checks before Uvicorn begins serving traffic.
 [deploy]
 startCommand = "PYTHONPATH=/app/runtime python -m sword_runtime.bootstrap"
 healthcheckPath = "/health"
-healthcheckTimeout = 30
+healthcheckTimeout = 120
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
 overlapSeconds = 0
