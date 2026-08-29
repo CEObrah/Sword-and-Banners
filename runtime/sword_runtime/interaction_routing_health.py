@@ -21,6 +21,7 @@ from sword_runtime.contact_request_flow import (
     _response_ref,
     _route_for_attempt,
 )
+from sword_runtime.message_reply_flow import _source_message
 
 
 _LEDGER_PATH = "state/index/interaction-attempts.json"
@@ -90,6 +91,8 @@ def _route_available(source: Any, attempt: Mapping[str, Any]) -> bool:
     if _campaign_cycle_for_attempt(source, attempt) is not None:
         return True
     if _campaign_request_topics(attempt) and _campaign_request_cycle(source, attempt) is not None:
+        return True
+    if _source_message(source, attempt) is not None:
         return True
     return False
 
