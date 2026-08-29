@@ -19,10 +19,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.causal_event_store import get_causal_event_from_reader, iter_causal_events_newest
-from sword_runtime.contact_request_flow import (
-    _followup_response_ref,
-    _response_ref as contact_response_ref,
-)
+from sword_runtime.contact_request_flow import _followup_response_ref
 from sword_runtime.sim.calendar import CampaignTime
 
 
@@ -189,18 +186,23 @@ def _latest_order(operation: Mapping[str, Any]) -> Mapping[str, Any] | None:
     return None
 
 
-def _operation_for_cycle(planner: Any, cycle: Mapping[str, Any]) -> Mapping[str, Any]:
+def _operation_for_cycle(planner: Any, cycle: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    """Return exact operation authority or None when this is only a contact shell.
+
+    Campaign contact receipt remains useful for synthetic/partial cycles and for
+    recovery diagnostics. A substantive command answer is stricter: if the cycle
+    cannot resolve its exact operation owner, no march/vanguard response is
+    scheduled and the contact layer continues independently.
+    """
     operation_ref = cycle.get("operation_ref")
     if not isinstance(operation_ref, str) or not operation_ref:
-        raise ValueError("campaign command cycle lost operation authority")
+        return None
     try:
         path = planner.owner_path(operation_ref)
-    except (KeyError, FileNotFoundError, ValueError) as exc:
-        raise ValueError("campaign command operation owner is missing") from exc
-    operation = planner.read(path)
-    if not isinstance(operation, Mapping):
-        raise ValueError("campaign command operation owner is invalid")
-    return operation
+        operation = planner.read(path)
+    except (KeyError, FileNotFoundError, ValueError):
+        return None
+    return operation if isinstance(operation, Mapping) else None
 
 
 def _order_has_player_vanguard_assignment(operation: Mapping[str, Any], order: Mapping[str, Any] | None) -> bool:
@@ -229,8 +231,14 @@ def _order_has_player_vanguard_assignment(operation: Mapping[str, Any], order: M
     return False
 
 
-def _response_for(planner: Any, cycle: Mapping[str, Any], topics: tuple[str, ...]) -> tuple[str, dict[str, str]]:
+def _response_for(
+    planner: Any,
+    cycle: Mapping[str, Any],
+    topics: tuple[str, ...],
+) -> tuple[str, dict[str, str]] | None:
     operation = _operation_for_cycle(planner, cycle)
+    if operation is None:
+        return None
     order = _latest_order(operation)
     dispositions: dict[str, str] = {}
     parts: list[str] = []
@@ -266,7 +274,7 @@ def _response_for(planner: Any, cycle: Mapping[str, Any], topics: tuple[str, ...
                 "Mou Gou's headquarters does not grant Tang Wei the vanguard or advance-guard lead through this request. His current exact campaign assignment remains controlling. Any later vanguard assignment requires a new exact campaign order or directive."
             )
     if not parts:
-        raise ValueError("campaign command request produced no disposition")
+        return None
     return " ".join(parts)[:4000], dispositions
 
 
@@ -324,7 +332,10 @@ class CampaignCommandRequestMixin:
                         continue
                     due = max(due, CampaignTime.parse(contact_due).add_seconds(review_seconds))
 
-            response_summary, dispositions = _response_for(self, cycle, topics)
+            response = _response_for(self, cycle, topics)
+            if response is None:
+                continue
+            response_summary, dispositions = response
             pending = _pending_request_host(runtime, cycle_ref)
             if pending is not None:
                 host_id, host = pending
@@ -353,7 +364,7 @@ class CampaignCommandRequestMixin:
             host_id, event_id = _request_ids(attempt_ref)
             superior_ref = cycle.get("superior_command_ref") or cycle.get("supreme_commander_ref")
             if not isinstance(superior_ref, str) or not superior_ref:
-                raise ValueError("campaign command request lost superior command")
+                continue
             hosts[host_id] = {
                 "host_id": host_id,
                 "kind": "institutional_followup",
@@ -392,4 +403,5 @@ class CampaignCommandRequestMixin:
 __all__ = [
     "CampaignCommandRequestMixin",
     "campaign_command_request_response_ref",
+    "_operation_for_cycle",
 ]
