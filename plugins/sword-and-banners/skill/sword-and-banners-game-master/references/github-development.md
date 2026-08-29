@@ -44,6 +44,20 @@ python tools/test_changed.py <changed paths>
 
 The hosted workflow is deliberately not a giant soak suite. `quick_check.py` protects syntax/JSON/schema integrity. `test_changed.py` always includes architecture/transaction coverage and routes real changed owners to maintained regressions; a second clean runner executes persistent runtime invariants in isolation because those tests deliberately exercise locking/recovery boundaries. Run `python tools/run_release_suite.py`, deterministic current-campaign replay, or recovery diagnostics when the subsystem/release warrants them rather than making every small PR expensive and noisy. The separate scheduled/manual `soak` workflow runs only the maintained long-horizon vitality, no-global-scan, and named-person identity checks; it is observational CI, not a live-game scheduler.
 
+## Skill packaging is GitHub-first
+
+For every Sword & Banners GM Skill change, update the authoritative Skill source in GitHub before building or sending a chat package.
+
+The required order is:
+1. edit and validate the Skill source on the repository branch;
+2. commit it, run the repository checks, and merge the finished change under the normal workflow;
+3. resolve the exact committed GitHub revision that is the package source;
+4. only then build `skill.zip` from that exact committed tree and send it in chat when a package is actually needed.
+
+Never hand-edit or package a Skill ZIP ahead of GitHub. Never treat a chat attachment, local scratch directory, previously generated ZIP, or installed Skill copy as source authority. A package must not contain Skill content that has not first been committed to GitHub. If a package is rebuilt later, identify or verify the exact GitHub source revision again rather than assuming an older artifact is still current.
+
+Packaging is a delivery step, not a source-editing step. A merged repository change does not by itself prove that ChatGPT's installed Skill copy has refreshed, and producing a ZIP does not prove installation or deployment.
+
 ## Verification states are distinct
 
 Keep these statements separate:
