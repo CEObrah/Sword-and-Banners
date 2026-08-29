@@ -98,6 +98,7 @@ def test_personal_combat_training_and_recovery_use_exact_people_and_elapsed_time
     player=json.load(open(player_path))
     player_location='loc_qin_eastern_depot'
     player['location']=player_location
+    player['current_location']=player_location
     player_path.write_text(json.dumps(player,ensure_ascii=False,sort_keys=True,separators=(',',':'))+'\n')
     subprocess.run(['git','-C',str(campaign),'add',str(player_path.relative_to(campaign))],check=True)
     subprocess.run(['git','-C',str(campaign),'commit','--quiet','-m','test stable personal combat location'],check=True)
