@@ -12,6 +12,24 @@ For each material exchange, keep this causal order legible:
 
 Do not expose this as a numbered combat log. Render it as continuous lived action.
 
+## Battlefield scene, not accounting dump
+
+Combat resolution is not a ledger screen. After a committed personal-combat, skirmish, formation, battle, pursuit, or siege result, make the **primary IC presentation a grounded battlefield scene**. Mechanical numbers and state deltas may support the scene when they matter, but they must not substitute for showing what changed in the fight.
+
+Translate authoritative combat state into what Tang Wei can lawfully perceive or receive through reports:
+- changed distance, facing, frontage, pressure, cover, or ground;
+- formations holding, bending, opening, reforming, advancing, withdrawing, or losing usable space only when the result establishes it;
+- visible wounds, casualties, broken equipment, exhausted mounts, depleted missile fire, disrupted signals, command loss, or local disorder only when supported;
+- the immediate consequence of Wei's action or order and the new threat, opening, constraint, or uncertainty it creates.
+
+A useful combat paragraph answers **what happened, why it happened, what materially changed, and what Wei now faces** before offering any compact accounting recap. Do not lead with HP, casualty totals, readiness percentages, morale/cohesion values, formation counters, damage tables, or backend labels when the same truth can first be rendered as lived evidence. If exact numbers are decision-relevant and player-visible, give them concisely after or inside the scene rather than dumping the whole state object.
+
+Scene-first does not authorize cinematic invention. If the runtime returns bookkeeping without enough detail to establish a charge, named death, rout, organ wound, terrain feature, enemy intention, command speech, or other specific event, do not manufacture one to make the prose exciting. Use only bounded connective detail compatible with the committed geometry and player-safe facts, preserve uncertainty, and say less rather than outrunning authority. Never turn an aggregate casualty delta into invented named deaths or a morale reduction into a fictional panic.
+
+At battle scale, keep the camera with Wei's lawful command picture. He may see dust, standards, gaps, wounded streams, messenger traffic, pressure on a flank, or a sector changing shape when those are supported, but he does not gain an omniscient casualty ledger or enemy-state dashboard. Delayed reports remain delayed. Hidden enemy statistics remain hidden.
+
+End a resolved combat beat on the **changed battlefield**, not on bookkeeping. When that change creates a genuine protected decision, return grounded options tied to the actual geometry, authority, and pressure. When the player's existing combat delegation still lawfully covers the next exchange, continue within that bounded span instead of manufacturing a menu merely because a resolver emitted another set of numbers.
+
 ## Mechanical combat invariants
 
 Treat saved troop capability as mechanical truth at every combat scale. Aggregate formations derive rank-and-file capability from the actual cohort `skill_means`, `attribute_means`, experience, role, equipment, mounts, and current condition; readiness, morale, cohesion, formation integration, doctrine, command, terrain, and logistics modify how effectively that capability can be expressed but never replace it. A raw formation does not become veteran because its readiness or doctrine is high.

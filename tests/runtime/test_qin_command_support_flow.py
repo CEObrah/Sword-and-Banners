@@ -55,8 +55,12 @@ def _seed_active_scope(planner, *, formation_refs=None):
         formation["command_authority"] = "char_tang_wei"
         planner.put(path, formation)
 
-    # Campaign-briefing tests exercise the pre-march staff-briefing scenario.
-    # Seed that physical assembly explicitly instead of inheriting the mutable live save.
+    # Campaign-briefing tests exercise a briefing before the player has executed
+    # the currently lawful advance. Seed the physical assembly explicitly instead
+    # of inheriting formation locations from the mutable live save. Sovereign
+    # campaign-order projection may already authorize hostile entry, so the
+    # expected packet follows that current legal authority rather than reviving
+    # the obsolete missing-entry gate.
     if len(refs) > 1:
         op_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
         operation = copy.deepcopy(planner.read(op_path))
@@ -251,12 +255,12 @@ def test_operation_request_gets_playable_qin_campaign_briefing_and_mission_packe
     order = operation["operational_orders"][-1]
     assert order["actionability_status"] == "actionable"
     assert order["status"] == "staff_briefed_awaiting_commander_execution"
-    assert order["mission_packet"]["mission_phase"] == "campaign_muster_and_staging"
-    assert order["mission_packet"]["destination_ref"] == "loc_kanyou"
+    assert order["mission_packet"]["mission_phase"] == "campaign_concentration_and_advance"
+    assert order["mission_packet"]["destination_ref"] == "loc_sanyou"
     assert order["mission_packet"]["strategic_target_ref"] == "loc_sanyou"
     assert order["mission_packet"]["rendezvous_location_ref"] == "loc_qin_eastern_depot"
-    assert order["mission_packet"]["hostile_entry_authorized"] is False
-    assert order["mission_packet"]["entry_status"] == "awaiting_war_or_entry_authority"
+    assert order["mission_packet"]["hostile_entry_authorized"] is True
+    assert order["mission_packet"]["entry_status"] == "authorized"
     assert order["mission_packet"]["agency_rule"].startswith("These Qin instructions establish the immediate lawful destination")
 
 
@@ -293,9 +297,9 @@ def test_play_context_exposes_actionable_campaign_packet_after_briefing(campaign
     assert view["location_ref"] == "loc_qin_eastern_depot"
     assert view["campaign_arc_ref"] == "arc_ryo_fui_northern_wei_campaign"
     assert view["briefing_information_ref"] == wake["information_ref"]
-    assert view["operational_area_ref"] == "loc_kanyou"
+    assert view["operational_area_ref"] == "loc_sanyou"
     assert view["strategic_target_ref"] == "loc_sanyou"
-    assert view["entry_status"] == "awaiting_war_or_entry_authority"
+    assert view["entry_status"] == "authorized"
     assert view["current_operational_order"]["actionability_status"] == "actionable"
     assert isinstance(view["campaign_context"]["other_friendly_participants"], list)
 
@@ -310,6 +314,9 @@ def test_arrival_handoff_completes_only_after_all_assigned_units_reach_operation
 
     op_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
     operation = planner.read(op_path)
+    packet = operation["operational_orders"][-1]["mission_packet"]
+    destination_ref = str(packet["destination_ref"])
+    assert destination_ref == "loc_sanyou"
     opposing = set(operation.get("opposing_formation_refs", []))
     participants = [ref for ref in operation.get("formation_refs", []) if ref not in opposing]
     assert set(refs).issubset(participants)
@@ -317,26 +324,28 @@ def test_arrival_handoff_completes_only_after_all_assigned_units_reach_operation
     for ref in participants:
         path = planner.owner_path(ref)
         formation = copy.deepcopy(planner.read(path))
-        formation["location_ref"] = "loc_qin_eastern_depot" if ref == straggler else "loc_kanyou"
+        formation["location_ref"] = "loc_qin_eastern_depot" if ref == straggler else destination_ref
         planner.put(path, formation)
     path = planner.owner_path(straggler)
     formation = copy.deepcopy(planner.read(path))
-    assert reconcile_campaign_arrival(planner, OPERATION_REF, destination_ref="loc_kanyou", at=at, unit_duties=[]) is None
+    assert reconcile_campaign_arrival(planner, OPERATION_REF, destination_ref=destination_ref, at=at, unit_duties=[]) is None
 
-    formation["location_ref"] = "loc_kanyou"
+    formation["location_ref"] = destination_ref
     planner.put(path, formation)
     handoff = reconcile_campaign_arrival(
-        planner, OPERATION_REF, destination_ref="loc_kanyou", at=at,
+        planner, OPERATION_REF, destination_ref=destination_ref, at=at,
         unit_duties=[{"formation_ref": refs[0], "duty_id": "forward_security"}],
     )
     assert handoff is not None
-    assert handoff["phase"] == "awaiting_entry_authority"
-    assert "hostile entry is not yet authorized" in handoff["summary"]
-    op_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
+    assert handoff["phase"] in {"operational_area_arrival", "enemy_contact"}
+    assert "hostile entry is not yet authorized" not in handoff["summary"]
     operation = planner.read(op_path)
-    assert operation["order_status"] == "awaiting_entry_authority"
-    assert operation["campaign_phase"] == "awaiting_entry_authority"
+    assert operation["campaign_phase"] == handoff["phase"]
     assert operation["last_phase_information_ref"] == handoff["information_ref"]
+    if handoff["phase"] == "enemy_contact":
+        assert operation["order_status"] == "enemy_contact_awaiting_commander_decision"
+    else:
+        assert operation["order_status"] == "awaiting_follow_on_direction"
 
 
 def test_pending_qin_strategic_order_routes_one_automatic_staff_briefing(campaign):
@@ -408,21 +417,24 @@ def test_grouped_travel_path_triggers_campaign_arrival_handoff(campaign):
 
     op_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
     operation = planner.read(op_path)
+    packet = operation["operational_orders"][-1]["mission_packet"]
+    destination_ref = str(packet["destination_ref"])
+    assert destination_ref == "loc_sanyou"
     opposing = set(operation.get("opposing_formation_refs", []))
     participants = [ref for ref in operation.get("formation_refs", []) if ref not in opposing]
     for ref in participants:
         path = planner.owner_path(ref)
         formation = copy.deepcopy(planner.read(path))
-        formation["location_ref"] = "loc_kanyou"
+        formation["location_ref"] = destination_ref
         planner.put(path, formation)
 
     command = SimpleNamespace(command_type="travel")
     result = planner._command_layer_qin_command_support(
         command,
-        {"destination_ref": "loc_kanyou", "formation_refs": [refs[0]]},
-        lambda: {"world_time": at, "destination": "loc_kanyou"},
+        {"destination_ref": destination_ref, "formation_refs": [refs[0]]},
+        lambda: {"world_time": at, "destination": destination_ref},
     )
-    assert result["campaign_handoff"]["phase"] == "awaiting_entry_authority"
+    assert result["campaign_handoff"]["phase"] in {"operational_area_arrival", "enemy_contact"}
     after = planner.read(op_path)
-    assert after["campaign_phase"] == "awaiting_entry_authority"
+    assert after["campaign_phase"] == result["campaign_handoff"]["phase"]
     assert after["last_phase_information_ref"] == result["campaign_handoff"]["information_ref"]

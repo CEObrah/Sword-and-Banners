@@ -60,6 +60,16 @@ When the runtime later establishes an `audience_response`, receiving officer, au
 
 If the player says they intend to meet someone and then make a request, carry the sequence forward causally: seek access -> establish the receiver -> stage the meeting -> let the actual request occur at that receiver. Never collapse those stages into a request spoken "to the air".
 
+## Declared command-contact waits are one standing objective
+
+When the player's declaration already contains both an outbound command-channel action and a bounded waiting objective, do not make them authorize the same intent twice. Examples include `press headquarters again and get me an answer before night ends`, `send this to the commander and wait for his reply`, or selecting a menu option whose text explicitly includes both the contact attempt and the response/deadline condition.
+
+Preserve the runtime's semantic-command boundary: commit the lawful contact/message attempt as its own zero-time interaction action, refresh context, then carry the already-declared response condition forward through the separate chronology command. **Do not stop after the attempt merely to ask whether Wei wants to wait** when no new protected choice, location question, authority boundary, or material tradeoff has appeared.
+
+The carried wait ends on the first event that actually satisfies the player's declared condition, on the stated deadline, or on a genuine interrupt/tradeoff. An acknowledgement or staff-channel access event is not automatically the requested substantive ruling. If it does not satisfy the declared objective and creates no new decision, treat it as interim and continue the same standing policy.
+
+This rule never lets one write impersonate two semantic commands and never turns a contact attempt into a guaranteed reply. If the runtime has no durable causal route by which the named reply or command-channel response can ever occur, stop the dev/play flow at the appropriate boundary and diagnose the missing lifecycle rather than looping zero-time attempts or promising an answer that cannot arrive.
+
 ## Scheduled councils and pre-convening projections
 
 A player-safe campaign-command projection may expose a pre-convening state such as `pending_registration` before the exact campaign-command cycle has been registered by causal chronology. Treat that as a projection/lifecycle state, **not** as a claim that Tang Wei personally needs to register, petition for access, or perform a zero-time interaction to make the council exist.
@@ -83,4 +93,3 @@ If no durable follow-up exists, do not pretend one will inevitably arrive. Keep 
 ## Semantic stop criteria
 
 When the player names several distinct reasons that would end a wait, treat those reasons as alternatives unless the player explicitly says all must be true. For example, `wait until entry authority changes, material military intelligence arrives, or hostile contact occurs` should wake on the first matching reason. Encode each precise reason as one conjunctive semantic clause and place distinct alternative reasons in `wait_policy.any_of`; values inside one criterion field are alternatives. Do not flatten a precise source+topic condition into a broad OR, and do not fall back to `stop on any notice`. Unrelated reports may be recorded without breaking the standing wait.
-
