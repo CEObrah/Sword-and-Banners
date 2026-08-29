@@ -42,6 +42,47 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
                 return name
         return None
 
+    def _normalize_post_planning_projection(self, view: dict[str, Any]) -> None:
+        """Normalize fields that CampaignPlanningAwareOperations adds after base views.
+
+        Python dispatch invokes this class's `_controlled_operation_views` while the
+        parent `play_context` is still assembling the operation projection. The live
+        march-planning overlay is attached only after that call returns, so planning
+        status and commander-name cleanup must run once more on the final view.
+        """
+        campaign_command = view.get("campaign_command")
+        if not isinstance(campaign_command, Mapping):
+            return
+        campaign_command = copy.deepcopy(dict(campaign_command))
+
+        planning = campaign_command.get("march_planning")
+        if isinstance(planning, Mapping):
+            planning = copy.deepcopy(dict(planning))
+            scheme = planning.get("campaign_scheme")
+            if isinstance(scheme, Mapping):
+                scheme = copy.deepcopy(dict(scheme))
+                scheme_status = scheme.get("status")
+                if isinstance(scheme_status, str) and "entry_authority" in scheme_status:
+                    scheme["historical_status"] = scheme_status
+                    scheme["status"] = "staff_plan_pending_exact_orders"
+                    scheme["status_projection_only"] = True
+                planning["campaign_scheme"] = scheme
+            campaign_command["march_planning"] = planning
+
+        supreme_ref = campaign_command.get("supreme_commander_ref") or campaign_command.get("superior_command_ref")
+        if isinstance(supreme_ref, str) and supreme_ref:
+            context = copy.deepcopy(dict(view.get("campaign_context", {})))
+            if not isinstance(context.get("campaign_commander_ref"), str) or not context.get("campaign_commander_ref"):
+                context["campaign_commander_ref"] = supreme_ref
+                context["campaign_commander_projection_only"] = True
+            if not isinstance(context.get("campaign_commander_name"), str) or not context.get("campaign_commander_name"):
+                name = self._campaign_commander_name(campaign_command, supreme_ref)
+                if isinstance(name, str) and name:
+                    context["campaign_commander_name"] = name
+            view["campaign_context"] = context
+
+        view["campaign_command"] = campaign_command
+
     def _controlled_operation_views(self, controlled_refs: set[str]) -> list[dict[str, Any]]:
         views = super()._controlled_operation_views(controlled_refs)
         try:
@@ -156,6 +197,10 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
                         daily["paused_campaign_phase_projection_only"] = True
                     campaign_command["daily_cycle"] = daily
 
+                # Some older/current callers attach march planning directly to the
+                # base operation view. Normalize it here when present. The final
+                # play_context pass below covers the live overlay added later by
+                # CampaignPlanningAwareOperations.
                 planning = campaign_command.get("march_planning")
                 if isinstance(planning, Mapping):
                     planning = copy.deepcopy(dict(planning))
@@ -224,10 +269,12 @@ class SovereignAuthorityAwareOperations(CampaignPlanningAwareOperations):
         context = super().play_context()
         authorized = [
             row for row in context.get("controlled_operations", [])
-            if isinstance(row, Mapping)
+            if isinstance(row, dict)
             and isinstance(row.get("entry_authority"), Mapping)
             and row["entry_authority"].get("authorized") is True
         ]
+        for view in authorized:
+            self._normalize_post_planning_projection(view)
         if authorized:
             guidance = context.setdefault("narration_guidance", {})
             guidance["campaign_entry_authority"] = (
