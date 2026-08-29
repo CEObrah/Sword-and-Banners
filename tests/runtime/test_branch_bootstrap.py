@@ -8,6 +8,7 @@ import pytest
 
 from sword_runtime.bootstrap import BootstrapError, CheckoutSettings
 from sword_runtime.branch_bootstrap import prepare_campaign_branch
+from sword_runtime.deployment_attestation import deployment_attestation
 from sword_runtime.tx.git import GitStager
 from sword_runtime.tx.remote import GitRemoteDurability
 
@@ -96,11 +97,10 @@ def test_first_bootstrap_creates_dedicated_campaign_durability_branch(
     assert branch == f"campaign/{CAMPAIGN_ID}"
     assert git(checkout, "branch", "--show-current") == branch
     assert git(checkout, "rev-parse", "HEAD") == baseline
-    assert (
-        git(remote, "rev-parse", f"refs/heads/{branch}")
-        == baseline
-    )
-    assert json.loads((checkout / "state" / "meta.json").read_text(encoding="utf-8"))["revision"] == 1
+    assert git(remote, "rev-parse", f"refs/heads/{branch}") == baseline
+    assert json.loads(
+        (checkout / "state" / "meta.json").read_text(encoding="utf-8")
+    )["revision"] == 1
 
 
 def test_source_branch_advance_does_not_break_existing_campaign_preflight(
@@ -129,6 +129,32 @@ def test_source_branch_advance_does_not_break_existing_campaign_preflight(
     assert snapshot.local_head == campaign_head
     assert snapshot.remote_head == campaign_head
     assert git(settings.campaign_root, "rev-parse", "HEAD") == campaign_head
+
+
+def test_same_source_local_ahead_is_left_for_transaction_recovery(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _source, remote, settings, baseline = source_remote_and_settings(tmp_path)
+    configure_deployed_source(monkeypatch, baseline)
+    campaign_branch = prepare_campaign_branch(settings)
+    checkout = settings.campaign_root
+    git(checkout, "config", "user.email", "runtime@example.invalid")
+    git(checkout, "config", "user.name", "Runtime Test")
+
+    local_transaction_head = commit(
+        checkout,
+        "state/meta.json",
+        meta(2),
+        "locally committed transaction awaiting recovery",
+    )
+
+    assert prepare_campaign_branch(settings) == campaign_branch
+
+    assert git(checkout, "rev-parse", "HEAD") == local_transaction_head
+    assert git(remote, "rev-parse", f"refs/heads/{campaign_branch}") == baseline
+    assert json.loads(
+        (checkout / "state" / "meta.json").read_text(encoding="utf-8")
+    )["revision"] == 2
 
 
 def test_new_deployment_merges_source_without_rewriting_campaign_state(
@@ -162,8 +188,49 @@ def test_new_deployment_merges_source_without_rewriting_campaign_state(
     merged_head = git(checkout, "rev-parse", "HEAD")
     assert merged_head != campaign_state_head
     assert git(checkout, "merge-base", "--is-ancestor", source_head, merged_head) == ""
-    assert json.loads((checkout / "state" / "meta.json").read_text(encoding="utf-8"))["revision"] == 2
-    assert (checkout / "runtime" / "sword_runtime" / "engine.py").read_text(encoding="utf-8") == "VALUE = 2\n"
+    assert json.loads(
+        (checkout / "state" / "meta.json").read_text(encoding="utf-8")
+    )["revision"] == 2
+    assert (
+        checkout / "runtime" / "sword_runtime" / "engine.py"
+    ).read_text(encoding="utf-8") == "VALUE = 2\n"
+
+
+def test_split_checkout_remains_compatible_with_deployed_source_attestation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    source, _remote, settings, baseline = source_remote_and_settings(tmp_path)
+    configure_deployed_source(monkeypatch, baseline)
+    campaign_branch = prepare_campaign_branch(settings)
+    checkout = settings.campaign_root
+    git(checkout, "config", "user.email", "runtime@example.invalid")
+    git(checkout, "config", "user.name", "Runtime Test")
+    commit(checkout, "state/meta.json", meta(2), "gameplay revision 2")
+    git(checkout, "push", "-q", "origin", campaign_branch)
+
+    source_head = commit(
+        source,
+        "runtime/sword_runtime/engine.py",
+        "VALUE = 2\n",
+        "new source release",
+    )
+    git(source, "push", "-q", "origin", "main")
+    configure_deployed_source(monkeypatch, source_head)
+    prepare_campaign_branch(settings)
+
+    attestation = deployment_attestation(
+        checkout,
+        {
+            "RAILWAY_GIT_COMMIT_SHA": source_head,
+            "SWORD_GIT_REMOTE": "origin",
+            "SWORD_GIT_BRANCH": campaign_branch,
+        },
+    )
+
+    assert attestation["source_compatible"] is True
+    assert attestation["deployment_required"] is False
+    assert attestation["source_sync_status"] == "checkout_ahead_runtime_neutral"
+    assert attestation["incompatible_paths"] == []
 
 
 def test_source_side_campaign_state_edit_is_refused(
