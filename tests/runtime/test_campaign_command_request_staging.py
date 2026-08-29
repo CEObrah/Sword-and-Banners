@@ -138,7 +138,10 @@ def test_settled_campaign_contact_can_carry_later_substantive_request_without_fa
     assert request_host["campaign_command_cycle_ref"] == cycle_ref
     assert request_host["actor_ref"] == cycle["superior_command_ref"]
     assert request_host["request_topics"] == ["march_orders", "vanguard"]
-    assert "does not grant" in request_host["response_summary"].lower()
+    assert request_host["request_dispositions"]["vanguard"] == "unresolved_no_exact_ruling"
+    assert "remains unresolved" in request_host["response_summary"].lower()
+    assert "not a denial" in request_host["response_summary"].lower()
+    assert "does not grant" not in request_host["response_summary"].lower()
 
     staff_channel_attempt = {
         "actor_id": PLAYER,
