@@ -1,11 +1,15 @@
 """Causal substantive request handling for Tang Wei's campaign headquarters.
 
-`seek_contact` establishes only a lawful headquarters receiving channel.  This
+`seek_contact` establishes only a lawful headquarters receiving channel. This
 module carries a player statement that already included substantive campaign
 business into a separate superior-command review after that receiving stage, or
-handles a request made during an exact established command scene.  It never
+handles a request made during an exact established command scene. It never
 moves troops, invents tactics, changes ownership, or grants a vanguard role
 without an exact order/directive owner.
+
+The final response uses the existing institution-owned follow-up host and event
+settlement path. This keeps one chronology dispatcher and one response-delivery
+authority instead of introducing a second ad-hoc message system.
 """
 from __future__ import annotations
 
@@ -14,14 +18,11 @@ import hashlib
 from collections.abc import Mapping
 from typing import Any
 
-from sword_runtime.api.interaction_surface import mark_interaction_attempt_response
-from sword_runtime.causal_event_store import (
-    get_causal_event_from_reader,
-    iter_causal_events_newest,
-    read_causal_event_owner,
-    write_causal_event_owner,
+from sword_runtime.causal_event_store import get_causal_event_from_reader, iter_causal_events_newest
+from sword_runtime.contact_request_flow import (
+    _followup_response_ref,
+    _response_ref as contact_response_ref,
 )
-from sword_runtime.contact_request_flow import _response_ref as contact_response_ref
 from sword_runtime.sim.calendar import CampaignTime
 
 
@@ -44,7 +45,8 @@ def _digest(prefix: str, value: str) -> str:
 
 
 def campaign_command_request_response_ref(attempt_ref: str) -> str:
-    return f"event_campaign_command_request_{_digest('response', attempt_ref)}"
+    """Return the exact generic institutional-followup response identity."""
+    return _followup_response_ref(attempt_ref)
 
 
 def _request_ids(attempt_ref: str) -> tuple[str, str]:
@@ -70,10 +72,7 @@ def _ledger_attempts(planner: Any) -> list[dict[str, Any]]:
 
 
 def _request_topics(attempt: Mapping[str, Any]) -> tuple[str, ...]:
-    text = " ".join(
-        str(attempt.get(key, "") or "").lower()
-        for key in ("player_statement", "posture")
-    )
+    text = " ".join(str(attempt.get(key, "") or "").lower() for key in ("player_statement", "posture"))
     topics: list[str] = []
     if any(term in text for term in _MARCH_TERMS):
         topics.append("march_orders")
@@ -123,9 +122,9 @@ def _cycle_for_attempt(planner: Any, attempt: Mapping[str, Any]) -> Mapping[str,
             return None
     elif action in {"ask", "request", "petition", "present", "report"}:
         if target_ref == superior_ref:
-            # A person-targeted substantive request is routable only when the
-            # saved attempt itself proves it happened inside an established
-            # co-located scene. Visibility or same-city location is not access.
+            # Person-targeted substantive speech is routable only when the saved
+            # attempt itself proves an established co-located scene. A permitted
+            # person ID or broad same-city location is never access.
             if not isinstance(attempt.get("scene_session_ref"), str) or not attempt.get("scene_session_ref"):
                 return None
         elif target_ref not in {cycle.get("cycle_ref"), operation_ref, coordination_ref, venue_ref}:
@@ -169,7 +168,8 @@ def _pending_request_host(runtime: Mapping[str, Any], cycle_ref: str) -> tuple[s
         if (
             isinstance(host_id, str)
             and isinstance(host, dict)
-            and host.get("kind") == "campaign_command_request"
+            and host.get("kind") == "institutional_followup"
+            and host.get("route_domain") == "campaign_command_request"
             and host.get("campaign_command_cycle_ref") == cycle_ref
             and isinstance(host.get("next_due"), str)
         ):
@@ -207,10 +207,7 @@ def _order_has_player_vanguard_assignment(operation: Mapping[str, Any], order: M
     if not isinstance(order, Mapping):
         return False
     command_group_ref = operation.get("command_group_ref")
-    formation_refs = {
-        str(ref) for ref in operation.get("formation_refs", [])
-        if isinstance(ref, str) and ref
-    }
+    formation_refs = {str(ref) for ref in operation.get("formation_refs", []) if isinstance(ref, str) and ref}
     packet = order.get("mission_packet") if isinstance(order.get("mission_packet"), Mapping) else {}
     for key in ("vanguard_command_ref", "advance_guard_command_ref"):
         value = packet.get(key) if isinstance(packet, Mapping) else None
@@ -226,118 +223,51 @@ def _order_has_player_vanguard_assignment(operation: Mapping[str, Any], order: M
         role = str(directive.get("role", directive.get("assignment_role", ""))).lower()
         if role not in {"vanguard", "advance_guard"}:
             continue
-        applies = {
-            str(ref) for ref in directive.get("applies_to_formation_refs", [])
-            if isinstance(ref, str)
-        }
+        applies = {str(ref) for ref in directive.get("applies_to_formation_refs", []) if isinstance(ref, str)}
         if not applies or formation_refs.intersection(applies):
             return True
     return False
 
 
-def _march_disposition(order: Mapping[str, Any] | None) -> tuple[str, str]:
-    if not isinstance(order, Mapping):
-        return "no_executable_order", "Headquarters confirms that no exact operational march order is currently issued to Tang Wei's field command."
-    order_ref = str(order.get("order_ref", "current order"))
-    status = str(order.get("status", ""))
-    actionability = str(order.get("actionability_status", ""))
-    if actionability == "actionable" or status == "staff_briefed_awaiting_commander_execution":
-        objective = str(order.get("objective") or "Execute the current campaign march order.")
-        follow_on = str(order.get("follow_on_requirement") or "")
-        text = f"Headquarters confirms exact march order {order_ref}: {objective}"
-        if follow_on:
-            text += f" {follow_on}"
-        return "confirmed_actionable_order", text[:2500]
-    return (
-        "no_executable_order",
-        f"Headquarters confirms that {order_ref} is not a new executable march order in its current state ({actionability or status or 'not actionable'}). Staff planning does not itself move Tang Wei's army or authorize tactics.",
-    )
-
-
-def _vanguard_disposition(operation: Mapping[str, Any], order: Mapping[str, Any] | None) -> tuple[str, str]:
-    if _order_has_player_vanguard_assignment(operation, order):
-        return (
-            "already_assigned_by_exact_order",
-            "Headquarters confirms that Tang Wei's current exact campaign order/directive already carries the vanguard or advance-guard assignment; that exact owner, not this reply, is the assignment authority.",
-        )
-    return (
-        "not_granted_currently",
-        "Mou Gou's headquarters does not grant Tang Wei the vanguard or advance-guard lead through this request. His current exact campaign assignment remains controlling. Any later vanguard assignment requires a new exact campaign order or directive.",
-    )
-
-
-def settle_campaign_command_request(planner: Any, host: Mapping[str, Any], at: str) -> str:
-    attempt_ref = host.get("source_interaction_attempt_ref")
-    cycle_ref = host.get("campaign_command_cycle_ref")
-    topics = host.get("request_topics")
-    if not isinstance(attempt_ref, str) or not attempt_ref or not isinstance(cycle_ref, str) or not cycle_ref:
-        raise ValueError("campaign command request host lost request identity")
-    if not isinstance(topics, list) or not topics or any(topic not in {"march_orders", "vanguard"} for topic in topics):
-        raise ValueError("campaign command request topics are invalid")
-    response_ref = campaign_command_request_response_ref(attempt_ref)
-    existing = get_causal_event_from_reader(planner, response_ref)
-    if isinstance(existing, Mapping):
-        return response_ref
-
-    cycle = _cycle_from_ref(planner, cycle_ref)
-    if cycle is None:
-        raise ValueError("campaign command request lost active command cycle")
+def _response_for(planner: Any, cycle: Mapping[str, Any], topics: tuple[str, ...]) -> tuple[str, dict[str, str]]:
     operation = _operation_for_cycle(planner, cycle)
     order = _latest_order(operation)
     dispositions: dict[str, str] = {}
     parts: list[str] = []
     if "march_orders" in topics:
-        code, text = _march_disposition(order)
-        dispositions["march_orders"] = code
-        parts.append(text)
+        if isinstance(order, Mapping) and (
+            str(order.get("actionability_status", "")) == "actionable"
+            or str(order.get("status", "")) == "staff_briefed_awaiting_commander_execution"
+        ):
+            dispositions["march_orders"] = "confirmed_actionable_order"
+            order_ref = str(order.get("order_ref", "current order"))
+            objective = str(order.get("objective") or "Execute the current campaign march order.")
+            follow_on = str(order.get("follow_on_requirement") or "")
+            text = f"Headquarters confirms exact march order {order_ref}: {objective}"
+            if follow_on:
+                text += f" {follow_on}"
+            parts.append(text[:2500])
+        else:
+            dispositions["march_orders"] = "no_executable_order"
+            order_ref = str(order.get("order_ref", "current order")) if isinstance(order, Mapping) else "none"
+            status = str(order.get("actionability_status") or order.get("status") or "not actionable") if isinstance(order, Mapping) else "not issued"
+            parts.append(
+                f"Headquarters confirms that {order_ref} is not a new executable march order in its current state ({status}). Staff planning does not itself move Tang Wei's army or authorize tactics."
+            )
     if "vanguard" in topics:
-        code, text = _vanguard_disposition(operation, order)
-        dispositions["vanguard"] = code
-        parts.append(text)
+        if _order_has_player_vanguard_assignment(operation, order):
+            dispositions["vanguard"] = "already_assigned_by_exact_order"
+            parts.append(
+                "Headquarters confirms that Tang Wei's current exact campaign order/directive already carries the vanguard or advance-guard assignment; that exact owner, not this reply, is the assignment authority."
+            )
+        else:
+            dispositions["vanguard"] = "not_granted_currently"
+            parts.append(
+                "Mou Gou's headquarters does not grant Tang Wei the vanguard or advance-guard lead through this request. His current exact campaign assignment remains controlling. Any later vanguard assignment requires a new exact campaign order or directive."
+            )
     if not parts:
         raise ValueError("campaign command request produced no disposition")
-
-    superior_ref = cycle.get("superior_command_ref") or cycle.get("supreme_commander_ref")
-    if not isinstance(superior_ref, str) or not superior_ref:
-        raise ValueError("campaign command request lost superior command")
-    player = planner.read("state/player.json")
-    location_ref = player.get("location") if isinstance(player, Mapping) else None
-    if not isinstance(location_ref, str) or not location_ref:
-        raise ValueError("campaign command request delivery lost player location")
-
-    _path, owner = read_causal_event_owner(planner)
-    owner["causal_events"][response_ref] = {
-        "event_ref": response_ref,
-        "kind": "institutional_response",
-        "status": "triggered",
-        "due_at": at,
-        "triggered_at": at,
-        "actor_ref": superior_ref,
-        "target_ref": _PLAYER_REF,
-        "process_kind": "campaign_command_request",
-        "process_stage": "answered",
-        "campaign_command_cycle_ref": cycle_ref,
-        "operation_ref": cycle.get("operation_ref"),
-        "source_interaction_attempt_ref": attempt_ref,
-        "request_topics": list(topics),
-        "request_dispositions": dispositions,
-        "summary": " ".join(parts)[:4000],
-        "delivery": {
-            "target_ref": _PLAYER_REF,
-            "location_ref": location_ref,
-            "route": "campaign headquarters staff through the saved superior-command channel",
-        },
-        "provenance": {
-            "kind": "causal_runtime_settlement",
-            "source_owner_ref": cycle_ref,
-            "work_ref": response_ref,
-            "late_catch_up": False,
-        },
-    }
-    owner.setdefault("runtime", {})["last_settled_at"] = at
-    write_causal_event_owner(planner, owner)
-    mark_interaction_attempt_response(planner, attempt_ref, at=at, response_ref=response_ref)
-    return response_ref
+    return " ".join(parts)[:4000], dispositions
 
 
 class CampaignCommandRequestMixin:
@@ -357,9 +287,8 @@ class CampaignCommandRequestMixin:
             raise ValueError("campaign superior request response delay is invalid")
         review_seconds = delay_minutes * 60
 
-        # Physical ledger order is authoritative for "latest player attempt" when
-        # several zero-time requests share the same timestamp. The helper read
-        # deliberately preserves that append order instead of sorting by digest.
+        # Physical ledger order is the actual append order for same-timestamp
+        # zero-time requests. Keep the newest substantive declaration per cycle.
         newest_by_cycle: dict[str, tuple[dict[str, Any], Mapping[str, Any], tuple[str, ...]]] = {}
         for attempt in reversed(_ledger_attempts(self)):
             topics = _request_topics(attempt)
@@ -385,9 +314,9 @@ class CampaignCommandRequestMixin:
                 settled_contact = _settled_cycle_contact(self, cycle_ref)
                 pending_contact = _pending_cycle_contact(runtime, cycle_ref)
                 if settled_contact is None and pending_contact is None:
-                    # A substantive message embedded in seek_contact does not skip
-                    # the access stage. If no lawful receiving path exists, audit
-                    # will expose the orphan instead of fabricating receipt.
+                    # Substantive text embedded in seek_contact never skips the
+                    # receiving stage. Missing routing is an audit defect, not
+                    # permission to fabricate receipt.
                     continue
                 if settled_contact is None and isinstance(pending_contact, Mapping):
                     contact_due = pending_contact.get("next_due")
@@ -395,15 +324,23 @@ class CampaignCommandRequestMixin:
                         continue
                     due = max(due, CampaignTime.parse(contact_due).add_seconds(review_seconds))
 
+            response_summary, dispositions = _response_for(self, cycle, topics)
             pending = _pending_request_host(runtime, cycle_ref)
             if pending is not None:
                 host_id, host = pending
                 old_due = CampaignTime.parse(str(host["next_due"]))
                 final_due = due if due > old_due else old_due
                 host.update({
+                    "contact_ref": attempt_ref,
                     "source_interaction_attempt_ref": attempt_ref,
                     "source_event_id": attempt_ref,
+                    "source_process_ref": cycle_ref,
+                    "source_owner_ref": cycle_ref,
+                    "actor_ref": cycle.get("superior_command_ref") or cycle.get("supreme_commander_ref"),
+                    "response_summary": response_summary,
+                    "response_stage": "campaign_command_request_answered",
                     "request_topics": list(topics),
+                    "request_dispositions": dispositions,
                     "requested_statement": str(attempt.get("player_statement") or "")[:2000],
                     "next_due": str(final_due),
                     "safe_through": str(final_due.add_seconds(-1)),
@@ -414,17 +351,28 @@ class CampaignCommandRequestMixin:
                 continue
 
             host_id, event_id = _request_ids(attempt_ref)
+            superior_ref = cycle.get("superior_command_ref") or cycle.get("supreme_commander_ref")
+            if not isinstance(superior_ref, str) or not superior_ref:
+                raise ValueError("campaign command request lost superior command")
             hosts[host_id] = {
                 "host_id": host_id,
-                "kind": "campaign_command_request",
+                "kind": "institutional_followup",
                 "event_id": event_id,
                 "owner_ref": cycle_ref,
+                "route_domain": "campaign_command_request",
                 "campaign_command_cycle_ref": cycle_ref,
                 "operation_ref": cycle.get("operation_ref"),
-                "superior_command_ref": cycle.get("superior_command_ref") or cycle.get("supreme_commander_ref"),
+                "contact_ref": attempt_ref,
                 "source_interaction_attempt_ref": attempt_ref,
                 "source_event_id": attempt_ref,
+                "source_process_ref": cycle_ref,
+                "source_owner_ref": cycle_ref,
+                "actor_ref": superior_ref,
+                "response_summary": response_summary,
+                "response_stage": "campaign_command_request_answered",
+                "delivery_route": "campaign headquarters staff through the saved superior-command channel",
                 "request_topics": list(topics),
+                "request_dispositions": dispositions,
                 "requested_statement": str(attempt.get("player_statement") or "")[:2000],
                 "recurrence_seconds": 0,
                 "next_due": str(due),
@@ -434,7 +382,7 @@ class CampaignCommandRequestMixin:
             if not any(isinstance(event, Mapping) and event.get("event_id") == event_id for event in events):
                 events.append({
                     "event_id": event_id,
-                    "kind": "campaign_command_request",
+                    "kind": "institutional_followup",
                     "priority": _REQUEST_PRIORITY,
                     "target_host": host_id,
                     "due_at": str(due),
@@ -444,5 +392,4 @@ class CampaignCommandRequestMixin:
 __all__ = [
     "CampaignCommandRequestMixin",
     "campaign_command_request_response_ref",
-    "settle_campaign_command_request",
 ]
