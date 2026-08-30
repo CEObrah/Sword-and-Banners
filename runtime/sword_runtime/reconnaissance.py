@@ -181,7 +181,7 @@ class MilitaryReconnaissanceMixin:
             raise ValueError("military reconnaissance semantic identity already exists")
 
         formation_ref = str(record["formation_ref"])
-        formation_path, formation = self._load_formation(formation_ref)
+        _formation_path, formation = self._load_formation(formation_ref)
         if formation.get("command_authority") != command.actor_id:
             raise PermissionError("military reconnaissance requires exact formation command authority")
         if int(formation.get("personnel", 0) or 0) <= 0:
@@ -241,6 +241,10 @@ class MilitaryReconnaissanceMixin:
         self._register_owner(ref, path)
         self._index_recon(ref, path, command.actor_id, active=True)
         self._schedule_recon_host(ref, due)
+        # This domain layer intercepts the hidden semantic transport before the
+        # base reducer. It therefore owns the ordinary one-command revision write
+        # explicitly even though reconnaissance dispatch consumes no world time.
+        self._write_meta(command)
         return self._result(
             reconnaissance_ref=ref,
             status="active",
@@ -303,8 +307,7 @@ class MilitaryReconnaissanceMixin:
 
     def _enemy_observation(self, process: Mapping[str, Any], at: str) -> dict[str, Any]:
         formation_ref = str(process["formation_ref"])
-        formation_path, scout = self._load_formation(formation_ref)
-        del formation_path
+        _formation_path, scout = self._load_formation(formation_ref)
         scout_location = str(scout.get("location_ref") or "")
         region_ref = str(process["region_ref"])
         commander_ref = str(process["scout_commander_ref"])
@@ -483,6 +486,11 @@ class MilitaryReconnaissanceMixin:
             knowers.append(target_ref)
             knowers.sort()
         confidence = int(info.get("confidence_milli", 500) or 500)
+        departed_at = str(process.get("report_dispatched_at") or at)
+        travel_hours = max(
+            0,
+            int(round(CampaignTime.parse(departed_at).seconds_until(CampaignTime.parse(at)) / 3600.0)),
+        )
         info.setdefault("holder_states", {})[target_ref] = {
             "epistemic_kind": "report",
             "confidence_milli": confidence,
@@ -493,11 +501,12 @@ class MilitaryReconnaissanceMixin:
         info.setdefault("deliveries", []).append({
             "source_ref": str(process["scout_commander_ref"]),
             "target_ref": target_ref,
-            "departed_at": str(process.get("report_dispatched_at") or at),
+            "departed_at": departed_at,
             "arrived_at": at,
             "source_location_ref": source_location_ref,
             "target_location_ref": target_location_ref,
             "channel": "military_command_courier",
+            "travel_hours": travel_hours,
             "confidence_milli": confidence,
         })
         info["deliveries"] = info["deliveries"][-64:]
