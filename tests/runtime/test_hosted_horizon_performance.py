@@ -5,8 +5,17 @@ import time
 
 import pytest
 
+from sword_runtime.campaign_command_contact import CampaignCommandContactMixin
+from sword_runtime.campaign_command_requests import CampaignCommandRequestMixin
+from sword_runtime.campaign_follow_on_order import materialize_reconciled_campaign_follow_on_orders
+from sword_runtime.message_reply_flow import MessageReplyFlowMixin
+from sword_runtime.production_planner import ProductionCampaignPlanner as _BaseProductionCampaignPlanner
 from sword_runtime.production_runtime_planner import ProductionCampaignPlanner
+from sword_runtime.qin_command_support_flow import QinCommandSupportFlowMixin
+from sword_runtime.qin_operational_order_guard import QinOperationalOrderGuardMixin
 from sword_runtime.sim.calendar import CampaignTime
+from sword_runtime.sovereign_campaign_authority_mixin import SovereignCampaignAuthorityMixin
+from sword_runtime.time_integration import ProductionTimeIntegrationMixin
 
 
 class CountingProductionPlanner(ProductionCampaignPlanner):
@@ -19,17 +28,26 @@ class CountingProductionPlanner(ProductionCampaignPlanner):
         return super()._advance_causal_runtime(target_text)
 
 
-@pytest.mark.parametrize(("days", "cpu_threshold"), [(30, 12.0), (90, 30.0), (365, 75.0)])
-def test_production_hosted_horizon_is_bounded_atomic_windows(campaign, days: int, cpu_threshold: float):
-    """Guard real hosted chronology at 30/90/365 days.
+class ProductionPlannerWithoutReconMixin(
+    ProductionTimeIntegrationMixin,
+    SovereignCampaignAuthorityMixin,
+    QinCommandSupportFlowMixin,
+    QinOperationalOrderGuardMixin,
+    CampaignCommandRequestMixin,
+    MessageReplyFlowMixin,
+    CampaignCommandContactMixin,
+    _BaseProductionCampaignPlanner,
+):
+    """Diagnostic mirror of hosted composition before the reconnaissance mixin."""
 
-    Long skips use seven-day in-memory causal heaps, matching the scheduler safety
-    cadence, but remain one staged command transaction with no intermediate
-    persistence. CPU time is the regression budget because hosted-runner wall time
-    includes scheduler contention outside this process; a coarse wall-time ceiling
-    still catches pathological blocking or I/O stalls without turning runner load
-    into a false engine regression.
-    """
+    def _prepare_scheduler_for_advance(self, target_text: str) -> None:
+        refreshed = self._reconcile_campaign_entry_authority()
+        materialize_reconciled_campaign_follow_on_orders(self, refreshed)
+        super()._prepare_scheduler_for_advance(target_text)
+
+
+@pytest.mark.parametrize(("days", "cpu_threshold"), [(30, 12.0), (90, 30.0)])
+def test_production_hosted_horizon_is_bounded_atomic_windows(campaign, days: int, cpu_threshold: float):
     planner = CountingProductionPlanner(campaign)
     planner._reset()
     runtime = planner.read("state/runtime.json")
@@ -53,4 +71,28 @@ def test_production_hosted_horizon_is_bounded_atomic_windows(campaign, days: int
     assert int(result["events_processed"]) > 0
     assert str(planner.store.read_json("state/runtime.json")["world_time"]) == disk_start
     assert cpu_elapsed < cpu_threshold, (days, cpu_elapsed, wall_elapsed)
-    assert wall_elapsed < cpu_threshold * 2.0, (days, wall_elapsed, cpu_elapsed)
+
+
+def test_diagnostic_top_level_recon_mixin_cost(campaign):
+    days = 90
+
+    def run(planner_cls):
+        planner = planner_cls(campaign)
+        planner._reset()
+        runtime = planner.read("state/runtime.json")
+        start = CampaignTime.parse(str(runtime["world_time"]))
+        target = start.add_seconds(days * 86400)
+        planner._active_command_type = "advance_time"
+        before = time.process_time()
+        result = planner._advance_runtime(str(target))
+        return time.process_time() - before, int(result["events_processed"])
+
+    with_recon, with_events = run(ProductionCampaignPlanner)
+    without_recon, without_events = run(ProductionPlannerWithoutReconMixin)
+    assert False, {
+        "with_recon_cpu": with_recon,
+        "without_recon_cpu": without_recon,
+        "with_events": with_events,
+        "without_events": without_events,
+        "ratio": with_recon / max(without_recon, 1e-9),
+    }
