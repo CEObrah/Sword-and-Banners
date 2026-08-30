@@ -20,7 +20,6 @@ from sword_runtime.reconnaissance import (
     RECON_INDEX_PATH,
     RECON_SCHEMA,
     RECON_SURFACE_COMMAND,
-    reconnaissance_ref_from_digest,
     reconnaissance_transport,
 )
 
@@ -83,10 +82,10 @@ class ReconnaissanceAwareOperations(SovereignAuthorityAwareOperations):
         out = copy.deepcopy(context)
         commands = out.get("commands")
         if isinstance(commands, dict):
-            command_types = commands.get("command_types")
-            if isinstance(command_types, list) and RECON_SURFACE_COMMAND not in command_types:
-                command_types.append(RECON_SURFACE_COMMAND)
-                command_types.sort()
+            supported = commands.get("supported_command_types")
+            if isinstance(supported, list) and RECON_SURFACE_COMMAND not in supported:
+                supported.append(RECON_SURFACE_COMMAND)
+                supported.sort()
         player_id = str(out.get("campaign", {}).get("player_id") or "")
         if player_id:
             active = self._active_reconnaissance_views(player_id)
@@ -124,10 +123,6 @@ class ReconnaissanceAwareOperations(SovereignAuthorityAwareOperations):
         if not _expects_response(str(payload["action"]), payload.get("expects_response")):
             return
         target_ref = str(payload["target_ref"])
-        # Exact people may answer naturally when local, or through the existing
-        # person/contact/message routes validated by the parent surface.  The
-        # structural defect was accepting response-bearing *object/process*
-        # attempts when no causal responder existed at all.
         if person_owner_path(self.store, target_ref) is not None:
             return
         attempt = {
@@ -140,9 +135,7 @@ class ReconnaissanceAwareOperations(SovereignAuthorityAwareOperations):
 
     def _validate_reconnaissance(self, command: CommandEnvelope) -> dict[str, Any]:
         payload = command.payload
-        if not isinstance(payload, Mapping) or set(payload) != set(payload).intersection(_RECON_PAYLOAD_KEYS):
-            raise OperationError(422, "military_reconnaissance_payload_invalid")
-        if set(payload) - _RECON_PAYLOAD_KEYS:
+        if not isinstance(payload, Mapping) or set(payload) - _RECON_PAYLOAD_KEYS:
             raise OperationError(422, "military_reconnaissance_payload_invalid")
         formation_ref = payload.get("formation_ref")
         operation_ref = payload.get("operation_ref")
@@ -214,9 +207,6 @@ class ReconnaissanceAwareOperations(SovereignAuthorityAwareOperations):
         if command.command_type != RECON_SURFACE_COMMAND:
             return super()._translate_surface_command(command)
         record = self._validate_reconnaissance(command)
-        # Reconnaissance uses the same hidden engine transport boundary as typed
-        # interaction/scene actions. Raw scene_consequence remains forbidden to
-        # callers, so this machine envelope cannot be forged through the public API.
         summary = reconnaissance_transport(record)
         return CommandEnvelope(
             campaign_id=command.campaign_id,
