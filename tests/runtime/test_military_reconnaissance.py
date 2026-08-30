@@ -8,6 +8,7 @@ from sword_runtime.reconnaissance import (
     parse_reconnaissance_transport,
     reconnaissance_transport,
 )
+from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.time_integration import ProductionTimeIntegrationMixin
 
 
@@ -65,6 +66,7 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         formations = operations._all_controlled_formations(player_ref)
         scout = next(row for row in formations if row.get('formation_ref') == formation_ref)
         scout_location = scout['location_ref']
+        scout_commander_ref = scout['commander_ref']
         region_ref = context.get('map_context', {}).get('region_ref')
         if not isinstance(region_ref, str) or region_ref not in location_chain(operations.store.read_json, scout_location):
             region_ref = next(
@@ -80,6 +82,8 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         )
         operation_ref = parent['operation_ref']
 
+        # Regression for issue #157: the old generic operation request must not
+        # promise a response when no causal responder route exists.
         dead_end = _body(
             context,
             request_id='recon-unrouted-operation-response',
@@ -126,10 +130,11 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         after_start = client.get('/v1/play/context', headers=headers).json()
         active = [row for row in after_start.get('active_player_processes', []) if row.get('process_ref') == recon_ref]
         assert active and active[0]['kind'] == 'military_reconnaissance'
+        assert active[0]['phase'] == 'observing'
 
-        wait = _body(
+        observe_wait = _body(
             after_start,
-            request_id='recon-await-report',
+            request_id='recon-await-observation',
             command_type='advance_time',
             payload={
                 'target_time': observation_due_at,
@@ -140,11 +145,57 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
                 },
             },
         )
-        wait_preview = client.post('/v1/commands/preview', headers=headers, json=wait)
+        wait_preview = client.post('/v1/commands/preview', headers=headers, json=observe_wait)
         assert wait_preview.status_code == 200, wait_preview.text
-        waited = client.post('/v1/commands/execute', headers=headers, json=wait)
-        assert waited.status_code == 200, waited.text
-        assert waited.json()['status'] in {'committed', 'duplicate'}
+        observed = client.post('/v1/commands/execute', headers=headers, json=observe_wait)
+        assert observed.status_code == 200, observed.text
+        assert observed.json()['status'] in {'committed', 'duplicate'}
+
+        after_observation = client.get('/v1/play/context', headers=headers).json()
+        in_transit = [row for row in after_observation.get('active_player_processes', []) if row.get('process_ref') == recon_ref]
+        assert in_transit and in_transit[0]['phase'] == 'report_in_transit'
+        assert not [
+            row for row in after_observation.get('known_information', [])
+            if row.get('provenance') == 'military_reconnaissance'
+        ]
+
+        exact_index = operations.store.read_json('state/index/military-reconnaissance.json')
+        exact_path = exact_index['reconnaissance'][recon_ref]
+        exact = operations.store.read_json(exact_path)
+        assert exact['report_dispatched_at'] == after_observation['campaign']['world_time']
+        assert exact['courier_origin_ref'] == scout_location
+        assert exact['report_target_location_ref'] == after_observation['player']['location']
+        information_ref = exact['report_information_ref']
+        info_path = operations.store.read_json('state/information/index.json')['claims'][information_ref]
+        commander_report = operations.store.read_json(info_path)
+        assert commander_report['knowers'] == [scout_commander_ref]
+        assert player_ref not in commander_report['knowers']
+
+        courier_hours = operations.runtime.planner._route_travel_hours(
+            exact['courier_origin_ref'],
+            exact['report_target_location_ref'],
+            modes=('courier',),
+        )
+        assert courier_hours > 0
+        delivery_due = CampaignTime.parse(exact['report_dispatched_at']).add_seconds(courier_hours * 3600)
+        delivery_wait = _body(
+            after_observation,
+            request_id='recon-await-delivery',
+            command_type='advance_time',
+            payload={
+                'target_time': str(delivery_due),
+                'stop_on_player_event': True,
+                'wait_policy': {
+                    'operation_refs': [operation_ref],
+                    'topic_terms': ['approach conditions'],
+                },
+            },
+        )
+        delivery_preview = client.post('/v1/commands/preview', headers=headers, json=delivery_wait)
+        assert delivery_preview.status_code == 200, delivery_preview.text
+        delivered = client.post('/v1/commands/execute', headers=headers, json=delivery_wait)
+        assert delivered.status_code == 200, delivered.text
+        assert delivered.json()['status'] in {'committed', 'duplicate'}
 
         final = client.get('/v1/play/context', headers=headers).json()
         reports = [
@@ -157,9 +208,13 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         assert 'Forward reconnaissance' in reports[-1]['claim']
         assert not [row for row in final.get('active_player_processes', []) if row.get('process_ref') == recon_ref]
 
-        exact_index = operations.store.read_json('state/index/military-reconnaissance.json')
-        exact_path = exact_index['reconnaissance'][recon_ref]
         exact = operations.store.read_json(exact_path)
         assert exact['status'] == 'completed'
         assert exact['report_delivered_at'] == final['campaign']['world_time']
         assert exact['report_information_ref'] == reports[-1]['information_ref']
+        delivered_report = operations.store.read_json(info_path)
+        assert player_ref in delivered_report['knowers']
+        delivery = delivered_report['deliveries'][-1]
+        assert delivery['source_location_ref'] == scout_location
+        assert delivery['target_location_ref'] == final['player']['location']
+        assert delivery['travel_hours'] == courier_hours
