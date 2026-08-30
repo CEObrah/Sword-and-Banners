@@ -58,6 +58,20 @@ def test_royal_council_sovereign_participation_is_explicit():
     assert 'do not fabricate binding authority in dialogue' in playbook
 
 
+def test_narration_guards_positive_diegesis_atomic_travel_and_recovery_continuity():
+    narration = (SKILL / 'references/narration.md').read_text(encoding='utf-8').lower()
+
+    assert 'positive diegetic rendering' in narration
+    assert 'anti-hallucination and authority checks stay backstage' in narration
+    assert 'do not narrate prose as a correction to an unmade claim' in narration
+    assert 'put declared action on screen' in narration
+    assert 'atomic travel and long movement' in narration
+    assert 'do not turn an aggregate duration into invented road incidents' in narration
+    assert 'presentation continuity after interrupted writes' in narration
+    assert 'do not replay that same dialogue or scene' in narration
+    assert 'never narrate conversation or control state as though it were part of wei\'s world' in narration
+
+
 def test_railway_watch_policy_matches_runtime_neutral_boundary():
     railway = (ROOT / 'railway.toml').read_text(encoding='utf-8')
     for pattern in (
