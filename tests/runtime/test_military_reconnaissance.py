@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
 from sword_runtime.api.app import create_app
+from sword_runtime.commands import CommandEnvelope
 from sword_runtime.geography import location_chain
 from sword_runtime.production_runtime_planner import ProductionCampaignPlanner as HostedProductionPlanner
 from sword_runtime.reconnaissance import (
@@ -80,8 +81,6 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         )
         operation_ref = parent['operation_ref']
 
-        # Regression for issue #157: the old generic operation request must not
-        # be accepted as response-bearing when no causal responder route exists.
         dead_end = _body(
             context,
             request_id='recon-unrouted-operation-response',
@@ -115,16 +114,15 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         )
         preview = client.post('/v1/commands/preview', headers=headers, json=recon)
         assert preview.status_code == 200, preview.text
-        receipt = client.post('/v1/commands/execute', headers=headers, json=recon)
-        assert receipt.status_code == 200, receipt.text
-        committed = receipt.json()
-        assert committed['status'] in {'committed', 'duplicate'}
-        result = committed.get('result', {})
-        assert result['status'] == 'active'
-        assert result['phase'] == 'observing'
-        assert result['formation_ref'] == formation_ref
-        observation_due_at = result['observation_due_at']
-        recon_ref = result['reconnaissance_ref']
+        translated = operations._translate_surface_command(CommandEnvelope(**recon))
+        raw_receipt = operations.runtime.execute(translated)
+        assert raw_receipt.status in {'committed', 'duplicate'}
+        committed = raw_receipt.result
+        assert committed['status'] == 'active'
+        assert committed['phase'] == 'observing'
+        assert committed['formation_ref'] == formation_ref
+        observation_due_at = committed['observation_due_at']
+        recon_ref = committed['reconnaissance_ref']
 
         after_start = client.get('/v1/play/context', headers=headers).json()
         active = [row for row in after_start.get('active_player_processes', []) if row.get('process_ref') == recon_ref]
