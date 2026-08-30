@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import math
-import time
 
 import pytest
 
@@ -29,32 +28,44 @@ class CountingProductionPlanner(ProductionCampaignPlanner):
         return super()._advance_causal_runtime(target_text)
 
 
-def test_diagnostic_hosted_horizon_work_budget(campaign):
-    days = 365
+@pytest.mark.parametrize("days", [30, 90, 365])
+def test_production_hosted_horizon_is_bounded_atomic_windows(campaign, days: int):
+    """Guard hosted chronology by causal work, not runner clock speed.
+
+    Long skips use seven-day in-memory causal heaps but remain one staged command
+    transaction with no intermediate persistence. The guard bounds three things
+    that represent engine complexity directly: causal-window count, event density,
+    and logical read/write fanout per settled event. A wall-clock assertion made
+    the same deterministic work pass or fail depending on hosted-runner speed.
+    """
     planner = CountingProductionPlanner(campaign)
     planner._reset()
     planner.read_calls = 0
     planner.put_calls = 0
+
     runtime = planner.read("state/runtime.json")
     start = CampaignTime.parse(str(runtime["world_time"]))
     disk_start = str(planner.store.read_json("state/runtime.json")["world_time"])
     target = start.add_seconds(days * 86400)
     planner._active_command_type = "advance_time"
 
-    cpu_before = time.process_time()
     result = planner._advance_runtime(str(target))
-    cpu_elapsed = time.process_time() - cpu_before
 
     after = planner.read("state/runtime.json")
     expected_windows = math.ceil(days / 7)
+    events_processed = int(result["events_processed"])
+
     assert len(planner.causal_heap_calls) == expected_windows
     assert planner.causal_heap_calls[-1] == str(target)
     assert after["world_time"] == str(target)
     assert after["scheduler"]["causal_settled_through"] == str(target)
-    assert int(result["events_processed"]) > 0
+    assert events_processed > 0
     assert str(planner.store.read_json("state/runtime.json")["world_time"]) == disk_start
-    raise AssertionError(
-        f"WORK_BUDGET days={days} cpu={cpu_elapsed:.6f} "
-        f"reads={planner.read_calls} puts={planner.put_calls} "
-        f"windows={len(planner.causal_heap_calls)} events={int(result['events_processed'])}"
-    )
+
+    # Current 365-day hosted fixture settles 2,070 events in 53 windows with
+    # 1,711,297 logical reads and 62,837 staged puts. These proportional budgets
+    # retain substantial feature headroom while failing event explosions or
+    # superlinear per-event repository fanout.
+    assert events_processed <= (days * 8) + 50
+    assert planner.read_calls <= (events_processed * 1_000) + 100_000
+    assert planner.put_calls <= (events_processed * 40) + 10_000
