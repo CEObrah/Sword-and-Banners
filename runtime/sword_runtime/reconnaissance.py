@@ -487,6 +487,10 @@ class MilitaryReconnaissanceMixin:
             knowers.sort()
         confidence = int(info.get("confidence_milli", 500) or 500)
         departed_at = str(process.get("report_dispatched_at") or at)
+        # The process owns the courier's actual departure/reroute point. The
+        # scheduler's target-location comparison must never relabel the report
+        # destination as its source on normal arrival.
+        source_location_ref = str(process.get("courier_origin_ref") or source_location_ref)
         travel_hours = max(
             0,
             int(round(CampaignTime.parse(departed_at).seconds_until(CampaignTime.parse(at)) / 3600.0)),
