@@ -1,9 +1,9 @@
 """Typed military reconnaissance with causal observation and report delivery.
 
-Reconnaissance is a hard military-information consequence.  Player intent may
+Reconnaissance is a hard military-information consequence. Player intent may
 choose the exact controlled scout, parent operation, bounded observation region,
 and observation duration, but it may never supply contact, clues, enemy strength,
-or the report result.  The hosted scheduler owns observation time and delivery;
+or the report result. The hosted scheduler owns observation time and delivery;
 exact formation owners remain world-truth authority and the resulting information
 record is only the scout commander's/player's epistemic state.
 """
@@ -487,9 +487,6 @@ class MilitaryReconnaissanceMixin:
             knowers.sort()
         confidence = int(info.get("confidence_milli", 500) or 500)
         departed_at = str(process.get("report_dispatched_at") or at)
-        # The process owns the courier's actual departure/reroute point. The
-        # scheduler's target-location comparison must never relabel the report
-        # destination as its source on normal arrival.
         source_location_ref = str(process.get("courier_origin_ref") or source_location_ref)
         travel_hours = max(
             0,
@@ -531,17 +528,26 @@ class MilitaryReconnaissanceMixin:
                 "event_ref": event_ref,
                 "kind": RECON_REPORT_KIND,
                 "status": "triggered",
+                "due_at": at,
                 "triggered_at": at,
                 "summary": str(info.get("claim", "")),
-                "source_ref": str(process["scout_commander_ref"]),
+                "actor_ref": str(process["scout_commander_ref"]),
                 "target_ref": target_ref,
                 "operation_ref": str(process["operation_ref"]),
-                "formation_ref": str(process["formation_ref"]),
-                "reconnaissance_ref": str(process["reconnaissance_ref"]),
-                "information_ref": information_ref,
-                "location_ref": target_location_ref,
-                "classification": "command_intelligence",
-                "topic": "forward reconnaissance enemy contact routes approach conditions",
+                "process_kind": "military_reconnaissance",
+                "process_stage": "report_delivered",
+                "route_domain": "military_command_courier",
+                "delivery": {
+                    "target_ref": target_ref,
+                    "location_ref": target_location_ref,
+                    "route": "military command courier",
+                },
+                "campaign_command_context": {
+                    "reconnaissance_ref": str(process["reconnaissance_ref"]),
+                    "formation_ref": str(process["formation_ref"]),
+                    "information_ref": information_ref,
+                    "classification": "command_intelligence",
+                },
                 "provenance": {
                     "kind": "causal_runtime_settlement",
                     "source_owner_ref": str(process["reconnaissance_ref"]),
