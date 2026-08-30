@@ -591,7 +591,11 @@ class MilitaryReconnaissanceMixin:
             scout_location = str(observation.get("scout_location_ref") or process.get("courier_origin_ref") or "")
             if not isinstance(target_location, str) or not target_location or not scout_location:
                 raise ValueError("military reconnaissance report lacks exact delivery endpoints")
-            travel_hours = self._route_travel_hours(scout_location, target_location)
+            travel_hours = self._route_travel_hours(
+                scout_location,
+                target_location,
+                modes=("courier",),
+            )
             process["phase"] = "report_in_transit"
             process["report_dispatched_at"] = at
             process["courier_origin_ref"] = scout_location
@@ -616,7 +620,11 @@ class MilitaryReconnaissanceMixin:
         if not isinstance(player_location, str) or not player_location or not isinstance(target_location, str) or not target_location:
             raise ValueError("military reconnaissance report delivery lost exact location")
         if player_location != target_location:
-            travel_hours = self._route_travel_hours(courier_origin, player_location)
+            travel_hours = self._route_travel_hours(
+                courier_origin,
+                player_location,
+                modes=("courier",),
+            )
             process["courier_origin_ref"] = courier_origin
             process["report_target_location_ref"] = player_location
             process["report_dispatched_at"] = at
