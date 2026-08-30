@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
 
 from sword_runtime.api.app import create_app
-from sword_runtime.commands import CommandEnvelope
 from sword_runtime.geography import location_chain
 from sword_runtime.production_runtime_planner import ProductionCampaignPlanner as HostedProductionPlanner
 from sword_runtime.reconnaissance import (
@@ -114,10 +113,10 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         )
         preview = client.post('/v1/commands/preview', headers=headers, json=recon)
         assert preview.status_code == 200, preview.text
-        translated = operations._translate_surface_command(CommandEnvelope(**recon))
-        raw_receipt = operations.runtime.execute(translated)
-        assert raw_receipt.status in {'committed', 'duplicate'}
-        committed = raw_receipt.result
+        receipt = client.post('/v1/commands/execute', headers=headers, json=recon)
+        assert receipt.status_code == 200, receipt.text
+        assert receipt.json()['status'] in {'committed', 'duplicate'}
+        committed = receipt.json()['result']
         assert committed['status'] == 'active'
         assert committed['phase'] == 'observing'
         assert committed['formation_ref'] == formation_ref
