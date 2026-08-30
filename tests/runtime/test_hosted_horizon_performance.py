@@ -19,14 +19,16 @@ class CountingProductionPlanner(ProductionCampaignPlanner):
         return super()._advance_causal_runtime(target_text)
 
 
-@pytest.mark.parametrize(("days", "threshold"), [(30, 12.0), (90, 30.0), (365, 75.0)])
-def test_production_hosted_horizon_is_bounded_atomic_windows(campaign, days: int, threshold: float):
+@pytest.mark.parametrize(("days", "cpu_threshold"), [(30, 12.0), (90, 30.0), (365, 75.0)])
+def test_production_hosted_horizon_is_bounded_atomic_windows(campaign, days: int, cpu_threshold: float):
     """Guard real hosted chronology at 30/90/365 days.
 
     Long skips use seven-day in-memory causal heaps, matching the scheduler safety
     cadence, but remain one staged command transaction with no intermediate
-    persistence. Thresholds detect the audited hosted regression without treating
-    test-process teardown as simulation cost.
+    persistence. CPU time is the regression budget because hosted-runner wall time
+    includes scheduler contention outside this process; a coarse wall-time ceiling
+    still catches pathological blocking or I/O stalls without turning runner load
+    into a false engine regression.
     """
     planner = CountingProductionPlanner(campaign)
     planner._reset()
@@ -36,9 +38,11 @@ def test_production_hosted_horizon_is_bounded_atomic_windows(campaign, days: int
     target = start.add_seconds(days * 86400)
     planner._active_command_type = "advance_time"
 
-    before = time.perf_counter()
+    wall_before = time.perf_counter()
+    cpu_before = time.process_time()
     result = planner._advance_runtime(str(target))
-    elapsed = time.perf_counter() - before
+    cpu_elapsed = time.process_time() - cpu_before
+    wall_elapsed = time.perf_counter() - wall_before
 
     after = planner.read("state/runtime.json")
     expected_windows = math.ceil(days / 7)
@@ -48,4 +52,5 @@ def test_production_hosted_horizon_is_bounded_atomic_windows(campaign, days: int
     assert after["scheduler"]["causal_settled_through"] == str(target)
     assert int(result["events_processed"]) > 0
     assert str(planner.store.read_json("state/runtime.json")["world_time"]) == disk_start
-    assert elapsed < threshold, (days, elapsed)
+    assert cpu_elapsed < cpu_threshold, (days, cpu_elapsed, wall_elapsed)
+    assert wall_elapsed < cpu_threshold * 2.0, (days, wall_elapsed, cpu_elapsed)
