@@ -60,47 +60,6 @@ class ProductionCampaignPlanner(
         route = shortest_path(self.read, origin_ref, destination_ref, modes=route_modes)
         return int(route["duration_hours"])
 
-    def _deliver_recon_report(
-        self,
-        process_path: str,
-        process: dict[str, object],
-        at: str,
-        *,
-        source_location_ref: str,
-        target_location_ref: str,
-    ) -> None:
-        """Complete the generic information-delivery contract for recon reports."""
-        travel_hours = (
-            0
-            if source_location_ref == target_location_ref
-            else self._route_travel_hours(
-                source_location_ref,
-                target_location_ref,
-                modes=("courier",),
-            )
-        )
-        MilitaryReconnaissanceMixin._deliver_recon_report(
-            self,
-            process_path,
-            process,
-            at,
-            source_location_ref=source_location_ref,
-            target_location_ref=target_location_ref,
-        )
-        information_ref = process.get("report_information_ref")
-        if not isinstance(information_ref, str) or not information_ref:
-            raise ValueError("military reconnaissance delivery lost its information ref")
-        info_index = self.read("state/information/index.json")
-        info_path = info_index.get("claims", {}).get(information_ref) if isinstance(info_index, Mapping) else None
-        if not isinstance(info_path, str):
-            raise ValueError("military reconnaissance delivery lost its information owner")
-        info = dict(self.read(info_path))
-        deliveries = info.get("deliveries")
-        if not isinstance(deliveries, list) or not deliveries or not isinstance(deliveries[-1], dict):
-            raise ValueError("military reconnaissance delivery record is missing")
-        deliveries[-1]["travel_hours"] = int(travel_hours)
-        self.put(info_path, info)
-
     def _run_due_host(self, host: Mapping[str, object], due_text: str) -> None:
         """Extend the hosted due-host hook without creating a second time loop."""
         if str(host.get("kind", "")) == RECON_HOST_KIND:
