@@ -7,7 +7,6 @@ from collections.abc import Mapping
 from sword_runtime.campaign_command_contact import CampaignCommandContactMixin
 from sword_runtime.campaign_command_requests import CampaignCommandRequestMixin
 from sword_runtime.campaign_follow_on_order import materialize_reconciled_campaign_follow_on_orders
-from sword_runtime.geography import shortest_path
 from sword_runtime.message_reply_flow import MessageReplyFlowMixin
 from sword_runtime.production_planner import ProductionCampaignPlanner as _BaseProductionCampaignPlanner
 from sword_runtime.qin_command_support_flow import QinCommandSupportFlowMixin
@@ -41,24 +40,6 @@ class ProductionCampaignPlanner(
         refreshed = self._reconcile_campaign_entry_authority()
         materialize_reconciled_campaign_follow_on_orders(self, refreshed)
         super()._prepare_scheduler_for_advance(target_text)
-
-    def _route_travel_hours(
-        self,
-        origin_ref: str,
-        destination_ref: str,
-        *,
-        modes: tuple[str, ...] | None = None,
-    ) -> int:
-        """Keep the existing route-helper contract while supporting recon couriers.
-
-        Existing military-career callers pass their exact movement modes. The
-        reconnaissance lifecycle is the only caller that omits modes and therefore
-        receives the authored courier graph. This avoids changing any existing
-        personnel-transfer route semantics.
-        """
-        route_modes = modes if modes is not None else ("courier",)
-        route = shortest_path(self.read, origin_ref, destination_ref, modes=route_modes)
-        return int(route["duration_hours"])
 
     def _run_due_host(self, host: Mapping[str, object], due_text: str) -> None:
         """Extend the hosted due-host hook without creating a second time loop."""
