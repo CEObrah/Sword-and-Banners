@@ -8,6 +8,7 @@ from sword_runtime.reconnaissance import (
     parse_reconnaissance_transport,
     reconnaissance_transport,
 )
+from sword_runtime.scheduler_frontier import runtime_route_integrity
 from sword_runtime.sim.calendar import CampaignTime
 from sword_runtime.time_integration import ProductionTimeIntegrationMixin
 
@@ -131,6 +132,23 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         active = [row for row in after_start.get('active_player_processes', []) if row.get('process_ref') == recon_ref]
         assert active and active[0]['kind'] == 'military_reconnaissance'
         assert active[0]['phase'] == 'observing'
+        runtime_after_start = operations.store.read_json('state/runtime.json')
+        recon_hosts = [
+            (host_id, host) for host_id, host in runtime_after_start.get('hosts', {}).items()
+            if isinstance(host, dict) and host.get('reconnaissance_ref') == recon_ref
+        ]
+        assert len(recon_hosts) == 1, recon_hosts
+        recon_host_id, recon_host = recon_hosts[0]
+        assert recon_host['kind'] == 'military_reconnaissance'
+        assert recon_host['next_due'] == observation_due_at
+        recon_events = [
+            row for row in runtime_after_start.get('events', [])
+            if isinstance(row, dict) and row.get('target_host') == recon_host_id
+        ]
+        assert len(recon_events) == 1, recon_events
+        assert recon_events[0]['due_at'] == observation_due_at
+        integrity = runtime_route_integrity(runtime_after_start)
+        assert integrity['complete'], integrity
 
         observe_wait = _body(
             after_start,
@@ -152,8 +170,13 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         assert observed.json()['status'] in {'committed', 'duplicate'}
 
         after_observation = client.get('/v1/play/context', headers=headers).json()
+        assert after_observation['campaign']['world_time'] == observation_due_at, observed.json()['result']
         in_transit = [row for row in after_observation.get('active_player_processes', []) if row.get('process_ref') == recon_ref]
-        assert in_transit and in_transit[0]['phase'] == 'report_in_transit'
+        assert in_transit and in_transit[0]['phase'] == 'report_in_transit', {
+            'active': in_transit,
+            'advance_result': observed.json()['result'],
+            'runtime': operations.store.read_json('state/runtime.json'),
+        }
         assert not [
             row for row in after_observation.get('known_information', [])
             if row.get('provenance') == 'military_reconnaissance'
