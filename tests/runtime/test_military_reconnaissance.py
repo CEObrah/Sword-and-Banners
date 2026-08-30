@@ -206,9 +206,8 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
                 'stop_on_player_event': True,
                 'wait_policy': {
                     'event_kinds': ['military_reconnaissance_report'],
-                    'source_refs': [scout_commander_ref],
                     'operation_refs': [operation_ref],
-                    'topic_terms': ['approach conditions'],
+                    'topic_terms': ['reconnaissance'],
                 },
             },
         )
