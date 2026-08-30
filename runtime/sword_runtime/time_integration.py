@@ -48,6 +48,7 @@ HOST_KIND_SPECS: dict[str, dict[str, str]] = {
     "prisoner_custody": {"owner": "prisoner_system", "wake": "never"},
     "military_career": {"owner": "military_career", "wake": "domain"},
     "military_personnel_transfer": {"owner": "military_career", "wake": "never"},
+    "military_reconnaissance": {"owner": "military_reconnaissance", "wake": "never"},
     "commitment_due": {"owner": "campaign_depth", "wake": "on_due"},
     "commission_settlement": {"owner": "campaign_depth", "wake": "on_settlement"},
     "commission": {"owner": "campaign_depth", "wake": "on_response"},
@@ -175,6 +176,10 @@ def dispatch_due_host(planner: Any, host: Mapping[str, Any], due_text: str) -> N
         return
     if kind == "military_personnel_transfer":
         planner._settle_transfer_order(host, due_text)
+        planner._pending_wake_created = None
+        return
+    if kind == "military_reconnaissance":
+        planner._settle_military_reconnaissance_host(host, due_text)
         planner._pending_wake_created = None
         return
 

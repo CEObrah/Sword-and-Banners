@@ -12,6 +12,7 @@ from sword_runtime.engine import RepositoryCommandPlanner
 
 COMMAND_LAYER_METHODS = (
     "_command_layer_time_integration",
+    "_command_layer_military_reconnaissance",
     "_command_layer_qin_command_support",
     "_command_layer_production_planner",
     "_command_layer_warfare_depth_integrity",
