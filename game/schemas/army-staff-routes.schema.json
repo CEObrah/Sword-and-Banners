@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "routes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "army-staff-routes"
+    },
+    "authority": {
+      "const": false
+    },
+    "routes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

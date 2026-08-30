@@ -1,0 +1,119 @@
+name: Verify Sword and Banners
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Pull requests verify feature heads; direct pushes are verified only on main.
+# This avoids duplicate feature-branch push/PR runs contending in one concurrency group.
+concurrency:
+  group: sword-verify-${{ github.workflow }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  focused-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install runtime and test dependencies
+        run: python -m pip install -e '.[service,service-test]'
+
+      - name: Fast syntax, JSON, and schema gate
+        run: python tools/quick_check.py
+
+      - name: Determine changed repository owners
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            base="${{ github.event.pull_request.base.sha }}"
+          elif [[ "${{ github.event_name }}" == "push" && "$GITHUB_REF" != "refs/heads/main" ]]; then
+            git fetch --no-tags origin main
+            base="$(git merge-base origin/main "$GITHUB_SHA")"
+          elif [[ "${{ github.event_name }}" == "push" && "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]]; then
+            base="${{ github.event.before }}"
+          elif git rev-parse HEAD^ >/dev/null 2>&1; then
+            base="$(git rev-parse HEAD^)"
+          else
+            base=""
+          fi
+          if [[ -n "$base" ]]; then
+            git diff --name-only "$base" "$GITHUB_SHA" > "$RUNNER_TEMP/changed-paths.txt"
+          else
+            printf '%s\n' runtime/sword_runtime/engine.py > "$RUNNER_TEMP/changed-paths.txt"
+          fi
+          cat "$RUNNER_TEMP/changed-paths.txt"
+
+      - name: Core and changed-owner regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t changed_paths < "$RUNNER_TEMP/changed-paths.txt"
+          if [[ ${#changed_paths[@]} -eq 0 ]]; then
+            changed_paths=(runtime/sword_runtime/engine.py)
+          fi
+          python tools/test_changed.py "${changed_paths[@]}"
+
+      - name: Deployment source compatibility regressions
+        run: python tools/run_pytest_module.py -q tests/runtime/test_deployment_attestation.py
+
+      - name: Interaction access, routing, and entry projection regressions
+        run: python tools/run_pytest_module.py -q tests/runtime/test_interaction_route_integrity.py tests/runtime/test_campaign_command_contact.py tests/runtime/test_campaign_command_request_staging.py tests/runtime/test_entry_authority_projection.py
+
+      - name: GM Skill presentation contract
+        run: python tools/run_pytest_module.py -q tests/runtime/test_skill_repository_contract.py tests/runtime/test_diegetic_skill_contract.py
+
+  battle-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install runtime and test dependencies
+        run: python -m pip install -e '.[service,service-test]'
+      - name: Cohort battle and finite-ammunition integration
+        run: python tools/run_pytest_module.py -q tests/runtime/test_combat_cohort_integration.py
+
+  runtime-invariants:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install runtime and test dependencies
+        run: python -m pip install -e '.[service,service-test]'
+      - name: Persistent runtime invariants
+        run: python tools/run_pytest_module.py -q tests/runtime/test_runtime_invariants.py

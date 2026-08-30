@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sword-autonomous-theaters",
+  "type": "object",
+  "required": [
+    "schema",
+    "theaters",
+    "review_seconds",
+    "active_review_seconds"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-autonomous-theaters"
+    },
+    "theaters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "theater_ref",
+          "sides",
+          "formation_refs",
+          "target_location_ref",
+          "base_pressure"
+        ],
+        "properties": {
+          "theater_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sides": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "formation_refs": {
+            "type": "object",
+            "minProperties": 2,
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "target_location_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "base_pressure": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "review_seconds": {
+      "type": "integer",
+      "minimum": 86400
+    },
+    "active_review_seconds": {
+      "type": "integer",
+      "minimum": 86400
+    }
+  },
+  "additionalProperties": false
+}

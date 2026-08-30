@@ -1,0 +1,20 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.gyoku_hou.core",
+  "doctrine": {
+    "label": "Gyoku Hou Qin Line Core Doctrine",
+    "scope": "mixed_formation",
+    "command_policy_v2": {
+      "strategic_posture": "adaptive_decisive_maneuver",
+      "risk_tolerance": "assertive",
+      "reserve_posture": "ready_counterstroke",
+      "information_priority": "high",
+      "subordinate_initiative": "bounded",
+      "pursuit_policy": "aggressive_bounded",
+      "revision_speed": "responsive"
+    },
+    "role_policy_refs": {
+      "line_infantry": "doc.external_state_force.line_infantry"
+    }
+  }
+}

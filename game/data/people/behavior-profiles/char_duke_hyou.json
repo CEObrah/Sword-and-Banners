@@ -1,0 +1,34 @@
+{
+  "authority": false,
+  "decision_basis": [
+    "saved current goals and duties",
+    "actual authority and resources",
+    "saved relationships and reputation access",
+    "direct knowledge and reports",
+    "health, location, risk, and current pressure"
+  ],
+  "dialogue_constraints": [
+    "Do not invent signature speech, private trauma, favorite things, humor style, or hidden motives merely to make dialogue vivid.",
+    "Use rank, role, culture, current objective, relationship, and observed campaign history first.",
+    "If sustained interaction produces distinctive repeated behavior, persist that evidence into the exact character owner before treating it as established characterization."
+  ],
+  "known_anchors": {
+    "career_anchor": "Great General",
+    "career_anchor_basis": "normalized current exact career/billet baseline; no future promotion implied",
+    "command_role_hint": {
+      "role": "great_general",
+      "scope": "army_or_unit_command_personnel",
+      "specialty_hint": "army_command_or_staff"
+    },
+    "current_goal": "preserve command capacity and pursue only supported military opportunities within Qin authority and resources",
+    "institutional_duties": [
+      "act within current Qin political and military obligations"
+    ],
+    "origin": "Qin"
+  },
+  "mode": "evidence_limited_role_driven",
+  "name": "Duke Hyou",
+  "narration_rule": "This profile prevents under-contextualized improvisation; it is not a personality generator and is not campaign-state authority.",
+  "person_id": "char_duke_hyou",
+  "schema": "behavior-profile"
+}

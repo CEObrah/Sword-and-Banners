@@ -1,0 +1,85 @@
+{
+  "authority": false,
+  "person_links": {
+    "char_mou_bu": {
+      "children": [
+        "char_mou_ten",
+        "char_mou_ki"
+      ],
+      "parents": [
+        "char_mou_gou"
+      ]
+    },
+    "char_mou_gou": {
+      "children": [
+        "char_mou_bu"
+      ]
+    },
+    "char_mou_ki": {
+      "kinships": [
+        "kinship.mou_ki_mou_ten.siblings"
+      ],
+      "parents": [
+        "char_mou_bu"
+      ]
+    },
+    "char_mou_ten": {
+      "kinships": [
+        "kinship.mou_ki_mou_ten.siblings"
+      ],
+      "parents": [
+        "char_mou_bu"
+      ]
+    },
+    "char_ou_hon": {
+      "parents": [
+        "char_ousen"
+      ]
+    },
+    "char_ousen": {
+      "children": [
+        "char_ou_hon"
+      ]
+    },
+    "char_tang_kai": {
+      "kinships": [
+        "kinship.tang_kai_tang_wei.siblings"
+      ],
+      "parents": [
+        "char_tang_zhu",
+        "char_tang_ling"
+      ]
+    },
+    "char_tang_ling": {
+      "children": [
+        "char_tang_wei",
+        "char_tang_kai"
+      ],
+      "spouses": [
+        "char_tang_zhu"
+      ]
+    },
+    "char_tang_wei": {
+      "kinships": [
+        "kinship.tang_kai_tang_wei.siblings"
+      ],
+      "parents": [
+        "char_tang_zhu",
+        "char_tang_ling"
+      ],
+      "succession_claims": [
+        "succession.house_tang"
+      ]
+    },
+    "char_tang_zhu": {
+      "children": [
+        "char_tang_wei",
+        "char_tang_kai"
+      ],
+      "spouses": [
+        "char_tang_ling"
+      ]
+    }
+  },
+  "schema": "kinship-index"
+}

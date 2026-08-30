@@ -1,0 +1,1448 @@
+{
+  "administrative_owner": "state_qi",
+  "allocated_to_formations": {
+    "formation_qi_coastal_reserve": {
+      "composition": {
+        "line_infantry": 4500
+      },
+      "personnel": 4500
+    },
+    "formation_qi_missile_reserve": {
+      "composition": {
+        "missile_crossbow": 4000
+      },
+      "personnel": 4000
+    },
+    "formation_qi_mobile_guard": {
+      "composition": {
+        "cavalry": 2500
+      },
+      "personnel": 2500
+    },
+    "formation_qi_reserve_infantry_01": {
+      "composition": {
+        "line_infantry": 2000
+      },
+      "personnel": 2000
+    },
+    "formation_qi_reserve_infantry_02": {
+      "composition": {
+        "line_infantry": 1000
+      },
+      "personnel": 1000
+    },
+    "formation_qi_rinshi_royal_guard": {
+      "composition": {
+        "cavalry": 1000,
+        "line_infantry": 7000,
+        "missile_crossbow": 2000
+      },
+      "personnel": 10000
+    }
+  },
+  "authorized_strength": 275500,
+  "available_by_location": {
+    "loc_ei": {
+      "cavalry": 2168,
+      "chariot": 900,
+      "command_personnel": 165,
+      "line_infantry": 26278,
+      "missile_crossbow": 8800
+    },
+    "loc_qi_regional_01": {
+      "cavalry": 2816,
+      "chariot": 800,
+      "command_personnel": 149,
+      "line_infantry": 29580,
+      "missile_crossbow": 9600
+    },
+    "loc_qi_regional_02": {
+      "cavalry": 3068,
+      "chariot": 900,
+      "command_personnel": 165,
+      "line_infantry": 33278,
+      "missile_crossbow": 10800
+    },
+    "loc_qi_regional_03": {
+      "cavalry": 3520,
+      "chariot": 1000,
+      "command_personnel": 181,
+      "line_infantry": 34476,
+      "missile_crossbow": 8000
+    },
+    "loc_qi_regional_04": {
+      "cavalry": 3520,
+      "chariot": 1000,
+      "command_personnel": 182,
+      "line_infantry": 36676,
+      "missile_crossbow": 12000
+    },
+    "loc_qi_west_fort": {
+      "cavalry": 1408,
+      "chariot": 400,
+      "command_personnel": 74,
+      "line_infantry": 14790,
+      "missile_crossbow": 4800
+    }
+  },
+  "available_by_role": {
+    "cavalry": 16500,
+    "chariot": 5000,
+    "command_personnel": 916,
+    "line_infantry": 175078,
+    "missile_crossbow": 54000
+  },
+  "available_equipment_by_location": {
+    "loc_ei": {
+      "cavalry": 1448,
+      "chariot": 720,
+      "command_personnel": 133,
+      "line_infantry": 19471,
+      "missile_crossbow": 6640
+    },
+    "loc_qi_regional_01": {
+      "cavalry": 2176,
+      "chariot": 640,
+      "command_personnel": 118,
+      "line_infantry": 23530,
+      "missile_crossbow": 7680
+    },
+    "loc_qi_regional_02": {
+      "cavalry": 2348,
+      "chariot": 720,
+      "command_personnel": 133,
+      "line_infantry": 26471,
+      "missile_crossbow": 8640
+    },
+    "loc_qi_regional_03": {
+      "cavalry": 2720,
+      "chariot": 800,
+      "command_personnel": 148,
+      "line_infantry": 28813,
+      "missile_crossbow": 9200
+    },
+    "loc_qi_regional_04": {
+      "cavalry": 2720,
+      "chariot": 800,
+      "command_personnel": 147,
+      "line_infantry": 29112,
+      "missile_crossbow": 9600
+    },
+    "loc_qi_west_fort": {
+      "cavalry": 1088,
+      "chariot": 320,
+      "command_personnel": 59,
+      "line_infantry": 11765,
+      "missile_crossbow": 3840
+    }
+  },
+  "available_equipment_units_by_role": {
+    "cavalry": 12500,
+    "chariot": 4000,
+    "command_personnel": 738,
+    "line_infantry": 139162,
+    "missile_crossbow": 45600
+  },
+  "cohort_ledger": {
+    "cohorts": {
+      "cohort_force_state_qi_21740144beec": {
+        "age_distribution": {
+          "mean": 26.417
+        },
+        "allocated_by_formation": {
+          "formation_qi_mobile_guard": 2400
+        },
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 110.0,
+          "social_learning": 98.0,
+          "tactical_learning": 108.0,
+          "technical_learning": 108.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 29.968,
+          "Awareness": 40.879,
+          "Composure": 22.49,
+          "Coordination": 34.262,
+          "Endurance": 39.01,
+          "Strength": 38.357,
+          "Toughness": 16.279
+        },
+        "attribute_means": {
+          "Agility": 78.0,
+          "Awareness": 76.0,
+          "Composure": 78.0,
+          "Coordination": 80.0,
+          "Endurance": 80.0,
+          "Intelligence": 58.0,
+          "Presence": 60.0,
+          "Strength": 72.0,
+          "Toughness": 74.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_21740144beec",
+        "last_training": {
+          "deliberate_hours": 113.143,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:0:formation_qi_mobile_guard",
+          "program_ref": "program.cavalry",
+          "role_exposure_hours": 52.8
+        },
+        "last_training_program_ref": "program.cavalry",
+        "origin": {
+          "kind": "baseline_formation_allocation",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": null,
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 20.0,
+          "Governance": 18.0,
+          "Intelligence Operations": 32.0,
+          "Law": 18.0,
+          "Trade": 18.0
+        },
+        "reserve_by_location": {},
+        "role": "cavalry",
+        "service_months_mean": 29.0,
+        "skill_edu_banks": {
+          "Athletics": 75.155,
+          "Bow": 36.462,
+          "Formation Fighting": 9.642,
+          "Polearms": 7.203,
+          "Riding": 1.677,
+          "Scouting": 61.306,
+          "Survival": 40.623
+        },
+        "skill_means": {
+          "Athletics": 74.0,
+          "Bow": 69.0,
+          "Crossbow": 25.0,
+          "Engineering": 18.0,
+          "Formation Command": 34.0,
+          "Formation Fighting": 73.0,
+          "Grappling": 32.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 42.0,
+          "Logistics": 40.0,
+          "Medicine": 16.0,
+          "Polearms": 77.0,
+          "Riding": 84.0,
+          "Scouting": 60.0,
+          "Shield": 48.0,
+          "Stealth": 34.0,
+          "Strategy": 35.0,
+          "Survival": 63.0,
+          "Sword": 50.0,
+          "Tactics": 48.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 4,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 818.908858,
+        "verified_training_hours_per_person": 1754.803557
+      },
+      "cohort_force_state_qi_45c7b8567d3e": {
+        "age_distribution": {
+          "mean": 27.25
+        },
+        "allocated_by_formation": {},
+        "allocated_external_by_formation": {},
+        "aptitude_means": {
+          "academic_learning": 116.0,
+          "physical_learning": 104.0,
+          "social_learning": 114.0,
+          "tactical_learning": 122.0,
+          "technical_learning": 110.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 13.819,
+          "Awareness": 39.925,
+          "Composure": 29.515,
+          "Coordination": 10.547,
+          "Endurance": 15.432,
+          "Intelligence": 34.874,
+          "Presence": 32.052,
+          "Strength": 4.935
+        },
+        "attribute_means": {
+          "Agility": 66.0,
+          "Awareness": 78.0,
+          "Composure": 82.0,
+          "Coordination": 72.0,
+          "Endurance": 78.0,
+          "Intelligence": 76.0,
+          "Presence": 78.0,
+          "Strength": 74.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_45c7b8567d3e",
+        "last_training": {
+          "deliberate_hours": 0.446,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:11:formation_qi_rinshi_royal_guard",
+          "program_ref": "program.commander_combined_arms",
+          "role_exposure_hours": 0.208
+        },
+        "last_training_program_ref": "program.commander_combined_arms",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_qi_regional_01",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 18.0,
+          "Governance": 15.0,
+          "Intelligence Operations": 24.0,
+          "Law": 16.0,
+          "Trade": 15.0
+        },
+        "reserve_by_location": {
+          "loc_ei": 165,
+          "loc_qi_regional_01": 149,
+          "loc_qi_regional_02": 165,
+          "loc_qi_regional_03": 181,
+          "loc_qi_regional_04": 182,
+          "loc_qi_west_fort": 74
+        },
+        "role": "command_personnel",
+        "service_months_mean": 39.0,
+        "skill_edu_banks": {
+          "Bow": 4.353,
+          "Formation Command": 16.347,
+          "Formation Fighting": 1.379,
+          "Leadership": 8.815,
+          "Logistics": 62.035,
+          "Polearms": 21.991,
+          "Riding": 14.023,
+          "Strategy": 55.068,
+          "Sword": 43.549,
+          "Tactics": 24.211
+        },
+        "skill_means": {
+          "Athletics": 72.0,
+          "Bow": 29.0,
+          "Crossbow": 22.0,
+          "Engineering": 22.0,
+          "Formation Command": 84.0,
+          "Formation Fighting": 79.0,
+          "Grappling": 30.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 81.0,
+          "Logistics": 61.0,
+          "Medicine": 18.0,
+          "Polearms": 78.0,
+          "Riding": 26.0,
+          "Scouting": 35.0,
+          "Shield": 72.0,
+          "Stealth": 28.0,
+          "Strategy": 67.0,
+          "Survival": 58.0,
+          "Sword": 54.0,
+          "Tactics": 77.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 20,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 862.749542,
+        "verified_training_hours_per_person": 1848.751163
+      },
+      "cohort_force_state_qi_47d96e95b51e": {
+        "age_distribution": {
+          "mean": 26.25
+        },
+        "allocated_by_formation": {
+          "formation_qi_coastal_reserve": 300,
+          "formation_qi_reserve_infantry_01": 200,
+          "formation_qi_reserve_infantry_02": 400,
+          "formation_qi_rinshi_royal_guard": 6000
+        },
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 108.0,
+          "social_learning": 98.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 102.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 8.857,
+          "Awareness": 42.35,
+          "Composure": 45.836,
+          "Coordination": 57.876,
+          "Endurance": 48.348,
+          "Strength": 48.805,
+          "Toughness": 21.489
+        },
+        "attribute_means": {
+          "Agility": 66.0,
+          "Awareness": 69.0,
+          "Composure": 74.0,
+          "Coordination": 72.0,
+          "Endurance": 78.0,
+          "Intelligence": 54.0,
+          "Presence": 56.0,
+          "Strength": 74.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_47d96e95b51e",
+        "last_training": {
+          "deliberate_hours": 8.582,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:7:formation_qi_rinshi_royal_guard",
+          "program_ref": "program.line_infantry",
+          "role_exposure_hours": 4.974
+        },
+        "last_training_program_ref": "program.line_infantry",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_qi_regional_01",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 18.0,
+          "Governance": 15.0,
+          "Intelligence Operations": 24.0,
+          "Law": 16.0,
+          "Trade": 15.0
+        },
+        "reserve_by_location": {
+          "loc_ei": 14844,
+          "loc_qi_regional_01": 18528,
+          "loc_qi_regional_02": 20844,
+          "loc_qi_regional_03": 22560,
+          "loc_qi_regional_04": 22860,
+          "loc_qi_west_fort": 9264
+        },
+        "role": "line_infantry",
+        "service_months_mean": 27.0,
+        "skill_edu_banks": {
+          "Athletics": 40.727,
+          "Formation Fighting": 65.263,
+          "Polearms": 29.819,
+          "Shield": 25.546,
+          "Survival": 50.353,
+          "Sword": 2.128
+        },
+        "skill_means": {
+          "Athletics": 73.0,
+          "Bow": 28.0,
+          "Crossbow": 22.0,
+          "Engineering": 22.0,
+          "Formation Command": 28.0,
+          "Formation Fighting": 79.0,
+          "Grappling": 30.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 38.0,
+          "Logistics": 34.0,
+          "Medicine": 18.0,
+          "Polearms": 79.0,
+          "Riding": 24.0,
+          "Scouting": 35.0,
+          "Shield": 74.0,
+          "Stealth": 28.0,
+          "Strategy": 30.0,
+          "Survival": 60.0,
+          "Sword": 46.0,
+          "Tactics": 42.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 17,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 863.88808,
+        "verified_training_hours_per_person": 1818.681266
+      },
+      "cohort_force_state_qi_48a660672db4": {
+        "age_distribution": {
+          "mean": 26.25
+        },
+        "allocated_by_formation": {
+          "formation_qi_coastal_reserve": 4200
+        },
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 108.0,
+          "social_learning": 98.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 102.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 7.776,
+          "Awareness": 38.977,
+          "Composure": 41.618,
+          "Coordination": 52.349,
+          "Endurance": 43.595,
+          "Strength": 44.232,
+          "Toughness": 20.135
+        },
+        "attribute_means": {
+          "Agility": 66.0,
+          "Awareness": 69.0,
+          "Composure": 74.0,
+          "Coordination": 72.0,
+          "Endurance": 78.0,
+          "Intelligence": 54.0,
+          "Presence": 56.0,
+          "Strength": 74.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_48a660672db4",
+        "last_training": {
+          "deliberate_hours": 113.143,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:0:formation_qi_coastal_reserve",
+          "program_ref": "program.line_infantry",
+          "role_exposure_hours": 52.8
+        },
+        "last_training_program_ref": "program.line_infantry",
+        "origin": {
+          "kind": "baseline_formation_allocation",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": null,
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 18.0,
+          "Governance": 15.0,
+          "Intelligence Operations": 24.0,
+          "Law": 16.0,
+          "Trade": 15.0
+        },
+        "reserve_by_location": {},
+        "role": "line_infantry",
+        "service_months_mean": 27.0,
+        "skill_edu_banks": {
+          "Athletics": 30.979,
+          "Formation Fighting": 40.547,
+          "Polearms": 16.997,
+          "Shield": 3.881,
+          "Survival": 35.179,
+          "Sword": 49.004
+        },
+        "skill_means": {
+          "Athletics": 73.0,
+          "Bow": 28.0,
+          "Crossbow": 22.0,
+          "Engineering": 22.0,
+          "Formation Command": 28.0,
+          "Formation Fighting": 79.0,
+          "Grappling": 30.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 38.0,
+          "Logistics": 34.0,
+          "Medicine": 18.0,
+          "Polearms": 79.0,
+          "Riding": 24.0,
+          "Scouting": 35.0,
+          "Shield": 74.0,
+          "Stealth": 28.0,
+          "Strategy": 30.0,
+          "Survival": 60.0,
+          "Sword": 45.0,
+          "Tactics": 42.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 4,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 820.8,
+        "verified_training_hours_per_person": 1758.857143
+      },
+      "cohort_force_state_qi_62e6f1506162": {
+        "age_distribution": {
+          "mean": 26.417
+        },
+        "allocated_by_formation": {
+          "formation_qi_mobile_guard": 100,
+          "formation_qi_rinshi_royal_guard": 1000
+        },
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 110.0,
+          "social_learning": 98.0,
+          "tactical_learning": 108.0,
+          "technical_learning": 108.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 33.5,
+          "Awareness": 46.056,
+          "Composure": 24.783,
+          "Coordination": 38.6,
+          "Endurance": 44.104,
+          "Strength": 42.766,
+          "Toughness": 17.276
+        },
+        "attribute_means": {
+          "Agility": 78.0,
+          "Awareness": 76.0,
+          "Composure": 78.0,
+          "Coordination": 80.0,
+          "Endurance": 80.0,
+          "Intelligence": 58.0,
+          "Presence": 60.0,
+          "Strength": 72.0,
+          "Toughness": 74.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_62e6f1506162",
+        "last_training": {
+          "deliberate_hours": 11.688,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:7:formation_qi_rinshi_royal_guard",
+          "program_ref": "program.cavalry",
+          "role_exposure_hours": 5.455
+        },
+        "last_training_program_ref": "program.cavalry",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_qi_regional_01",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 20.0,
+          "Governance": 18.0,
+          "Intelligence Operations": 32.0,
+          "Law": 18.0,
+          "Trade": 18.0
+        },
+        "reserve_by_location": {
+          "loc_ei": 2168,
+          "loc_qi_regional_01": 2816,
+          "loc_qi_regional_02": 3068,
+          "loc_qi_regional_03": 3520,
+          "loc_qi_regional_04": 3520,
+          "loc_qi_west_fort": 1408
+        },
+        "role": "cavalry",
+        "service_months_mean": 29.0,
+        "skill_edu_banks": {
+          "Athletics": 81.371,
+          "Bow": 50.832,
+          "Formation Fighting": 20.743,
+          "Polearms": 20.124,
+          "Riding": 38.074,
+          "Scouting": 61.306,
+          "Survival": 49.898
+        },
+        "skill_means": {
+          "Athletics": 74.0,
+          "Bow": 69.0,
+          "Crossbow": 25.0,
+          "Engineering": 18.0,
+          "Formation Command": 34.0,
+          "Formation Fighting": 73.0,
+          "Grappling": 32.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 42.0,
+          "Logistics": 40.0,
+          "Medicine": 16.0,
+          "Polearms": 77.0,
+          "Riding": 84.0,
+          "Scouting": 60.0,
+          "Shield": 48.0,
+          "Stealth": 34.0,
+          "Strategy": 35.0,
+          "Survival": 63.0,
+          "Sword": 50.0,
+          "Tactics": 48.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 17,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 863.744793,
+        "verified_training_hours_per_person": 1850.880557
+      },
+      "cohort_force_state_qi_ed41cef4c3ed": {
+        "age_distribution": {
+          "mean": 26.417
+        },
+        "allocated_by_formation": {
+          "formation_qi_missile_reserve": 4000,
+          "formation_qi_rinshi_royal_guard": 2000
+        },
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 108.0,
+          "social_learning": 98.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 102.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 28.869,
+          "Awareness": 67.76,
+          "Composure": 55.954,
+          "Coordination": 51.428,
+          "Endurance": 34.873,
+          "Intelligence": 12.536,
+          "Strength": 8.12,
+          "Toughness": 7.355
+        },
+        "attribute_means": {
+          "Agility": 66.0,
+          "Awareness": 74.0,
+          "Composure": 76.0,
+          "Coordination": 78.0,
+          "Endurance": 78.0,
+          "Intelligence": 54.0,
+          "Presence": 56.0,
+          "Strength": 74.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_ed41cef4c3ed",
+        "last_training": {
+          "deliberate_hours": 6.857,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:7:formation_qi_rinshi_royal_guard",
+          "program_ref": "program.crossbow",
+          "role_exposure_hours": 3.2
+        },
+        "last_training_program_ref": "program.crossbow",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_qi_regional_01",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 18.0,
+          "Governance": 15.0,
+          "Intelligence Operations": 24.0,
+          "Law": 16.0,
+          "Trade": 15.0
+        },
+        "reserve_by_location": {
+          "loc_ei": 8800,
+          "loc_qi_regional_01": 9600,
+          "loc_qi_regional_02": 10800,
+          "loc_qi_regional_03": 8000,
+          "loc_qi_regional_04": 12000,
+          "loc_qi_west_fort": 4800
+        },
+        "role": "missile_crossbow",
+        "service_months_mean": 29.0,
+        "skill_edu_banks": {
+          "Athletics": 13.062,
+          "Bow": 26.898,
+          "Crossbow": 3.15,
+          "Formation Fighting": 57.414,
+          "Scouting": 41.831,
+          "Stealth": 2.589,
+          "Survival": 54.728
+        },
+        "skill_means": {
+          "Athletics": 73.0,
+          "Bow": 29.0,
+          "Crossbow": 85.0,
+          "Engineering": 22.0,
+          "Formation Command": 28.0,
+          "Formation Fighting": 77.0,
+          "Grappling": 30.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 38.0,
+          "Logistics": 34.0,
+          "Medicine": 18.0,
+          "Polearms": 28.0,
+          "Riding": 24.0,
+          "Scouting": 34.0,
+          "Shield": 52.0,
+          "Stealth": 29.0,
+          "Strategy": 30.0,
+          "Survival": 59.0,
+          "Sword": 38.0,
+          "Tactics": 42.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 18,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 860.974465,
+        "verified_training_hours_per_person": 1822.241279
+      },
+      "cohort_force_state_qi_f42e0f739293": {
+        "age_distribution": {
+          "max": 44,
+          "mean": 24.083,
+          "min": 14,
+          "sd": 7.5
+        },
+        "allocated_by_formation": {},
+        "allocated_external_by_formation": {},
+        "aptitude_means": {
+          "academic_learning": 90.0,
+          "physical_learning": 107.051,
+          "social_learning": 94.0,
+          "tactical_learning": 93.026,
+          "technical_learning": 94.0
+        },
+        "aptitude_sd": {
+          "academic_learning": 12.0,
+          "physical_learning": 10.83,
+          "social_learning": 12.0,
+          "tactical_learning": 11.415,
+          "technical_learning": 12.0
+        },
+        "attribute_edu_banks": {
+          "Agility": 1.362,
+          "Awareness": 4.698,
+          "Composure": 7.194,
+          "Coordination": 8.936,
+          "Endurance": 5.346,
+          "Strength": 6.174,
+          "Toughness": 1.843
+        },
+        "attribute_means": {
+          "Agility": 59.194,
+          "Awareness": 58.71,
+          "Composure": 61.567,
+          "Coordination": 59.88,
+          "Endurance": 74.701,
+          "Intelligence": 50.0,
+          "Presence": 50.0,
+          "Strength": 67.761,
+          "Toughness": 68.134
+        },
+        "attribute_sd": {
+          "Agility": 9.749,
+          "Awareness": 11.025,
+          "Composure": 10.106,
+          "Coordination": 9.928,
+          "Endurance": 8.58,
+          "Intelligence": 11.0,
+          "Presence": 11.0,
+          "Strength": 9.855,
+          "Toughness": 9.213
+        },
+        "cohort_id": "cohort_force_state_qi_f42e0f739293",
+        "correlation_groups": [
+          [
+            "Strength",
+            "Endurance",
+            "Toughness",
+            "Athletics"
+          ],
+          [
+            "Awareness",
+            "Survival",
+            "Scouting"
+          ]
+        ],
+        "last_training": {
+          "deliberate_hours": 205.714,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:0:reserve:loc_qi_regional_03",
+          "program_ref": "program.line_infantry",
+          "role_exposure_hours": 96.0
+        },
+        "last_training_program_ref": "program.line_infantry",
+        "origin": {
+          "background_profile": "agricultural_laborer",
+          "intake_ref": null,
+          "kind": "recruitment",
+          "population_ref": "population_qi",
+          "provenance_ref": "autonomy_state:244-BCE-08-31T07:22:48+08:00",
+          "recruited_at": "244-BCE-08-31T07:22:48+08:00",
+          "selection_profile": "state_basic_military_screen",
+          "selection_retain_fraction": 0.65,
+          "source_location_ref": "loc_qi_regional_03",
+          "source_stratum": "agricultural"
+        },
+        "professional_skill_means": {
+          "Trade": 12.0
+        },
+        "reserve_by_location": {
+          "loc_qi_regional_03": 500
+        },
+        "role": "line_infantry",
+        "service_months_mean": 1.0,
+        "skill_edu_banks": {
+          "Athletics": 10.841,
+          "Formation Fighting": 18.317,
+          "Polearms": 28.695,
+          "Shield": 12.613,
+          "Survival": 12.219,
+          "Sword": 8.683
+        },
+        "skill_means": {
+          "Athletics": 64.101,
+          "Bow": 18.0,
+          "Engineering": 14.0,
+          "Formation Fighting": 9.0,
+          "Medicine": 10.0,
+          "Polearms": 16.0,
+          "Riding": 24.0,
+          "Scouting": 28.0,
+          "Shield": 11.0,
+          "Survival": 54.011,
+          "Sword": 10.0
+        },
+        "skill_sd": {
+          "Athletics": 10.92,
+          "Bow": 14.0,
+          "Engineering": 11.0,
+          "Formation Fighting": 8.0,
+          "Medicine": 9.0,
+          "Polearms": 11.0,
+          "Riding": 16.0,
+          "Scouting": 14.0,
+          "Shield": 9.0,
+          "Survival": 13.853,
+          "Sword": 9.0,
+          "Trade": 10.0
+        },
+        "smart_training_cursor": 1,
+        "tags": [
+          "prospective_recruitment",
+          "agricultural",
+          "agricultural_laborer"
+        ],
+        "verified_role_exposure_hours_per_person": 96.0,
+        "verified_training_hours_per_person": 205.714287
+      },
+      "cohort_force_state_qi_f7a5fb4efbbf": {
+        "age_distribution": {
+          "mean": 26.583
+        },
+        "allocated_by_formation": {},
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 110.0,
+          "social_learning": 98.0,
+          "tactical_learning": 108.0,
+          "technical_learning": 108.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 7.445,
+          "Awareness": 30.862,
+          "Composure": 27.382,
+          "Coordination": 28.356,
+          "Endurance": 37.11,
+          "Intelligence": 14.487,
+          "Presence": 13.619,
+          "Strength": 23.468
+        },
+        "attribute_means": {
+          "Agility": 78.0,
+          "Awareness": 80.0,
+          "Composure": 80.0,
+          "Coordination": 82.0,
+          "Endurance": 80.0,
+          "Intelligence": 58.0,
+          "Presence": 60.0,
+          "Strength": 72.0,
+          "Toughness": 74.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_f7a5fb4efbbf",
+        "last_training": {
+          "deliberate_hours": 16.457,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:5:reserve:loc_qi_west_fort",
+          "program_ref": "program.chariot",
+          "role_exposure_hours": 7.68
+        },
+        "last_training_program_ref": "program.chariot",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_qi_regional_01",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 20.0,
+          "Governance": 18.0,
+          "Intelligence Operations": 32.0,
+          "Law": 18.0,
+          "Trade": 18.0
+        },
+        "reserve_by_location": {
+          "loc_ei": 900,
+          "loc_qi_regional_01": 800,
+          "loc_qi_regional_02": 900,
+          "loc_qi_regional_03": 1000,
+          "loc_qi_regional_04": 1000,
+          "loc_qi_west_fort": 400
+        },
+        "role": "chariot",
+        "service_months_mean": 31.0,
+        "skill_edu_banks": {
+          "Bow": 54.334,
+          "Formation Command": 20.341,
+          "Formation Fighting": 1.101,
+          "Leadership": 12.639,
+          "Polearms": 52.744,
+          "Riding": 62.81,
+          "Shield": 20.28,
+          "Tactics": 6.523
+        },
+        "skill_means": {
+          "Athletics": 74.0,
+          "Bow": 74.0,
+          "Crossbow": 25.0,
+          "Engineering": 18.0,
+          "Formation Command": 35.0,
+          "Formation Fighting": 71.0,
+          "Grappling": 32.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 43.0,
+          "Logistics": 40.0,
+          "Medicine": 16.0,
+          "Polearms": 72.0,
+          "Riding": 77.0,
+          "Scouting": 60.0,
+          "Shield": 49.0,
+          "Stealth": 34.0,
+          "Strategy": 35.0,
+          "Survival": 62.0,
+          "Sword": 50.0,
+          "Tactics": 49.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 14,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 864.0,
+        "verified_training_hours_per_person": 1851.428574
+      },
+      "cohort_force_state_qi_line_infantry_061097834fcc": {
+        "age_distribution": {
+          "mean": 26.25
+        },
+        "allocated_by_formation": {
+          "formation_qi_reserve_infantry_01": 1800,
+          "formation_qi_rinshi_royal_guard": 500
+        },
+        "aptitude_means": {
+          "academic_learning": 108.0,
+          "physical_learning": 98.0,
+          "social_learning": 102.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 112.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 0.953,
+          "Awareness": 57.33,
+          "Composure": 54.302,
+          "Coordination": 26.963,
+          "Endurance": 28.062,
+          "Intelligence": 38.804,
+          "Presence": 10.271,
+          "Strength": 17.497,
+          "Toughness": 6.806
+        },
+        "attribute_means": {
+          "Agility": 66.0,
+          "Awareness": 68.0,
+          "Composure": 70.0,
+          "Coordination": 62.0,
+          "Endurance": 70.0,
+          "Intelligence": 68.0,
+          "Presence": 56.0,
+          "Strength": 62.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_line_infantry_061097834fcc",
+        "last_training": {
+          "deliberate_hours": 4.114,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:7:formation_qi_rinshi_royal_guard",
+          "program_ref": "program.line_infantry",
+          "role_exposure_hours": 1.92
+        },
+        "last_training_program_ref": "program.line_infantry",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_qi_regional_01",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 18.0,
+          "Governance": 15.0,
+          "Intelligence Operations": 25.0,
+          "Law": 16.0,
+          "Trade": 45.0
+        },
+        "reserve_by_location": {
+          "loc_ei": 4000,
+          "loc_qi_regional_01": 4000,
+          "loc_qi_regional_02": 4500,
+          "loc_qi_regional_03": 3200,
+          "loc_qi_regional_04": 5000,
+          "loc_qi_west_fort": 2000
+        },
+        "role": "line_infantry",
+        "service_months_mean": 27.0,
+        "skill_edu_banks": {
+          "Athletics": 50.97,
+          "Formation Fighting": 26.452,
+          "Intelligence Operations": 15.327,
+          "Leadership": 2.664,
+          "Logistics": 39.808,
+          "Polearms": 29.279,
+          "Scouting": 0.968,
+          "Shield": 25.503,
+          "Survival": 13.937,
+          "Sword": 8.783,
+          "Trade": 13.863
+        },
+        "skill_means": {
+          "Athletics": 72.0,
+          "Bow": 28.0,
+          "Crossbow": 22.0,
+          "Engineering": 22.0,
+          "Formation Command": 28.0,
+          "Formation Fighting": 45.0,
+          "Grappling": 30.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 39.0,
+          "Logistics": 79.0,
+          "Medicine": 18.0,
+          "Polearms": 26.0,
+          "Riding": 42.0,
+          "Scouting": 54.0,
+          "Shield": 72.0,
+          "Stealth": 28.0,
+          "Strategy": 30.0,
+          "Survival": 60.0,
+          "Sword": 28.0,
+          "Tactics": 42.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 18,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 863.544462,
+        "verified_training_hours_per_person": 1850.450279
+      },
+      "cohort_force_state_qi_line_infantry_177cce9f715a": {
+        "age_distribution": {
+          "mean": 26.75
+        },
+        "allocated_by_formation": {},
+        "aptitude_means": {
+          "academic_learning": 114.0,
+          "physical_learning": 102.0,
+          "social_learning": 96.0,
+          "tactical_learning": 110.0,
+          "technical_learning": 120.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 1.044,
+          "Awareness": 36.315,
+          "Composure": 16.993,
+          "Coordination": 31.868,
+          "Endurance": 39.433,
+          "Intelligence": 24.178,
+          "Strength": 31.384,
+          "Toughness": 7.497
+        },
+        "attribute_means": {
+          "Agility": 66.0,
+          "Awareness": 70.0,
+          "Composure": 74.0,
+          "Coordination": 74.0,
+          "Endurance": 74.0,
+          "Intelligence": 72.0,
+          "Presence": 56.0,
+          "Strength": 70.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_line_infantry_177cce9f715a",
+        "last_training": {
+          "deliberate_hours": 16.457,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:5:reserve:loc_qi_west_fort",
+          "program_ref": "program.line_infantry",
+          "role_exposure_hours": 7.68
+        },
+        "last_training_program_ref": "program.line_infantry",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_qi_regional_01",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 18.0,
+          "Governance": 15.0,
+          "Intelligence Operations": 24.0,
+          "Law": 16.0,
+          "Trade": 15.0
+        },
+        "reserve_by_location": {
+          "loc_ei": 2700,
+          "loc_qi_regional_01": 2400,
+          "loc_qi_regional_02": 2700,
+          "loc_qi_regional_03": 3000,
+          "loc_qi_regional_04": 3000,
+          "loc_qi_west_fort": 1200
+        },
+        "role": "line_infantry",
+        "service_months_mean": 33.0,
+        "skill_edu_banks": {
+          "Athletics": 56.149,
+          "Engineering": 6.387,
+          "Formation Fighting": 26.652,
+          "Logistics": 27.927,
+          "Polearms": 31.698,
+          "Shield": 27.673,
+          "Survival": 14.528,
+          "Sword": 9.608
+        },
+        "skill_means": {
+          "Athletics": 72.0,
+          "Bow": 28.0,
+          "Crossbow": 38.0,
+          "Engineering": 86.0,
+          "Formation Command": 28.0,
+          "Formation Fighting": 59.0,
+          "Grappling": 30.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 38.0,
+          "Logistics": 66.0,
+          "Medicine": 18.0,
+          "Polearms": 30.0,
+          "Riding": 24.0,
+          "Scouting": 35.0,
+          "Shield": 72.0,
+          "Stealth": 28.0,
+          "Strategy": 30.0,
+          "Survival": 59.0,
+          "Sword": 34.0,
+          "Tactics": 52.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 14,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 791.6064,
+        "verified_training_hours_per_person": 1696.299428
+      },
+      "cohort_force_state_qi_line_infantry_63589dc4d915": {
+        "age_distribution": {
+          "mean": 26.25
+        },
+        "allocated_by_formation": {
+          "formation_qi_reserve_infantry_02": 600,
+          "formation_qi_rinshi_royal_guard": 500
+        },
+        "aptitude_means": {
+          "academic_learning": 96.0,
+          "physical_learning": 108.0,
+          "social_learning": 98.0,
+          "tactical_learning": 106.0,
+          "technical_learning": 102.0
+        },
+        "aptitude_sd": 12.0,
+        "attribute_edu_banks": {
+          "Agility": 0.915,
+          "Awareness": 32.454,
+          "Composure": 37.022,
+          "Coordination": 4.583,
+          "Endurance": 20.881,
+          "Intelligence": 58.657,
+          "Presence": 53.665,
+          "Strength": 10.167,
+          "Toughness": 6.304
+        },
+        "attribute_means": {
+          "Agility": 70.0,
+          "Awareness": 80.0,
+          "Composure": 78.0,
+          "Coordination": 76.0,
+          "Endurance": 78.0,
+          "Intelligence": 66.0,
+          "Presence": 56.0,
+          "Strength": 74.0,
+          "Toughness": 76.0
+        },
+        "attribute_sd": 10.0,
+        "cohort_id": "cohort_force_state_qi_line_infantry_63589dc4d915",
+        "last_training": {
+          "deliberate_hours": 3.537,
+          "evidence_ref": "state:qi:244-BCE-08-31T07:22:48+08:00:0:program:7:formation_qi_rinshi_royal_guard",
+          "program_ref": "program.line_infantry",
+          "role_exposure_hours": 1.651
+        },
+        "last_training_program_ref": "program.line_infantry",
+        "origin": {
+          "kind": "standing_establishment",
+          "population_ref": null,
+          "recorded_at": "244-BCE-01-04T07:22:48+08:00",
+          "recruited_at": null,
+          "source_location_ref": "loc_qi_regional_01",
+          "source_stratum": null
+        },
+        "professional_skill_means": {
+          "Diplomacy": 18.0,
+          "Governance": 15.0,
+          "Intelligence Operations": 31.0,
+          "Law": 16.0,
+          "Trade": 15.0
+        },
+        "reserve_by_location": {
+          "loc_ei": 4734,
+          "loc_qi_regional_01": 4652,
+          "loc_qi_regional_02": 5234,
+          "loc_qi_regional_03": 5216,
+          "loc_qi_regional_04": 5816,
+          "loc_qi_west_fort": 2326
+        },
+        "role": "line_infantry",
+        "service_months_mean": 27.0,
+        "skill_edu_banks": {
+          "Athletics": 47.186,
+          "Formation Command": 11.415,
+          "Formation Fighting": 49.749,
+          "Intelligence Operations": 18.349,
+          "Leadership": 2.053,
+          "Logistics": 5.006,
+          "Polearms": 33.166,
+          "Scouting": 48.169,
+          "Shield": 28.911,
+          "Survival": 24.004,
+          "Sword": 9.986,
+          "Tactics": 27.867
+        },
+        "skill_means": {
+          "Athletics": 72.0,
+          "Bow": 28.0,
+          "Crossbow": 22.0,
+          "Engineering": 22.0,
+          "Formation Command": 29.0,
+          "Formation Fighting": 56.0,
+          "Grappling": 30.0,
+          "Heavy Weapons": 28.0,
+          "Leadership": 52.0,
+          "Logistics": 36.0,
+          "Medicine": 18.0,
+          "Polearms": 26.0,
+          "Riding": 24.0,
+          "Scouting": 60.0,
+          "Shield": 72.0,
+          "Stealth": 28.0,
+          "Strategy": 30.0,
+          "Survival": 60.0,
+          "Sword": 32.0,
+          "Tactics": 50.0,
+          "Unarmed": 32.0
+        },
+        "skill_sd": 12.0,
+        "smart_training_cursor": 18,
+        "tags": [
+          "standing_establishment",
+          "evidence_seeded_capability"
+        ],
+        "verified_role_exposure_hours_per_person": 863.73878,
+        "verified_training_hours_per_person": 1849.603475
+      }
+    },
+    "last_reconciled_at": "244-BCE-01-04T07:22:48+08:00",
+    "schema": "force-cohort-ledger"
+  },
+  "external_personnel_allocations": {},
+  "geographic_disposition": {
+    "authority": true,
+    "representation": "regional partition nested inside exact force owner"
+  },
+  "headcount": 275500,
+  "kind": "state_force",
+  "materialized_people": {
+    "char_cmd_qi_coastal_reserve": {
+      "personnel": 1,
+      "role": "command_personnel",
+      "source_cohort_ref": "cohort_force_state_qi_45c7b8567d3e",
+      "source_mode": "existing_external_command_slot"
+    },
+    "char_cmd_qi_missile_reserve": {
+      "personnel": 1,
+      "role": "command_personnel",
+      "source_cohort_ref": "cohort_force_state_qi_45c7b8567d3e",
+      "source_mode": "existing_external_command_slot"
+    },
+    "char_cmd_qi_mobile_guard": {
+      "personnel": 1,
+      "role": "command_personnel",
+      "source_cohort_ref": "cohort_force_state_qi_45c7b8567d3e",
+      "source_mode": "existing_external_command_slot"
+    },
+    "char_cmd_qi_reserve_infantry_01": {
+      "personnel": 1,
+      "role": "command_personnel",
+      "source_cohort_ref": "cohort_force_state_qi_45c7b8567d3e",
+      "source_mode": "existing_external_command_slot"
+    },
+    "char_cmd_qi_reserve_infantry_02": {
+      "personnel": 1,
+      "role": "command_personnel",
+      "source_cohort_ref": "cohort_force_state_qi_45c7b8567d3e",
+      "source_mode": "existing_external_command_slot"
+    },
+    "char_cmd_qi_rinshi_royal_guard": {
+      "personnel": 1,
+      "role": "command_personnel",
+      "source_cohort_ref": "cohort_force_state_qi_45c7b8567d3e",
+      "source_mode": "existing_external_command_slot"
+    }
+  },
+  "owner_id": "force_state_qi",
+  "owner_type": "force",
+  "schema": "sword-force",
+  "source_location_ref": "loc_qi_regional_03"
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "person_id",
+    "name",
+    "authority",
+    "mode",
+    "narration_rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "behavior-profile"
+    },
+    "person_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "authority": {
+      "const": false
+    },
+    "mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "known_anchors": {
+      "type": "object"
+    },
+    "decision_basis": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dialogue_constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "narration_rule": {
+      "type": "string"
+    },
+    "behavior": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

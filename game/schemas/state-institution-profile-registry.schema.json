@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "state-institution-profile-registry"
+    },
+    "id": {
+      "type": "string"
+    },
+    "profiles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "owner_id",
+          "kind",
+          "state",
+          "location_ref"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "profiles"
+  ]
+}

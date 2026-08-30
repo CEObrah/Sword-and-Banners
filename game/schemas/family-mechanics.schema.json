@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "game",
+    "purpose",
+    "authority_boundaries",
+    "lifecycle",
+    "determinism",
+    "player_agency",
+    "autonomous_npcs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "family-mechanics"
+    },
+    "game": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "authority_boundaries": {
+      "type": "object"
+    },
+    "lifecycle": {
+      "type": "object"
+    },
+    "determinism": {
+      "type": "object"
+    },
+    "player_agency": {
+      "type": "object"
+    },
+    "autonomous_npcs": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

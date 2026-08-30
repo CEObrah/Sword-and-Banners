@@ -1,0 +1,428 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "roaming Qin-Wei corridor",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 168,
+      "sd": 5.7
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 67,
+      "sd": 7.2
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 196000,
+      "basis": "mercenary_ecology current obligation; contract organizes employment but owns zero bodies",
+      "contract_ref": "market_contract_merc_black_banner",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "employer_ref": "state_yan",
+      "engagement_kind": "state_campaign",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 120
+    }
+  ],
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "doctrine": "doc.merc_black_banner.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 700,
+    "assigned_war_arrows": 226800,
+    "assigned_war_bolts": 0,
+    "issued_loadouts": [
+      {
+        "count": 5600,
+        "loadout_id": "loadout_mercenary_line"
+      },
+      {
+        "count": 700,
+        "loadout_id": "loadout_mercenary_reconnaissance"
+      },
+      {
+        "count": 700,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 70,
+    "reserve_war_arrows": 226800,
+    "reserve_war_bolts": 0
+  },
+  "establishment_strength": 7000,
+  "food_stock_kg": 672000,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 7000,
+  "home_establishment_ref": "establishment.merc_black_banner",
+  "home_location_ref": "loc_qin_regional_01",
+  "market_engagement": {
+    "established_at": "244-BCE-07-23T01:22:48+08:00",
+    "kind": "state_campaign",
+    "short_notice_available": false
+  },
+  "market_tier": "specialist",
+  "name": "Black Banner Free Company",
+  "owner_id": "merc_black_banner",
+  "owner_type": "mercenary_company",
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "Independent",
+  "status": "contracted",
+  "subprocess_id": "process_merc_black_banner",
+  "training": "train.merc_black_banner.standard",
+  "treasury_silver": 560000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 103,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 174,
+            "sd": 6.3
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 66,
+            "sd": 7.8
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            88,
+            84,
+            100,
+            96,
+            90,
+            92,
+            102,
+            76,
+            84
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 46,
+            "Governance": 48,
+            "Intelligence Operations": 50,
+            "Law": 44,
+            "Trade": 48
+          },
+          "skill_values": [
+            88,
+            92,
+            72,
+            72,
+            60,
+            100,
+            100,
+            78,
+            76,
+            52,
+            105,
+            78,
+            58,
+            70,
+            38,
+            58,
+            70,
+            68,
+            72,
+            54,
+            70
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 5600
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 5600
+      },
+      "count": 5600,
+      "display": "Line Infantry",
+      "doctrine": "doc.merc_black_banner.line",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_line",
+      "mount_type": null,
+      "pool_id": "merc_black_banner:pool_line",
+      "pool_kind": "unit_manpower",
+      "role": "line",
+      "specialty": "line",
+      "training": "train.merc_black_banner.line",
+      "troop_type": "line_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 103,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 173,
+            "sd": 6.7
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 68,
+            "sd": 7.1
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            74,
+            102,
+            94,
+            78,
+            104,
+            112,
+            98,
+            80,
+            78
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 38,
+            "Governance": 34,
+            "Intelligence Operations": 70,
+            "Law": 32,
+            "Trade": 44
+          },
+          "skill_values": [
+            66,
+            74,
+            42,
+            72,
+            46,
+            60,
+            90,
+            54,
+            54,
+            96,
+            70,
+            104,
+            88,
+            112,
+            30,
+            32,
+            56,
+            46,
+            58,
+            42,
+            56
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 700
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 700
+      },
+      "count": 700,
+      "display": "Scouts",
+      "doctrine": "doc.merc_black_banner.scout",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_reconnaissance",
+      "mount_type": "horse",
+      "pool_id": "merc_black_banner:pool_scout",
+      "pool_kind": "unit_manpower",
+      "role": "reconnaissance",
+      "training": "train.merc_black_banner.scout",
+      "troop_type": "light_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 106,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 170,
+            "sd": 7.0
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 64,
+            "sd": 7.9
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            68,
+            70,
+            86,
+            76,
+            82,
+            92,
+            98,
+            94,
+            82
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 58,
+            "Governance": 60,
+            "Intelligence Operations": 62,
+            "Law": 54,
+            "Trade": 58
+          },
+          "skill_values": [
+            54,
+            58,
+            44,
+            48,
+            50,
+            62,
+            76,
+            50,
+            50,
+            46,
+            68,
+            66,
+            48,
+            62,
+            95,
+            72,
+            68,
+            58,
+            64,
+            52,
+            105
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 700
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 700
+      },
+      "count": 700,
+      "display": "Reserve Line",
+      "doctrine": "doc.merc_black_banner.standard",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_line",
+      "mount_type": null,
+      "pool_id": "merc_black_banner:line_reserve:098ecbad",
+      "pool_kind": "unit_manpower",
+      "role": "line_reserve",
+      "specialty": "reserve_line",
+      "training": "train.merc_black_banner.standard",
+      "troop_type": "line_infantry"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Progression registry",
+  "type": "object",
+  "required": [
+    "name",
+    "owner_id",
+    "owner_type",
+    "records",
+    "schema"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "records": {
+      "type": "array"
+    },
+    "schema": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Static registered progression policy and qualification thresholds. Mutable settlement clocks live with current force/runtime owners, not in this data file."
+}

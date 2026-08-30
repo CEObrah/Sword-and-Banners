@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "ammunition_procurement": {
+      "additionalProperties": false,
+      "properties": {
+        "central_reserve_carried_loads": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "lot_size": {
+          "properties": {
+            "war_arrows": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "war_bolts": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "war_arrows",
+            "war_bolts"
+          ],
+          "type": "object"
+        },
+        "monthly_purchase_cap": {
+          "properties": {
+            "war_arrows": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "war_bolts": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "war_arrows",
+            "war_bolts"
+          ],
+          "type": "object"
+        },
+        "price_key": {
+          "properties": {
+            "war_arrows": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "war_bolts": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "war_arrows",
+            "war_bolts"
+          ],
+          "type": "object"
+        },
+        "principle": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "lot_size",
+        "price_key",
+        "central_reserve_carried_loads",
+        "monthly_purchase_cap",
+        "principle"
+      ],
+      "type": "object"
+    },
+    "currency": {
+      "type": "object"
+    },
+    "default_rank_structure": {
+      "type": "object"
+    },
+    "default_support_monthly_pay_silver": {
+      "type": "object"
+    },
+    "force_posture_hysteresis": {
+      "type": "object"
+    },
+    "formulas": {
+      "type": "object"
+    },
+    "house_estate_finance": {
+      "additionalProperties": false,
+      "properties": {
+        "owner_share_fraction_of_realized_output_value": {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        "rule": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner_share_fraction_of_realized_output_value",
+        "rule"
+      ],
+      "type": "object"
+    },
+    "military_finance": {
+      "type": "object"
+    },
+    "operating_mode_factors": {
+      "type": "object"
+    },
+    "ordinary_market_reference": {
+      "type": "object"
+    },
+    "prices_silver": {
+      "type": "object"
+    },
+    "recruitment_campaign": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_food_kg_per_person_day": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "candidate_training_capacity": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "default_contact_cost_key": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "final_issue_cost_key": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "principle": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "screening_cost_key": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "training_day_hours": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "default_contact_cost_key",
+        "screening_cost_key",
+        "candidate_food_kg_per_person_day",
+        "candidate_training_capacity",
+        "training_day_hours",
+        "final_issue_cost_key",
+        "principle"
+      ],
+      "type": "object"
+    },
+    "recruitment_cost_constants": {
+      "type": "object"
+    },
+    "retail_rule": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "rules": {
+      "type": "object"
+    },
+    "schema": {
+      "const": "sword-economy-mechanics"
+    },
+    "service_issue": {
+      "type": "object"
+    },
+    "state_fiscal_model": {
+      "type": "object"
+    },
+    "wages": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "formulas",
+    "recruitment_cost_constants",
+    "rules",
+    "default_rank_structure",
+    "default_support_monthly_pay_silver",
+    "force_posture_hysteresis",
+    "operating_mode_factors",
+    "ordinary_market_reference",
+    "currency",
+    "military_finance",
+    "prices_silver",
+    "retail_rule",
+    "service_issue",
+    "wages",
+    "recruitment_campaign",
+    "ammunition_procurement"
+  ],
+  "type": "object"
+}

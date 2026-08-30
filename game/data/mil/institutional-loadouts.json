@@ -1,0 +1,126 @@
+{
+  "authority": "Institutional rank-and-file and officer issue defaults. Formation-specific registered_loadouts_by_role overrides troop issue; explicit personal_loadout_ref overrides every officer default. Mixed commands use officer_defaults and never inherit an arbitrary child troop loadout.",
+  "institutions": {
+    "state_qin": {
+      "line_infantry": "loadout_state_line_infantry",
+      "missile_crossbow": "loadout_state_missile_crossbow",
+      "archer": "loadout_state_archer",
+      "cavalry": "loadout_qin_cavalry",
+      "heavy_cavalry": "loadout_qin_heavy_cavalry",
+      "chariot": "loadout_state_chariot",
+      "light_cavalry": "loadout_qin_cavalry"
+    },
+    "state_zhao": {
+      "line_infantry": "loadout_state_line_infantry",
+      "missile_crossbow": "loadout_state_missile_crossbow",
+      "archer": "loadout_state_archer",
+      "cavalry": "loadout_zhao_cavalry",
+      "mounted_archer": "loadout_zhao_mounted_archer",
+      "chariot": "loadout_state_chariot",
+      "light_cavalry": "loadout_zhao_cavalry"
+    },
+    "state_yan": {
+      "line_infantry": "loadout_state_line_infantry",
+      "missile_crossbow": "loadout_state_missile_crossbow",
+      "archer": "loadout_state_archer",
+      "cavalry": "loadout_yan_cavalry",
+      "mounted_archer": "loadout_state_mounted_archer",
+      "chariot": "loadout_state_chariot",
+      "light_cavalry": "loadout_yan_cavalry"
+    },
+    "state_wei": {
+      "line_infantry": "loadout_state_line_infantry",
+      "missile_crossbow": "loadout_state_missile_crossbow",
+      "archer": "loadout_state_archer",
+      "cavalry": "loadout_state_cavalry",
+      "chariot": "loadout_state_chariot",
+      "light_cavalry": "loadout_state_cavalry"
+    },
+    "state_chu": {
+      "line_infantry": "loadout_state_line_infantry",
+      "missile_crossbow": "loadout_state_missile_crossbow",
+      "archer": "loadout_state_archer",
+      "cavalry": "loadout_state_cavalry",
+      "heavy_cavalry": "loadout_state_heavy_cavalry",
+      "chariot": "loadout_state_chariot",
+      "light_cavalry": "loadout_state_cavalry"
+    },
+    "state_qi": {
+      "line_infantry": "loadout_state_line_infantry",
+      "missile_crossbow": "loadout_state_missile_crossbow",
+      "archer": "loadout_state_archer",
+      "cavalry": "loadout_state_cavalry",
+      "light_cavalry": "loadout_state_cavalry"
+    },
+    "state_han": {
+      "line_infantry": "loadout_state_line_infantry",
+      "missile_crossbow": "loadout_state_missile_crossbow",
+      "archer": "loadout_state_archer",
+      "cavalry": "loadout_state_cavalry",
+      "chariot": "loadout_state_chariot",
+      "light_cavalry": "loadout_state_cavalry"
+    },
+    "polity_northern_steppe": {
+      "mounted_archer": "loadout_steppe_mounted_archer"
+    },
+    "polity_yotanwa_confederation": {
+      "mounted_archer": "loadout_yotanwa_mounted_archer"
+    },
+    "house_tang": {
+      "house_infantry": "loadout_tang_foot",
+      "house_cavalry": "loadout_tang_mounted"
+    },
+    "house_mou": {
+      "cavalry": "loadout_mou_house_cavalry"
+    },
+    "house_ou": {
+      "cavalry": "loadout_ou_house_cavalry"
+    }
+  },
+  "officer_defaults": {
+    "state_qin": "loadout_state_command_personnel",
+    "state_zhao": "loadout_state_command_personnel",
+    "state_yan": "loadout_state_command_personnel",
+    "state_wei": "loadout_state_command_personnel",
+    "state_chu": "loadout_state_command_personnel",
+    "state_qi": "loadout_state_command_personnel",
+    "state_han": "loadout_state_command_personnel",
+    "house_tang": "loadout_tang_foot",
+    "house_mou": "loadout_named_spear",
+    "house_ou": "loadout_named_spear",
+    "polity_northern_steppe": "loadout_steppe_mounted_archer",
+    "polity_yotanwa_confederation": "loadout_yotanwa_mounted_archer"
+  },
+  "officer_by_role": {
+    "state_qin": {
+      "cavalry": "loadout_qin_cavalry",
+      "light_cavalry": "loadout_qin_cavalry",
+      "heavy_cavalry": "loadout_qin_heavy_cavalry"
+    },
+    "state_zhao": {
+      "cavalry": "loadout_zhao_cavalry",
+      "light_cavalry": "loadout_zhao_cavalry",
+      "mounted_archer": "loadout_zhao_mounted_archer"
+    },
+    "state_yan": {
+      "cavalry": "loadout_yan_cavalry",
+      "light_cavalry": "loadout_yan_cavalry",
+      "mounted_archer": "loadout_state_mounted_archer"
+    },
+    "house_tang": {
+      "house_cavalry": "loadout_tang_mounted"
+    },
+    "polity_northern_steppe": {
+      "mounted_archer": "loadout_steppe_mounted_archer"
+    },
+    "polity_yotanwa_confederation": {
+      "mounted_archer": "loadout_yotanwa_mounted_archer"
+    },
+    "house_mou": {
+      "cavalry": "loadout_mou_house_cavalry"
+    },
+    "house_ou": {
+      "cavalry": "loadout_ou_house_cavalry"
+    }
+  }
+}

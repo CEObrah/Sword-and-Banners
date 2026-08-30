@@ -1,0 +1,24 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.tang_wei.black_banner",
+  "doctrine": {
+    "label": "Black Banner mission-first battle doctrine",
+    "scope": "formation",
+    "formation_policy_v2": {
+      "battlefield_role": "line_assault",
+      "contact_style": "ordered",
+      "charge_policy": "advantage_required",
+      "pursuit_policy": "controlled",
+      "disengagement": "protected_withdrawal",
+      "anchor_policy": "assigned_objective",
+      "protected_asset": "mission_objective",
+      "autonomous_redeployment": "bounded",
+      "detachment_policy": "bounded",
+      "casualty_posture": "mission_first"
+    },
+    "principles": [
+      "Accomplish the assigned objective: hold, attack, fix, cross, expose reserves and absorb ordinary operational attrition.",
+      "Mission-first casualty tolerance is not suicidal expendability; impossible objectives still require revision, withdrawal or reinforcement."
+    ]
+  }
+}

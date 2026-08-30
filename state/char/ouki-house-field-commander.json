@@ -1,0 +1,131 @@
+{
+  "activity_contract": {
+    "autonomous_enabled": true,
+    "mode": "standing_role_training",
+    "training_program_ref": "program.commander_combined_arms",
+    "training_regimen_ref": "regular_army"
+  },
+  "affiliation": [
+    "Qin",
+    "state_qin",
+    "house_ouki_household"
+  ],
+  "appearance": 67,
+  "aptitude": {
+    "academic_learning": 113,
+    "physical_learning": 116,
+    "social_learning": 110,
+    "tactical_learning": 117,
+    "technical_learning": 120
+  },
+  "attributes": {
+    "Agility": 78,
+    "Awareness": 82,
+    "Composure": 86,
+    "Coordination": 80,
+    "Endurance": 84,
+    "Intelligence": 64,
+    "Presence": 68,
+    "Strength": 82,
+    "Toughness": 82
+  },
+  "authority": "Exact commander of cmdgrp.house_ouki_household.field_army; materialized from one already-conserved household military body.",
+  "autonomous_activity_state": {
+    "cadence_seconds": 2592000,
+    "enabled": true,
+    "focus_cursor": 0,
+    "next_due": "244-BCE-10-09T20:22:48+08:00",
+    "routed_at": "244-BCE-09-09T20:22:48+08:00",
+    "verified_hours_per_cycle": 205.714286
+  },
+  "background": "Existing senior Qin household officer made exact when the persistent 500+ no-double-hat command rule was enforced. The same body was removed from formation_house_ouki_household_01; force headcount did not change.",
+  "birth_date": "286-BCE-07-11",
+  "body": {
+    "adult_height_cm": 172.8,
+    "current_weight_kg": 70.8,
+    "frame": "average",
+    "growth_end_age": 18,
+    "height_anchors": []
+  },
+  "career_state": {
+    "current_billet": "command_group_commander",
+    "current_command_span": 7996,
+    "office_or_command": "Ou Ki Household Army Commander"
+  },
+  "command_assignment": {
+    "billet": "command_group_commander",
+    "command_group_ref": "cmdgrp.house_ouki_household.field_army",
+    "current_command_span": 7996,
+    "external_to_fighting_establishment": true,
+    "formation_ref": "cmdgrp.house_ouki_household.field_army"
+  },
+  "current_location": "loc_qin_regional_02",
+  "development_state": {
+    "verified_role_exposure_hours": 0.0,
+    "verified_training_hours": 0.0
+  },
+  "equipment_loadout_id": "loadout_state_line_infantry",
+  "fatigue": 0,
+  "goal_state": {
+    "current_goals": [
+      "command Ou Ki Household Army Commander effectively"
+    ],
+    "institutional_duties": [
+      "Ou Ki Household Army Commander"
+    ]
+  },
+  "health_status": "fit",
+  "life_status": "active",
+  "loadout_id": "loadout_state_line_infantry",
+  "materialized_from_force_ref": "force_house_ouki_household",
+  "military_command": {
+    "external_to_fighting_strength": true,
+    "formation_scope": "cmdgrp.house_ouki_household.field_army",
+    "higher_commander_ref": "char_ouki",
+    "level": "7996_commander"
+  },
+  "military_rank": {
+    "durable": true,
+    "grade": "4000_commander"
+  },
+  "name": "Wang Cheng",
+  "owner_id": "char_ouki_house_field_commander",
+  "owner_type": "character",
+  "personal_loadout_ref": "loadout_state_line_infantry",
+  "professional_skills": {
+    "Diplomacy": 31,
+    "Governance": 29,
+    "Intelligence Operations": 37,
+    "Law": 20,
+    "Trade": 15
+  },
+  "role": "Ou Ki Household Army Commander",
+  "runtime": {
+    "last_settled_at": "244-BCE-09-09T20:22:48+08:00"
+  },
+  "schema": "sab_character",
+  "skills": {
+    "Athletics": 82,
+    "Bow": 58,
+    "Crossbow": 40,
+    "Engineering": 25,
+    "Formation Command": 73,
+    "Formation Fighting": 86,
+    "Grappling": 48,
+    "Heavy Weapons": 42,
+    "Leadership": 74,
+    "Logistics": 63,
+    "Medicine": 24,
+    "Polearms": 82,
+    "Riding": 58,
+    "Scouting": 55,
+    "Shield": 78,
+    "Stealth": 45,
+    "Strategy": 62,
+    "Survival": 68,
+    "Sword": 78,
+    "Tactics": 70,
+    "Unarmed": 50
+  },
+  "source_cohort_ref": "cohort_force_house_ouki_household_household_retainer_standing"
+}

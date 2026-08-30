@@ -1,0 +1,42 @@
+{
+  "schema": "generic-object",
+  "authority": false,
+  "courts": {
+    "state_qin": {
+      "forum_kind": "royal_court",
+      "capital_ref": "loc_kanyou",
+      "sovereign_ref": "char_ei_sei",
+      "candidate_rows": [
+        {
+          "person_ref": "char_ei_sei",
+          "court_role": "sovereign"
+        },
+        {
+          "person_ref": "char_ryo_fui",
+          "court_role": "chancellor"
+        },
+        {
+          "person_ref": "char_ri_shi",
+          "court_role": "legal_minister"
+        },
+        {
+          "person_ref": "char_ketsu_shi",
+          "court_role": "court_political_officer"
+        },
+        {
+          "person_ref": "char_shou_bun_kun",
+          "court_role": "senior_veteran_official"
+        },
+        {
+          "person_ref": "char_shou_hei_kun",
+          "court_role": "strategist_minister"
+        },
+        {
+          "person_ref": "char_heki",
+          "court_role": "royal_military_officer"
+        }
+      ],
+      "rule": "This is a bounded candidate index for formal Qin royal-court scenes. Exact person owners remain authority for office/life/location, and a session must revalidate physical attendance."
+    }
+  }
+}
