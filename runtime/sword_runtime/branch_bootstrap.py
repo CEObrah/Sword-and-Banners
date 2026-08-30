@@ -20,6 +20,8 @@ import subprocess
 
 from sword_runtime import bootstrap as legacy_bootstrap
 from sword_runtime.bootstrap import BootstrapError, CheckoutSettings
+from sword_runtime.tx.errors import WalError
+from sword_runtime.tx.wal import WriteAheadLog
 
 _OBJECT_ID = re.compile(r"^(?:[0-9a-f]{40}|[0-9a-f]{64})$")
 
@@ -271,6 +273,69 @@ def _adopt_remote_campaign(
     raise BootstrapError("local and remote campaign durability histories diverged")
 
 
+def _has_recoverable_wal(settings: CheckoutSettings) -> bool:
+    """Return whether transaction recovery owns unpublished local campaign state."""
+    try:
+        return bool(WriteAheadLog(settings.runtime_root / "wal").recoverable_records())
+    except (OSError, TypeError, ValueError, WalError) as exc:
+        raise BootstrapError("campaign recovery WAL could not be inspected safely") from exc
+
+
+def _restore_missing_remote_campaign(
+    settings: CheckoutSettings,
+    campaign_branch: str,
+) -> None:
+    """Republish a lost durability ref only from an unambiguous committed checkout.
+
+    A persistent volume can outlive accidental deletion or replacement of the
+    remote campaign ref. When that happens, the clean local campaign branch is
+    still useful authority, but only if transaction recovery has no pending WAL
+    evidence. A pending WAL may represent a local commit awaiting its exact
+    durability transition, so bootstrap must leave that case fail-closed for the
+    transaction coordinator instead of publishing it out of band.
+    """
+    current_branch = _current_branch(settings)
+    if current_branch == settings.branch:
+        _run(settings, "checkout", "-b", campaign_branch)
+        return
+    if current_branch != campaign_branch:
+        raise BootstrapError(
+            "campaign durability branch is missing while checkout is on an unexpected branch"
+        )
+
+    local_head = _head(settings)
+    local_identity = legacy_bootstrap._campaign_identity_revision(settings, local_head)
+    if local_identity is None:
+        raise BootstrapError(
+            "missing campaign durability branch cannot be restored without local campaign identity"
+        )
+    explicit = os.environ.get("SWORD_CAMPAIGN_BRANCH")
+    if explicit is None:
+        expected_branch = legacy_bootstrap._safe_ref(
+            f"campaign/{local_identity[0]}",
+            "derived campaign branch",
+        )
+        if campaign_branch != expected_branch:
+            raise BootstrapError(
+                "local campaign identity does not match missing durability branch"
+            )
+    if _has_recoverable_wal(settings):
+        raise BootstrapError(
+            "campaign durability branch is missing while transaction recovery is pending"
+        )
+
+    _run(
+        settings,
+        "push",
+        "--no-force",
+        settings.remote,
+        f"HEAD:refs/heads/{campaign_branch}",
+    )
+    restored_head = _fetch_branch(settings, campaign_branch)
+    if restored_head != local_head:
+        raise BootstrapError("restored campaign durability branch did not converge")
+
+
 def prepare_campaign_branch(settings: CheckoutSettings) -> str:
     """Return the exact branch that will own gameplay transaction durability."""
     settings.runtime_root.mkdir(parents=True, exist_ok=True)
@@ -290,22 +355,20 @@ def prepare_campaign_branch(settings: CheckoutSettings) -> str:
             remote_campaign_head,
         )
     else:
-        current_branch = _current_branch(settings)
-        if current_branch != settings.branch:
-            raise BootstrapError(
-                "campaign durability branch is missing while checkout is not on source branch"
+        _restore_missing_remote_campaign(settings, campaign_branch)
+        # When the checkout began on the source branch, the new local campaign
+        # branch still needs its first remote durability publication. When the
+        # checkout already held the campaign branch, the helper published and
+        # verified the preserved local authority directly.
+        if not _remote_branch_exists(settings, campaign_branch):
+            _merge_deployed_source(settings, source_commit)
+            _run(
+                settings,
+                "push",
+                "--no-force",
+                settings.remote,
+                f"HEAD:refs/heads/{campaign_branch}",
             )
-        # Start the durability lineage from the current committed campaign checkout
-        # so no live state is discarded. All later routing uses exact refs rather
-        # than Git's implicit branch-upstream configuration.
-        _run(settings, "checkout", "-b", campaign_branch)
-        _merge_deployed_source(settings, source_commit)
-        _run(
-            settings,
-            "push",
-            settings.remote,
-            f"HEAD:refs/heads/{campaign_branch}",
-        )
 
     if local_ahead:
         # A same-source restart may have a transaction commit that exists locally
