@@ -150,18 +150,14 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
         integrity = runtime_route_integrity(runtime_after_start)
         assert integrity['complete'], integrity
 
+        # Observation completion is a causal process boundary, not a delivered
+        # player-facing event. Advance to that exact instant without asking the
+        # semantic wait layer to stop on unrelated operation traffic.
         observe_wait = _body(
             after_start,
             request_id='recon-await-observation',
             command_type='advance_time',
-            payload={
-                'target_time': observation_due_at,
-                'stop_on_player_event': True,
-                'wait_policy': {
-                    'operation_refs': [operation_ref],
-                    'topic_terms': ['approach conditions'],
-                },
-            },
+            payload={'target_time': observation_due_at},
         )
         wait_preview = client.post('/v1/commands/preview', headers=headers, json=observe_wait)
         assert wait_preview.status_code == 200, wait_preview.text
@@ -209,6 +205,8 @@ def test_unrouted_operation_response_fails_closed_and_recon_report_arrives(campa
                 'target_time': str(delivery_due),
                 'stop_on_player_event': True,
                 'wait_policy': {
+                    'event_kinds': ['military_reconnaissance_report'],
+                    'source_refs': [scout_commander_ref],
                     'operation_refs': [operation_ref],
                     'topic_terms': ['approach conditions'],
                 },
