@@ -250,3 +250,76 @@ def test_source_side_campaign_state_edit_is_refused(
     assert json.loads(
         (settings.campaign_root / "state" / "meta.json").read_text(encoding="utf-8")
     )["revision"] == 1
+
+
+def test_missing_remote_campaign_branch_is_restored_from_clean_persistent_campaign(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _source, remote, settings, baseline = source_remote_and_settings(tmp_path)
+    configure_deployed_source(monkeypatch, baseline)
+    campaign_branch = prepare_campaign_branch(settings)
+    checkout = settings.campaign_root
+    git(checkout, "config", "user.email", "runtime@example.invalid")
+    git(checkout, "config", "user.name", "Runtime Test")
+    campaign_head = commit(
+        checkout,
+        "state/meta.json",
+        meta(2),
+        "durable gameplay revision 2",
+    )
+    git(checkout, "push", "-q", "origin", campaign_branch)
+    git(remote, "update-ref", "-d", f"refs/heads/{campaign_branch}")
+
+    assert prepare_campaign_branch(settings) == campaign_branch
+
+    assert git(checkout, "branch", "--show-current") == campaign_branch
+    assert git(checkout, "rev-parse", "HEAD") == campaign_head
+    assert git(remote, "rev-parse", f"refs/heads/{campaign_branch}") == campaign_head
+    assert json.loads(
+        (checkout / "state" / "meta.json").read_text(encoding="utf-8")
+    )["revision"] == 2
+
+
+def test_missing_remote_campaign_branch_stays_fail_closed_with_pending_wal(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _source, remote, settings, baseline = source_remote_and_settings(tmp_path)
+    configure_deployed_source(monkeypatch, baseline)
+    campaign_branch = prepare_campaign_branch(settings)
+    git(remote, "update-ref", "-d", f"refs/heads/{campaign_branch}")
+    monkeypatch.setattr(
+        "sword_runtime.branch_bootstrap._has_recoverable_wal",
+        lambda _settings: True,
+    )
+
+    with pytest.raises(BootstrapError, match="transaction recovery is pending"):
+        prepare_campaign_branch(settings)
+
+    completed = subprocess.run(
+        ["git", "-C", str(remote), "rev-parse", "--verify", f"refs/heads/{campaign_branch}"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    assert completed.returncode != 0
+
+
+def test_missing_remote_campaign_branch_rejects_unidentified_local_authority(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _source, remote, settings, baseline = source_remote_and_settings(tmp_path)
+    configure_deployed_source(monkeypatch, baseline)
+    campaign_branch = prepare_campaign_branch(settings)
+    checkout = settings.campaign_root
+    git(checkout, "config", "user.email", "runtime@example.invalid")
+    git(checkout, "config", "user.name", "Runtime Test")
+    commit(
+        checkout,
+        "state/meta.json",
+        '{"schema":"meta","revision":2}\n',
+        "corrupt local campaign identity",
+    )
+    git(remote, "update-ref", "-d", f"refs/heads/{campaign_branch}")
+
+    with pytest.raises(BootstrapError, match="without local campaign identity"):
+        prepare_campaign_branch(settings)
