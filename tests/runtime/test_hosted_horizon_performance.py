@@ -29,8 +29,8 @@ class CountingProductionPlanner(ProductionCampaignPlanner):
         return super()._advance_causal_runtime(target_text)
 
 
-@pytest.mark.parametrize("days", [365])
-def test_diagnostic_hosted_horizon_work_budget(campaign, days: int):
+def test_diagnostic_hosted_horizon_work_budget(campaign):
+    days = 365
     planner = CountingProductionPlanner(campaign)
     planner._reset()
     planner.read_calls = 0
@@ -53,11 +53,8 @@ def test_diagnostic_hosted_horizon_work_budget(campaign, days: int):
     assert after["scheduler"]["causal_settled_through"] == str(target)
     assert int(result["events_processed"]) > 0
     assert str(planner.store.read_json("state/runtime.json")["world_time"]) == disk_start
-    assert False, {
-        "days": days,
-        "cpu_elapsed": cpu_elapsed,
-        "read_calls": planner.read_calls,
-        "put_calls": planner.put_calls,
-        "causal_windows": len(planner.causal_heap_calls),
-        "events_processed": int(result["events_processed"]),
-    }
+    raise AssertionError(
+        f"WORK_BUDGET days={days} cpu={cpu_elapsed:.6f} "
+        f"reads={planner.read_calls} puts={planner.put_calls} "
+        f"windows={len(planner.causal_heap_calls)} events={int(result['events_processed'])}"
+    )
