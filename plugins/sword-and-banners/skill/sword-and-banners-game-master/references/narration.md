@@ -67,6 +67,22 @@ Lead with the positive result. Add only limitations that affect the next decisio
 
 Use names, offices, unit names, locations, and physical referents whenever a pronoun could be ambiguous. A reader should not need to reverse-engineer who spoke or which formation moved.
 
+### Positive diegetic rendering
+
+Anti-hallucination and authority checks stay backstage. Do not narrate prose as a correction to an unmade claim merely because the GM internally distinguished fact from inference, authority from ownership, an estimate from contact, or arrival from battle.
+
+Avoid validator-shaped contrast such as `that is intelligence, not an army standing in front of you`, `no battle begins merely because you arrived`, `there is no invented vanguard title`, `this does not mean the order was accepted`, or similar sentences whose main purpose is to tell the player what the GM refused to infer. State the positive in-world condition instead: what report exists, what the staff has observed, what order is in force, what formation is doing the work, or what evidence is still awaited.
+
+When uncertainty matters, render its provenance rather than lecturing about its limits. Prefer `The staff still has only the theater estimate; no confirmed contact report has reached headquarters` to an abstract explanation of what intelligence is not. An absence may be stated when the absence itself is a meaningful in-world fact: a promised courier is late, a required seal is withheld, a scheduled officer is missing, or the current staff report explicitly records no confirmed contact.
+
+The same rule applies to authority and mechanics. If an action is unavailable, show the responsible person, order, law, custody, terrain, distance, or material condition that constrains it when that reason is player-visible. Delete sentences whose only job is to explain what the GM did not invent, did not assume, or did not let Wei bypass.
+
+### Put declared action on screen
+
+When the player supplies meaningful dialogue, selects an option whose substance is dialogue or command, or declares a consequential order/message, render Wei's actual words or concrete action before the world reacts whenever the wording can be faithfully authored from the declaration. Do not collapse a selected command into `the order goes through the chain`, `you answer`, `you choose`, or another narrator placeholder.
+
+For a remote report or order, the visible words are the message Wei sends or the order he gives; they do not prove the recipient heard, accepted, or acted on them. Preserve the player's stated scope and do not add a new promise, insult, tactic, target, or commitment merely to make the line dramatic.
+
 ### Player action is not world reaction
 
 Distinguish Wei's committed action from **hard external consequences**. A remote message, runner, petition left with an office, attempt to obtain access, or other interaction where the target is not established as present does not prove reception, personal acknowledgement, acceptance/refusal, elapsed waiting time, or any later response. Narrate only what that channel actually establishes until causality delivers more.
@@ -158,6 +174,18 @@ Expand:
 
 When several player-declared actions are already ordered, narrate them as one coherent sequence unless a real interruption, new consequence, or new choice changes the plan. Do not manufacture a menu between actions Wei already chose.
 
+### Atomic travel and long movement
+
+When one travel, march, redeployment, or other movement write advances a long interval without a direct player-facing event, confirmed contact, or detailed causal trace, compress the interval. Do not turn an aggregate duration into invented road incidents, traffic-management episodes, camp routines, officer behavior, column stretching and closing, forced-march techniques, or other plausible-but-unestablished causes merely to make the passage feel military.
+
+Use only the committed movement facts that matter: origin and destination, route or intermediate locations when actually exposed and useful, elapsed time, authoritative environment changes, actual campaign notices or interruptions, fatigue/supply/formation changes, and the arrival handoff. A large duration may prove that the movement took a long time; it does not by itself prove why. Expand only the movement events and constraints the runtime or lawful player-visible rules actually establish.
+
+### Presentation continuity after interrupted writes
+
+If a reversible player-visible scene beat has already been rendered in the current conversation and a later implementation or persistence failure prevented only subsequent chronology or another hard consequence, do not replay that same dialogue or scene merely because the authoritative clock never advanced. After recovery, refresh runtime authority, commit the missing hard consequence through the normal path, and bridge forward from the already-rendered beat as presentation continuity.
+
+This rule never promotes prior prose into campaign truth. Old narration cannot establish current presence, time, resources, authority, movement, promises, information, or any other durable fact. If fresh runtime state contradicts the earlier presentation, runtime wins and the contradiction must be handled honestly rather than preserving the prose.
+
 ### Standing policies and waiting
 
 If the player chooses a standing posture such as `hold here until the staff answers`, `maintain this escort arrangement until called`, `wait for the courier`, or `continue until something significant happens`, treat that as an instruction governing the ensuing interval rather than as a static pose to narrate repeatedly.
@@ -202,6 +230,9 @@ When a local objective completes inside an established examination, council, aud
 If fresh runtime context exposes no durable next institutional stage, do not fabricate one. State only what is actually complete, keep the unresolved larger purpose visible, and either carry an obvious reversible procedure forward or hand the player grounded lawful attempts that can move the situation. A runtime `unresolved_decision: null` is not a command to fade to black.
 
 If a genuine unresolved decision remains and the player has not already declared the next action, use `choices.md` after the scene. A stale scene projection does not excuse omitting choices when current exact state, the committed endpoint, and a presentation-only continuity anchor clearly show that a new player-facing fork has been reached. Do not end with a generic `what do you do?`, a bare disclaimer about what has not yet been granted, or an abstract statement that the runtime is waiting when grounded decision scaffolding would help.
+
+Never narrate conversation or control state as though it were part of Wei's world. Phrases such as `your original sequence is complete`, `now there is a real decision`, `option 4 is complete`, `the runtime is waiting`, or `this is the next choice` are interface commentary, not fiction. Show the in-world endpoint that creates the handoff, then present the choice block without announcing that a menu or control boundary exists.
+
 ## Use omniscient director truth without omniscient player narration
 
 When a runtime result or person envelope marks material as `gm_private`, use it. It exists so hidden causes still have real effects: an enemy maneuver has a reason, a rival's lie has a real truth behind it, a wounded fighter protects the injured side, and a commander reacts according to an actual objective rather than a generic role label. The player-facing prose still stays with Tang Wei. Render what he can see, hear, feel, remember, reasonably infer, or lawfully receive; let hidden causes appear through their observable effects until they are discovered.
