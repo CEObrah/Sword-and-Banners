@@ -1,12 +1,11 @@
-"""Causal superior-command review after a player field phase completes.
+"""Campaign superior-review lifecycle for completed field phases.
 
-Campaign headquarters already owns council cadence, upward reports, and delivery of
-persisted superior orders. This module fills the missing middle of that chain:
-player-known material command intelligence and explicit follow-on requests are
-reported through the exact campaign cycle, the named superior reviews them once,
-and a bounded mission-level follow-on order is persisted for the existing delivery
-host. It never moves formations, invents hidden enemy truth, chooses Tang Wei's
-tactics, or transfers ownership.
+The campaign cycle already owns councils, daily headquarters cadence, and delivery
+of persisted superior orders. This module owns the missing middle: material
+command intelligence already known to Tang Wei is forwarded upward, explicit
+follow-on requests receive a causal headquarters review route, and the named
+superior may persist one bounded mission-level follow-on order. No hidden enemy
+truth is read and no formation is moved, reassigned, or committed to battle here.
 """
 from __future__ import annotations
 
@@ -17,6 +16,8 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.campaign_command_cycle import _latest_order, _load_operation, _read_cycle
+from sword_runtime.campaign_command_requests import campaign_command_request_response_ref
+from sword_runtime.causal_event_store import get_causal_event_from_reader
 from sword_runtime.sim.calendar import CampaignTime
 
 
@@ -24,17 +25,13 @@ _PLAYER_REF = "char_tang_wei"
 _RUNTIME_PATH = "state/runtime.json"
 _INFO_INDEX = "state/information/index.json"
 _ATTEMPT_LEDGER = "state/index/interaction-attempts.json"
+_REQUEST_PRIORITY = 48
 _COMPLETED_ORDER_STATES = {"completed", "phase_complete_awaiting_follow_on_direction"}
-_FOLLOW_ON_TOPIC_TERMS = (
-    "follow_on_order",
-    "follow-on order",
-    "follow on order",
-    "follow-on operational order",
-    "follow on operational order",
-    "next operational order",
-    "next campaign order",
-    "follow-on campaign order",
-    "follow on campaign order",
+_FOLLOW_ON_TERMS = (
+    "follow_on_order", "follow-on order", "follow on order",
+    "follow-on operational order", "follow on operational order",
+    "next operational order", "next campaign order",
+    "follow-on campaign order", "follow on campaign order",
 )
 
 
@@ -49,6 +46,7 @@ def _now(planner: Any) -> str | None:
 
 
 def _known_command_intelligence(planner: Any, *, at: str) -> list[dict[str, Any]]:
+    """Return only command intelligence already held by Tang Wei by ``at``."""
     index = planner.read_optional(_INFO_INDEX)
     if not isinstance(index, Mapping):
         return []
@@ -77,85 +75,104 @@ def _known_command_intelligence(planner: Any, *, at: str) -> list[dict[str, Any]
             "subject_ref": claim.get("subject_ref"),
             "claim": claim.get("claim") or claim.get("fact"),
             "confidence_milli": claim.get("confidence_milli"),
-            "source_ref": (holder or {}).get("source_ref") if isinstance(holder, Mapping) else claim.get("source_ref"),
+            "source_ref": holder.get("source_ref") if isinstance(holder, Mapping) else claim.get("source_ref"),
             "provenance": claim.get("provenance"),
         })
     rows.sort(key=lambda row: (str(row.get("learned_at", "")), str(row.get("information_ref", ""))))
     return rows
 
 
-def _follow_on_request_refs(planner: Any, *, cycle: Mapping[str, Any]) -> list[str]:
+def _attempt_rows(planner: Any) -> list[dict[str, Any]]:
     ledger = planner.read_optional(_ATTEMPT_LEDGER)
     rows = ledger.get("attempts", []) if isinstance(ledger, Mapping) else []
+    return [copy.deepcopy(dict(row)) for row in rows[-256:] if isinstance(row, Mapping)] if isinstance(rows, list) else []
+
+
+def _is_follow_on_request(row: Mapping[str, Any]) -> bool:
+    if row.get("actor_id") != _PLAYER_REF:
+        return False
+    if str(row.get("action", "")) not in {"ask", "request", "petition", "report", "present", "seek_contact"}:
+        return False
+    text = " ".join(str(row.get(key) or "").lower() for key in ("topic", "player_statement", "posture"))
+    return any(term in text for term in _FOLLOW_ON_TERMS)
+
+
+def _requests_for_cycle(planner: Any, cycle: Mapping[str, Any]) -> list[dict[str, Any]]:
     cycle_ref = str(cycle.get("cycle_ref") or "")
     operation_ref = str(cycle.get("operation_ref") or "")
     venue_ref = str(cycle.get("venue_ref") or "")
-    refs: list[str] = []
-    for row in rows[-256:] if isinstance(rows, list) else []:
-        if not isinstance(row, Mapping) or row.get("actor_id") != _PLAYER_REF:
-            continue
-        if str(row.get("action", "")) not in {"ask", "request", "petition", "report", "present", "seek_contact"}:
+    values: list[dict[str, Any]] = []
+    for row in _attempt_rows(planner):
+        if not _is_follow_on_request(row):
             continue
         target = str(row.get("target_ref") or "")
         process = str(row.get("process_ref") or "")
-        if target not in {cycle_ref, operation_ref, venue_ref} and process not in {cycle_ref, operation_ref}:
-            continue
-        text = " ".join(str(row.get(key) or "").lower() for key in ("topic", "player_statement", "posture"))
-        if not any(term in text for term in _FOLLOW_ON_TOPIC_TERMS):
-            continue
-        attempt_ref = row.get("event_id")
-        if isinstance(attempt_ref, str) and attempt_ref:
-            refs.append(attempt_ref)
-    return list(dict.fromkeys(refs))
+        if target in {cycle_ref, operation_ref, venue_ref} or process in {cycle_ref, operation_ref}:
+            values.append(row)
+    return values
 
 
-def _report_new_intelligence(
-    cycle: dict[str, Any], *, at: str, intelligence: list[dict[str, Any]], request_refs: list[str]
+def _player_at_cycle_venue(planner: Any, cycle: Mapping[str, Any]) -> bool:
+    player = planner.read_optional("state/player.json")
+    if not isinstance(player, Mapping):
+        return False
+    location = player.get("location") or player.get("current_location") or player.get("location_ref")
+    return isinstance(location, str) and location == cycle.get("venue_ref")
+
+
+def _report_material_inputs(
+    cycle: dict[str, Any], *, at: str, intelligence: list[dict[str, Any]], requests: list[dict[str, Any]]
 ) -> tuple[list[str], list[str]]:
-    reported = [
-        str(ref) for ref in cycle.get("reported_command_information_refs", [])
-        if isinstance(ref, str) and ref
-    ]
-    reported_requests = [
-        str(ref) for ref in cycle.get("reported_follow_on_request_refs", [])
-        if isinstance(ref, str) and ref
-    ]
-    new_info = [row for row in intelligence if str(row.get("information_ref", "")) not in set(reported)]
-    new_requests = [ref for ref in request_refs if ref not in set(reported_requests)]
-    if not new_info and not new_requests:
+    reported_info = [str(ref) for ref in cycle.get("reported_command_information_refs", []) if isinstance(ref, str)]
+    reported_requests = [str(ref) for ref in cycle.get("reported_follow_on_request_refs", []) if isinstance(ref, str)]
+    new_info = [row for row in intelligence if str(row.get("information_ref", "")) not in set(reported_info)]
+    request_refs = [str(row.get("event_id")) for row in requests if isinstance(row.get("event_id"), str)]
+    new_request_refs = [ref for ref in request_refs if ref not in set(reported_requests)]
+    if not new_info and not new_request_refs:
         return [], []
 
-    upward = cycle.get("upward_reports") if isinstance(cycle.get("upward_reports"), list) else []
     info_refs = [str(row["information_ref"]) for row in new_info if isinstance(row.get("information_ref"), str)]
-    report_ref = f"campaign_command_material_report.{_digest('material-report', str(cycle.get('cycle_ref')) + '|' + '|'.join(info_refs + new_requests))}"
+    upward = cycle.get("upward_reports") if isinstance(cycle.get("upward_reports"), list) else []
+    material = info_refs + new_request_refs
     upward.append({
-        "report_ref": report_ref,
+        "report_ref": f"campaign_command_material_report.{_digest('material-report', str(cycle.get('cycle_ref')) + '|' + '|'.join(material))}",
         "reported_at": at,
         "phase": "material_intelligence",
         "from_ref": _PLAYER_REF,
         "to_ref": cycle.get("superior_command_ref"),
         "information_refs": info_refs,
-        "follow_on_request_refs": new_requests,
+        "follow_on_request_refs": new_request_refs,
         "information": copy.deepcopy(new_info),
         "rule": (
-            "This report forwards only command intelligence already known to Tang Wei and explicit saved player requests. "
-            "It creates no enemy truth, movement, tactical choice, or command outcome."
+            "Only saved information already held by Tang Wei and exact saved player requests are forwarded. "
+            "This report creates no enemy truth, movement, tactical decision, or superior outcome."
         ),
     })
     cycle["upward_reports"] = upward[-48:]
-    cycle["reported_command_information_refs"] = list(dict.fromkeys(reported + info_refs))[-128:]
-    cycle["reported_follow_on_request_refs"] = list(dict.fromkeys(reported_requests + new_requests))[-128:]
-    return info_refs, new_requests
+    cycle["reported_command_information_refs"] = list(dict.fromkeys(reported_info + info_refs))[-128:]
+    cycle["reported_follow_on_request_refs"] = list(dict.fromkeys(reported_requests + new_request_refs))[-128:]
+    return info_refs, new_request_refs
+
+
+def _request_is_causally_received(planner: Any, row: Mapping[str, Any]) -> bool:
+    response_ref = row.get("response_ref")
+    if isinstance(response_ref, str) and response_ref:
+        return True
+    attempt_ref = row.get("event_id")
+    return bool(
+        isinstance(attempt_ref, str)
+        and isinstance(get_causal_event_from_reader(planner, campaign_command_request_response_ref(attempt_ref)), Mapping)
+    )
 
 
 def _order_is_complete(operation: Mapping[str, Any], order: Mapping[str, Any] | None) -> bool:
     if not isinstance(order, Mapping):
         return False
-    if str(order.get("actionability_status", "")) == "completed":
-        return True
-    if str(order.get("status", "")) in _COMPLETED_ORDER_STATES:
-        return True
-    return str(operation.get("order_status", "")) in _COMPLETED_ORDER_STATES
+    return bool(
+        str(order.get("actionability_status", "")) == "completed"
+        or str(order.get("status", "")) in _COMPLETED_ORDER_STATES
+        or str(operation.get("order_status", "")) in _COMPLETED_ORDER_STATES
+    )
 
 
 def _mission_order(
@@ -163,12 +180,7 @@ def _mission_order(
     at: str, information_refs: list[str], request_refs: list[str], signature: str,
 ) -> dict[str, Any]:
     packet = base_order.get("mission_packet") if isinstance(base_order.get("mission_packet"), Mapping) else {}
-    strategic_ref = (
-        operation.get("strategic_target_ref")
-        or packet.get("strategic_target_ref")
-        or operation.get("operational_area_ref")
-        or operation.get("location_ref")
-    )
+    strategic_ref = operation.get("strategic_target_ref") or packet.get("strategic_target_ref") or operation.get("operational_area_ref") or operation.get("location_ref")
     strategic_name = packet.get("strategic_target_name") or strategic_ref or "the current campaign axis"
     anchor_ref = operation.get("location_ref") or packet.get("destination_ref") or strategic_ref
     anchor_name = packet.get("destination_name") or anchor_ref or strategic_name
@@ -183,7 +195,7 @@ def _mission_order(
         "field_command_anchor_ref": anchor_ref,
         "decision_scope": "mission_level_follow_on_only",
         "agency_rule": (
-            "Superior command sets the mission and reporting requirement only. Tang Wei retains the exact route, formation assignment, "
+            "Superior command sets mission and reporting scope only. Tang Wei retains exact route, formation assignment, "
             "reconnaissance depth, reserve posture, battle commitment, and tactics unless a later exact lawful order states otherwise."
         ),
     })
@@ -214,122 +226,228 @@ def _mission_order(
             "base_order_ref": base_order.get("order_ref"),
         },
         "authority_rule": (
-            "This follow-on order is issued through the existing campaign superior-command chain. It neither transfers ownership nor "
-            "commits excluded private auxiliaries, moves formations automatically, chooses tactics, or creates battle contact."
+            "The order uses only existing campaign authority. It does not transfer ownership, compel excluded private auxiliaries, "
+            "move formations automatically, choose tactics, or create battle contact."
         ),
     }
 
 
 def sync_campaign_command_decisions(planner: Any) -> list[str]:
-    """Forward material player-known intelligence and issue one bounded follow-on mission when due."""
+    """Forward material inputs and persist one deduplicated superior follow-on mission when warranted."""
     at = _now(planner)
     if at is None:
         return []
-    created: list[str] = []
     intelligence = _known_command_intelligence(planner, at=at)
+    try:
+        root = planner.read("state/cmd/command-groups/cmdgrp.tang_wei.field_army.json")
+    except (FileNotFoundError, KeyError, ValueError):
+        return []
+    operation_ref = root.get("active_context_ref") if isinstance(root, Mapping) else None
+    if not isinstance(operation_ref, str) or not operation_ref:
+        return []
+    existing = _read_cycle(planner, operation_ref)
+    if existing is None:
+        return []
+    cycle_path, cycle = existing
+    if str((cycle.get("war_council") or {}).get("status", "")) != "held":
+        return []
+    superior = cycle.get("supreme_commander_ref") or cycle.get("superior_command_ref")
+    if not isinstance(superior, str) or not superior:
+        return []
 
-    player = planner.read_optional("state/player.json")
-    appointments = ((player or {}).get("career_state") or {}).get("appointments", []) if isinstance(player, Mapping) else []
-    operation_refs = [
-        str(row.get("operation_ref")) for row in appointments
-        if isinstance(row, Mapping)
-        and row.get("status") == "active"
-        and row.get("kind") in {"qin_field_command", "state_field_command"}
-        and isinstance(row.get("operation_ref"), str)
-    ] if isinstance(appointments, list) else []
-    if not operation_refs:
-        try:
-            root = planner.read("state/cmd/command-groups/cmdgrp.tang_wei.field_army.json")
-        except (FileNotFoundError, KeyError, ValueError):
-            root = None
-        active = root.get("active_context_ref") if isinstance(root, Mapping) else None
-        if isinstance(active, str) and active:
-            operation_refs = [active]
+    op_path, operation = _load_operation(planner, operation_ref)
+    base_order = _latest_order(operation)
+    if not isinstance(base_order, Mapping):
+        return []
+    requests = _requests_for_cycle(planner, cycle)
+    new_info_refs, new_request_refs = _report_material_inputs(cycle, at=at, intelligence=intelligence, requests=requests)
+    cycle["updated_at"] = at
+    planner.put(cycle_path, cycle)
+    if not _order_is_complete(operation, base_order):
+        return []
 
-    for operation_ref in dict.fromkeys(operation_refs):
-        existing = _read_cycle(planner, operation_ref)
-        if existing is None:
-            continue
-        cycle_path, cycle = existing
-        if str((cycle.get("war_council") or {}).get("status", "")) != "held":
-            continue
-        if not isinstance(cycle.get("supreme_commander_ref") or cycle.get("superior_command_ref"), str):
-            continue
-        op_path, operation = _load_operation(planner, operation_ref)
-        base_order = _latest_order(operation)
-        if not isinstance(base_order, Mapping):
-            continue
+    reported_info = [str(ref) for ref in cycle.get("reported_command_information_refs", []) if isinstance(ref, str)]
+    received_request_refs = [
+        str(row.get("event_id")) for row in requests
+        if isinstance(row.get("event_id"), str) and _request_is_causally_received(planner, row)
+    ]
+    if not reported_info and not received_request_refs:
+        return []
 
-        request_refs = _follow_on_request_refs(planner, cycle=cycle)
-        new_info_refs, new_request_refs = _report_new_intelligence(
-            cycle, at=at, intelligence=intelligence, request_refs=request_refs,
+    basis = {
+        "operation_ref": operation_ref,
+        "base_order_ref": base_order.get("order_ref"),
+        "information_refs": reported_info,
+        "received_request_refs": received_request_refs,
+        "phase": operation.get("campaign_phase") or operation.get("order_status"),
+    }
+    signature = _digest("campaign-decision", json.dumps(basis, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
+    decision_ref = f"campaign_command_decision.{signature}"
+    decision_refs = [str(ref) for ref in cycle.get("campaign_command_decision_refs", []) if isinstance(ref, str)]
+    if decision_ref in set(decision_refs):
+        return []
+    order_ref = f"operational_order_{signature}"
+    orders = operation.get("operational_orders") if isinstance(operation.get("operational_orders"), list) else []
+    if any(isinstance(row, Mapping) and str(row.get("order_ref", "")) == order_ref for row in orders):
+        return []
+
+    order = _mission_order(
+        operation, cycle, base_order, at=at,
+        information_refs=reported_info, request_refs=received_request_refs, signature=signature,
+    )
+    orders.append(order)
+    operation["operational_orders"] = orders
+    operation["last_operational_order_ref"] = order_ref
+    operation["order_status"] = "staff_briefed_awaiting_commander_execution"
+    operation["campaign_phase"] = "contact_development"
+    planner.put(op_path, operation)
+
+    decisions = cycle.get("campaign_command_decisions") if isinstance(cycle.get("campaign_command_decisions"), list) else []
+    decisions.append({
+        "decision_ref": decision_ref,
+        "decided_at": at,
+        "superior_command_ref": superior,
+        "order_ref": order_ref,
+        "base_order_ref": base_order.get("order_ref"),
+        "information_refs": reported_info,
+        "follow_on_request_refs": received_request_refs,
+        "new_information_refs": new_info_refs,
+        "new_follow_on_request_refs": new_request_refs,
+    })
+    cycle["campaign_command_decisions"] = decisions[-32:]
+    cycle["campaign_command_decision_refs"] = list(dict.fromkeys(decision_refs + [decision_ref]))[-64:]
+    cycle["current_superior_order"] = copy.deepcopy(order)
+    cycle["updated_at"] = at
+    planner.put(cycle_path, cycle)
+    return [order_ref]
+
+
+def _route_follow_on_requests(planner: Any, runtime: dict[str, Any]) -> None:
+    """Give saved follow-on requests a real delayed headquarters review route."""
+    hosts = runtime.get("hosts")
+    events = runtime.get("events")
+    current_text = runtime.get("world_time")
+    if not isinstance(hosts, dict) or not isinstance(events, list) or not isinstance(current_text, str):
+        raise ValueError("runtime causal queue is invalid")
+    current = CampaignTime.parse(current_text)
+    mechanics = planner.read("game/data/mechanics/campaign-command.json")
+    section = mechanics.get("campaign_command_cycle") if isinstance(mechanics, Mapping) else {}
+    delay_minutes = section.get("superior_request_response_delay_minutes", 15) if isinstance(section, Mapping) else 15
+    if isinstance(delay_minutes, bool) or not isinstance(delay_minutes, int) or delay_minutes <= 0:
+        raise ValueError("campaign superior request response delay is invalid")
+
+    try:
+        root = planner.read("state/cmd/command-groups/cmdgrp.tang_wei.field_army.json")
+    except (FileNotFoundError, KeyError, ValueError):
+        return
+    operation_ref = root.get("active_context_ref") if isinstance(root, Mapping) else None
+    if not isinstance(operation_ref, str) or not operation_ref:
+        return
+    existing = _read_cycle(planner, operation_ref)
+    if existing is None:
+        return
+    _cycle_path, cycle = existing
+    if not _player_at_cycle_venue(planner, cycle):
+        return
+    cycle_ref = str(cycle.get("cycle_ref") or "")
+    superior = cycle.get("superior_command_ref") or cycle.get("supreme_commander_ref")
+    if not cycle_ref or not isinstance(superior, str) or not superior:
+        return
+
+    pending_for_cycle = next((
+        (host_id, host) for host_id, host in hosts.items()
+        if isinstance(host_id, str) and isinstance(host, dict)
+        and host.get("kind") == "institutional_followup"
+        and host.get("route_domain") == "campaign_command_follow_on_review"
+        and host.get("campaign_command_cycle_ref") == cycle_ref
+        and isinstance(host.get("next_due"), str)
+    ), None)
+    for attempt in reversed(_requests_for_cycle(planner, cycle)):
+        attempt_ref = attempt.get("event_id")
+        if not isinstance(attempt_ref, str) or not attempt_ref or isinstance(attempt.get("response_ref"), str):
+            continue
+        if isinstance(get_causal_event_from_reader(planner, campaign_command_request_response_ref(attempt_ref)), Mapping):
+            continue
+        requested_at = attempt.get("at")
+        if not isinstance(requested_at, str):
+            continue
+        due = max(current, CampaignTime.parse(requested_at).add_seconds(delay_minutes * 60))
+        summary = (
+            "Campaign headquarters receives Tang Wei's request for a follow-on operational order and places the completed field phase "
+            "and current reported command intelligence before superior command for review. Any binding order will arrive separately "
+            "through the superior-order channel."
         )
-        cycle["updated_at"] = at
-        planner.put(cycle_path, cycle)
+        if pending_for_cycle is not None:
+            host_id, host = pending_for_cycle
+            old_due = CampaignTime.parse(str(host["next_due"]))
+            final_due = due if due > old_due else old_due
+            host.update({
+                "contact_ref": attempt_ref,
+                "source_interaction_attempt_ref": attempt_ref,
+                "source_event_id": attempt_ref,
+                "source_process_ref": cycle_ref,
+                "source_owner_ref": cycle_ref,
+                "actor_ref": superior,
+                "response_summary": summary,
+                "response_stage": "campaign_command_follow_on_review_received",
+                "request_topics": ["follow_on_order"],
+                "request_dispositions": {"follow_on_order": "under_superior_review"},
+                "requested_statement": str(attempt.get("player_statement") or "")[:2000],
+                "next_due": str(final_due),
+                "safe_through": str(final_due.add_seconds(-1)),
+            })
+            for event in events:
+                if isinstance(event, dict) and event.get("target_host") == host_id:
+                    event["due_at"] = str(final_due)
+            return
 
-        if not _order_is_complete(operation, base_order):
-            continue
-        reported_info = [str(ref) for ref in cycle.get("reported_command_information_refs", []) if isinstance(ref, str)]
-        reported_requests = [str(ref) for ref in cycle.get("reported_follow_on_request_refs", []) if isinstance(ref, str)]
-        if not reported_info and not reported_requests:
-            continue
-
-        basis = {
+        token = _digest("follow-on-request", attempt_ref)
+        host_id = f"host_campaign_command_follow_on_{token}"
+        event_id = f"event_campaign_command_follow_on_due_{token}"
+        hosts[host_id] = {
+            "host_id": host_id,
+            "kind": "institutional_followup",
+            "event_id": event_id,
+            "owner_ref": cycle_ref,
+            "route_domain": "campaign_command_follow_on_review",
+            "campaign_command_cycle_ref": cycle_ref,
             "operation_ref": operation_ref,
-            "base_order_ref": base_order.get("order_ref"),
-            "information_refs": reported_info,
-            "request_refs": reported_requests,
-            "phase": operation.get("campaign_phase") or operation.get("order_status"),
+            "contact_ref": attempt_ref,
+            "source_interaction_attempt_ref": attempt_ref,
+            "source_event_id": attempt_ref,
+            "source_process_ref": cycle_ref,
+            "source_owner_ref": cycle_ref,
+            "actor_ref": superior,
+            "response_summary": summary,
+            "response_stage": "campaign_command_follow_on_review_received",
+            "delivery_route": "campaign headquarters staff through the saved superior-command channel",
+            "request_topics": ["follow_on_order"],
+            "request_dispositions": {"follow_on_order": "under_superior_review"},
+            "requested_statement": str(attempt.get("player_statement") or "")[:2000],
+            "recurrence_seconds": 0,
+            "next_due": str(due),
+            "resolved_through": str(current if current < due else due.add_seconds(-1)),
+            "safe_through": str(due.add_seconds(-1)),
         }
-        signature = _digest("campaign-decision", json.dumps(basis, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
-        decision_refs = [str(ref) for ref in cycle.get("campaign_command_decision_refs", []) if isinstance(ref, str)]
-        decision_ref = f"campaign_command_decision.{signature}"
-        if decision_ref in set(decision_refs):
-            continue
-        order_ref = f"operational_order_{signature}"
-        orders = operation.get("operational_orders") if isinstance(operation.get("operational_orders"), list) else []
-        if any(isinstance(row, Mapping) and str(row.get("order_ref", "")) == order_ref for row in orders):
-            operation["last_operational_order_ref"] = order_ref
-            planner.put(op_path, operation)
-            continue
-
-        order = _mission_order(
-            operation, cycle, base_order, at=at,
-            information_refs=reported_info, request_refs=reported_requests, signature=signature,
-        )
-        orders.append(order)
-        operation["operational_orders"] = orders
-        operation["last_operational_order_ref"] = order_ref
-        operation["order_status"] = "staff_briefed_awaiting_commander_execution"
-        operation["campaign_phase"] = "contact_development"
-        planner.put(op_path, operation)
-
-        decisions = cycle.get("campaign_command_decisions") if isinstance(cycle.get("campaign_command_decisions"), list) else []
-        decisions.append({
-            "decision_ref": decision_ref,
-            "decided_at": at,
-            "superior_command_ref": cycle.get("superior_command_ref"),
-            "order_ref": order_ref,
-            "base_order_ref": base_order.get("order_ref"),
-            "information_refs": reported_info,
-            "follow_on_request_refs": reported_requests,
-            "new_information_refs": new_info_refs,
-            "new_follow_on_request_refs": new_request_refs,
+        events.append({
+            "event_id": event_id,
+            "kind": "institutional_followup",
+            "priority": _REQUEST_PRIORITY,
+            "target_host": host_id,
+            "due_at": str(due),
         })
-        cycle["campaign_command_decisions"] = decisions[-32:]
-        cycle["campaign_command_decision_refs"] = list(dict.fromkeys(decision_refs + [decision_ref]))[-64:]
-        cycle["current_superior_order"] = copy.deepcopy(order)
-        cycle["updated_at"] = at
-        planner.put(cycle_path, cycle)
-        created.append(order_ref)
-    return created
+        return
 
 
 class CampaignCommandDecisionMixin:
-    """Hosted composition hook for the one campaign-command decision owner."""
+    """Hosted composition hook for superior review and follow-on request routing."""
 
     def _sync_campaign_command_decisions(self) -> list[str]:
         return sync_campaign_command_decisions(self)
+
+    def _sync_contact_request_routes(self, runtime: dict[str, Any]) -> None:
+        super()._sync_contact_request_routes(runtime)
+        _route_follow_on_requests(self, runtime)
 
 
 __all__ = ["CampaignCommandDecisionMixin", "sync_campaign_command_decisions"]
