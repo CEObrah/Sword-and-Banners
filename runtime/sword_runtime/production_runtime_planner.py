@@ -5,6 +5,7 @@ The current production planner is the single hosted gameplay authority.
 from sword_runtime.campaign_command_contact import CampaignCommandContactMixin
 from sword_runtime.campaign_command_requests import CampaignCommandRequestMixin
 from sword_runtime.campaign_follow_on_order import materialize_reconciled_campaign_follow_on_orders
+from sword_runtime.causal_wait_provenance import CausalWaitProvenanceMixin
 from sword_runtime.message_reply_flow import MessageReplyFlowMixin
 from sword_runtime.production_planner import ProductionCampaignPlanner as _BaseProductionCampaignPlanner
 from sword_runtime.qin_command_support_flow import QinCommandSupportFlowMixin
@@ -16,6 +17,7 @@ from sword_runtime.time_integration import ProductionTimeIntegrationMixin
 
 class ProductionCampaignPlanner(
     ProductionTimeIntegrationMixin,
+    CausalWaitProvenanceMixin,
     MilitaryReconnaissanceMixin,
     SovereignCampaignAuthorityMixin,
     QinCommandSupportFlowMixin,
