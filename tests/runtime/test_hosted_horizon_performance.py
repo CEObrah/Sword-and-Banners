@@ -62,10 +62,12 @@ def test_production_hosted_horizon_is_bounded_atomic_windows(campaign, days: int
     assert events_processed > 0
     assert str(planner.store.read_json("state/runtime.json")["world_time"]) == disk_start
 
-    # Current 365-day hosted fixture settles 2,070 events in 53 windows with
-    # 1,711,297 logical reads and 62,837 staged puts. These proportional budgets
-    # retain substantial feature headroom while failing event explosions or
-    # superlinear per-event repository fanout.
+    # The promoted revision-51 campaign fixture has a materially denser causal
+    # frontier than the earlier bootstrap snapshot. Its 365-day hosted run
+    # currently settles 2,739 events with 2,943,549 logical reads. Keep a
+    # proportional ceiling plus bounded fixed setup allowance so the guard still
+    # catches event explosions or superlinear repository fanout without treating
+    # an intentionally newer campaign snapshot as a performance regression.
     assert events_processed <= (days * 8) + 50
-    assert planner.read_calls <= (events_processed * 1_000) + 100_000
+    assert planner.read_calls <= (events_processed * 1_100) + 150_000
     assert planner.put_calls <= (events_processed * 40) + 10_000
