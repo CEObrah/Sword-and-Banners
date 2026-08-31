@@ -92,11 +92,13 @@ def test_semantic_wait_stops_when_causal_owner_report_is_delivered(campaign):
         exact_path = exact_index['reconnaissance'][recon_ref]
         exact = operations.store.read_json(exact_path)
         assert exact['phase'] == 'report_in_transit'
-        report_ref = exact['report_ref']
-        report_index = operations.store.read_json('state/index/military-reconnaissance-reports.json')
-        report_path = report_index['reports'][report_ref]
-        report = operations.store.read_json(report_path)
-        delivery_due = CampaignTime.parse(report['delivery_due_at'])
+        courier_hours = operations.runtime.planner._route_travel_hours(
+            exact['courier_origin_ref'],
+            exact['report_target_location_ref'],
+            modes=('courier',),
+        )
+        assert courier_hours > 0
+        delivery_due = CampaignTime.parse(exact['report_dispatched_at']).add_seconds(courier_hours * 3600)
         requested_end = delivery_due.add_seconds(24 * 3600)
 
         wait_body = _body(
