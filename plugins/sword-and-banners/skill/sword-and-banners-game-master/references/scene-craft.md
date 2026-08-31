@@ -16,6 +16,27 @@ Prefer:
 
 If the scene's purpose is conversation, dialogue and interaction should carry most of the beat unless silence, incapacity, separation, extreme urgency, or deliberate compression gives a concrete reason otherwise.
 
+## Film-and-novel rendering gate
+
+Substantive IC prose must pass a **movie/book test**: if the backend fields vanished and only the prose remained, the passage should still read like a lived Warring States scene rather than an explanation of what the simulation means.
+
+Reject **structured-state paraphrase**. Do not walk through troop counts, confidence values, classifications, contact flags, authority boundaries, report provenance, operation status, or other structured facts one field at a time and then explain the semantic limitation of each field. Select the few facts that matter now and embody them in action: a courier arriving, a report being unrolled, an officer putting a finger on a road, a seal changing hands, men breaking formation, a commander going quiet over a casualty tally, horses standing blown after a hard ride.
+
+The narrator is not an analyst standing beside the scene. Do not spend paragraphs explaining why a report does not prove intent, why an estimate is not contact, why a movement is not battle, why an order does not transfer ownership, or why a mechanic has not committed some other consequence. Keep those distinctions backstage unless a person in the world has a concrete reason to care about that exact distinction. Even then, let the character speak like a commander, clerk, parent, merchant, or courtier rather than a rules manual.
+
+NPC dialogue must not be used to verbalize runtime disclaimers. A strategist may challenge an inference because he genuinely distrusts the evidence; he should not recite the simulation's caveat merely so the GM can prove it respected a knowledge boundary. Dialogue exists for agenda, judgment, pressure, disagreement, humor, fear, command, persuasion, and human response.
+
+### Show the report arriving
+
+When a delayed report, scout return, courier, order, summons, or letter is the event that ends a wait, **show the report arriving** before summarizing its contents. Use only player-safe established detail, but give the information a physical and social arrival: the courier is admitted, the tube or tablet reaches the table, an officer reads the relevant line, a map marker moves. If the sender is absent, do not make the absent sender speak in the room.
+
+Report only what the people in the scene would naturally pull from it. Numbers are welcome when they are military facts that matter to the decision—`eight formations`, `roughly forty thousand`—but confidence scores, field names, classifications, and engine vocabulary stay OOC unless the player explicitly asks for mechanics.
+
+### Exposition budget
+
+Every IC paragraph should chiefly do at least one of these things: advance action, reveal perception, carry human dialogue, change pressure, establish a concrete consequence, or hand back a genuine decision. If a paragraph's main purpose is to explain state semantics, delete it or rewrite it as scene.
+
+Do not append routine OOC QA to a clean playable IC scene merely because internal mechanics were complicated. Add a separate brief OOC note only when an unresolved implementation defect, ambiguity, or authority failure materially prevents the requested fictional result. Development diagnosis belongs in OOC DEV, not as an aftertaste on ordinary play.
 
 ### Scene-first execution rule
 
@@ -163,6 +184,9 @@ Use `choices.md` only when a real player-facing fork exists. `unresolved_decisio
 Before sending substantive IC prose, verify:
 
 - The opening is a scene, not a state dump.
+- The passage passes the movie/book test rather than reading as structured-state paraphrase.
+- A delayed report or order that ends a wait is shown arriving before its contents are analyzed.
+- NPC dialogue is not being used to verbalize runtime disclaimers.
 - The backend boundary is invisible inside IC wording.
 - The narrator does not explain the hidden rationale for authority, permissions, ownership, or agency safeguards; player-visible reasons are carried by people, documents, law, or observable procedure when they matter.
 - Present important NPCs are not mute without a reason.
@@ -173,7 +197,7 @@ Before sending substantive IC prose, verify:
 - A consequential NPC question is not left hanging without choices unless the player's current message already answered it.
 - Only decision-relevant limitations are stated.
 - The ending follows the causal scene instead of defaulting to a menu.
+
 ## Bounded NPC performance
 
 When a present NPC has a runtime `npc_response_envelope`, use it as private performance guidance rather than exposing it to the player. Let the NPC speak naturally from player-safe facts, preserve uncertainty, and distinguish advice/opinion from fact. Ordinary nonbinding exchanges do not need a write every sentence. Persist only the lines whose later attribution materially matters, and use the mechanical runtime when speech itself would create a binding consequence.
-
