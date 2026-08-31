@@ -395,10 +395,30 @@ def test_delivered_one_shot_world_arc_report_scheduler_route_is_garbage_collecte
     }
     write_causal_event_owner(planner, owner)
     _schedule_report_route(planner, arc_ref="arc_qin_succession_crisis_245", source_event_ref=source_ref, at=now, route="direct family report", origin_state="qin", pressure_stage="material", visibility="direct")
-    scheduled = planner.read("state/runtime.json")
+    scheduled = copy.deepcopy(planner.read("state/runtime.json"))
     host_id = next(hid for hid, h in scheduled["hosts"].items() if isinstance(h, dict) and h.get("source_event_ref") == source_ref)
     event_id = scheduled["hosts"][host_id]["event_id"]
     due = scheduled["hosts"][host_id]["next_due"]
+    # Active world-arc routes are intentionally resumed by reconciliation even if
+    # their event rows were transiently suspended above. A mature campaign can
+    # therefore have unrelated arc work inside this report's 12-hour delivery
+    # window. Defer only those unrelated recurring arc routes so this test remains
+    # about one-shot report delivery/GC rather than the current save's arc density.
+    from sword_runtime.sim.calendar import CampaignTime
+    deferred_due = str(CampaignTime.parse(str(due)).add_seconds(86400))
+    for event in scheduled.get("events", []):
+        if not isinstance(event, dict) or event.get("event_id") == event_id:
+            continue
+        target_host = event.get("target_host")
+        route_host = scheduled.get("hosts", {}).get(target_host) if isinstance(target_host, str) else None
+        if isinstance(route_host, dict) and route_host.get("kind") == "world_arc":
+            route_host["next_due"] = deferred_due
+            route_host["safe_through"] = str(CampaignTime.parse(deferred_due).add_seconds(-1))
+            event["due_at"] = deferred_due
+            event.pop("suspended", None)
+        else:
+            event["suspended"] = True
+    planner.put("state/runtime.json", scheduled)
     planner._active_command_type = "advance_time"
     planner._advance_runtime(due)
     after = planner.read("state/runtime.json")
@@ -519,7 +539,8 @@ def test_house_world_arc_priority_materializes_real_nonplayer_operation(campaign
     operation = planner.read(planner.owner_path(evidence["operation_ref"]))
     assert operation["administrative_authority"] == house_ref
     assert operation["formation_refs"] == [evidence["formation_ref"]]
-    formation = planner.read(planner.owner_path(evidence["formation_ref"]))
+    formation = planner.read(planner.owner_path(evidence["formation_ref"])
+    )
     assert formation.get("command_authority") != planner.PLAYER_ACTOR
     assert formation.get("commander_ref") != planner.PLAYER_ACTOR
 
