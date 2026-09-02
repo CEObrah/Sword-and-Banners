@@ -64,6 +64,22 @@ def _actionable_destination(order: Mapping[str, Any] | None) -> str | None:
     return str(destination) if isinstance(destination, str) and destination else None
 
 
+def _existing_order_blocks_projection(order: Mapping[str, Any] | None) -> bool:
+    """Keep a live exact order authoritative over an unchanged staff projection.
+
+    A route blockage is itself a material command state.  Re-running scheduler
+    preparation must not silently manufacture a fresh order from the same staff
+    plan and thereby erase the need for a new lawful command decision.
+    """
+    if not isinstance(order, Mapping):
+        return False
+    if str(order.get("status", "")) in _TERMINAL_ORDER_STATUSES:
+        return False
+    if str(order.get("order_kind", "")) == "campaign_subordinate_march_order":
+        return True
+    return _actionable_destination(order) is not None
+
+
 def _campaign_cycle(planner: Any, operation: Mapping[str, Any]) -> Mapping[str, Any] | None:
     cycle_ref = operation.get("campaign_command_cycle_ref")
     if not isinstance(cycle_ref, str) or not cycle_ref:
@@ -168,9 +184,9 @@ def sync_campaign_subordinate_orders(planner: Any, *, at: str | None = None) -> 
             )
             if owner != state_ref:
                 continue
-            existing_destination = _actionable_destination(_latest_order(operation))
-            if existing_destination:
-                # Exact executable orders outrank the current planning projection.
+            if _existing_order_blocks_projection(_latest_order(operation)):
+                # Existing exact execution, blockage, or another actionable order
+                # remains authoritative until a distinct command consequence changes it.
                 continue
 
             operation_formations = {
@@ -202,9 +218,8 @@ def sync_campaign_subordinate_orders(planner: Any, *, at: str | None = None) -> 
                 None,
             )
             if isinstance(prior, Mapping):
-                operation["last_operational_order_ref"] = order_ref
-                planner.put(path, operation)
-                created.append(order_ref)
+                # Deterministic idempotence: never resurrect or report the same
+                # order as newly issued merely because reconciliation ran again.
                 continue
 
             packet = {
