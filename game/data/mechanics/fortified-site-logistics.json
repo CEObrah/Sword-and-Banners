@@ -1,0 +1,54 @@
+{
+  "schema": "fortified-site-logistics",
+  "principles": {
+    "cold_state": "Every fortified strategic site has one exact static physical/logistics blueprint. Cold sites do not own mutable stocks or damage ledgers.",
+    "hot_state": "A strategically active site materializes one mutable fortified-site depot owner for consumables, installed-fixture condition, water, medical reserve, wagon staging, damage and consumption history.",
+    "conservation": "Baseline hot-site stocks are already conserved in saved state. Runtime materialization/review transfers no campaign consumables; post-baseline replenishment and withdrawal use exact routed logistics convoys.",
+    "installed_fixtures": "Fixed artillery/mechanisms are part of the static fortification blueprint. Hot materialization activates mutable condition for those already-installed fixtures; it does not mint mobile equipment.",
+    "demography": "Fortified-site depots own stock only and must declare geography.owns_local_population=false.",
+    "cold_dematerialization": "A live depot may return to cold representation only after all mutable stock is transferred to an exact owner and no active damage/siege/logistics history requires the hot record."
+  },
+  "storage_classes": {
+    "regional_garrison_reserve": {
+      "reserve_days": 45,
+      "nominal_garrison_per_perimeter_km": 1800,
+      "fixed_emplacement_density": 0.75
+    },
+    "regional_siege_reserve": {
+      "reserve_days": 60,
+      "nominal_garrison_per_perimeter_km": 2200,
+      "fixed_emplacement_density": 1.0
+    },
+    "campaign_siege_reserve": {
+      "reserve_days": 90,
+      "nominal_garrison_per_perimeter_km": 2800,
+      "fixed_emplacement_density": 1.3
+    },
+    "capital_campaign_reserve": {
+      "reserve_days": 90,
+      "nominal_garrison_per_perimeter_km": 3000,
+      "fixed_emplacement_density": 1.2
+    },
+    "grand_pass_campaign_reserve": {
+      "reserve_days": 120,
+      "nominal_garrison_per_perimeter_km": 6000,
+      "fixed_emplacement_density": 1.8
+    },
+    "nested_fortification_reserve": {
+      "reserve_days": 60,
+      "nominal_garrison_per_perimeter_km": 2000,
+      "fixed_emplacement_density": 1.0
+    },
+    "strategic_autarky_siege_reserve": {
+      "reserve_days": 180,
+      "nominal_garrison_per_perimeter_km": 3000,
+      "fixed_emplacement_density": 1.5
+    }
+  },
+  "campaign_resupply": {
+    "review_interval_hours": 168,
+    "max_distinct_stock_keys_per_convoy": 8,
+    "target_fraction_per_convoy_milli": 500,
+    "rule": "one inbound exact convoy per hot site at a time; route travel is required and review itself never teleports stock"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "rule",
+    "people"
+  ],
+  "properties": {
+    "schema": {
+      "const": "commander-cognition-registry"
+    },
+    "rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "people": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "archetype",
+          "dimensions"
+        ],
+        "properties": {
+          "archetype": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dimensions": {
+            "type": "object",
+            "minProperties": 10,
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            }
+          }
+        }
+      }
+    },
+    "behavior_cue_biases": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "integer",
+          "minimum": -250,
+          "maximum": 250
+        }
+      }
+    }
+  }
+}

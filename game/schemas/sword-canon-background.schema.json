@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "completed_background": {},
+    "conditional_future_pressures": {},
+    "future_commitments": {},
+    "schema": {
+      "const": "sword-canon-background"
+    }
+  },
+  "required": [
+    "schema",
+    "completed_background",
+    "conditional_future_pressures",
+    "future_commitments"
+  ],
+  "type": "object"
+}

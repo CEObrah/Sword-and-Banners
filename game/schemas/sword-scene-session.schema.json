@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Non-authoritative active scene session",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "mechanical_consequence_authority",
+    "session_ref",
+    "kind",
+    "status",
+    "location_ref",
+    "process_ref",
+    "participant_refs",
+    "started_at",
+    "soft_end_at",
+    "purpose",
+    "agenda",
+    "open_question_refs",
+    "last_updated_at"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-scene-session"
+    },
+    "authority": {
+      "const": false
+    },
+    "mechanical_consequence_authority": {
+      "const": false
+    },
+    "session_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "war_council",
+        "council",
+        "audience",
+        "briefing",
+        "family_discussion",
+        "negotiation",
+        "conversation",
+        "interview",
+        "examination",
+        "command_conference"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "closed"
+      ]
+    },
+    "location_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "process_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "participant_refs": {
+      "type": "array",
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "started_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "soft_end_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "purpose": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000
+    },
+    "agenda": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "string",
+        "maxLength": 500
+      }
+    },
+    "open_question_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "last_updated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "closed_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "close_reason": {
+      "enum": [
+        "completed",
+        "player_left",
+        "hard_interruption",
+        "skipped_to_conclusion",
+        "superseded",
+        "cancelled"
+      ]
+    },
+    "open_thread_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

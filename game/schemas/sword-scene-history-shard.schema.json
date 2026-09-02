@@ -1,0 +1,348 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lossless period shard of non-authoritative scene history",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "mechanical_consequence_authority",
+    "period_ref",
+    "previous_period_ref",
+    "records"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-scene-history-shard"
+    },
+    "authority": {
+      "const": false
+    },
+    "mechanical_consequence_authority": {
+      "const": false
+    },
+    "period_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "previous_period_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "records": {
+      "type": "array",
+      "maxItems": 512,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/speech"
+          },
+          {
+            "$ref": "#/$defs/scene_fact"
+          },
+          {
+            "$ref": "#/$defs/continuity"
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "speech": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "speech_ref",
+        "at",
+        "session_ref",
+        "speaker_ref",
+        "speech_kind",
+        "statement",
+        "basis_refs",
+        "resolves_question_ref",
+        "truth_status",
+        "authority",
+        "mechanical_consequence_authority"
+      ],
+      "properties": {
+        "speech_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "session_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "speaker_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "speech_kind": {
+          "enum": [
+            "clarification",
+            "opinion",
+            "inference",
+            "question",
+            "nonbinding_proposal",
+            "nonbinding_response",
+            "observation",
+            "advice",
+            "objection"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2500
+        },
+        "basis_refs": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "resolves_question_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "truth_status": {
+          "const": "attributed_statement"
+        },
+        "authority": {
+          "const": false
+        },
+        "mechanical_consequence_authority": {
+          "const": false
+        },
+        "resolves_thread_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "scene_fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_ref",
+        "at",
+        "session_ref",
+        "actor_ref",
+        "fact_kind",
+        "summary",
+        "participant_refs",
+        "basis_refs",
+        "truth_status",
+        "scope",
+        "authority",
+        "mechanical_consequence_authority"
+      ],
+      "properties": {
+        "fact_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "session_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fact_kind": {
+          "enum": [
+            "local_action",
+            "object_state",
+            "positioning",
+            "visible_reaction",
+            "shared_premise",
+            "incidental_detail"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1500
+        },
+        "participant_refs": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "basis_refs": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "truth_status": {
+          "const": "observed_reversible_scene_fact"
+        },
+        "scope": {
+          "const": "scene_local_history_only"
+        },
+        "authority": {
+          "const": false
+        },
+        "mechanical_consequence_authority": {
+          "const": false
+        },
+        "improvised_prop": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "form",
+            "material",
+            "condition"
+          ],
+          "properties": {
+            "kind": {
+              "const": "mundane_improvised_prop"
+            },
+            "form": {
+              "enum": [
+                "small_rigid",
+                "short_rigid",
+                "long_rigid",
+                "heavy_rigid",
+                "sharp_fragment"
+              ]
+            },
+            "material": {
+              "enum": [
+                "wood",
+                "bamboo",
+                "ceramic",
+                "stone",
+                "metal",
+                "bone"
+              ]
+            },
+            "condition": {
+              "enum": [
+                "intact",
+                "worn",
+                "cracked",
+                "broken_piece"
+              ]
+            }
+          }
+        },
+        "source_object_fact_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "continuity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "continuity_ref",
+        "at",
+        "session_ref",
+        "continuity_kind",
+        "summary",
+        "subject_refs",
+        "basis_refs",
+        "location_ref",
+        "truth_status",
+        "scope",
+        "derivation_rule",
+        "authority",
+        "mechanical_consequence_authority"
+      ],
+      "properties": {
+        "continuity_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "session_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "continuity_kind": {
+          "enum": [
+            "portrayal_evidence",
+            "relationship_expression",
+            "recurring_reference",
+            "conversation_memory",
+            "place_memory"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1500
+        },
+        "subject_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "basis_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "location_ref": {
+          "type": "string"
+        },
+        "truth_status": {
+          "const": "derived_narrative_continuity"
+        },
+        "scope": {
+          "const": "scene_history_only"
+        },
+        "derivation_rule": {
+          "const": "interpretive_summary_of_cited_authority_false_scene_history_not_objective_world_truth"
+        },
+        "authority": {
+          "const": false
+        },
+        "mechanical_consequence_authority": {
+          "const": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.steppe.mounted_archer",
+  "doctrine": {
+    "label": "Steppe Mounted Archer Doctrine",
+    "scope": "formation_role",
+    "formation_policy": {
+      "battlefield_role": "mounted_archer_screen",
+      "contact_style": "mobile_harassment",
+      "charge_policy": "opportunity_only",
+      "pursuit_policy": "aggressive_bounded",
+      "disengagement": "mobile_break_contact"
+    },
+    "compatibility": [
+      "mounted_archery"
+    ]
+  }
+}

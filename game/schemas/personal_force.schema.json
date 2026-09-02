@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Personal force",
+  "type": "object",
+  "required": [
+    "home",
+    "id",
+    "kind",
+    "members",
+    "name",
+    "owner",
+    "permanent_units",
+    "policy",
+    "schema",
+    "unassigned_members"
+  ],
+  "properties": {
+    "home": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "members": {
+      "type": "array"
+    },
+    "name": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "permanent_units": {
+      "type": "array"
+    },
+    "policy": {
+      "type": "object"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "unassigned_members": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current schema contract."
+}

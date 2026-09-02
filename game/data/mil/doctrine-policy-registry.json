@@ -1,0 +1,480 @@
+{
+  "authority": "Closed doctrine policy vocabulary. Effects shift command decision thresholds or bounded local behavior only; they never create combat power, knowledge, manpower, equipment, morale, or skill.",
+  "command_choices": {
+    "strategic_posture": {
+      "deliberate_defensive": {
+        "effects": {
+          "offensive_advantage_required_milli": 120,
+          "withdraw_if_local_ratio_below_milli": 40
+        }
+      },
+      "defensive_counterstroke": {
+        "effects": {
+          "offensive_advantage_required_milli": 70,
+          "defender_reserve_commit_if_enemy_ratio_above_milli": 80
+        }
+      },
+      "balanced": {
+        "effects": {}
+      },
+      "adaptive_maneuver": {
+        "effects": {
+          "offensive_advantage_required_milli": 20,
+          "revision_pressure_threshold_milli": -40
+        }
+      },
+      "adaptive_decisive_maneuver": {
+        "effects": {
+          "offensive_advantage_required_milli": 35,
+          "revision_pressure_threshold_milli": -70,
+          "subordinate_initiative_envelope_milli": 55
+        }
+      },
+      "aggressive_offensive": {
+        "effects": {
+          "offensive_advantage_required_milli": -90,
+          "withdraw_if_local_ratio_below_milli": -45
+        }
+      }
+    },
+    "risk_tolerance": {
+      "conservative": {
+        "effects": {
+          "offensive_advantage_required_milli": 95,
+          "withdraw_if_local_ratio_below_milli": 60,
+          "pursuit_limit_milli": -80
+        }
+      },
+      "measured": {
+        "effects": {}
+      },
+      "assertive": {
+        "effects": {
+          "offensive_advantage_required_milli": -35,
+          "withdraw_if_local_ratio_below_milli": -25,
+          "pursuit_limit_milli": 55
+        }
+      },
+      "aggressive": {
+        "effects": {
+          "offensive_advantage_required_milli": -80,
+          "withdraw_if_local_ratio_below_milli": -55,
+          "pursuit_limit_milli": 110
+        }
+      }
+    },
+    "reserve_posture": {
+      "deep_protected": {
+        "effects": {
+          "attacker_reserve_commit_if_ratio_below_milli": -80,
+          "defender_reserve_commit_if_enemy_ratio_above_milli": 70
+        }
+      },
+      "elastic": {
+        "effects": {}
+      },
+      "ready_counterstroke": {
+        "effects": {
+          "attacker_reserve_commit_if_ratio_below_milli": 45,
+          "defender_reserve_commit_if_enemy_ratio_above_milli": -45
+        }
+      },
+      "forward_committed": {
+        "effects": {
+          "attacker_reserve_commit_if_ratio_below_milli": 110,
+          "defender_reserve_commit_if_enemy_ratio_above_milli": -90
+        }
+      }
+    },
+    "information_priority": {
+      "normal": {
+        "effects": {}
+      },
+      "high": {
+        "effects": {
+          "report_confidence_floor_milli": 45
+        }
+      },
+      "very_high": {
+        "effects": {
+          "report_confidence_floor_milli": 85,
+          "revision_pressure_threshold_milli": -25
+        }
+      }
+    },
+    "subordinate_initiative": {
+      "narrow": {
+        "effects": {
+          "subordinate_initiative_envelope_milli": -120
+        }
+      },
+      "bounded": {
+        "effects": {}
+      },
+      "high": {
+        "effects": {
+          "subordinate_initiative_envelope_milli": 90
+        }
+      },
+      "very_high": {
+        "effects": {
+          "subordinate_initiative_envelope_milli": 145
+        }
+      }
+    },
+    "pursuit_policy": {
+      "restrained": {
+        "effects": {
+          "pursuit_limit_milli": -130
+        }
+      },
+      "controlled": {
+        "effects": {}
+      },
+      "aggressive_bounded": {
+        "effects": {
+          "pursuit_limit_milli": 90
+        }
+      }
+    },
+    "revision_speed": {
+      "deliberate": {
+        "effects": {
+          "revision_pressure_threshold_milli": 80
+        }
+      },
+      "responsive": {
+        "effects": {}
+      },
+      "rapid": {
+        "effects": {
+          "revision_pressure_threshold_milli": -100
+        }
+      }
+    }
+  },
+  "formation_choices": {
+    "battlefield_role": {
+      "line_fix": {
+        "behavior": {
+          "reserve_commitment": 45,
+          "withdrawal_threshold": 28,
+          "casualty_tolerance": "moderate"
+        }
+      },
+      "line_assault": {
+        "behavior": {
+          "reserve_commitment": 65,
+          "withdrawal_threshold": 24,
+          "casualty_tolerance": "high"
+        }
+      },
+      "archer_shape": {
+        "behavior": {
+          "reserve_commitment": 45,
+          "withdrawal_threshold": 43,
+          "casualty_tolerance": "low"
+        }
+      },
+      "missile_support": {
+        "behavior": {
+          "reserve_commitment": 40,
+          "withdrawal_threshold": 45,
+          "casualty_tolerance": "low"
+        }
+      },
+      "cavalry_screen": {
+        "behavior": {
+          "reserve_commitment": 60,
+          "withdrawal_threshold": 40,
+          "casualty_tolerance": "low"
+        }
+      },
+      "heavy_shock": {
+        "behavior": {
+          "reserve_commitment": 70,
+          "withdrawal_threshold": 30,
+          "casualty_tolerance": "moderate"
+        }
+      },
+      "mounted_archer_screen": {
+        "behavior": {
+          "reserve_commitment": 62,
+          "withdrawal_threshold": 45,
+          "casualty_tolerance": "low"
+        }
+      },
+      "guard_support": {
+        "behavior": {
+          "reserve_commitment": 35,
+          "withdrawal_threshold": 24,
+          "casualty_tolerance": "low",
+          "extraction_priority": 85
+        }
+      },
+      "elite_mobile_intervention": {
+        "behavior": {
+          "reserve_commitment": 68,
+          "withdrawal_threshold": 34,
+          "casualty_tolerance": "moderate",
+          "extraction_priority": 90
+        }
+      },
+      "reserve": {
+        "behavior": {
+          "reserve_commitment": 30,
+          "withdrawal_threshold": 35,
+          "casualty_tolerance": "low"
+        }
+      },
+      "chariot_support": {
+        "behavior": {
+          "reserve_commitment": 55,
+          "withdrawal_threshold": 38,
+          "casualty_tolerance": "moderate"
+        }
+      }
+    },
+    "contact_style": {
+      "ordered": {
+        "behavior": {}
+      },
+      "elastic": {
+        "behavior": {
+          "withdrawal_threshold": 34
+        }
+      },
+      "ranged_shaping": {
+        "behavior": {
+          "reserve_commitment": 42
+        }
+      },
+      "mobile_harassment": {
+        "behavior": {
+          "withdrawal_threshold": 44
+        }
+      },
+      "decisive_shock": {
+        "behavior": {
+          "reserve_commitment": 72
+        }
+      },
+      "protective": {
+        "behavior": {
+          "extraction_priority": 92
+        }
+      }
+    },
+    "charge_policy": {
+      "avoid_frontal": {
+        "behavior": {
+          "charge_permission": "avoid_frontal"
+        }
+      },
+      "advantage_required": {
+        "behavior": {
+          "charge_permission": "advantage_required"
+        }
+      },
+      "opportunity_only": {
+        "behavior": {
+          "charge_permission": "opportunity_only"
+        }
+      },
+      "shock_window": {
+        "behavior": {
+          "charge_permission": "shock_window"
+        }
+      },
+      "not_applicable": {
+        "behavior": {
+          "charge_permission": "not_applicable"
+        }
+      }
+    },
+    "pursuit_policy": {
+      "none": {
+        "behavior": {
+          "pursuit_permission": "none",
+          "deep_pursuit": false
+        }
+      },
+      "controlled": {
+        "behavior": {
+          "pursuit_permission": "controlled",
+          "deep_pursuit": false
+        }
+      },
+      "aggressive_bounded": {
+        "behavior": {
+          "pursuit_permission": "aggressive_bounded",
+          "deep_pursuit": true
+        }
+      }
+    },
+    "disengagement": {
+      "hold_until_ordered": {
+        "behavior": {
+          "withdrawal_threshold": 20
+        }
+      },
+      "early_if_compromised": {
+        "behavior": {
+          "withdrawal_threshold": 45
+        }
+      },
+      "mobile_break_contact": {
+        "behavior": {
+          "withdrawal_threshold": 40,
+          "extraction_priority": 60
+        }
+      },
+      "protected_withdrawal": {
+        "behavior": {
+          "withdrawal_threshold": 34,
+          "extraction_priority": 80
+        }
+      }
+    },
+    "anchor_policy": {
+      "army_commander_position": {
+        "behavior": {
+          "anchor_policy": "army_commander_position"
+        }
+      },
+      "headquarters": {
+        "behavior": {
+          "anchor_policy": "headquarters"
+        }
+      },
+      "assigned_objective": {
+        "behavior": {
+          "anchor_policy": "assigned_objective"
+        }
+      },
+      "local_mission": {
+        "behavior": {
+          "anchor_policy": "local_mission"
+        }
+      }
+    },
+    "protected_asset": {
+      "army_commander": {
+        "behavior": {
+          "protected_asset": "army_commander",
+          "extraction_priority": 100
+        }
+      },
+      "headquarters_command": {
+        "behavior": {
+          "protected_asset": "headquarters_command",
+          "extraction_priority": 92
+        }
+      },
+      "mission_objective": {
+        "behavior": {
+          "protected_asset": "mission_objective"
+        }
+      },
+      "none": {
+        "behavior": {
+          "protected_asset": "none"
+        }
+      }
+    },
+    "autonomous_redeployment": {
+      "forbidden": {
+        "behavior": {
+          "autonomous_redeployment": "forbidden"
+        }
+      },
+      "bounded": {
+        "behavior": {
+          "autonomous_redeployment": "bounded"
+        }
+      },
+      "normal": {
+        "behavior": {
+          "autonomous_redeployment": "normal"
+        }
+      }
+    },
+    "detachment_policy": {
+      "explicit_order_only": {
+        "behavior": {
+          "detachment_permission": "explicit_order_only"
+        }
+      },
+      "bounded": {
+        "behavior": {
+          "detachment_permission": "bounded"
+        }
+      },
+      "normal": {
+        "behavior": {
+          "detachment_permission": "normal"
+        }
+      }
+    },
+    "casualty_posture": {
+      "preserve": {
+        "behavior": {
+          "casualty_tolerance": "low",
+          "mission_first": false
+        }
+      },
+      "normal": {
+        "behavior": {
+          "casualty_tolerance": "moderate",
+          "mission_first": false
+        }
+      },
+      "mission_first": {
+        "behavior": {
+          "casualty_tolerance": "high",
+          "mission_first": true
+        }
+      }
+    }
+  },
+  "compatibility_requirements": {
+    "bow_fire": {
+      "requires": [
+        "bow",
+        "arrows"
+      ]
+    },
+    "mounted_mobility": {
+      "requires": [
+        "mount",
+        "tack"
+      ]
+    },
+    "mounted_archery": {
+      "requires": [
+        "mount",
+        "tack",
+        "bow",
+        "arrows"
+      ]
+    },
+    "heavy_shock": {
+      "requires": [
+        "mount",
+        "tack",
+        "heavy_body_armor",
+        "spear"
+      ]
+    },
+    "ordered_spear": {
+      "requires": [
+        "spear"
+      ]
+    },
+    "shield_line": {
+      "requires": [
+        "shield"
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "count",
+    "record_index"
+  ],
+  "properties": {
+    "schema": {
+      "const": "command-personnel-index"
+    }
+  },
+  "additionalProperties": true
+}

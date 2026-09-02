@@ -1,0 +1,26 @@
+{
+  "schema": "campaign-rebaseline-manifest-1.0",
+  "game": "Sword & Banners",
+  "rebaseline_date": "2026-09-02",
+  "old_revision": 51,
+  "new_revision": 1,
+  "campaign_id": "sword-banner-tang-wei-main",
+  "world_time": "244-BCE-10-04T06:00:00+08:00",
+  "policy": "current repaired hard world truth is the new canonical baseline; prior revision lineage is forensic only",
+  "archived_state": "docs/forensics/campaign-state-revision-51-pre-rebaseline.tar.gz",
+  "presentation_residue_reset": [
+    "state/index/interaction-attempts.json",
+    "state/index/active-scene-session.json",
+    "state/scene.json projection"
+  ],
+  "development_repair_provenance_removed_from_active_state": [
+    "state/history/repairs/*"
+  ],
+  "hard_truth_rewound": false,
+  "fresh_private_recovery_store_required": true,
+  "fresh_campaign_checkout_required": true,
+  "git_branch": "main",
+  "single_branch_source_and_campaign_durability": true,
+  "other_campaign_branches_required": false,
+  "old_revision_lineage_preserved_in_forensic_archive": true
+}

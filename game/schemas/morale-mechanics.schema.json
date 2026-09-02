@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "scale",
+    "formulas",
+    "trigger_weights",
+    "rally_rules",
+    "input_rules",
+    "thresholds",
+    "resolution_rules",
+    "registered_triggers_required"
+  ],
+  "properties": {
+    "schema": {
+      "const": "morale-mechanics"
+    },
+    "scale": {
+      "type": "object"
+    },
+    "formulas": {
+      "type": "object"
+    },
+    "trigger_weights": {
+      "type": "object"
+    },
+    "rally_rules": {
+      "type": "object"
+    },
+    "input_rules": {
+      "type": "object"
+    },
+    "thresholds": {
+      "type": "object"
+    },
+    "resolution_rules": {
+      "type": "object"
+    },
+    "registered_triggers_required": {
+      "const": true
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "overlays": {
+    "escort": {
+      "style": [
+        "protect principal/cargo",
+        "keep route/extraction open",
+        "avoid battles unrelated to contract"
+      ]
+    },
+    "house_tang": {
+      "style": [
+        "protect command/objective",
+        "disciplined reserve",
+        "controlled pursuit",
+        "combined arms"
+      ]
+    },
+    "household_force": {
+      "rule": "household ownership and temporary state command remain separate; objectives and losses are judged against the assigned duty",
+      "style": [
+        "protect household continuity",
+        "preserve trained retainers",
+        "coordinate mixed arms under patron or appointed commander"
+      ]
+    },
+    "irregular": {
+      "style": [
+        "local terrain",
+        "opportunistic action",
+        "preserve force when strategic support is weak"
+      ]
+    },
+    "mercenary": {
+      "rule": "company-specific tendencies/contract modify aggression and withdrawal",
+      "style": [
+        "contract objective",
+        "preserve company viability",
+        "fight within negotiated risk/cost"
+      ]
+    },
+    "school": {
+      "style": [
+        "instructor-led discipline",
+        "protect students",
+        "mobilization only when authorized"
+      ]
+    },
+    "state_force": {
+      "rule": "institutional orders and logistics constrain maneuver",
+      "style": [
+        "discipline",
+        "combined arms",
+        "preserve operational reserves"
+      ]
+    }
+  },
+  "schema": "institution_doctrine_overlays"
+}

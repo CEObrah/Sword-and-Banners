@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded interaction-attempt routing ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "purpose",
+    "total_recorded",
+    "attempts"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-interaction-attempt-ledger"
+    },
+    "authority": {
+      "const": false
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "total_recorded": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event_id",
+          "at",
+          "surface_digest",
+          "actor_id",
+          "target_ref",
+          "action",
+          "process_ref",
+          "player_statement",
+          "formation_refs",
+          "posture",
+          "world_response_status"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "at": {
+            "type": "string",
+            "minLength": 1
+          },
+          "surface_digest": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actor_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "process_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "player_statement": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 2000
+          },
+          "formation_refs": {
+            "type": "array",
+            "maxItems": 128,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "posture": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          },
+          "world_response_status": {
+            "const": "not_established_by_attempt"
+          },
+          "scene_session_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thread_status": {
+            "enum": [
+              "open",
+              "answered",
+              "abandoned_with_scene_close",
+              "not_applicable",
+              "responded"
+            ]
+          },
+          "resolved_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "response_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "topic": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 240
+          },
+          "scopes": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "maxItems": 32
+          },
+          "expects_response": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "thread_kind": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "question",
+              "conversation",
+              null
+            ]
+          },
+          "world_response_status_scope": {
+            "const": "hard_consequence_only"
+          },
+          "ordinary_scene_response_rule": {
+            "const": "co_located_or_authorized_scene_may_respond_reversibly_without_bespoke_mechanic"
+          }
+        }
+      }
+    }
+  }
+}

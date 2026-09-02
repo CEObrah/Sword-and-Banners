@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "promotion_rule",
+    "service_models"
+  ],
+  "properties": {
+    "schema": {
+      "const": "career-mechanics"
+    },
+    "authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promotion_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service_models": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "army_model_mercenary"
+      ],
+      "properties": {
+        "army_model_mercenary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "cash_pay_factor_vs_common_role_baseline"
+          ],
+          "properties": {
+            "cash_pay_factor_vs_common_role_baseline": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

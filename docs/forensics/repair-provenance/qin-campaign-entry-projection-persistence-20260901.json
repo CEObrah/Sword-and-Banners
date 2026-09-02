@@ -1,0 +1,17 @@
+{
+  "authority": false,
+  "campaign_revision": 51,
+  "world_time": "244-BCE-10-04T06:00:00+08:00",
+  "kind": "campaign_truth_repair_provenance",
+  "repair_ref": "repair_qin_campaign_entry_projection_persistence_20260901",
+  "rule": "remove read-time projection accidentally serialized into sovereign state; no diplomacy, campaign order, movement, troop ownership, battle state, or world time changes",
+  "corrected": {
+    "owner_ref": "state_qin",
+    "removed_projection_only_war_intent_count": 1,
+    "removed_intent_refs": [
+      "projected_campaign_entry:operation_arc_131572c4e8a2892bbc:state_wei"
+    ],
+    "preserved_authority_source": "exact active Qin campaign operational order",
+    "reason": "exact_state_campaign_order_entry_authority is a derived compatibility projection and must never become a second persisted sovereign fact"
+  }
+}

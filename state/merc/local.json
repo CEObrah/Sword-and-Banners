@@ -1,0 +1,73 @@
+{
+  "armed_total": 80000,
+  "classes": [
+    {
+      "count": 40000,
+      "role": "veteran_band"
+    },
+    {
+      "count": 8000,
+      "role": "river_crew"
+    },
+    {
+      "count": 10000,
+      "role": "reconnaissance"
+    },
+    {
+      "count": 22000,
+      "role": "seasonal_contract"
+    }
+  ],
+  "current_location_ref": null,
+  "deployment_status": "distributed_market",
+  "home_location_ref": null,
+  "manpower_authority": {
+    "count_field": "armed_total",
+    "owns_bodies": true
+  },
+  "market_tier": "local_seasonal",
+  "mechanical_profiles": {
+    "reconnaissance": {
+      "loadout": "loadout_mercenary_reconnaissance",
+      "quality_band": "48-66"
+    },
+    "river_crew": {
+      "loadout": "loadout_mercenary_light",
+      "quality_band": "42-60"
+    },
+    "seasonal_contract": {
+      "loadout": "load.merc.regular",
+      "quality_band": "32-50"
+    },
+    "veteran_band": {
+      "loadout": "loadout_mercenary_line",
+      "quality_band": "50-68"
+    }
+  },
+  "owner_id": "merc.local.pool",
+  "owner_type": "mercenary_pool",
+  "reconstitution_reservations": {},
+  "regional_distribution": {
+    "loc_chu_regional_02": 17000,
+    "loc_han_regional_02": 7000,
+    "loc_jo_mountain_region": 2000,
+    "loc_qi_regional_04": 8000,
+    "loc_qin_regional_02": 15000,
+    "loc_wei_regional_04": 10000,
+    "loc_yan_regional_03": 8000,
+    "loc_zhao_regional_04": 13000
+  },
+  "reserved_reconstitution_total": 0,
+  "schema": "mercenary_local_pool",
+  "short_notice_available_by_location": {
+    "loc_chu_regional_02": 11000,
+    "loc_han_regional_02": 4500,
+    "loc_jo_mountain_region": 2000,
+    "loc_qi_regional_04": 5500,
+    "loc_qin_regional_02": 11000,
+    "loc_wei_regional_04": 7000,
+    "loc_yan_regional_03": 5000,
+    "loc_zhao_regional_04": 9000
+  },
+  "short_notice_available_total": 55000
+}

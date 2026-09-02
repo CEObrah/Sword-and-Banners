@@ -1,0 +1,14 @@
+{
+  "authority": false,
+  "campaign_revision": 1,
+  "corrected": {
+    "future_routes_at_exact_contract_deadline": 62,
+    "live_mercenary_routes": 62,
+    "overdue_routes_queued_immediately": 0,
+    "reason": "The exported revision-1 baseline retained generic later review dates for live mercenary obligations. Scheduler routes are synchronized to the existing contract facts before the new deployment begins."
+  },
+  "kind": "campaign_truth_repair_provenance",
+  "repair_ref": "repair_mercenary_causal_route_deadlines_20260827",
+  "rule": "revision-1 deployment-baseline scheduler-route correction only; no contract status, money, manpower, equipment, location, ownership, or world time changes",
+  "world_time": "244-BCE-09-16T20:22:48+08:00"
+}

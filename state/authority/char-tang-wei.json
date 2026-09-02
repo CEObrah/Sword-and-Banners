@@ -1,0 +1,25 @@
+{
+  "actor_ref": "char_tang_wei",
+  "owner_id": "authority_char_tang_wei",
+  "roles": [
+    {
+      "authority_ref": "house_tang",
+      "capabilities": [
+        "house_administration",
+        "house_training"
+      ],
+      "role": "heir"
+    },
+    {
+      "authority_ref": "cmdgrp.tang_wei.field_army",
+      "capabilities": [
+        "formation_command",
+        "operation_command",
+        "command_group_command"
+      ],
+      "role": "Tang Wei Field Army Commander"
+    }
+  ],
+  "schema": "sword-actor-authority",
+  "state_offices": []
+}

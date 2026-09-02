@@ -1,0 +1,78 @@
+{
+  "administrative_owner": "state_qin",
+  "attached_support_by_role": {},
+  "attached_unit_command_by_role": {
+    "command_personnel": 1
+  },
+  "authorized_strength": 5000,
+  "autonomous_orders": [
+    {
+      "action_ref": "state_arc_8df959d0b80c96744e",
+      "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+      "at": "244-BCE-01-07T06:22:48+08:00",
+      "goal": "maintain military readiness",
+      "kind": "state_world_arc_operation",
+      "target_ref": "char_ryo_fui"
+    }
+  ],
+  "cohesion": 74,
+  "cohort_composition": [
+    {
+      "cohort_id": "cohort_force_state_qin_facf5d9065ec",
+      "count": 5000
+    }
+  ],
+  "command_attachment_source_force_ref": "force_state_qin",
+  "command_authority": "state_qin",
+  "commander_ref": "char_cmd_qin_mobile_reserve",
+  "composition": {
+    "heavy_cavalry": 5000
+  },
+  "doctrine_behavior": {
+    "casualty_tolerance": "moderate",
+    "reserve_commitment": 55,
+    "withdrawal_threshold": 28
+  },
+  "doctrine_ref": "doc.external_state_force.heavy_cavalry",
+  "equipment_completeness": "1.0000",
+  "equipment_units_by_role": {
+    "heavy_cavalry": 5000
+  },
+  "experience": "formed",
+  "fatigue": 0,
+  "fatigue_recovery_through": "244-BCE-08-31T07:22:48+08:00",
+  "formation_class": "unit",
+  "formation_ref": "formation_qin_mobile_reserve",
+  "location_ref": "loc_qin_regional_01",
+  "logistics": {
+    "war_arrows": 0,
+    "war_bolts": 0
+  },
+  "mobilized": true,
+  "morale": 70,
+  "mounts": {
+    "horse": 5000
+  },
+  "name": "QIN Mobile Reserve",
+  "officer_cadre": {
+    "materialized_refs_by_rank": {
+      "1000_commander": [],
+      "100_commander": [],
+      "500_commander": []
+    },
+    "promotion_training_hours": 86,
+    "rank_inventory": {
+      "1000_commander": 5,
+      "100_commander": 50,
+      "500_commander": 10
+    }
+  },
+  "owner_force_ref": "force_state_qin",
+  "personnel": 5000,
+  "readiness": 74,
+  "registered_loadout_ref": "loadout_qin_heavy_cavalry",
+  "schema": "sword-formation",
+  "status": "formed",
+  "training_progress": 33,
+  "training_ref": "train.state_qin.heavy_cavalry"
+}

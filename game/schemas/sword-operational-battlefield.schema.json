@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "battlefield_ref",
+    "status",
+    "side_refs",
+    "sectors",
+    "sector_edges",
+    "assignments",
+    "reports",
+    "opened_at",
+    "last_settled_at"
+  ],
+  "$defs": {
+    "formationRefList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "contactMarker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contact_ref",
+        "sector_ref",
+        "started_at",
+        "ends_at",
+        "light_mode",
+        "attacker_formation_refs",
+        "defender_formation_refs"
+      ],
+      "properties": {
+        "contact_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sector_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "started_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ends_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "light_mode": {
+          "enum": [
+            "daylight",
+            "night"
+          ]
+        },
+        "attacker_formation_refs": {
+          "$ref": "#/$defs/formationRefList"
+        },
+        "defender_formation_refs": {
+          "$ref": "#/$defs/formationRefList"
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema": {
+      "const": "sword-operational-battlefield"
+    },
+    "battlefield_ref": {
+      "type": "string",
+      "pattern": "^battlefield_"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "ended",
+        "closed"
+      ]
+    },
+    "side_refs": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "sectors": {
+      "type": "object"
+    },
+    "sector_edges": {
+      "type": "array"
+    },
+    "assignments": {
+      "type": "object"
+    },
+    "reports": {
+      "type": "array"
+    },
+    "opened_at": {
+      "type": "string"
+    },
+    "last_settled_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "closed_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "day_cycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "battle_day",
+        "posture",
+        "last_transition_at",
+        "last_dawn_at",
+        "last_dusk_at",
+        "camped_formation_refs",
+        "last_dawn_refit",
+        "transition_tail"
+      ],
+      "properties": {
+        "battle_day": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "posture": {
+          "enum": [
+            "day_operations",
+            "night_camp"
+          ]
+        },
+        "last_transition_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "last_dawn_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_dusk_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "camped_formation_refs": {
+          "$ref": "#/$defs/formationRefList"
+        },
+        "last_dawn_refit": {
+          "type": "array"
+        },
+        "transition_tail": {
+          "type": "array"
+        }
+      }
+    },
+    "active_contact": {
+      "$ref": "#/$defs/contactMarker"
+    },
+    "last_contact": {
+      "$ref": "#/$defs/contactMarker"
+    },
+    "outcome": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "generic-object",
+  "owner_id": "travel_geography_mechanics",
+  "authority": true,
+  "base_hours_interpretation": "route hours are a deterministic foot-equivalent strategic cost, not a claimed historical survey measurement",
+  "mode_factors": {
+    "foot": 1.0,
+    "horse": 0.65,
+    "courier": 0.5,
+    "formation": 1.35,
+    "convoy": 1.6
+  },
+  "road_quality_factors": {
+    "military_road": 0.9,
+    "maintained": 1.0,
+    "estate_road": 1.0,
+    "rough": 1.2,
+    "mountain_trail": 1.3,
+    "fortress_approach": 1.12,
+    "track": 1.18
+  },
+  "rule": "final edge cost = base hours * mode * canonical layered terrain * road quality + crossing delay; unknown terrain/road labels fail instead of silently becoming neutral",
+  "terrain_authority": "game/data/mechanics/terrain.json"
+}
