@@ -17,8 +17,7 @@
     "source_campaign_cycle_ref",
     "source_staff_command_ref",
     "success_condition",
-    "next_phase_trigger",
-    "authority_rule"
+    "next_phase_trigger"
   ],
   "properties": {
     "schema": {"const": "sword-campaign-subordinate-mission-packet-1.0"},
@@ -51,7 +50,11 @@
     },
     "success_condition": {"type": "string", "minLength": 1},
     "next_phase_trigger": {"type": "string", "minLength": 1},
-    "authority_rule": {"type": "string", "minLength": 1},
+    "authority_rule": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional pre-compaction explanatory provenance. Canonical hot-state compaction may remove this prose; executable authority is carried by the exact cycle/command refs, issuer/superior order fields, and hostile-entry authorization."
+    },
     "execution_started_at": {"type": "string", "minLength": 1},
     "completed_at": {"type": "string", "minLength": 1},
     "actual_arrival_ref": {"type": "string", "minLength": 1},
