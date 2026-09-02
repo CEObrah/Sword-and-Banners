@@ -14,6 +14,7 @@ from sword_runtime.time_integration import HOST_KIND_SPECS
 
 
 _MOU_GOU_OPERATION = "operation_qin_mou_gou_northern_wei_campaign"
+_MOU_BU_OPERATION = "operation_qin_mou_bu_northern_wei_campaign"
 _EASTERN_RESERVE_OPERATION = "operation_qin_eastern_reserve_northern_wei_campaign"
 _MOU_GOU_FORMATIONS = {
     "formation_qin_kanki_raider_host",
@@ -102,7 +103,7 @@ def test_campaign_command_adopts_exact_npc_orders_without_moving_formations(camp
     )
 
 
-def test_exact_subordinate_orders_register_routes_without_pre_moving_formations(campaign):
+def test_exact_subordinate_orders_register_only_lawful_routes_without_pre_movement(campaign):
     planner = ProductionCampaignPlanner(campaign)
     central_path = planner.owner_path("formation_qin_mou_gou_central")
     before = copy.deepcopy(planner.read(central_path))
@@ -113,12 +114,21 @@ def test_exact_subordinate_orders_register_routes_without_pre_moving_formations(
     assert _MOU_GOU_FORMATIONS.issubset(registered)
     assert "formation_qin_ouki_vanguard" in registered
     assert "formation_qin_tou_mobile_army" in registered
-    assert "formation_qin_mou_bu_shock_army" in registered
     assert "formation_qin_mobile_reserve" in registered
+    assert "formation_qin_mou_bu_shock_army" not in registered
     assert "formation_qin_reserve_infantry_02" not in registered
     assert not any(ref.startswith("formation_black_banner_") for ref in registered)
     assert "formation_high_guard_qin_a" not in registered
     assert "formation_high_guard_qin_b" not in registered
+
+    # Mou Bu's projected route crosses geography for which the canonical movement
+    # authority has no lawful transit basis. The exact order therefore blocks
+    # rather than letting staff planning create passage rights.
+    mou_bu_order = _latest_order(_operation(planner, _MOU_BU_OPERATION))
+    assert isinstance(mou_bu_order, Mapping)
+    assert mou_bu_order.get("status") == "execution_blocked"
+    assert mou_bu_order.get("actionability_status") == "blocked"
+    assert mou_bu_order.get("mission_packet", {}).get("phase_status") == "blocked"
 
     after = planner.read(central_path)
     assert after.get("location_ref") == before.get("location_ref")
@@ -185,23 +195,28 @@ def test_normal_chronology_recovers_stuck_campaign_without_retroactive_movement(
     assert int(metrics.get("events_processed", 0)) >= 1
 
 
-def test_campaign_march_order_and_route_sync_are_idempotent(campaign):
+def test_campaign_march_order_and_route_sync_are_idempotent_including_blocked_orders(campaign):
     planner = ProductionCampaignPlanner(campaign)
     first_orders = sync_campaign_subordinate_orders(planner)
     operation_after_first = copy.deepcopy(_operation(planner, _MOU_GOU_OPERATION))
     first_order_count = len(operation_after_first.get("operational_orders", []))
     first_routes = sync_campaign_march_routes(planner)
     first_host_count = len(_march_hosts(planner))
+    mou_bu_after_first = copy.deepcopy(_operation(planner, _MOU_BU_OPERATION))
+    mou_bu_order_count = len(mou_bu_after_first.get("operational_orders", []))
 
     second_orders = sync_campaign_subordinate_orders(planner)
     second_routes = sync_campaign_march_routes(planner)
     operation_after_second = _operation(planner, _MOU_GOU_OPERATION)
+    mou_bu_after_second = _operation(planner, _MOU_BU_OPERATION)
 
     assert first_orders
     assert second_orders == []
     assert first_routes
     assert second_routes == []
     assert len(operation_after_second.get("operational_orders", [])) == first_order_count
+    assert len(mou_bu_after_second.get("operational_orders", [])) == mou_bu_order_count
+    assert _latest_order(mou_bu_after_second).get("actionability_status") == "blocked"
     assert len(_march_hosts(planner)) == first_host_count
 
 
