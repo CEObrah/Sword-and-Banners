@@ -23,7 +23,14 @@
   "properties": {
     "schema": {"const": "sword-campaign-subordinate-mission-packet-1.0"},
     "mission_phase": {"const": "campaign_advance"},
-    "phase_status": {"const": "ready_for_commander_execution"},
+    "phase_status": {
+      "enum": [
+        "ready_for_commander_execution",
+        "executing",
+        "completed",
+        "blocked"
+      ]
+    },
     "destination_ref": {"type": "string", "minLength": 1},
     "strategic_target_ref": {"type": "string", "minLength": 1},
     "target_state_ref": {"type": "string", "minLength": 1},
@@ -44,6 +51,25 @@
     },
     "success_condition": {"type": "string", "minLength": 1},
     "next_phase_trigger": {"type": "string", "minLength": 1},
-    "authority_rule": {"type": "string", "minLength": 1}
-  }
+    "authority_rule": {"type": "string", "minLength": 1},
+    "execution_started_at": {"type": "string", "minLength": 1},
+    "completed_at": {"type": "string", "minLength": 1},
+    "actual_arrival_ref": {"type": "string", "minLength": 1},
+    "blocked_at": {"type": "string", "minLength": 1},
+    "blocked_reason": {"type": "string", "minLength": 1, "maxLength": 240}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"phase_status": {"const": "executing"}}},
+      "then": {"required": ["execution_started_at"]}
+    },
+    {
+      "if": {"properties": {"phase_status": {"const": "completed"}}},
+      "then": {"required": ["completed_at", "actual_arrival_ref"]}
+    },
+    {
+      "if": {"properties": {"phase_status": {"const": "blocked"}}},
+      "then": {"required": ["blocked_at"]}
+    }
+  ]
 }
