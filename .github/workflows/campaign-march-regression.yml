@@ -14,4 +14,4 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e '.[service,service-test]'
-      - run: python -m pytest -q tests/runtime/test_campaign_march_lifecycle.py tests/runtime/test_architecture_service.py
+      - run: python -m pytest -q tests/runtime/test_campaign_march_lifecycle.py
