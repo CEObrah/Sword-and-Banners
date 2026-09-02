@@ -1,10 +1,17 @@
-"""Causal physical movement for autonomous campaign participant operations.
+"""Causal routing for autonomous campaign-participant marches.
 
-Campaign march planning is deliberately advisory. This module bridges an already
-lawful supreme-command campaign scheme into exact NPC march assignments, then
-settles those assignments through the production causal scheduler. It never moves
-Tang Wei's formations, invents hostile-entry authority, transfers ownership, or
-chooses player tactics.
+Campaign march planning remains advisory and never moves a formation by itself.
+This module may materialize one bounded autonomous NPC march assignment only when
+an exact active state campaign, a held campaign command council, a named NPC
+supreme commander, lawful hostile-entry authority, and the participant operation's
+saved autonomous/subordinate status all agree. The staff scheme supplies the
+bounded destination candidate; the persisted assignment is the NPC command
+consequence. Tang Wei's command is always excluded.
+
+Physical movement has one authority: ``_autonomy_move_formation_step``. Campaign
+march hosts only make that existing resolver causally reachable one route leg at a
+time. They never teleport a formation, duplicate fatigue/supply mechanics, or
+create manpower, battle, territory, or ownership consequences.
 """
 from __future__ import annotations
 
@@ -14,21 +21,16 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.campaign_briefing import build_campaign_dossier
-from sword_runtime.fatigue import (
-    RULES_PATH as FATIGUE_RULES_PATH,
-    settle_formation_idle_fatigue,
-    settle_person_idle_fatigue,
-    stamp_formation_activity_fatigue,
-    stamp_person_activity_fatigue,
-)
 from sword_runtime.operation_routing import exact_operation_record
-from sword_runtime.operational_logistics import formation_movement_profile
 from sword_runtime.sim.calendar import CampaignTime
 
 
 CAMPAIGN_MARCH_HOST_KIND = "campaign_march"
 _ACTIVE_OPERATION_STATUSES = {"mobilizing", "active", "advancing"}
-_TERMINAL_OPERATION_STATUSES = {"completed", "cancelled", "canceled", "failed", "closed", "terminated"}
+_TERMINAL_OPERATION_STATUSES = {
+    "completed", "cancelled", "canceled", "failed", "closed", "resolved",
+    "terminated", "withdrawn", "abandoned",
+}
 _PLAYER_REF = "char_tang_wei"
 _PLAYER_ROOT_GROUP = "cmdgrp.tang_wei.field_army"
 _RUNTIME_PATH = "state/runtime.json"
@@ -73,8 +75,17 @@ def _campaign_cycle(planner: Any, operation: Mapping[str, Any]) -> Mapping[str, 
     return row if isinstance(row, Mapping) else None
 
 
-def _authority_ready(planner: Any, operation: Mapping[str, Any]) -> tuple[Mapping[str, Any], Mapping[str, Any]] | None:
-    order = _latest_order(operation)
+def _authority_ready(
+    planner: Any,
+    player_operation: Mapping[str, Any],
+) -> tuple[Mapping[str, Any], Mapping[str, Any]] | None:
+    """Return the exact campaign order/cycle that permits NPC route execution.
+
+    The player's order is used only as evidence that the shared state campaign has
+    crossed its entry gate and that the current supreme-command cycle is active.
+    Its applies-to list is never reused as authority over NPC formations.
+    """
+    order = _latest_order(player_operation)
     if not isinstance(order, Mapping):
         return None
     packet = order.get("mission_packet") if isinstance(order.get("mission_packet"), Mapping) else {}
@@ -84,7 +95,7 @@ def _authority_ready(planner: Any, operation: Mapping[str, Any]) -> tuple[Mappin
         or str(packet.get("entry_status", "")) != "authorized"
     ):
         return None
-    cycle = _campaign_cycle(planner, operation)
+    cycle = _campaign_cycle(planner, player_operation)
     if not isinstance(cycle, Mapping):
         return None
     council = cycle.get("war_council") if isinstance(cycle.get("war_council"), Mapping) else {}
@@ -93,10 +104,17 @@ def _authority_ready(planner: Any, operation: Mapping[str, Any]) -> tuple[Mappin
     supreme = cycle.get("supreme_commander_ref") or cycle.get("superior_command_ref")
     if not isinstance(supreme, str) or not supreme or supreme == _PLAYER_REF:
         return None
+    participant_refs = {
+        str(ref) for ref in cycle.get("participant_operation_refs", [])
+        if isinstance(ref, str) and ref
+    }
+    if not participant_refs:
+        return None
     return order, cycle
 
 
 def _scheme_assignments(planner: Any, player_operation_ref: str) -> list[dict[str, Any]]:
+    """Read bounded staff destination candidates without treating them as truth."""
     dossier = build_campaign_dossier(planner, player_operation_ref)
     planning = dossier.get("march_planning") if isinstance(dossier.get("march_planning"), Mapping) else {}
     scheme = planning.get("campaign_scheme") if isinstance(planning.get("campaign_scheme"), Mapping) else {}
@@ -109,16 +127,38 @@ def _host_ids(operation_ref: str, formation_ref: str, destination_ref: str) -> t
     return f"host_campaign_march_{token}", f"event_campaign_march_{token}"
 
 
-def _registered_host_for_formation(runtime: Mapping[str, Any], formation_ref: str) -> Mapping[str, Any] | None:
+def _event_for_host(events: list[Any], host_id: str) -> dict[str, Any] | None:
+    for row in events:
+        if isinstance(row, dict) and row.get("target_host") == host_id:
+            return row
+    return None
+
+
+def _remove_host(runtime: dict[str, Any], host_id: str) -> None:
+    hosts = runtime.get("hosts")
+    events = runtime.get("events")
+    if not isinstance(hosts, dict) or not isinstance(events, list):
+        raise ValueError("runtime causal queue is invalid")
+    hosts.pop(host_id, None)
+    runtime["events"] = [
+        row for row in events
+        if not (isinstance(row, Mapping) and row.get("target_host") == host_id)
+    ]
+
+
+def _active_host_for_formation(
+    runtime: Mapping[str, Any], formation_ref: str
+) -> tuple[str, Mapping[str, Any]] | None:
     hosts = runtime.get("hosts") if isinstance(runtime.get("hosts"), Mapping) else {}
-    for host in hosts.values():
+    for host_id, host in hosts.items():
         if (
-            isinstance(host, Mapping)
+            isinstance(host_id, str)
+            and isinstance(host, Mapping)
             and str(host.get("kind", "")) == CAMPAIGN_MARCH_HOST_KIND
             and str(host.get("formation_ref", "")) == formation_ref
             and host.get("next_due") is not None
         ):
-            return host
+            return host_id, host
     return None
 
 
@@ -129,48 +169,89 @@ def _materialize_assignment(
     *,
     assignment: Mapping[str, Any],
     player_operation_ref: str,
-    order: Mapping[str, Any],
     cycle: Mapping[str, Any],
     at: str,
 ) -> dict[str, Any]:
-    destination_ref = str(assignment.get("objective_ref") or "")
+    """Persist one autonomous NPC command consequence after all authority gates.
+
+    The generated staff scheme is not itself an order. This write records the
+    named NPC supreme commander's autonomous adoption of one bounded assignment
+    for an already-subordinate autonomous operation. A pre-existing exact NPC
+    operational order always wins and may supply its own typed destination.
+    """
+    latest = _latest_order(operation)
+    destination_ref = ""
+    source_kind = "autonomous_supreme_command_assignment"
+    source_order_ref = None
+    if isinstance(latest, Mapping) and str(latest.get("actionability_status", "")) == "actionable":
+        packet = latest.get("mission_packet") if isinstance(latest.get("mission_packet"), Mapping) else {}
+        explicit = packet.get("destination_ref")
+        if isinstance(explicit, str) and explicit:
+            destination_ref = explicit
+            source_kind = "exact_operation_order"
+            source_order_ref = latest.get("order_ref")
     if not destination_ref:
-        raise ValueError("campaign NPC assignment lacks exact objective_ref")
+        destination_ref = str(assignment.get("objective_ref") or "")
+    if not destination_ref:
+        raise ValueError("campaign NPC assignment lacks exact destination_ref")
+
+    formation_refs = sorted(
+        str(ref) for ref in assignment.get("formation_refs", []) if isinstance(ref, str) and ref
+    )
+    if not formation_refs:
+        raise ValueError("campaign NPC assignment lacks exact formation refs")
+
     current = operation.get("campaign_march_assignment")
     if isinstance(current, Mapping):
         same = (
             str(current.get("destination_ref", "")) == destination_ref
             and str(current.get("command_ref", "")) == str(assignment.get("command_ref") or "")
             and str(current.get("source_player_operation_ref", "")) == player_operation_ref
+            and sorted(str(ref) for ref in current.get("formation_refs", []) if isinstance(ref, str)) == formation_refs
         )
         if same and str(current.get("status", "")) not in {"superseded", "cancelled"}:
             return copy.deepcopy(dict(current))
 
     row = {
-        "schema": "sword-campaign-march-assignment.v1",
+        "schema": "sword-campaign-march-assignment.v2",
+        "assignment_ref": f"campaign_march_assignment.{_digest(operation.get('operation_ref'), assignment.get('command_ref'), destination_ref)}",
         "status": "ordered",
         "operation_ref": str(operation.get("operation_ref") or operation.get("owner_id") or ""),
         "command_ref": assignment.get("command_ref"),
         "commander_ref": assignment.get("commander_ref"),
-        "formation_refs": sorted(
-            str(ref) for ref in assignment.get("formation_refs", []) if isinstance(ref, str)
-        ),
+        "formation_refs": formation_refs,
         "destination_ref": destination_ref,
         "issued_at": at,
         "issuer_ref": cycle.get("supreme_commander_ref") or cycle.get("superior_command_ref"),
         "coordination_authority_ref": cycle.get("coordination_authority_ref"),
         "source_player_operation_ref": player_operation_ref,
-        "source_player_order_ref": order.get("order_ref"),
         "source_campaign_cycle_ref": cycle.get("cycle_ref"),
+        "source_kind": source_kind,
+        "source_operation_order_ref": source_order_ref,
         "authority_basis": (
-            "Exact state campaign entry authority plus a held supreme-command campaign cycle. "
-            "The staff scheme selects NPC campaign axes only; Tang Wei's command is excluded from autonomous execution."
+            "The operation is an exact autonomous state campaign participant under the saved NPC supreme commander. "
+            "The held campaign cycle and lawful entry authority permit routine autonomous execution; the staff scheme contributes only the bounded destination candidate when no exact NPC order already supplies one."
         ),
     }
     operation["campaign_march_assignment"] = row
-    operation["status"] = "advancing"
     planner.put(operation_path, operation)
     return copy.deepcopy(row)
+
+
+def _formation_route_eligible(planner: Any, formation_ref: str) -> tuple[str, Mapping[str, Any]] | None:
+    try:
+        path, formation = planner._load_formation(formation_ref)
+    except (FileNotFoundError, KeyError, ValueError):
+        return None
+    if str(formation.get("command_authority", "")) == _PLAYER_REF:
+        return None
+    if str(formation.get("administrative_owner", "")) != "state_qin":
+        return None
+    if int(formation.get("personnel", 0) or 0) <= 0:
+        return None
+    if not bool(formation.get("mobilized", False)):
+        return None
+    return path, formation
 
 
 def _register_march_host(
@@ -183,62 +264,29 @@ def _register_march_host(
     assignment: Mapping[str, Any],
     at: str,
 ) -> bool:
-    if _registered_host_for_formation(runtime, formation_ref) is not None:
+    eligible = _formation_route_eligible(planner, formation_ref)
+    if eligible is None:
         return False
-    formation_path, formation0 = planner._load_formation(formation_ref)
-    formation = copy.deepcopy(formation0)
-    if str(formation.get("command_authority", "")) == _PLAYER_REF:
+    _formation_path, formation = eligible
+    if str(formation.get("location_ref") or "") == destination_ref:
         return False
-    if str(formation.get("administrative_owner", "")) != "state_qin":
-        return False
-    if int(formation.get("personnel", 0) or 0) <= 0:
-        return False
-    if not bool(formation.get("mobilized", False)):
-        raise ValueError(f"campaign NPC march requires mobilized formation: {formation_ref}")
-    origin_ref = str(formation.get("location_ref") or "")
-    if not origin_ref:
-        raise ValueError(f"campaign NPC march formation lacks location: {formation_ref}")
-    if origin_ref == destination_ref:
-        return False
-    if hasattr(planner, "_validate_formation_transit"):
-        planner._validate_formation_transit(formation, destination_ref, at)
-    route = planner._find_route(origin_ref, destination_ref, mode="formation")
-    movement = formation_movement_profile(planner.read, formation, route)
-    hours = max(1, int(movement.get("tail_arrival_hours", route.get("duration_hours", route.get("hours", 24)))))
-    departure = CampaignTime.parse(at)
-    due = departure.add_seconds(hours * 3600)
 
-    commander_ref = formation.get("commander_ref")
-    commander_path = None
-    commander = None
-    fatigue_rules = planner.read(FATIGUE_RULES_PATH)
-    settle_formation_idle_fatigue(formation, current=departure, rules=fatigue_rules)
-    if isinstance(commander_ref, str) and commander_ref:
-        commander_path, commander = planner._validate_person_location_for_formation(commander_ref, formation)
-        commander = copy.deepcopy(commander)
-        settle_person_idle_fatigue(commander, current=departure, rules=fatigue_rules, state="ordinary")
-        planner.put(commander_path, commander)
-
-    ready_at = str(departure.add_seconds(int(movement.get("battle_ready_hours", hours)) * 3600))
-    formation["status"] = "marching"
-    formation["last_route_refs"] = list(route.get("route_refs", []))
-    formation["last_route_path"] = list(route.get("path", []))
-    formation["operational_movement"] = {
-        **copy.deepcopy(dict(movement)),
-        "origin_ref": origin_ref,
-        "destination_ref": destination_ref,
-        "departed_at": at,
-        "tail_arrived_at": str(due),
-        "deployment_ready_at": ready_at,
-        "movement_owner": CAMPAIGN_MARCH_HOST_KIND,
-        "operation_ref": operation_ref,
-    }
-    planner.put(formation_path, formation)
+    existing = _active_host_for_formation(runtime, formation_ref)
+    if existing is not None:
+        host_id, host = existing
+        if (
+            str(host.get("operation_ref", "")) == operation_ref
+            and str(host.get("destination_ref", "")) == destination_ref
+            and str(host.get("assignment_ref", "")) == str(assignment.get("assignment_ref", ""))
+        ):
+            return False
+        _remove_host(runtime, host_id)
 
     hosts = runtime.get("hosts")
     events = runtime.get("events")
     if not isinstance(hosts, dict) or not isinstance(events, list):
         raise ValueError("runtime causal queue is invalid")
+    now = CampaignTime.parse(at)
     host_id, event_id = _host_ids(operation_ref, formation_ref, destination_ref)
     hosts[host_id] = {
         "host_id": host_id,
@@ -246,31 +294,88 @@ def _register_march_host(
         "owner_ref": operation_ref,
         "operation_ref": operation_ref,
         "formation_ref": formation_ref,
-        "commander_ref": commander_ref,
-        "origin_ref": origin_ref,
         "destination_ref": destination_ref,
-        "assignment_ref": _digest(operation_ref, str(assignment.get("command_ref") or ""), destination_ref),
-        "departed_at": at,
-        "travel_hours": hours,
-        "deployment_ready_at": ready_at,
-        "recurrence_seconds": 0,
-        "next_due": str(due),
-        "resolved_through": at,
-        "safe_through": str(due.add_seconds(-1)),
-        "retire_after_settlement": True,
+        "assignment_ref": assignment.get("assignment_ref"),
+        "recurrence_seconds": 1,
+        "next_due": at,
+        "resolved_through": str(now.add_seconds(-1)),
+        "safe_through": str(now.add_seconds(-1)),
+        "retire_after_settlement": False,
     }
     events.append({
         "event_id": event_id,
         "kind": CAMPAIGN_MARCH_HOST_KIND,
         "priority": _MARCH_PRIORITY,
         "target_host": host_id,
-        "due_at": str(due),
+        "due_at": at,
     })
     return True
 
 
+def _prune_stale_routes(planner: Any, runtime: dict[str, Any]) -> None:
+    hosts = runtime.get("hosts")
+    if not isinstance(hosts, dict):
+        raise ValueError("runtime causal hosts are invalid")
+    stale: list[str] = []
+    for host_id, host in hosts.items():
+        if not isinstance(host_id, str) or not isinstance(host, Mapping) or host.get("kind") != CAMPAIGN_MARCH_HOST_KIND:
+            continue
+        operation_ref = str(host.get("operation_ref") or host.get("owner_ref") or "")
+        formation_ref = str(host.get("formation_ref") or "")
+        destination_ref = str(host.get("destination_ref") or "")
+        resolved = exact_operation_record(planner, operation_ref) if operation_ref else None
+        if resolved is None:
+            stale.append(host_id)
+            continue
+        _path, operation = resolved
+        if str(operation.get("status", "")) in _TERMINAL_OPERATION_STATUSES:
+            stale.append(host_id)
+            continue
+        assignment = operation.get("campaign_march_assignment") if isinstance(operation.get("campaign_march_assignment"), Mapping) else {}
+        if (
+            str(assignment.get("destination_ref") or "") != destination_ref
+            or formation_ref not in {str(ref) for ref in assignment.get("formation_refs", []) if isinstance(ref, str)}
+            or _formation_route_eligible(planner, formation_ref) is None
+        ):
+            stale.append(host_id)
+    for host_id in stale:
+        _remove_host(runtime, host_id)
+
+
+def _refresh_assignment_completion(
+    planner: Any,
+    operation_path: str,
+    operation: dict[str, Any],
+    *,
+    destination_ref: str,
+    at: str,
+) -> bool:
+    assignment = operation.get("campaign_march_assignment") if isinstance(operation.get("campaign_march_assignment"), Mapping) else {}
+    refs = [str(ref) for ref in assignment.get("formation_refs", []) if isinstance(ref, str)]
+    operation_refs = {str(ref) for ref in operation.get("formation_refs", []) if isinstance(ref, str)}
+    relevant = [ref for ref in refs if ref in operation_refs]
+    if not relevant:
+        return False
+    for ref in relevant:
+        try:
+            _path, formation = planner._load_formation(ref)
+        except (FileNotFoundError, KeyError, ValueError):
+            return False
+        if int(formation.get("personnel", 0) or 0) > 0 and str(formation.get("location_ref") or "") != destination_ref:
+            return False
+    updated = copy.deepcopy(dict(assignment))
+    updated["status"] = "arrived"
+    updated["arrived_at"] = at
+    operation["campaign_march_assignment"] = updated
+    operation["location_ref"] = destination_ref
+    operation["status"] = "active"
+    operation["last_campaign_march_arrival_at"] = at
+    planner.put(operation_path, operation)
+    return True
+
+
 def sync_campaign_march_routes(planner: Any) -> list[str]:
-    """Persist lawful NPC march assignments and register missing arrival hosts."""
+    """Reconcile lawful autonomous NPC march assignments into causal leg hosts."""
     player_operation_ref = _player_operation_ref(planner)
     if not player_operation_ref:
         return []
@@ -281,21 +386,23 @@ def sync_campaign_march_routes(planner: Any) -> list[str]:
     authority = _authority_ready(planner, player_operation)
     if authority is None:
         return []
-    order, cycle = authority
+    _player_order, cycle = authority
+    participant_refs = {
+        str(ref) for ref in cycle.get("participant_operation_refs", [])
+        if isinstance(ref, str) and ref
+    }
     at = str(planner.read(_RUNTIME_PATH)["world_time"])
     assignments = _scheme_assignments(planner, player_operation_ref)
     runtime = copy.deepcopy(planner.read(_RUNTIME_PATH))
+    _prune_stale_routes(planner, runtime)
     registered: list[str] = []
 
     for assignment in assignments:
         command_ref = str(assignment.get("command_ref") or "")
         if command_ref == _PLAYER_ROOT_GROUP or str(assignment.get("commander_ref") or "") == _PLAYER_REF:
             continue
-        destination_ref = str(assignment.get("objective_ref") or "")
-        if not destination_ref:
-            continue
         for operation_ref in assignment.get("operation_refs", []) if isinstance(assignment.get("operation_refs"), list) else []:
-            if not isinstance(operation_ref, str) or operation_ref == player_operation_ref:
+            if not isinstance(operation_ref, str) or operation_ref == player_operation_ref or operation_ref not in participant_refs:
                 continue
             resolved = exact_operation_record(planner, operation_ref)
             if resolved is None:
@@ -304,11 +411,10 @@ def sync_campaign_march_routes(planner: Any) -> list[str]:
             operation = copy.deepcopy(dict(raw))
             if operation.get("autonomous") is not True:
                 continue
-            if str(operation.get("status", "")) in _TERMINAL_OPERATION_STATUSES:
-                continue
             if str(operation.get("status", "")) not in _ACTIVE_OPERATION_STATUSES:
                 continue
-            if str(operation.get("campaign_commander_ref") or "") != str(cycle.get("supreme_commander_ref") or cycle.get("superior_command_ref") or ""):
+            supreme = str(cycle.get("supreme_commander_ref") or cycle.get("superior_command_ref") or "")
+            if str(operation.get("campaign_commander_ref") or "") != supreme:
                 continue
             assignment_record = _materialize_assignment(
                 planner,
@@ -316,13 +422,13 @@ def sync_campaign_march_routes(planner: Any) -> list[str]:
                 operation,
                 assignment=assignment,
                 player_operation_ref=player_operation_ref,
-                order=order,
                 cycle=cycle,
                 at=at,
             )
-            op_formations = {
-                str(ref) for ref in operation.get("formation_refs", []) if isinstance(ref, str)
-            }
+            destination_ref = str(assignment_record.get("destination_ref") or "")
+            if not destination_ref:
+                continue
+            op_formations = {str(ref) for ref in operation.get("formation_refs", []) if isinstance(ref, str)}
             for formation_ref in assignment_record.get("formation_refs", []):
                 if formation_ref not in op_formations:
                     continue
@@ -336,111 +442,180 @@ def sync_campaign_march_routes(planner: Any) -> list[str]:
                     at=at,
                 ):
                     registered.append(formation_ref)
-    if registered:
-        planner.put(_RUNTIME_PATH, runtime)
+            latest = copy.deepcopy(dict(planner.read(operation_path)))
+            _refresh_assignment_completion(
+                planner, operation_path, latest, destination_ref=destination_ref, at=at
+            )
+
+    planner.put(_RUNTIME_PATH, runtime)
     return registered
 
 
+def _mutable_runtime_host(planner: Any, host: Mapping[str, Any]) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    runtime = copy.deepcopy(planner.read(_RUNTIME_PATH))
+    hosts = runtime.get("hosts")
+    if not isinstance(hosts, dict):
+        raise ValueError("runtime causal hosts are invalid")
+    active_id = getattr(planner, "_active_host_id", None)
+    if isinstance(active_id, str) and isinstance(hosts.get(active_id), dict):
+        return runtime, hosts[active_id]
+    host_id = host.get("host_id")
+    if isinstance(host_id, str) and isinstance(hosts.get(host_id), dict):
+        return runtime, hosts[host_id]
+    for row in hosts.values():
+        if not isinstance(row, dict) or row.get("kind") != CAMPAIGN_MARCH_HOST_KIND:
+            continue
+        if (
+            str(row.get("operation_ref") or "") == str(host.get("operation_ref") or "")
+            and str(row.get("formation_ref") or "") == str(host.get("formation_ref") or "")
+            and str(row.get("destination_ref") or "") == str(host.get("destination_ref") or "")
+        ):
+            return runtime, row
+    return runtime, None
+
+
+def _retire_current_host(planner: Any, host: Mapping[str, Any], at: str, reason: str) -> None:
+    runtime, current = _mutable_runtime_host(planner, host)
+    if isinstance(current, dict):
+        current["recurrence_seconds"] = 0
+        current["retire_after_settlement"] = True
+        current["terminal_at"] = at
+        current["terminal_reason"] = reason[:240]
+        planner.put(_RUNTIME_PATH, runtime)
+
+
+def _reschedule_current_host(planner: Any, host: Mapping[str, Any], at: str, hours: int, location_ref: str) -> None:
+    runtime, current = _mutable_runtime_host(planner, host)
+    if not isinstance(current, dict):
+        raise ValueError("campaign march settlement lost its active scheduler host")
+    current["recurrence_seconds"] = max(3600, int(hours) * 3600)
+    current["retire_after_settlement"] = False
+    current["last_leg_settled_at"] = at
+    current["last_location_ref"] = location_ref
+    planner.put(_RUNTIME_PATH, runtime)
+
+
 def settle_campaign_march_host(planner: Any, host: Mapping[str, Any], at: str) -> dict[str, Any] | None:
-    """Complete one previously scheduled autonomous formation march at arrival time."""
+    """Advance one autonomous formation by exactly one canonical route leg."""
     operation_ref = str(host.get("operation_ref") or host.get("owner_ref") or "")
     formation_ref = str(host.get("formation_ref") or "")
-    origin_ref = str(host.get("origin_ref") or "")
     destination_ref = str(host.get("destination_ref") or "")
-    if not operation_ref or not formation_ref or not origin_ref or not destination_ref:
+    if not operation_ref or not formation_ref or not destination_ref:
         raise ValueError("campaign march host routing is invalid")
+
     resolved = exact_operation_record(planner, operation_ref)
     if resolved is None:
-        raise ValueError("campaign march operation disappeared")
+        _retire_current_host(planner, host, at, "operation_missing")
+        return None
     operation_path, raw_operation = resolved
     operation = copy.deepcopy(dict(raw_operation))
     if str(operation.get("status", "")) in _TERMINAL_OPERATION_STATUSES:
+        _retire_current_host(planner, host, at, "operation_terminal")
         return None
-    assignment = operation.get("campaign_march_assignment") if isinstance(operation.get("campaign_march_assignment"), Mapping) else {}
-    if str(assignment.get("destination_ref") or "") != destination_ref:
-        raise ValueError("campaign march assignment changed while formation was in transit")
 
-    formation_path, formation0 = planner._load_formation(formation_ref)
-    formation = copy.deepcopy(formation0)
-    if str(formation.get("command_authority", "")) == _PLAYER_REF:
-        raise ValueError("campaign march may not settle a player-commanded formation")
+    assignment = operation.get("campaign_march_assignment") if isinstance(operation.get("campaign_march_assignment"), Mapping) else {}
+    if (
+        str(assignment.get("destination_ref") or "") != destination_ref
+        or formation_ref not in {str(ref) for ref in assignment.get("formation_refs", []) if isinstance(ref, str)}
+    ):
+        _retire_current_host(planner, host, at, "assignment_superseded")
+        return None
+
+    eligible = _formation_route_eligible(planner, formation_ref)
+    if eligible is None:
+        _retire_current_host(planner, host, at, "formation_no_longer_autonomous_march_eligible")
+        return None
+    _formation_path, formation = eligible
     current_location = str(formation.get("location_ref") or "")
     if current_location == destination_ref:
-        return None
-    if current_location != origin_ref:
-        raise ValueError("campaign march formation moved outside its registered lifecycle")
+        _retire_current_host(planner, host, at, "already_arrived")
+        _refresh_assignment_completion(
+            planner, operation_path, operation, destination_ref=destination_ref, at=at
+        )
+        return {
+            "operation_ref": operation_ref,
+            "formation_ref": formation_ref,
+            "destination_ref": destination_ref,
+            "location_ref": destination_ref,
+            "status": "arrived",
+            "operation_concentrated": True,
+        }
 
-    travel_hours = max(1, int(host.get("travel_hours", 1) or 1))
-    arrival = CampaignTime.parse(at)
-    formation["location_ref"] = destination_ref
-    planner._index_formation_location(formation_ref, origin_ref, destination_ref)
-    stamp_formation_activity_fatigue(
-        formation,
-        completed_at=arrival,
-        fatigue_gain=max(1, travel_hours // 12),
-        activity_kind="march",
-    )
-    formation["last_moved_at"] = at
-    ready_text = str(host.get("deployment_ready_at") or at)
-    formation["status"] = "ready" if CampaignTime.parse(ready_text) <= arrival else "arrived_forming"
-    planner.put(formation_path, formation)
-
-    commander_ref = host.get("commander_ref")
-    if isinstance(commander_ref, str) and commander_ref and formation.get("commander_ref") == commander_ref:
-        try:
-            commander_path, commander0 = planner._command_person(commander_ref)
-        except (FileNotFoundError, KeyError, ValueError):
-            commander_path, commander0 = planner._exact_person(commander_ref)
-        commander = copy.deepcopy(commander0)
-        commander_location = planner._person_location(commander)
-        if commander_location == origin_ref:
-            planner._set_person_location(commander, destination_ref)
-            stamp_person_activity_fatigue(
-                commander,
-                completed_at=arrival,
-                fatigue_gain=max(1, travel_hours // 12),
-                activity_kind="march",
-            )
-            planner.put(commander_path, commander)
-        elif commander_location != destination_ref:
-            raise ValueError("campaign march commander detached during registered transit")
-
-    assigned_refs = [str(ref) for ref in assignment.get("formation_refs", []) if isinstance(ref, str)]
-    operation_refs = {str(x) for x in operation.get("formation_refs", []) if isinstance(x, str)}
-    all_arrived = True
-    for ref in assigned_refs:
-        if ref not in operation_refs:
-            continue
-        try:
-            _path, row = planner._load_formation(ref)
-        except (FileNotFoundError, KeyError, ValueError):
-            all_arrived = False
-            break
-        if int(row.get("personnel", 0) or 0) > 0 and str(row.get("location_ref") or "") != destination_ref:
-            all_arrived = False
-            break
-    if all_arrived:
-        assignment = copy.deepcopy(dict(assignment))
-        assignment["status"] = "arrived"
-        assignment["arrived_at"] = at
-        operation["campaign_march_assignment"] = assignment
-        operation["location_ref"] = destination_ref
-        operation["status"] = "active"
-        operation["last_campaign_march_arrival_at"] = at
+    try:
+        movement = planner._autonomy_move_formation_step(formation_ref, destination_ref, at)
+    except ValueError as exc:
+        blocked = copy.deepcopy(dict(assignment))
+        blocked["status"] = "blocked"
+        blocked["blocked_at"] = at
+        blocked["blocked_formation_ref"] = formation_ref
+        blocked["blocked_reason"] = str(exc)[:240]
+        operation["campaign_march_assignment"] = blocked
         planner.put(operation_path, operation)
+        _retire_current_host(planner, host, at, "canonical_route_blocked")
+        return {
+            "operation_ref": operation_ref,
+            "formation_ref": formation_ref,
+            "destination_ref": destination_ref,
+            "location_ref": current_location,
+            "status": "blocked",
+        }
+
+    _after_path, after = planner._load_formation(formation_ref)
+    reached = str(after.get("location_ref") or "")
+    hours = max(1, int(movement.get("hours", 1) or 1)) if isinstance(movement, Mapping) else 1
+    if reached == current_location:
+        blocked = copy.deepcopy(dict(assignment))
+        blocked["status"] = "blocked"
+        blocked["blocked_at"] = at
+        blocked["blocked_formation_ref"] = formation_ref
+        blocked["blocked_reason"] = str(movement.get("status", "canonical_movement_did_not_advance")) if isinstance(movement, Mapping) else "canonical_movement_did_not_advance"
+        operation["campaign_march_assignment"] = blocked
+        planner.put(operation_path, operation)
+        _retire_current_host(planner, host, at, "canonical_movement_did_not_advance")
+        return {
+            "operation_ref": operation_ref,
+            "formation_ref": formation_ref,
+            "destination_ref": destination_ref,
+            "location_ref": reached,
+            "status": "blocked",
+        }
+
+    latest = copy.deepcopy(dict(planner.read(operation_path)))
+    latest_assignment = latest.get("campaign_march_assignment") if isinstance(latest.get("campaign_march_assignment"), Mapping) else assignment
+    marching = copy.deepcopy(dict(latest_assignment))
+    marching["status"] = "marching"
+    marching.setdefault("started_at", at)
+    marching["last_leg_at"] = at
+    marching["last_location_ref"] = reached
+    latest["campaign_march_assignment"] = marching
+    latest["status"] = "advancing"
+    planner.put(operation_path, latest)
+
+    concentrated = _refresh_assignment_completion(
+        planner,
+        operation_path,
+        copy.deepcopy(dict(planner.read(operation_path))),
+        destination_ref=destination_ref,
+        at=at,
+    )
+    if reached == destination_ref:
+        _retire_current_host(planner, host, at, "arrived")
+    else:
+        _reschedule_current_host(planner, host, at, hours, reached)
 
     return {
         "operation_ref": operation_ref,
         "formation_ref": formation_ref,
-        "origin_ref": origin_ref,
         "destination_ref": destination_ref,
-        "arrived_at": at,
-        "operation_concentrated": all_arrived,
+        "location_ref": reached,
+        "status": "arrived" if reached == destination_ref else "marching",
+        "leg_hours": hours,
+        "operation_concentrated": concentrated,
     }
 
 
 class CampaignMarchLifecycleMixin:
-    """Hosted scheduler hook for autonomous campaign formation marches."""
+    """Hosted scheduler dispatch extension for autonomous campaign march routes."""
 
     def _run_due_host(self, host: Mapping[str, Any], due_text: str) -> None:
         if str(host.get("kind", "")) == CAMPAIGN_MARCH_HOST_KIND:
