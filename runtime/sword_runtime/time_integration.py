@@ -16,6 +16,8 @@ from typing import Any
 
 from sword_runtime.campaign_closure import settle_war_ceremony, sync_war_ceremony_routes
 from sword_runtime.campaign_command_cycle import settle_campaign_command_host, sync_campaign_command_cycle
+from sword_runtime.campaign_march_lifecycle import settle_campaign_march_host, sync_campaign_march_routes
+from sword_runtime.campaign_subordinate_orders import sync_campaign_subordinate_orders
 from sword_runtime.civil_world import sync_faction_routes, sync_polity_routes
 from sword_runtime.house_field_preparation_gate import sync_explicit_house_field_preparation
 from sword_runtime.institutional_processes import sync_institutional_process_routes
@@ -72,6 +74,7 @@ HOST_KIND_SPECS: dict[str, dict[str, str]] = {
     "qin_command_assumption": {"owner": "qin_command_assumption", "wake": "campaign_event"},
     "qin_command_briefing_reply": {"owner": "qin_command_briefing", "wake": "domain"},
     "qin_command_support_review": {"owner": "qin_command_support", "wake": "domain"},
+    "campaign_march": {"owner": "campaign_march_lifecycle", "wake": "never"},
     "campaign_command_council": {"owner": "campaign_command_cycle", "wake": "player_event"},
     "campaign_command_council_return": {"owner": "campaign_command_cycle", "wake": "never"},
     "campaign_command_superior_order": {"owner": "campaign_command_cycle", "wake": "player_event"},
@@ -180,6 +183,10 @@ def dispatch_due_host(planner: Any, host: Mapping[str, Any], due_text: str) -> N
         return
     if kind == "military_reconnaissance":
         planner._settle_military_reconnaissance_host(host, due_text)
+        planner._pending_wake_created = None
+        return
+    if kind == "campaign_march":
+        settle_campaign_march_host(planner, host, due_text)
         planner._pending_wake_created = None
         return
 
@@ -380,6 +387,13 @@ def dispatch_due_host(planner: Any, host: Mapping[str, Any], due_text: str) -> N
         "campaign_command_dawn", "campaign_command_evening",
     }:
         settle_campaign_command_host(planner, host, due_text)
+        # A campaign command settlement may make a projected staff assignment into
+        # an exact NPC subordinate order. Register any resulting march routes at
+        # the same causal frontier so a broad advance can enqueue them immediately.
+        sync_campaign_subordinate_orders(planner, at=due_text)
+        runtime = copy.deepcopy(planner.read("state/runtime.json"))
+        sync_campaign_march_routes(planner, runtime, at=due_text)
+        planner.put("state/runtime.json", runtime)
         # Campaign command briefings/councils are delivered player-facing events,
         # not hard scheduler wakes. Event-bounded downtime will stop on the new
         # handle without persisting an invalid campaign_event wake.
@@ -562,6 +576,11 @@ class ProductionTimeIntegrationMixin:
         sync_explicit_house_field_preparation(self, runtime)
         sync_qin_command_support(self, runtime)
         sync_campaign_command_cycle(self, runtime)
+        # Command adoption is a domain write; route registration remains scheduler
+        # bookkeeping. Running both here repairs historical participant operations
+        # that had custody and staff assignments but no executable march order.
+        sync_campaign_subordinate_orders(self, at=at)
+        sync_campaign_march_routes(self, runtime, at=at)
         self._sync_household_request_routes(runtime)
         self._sync_contact_request_routes(runtime)
         self._sync_family_counsel_routes(runtime)
@@ -585,6 +604,9 @@ class ProductionTimeIntegrationMixin:
         # causal entry point is obvious and duplicate wrapper work is suppressed.
         sync_qin_command_support(self, runtime)
         sync_campaign_command_cycle(self, runtime)
+        at = str(runtime["world_time"])
+        sync_campaign_subordinate_orders(self, at=at)
+        sync_campaign_march_routes(self, runtime, at=at)
         scheduler = ensure_scheduler_state(runtime)
         if not isinstance(scheduler.get("causal_settled_through"), str):
             scheduler["causal_settled_through"] = str(runtime["world_time"])
