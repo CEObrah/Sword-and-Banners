@@ -14,4 +14,17 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e '.[service,service-test]'
-      - run: python -m pytest -q tests/runtime/test_campaign_march_lifecycle.py tests/runtime/test_campaign_march_root_guards.py tests/runtime/test_preview_execute_schema_parity.py tests/runtime/test_architecture_service.py
+      - name: Campaign march lifecycle
+        run: python -m pytest -q tests/runtime/test_campaign_march_lifecycle.py
+      - name: Campaign march root guards
+        run: python -m pytest -q tests/runtime/test_campaign_march_root_guards.py
+      - name: Preview schema registration
+        run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_campaign_subordinate_mission_packet_schema_is_registered
+      - name: Preview invalid-schema guard
+        run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_production_preview_rejects_invalid_staged_schema_before_ready
+      - name: Mission packet lifecycle shapes
+        run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_campaign_subordinate_packet_lifecycle_shapes_validate
+      - name: Live junction report preview path
+        run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_current_campaign_information_preview_survives_subordinate_march_reconcile
+      - name: Architecture service
+        run: python -m pytest -q tests/runtime/test_architecture_service.py
