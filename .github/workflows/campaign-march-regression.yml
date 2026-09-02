@@ -30,6 +30,7 @@ jobs:
         run: |
           detail=$(python - <<'PY'
           import json
+          import traceback
           from pathlib import Path
           from sword_runtime.commands import CommandEnvelope
           from sword_runtime.service_runtime import ProductionSwordRuntime
@@ -38,6 +39,27 @@ jobs:
           root = Path('.')
           meta = json.loads((root / 'state/meta.json').read_text())
           runtime = ProductionSwordRuntime(root)
+          staged_path = 'state/operations/operation_qin_mobile_reserve_northern_wei_campaign.json'
+          trace_rows = []
+          original_put = runtime.planner.put
+
+          def traced_put(path, value):
+              if path == staged_path:
+                  orders = value.get('operation_orders', []) if isinstance(value, dict) else []
+                  packet = orders[-1].get('mission_packet', {}) if orders and isinstance(orders[-1], dict) else {}
+                  trace_rows.append({
+                      'order_count': len(orders),
+                      'phase_status': packet.get('phase_status') if isinstance(packet, dict) else None,
+                      'packet_keys': sorted(packet.keys()) if isinstance(packet, dict) else [],
+                      'order_ref': orders[-1].get('order_ref') if orders and isinstance(orders[-1], dict) else None,
+                      'stack': [
+                          f'{Path(frame.filename).name}:{frame.lineno}:{frame.name}'
+                          for frame in traceback.extract_stack(limit=12)[:-1]
+                      ],
+                  })
+              return original_put(path, value)
+
+          runtime.planner.put = traced_put
           command = CommandEnvelope(
               meta['campaign_id'],
               'diag-live-junction-report',
@@ -70,7 +92,6 @@ jobs:
                   writes=plan.writes,
               )
               overlay = StagedOverlay(runtime.store, manifest)
-              staged_path = 'state/operations/operation_qin_mobile_reserve_northern_wei_campaign.json'
               if staged_path in manifest.paths:
                   staged = overlay.read_json(staged_path)
                   Path('staged-mobile-reserve-operation.json').write_text(
@@ -88,8 +109,10 @@ jobs:
                       plan.validator(overlay, manifest)
                   except Exception as exc:
                       failure = f"validator {type(exc).__name__}: {exc}"
+              Path('operation-put-trace.json').write_text(json.dumps(trace_rows, indent=2, sort_keys=True) + '\n')
               print((failure or 'validator-ok').replace('\n', ' ')[:1000])
           except Exception as exc:
+              Path('operation-put-trace.json').write_text(json.dumps(trace_rows, indent=2, sort_keys=True) + '\n')
               print(f"planning {type(exc).__name__}: {exc}".replace('\n', ' ')[:1000])
           PY
           )
@@ -102,6 +125,7 @@ jobs:
           path: |
             preview-diagnostic.txt
             staged-mobile-reserve-operation.json
+            operation-put-trace.json
           if-no-files-found: warn
       - name: Live junction report preview path
         run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_current_campaign_information_preview_survives_subordinate_march_reconcile
