@@ -70,6 +70,12 @@ jobs:
                   writes=plan.writes,
               )
               overlay = StagedOverlay(runtime.store, manifest)
+              staged_path = 'state/operations/operation_qin_mobile_reserve_northern_wei_campaign.json'
+              if staged_path in manifest.paths:
+                  staged = overlay.read_json(staged_path)
+                  Path('staged-mobile-reserve-operation.json').write_text(
+                      json.dumps(staged, indent=2, ensure_ascii=False, sort_keys=True) + '\n'
+                  )
               failure = None
               for path in manifest.paths:
                   try:
@@ -93,7 +99,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: preview-diagnostic
-          path: preview-diagnostic.txt
+          path: |
+            preview-diagnostic.txt
+            staged-mobile-reserve-operation.json
+          if-no-files-found: warn
       - name: Live junction report preview path
         run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_current_campaign_information_preview_survives_subordinate_march_reconcile
       - name: Architecture service
