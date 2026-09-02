@@ -4,7 +4,6 @@ from collections.abc import Mapping
 
 from sword_runtime.campaign_march_lifecycle import (
     CAMPAIGN_MARCH_HOST_KIND,
-    settle_campaign_march_host,
     sync_campaign_march_routes,
 )
 from sword_runtime.production_runtime_planner import ProductionCampaignPlanner
@@ -45,7 +44,7 @@ def test_stuck_qin_campaign_registers_npc_marches_without_moving_tang_wei(campai
     assert operation.get("status") == "advancing"
 
 
-def test_campaign_march_settlement_moves_formation_only_at_registered_arrival(campaign):
+def test_campaign_march_scheduler_dispatch_moves_formation_only_at_registered_arrival(campaign):
     planner = ProductionCampaignPlanner(campaign)
     sync_campaign_march_routes(planner)
     host = next(
@@ -57,10 +56,8 @@ def test_campaign_march_settlement_moves_formation_only_at_registered_arrival(ca
     assert before.get("location_ref") == "loc_qin_regional_01"
     assert before.get("status") == "marching"
 
-    result = settle_campaign_march_host(planner, host, str(host["next_due"]))
+    planner._run_due_host(host, str(host["next_due"]))
 
-    assert result is not None
-    assert result["destination_ref"] == "loc_sanyou"
     after = planner.read(planner.owner_path("formation_qin_mou_gou_central"))
     assert after.get("location_ref") == "loc_sanyou"
     movement = after.get("operational_movement")
@@ -68,6 +65,7 @@ def test_campaign_march_settlement_moves_formation_only_at_registered_arrival(ca
     assert movement.get("movement_owner") == CAMPAIGN_MARCH_HOST_KIND
     assert movement.get("departed_at") == host.get("departed_at")
     assert movement.get("tail_arrived_at") == host.get("next_due")
+    assert planner._pending_wake_created is None
 
 
 def test_campaign_march_sync_is_idempotent(campaign):
