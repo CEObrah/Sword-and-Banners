@@ -24,6 +24,72 @@ jobs:
         run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_production_preview_rejects_invalid_staged_schema_before_ready
       - name: Mission packet lifecycle shapes
         run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_campaign_subordinate_packet_lifecycle_shapes_validate
+      - name: Diagnose staged junction preview
+        id: junction_diag
+        shell: bash
+        run: |
+          detail=$(python - <<'PY'
+          import json
+          from pathlib import Path
+          from sword_runtime.commands import CommandEnvelope
+          from sword_runtime.service_runtime import ProductionSwordRuntime
+          from sword_runtime.store.overlay import StagedOverlay
+
+          root = Path('.')
+          meta = json.loads((root / 'state/meta.json').read_text())
+          runtime = ProductionSwordRuntime(root)
+          command = CommandEnvelope(
+              meta['campaign_id'],
+              'diag-live-junction-report',
+              meta['player_id'],
+              'information_create',
+              meta['revision'],
+              meta['time'],
+              {
+                  'claim': (
+                      "Tang Wei Field Army remains in the Wei Western Corridor after holding as intended. "
+                      "Tang Wei requests General Mou Gou's exact present junction plan and the point at which "
+                      "Tang Wei's army is to join the main body; until a reply or another material development "
+                      "arrives, Tang Wei intends to remain in position."
+                  ),
+                  'epistemic_kind': 'official_report',
+                  'information_ref': 'information.diag_live_junction_report',
+                  'knowers': [meta['player_id']],
+                  'location_ref': 'loc_wei_regional_02',
+                  'provenance': 'preview-only campaign command report diagnostic',
+                  'subject_ref': 'operation_arc_131572c4e8a2892bbc',
+              },
+              mode='gameplay',
+          )
+          try:
+              plan = runtime.preview(command)
+              manifest = runtime.coordinator.planner.plan(
+                  command,
+                  transaction_id=plan.transaction_id,
+                  created_at=plan.created_at,
+                  writes=plan.writes,
+              )
+              overlay = StagedOverlay(runtime.store, manifest)
+              failure = None
+              for path in manifest.paths:
+                  try:
+                      runtime.planner.schema_validator.validate_overlay(overlay, [path])
+                  except Exception as exc:
+                      failure = f"schema {path} {type(exc).__name__}: {exc}"
+                      break
+              if failure is None:
+                  try:
+                      plan.validator(overlay, manifest)
+                  except Exception as exc:
+                      failure = f"validator {type(exc).__name__}: {exc}"
+              print((failure or 'validator-ok').replace('\n', ' ')[:220])
+          except Exception as exc:
+              print(f"planning {type(exc).__name__}: {exc}".replace('\n', ' ')[:220])
+          PY
+          )
+          echo "detail=$detail" >> "$GITHUB_OUTPUT"
+      - name: "Junction diagnostic - ${{ steps.junction_diag.outputs.detail }}"
+        run: echo "${{ steps.junction_diag.outputs.detail }}"
       - name: Live junction report preview path
         run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_current_campaign_information_preview_survives_subordinate_march_reconcile
       - name: Architecture service
