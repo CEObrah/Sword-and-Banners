@@ -82,14 +82,18 @@ jobs:
                       plan.validator(overlay, manifest)
                   except Exception as exc:
                       failure = f"validator {type(exc).__name__}: {exc}"
-              print((failure or 'validator-ok').replace('\n', ' ')[:220])
+              print((failure or 'validator-ok').replace('\n', ' ')[:1000])
           except Exception as exc:
-              print(f"planning {type(exc).__name__}: {exc}".replace('\n', ' ')[:220])
+              print(f"planning {type(exc).__name__}: {exc}".replace('\n', ' ')[:1000])
           PY
           )
+          printf '%s\n' "$detail" > preview-diagnostic.txt
           echo "detail=$detail" >> "$GITHUB_OUTPUT"
-      - name: "Junction diagnostic - ${{ steps.junction_diag.outputs.detail }}"
-        run: echo "${{ steps.junction_diag.outputs.detail }}"
+      - name: Upload preview diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-diagnostic
+          path: preview-diagnostic.txt
       - name: Live junction report preview path
         run: python -m pytest -q tests/runtime/test_preview_execute_schema_parity.py::test_current_campaign_information_preview_survives_subordinate_march_reconcile
       - name: Architecture service
