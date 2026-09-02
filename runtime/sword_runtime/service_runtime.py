@@ -319,6 +319,13 @@ class ProductionSwordRuntime(SwordRuntime):
         payload = thaw_json(command.payload)
         if not self._is_contested(command.command_type, payload):
             plan = self.preview(command)
+            self.coordinator.validate_preview_plan(
+                command,
+                plan.transaction_id,
+                plan.created_at,
+                plan.writes,
+                plan.validator,
+            )
             return {
                 "status":"ready","target_revision":command.expected_revision + 1,
                 "planning_reads":plan.planning_reads,"writes":len(plan.writes),
