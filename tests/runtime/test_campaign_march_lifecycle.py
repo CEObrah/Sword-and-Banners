@@ -8,8 +8,18 @@ from sword_runtime.campaign_march_lifecycle import (
     settle_campaign_march_host,
     sync_campaign_march_routes,
 )
+from sword_runtime.campaign_subordinate_orders import sync_campaign_subordinate_orders
 from sword_runtime.production_runtime_planner import ProductionCampaignPlanner
-from sword_runtime.sim.calendar import CampaignTime
+from sword_runtime.time_integration import HOST_KIND_SPECS
+
+
+_MOU_GOU_OPERATION = "operation_qin_mou_gou_northern_wei_campaign"
+_EASTERN_RESERVE_OPERATION = "operation_qin_eastern_reserve_northern_wei_campaign"
+_MOU_GOU_FORMATIONS = {
+    "formation_qin_kanki_raider_host",
+    "formation_qin_mou_gou_central",
+    "formation_qin_ousen_central",
+}
 
 
 def _march_hosts(planner):
@@ -20,134 +30,186 @@ def _march_hosts(planner):
     ]
 
 
-def test_stuck_qin_campaign_registers_npc_routes_without_pre_moving_any_formation(campaign):
+def _operation(planner, operation_ref):
+    return planner.read(f"state/operations/{operation_ref}.json")
+
+
+def _latest_order(operation):
+    ref = str(operation.get("last_operational_order_ref", ""))
+    rows = operation.get("operational_orders", [])
+    for row in reversed(rows if isinstance(rows, list) else []):
+        if isinstance(row, Mapping) and (not ref or str(row.get("order_ref", "")) == ref):
+            return row
+    return None
+
+
+def test_staff_projection_alone_is_not_executable_campaign_movement(campaign):
     planner = ProductionCampaignPlanner(campaign)
     formation_path = planner.owner_path("formation_qin_mou_gou_central")
     before = copy.deepcopy(planner.read(formation_path))
+    operation_before = copy.deepcopy(_operation(planner, _MOU_GOU_OPERATION))
+
+    registered = sync_campaign_march_routes(planner)
+
+    assert registered == []
+    assert _march_hosts(planner) == []
+    after = planner.read(formation_path)
+    assert after.get("location_ref") == before.get("location_ref")
+    assert after.get("status") == before.get("status")
+    assert _latest_order(operation_before) is None
+    assert _latest_order(_operation(planner, _MOU_GOU_OPERATION)) is None
+
+
+def test_campaign_command_adopts_exact_npc_orders_without_moving_formations(campaign):
+    planner = ProductionCampaignPlanner(campaign)
+    central_path = planner.owner_path("formation_qin_mou_gou_central")
+    before_central = copy.deepcopy(planner.read(central_path))
+    player_operation_before = copy.deepcopy(_operation(planner, "operation_arc_131572c4e8a2892bbc"))
+    reserve_before = copy.deepcopy(_operation(planner, _EASTERN_RESERVE_OPERATION))
+
+    created = sync_campaign_subordinate_orders(planner)
+
+    assert created
+    mou_gou = _operation(planner, _MOU_GOU_OPERATION)
+    order = _latest_order(mou_gou)
+    assert isinstance(order, Mapping)
+    assert order.get("order_kind") == "campaign_subordinate_march_order"
+    assert order.get("issuer_ref") == "state_qin"
+    assert order.get("superior_commander_ref") == "char_mou_gou"
+    assert order.get("actionability_status") == "actionable"
+    assert set(order.get("applies_to_formation_refs", [])) == _MOU_GOU_FORMATIONS
+    packet = order.get("mission_packet")
+    assert isinstance(packet, Mapping)
+    assert packet.get("destination_ref") == "loc_sanyou"
+    assert packet.get("hostile_entry_authorized") is True
+    assert packet.get("entry_status") == "authorized"
+
+    # Command adoption writes an order, not a movement result.
+    after_central = planner.read(central_path)
+    assert after_central.get("location_ref") == before_central.get("location_ref") == "loc_qin_regional_01"
+    assert after_central.get("status") == before_central.get("status") == "ready"
+
+    # Tang Wei remains outside autonomous command adoption.
+    player_operation_after = _operation(planner, "operation_arc_131572c4e8a2892bbc")
+    assert player_operation_after.get("last_operational_order_ref") == player_operation_before.get("last_operational_order_ref")
+
+    # The strategic reserve has no objective assignment and remains uncommitted.
+    reserve_after = _operation(planner, _EASTERN_RESERVE_OPERATION)
+    assert reserve_after.get("last_operational_order_ref") == reserve_before.get("last_operational_order_ref")
+    assert not any(
+        isinstance(row, Mapping) and row.get("order_kind") == "campaign_subordinate_march_order"
+        for row in reserve_after.get("operational_orders", [])
+    )
+
+
+def test_exact_subordinate_orders_register_routes_without_pre_moving_formations(campaign):
+    planner = ProductionCampaignPlanner(campaign)
+    central_path = planner.owner_path("formation_qin_mou_gou_central")
+    before = copy.deepcopy(planner.read(central_path))
+    sync_campaign_subordinate_orders(planner)
 
     registered = set(sync_campaign_march_routes(planner))
 
-    assert "formation_qin_mou_gou_central" in registered
-    assert "formation_qin_ousen_central" in registered
-    assert "formation_qin_kanki_raider_host" in registered
+    assert _MOU_GOU_FORMATIONS.issubset(registered)
+    assert "formation_qin_ouki_vanguard" in registered
+    assert "formation_qin_tou_mobile_army" in registered
+    assert "formation_qin_mou_bu_shock_army" in registered
+    assert "formation_qin_mobile_reserve" in registered
+    assert "formation_qin_reserve_infantry_02" not in registered
     assert not any(ref.startswith("formation_black_banner_") for ref in registered)
     assert "formation_high_guard_qin_a" not in registered
     assert "formation_high_guard_qin_b" not in registered
 
-    # Route registration is bookkeeping. Physical movement remains owned by the
-    # canonical formation movement resolver when the causal host actually settles.
-    after_sync = planner.read(formation_path)
-    assert after_sync.get("location_ref") == before.get("location_ref") == "loc_qin_regional_01"
-    assert after_sync.get("status") == before.get("status") == "ready"
+    after = planner.read(central_path)
+    assert after.get("location_ref") == before.get("location_ref")
+    assert after.get("status") == before.get("status")
 
-    hosts = _march_hosts(planner)
-    mou_gou = [row for row in hosts if row.get("operation_ref") == "operation_qin_mou_gou_northern_wei_campaign"]
-    assert len(mou_gou) == 3
-    assert {row.get("destination_ref") for row in mou_gou} == {"loc_sanyou"}
-    assert all(row.get("next_due") == planner.read("state/runtime.json")["world_time"] for row in mou_gou)
-
-    operation = planner.read("state/operations/operation_qin_mou_gou_northern_wei_campaign.json")
-    assignment = operation.get("campaign_march_assignment")
-    assert isinstance(assignment, Mapping)
-    assert assignment.get("status") == "ordered"
-    assert assignment.get("destination_ref") == "loc_sanyou"
-    assert assignment.get("issuer_ref") == "char_mou_gou"
-    assert assignment.get("source_kind") in {"autonomous_supreme_command_assignment", "exact_operation_order"}
-    # Materializing an NPC order does not claim that the troops have already moved.
-    assert operation.get("status") == "mobilizing"
+    mou_gou_hosts = [row for row in _march_hosts(planner) if row.get("operation_ref") == _MOU_GOU_OPERATION]
+    assert len(mou_gou_hosts) == 3
+    assert {row.get("destination_ref") for row in mou_gou_hosts} == {"loc_sanyou"}
+    assert all(row.get("leg_origin_ref") for row in mou_gou_hosts)
+    assert all(row.get("leg_destination_ref") for row in mou_gou_hosts)
+    assert all(int(row.get("leg_hours", 0)) > 0 for row in mou_gou_hosts)
+    assert all(row.get("next_due") != planner.read("state/runtime.json")["world_time"] for row in mou_gou_hosts)
 
 
-def test_campaign_march_settlement_uses_exactly_one_canonical_route_leg(campaign):
+def test_campaign_march_due_settlement_advances_exactly_one_canonical_leg(campaign):
     planner = ProductionCampaignPlanner(campaign)
+    sync_campaign_subordinate_orders(planner)
     sync_campaign_march_routes(planner)
     host = next(
         row for row in _march_hosts(planner)
         if row.get("formation_ref") == "formation_qin_mou_gou_central"
     )
-
     formation_path = planner.owner_path("formation_qin_mou_gou_central")
     before = copy.deepcopy(planner.read(formation_path))
-    origin = str(before["location_ref"])
-    destination = str(host["destination_ref"])
-    expected_next, _base_hours = planner._formation_route_next(
-        origin,
-        destination,
-        formation=before,
-        at=str(host["next_due"]),
-    )
 
+    assert host.get("leg_origin_ref") == before.get("location_ref") == "loc_qin_regional_01"
+    expected_next = str(host["leg_destination_ref"])
     result = settle_campaign_march_host(planner, host, str(host["next_due"]))
 
     assert result is not None
     after = planner.read(formation_path)
     assert after.get("location_ref") == expected_next
-    assert after.get("last_march_leg", {}).get("from") == origin
+    assert after.get("last_march_leg", {}).get("from") == host.get("leg_origin_ref")
     assert after.get("last_march_leg", {}).get("to") == expected_next
-    assert after.get("last_march_leg", {}).get("toward") == destination
+    assert after.get("last_march_leg", {}).get("toward") == "loc_sanyou"
+    assert int(after.get("last_march_leg", {}).get("hours", 0)) == int(host.get("leg_hours", 0))
     assert result.get("location_ref") == expected_next
-    assert int(result.get("leg_hours", 0)) > 0
+    assert expected_next != "loc_sanyou"  # the Qin Capital Basin route has another leg.
 
-    live_host = next(
+
+def test_normal_chronology_recovers_stuck_campaign_without_retroactive_movement(campaign):
+    planner = ProductionCampaignPlanner(campaign)
+    central_path = planner.owner_path("formation_qin_mou_gou_central")
+    before = copy.deepcopy(planner.read(central_path))
+    world_time = str(planner.read("state/runtime.json")["world_time"])
+
+    # Preparation performs command/routing reconciliation at the current frontier
+    # but must not rewrite physical history or advance the clock.
+    planner._prepare_scheduler_for_advance(world_time)
+    after_prepare = planner.read(central_path)
+    assert after_prepare.get("location_ref") == before.get("location_ref")
+    assert planner.read("state/runtime.json")["world_time"] == world_time
+
+    host = next(
         row for row in _march_hosts(planner)
         if row.get("formation_ref") == "formation_qin_mou_gou_central"
     )
-    if expected_next == destination:
-        assert live_host.get("retire_after_settlement") is True
-        assert int(live_host.get("recurrence_seconds", 1)) == 0
-    else:
-        assert live_host.get("retire_after_settlement") is False
-        assert int(live_host.get("recurrence_seconds", 0)) >= 3600
+    due = str(host["next_due"])
+    metrics = planner._advance_runtime(due)
 
-
-def test_hosted_scheduler_consumes_campaign_march_route_during_normal_chronology(campaign):
-    planner = ProductionCampaignPlanner(campaign)
-    formation_path = planner.owner_path("formation_qin_mou_gou_central")
-    before = copy.deepcopy(planner.read(formation_path))
-    origin = str(before["location_ref"])
-    runtime_before = planner.read("state/runtime.json")
-    current = CampaignTime.parse(str(runtime_before["world_time"]))
-    target = current.add_seconds(3600)
-
-    metrics = planner._advance_runtime(str(target))
-
-    after = planner.read(formation_path)
-    assert after.get("location_ref") != origin
-    assert after.get("last_march_leg", {}).get("from") == origin
-    assert after.get("last_march_leg", {}).get("toward") == "loc_sanyou"
-    runtime_after = planner.read("state/runtime.json")
-    assert runtime_after.get("world_time") == str(target)
-    assert runtime_after.get("scheduler", {}).get("causal_settled_through") == str(target)
+    after = planner.read(central_path)
+    assert after.get("location_ref") == host.get("leg_destination_ref")
+    assert planner.read("state/runtime.json")["world_time"] == due
     assert int(metrics.get("events_processed", 0)) >= 1
 
 
-def test_campaign_march_sync_is_idempotent_and_preserves_player_agency(campaign):
+def test_campaign_march_order_and_route_sync_are_idempotent(campaign):
     planner = ProductionCampaignPlanner(campaign)
-    first = sync_campaign_march_routes(planner)
-    first_hosts = _march_hosts(planner)
-    second = sync_campaign_march_routes(planner)
-    second_hosts = _march_hosts(planner)
+    first_orders = sync_campaign_subordinate_orders(planner)
+    operation_after_first = copy.deepcopy(_operation(planner, _MOU_GOU_OPERATION))
+    first_order_count = len(operation_after_first.get("operational_orders", []))
+    first_routes = sync_campaign_march_routes(planner)
+    first_host_count = len(_march_hosts(planner))
 
-    assert first
-    assert second == []
-    assert len(second_hosts) == len(first_hosts)
-    assert all(row.get("formation_ref") not in {
-        "formation_black_banner_01a",
-        "formation_high_guard_qin_a",
-        "formation_red_lance_a",
-    } for row in second_hosts)
+    second_orders = sync_campaign_subordinate_orders(planner)
+    second_routes = sync_campaign_march_routes(planner)
+    operation_after_second = _operation(planner, _MOU_GOU_OPERATION)
+
+    assert first_orders
+    assert second_orders == []
+    assert first_routes
+    assert second_routes == []
+    assert len(operation_after_second.get("operational_orders", [])) == first_order_count
+    assert len(_march_hosts(planner)) == first_host_count
 
 
-def test_terminal_participant_operation_prunes_its_march_routes(campaign):
+def test_campaign_march_is_owned_by_central_chronology_not_an_mro_dispatch_mixin(campaign):
     planner = ProductionCampaignPlanner(campaign)
-    sync_campaign_march_routes(planner)
-    operation_path = "state/operations/operation_qin_mou_gou_northern_wei_campaign.json"
-    operation = copy.deepcopy(planner.read(operation_path))
-    operation["status"] = "completed"
-    planner.put(operation_path, operation)
 
-    sync_campaign_march_routes(planner)
-
-    assert not any(
-        row.get("operation_ref") == "operation_qin_mou_gou_northern_wei_campaign"
-        for row in _march_hosts(planner)
-    )
+    assert HOST_KIND_SPECS[CAMPAIGN_MARCH_HOST_KIND] == {
+        "owner": "campaign_march_lifecycle",
+        "wake": "never",
+    }
+    assert all(cls.__name__ != "CampaignMarchLifecycleMixin" for cls in type(planner).__mro__)
