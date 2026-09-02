@@ -270,7 +270,7 @@ def _update_order_status(
         packet["phase_status"] = "executing"
         packet.setdefault("execution_started_at", at)
     elif status == "execution_blocked":
-        order["actionability_status"] = "actionable"
+        order["actionability_status"] = "blocked"
         packet["phase_status"] = "blocked"
         packet["blocked_at"] = at
         if reason:
