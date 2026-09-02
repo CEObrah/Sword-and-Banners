@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sword-campaign-subordinate-mission-packet.schema.json",
+  "title": "Sword Campaign Subordinate Mission Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "mission_phase",
+    "phase_status",
+    "destination_ref",
+    "strategic_target_ref",
+    "target_state_ref",
+    "hostile_entry_authorized",
+    "entry_status",
+    "campaign_arc_ref",
+    "source_campaign_cycle_ref",
+    "source_staff_command_ref",
+    "success_condition",
+    "next_phase_trigger",
+    "authority_rule"
+  ],
+  "properties": {
+    "schema": {"const": "sword-campaign-subordinate-mission-packet-1.0"},
+    "mission_phase": {"const": "campaign_advance"},
+    "phase_status": {"const": "ready_for_commander_execution"},
+    "destination_ref": {"type": "string", "minLength": 1},
+    "strategic_target_ref": {"type": "string", "minLength": 1},
+    "target_state_ref": {"type": "string", "minLength": 1},
+    "hostile_entry_authorized": {"const": true},
+    "entry_status": {"const": "authorized"},
+    "campaign_arc_ref": {
+      "anyOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "null"}
+      ]
+    },
+    "source_campaign_cycle_ref": {"type": "string", "minLength": 1},
+    "source_staff_command_ref": {
+      "anyOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "null"}
+      ]
+    },
+    "success_condition": {"type": "string", "minLength": 1},
+    "next_phase_trigger": {"type": "string", "minLength": 1},
+    "authority_rule": {"type": "string", "minLength": 1}
+  }
+}
