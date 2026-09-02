@@ -9,6 +9,7 @@ from sword_runtime.campaign_march_lifecycle import (
     sync_campaign_march_routes,
 )
 from sword_runtime.production_runtime_planner import ProductionCampaignPlanner
+from sword_runtime.sim.calendar import CampaignTime
 
 
 def _march_hosts(planner):
@@ -96,6 +97,27 @@ def test_campaign_march_settlement_uses_exactly_one_canonical_route_leg(campaign
     else:
         assert live_host.get("retire_after_settlement") is False
         assert int(live_host.get("recurrence_seconds", 0)) >= 3600
+
+
+def test_hosted_scheduler_consumes_campaign_march_route_during_normal_chronology(campaign):
+    planner = ProductionCampaignPlanner(campaign)
+    formation_path = planner.owner_path("formation_qin_mou_gou_central")
+    before = copy.deepcopy(planner.read(formation_path))
+    origin = str(before["location_ref"])
+    runtime_before = planner.read("state/runtime.json")
+    current = CampaignTime.parse(str(runtime_before["world_time"]))
+    target = current.add_seconds(3600)
+
+    metrics = planner._advance_runtime(str(target))
+
+    after = planner.read(formation_path)
+    assert after.get("location_ref") != origin
+    assert after.get("last_march_leg", {}).get("from") == origin
+    assert after.get("last_march_leg", {}).get("toward") == "loc_sanyou"
+    runtime_after = planner.read("state/runtime.json")
+    assert runtime_after.get("world_time") == str(target)
+    assert runtime_after.get("scheduler", {}).get("causal_settled_through") == str(target)
+    assert int(metrics.get("events_processed", 0)) >= 1
 
 
 def test_campaign_march_sync_is_idempotent_and_preserves_player_agency(campaign):
