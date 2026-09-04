@@ -57,7 +57,6 @@
           "kind",
           "status",
           "due_at",
-          "triggered_at",
           "summary",
           "provenance"
         ],
@@ -73,14 +72,27 @@
             "maxLength": 96
           },
           "status": {
-            "const": "triggered"
+            "enum": [
+              "in_transit",
+              "triggered"
+            ]
           },
           "due_at": {
             "type": "string",
             "minLength": 1,
             "maxLength": 64
           },
+          "dispatched_at": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
           "triggered_at": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "expires_at": {
             "type": "string",
             "minLength": 1,
             "maxLength": 64
@@ -245,7 +257,18 @@
               "route"
             ],
             "properties": {
+              "status": {
+                "enum": [
+                  "in_transit",
+                  "delivered"
+                ]
+              },
               "target_ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "source_location_ref": {
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 160
@@ -259,6 +282,67 @@
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 1000
+              },
+              "courier_route": {
+                "type": "object",
+                "required": [
+                  "origin_ref",
+                  "destination_ref",
+                  "route_refs",
+                  "path",
+                  "one_way_seconds",
+                  "travel_seconds",
+                  "round_trip",
+                  "modes"
+                ],
+                "properties": {
+                  "origin_ref": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  "destination_ref": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  "route_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160
+                    }
+                  },
+                  "path": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160
+                    }
+                  },
+                  "one_way_seconds": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "travel_seconds": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "round_trip": {
+                    "type": "boolean"
+                  },
+                  "modes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 32
+                    }
+                  }
+                },
+                "additionalProperties": false
               }
             },
             "additionalProperties": false
@@ -464,6 +548,40 @@
           {
             "if": {
               "properties": {
+                "status": {
+                  "const": "triggered"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "required": [
+                "triggered_at"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "in_transit"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "required": [
+                "dispatched_at"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
                 "kind": {
                   "enum": [
                     "message",
@@ -600,5 +718,5 @@
     }
   },
   "additionalProperties": false,
-  "description": "Formal top-level structure for mutable event/message/movement registries. Exact triggered events support short-horizon causal work, autonomous world-arc activity/report propagation, and bounded institutional-process follow-ups without creating a second occurrence authority."
+  "description": "Formal top-level structure for mutable event/message/movement registries. Exact causal events support both physically routed in-transit messages and triggered settlements, autonomous world-arc activity/report propagation, and bounded institutional-process follow-ups without creating a second occurrence authority."
 }
