@@ -40,6 +40,10 @@ _LEGACY_MARCH_TERMS = (
     "order to march", "orders for sanyou",
 )
 _LEGACY_VANGUARD_TERMS = ("vanguard", "advance guard", "lead the van", "lead the advance")
+_LEGACY_JUNCTION_TERMS = (
+    "junction plan", "junction point", "joining point", "rendezvous",
+    "join the main body", "where to join",
+)
 _SEMANTIC_TOPIC_ALIASES = {
     "march_orders": "march_orders",
     "campaign_command:march_orders": "march_orders",
@@ -47,6 +51,8 @@ _SEMANTIC_TOPIC_ALIASES = {
     "vanguard_assignment": "vanguard",
     "campaign_command:vanguard": "vanguard",
     "campaign_command:vanguard_assignment": "vanguard",
+    "junction_plan": "junction_plan",
+    "campaign_command:junction_plan": "junction_plan",
 }
 
 
@@ -106,6 +112,8 @@ def _request_topics(attempt: Mapping[str, Any]) -> tuple[str, ...]:
         topics.append("march_orders")
     if any(term in text for term in _LEGACY_VANGUARD_TERMS):
         topics.append("vanguard")
+    if any(term in text for term in _LEGACY_JUNCTION_TERMS):
+        topics.append("junction_plan")
     return tuple(topics)
 
 
@@ -352,6 +360,34 @@ def _response_for(
             dispositions["vanguard"] = "unresolved_no_exact_ruling"
             parts.append(
                 "No binding vanguard decision exists yet. Tang Wei's request remains unresolved. The current march order neither grants nor denies it; any later binding assignment must come from the lawful campaign-command authority."
+            )
+    if "junction_plan" in topics:
+        packet = order.get("mission_packet") if isinstance(order, Mapping) and isinstance(order.get("mission_packet"), Mapping) else {}
+        order_actionable = isinstance(order, Mapping) and (
+            str(order.get("actionability_status", "")) == "actionable"
+            or str(order.get("status", "")) == "staff_briefed_awaiting_commander_execution"
+        )
+        rendezvous_ref = packet.get("rendezvous_location_ref") if isinstance(packet, Mapping) else None
+        destination_ref = packet.get("destination_ref") if isinstance(packet, Mapping) else None
+        current_location = player_command_location(planner)
+        if (
+            order_actionable
+            and isinstance(rendezvous_ref, str)
+            and rendezvous_ref
+            and current_location not in {rendezvous_ref, destination_ref}
+        ):
+            dispositions["junction_plan"] = "confirmed_current_junction_order"
+            order_ref = str(order.get("order_ref", "current order"))
+            text = f"Current exact order {order_ref} establishes {rendezvous_ref} as the rendezvous point"
+            if isinstance(destination_ref, str) and destination_ref:
+                text += f" on the way to {destination_ref}"
+            parts.append(text + ". This response repeats the saved order; it does not create a new route, timing decision, or tactical commitment.")
+        else:
+            dispositions["junction_plan"] = "no_separate_current_junction_order"
+            order_ref = str(order.get("order_ref", "none")) if isinstance(order, Mapping) else "none"
+            status = str(order.get("actionability_status") or order.get("status") or "not actionable") if isinstance(order, Mapping) else "not issued"
+            parts.append(
+                f"No separate current junction point with the main body is established beyond the exact campaign authority already on record. The latest exact order is {order_ref} ({status}); headquarters does not invent a rendezvous from staff expectation or an old completed movement packet. Any new binding joining point must arrive as a lawful campaign-command order or directive."
             )
     if not parts:
         return None

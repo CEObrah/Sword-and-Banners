@@ -55,6 +55,8 @@ If relocation is intentionally left open, resolve the withdrawal first and then 
 
 Treat access-seeking and substantive business as separate causal stages.
 
+**Never use `information_create` as a substitute for an outbound message, request, report, petition, or contact that is supposed to reach another actor or institution.** If Tang Wei expects another actor or institution to answer, acknowledge, decide, send orders, or otherwise respond, commit the lawful causal interaction/contact action first and set `expects_response` according to the actual intent. `information_create` may separately record Wei's own asserted or known understanding, but it does not establish dispatch, reception, or a response route.
+
 A location-targeted `seek_contact` means only that Wei is trying to find the proper receiving person, office, or channel. It must never be narrated as if a petition, offer, request, report, or political position has already been delivered to an unseen institution. In particular:
 - do not turn `seek_contact` into quoted substantive dialogue unless the player explicitly supplied those words for the contact attempt;
 - do not say that an office "received the request", "has the proposal", "is considering it", or will answer when no exact receiving handoff exists;

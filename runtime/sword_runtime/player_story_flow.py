@@ -35,6 +35,7 @@ _HOUSE_FORCE = "state/forces/house-tang.json"
 _HOUSE_PATH = "state/houses/house_tang.json"
 _MANOR_POPULATION = "state/population/tang-manor.json"
 _INFRASTRUCTURE_PATH = "state/infrastructure/settlements.json"
+_HOUSE_HOME = "loc_tang_manor"
 
 _STORY_HOST_ID = "host_player_story_flow_tang_wei"
 _STORY_EVENT_ID = "event_player_story_flow_tang_wei_review"
@@ -604,7 +605,41 @@ def _house_digest_event(planner: Any, at: str) -> str | None:
         delivered_stage="delivered", delivered_summary=summary, route_label="House Tang direct report",
     )
 
+
+def _player_on_active_field_duty(planner: Any) -> bool:
+    """Return whether Wei is away from home under an exact active field operation."""
+    player = planner.read(_PLAYER_PATH)
+    if not isinstance(player, Mapping):
+        return False
+    location_ref = str(player.get("location") or "")
+    if not location_ref or location_ref == _HOUSE_HOME:
+        return False
+    for _operation_ref, _operation_path, operation in iter_exact_operation_records(planner):
+        if str(operation.get("status", "")) not in _ACTIVE_OPERATION_STATES:
+            continue
+        authorities = operation.get("administrative_authorities") if isinstance(operation.get("administrative_authorities"), list) else []
+        participants = operation.get("participant_commander_refs") if isinstance(operation.get("participant_commander_refs"), list) else []
+        player_is_participant = (
+            operation.get("administrative_authority") == "char_tang_wei"
+            or operation.get("assignment_authority_ref") == "char_tang_wei"
+            or operation.get("commander_ref") == "char_tang_wei"
+            or "char_tang_wei" in authorities
+            or "char_tang_wei" in participants
+        )
+        if not player_is_participant:
+            continue
+        operation_location = operation.get("location_ref")
+        if not isinstance(operation_location, str) or not operation_location or operation_location == location_ref:
+            return True
+    return False
+
+
 def _family_invitation_event(planner: Any, at: str) -> str | None:
+    # Family correspondence remains lawful while Wei is campaigning, but a
+    # recurring invitation whose substance is "come to the family hall" should
+    # not fire monthly while exact field duty has him away from Tang Manor.
+    if _player_on_active_field_duty(planner):
+        return None
     bucket = at.split("T", 1)[0].rsplit("-", 1)[0]
     index = int(hashlib.sha256(bucket.encode("utf-8")).hexdigest()[:8], 16) % len(_FAMILY_ROTATION)
     person_ref, name, invitation = _FAMILY_ROTATION[index]
