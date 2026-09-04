@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "command_scale_personnel",
+    "planned_hq_ammunition_loads",
+    "base_rotation_fraction",
+    "control_rotation_fraction",
+    "maximum_rotation_fraction",
+    "minimum_frontline_fraction",
+    "breach_rotation_penalty_per_sector",
+    "reserve_relief_rotation_bonus",
+    "fatigue_rotation_trigger",
+    "fatigue_rotation_fraction",
+    "fatigue_rotation_max_breached_sectors",
+    "hold_for_rest_min_control_milli",
+    "rest_hold_phase_fraction",
+    "rearward_rest_credit_fraction",
+    "maximum_battle_fatigue_reduction_fraction",
+    "minimum_battle_fatigue_gain",
+    "turnaround_hours",
+    "rules",
+    "forward_ammunition"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "battlefield-sustainment-rules"
+    },
+    "authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "command_scale_personnel": {
+      "type": "integer",
+      "const": 100
+    },
+    "planned_hq_ammunition_loads": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "base_rotation_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "control_rotation_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "maximum_rotation_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "minimum_frontline_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "breach_rotation_penalty_per_sector": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "reserve_relief_rotation_bonus": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "fatigue_rotation_trigger": {
+      "type": "number",
+      "minimum": 0
+    },
+    "fatigue_rotation_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "fatigue_rotation_max_breached_sectors": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "hold_for_rest_min_control_milli": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rest_hold_phase_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "rearward_rest_credit_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "maximum_battle_fatigue_reduction_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "minimum_battle_fatigue_gain": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "turnaround_hours": {
+      "type": "object",
+      "required": [
+        "ammunition",
+        "outfitting",
+        "remount",
+        "fatigue_recovery"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ammunition": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "outfitting": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "remount": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "fatigue_recovery": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "required": [
+        "ammunition",
+        "equipment",
+        "remounts",
+        "fatigue",
+        "command",
+        "return"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ammunition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "equipment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "remounts": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fatigue": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "return": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "forward_ammunition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "minimum_command_control_milli",
+        "maximum_breached_sectors",
+        "carriers_per_hundred",
+        "load_multiplier_per_carrier",
+        "turnaround_hours",
+        "rule"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "minimum_command_control_milli": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2000
+        },
+        "maximum_breached_sectors": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "carriers_per_hundred": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "load_multiplier_per_carrier": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "turnaround_hours": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

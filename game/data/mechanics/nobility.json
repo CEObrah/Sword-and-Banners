@@ -1,0 +1,85 @@
+{
+  "schema": "house-nobility-mechanics",
+  "principle": "House nobility is a formal political standing granted by lawful sovereign authority. It is separate from personal military rank, office, wealth, land, troop ownership, reputation, royal blood, and succession. A noble advancement never creates property, money, offices, soldiers, or dynastic claims by itself.",
+  "grade_order": {
+    "unranked_house": 0,
+    "recognized_house": 10,
+    "minor_noble_house": 20,
+    "noble_house": 30,
+    "high_noble_house": 40,
+    "great_noble_house": 50
+  },
+  "grades": {
+    "unranked_house": {
+      "label": "Unranked House",
+      "court_precedence_points": 0,
+      "faction_weight_points": 0,
+      "marriage_standing_points": 0,
+      "court_access_class": "ordinary_petition",
+      "office_eligibility_class": "ordinary"
+    },
+    "recognized_house": {
+      "label": "Recognized House",
+      "court_precedence_points": 10,
+      "faction_weight_points": 5,
+      "marriage_standing_points": 5,
+      "court_access_class": "recognized_household",
+      "office_eligibility_class": "local_and_service"
+    },
+    "minor_noble_house": {
+      "label": "Minor Noble House",
+      "court_precedence_points": 25,
+      "faction_weight_points": 12,
+      "marriage_standing_points": 15,
+      "court_access_class": "regional_court",
+      "office_eligibility_class": "regional"
+    },
+    "noble_house": {
+      "label": "Noble House",
+      "court_precedence_points": 45,
+      "faction_weight_points": 22,
+      "marriage_standing_points": 30,
+      "court_access_class": "royal_court",
+      "office_eligibility_class": "senior_state"
+    },
+    "high_noble_house": {
+      "label": "High Noble House",
+      "court_precedence_points": 70,
+      "faction_weight_points": 35,
+      "marriage_standing_points": 50,
+      "court_access_class": "high_royal_court",
+      "office_eligibility_class": "high_state"
+    },
+    "great_noble_house": {
+      "label": "Great Noble House",
+      "court_precedence_points": 100,
+      "faction_weight_points": 50,
+      "marriage_standing_points": 75,
+      "court_access_class": "sovereign_petition",
+      "office_eligibility_class": "highest_nonroyal"
+    }
+  },
+  "grant_rules": {
+    "normal_max_grade_steps_per_grant": 1,
+    "requires_explicit_grantor": true,
+    "requires_saved_evidence": true,
+    "grantor_must_hold_sovereign_or_explicit_delegated_authority": true,
+    "royal_dynasty_is_separate": true,
+    "no_automatic_promotion_from_merit": true,
+    "no_automatic_resource_grants": true
+  },
+  "reward_rule": "Verified service, military merit, political service, administration, diplomacy, or other recognized achievement may justify a court reward review. The actual reward remains an explicit decision. Nobility advancement, silver, land, estate rights, tax privileges, offices, commands, honors, and marriage arrangements are separate grants and must each use their own authority and conserved resources.",
+  "political_effect_rule": "Noble grade changes precedence and eligibility inputs only. It never guarantees an audience, appointment, marriage, faction victory, legal judgment, command, tax immunity, or land grant.",
+  "obligation_rule": "Higher noble standing may increase political and military expectations, but obligations arise only from explicit law, charter, office, treaty, grant, or service terms. Nobility is not a free benefit package.",
+  "dynasty_rule": "Royal blood, ruling-house membership, succession eligibility, regency, and sovereign claims are represented by family/dynasty authorities. Great Noble House is the highest normal non-royal grade and cannot become royal through ordinary rank advancement.",
+  "house_emergence": {
+    "minimum_verified_career_merit": 100,
+    "maximum_new_houses_per_state_review": 1,
+    "rule": "An exact non-player person with sufficient saved career merit may found an unranked household from the same conserved body. Formation grants no silver, land, troops, office, spouse, child, or noble grade; those require separate lawful grants."
+  },
+  "reward_review": {
+    "minimum_verified_career_merit": 50,
+    "maximum_new_reviews_per_state_wake": 1,
+    "rule": "Saved merit or service evidence may open a court review. Crossing the threshold grants nothing automatically; nobility, silver, land, office, command, and other consequences remain separate lawful decisions."
+  }
+}

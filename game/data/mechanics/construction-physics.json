@@ -1,0 +1,74 @@
+{
+  "schema": "sword-construction-physics",
+  "principle": "Construction cost and output are derived from registered physical geometry, material-equivalent quantities, labor classes, local transport and the shared economy. A blueprint may calibrate physical intensity coefficients, but it does not directly grant arbitrary silver cost or settlement capacity.",
+  "workday": {
+    "productive_hours_per_worker_day": 8.0,
+    "attendance_factor": 0.9,
+    "calendar_hours_per_day": 24.0
+  },
+  "material_equivalent": {
+    "tonnes_per_construction_material_unit": 0.25,
+    "base_procurement_silver_per_unit": 1.25,
+    "local_haul_reference_km": 8.0,
+    "haul_silver_per_tonne_km": 0.015
+  },
+  "labor": {
+    "monthly_productive_hours": 216.0,
+    "monthly_wage_silver": {
+      "general": 4.5,
+      "skilled": 6.5,
+      "engineering": 7.0
+    }
+  },
+  "resident_support_standards": {
+    "housing_floor_area_m2_per_person": 30.0,
+    "potable_water_liters_per_person_day": 120.0,
+    "lined_drain_m_per_person": 2.4,
+    "public_latrine_people_per_point": 20.0,
+    "food_reserve_days": 180.0,
+    "civilian_grain_kg_per_person_month": 8.0,
+    "ordinary_work_access_people_per_skilled_workstation": 5.0
+  },
+  "maintenance": {
+    "quarterly_condition_loss_by_category": {
+      "water": 0.004,
+      "housing": 0.003,
+      "sanitation": 0.006,
+      "food_storage": 0.004,
+      "industry": 0.005,
+      "agriculture": 0.006,
+      "transport": 0.008,
+      "military_housing": 0.004,
+      "stabling": 0.006,
+      "training": 0.005,
+      "fortification": 0.004,
+      "settlement_foundation": 0.004
+    },
+    "repair_labor_hours_per_material_unit_condition_point": 0.2,
+    "repair_material_fraction_of_original_per_condition_point": 0.006
+  },
+  "development": {
+    "review_months": 3,
+    "minimum_coverage": {
+      "housing": 1.05,
+      "water": 1.1,
+      "sanitation": 1.0,
+      "food_storage_distribution": 1.0,
+      "ordinary_work_access": 0.85
+    },
+    "priority_order": [
+      "emergency_water",
+      "emergency_food",
+      "critical_housing",
+      "critical_sanitation",
+      "repair",
+      "severe_capacity_bottleneck",
+      "transport",
+      "industry",
+      "agriculture",
+      "military",
+      "civic",
+      "expansion"
+    ]
+  }
+}

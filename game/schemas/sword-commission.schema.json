@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Commission assignment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "commission_ref",
+    "issuer_ref",
+    "assignee_ref",
+    "archetype_ref",
+    "category",
+    "objective",
+    "status"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-commission"
+    },
+    "commission_ref": {
+      "type": "string"
+    },
+    "request_ref": {
+      "type": "string"
+    },
+    "issuer_ref": {
+      "type": "string"
+    },
+    "assignee_ref": {
+      "type": "string"
+    },
+    "archetype_ref": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "location_ref": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "offered",
+        "active",
+        "declined",
+        "report_in_transit",
+        "reported",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "offered_at": {
+      "type": "string"
+    },
+    "accepted_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "declined_at": {
+      "type": "string"
+    },
+    "reported_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "report_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "settlement_pending": {
+      "type": "boolean"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "assignment_rule": {},
+    "hidden_assignment_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_milli",
+        "issuer_risk_band",
+        "profile_authority",
+        "seed_commitment"
+      ],
+      "properties": {
+        "risk_milli": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "issuer_risk_band": {
+          "type": "string",
+          "enum": [
+            "low",
+            "moderate",
+            "high"
+          ]
+        },
+        "profile_authority": {
+          "const": "issuer_risk_assessment_not_world_truth"
+        },
+        "seed_commitment": {
+          "type": "string"
+        }
+      }
+    },
+    "reviewed_at": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "settlement_result": {
+      "type": "string"
+    },
+    "report_dispatched_at": {
+      "type": "string"
+    },
+    "report_delivery_due_at": {
+      "type": "string"
+    },
+    "report_response_due_at": {
+      "type": "string"
+    },
+    "report_source_location_ref": {
+      "type": "string"
+    },
+    "report_issuer_location_ref": {
+      "type": "string"
+    },
+    "report_delivered_at": {
+      "type": "string"
+    },
+    "communication_travel_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "issuer_review_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "communication_route": {
+      "type": "object"
+    },
+    "communication_rule": {
+      "type": "string"
+    }
+  }
+}

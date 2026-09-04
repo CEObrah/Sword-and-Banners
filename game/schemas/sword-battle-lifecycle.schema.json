@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "operational_contact",
+    "night_camp",
+    "reserve_terms",
+    "invariants"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-battle-lifecycle"
+    },
+    "authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operational_contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maximum_daylight_contact_hours",
+        "maximum_night_contact_hours",
+        "minimum_organized_contact_minutes",
+        "casualty_reference_hours",
+        "night_aggressive_orders",
+        "scheduler_intervention_host_kinds",
+        "rule"
+      ],
+      "properties": {
+        "maximum_daylight_contact_hours": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 6
+        },
+        "maximum_night_contact_hours": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 4
+        },
+        "minimum_organized_contact_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 240
+        },
+        "casualty_reference_hours": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 24
+        },
+        "night_aggressive_orders": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scheduler_intervention_host_kinds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "night_camp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default_posture",
+        "day_posture",
+        "pressure_mode",
+        "dawn_refit",
+        "rule"
+      ],
+      "properties": {
+        "default_posture": {
+          "const": "night_camp"
+        },
+        "day_posture": {
+          "const": "day_operations"
+        },
+        "pressure_mode": {
+          "const": "recover"
+        },
+        "dawn_refit": {
+          "type": "boolean"
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "reserve_terms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tactical_reserve",
+        "relief",
+        "sustainment_rotation",
+        "command_rear",
+        "field_camp",
+        "strategic_reserve"
+      ],
+      "properties": {
+        "tactical_reserve": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relief": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sustainment_rotation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command_rear": {
+          "type": "string",
+          "minLength": 1
+        },
+        "field_camp": {
+          "type": "string",
+          "minLength": 1
+        },
+        "strategic_reserve": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

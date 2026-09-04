@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Commission request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "request_ref",
+    "requester_ref",
+    "issuer_ref",
+    "status",
+    "requested_at",
+    "responds_at"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-commission-request"
+    },
+    "request_ref": {
+      "type": "string"
+    },
+    "requester_ref": {
+      "type": "string"
+    },
+    "issuer_ref": {
+      "type": "string"
+    },
+    "category": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "pending",
+        "offered",
+        "declined",
+        "cancelled",
+        "rejected"
+      ]
+    },
+    "requested_at": {
+      "type": "string"
+    },
+    "responds_at": {
+      "type": "string"
+    },
+    "commission_ref": {
+      "type": "string"
+    },
+    "responded_at": {
+      "type": "string"
+    },
+    "rejection_reason": {
+      "type": "string"
+    },
+    "request_delivery_due_at": {
+      "type": "string"
+    },
+    "source_location_ref": {
+      "type": "string"
+    },
+    "issuer_location_ref": {
+      "type": "string"
+    },
+    "communication_travel_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "issuer_processing_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "communication_route": {
+      "type": "object"
+    },
+    "communication_rule": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "household_id",
+    "authority",
+    "status",
+    "member_refs",
+    "dependent_refs",
+    "property_refs",
+    "institution_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "family-household"
+    },
+    "household_id": {
+      "type": "string"
+    },
+    "authority": {
+      "const": true
+    },
+    "status": {
+      "enum": [
+        "active",
+        "split_residence",
+        "dissolved"
+      ]
+    },
+    "member_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependent_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "property_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "institution_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

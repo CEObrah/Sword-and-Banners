@@ -1,0 +1,21 @@
+{
+  "schema": "custody-mechanics",
+  "authority": "Canonical physical holding-capacity and guard-density rules for prisoner custody. Capacity is derived from exact custodian manpower and the real holding environment; no global dungeon-capacity state exists.",
+  "guarding": {
+    "prisoners_per_required_guard": 5,
+    "maximum_routine_guard_duty_fraction_milli": 400,
+    "maximum_emergency_prisoners_per_custodian_person": 2
+  },
+  "fixed_site_holding": {
+    "perimeter_holding_depth_m": 2.0,
+    "secure_floor_area_m2_per_prisoner": 4.0,
+    "nominal_garrison_detention_fraction_milli": 250,
+    "emergency_capacity_multiplier_milli": 1500
+  },
+  "field_holding": {
+    "secure_enclosure_condition_milli": 600,
+    "emergency_enclosure_condition_milli": 380,
+    "emergency_escape_pressure_milli": 220
+  },
+  "rule": "A surrender may be held only if the exact custodian formation and physical site can support it. Fortified fixed detention derives space from registered perimeter/garrison geometry; field custody is guard-limited open-air holding. Emergency capacity is temporary and mechanically worsens enclosure/escape risk."
+}

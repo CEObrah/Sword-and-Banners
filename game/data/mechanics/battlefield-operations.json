@@ -1,0 +1,789 @@
+{
+  "schema": "sword-battlefield-operations",
+  "redeployment": {
+    "seconds_per_distance_unit": {
+      "forced": 240,
+      "standard": 360,
+      "cautious": 540
+    },
+    "mounted_speed_bonus_milli": 450,
+    "size_bands": [
+      {
+        "max_personnel": 500,
+        "time_milli": 850
+      },
+      {
+        "max_personnel": 2000,
+        "time_milli": 1000
+      },
+      {
+        "max_personnel": 10000,
+        "time_milli": 1200
+      },
+      {
+        "max_personnel": 50000,
+        "time_milli": 1450
+      },
+      {
+        "max_personnel": 1000000,
+        "time_milli": 1750
+      }
+    ]
+  },
+  "orders": {
+    "hold": {
+      "power_milli": 1000,
+      "pressure_milli": 1000
+    },
+    "attack": {
+      "power_milli": 1100,
+      "pressure_milli": 1120
+    },
+    "breakthrough": {
+      "power_milli": 1180,
+      "pressure_milli": 1240
+    },
+    "delay": {
+      "power_milli": 880,
+      "pressure_milli": 850
+    },
+    "reserve": {
+      "power_milli": 720,
+      "pressure_milli": 700
+    },
+    "withdraw": {
+      "power_milli": 520,
+      "pressure_milli": 520
+    }
+  },
+  "pressure": {
+    "base_milli_per_hour": 95,
+    "recovery_milli_per_hour": 70,
+    "imbalance_weight_milli": 500,
+    "critical_milli": 720,
+    "collapse_milli": 920,
+    "report_reset_hysteresis_milli": 120
+  },
+  "information": {
+    "mounted_messenger_base_seconds": 420,
+    "mounted_messenger_seconds_per_distance_unit": 90,
+    "max_retained_delivered_reports": 32,
+    "player_intervention_pressure_milli": 300,
+    "rule": "Delivered battlefield reports are player-facing information. A report from another sector may expose only the player-controlled formations that can physically route there and an estimated movement time; it never moves them or chooses whether Wei intervenes."
+  },
+  "delegated_initiative": {
+    "enabled": true,
+    "reserve_commit_pressure_milli": 760,
+    "reserve_pace": "standard",
+    "reserve_order": "attack",
+    "max_autonomous_commits_per_boundary": 1
+  },
+  "layouts": {
+    "battlefield.layout.dynamic": {
+      "generator": "terrain_force_v1",
+      "rule": "Derive variable operational sectors from exact participating force scale and registered terrain. No manpower, casualty, sovereignty, or tactical outcome is created by generation."
+    },
+    "battlefield.layout.line_three": {
+      "frontline_keys": [
+        "left",
+        "center",
+        "right"
+      ],
+      "reserve_key": "reserve",
+      "command_key": "command",
+      "sectors": [
+        {
+          "key": "left",
+          "name": "Left Wing"
+        },
+        {
+          "key": "center",
+          "name": "Center"
+        },
+        {
+          "key": "right",
+          "name": "Right Wing"
+        },
+        {
+          "key": "reserve",
+          "name": "Reserve"
+        },
+        {
+          "key": "command",
+          "name": "Command Rear"
+        }
+      ],
+      "edges": [
+        {
+          "a": "left",
+          "b": "center",
+          "distance_units": 2
+        },
+        {
+          "a": "center",
+          "b": "right",
+          "distance_units": 2
+        },
+        {
+          "a": "left",
+          "b": "reserve",
+          "distance_units": 2
+        },
+        {
+          "a": "center",
+          "b": "reserve",
+          "distance_units": 1
+        },
+        {
+          "a": "right",
+          "b": "reserve",
+          "distance_units": 2
+        },
+        {
+          "a": "reserve",
+          "b": "command",
+          "distance_units": 1
+        }
+      ]
+    },
+    "battlefield.layout.deep_five": {
+      "frontline_keys": [
+        "left",
+        "center",
+        "right",
+        "forward"
+      ],
+      "reserve_key": "reserve",
+      "command_key": "command",
+      "sectors": [
+        {
+          "key": "forward",
+          "name": "Forward Screen"
+        },
+        {
+          "key": "left",
+          "name": "Left Wing"
+        },
+        {
+          "key": "center",
+          "name": "Center"
+        },
+        {
+          "key": "right",
+          "name": "Right Wing"
+        },
+        {
+          "key": "reserve",
+          "name": "Reserve"
+        },
+        {
+          "key": "command",
+          "name": "Command Rear"
+        }
+      ],
+      "edges": [
+        {
+          "a": "forward",
+          "b": "left",
+          "distance_units": 1
+        },
+        {
+          "a": "forward",
+          "b": "center",
+          "distance_units": 1
+        },
+        {
+          "a": "forward",
+          "b": "right",
+          "distance_units": 1
+        },
+        {
+          "a": "left",
+          "b": "center",
+          "distance_units": 2
+        },
+        {
+          "a": "center",
+          "b": "right",
+          "distance_units": 2
+        },
+        {
+          "a": "left",
+          "b": "reserve",
+          "distance_units": 2
+        },
+        {
+          "a": "center",
+          "b": "reserve",
+          "distance_units": 1
+        },
+        {
+          "a": "right",
+          "b": "reserve",
+          "distance_units": 2
+        },
+        {
+          "a": "reserve",
+          "b": "command",
+          "distance_units": 1
+        }
+      ]
+    }
+  },
+  "invariants": [
+    "Operational battlefield pressure is a command-position signal, not automatic casualties or victory.",
+    "battle_resolve remains exact casualty and local combat outcome authority.",
+    "Formations redeploy through sector edges with elapsed time and do not contribute to either endpoint while in transit.",
+    "Battlefield reports become player-visible only after physical command-channel latency unless Tang Wei directly commands in that sector.",
+    "Sector assignment never changes formation ownership, administrative authority, strategic location, occupation, or sovereignty.",
+    "Operational owners retain current battlefield state and bounded recent reports only; durable battle chronology belongs to authoritative event and battle owners rather than an ever-growing battlefield history tail.",
+    "A coarse exact formation may project frontage into multiple adjacent sectors only through conserved sector_commitments_milli shares that sum to exactly 1000; sector presence never duplicates manpower.",
+    "Exact local battle contact scales represented bodies, ammunition expenditure, contact wear, cohesion shock, mount exposure, and casualties to each formation's conserved commitment in that sector.",
+    "One exact formation owner cannot enter two simultaneous exact battle transactions at the same battlefield timestamp even when its operational frontage spans multiple sectors; non-selected sectors continue through pressure until a later exact contact boundary."
+  ],
+  "autonomous_contacts": {
+    "enabled": true,
+    "review_interval_minutes": 90,
+    "contact_duration_minutes": 90,
+    "aggressive_orders": [
+      "attack",
+      "breakthrough"
+    ],
+    "rule": "Every eligible NPC-only engaged sector may resolve exact contact through battle_resolve at each shared review window. Player-controlled sectors are never auto-resolved; delayed reports and actionable crises may interrupt Wei before later chronology so he can lawfully reinforce, detach, request support, or remain committed elsewhere."
+  },
+  "battle_terminal": {
+    "rout_morale_max": 15,
+    "rout_cohesion_max": 15,
+    "termination_evidence_tail": 8,
+    "rule": "Field-battle terminal evidence may come only from exact side-wide destruction/withdrawal, accepted surrender, severe routed/disintegrated formations below both morale/cohesion limits, two-sided disengagement/non-renewal evidence, or superior-command objective completion. Contact-period winners never close the field battle by themselves."
+  },
+  "generation": {
+    "distance_unit_m": 500,
+    "scale_bands": [
+      {
+        "max_side_personnel": 5000,
+        "scale_band": "compact",
+        "front_sector_count": 3,
+        "reserve_sector_count": 1,
+        "front_sector_span_m": 650,
+        "estimated_depth_m": 1000
+      },
+      {
+        "max_side_personnel": 15000,
+        "scale_band": "field",
+        "front_sector_count": 3,
+        "reserve_sector_count": 1,
+        "front_sector_span_m": 850,
+        "estimated_depth_m": 1500
+      },
+      {
+        "max_side_personnel": 50000,
+        "scale_band": "extended",
+        "front_sector_count": 5,
+        "reserve_sector_count": 2,
+        "front_sector_span_m": 900,
+        "estimated_depth_m": 2200
+      },
+      {
+        "max_side_personnel": 120000,
+        "scale_band": "grand",
+        "front_sector_count": 7,
+        "reserve_sector_count": 2,
+        "front_sector_span_m": 1000,
+        "estimated_depth_m": 3000
+      },
+      {
+        "max_side_personnel": 1000000,
+        "scale_band": "grand",
+        "front_sector_count": 7,
+        "reserve_sector_count": 2,
+        "front_sector_span_m": 1200,
+        "estimated_depth_m": 3800
+      }
+    ],
+    "archetype_priority": [
+      {
+        "requires_any": [
+          "pass"
+        ],
+        "archetype": "fortified_pass"
+      },
+      {
+        "requires_all": [
+          "urban",
+          "fortified"
+        ],
+        "archetype": "fortified_site"
+      },
+      {
+        "requires_all": [
+          "hills",
+          "woodland"
+        ],
+        "archetype": "wooded_hills"
+      },
+      {
+        "requires_any": [
+          "mountain"
+        ],
+        "archetype": "mountain_front"
+      },
+      {
+        "requires_any": [
+          "floodplain",
+          "wetland",
+          "marsh"
+        ],
+        "archetype": "river_floodplain"
+      },
+      {
+        "requires_any": [
+          "hills"
+        ],
+        "archetype": "broken_hills"
+      },
+      {
+        "requires_any": [
+          "urban",
+          "fortified"
+        ],
+        "archetype": "fortified_site"
+      },
+      {
+        "requires_any": [
+          "plain",
+          "cultivated",
+          "steppe"
+        ],
+        "archetype": "open_field"
+      }
+    ],
+    "archetypes": {
+      "open_field": {
+        "front_names": {
+          "3": [
+            "Left Wing",
+            "Center",
+            "Right Wing"
+          ],
+          "5": [
+            "Far Left",
+            "Left Wing",
+            "Center",
+            "Right Wing",
+            "Far Right"
+          ],
+          "7": [
+            "Outer Left",
+            "Far Left",
+            "Left Wing",
+            "Center",
+            "Right Wing",
+            "Far Right",
+            "Outer Right"
+          ]
+        },
+        "reserve_names": {
+          "1": [
+            "Main Reserve"
+          ],
+          "2": [
+            "Left Reserve",
+            "Right Reserve"
+          ]
+        },
+        "command_name": "Command Rear",
+        "front_feature_cycle": [
+          "plain"
+        ],
+        "lateral_edge_distance_units": 2,
+        "front_to_reserve_distance_units": 2,
+        "reserve_to_command_distance_units": 1,
+        "objective_profiles": {
+          "center": {
+            "kind": "central_frontage",
+            "importance": "key",
+            "mission": "control the central frontage and preserve support between the wings"
+          },
+          "flank": {
+            "kind": "wing_frontage",
+            "importance": "key",
+            "mission": "secure the wing frontage and deny a clean turning movement"
+          },
+          "outer": {
+            "kind": "maneuver_lane",
+            "importance": "supporting",
+            "mission": "control the outer maneuver lane for flanking, reinforcement, or withdrawal"
+          }
+        }
+      },
+      "broken_hills": {
+        "front_names": {
+          "3": [
+            "Western Ridge",
+            "Central Heights",
+            "Eastern Ridge"
+          ],
+          "5": [
+            "Western Hill Line",
+            "Western Ridge",
+            "Central Heights",
+            "Eastern Ridge",
+            "Eastern Hill Line"
+          ],
+          "7": [
+            "Outer Western Hills",
+            "Western Hill Line",
+            "Western Ridge",
+            "Central Heights",
+            "Eastern Ridge",
+            "Eastern Hill Line",
+            "Outer Eastern Hills"
+          ]
+        },
+        "reserve_names": {
+          "1": [
+            "Rear Hollow"
+          ],
+          "2": [
+            "Western Rear Hollow",
+            "Eastern Rear Hollow"
+          ]
+        },
+        "command_name": "Command Ridge Rear",
+        "front_feature_cycle": [
+          "higher_ground",
+          "broken_ground",
+          "higher_ground"
+        ],
+        "lateral_edge_distance_units": 3,
+        "front_to_reserve_distance_units": 2,
+        "reserve_to_command_distance_units": 1,
+        "objective_profiles": {
+          "center": {
+            "kind": "dominant_height",
+            "importance": "decisive",
+            "mission": "hold or seize the dominant central height that governs observation and lateral support"
+          },
+          "flank": {
+            "kind": "ridge_line",
+            "importance": "key",
+            "mission": "control the ridge line and its approaches without becoming isolated"
+          },
+          "outer": {
+            "kind": "hill_approach",
+            "importance": "supporting",
+            "mission": "secure the outer hill approaches used for turning and reinforcement"
+          }
+        }
+      },
+      "wooded_hills": {
+        "front_names": {
+          "3": [
+            "Western Hill",
+            "Central Ridge",
+            "Eastern Hill"
+          ],
+          "5": [
+            "Western Hill Cluster",
+            "Western Woods",
+            "Central Ridge",
+            "Eastern Woods",
+            "Eastern Hill Cluster"
+          ],
+          "7": [
+            "Outer Western Hills",
+            "Western Hill Cluster",
+            "Western Woods",
+            "Central Ridge",
+            "Eastern Woods",
+            "Eastern Hill Cluster",
+            "Outer Eastern Hills"
+          ]
+        },
+        "reserve_names": {
+          "1": [
+            "Rear Woodline"
+          ],
+          "2": [
+            "Western Rear Woodline",
+            "Eastern Rear Woodline"
+          ]
+        },
+        "command_name": "Command Clearing",
+        "front_feature_cycle": [
+          "higher_ground",
+          "dense_woodland",
+          "broken_ground",
+          "dense_woodland"
+        ],
+        "lateral_edge_distance_units": 3,
+        "front_to_reserve_distance_units": 3,
+        "reserve_to_command_distance_units": 2,
+        "objective_profiles": {
+          "center": {
+            "kind": "central_height",
+            "importance": "decisive",
+            "mission": "control the central ridge that links the wooded hill fronts"
+          },
+          "flank": {
+            "kind": "wooded_corridor",
+            "importance": "key",
+            "mission": "control the wooded corridor and deny concealed lateral movement"
+          },
+          "outer": {
+            "kind": "hill_cluster",
+            "importance": "supporting",
+            "mission": "secure the outer hill cluster and its covered approach routes"
+          }
+        }
+      },
+      "mountain_front": {
+        "front_names": {
+          "3": [
+            "Western Ridge",
+            "Central Valley",
+            "Eastern Ridge"
+          ],
+          "5": [
+            "Western Outer Ridge",
+            "Western Valley",
+            "Central Pass",
+            "Eastern Valley",
+            "Eastern Outer Ridge"
+          ],
+          "7": [
+            "Far Western Slopes",
+            "Western Outer Ridge",
+            "Western Valley",
+            "Central Pass",
+            "Eastern Valley",
+            "Eastern Outer Ridge",
+            "Far Eastern Slopes"
+          ]
+        },
+        "reserve_names": {
+          "1": [
+            "Rear Valley"
+          ],
+          "2": [
+            "Western Rear Valley",
+            "Eastern Rear Valley"
+          ]
+        },
+        "command_name": "Command Height",
+        "front_feature_cycle": [
+          "higher_ground",
+          "broken_ground",
+          "higher_ground"
+        ],
+        "lateral_edge_distance_units": 4,
+        "front_to_reserve_distance_units": 3,
+        "reserve_to_command_distance_units": 2,
+        "objective_profiles": {
+          "center": {
+            "kind": "mountain_choke",
+            "importance": "decisive",
+            "mission": "control the central pass or valley choke linking the mountain fronts"
+          },
+          "flank": {
+            "kind": "ridge_valley_link",
+            "importance": "key",
+            "mission": "hold the ridge or valley link that controls lateral mountain movement"
+          },
+          "outer": {
+            "kind": "mountain_approach",
+            "importance": "supporting",
+            "mission": "secure the outer mountain approach and prevent a turning column"
+          }
+        }
+      },
+      "river_floodplain": {
+        "front_names": {
+          "3": [
+            "Upstream Sector",
+            "Central Crossing",
+            "Downstream Sector"
+          ],
+          "5": [
+            "Far Upstream",
+            "Upstream Sector",
+            "Central Crossing",
+            "Downstream Sector",
+            "Far Downstream"
+          ],
+          "7": [
+            "Outer Upstream",
+            "Far Upstream",
+            "Upstream Sector",
+            "Central Crossing",
+            "Downstream Sector",
+            "Far Downstream",
+            "Outer Downstream"
+          ]
+        },
+        "reserve_names": {
+          "1": [
+            "Rear Bank Reserve"
+          ],
+          "2": [
+            "Upstream Reserve",
+            "Downstream Reserve"
+          ]
+        },
+        "command_name": "Command Rear Bank",
+        "front_feature_cycle": [
+          "soft_ground",
+          "floodplain",
+          "soft_ground"
+        ],
+        "lateral_edge_distance_units": 3,
+        "front_to_reserve_distance_units": 2,
+        "reserve_to_command_distance_units": 1,
+        "objective_profiles": {
+          "center": {
+            "kind": "crossing",
+            "importance": "decisive",
+            "mission": "control the principal crossing and the immediate bank approaches"
+          },
+          "flank": {
+            "kind": "bank_control",
+            "importance": "key",
+            "mission": "control the riverbank approach and deny an alternate crossing lane"
+          },
+          "outer": {
+            "kind": "river_approach",
+            "importance": "supporting",
+            "mission": "secure the outer upstream or downstream approach used for maneuver and relief"
+          }
+        }
+      },
+      "fortified_pass": {
+        "front_names": {
+          "3": [
+            "Western Heights",
+            "Main Pass",
+            "Eastern Heights"
+          ],
+          "5": [
+            "Western Mountain Front",
+            "Western Heights",
+            "Main Pass",
+            "Eastern Heights",
+            "Eastern Mountain Front"
+          ],
+          "7": [
+            "Outer Western Slopes",
+            "Western Mountain Front",
+            "Western Heights",
+            "Main Pass",
+            "Eastern Heights",
+            "Eastern Mountain Front",
+            "Outer Eastern Slopes"
+          ]
+        },
+        "reserve_names": {
+          "1": [
+            "Pass Rear Reserve"
+          ],
+          "2": [
+            "Western Rear Reserve",
+            "Eastern Rear Reserve"
+          ]
+        },
+        "command_name": "Pass Command Rear",
+        "front_feature_cycle": [
+          "higher_ground",
+          "broken_ground",
+          "higher_ground"
+        ],
+        "lateral_edge_distance_units": 4,
+        "front_to_reserve_distance_units": 3,
+        "reserve_to_command_distance_units": 2,
+        "objective_profiles": {
+          "center": {
+            "kind": "fortified_choke_point",
+            "importance": "decisive",
+            "mission": "hold or seize the main pass while preventing a breach through the choke point"
+          },
+          "flank": {
+            "kind": "pass_height",
+            "importance": "key",
+            "mission": "control the heights that overlook and protect the main pass"
+          },
+          "outer": {
+            "kind": "mountain_flank_approach",
+            "importance": "supporting",
+            "mission": "secure the outer mountain approach and prevent an enveloping move behind the pass"
+          }
+        }
+      },
+      "fortified_site": {
+        "front_names": {
+          "3": [
+            "Western Approach",
+            "Main Approach",
+            "Eastern Approach"
+          ],
+          "5": [
+            "Western Outer Approach",
+            "Western Approach",
+            "Main Approach",
+            "Eastern Approach",
+            "Eastern Outer Approach"
+          ],
+          "7": [
+            "Far Western Approach",
+            "Western Outer Approach",
+            "Western Approach",
+            "Main Approach",
+            "Eastern Approach",
+            "Eastern Outer Approach",
+            "Far Eastern Approach"
+          ]
+        },
+        "reserve_names": {
+          "1": [
+            "Outer Reserve"
+          ],
+          "2": [
+            "Western Outer Reserve",
+            "Eastern Outer Reserve"
+          ]
+        },
+        "command_name": "Siege Command Rear",
+        "front_feature_cycle": [
+          "broken_ground",
+          "fortified",
+          "broken_ground"
+        ],
+        "lateral_edge_distance_units": 3,
+        "front_to_reserve_distance_units": 2,
+        "reserve_to_command_distance_units": 1,
+        "objective_profiles": {
+          "center": {
+            "kind": "main_fortified_approach",
+            "importance": "decisive",
+            "mission": "control the principal fortified approach and the route to the main defensive works"
+          },
+          "flank": {
+            "kind": "siege_approach",
+            "importance": "key",
+            "mission": "control the lateral approach used to support, turn, or relieve the main assault front"
+          },
+          "outer": {
+            "kind": "encirclement_lane",
+            "importance": "supporting",
+            "mission": "secure the outer approach used for reinforcement, relief, or encirclement"
+          }
+        }
+      }
+    },
+    "invariants": [
+      "Generated battlefield scale derives from the largest participating side and never changes conserved manpower.",
+      "Generated sector names and route topology are temporary operational geometry at an exact registered location; they are not historical measurement claims.",
+      "Primary operational commands group tactical leaf formation owners for peer-echelon presentation without replacing those exact formation owners.",
+      "Terrain-derived operational objectives guide missions and reporting but never by themselves create casualties, sovereignty, territorial control, or field-battle termination."
+    ]
+  }
+}

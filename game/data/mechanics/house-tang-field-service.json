@@ -1,0 +1,20 @@
+{
+  "schema": "house-tang-field-service",
+  "authority": "Static House Tang departure-issue policy. Mutable ammunition remains owned by the House garrison depot and mutable equipment remains owned by the House armory inventory until exact formation issue. Ordinary army ration/feed is derived strategic support, not formation inventory.",
+  "field_service_preparation": {
+    "arrow_loads_total": 30,
+    "spare_equipment_basis_points": 5000,
+    "spare_loadout_fields": [
+      "body_armor",
+      "helmet",
+      "ranged_weapon",
+      "primary_melee_weapon",
+      "shield",
+      "sidearm",
+      "tack",
+      "horse_armor"
+    ],
+    "replacement_mounts_included": false,
+    "rule": "When Tang Wei orders campaign preparation for House-controlled field formations at Tang Manor, House quartermasters raise formation arrow custody to the registered expedition load and stage spare registered loadout equipment from exact on-hand armory reserve. Ordinary baggage accompanies the army and ration/feed readiness is derived from current strategic support rather than stored as formation inventory. Missing ammunition or equipment remains an explicit shortfall for normal production or lawful procurement; replacement mounts require a separate exact order."
+  }
+}

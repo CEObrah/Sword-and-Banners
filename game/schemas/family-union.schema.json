@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "union_id",
+    "participants",
+    "status",
+    "authority",
+    "formed_at",
+    "date_precision",
+    "recognition",
+    "relationship_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "family-union"
+    },
+    "union_id": {
+      "type": "string"
+    },
+    "participants": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "betrothed",
+        "married",
+        "separated",
+        "divorced",
+        "annulled",
+        "widowed",
+        "dissolved"
+      ]
+    },
+    "authority": {
+      "const": true
+    },
+    "formed_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "date_precision": {
+      "type": "string"
+    },
+    "recognition": {
+      "type": "object"
+    },
+    "relationship_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

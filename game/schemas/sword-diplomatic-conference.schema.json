@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sword multilateral diplomatic conference",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "conference_ref",
+    "kind",
+    "host_ref",
+    "coalition_target_ref",
+    "invited_refs",
+    "proposal_refs",
+    "accepted_member_refs",
+    "declined_invitee_refs",
+    "pending_invitee_refs",
+    "status",
+    "opened_at",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-diplomatic-conference"
+    },
+    "owner_id": {
+      "type": "string",
+      "pattern": "^diplomatic_conference_"
+    },
+    "conference_ref": {
+      "type": "string",
+      "pattern": "^diplomatic_conference_"
+    },
+    "kind": {
+      "const": "coalition"
+    },
+    "host_ref": {
+      "type": "string"
+    },
+    "coalition_target_ref": {
+      "type": "string"
+    },
+    "invited_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "proposal_refs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "accepted_member_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "declined_invitee_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "pending_invitee_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "coalition_treaty_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "status": {
+      "enum": [
+        "negotiating",
+        "concluded",
+        "failed"
+      ]
+    },
+    "opened_at": {
+      "type": "string"
+    },
+    "last_review_at": {
+      "type": "string"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "rule": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

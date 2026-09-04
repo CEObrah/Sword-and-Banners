@@ -1,0 +1,59 @@
+{
+  "schema": "sword-battle-lifecycle",
+  "authority": "Canonical operational field-battle day/contact lifecycle. Exact casualties remain battle_resolve authority; operational battlefield state owns day/night posture and intervention boundaries.",
+  "operational_contact": {
+    "maximum_daylight_contact_hours": 2.0,
+    "maximum_night_contact_hours": 1.0,
+    "minimum_organized_contact_minutes": 30,
+    "casualty_reference_hours": 6.0,
+    "night_aggressive_orders": [
+      "attack",
+      "breakthrough"
+    ],
+    "rule": "One operational battle_resolve settles one bounded contact period, never an entire persistent battlefield. Daylight contact stops at sunset. A new organized night contact is lawful only when every attacking formation already carries a saved aggressive operational order. Night does not inherit automatic contact merely because the formations attacked during the day. Registered military/autonomy scheduler boundaries can end a contact period early so reinforcement, interception, command, convoy and campaign movement work settles before the next contact.",
+    "scheduler_intervention_host_kinds": [
+      "army_staff",
+      "campaign_command_after_action",
+      "campaign_command_council",
+      "campaign_command_dawn",
+      "campaign_command_evening",
+      "campaign_command_superior_order",
+      "faction",
+      "house",
+      "interstate",
+      "military_career",
+      "polity",
+      "qin_command_supply_convoy",
+      "qin_command_support_review",
+      "state",
+      "sword_manor",
+      "world_arc",
+      "world_arc_priority"
+    ]
+  },
+  "night_camp": {
+    "default_posture": "night_camp",
+    "day_posture": "day_operations",
+    "pressure_mode": "recover",
+    "dawn_refit": true,
+    "rule": "At dusk an active operational battlefield enters sector-local camp/security posture without teleporting formations or erasing geometry. Ambient combat pressure stops and can recover except in a sector with an explicitly active night contact. At dawn only formations recorded as having actually camped through the preceding night may receive ordinary idle-fatigue recovery and refit from physical ammunition, spare outfitting sets and remount horses already in custody. Casualties, wounds and destroyed material never reset."
+  },
+  "reserve_terms": {
+    "tactical_reserve": "A persistent formation deliberately withheld from direct contact inside the operational battlefield.",
+    "relief": "A combat formation or 100-man echelon temporarily replaces another frontage element.",
+    "sustainment_rotation": "A bounded 100-man command-echelon task for rearm, remount, refit or rest; it does not create a new reserve formation.",
+    "command_rear": "The battlefield HQ/baggage area that physically holds command and nearby formation support stock.",
+    "field_camp": "The overnight or extended-rest posture inside controlled battlefield space; it does not imply a strategic location change.",
+    "strategic_reserve": "A separate formation or army not yet committed to the operational battlefield/contact."
+  },
+  "invariants": [
+    "Operational contact periods advance real campaign chronology so redeployments, reinforcements, reports and autonomous actors can intervene between contacts.",
+    "A local contact winner is not automatically the winner of the persistent battle.",
+    "Field battle uses the canonical derived strategic-supply condition. Combat never consumes a formation ration or animal-feed inventory because ordinary field subsistence is not a persistent formation asset.",
+    "No camp, dawn or sustainment transition creates ammunition, equipment, horses, personnel or recovered casualties.",
+    "Dusk and dawn change battlefield posture, not strategic location or sovereignty.",
+    "Only formations recorded in the preceding dusk camp roster receive dawn camp refit; a late-arriving reinforcement cannot receive a full night of recovery it did not experience.",
+    "An explicit night contact suppresses night-camp pressure recovery only in its exact sector and only for its saved contact window.",
+    "Registered military/autonomy scheduler events may truncate a contact period before casualties are settled past the event, allowing external armies and support work to intervene causally between contacts."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "items"
+  ],
+  "properties": {
+    "schema": {
+      "const": "items-shard"
+    },
+    "items": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

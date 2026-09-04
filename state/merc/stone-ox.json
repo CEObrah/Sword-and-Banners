@@ -1,0 +1,429 @@
+{
+  "accounting_only": true,
+  "base_or_current_contract": "Wei-Han roads",
+  "body_distribution": {
+    "age_distribution_pct": {
+      "15_19": 18,
+      "20_29": 44,
+      "30_39": 27,
+      "40_plus": 11
+    },
+    "height_cm": {
+      "mean": 167,
+      "sd": 6.1
+    },
+    "individual_records_required": false,
+    "weight_kg": {
+      "mean": 63,
+      "sd": 7.6
+    }
+  },
+  "combat_tendencies": {
+    "adaptability": 55,
+    "aggression": 55,
+    "ally_support": 65,
+    "casualty_tolerance": 55,
+    "caution": 50,
+    "commander_dependence": 55,
+    "counterattack_bias": 55,
+    "flank_bias": 50,
+    "formation_discipline": 70,
+    "initiative": 55,
+    "objective_focus": 70,
+    "pursuit_bias": 45,
+    "reserve_bias": 50,
+    "withdrawal_willingness": 45
+  },
+  "contracts": [
+    {
+      "active_at": "244-BCE-07-02T07:22:48+08:00",
+      "amount_silver": 140000,
+      "basis": "mercenary_ecology current obligation; contract organizes employment but owns zero bodies",
+      "contract_ref": "market_contract_merc_stone_ox",
+      "deployment_location_ref": "loc_qin_regional_01",
+      "employer_ref": "mercenary_market_index",
+      "engagement_kind": "reconstitution",
+      "expires_at": "244-BCE-10-30T07:22:48+08:00",
+      "status": "active",
+      "term_days": 120
+    }
+  ],
+  "current_location_ref": "loc_qin_regional_01",
+  "deployment_status": "independent",
+  "doctrine": "doc.merc_stone_ox.standard",
+  "doctrine_familiarity": 80,
+  "equipment_and_mounts": {
+    "assigned_mounts": 0,
+    "assigned_war_arrows": 0,
+    "assigned_war_bolts": 107500,
+    "issued_loadouts": [
+      {
+        "count": 4167,
+        "loadout_id": "loadout_mercenary_heavy_infantry"
+      },
+      {
+        "count": 417,
+        "loadout_id": "loadout_mercenary_engineer"
+      },
+      {
+        "count": 416,
+        "loadout_id": "loadout_mercenary_support"
+      }
+    ],
+    "reserve_mounts": 0,
+    "reserve_war_arrows": 0,
+    "reserve_war_bolts": 107500
+  },
+  "establishment_strength": 5000,
+  "food_stock_kg": 480000,
+  "force_class": "mercenary_company",
+  "formation_library_ref": "formation.mercenary.standard",
+  "headcount": 5000,
+  "home_establishment_ref": "establishment.merc_stone_ox",
+  "home_location_ref": "loc_qin_regional_01",
+  "market_engagement": {
+    "established_at": "244-BCE-07-23T01:22:48+08:00",
+    "kind": "reconstitution",
+    "short_notice_available": false
+  },
+  "market_tier": "specialist",
+  "name": "Stone Ox Company",
+  "owner_id": "merc_stone_ox",
+  "owner_type": "mercenary_company",
+  "schema": "mercenary-company",
+  "stat_order_ref": "game/data/mechanics/stat-orders.json#military_person",
+  "state_alignment": "Independent",
+  "status": "contracted",
+  "subprocess_id": "process_merc_stone_ox",
+  "training": "train.merc_stone_ox.standard",
+  "treasury_silver": 400000,
+  "troop_pools": [
+    {
+      "accounting_only": true,
+      "accounting_scale": "macro_1k",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 102,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 173,
+            "sd": 6.5
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 63,
+            "sd": 7.3
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            98,
+            82,
+            106,
+            104,
+            88,
+            90,
+            104,
+            72,
+            82
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 36,
+            "Governance": 36,
+            "Intelligence Operations": 40,
+            "Law": 34,
+            "Trade": 40
+          },
+          "skill_values": [
+            96,
+            100,
+            88,
+            58,
+            46,
+            104,
+            102,
+            84,
+            80,
+            42,
+            108,
+            74,
+            46,
+            58,
+            34,
+            52,
+            62,
+            58,
+            64,
+            44,
+            62
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 4167
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 4167
+      },
+      "count": 4167,
+      "display": "Heavy Infantry",
+      "doctrine": "doc.merc_stone_ox.heavy",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_heavy_infantry",
+      "mount_type": null,
+      "pool_id": "merc_stone_ox:pool_heavy",
+      "pool_kind": "unit_manpower",
+      "role": "heavy",
+      "specialty": "heavy",
+      "training": "train.merc_stone_ox.heavy",
+      "troop_type": "heavy_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 107,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 169,
+            "sd": 5.9
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 66,
+            "sd": 7.6
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            78,
+            72,
+            104,
+            94,
+            88,
+            94,
+            102,
+            92,
+            80
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 48,
+            "Governance": 54,
+            "Intelligence Operations": 62,
+            "Law": 52,
+            "Trade": 50
+          },
+          "skill_values": [
+            62,
+            68,
+            72,
+            48,
+            60,
+            72,
+            92,
+            68,
+            62,
+            36,
+            84,
+            72,
+            60,
+            72,
+            42,
+            118,
+            78,
+            82,
+            88,
+            74,
+            96
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 417
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 417
+      },
+      "count": 417,
+      "display": "Reserve Line",
+      "doctrine": "doc.merc_stone_ox.standard",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_line",
+      "mount_type": null,
+      "pool_id": "merc_stone_ox:line_reserve:a75737bc",
+      "pool_kind": "unit_manpower",
+      "role": "line_reserve",
+      "specialty": "reserve_line",
+      "training": "train.merc_stone_ox.standard",
+      "troop_type": "line_infantry"
+    },
+    {
+      "accounting_only": true,
+      "accounting_scale": "operational_100",
+      "capability": {
+        "aptitude_distribution": {
+          "exceptional_pct": 4,
+          "high_pct": 22,
+          "low_pct": 12,
+          "mean": 103,
+          "normal_pct": 62,
+          "sd": 16
+        },
+        "body_distribution": {
+          "age_distribution_pct": {
+            "15_19": 18,
+            "20_29": 44,
+            "30_39": 27,
+            "40_plus": 11
+          },
+          "height_cm": {
+            "mean": 171,
+            "sd": 7.0
+          },
+          "individual_records_required": false,
+          "weight_kg": {
+            "mean": 65,
+            "sd": 7.4
+          }
+        },
+        "capabilities": {
+          "attribute_values": [
+            68,
+            70,
+            86,
+            76,
+            82,
+            92,
+            98,
+            94,
+            82
+          ],
+          "professional_skill_values": {
+            "Diplomacy": 58,
+            "Governance": 60,
+            "Intelligence Operations": 62,
+            "Law": 54,
+            "Trade": 58
+          },
+          "skill_values": [
+            54,
+            58,
+            44,
+            48,
+            50,
+            62,
+            76,
+            50,
+            50,
+            46,
+            68,
+            66,
+            48,
+            62,
+            95,
+            72,
+            68,
+            58,
+            64,
+            52,
+            105
+          ]
+        },
+        "combat_tendencies": {
+          "adaptability": 50,
+          "aggression": 55,
+          "ally_support": 60,
+          "casualty_tolerance": 60,
+          "caution": 50,
+          "commander_dependence": 60,
+          "counterattack_bias": 55,
+          "flank_bias": 45,
+          "formation_discipline": 70,
+          "initiative": 50,
+          "objective_focus": 70,
+          "pursuit_bias": 45,
+          "reserve_bias": 55,
+          "withdrawal_willingness": 45
+        },
+        "experience_distribution": {
+          "field-tested": 416
+        },
+        "qualification_multiplier_applied_to_stats": false
+      },
+      "condition": {
+        "fit": 416
+      },
+      "count": 416,
+      "display": "Reserve Line",
+      "doctrine": "doc.merc_stone_ox.standard",
+      "fatigue_mean": 0.0,
+      "loadout_id": "loadout_mercenary_line",
+      "mount_type": null,
+      "pool_id": "merc_stone_ox:line_reserve:ed381e7a",
+      "pool_kind": "unit_manpower",
+      "role": "line_reserve",
+      "specialty": "reserve_line",
+      "training": "train.merc_stone_ox.standard",
+      "troop_type": "line_infantry"
+    }
+  ]
+}

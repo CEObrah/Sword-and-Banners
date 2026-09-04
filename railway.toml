@@ -1,0 +1,24 @@
+[build]
+builder = "RAILPACK"
+watchPatterns = [
+  "**",
+  "!/state/**",
+  "!/plugins/**",
+  "!/docs/**",
+  "!/tests/**",
+  "!/tools/**",
+  "!/.github/**",
+  "!/README.md"
+]
+
+# Source and gameplay durability share the single canonical main branch.
+# State-only runtime commits do not rebuild the service because state/** is
+# excluded from deployment watch paths.
+[deploy]
+startCommand = "SWORD_GIT_BRANCH=main PYTHONPATH=/app/runtime python -m sword_runtime.bootstrap"
+healthcheckPath = "/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+overlapSeconds = 0
+drainingSeconds = 30
