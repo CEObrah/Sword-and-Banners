@@ -2,7 +2,7 @@
 
 Campaign briefing and march completion own the actual arrival transition. This
 module only makes that existing authority reachable for historical or recovered
-operations whose actionable arrival packet is still open even though the exact
+operations whose executable arrival packet is still open even though the exact
 participating formations have already reached its destination. It creates no
 movement, contact, tactics, manpower, or authority of its own.
 """
@@ -21,6 +21,9 @@ _RUNTIME_PATH = "state/runtime.json"
 _ACTIVE_OPERATION_STATUSES = {"active", "mobilizing", "advancing", "engaged", "occupied"}
 _ARRIVAL_MISSION_PHASES = {"campaign_concentration_and_advance", "campaign_muster_and_staging"}
 _FIELD_APPOINTMENT_KINDS = {"qin_field_command", "state_field_command"}
+_EXECUTABLE_ACTIONABILITY_STATUSES = {"actionable", "executing"}
+_OPEN_PACKET_PHASE_STATUSES = {"ready_for_commander_execution", "executing"}
+_TERMINAL_ORDER_STATUSES = {"completed", "cancelled", "canceled", "withdrawn", "terminated", "superseded"}
 
 
 def _player_operation_refs(planner: Any) -> list[str]:
@@ -63,17 +66,46 @@ def _latest_order(operation: Mapping[str, Any]) -> Mapping[str, Any] | None:
     return None
 
 
+def _arrival_scope(operation: Mapping[str, Any], order: Mapping[str, Any]) -> list[str]:
+    """Return a non-empty friendly formation scope before invoking arrival authority."""
+    opposing = {
+        str(ref)
+        for ref in operation.get("opposing_formation_refs", [])
+        if isinstance(ref, str) and ref
+    }
+    operation_refs = [
+        str(ref)
+        for ref in operation.get("formation_refs", [])
+        if isinstance(ref, str) and ref
+    ]
+    friendly = [ref for ref in operation_refs if ref not in opposing]
+    if friendly:
+        return list(dict.fromkeys(friendly))
+
+    applies = [
+        str(ref)
+        for ref in order.get("applies_to_formation_refs", [])
+        if isinstance(ref, str) and ref and ref not in opposing
+    ]
+    if operation_refs:
+        operation_ref_set = set(operation_refs)
+        applies = [ref for ref in applies if ref in operation_ref_set]
+    return list(dict.fromkeys(applies))
+
+
 def reconcile_satisfied_player_campaign_arrivals(
     planner: Any,
     *,
     at: str | None = None,
 ) -> list[str]:
-    """Complete open arrival packets only when the existing authority proves arrival.
+    """Complete open arrivals only when an executable packet and exact bodies prove it.
 
     ``reconcile_campaign_arrival`` remains the sole consequence owner. It checks
     every required non-opposing formation's exact location and returns ``None``
-    when movement is still outstanding, so calling this before chronology is
-    idempotent and cannot turn a remote order into a zero-distance arrival.
+    when movement is still outstanding. This pre-chronology bridge additionally
+    fails closed for terminal/non-executable orders, unsupported packet states,
+    and empty formation scopes so unrelated or stale campaign records cannot be
+    promoted merely because they contain old arrival-shaped metadata.
     """
     if at is None:
         runtime = planner.read(_RUNTIME_PATH)
@@ -90,15 +122,23 @@ def reconcile_satisfied_player_campaign_arrivals(
         if str(operation.get("status", "")) not in _ACTIVE_OPERATION_STATUSES:
             continue
         order = _latest_order(operation)
-        packet = order.get("mission_packet") if isinstance(order, Mapping) else None
+        if not isinstance(order, Mapping):
+            continue
+        if str(order.get("status", "")) in _TERMINAL_ORDER_STATUSES:
+            continue
+        if str(order.get("actionability_status", "")) not in _EXECUTABLE_ACTIONABILITY_STATUSES:
+            continue
+        packet = order.get("mission_packet") if isinstance(order.get("mission_packet"), Mapping) else None
         if not isinstance(packet, Mapping):
             continue
         if str(packet.get("mission_phase", "")) not in _ARRIVAL_MISSION_PHASES:
             continue
-        if str(packet.get("phase_status", "")) == "completed":
+        if str(packet.get("phase_status", "")) not in _OPEN_PACKET_PHASE_STATUSES:
             continue
         destination_ref = packet.get("destination_ref")
         if not isinstance(destination_ref, str) or not destination_ref:
+            continue
+        if not _arrival_scope(operation, order):
             continue
 
         result = reconcile_campaign_arrival(
