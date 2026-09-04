@@ -6,6 +6,7 @@ from sword_runtime.causal_event_store import get_causal_event, read_causal_event
 from sword_runtime.operation_routing import exact_operation_record
 from sword_runtime.player_story_flow import (
     _decision_event_ref,
+    _family_invitation_event,
     settle_appointment_reply,
     settle_player_story_message_delivery,
     settle_player_story_review,
@@ -27,7 +28,6 @@ def _planner(campaign):
     planner.PLAYER_ACTOR = str(meta["player_id"])
     planner._reset()
     return planner
-
 
 
 
@@ -58,9 +58,6 @@ def _prepare_offer_fixture(planner) -> None:
             formation["commander_ref"] = None
             formation["command_authority"] = str(formation.get("administrative_owner", "state_qin"))
             planner.put(formation_path, formation)
-    # The current campaign has exact commanders on every active Qin field formation.
-    # Open one real disposable-clone vacancy explicitly rather than relying on
-    # Tang Wei to still occupy a pre-rebaseline leaf formation.
     vacancy_ref = FORMATION_REF
     vacancy_path = planner.owner_path(vacancy_ref)
     vacancy = copy.deepcopy(planner.read(vacancy_path))
@@ -92,9 +89,6 @@ def _prepare_offer_fixture(planner) -> None:
                 career_state["office_or_command"] = "Qin officer awaiting reassignment"
             planner.put(commander_path, commander)
 
-    # The command-offer lifecycle is the subject of this test, so give it one
-    # exact synthetic operation owner instead of inheriting whichever real
-    # campaign operations happen to exist in the supplied save.
     operation = {
         "schema": "sword-operation",
         "owner_id": TEST_OPERATION_REF,
@@ -122,6 +116,7 @@ def _prepare_offer_fixture(planner) -> None:
         1, int(qin.get("military_administration", {}).get("commander_vacancy_count", 0))
     )
     planner.put("state/states/qin.json", qin)
+
 
 def _install_qualification(planner, at: str) -> None:
     if get_causal_event(planner, QUALIFICATION_REF) is not None:
@@ -246,7 +241,6 @@ def test_story_review_joins_real_qin_vacancy_to_qualified_candidate(campaign) ->
     assert operation["status"] in {"planned", "mobilizing", "active", "engaged", "occupied"}
 
 
-
 def test_unanswered_qin_offer_lapses_and_no_longer_blocks_future_career_flow(campaign) -> None:
     planner = _planner(campaign)
     at = str(planner.read("state/runtime.json")["world_time"])
@@ -272,10 +266,8 @@ def test_unanswered_qin_offer_lapses_and_no_longer_blocks_future_career_flow(cam
     assert offer_ref not in career.get("pending_qin_command_offer_refs", [])
     assert offer_ref not in career.get("pending_qin_command_offers", {})
     assert str(details["formation_ref"]) in career.get("lapsed_qin_command_formation_refs", [])
-    # A lapsed offer is history, not a permanent decision blocker. A different
-    # lawful vacancy may be considered on a later review, but the same ignored
-    # exact vacancy is not immediately re-offered in the lapse beat.
     assert all(ref != offer_ref for ref in career.get("pending_qin_command_offer_refs", []))
+
 
 def test_accepting_qin_offer_reserves_appointment_but_does_not_teleport_command(campaign) -> None:
     planner = _planner(campaign)
@@ -339,6 +331,7 @@ def test_story_review_does_not_auto_assume_command_merely_from_colocation(campai
         assert formation.get("commander_ref") in {None, ""}
     assert "awaiting assumption" in player["authority"]
 
+
 def test_lapsed_unassumed_appointment_restores_prior_authority(campaign) -> None:
     planner = _planner(campaign)
     at = str(planner.read("state/runtime.json")["world_time"])
@@ -365,7 +358,7 @@ def test_lapsed_unassumed_appointment_restores_prior_authority(campaign) -> None
     assert player["authority"] == prior
     assert any(
         row.get("formation_ref") == formation_ref and row.get("status") == "lapsed_before_assumption"
-        for row in player["career_state"]["appointments"]
+        for row in player["career_state"].get("appointments", [])
     )
     if pending.get("offer_kind") == "qin_probationary_detachment_command":
         child_path = f"state/formations/{formation_ref.removeprefix('formation_').replace('_', '-')}.json"
@@ -375,12 +368,30 @@ def test_lapsed_unassumed_appointment_restores_prior_authority(campaign) -> None
         assert formation.get("commander_ref") in {None, ""}
 
 
+def test_family_return_home_invitation_is_suppressed_during_active_field_duty(campaign) -> None:
+    planner = _planner(campaign)
+    at = str(planner.read("state/runtime.json")["world_time"])
+    review_at = str(CampaignTime.parse(at).add_seconds(70 * 86400))
+
+    player = planner.read("state/player.json")
+    assert player["location"] == "loc_sanyou"
+    assert _family_invitation_event(planner, review_at) is None
+
+    player = copy.deepcopy(player)
+    player["location"] = "loc_tang_manor"
+    planner.put("state/player.json", player)
+    assert _family_invitation_event(planner, review_at) is not None
+
+
 def test_story_review_dispatches_house_and_family_messages_without_review_wake(campaign) -> None:
     planner = _planner(campaign)
     at = str(planner.read("state/runtime.json")["world_time"])
     _install_qualification(planner, at)
-    # Force a fresh House digest signature and a fresh monthly family bucket in
-    # this disposable clone so the test does not depend on save history.
+    # This test is about message throughput rather than field-duty suppression;
+    # put Wei at a non-campaign location so a return-home invitation is eligible.
+    player = copy.deepcopy(planner.read("state/player.json"))
+    player["location"] = "loc_kanyou"
+    planner.put("state/player.json", player)
     force = copy.deepcopy(planner.read("state/forces/house-tang.json"))
     force["cohort_training_closes"] = int(force.get("cohort_training_closes", 0) or 0) + 1
     planner.put("state/forces/house-tang.json", force)
