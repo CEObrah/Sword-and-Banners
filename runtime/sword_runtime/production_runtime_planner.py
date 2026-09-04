@@ -2,6 +2,7 @@
 
 The current production planner is the single hosted gameplay authority.
 """
+from sword_runtime.campaign_arrival_lifecycle import reconcile_satisfied_player_campaign_arrivals
 from sword_runtime.campaign_command_contact import CampaignCommandContactMixin
 from sword_runtime.campaign_command_decision import CampaignCommandDecisionMixin
 from sword_runtime.campaign_command_requests import CampaignCommandRequestMixin
@@ -35,10 +36,14 @@ class ProductionCampaignPlanner(
         # Keep ProductionTimeIntegrationMixin first in the hosted MRO. Campaign
         # authority reconciliation and superior-command review are pre-chronology
         # lifecycle work, not alternate chronology owners. Materialize any entry
-        # repair first, then let the one campaign decision owner forward newly
-        # known command intelligence and persist a bounded mission-level follow-on
-        # before the normal scheduler registers its existing delivery path.
+        # repair first, then reconcile arrival through the existing physical
+        # formation-location authority before a historical zero-distance packet
+        # can suppress the field command cycle again. Only then let the campaign
+        # decision owner forward newly known command intelligence and persist a
+        # bounded mission-level follow-on before the normal scheduler registers
+        # its existing delivery path.
         refreshed = self._reconcile_campaign_entry_authority()
+        reconcile_satisfied_player_campaign_arrivals(self)
         materialize_reconciled_campaign_follow_on_orders(self, refreshed)
         self._sync_campaign_command_decisions()
         super()._prepare_scheduler_for_advance(target_text)
