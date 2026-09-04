@@ -333,11 +333,6 @@ def _operational_area(
     if not origin or not target_state:
         return None
     target_key = target_state.removeprefix("state_")
-    # A region node is theater geography, not a concrete operational objective.
-    # Prefer physical strategic sites (city/fort/pass/etc.) so a campaign does
-    # not collapse its whole theater into the nearest regional container. Only
-    # fall back to a strategic region when the authored map has no physical
-    # target site at all.
     targets = [
         ref for ref, row in locations.items()
         if str(row.get("state", "")) == target_key
@@ -729,12 +724,11 @@ def render_campaign_briefing(planner: Any, dossier: Mapping[str, Any], mission_p
     area = dossier.get("operational_area") if isinstance(dossier.get("operational_area"), Mapping) else {}
     area_text = str(area.get("destination_name") or area.get("destination_ref") or "not yet fixed")
     strategic_target_text = str(area.get("strategic_target_name") or area.get("strategic_target_ref") or area_text)
-    staging_completed = (
-        isinstance(mission_packet, Mapping)
-        and str(mission_packet.get("phase_status", "")) == "completed"
-        and not bool(mission_packet.get("hostile_entry_authorized"))
-    )
-    if area and not bool(area.get("hostile_entry_authorized")):
+    phase_completed = isinstance(mission_packet, Mapping) and str(mission_packet.get("phase_status", "")) == "completed"
+    staging_completed = phase_completed and not bool(mission_packet.get("hostile_entry_authorized")) if isinstance(mission_packet, Mapping) else False
+    if phase_completed and area and bool(area.get("hostile_entry_authorized")):
+        entry_text = f" Qin has authorized entry into the target state, and the field command has completed arrival and deployment at {area_text}; any further maneuver requires a follow-on lawful order or Tang Wei's own lawful initiative."
+    elif area and not bool(area.get("hostile_entry_authorized")):
         if staging_completed:
             entry_text = f" The field command has completed its lawful staging at {area_text}; {strategic_target_text} remains the strategic target, but Qin has not yet authorized entry into Wei territory."
         else:
@@ -752,12 +746,18 @@ def render_campaign_briefing(planner: Any, dossier: Mapping[str, Any], mission_p
         dest = mission_packet.get("destination_name") or mission_packet.get("destination_ref")
         rendezvous = mission_packet.get("rendezvous_name") or mission_packet.get("rendezvous_location_ref")
         entry_authorized = bool(mission_packet.get("hostile_entry_authorized"))
-        if str(mission_packet.get("phase_status", "")) == "completed" and not entry_authorized:
+        if str(mission_packet.get("phase_status", "")) == "completed":
             completed_place = dest or rendezvous
-            order_text = (
-                f" The Bureau's standing orders record concentration at {completed_place} as complete. "
-                "Further advance into Wei territory awaits new lawful entry authority."
-            )
+            if entry_authorized:
+                order_text = (
+                    f" The Bureau's standing orders record arrival and deployment at {completed_place} as complete. "
+                    "Any further maneuver or battle commitment requires a follow-on lawful basis; this completed order does not direct another march to the same location."
+                )
+            else:
+                order_text = (
+                    f" The Bureau's standing orders record concentration at {completed_place} as complete. "
+                    "Further advance into Wei territory awaits new lawful entry authority."
+                )
         elif dest == rendezvous and not entry_authorized:
             order_text = (
                 f" The Bureau's written orders require the field command to complete its concentration at {rendezvous} and report readiness there. "
@@ -824,9 +824,6 @@ def ensure_actionable_mission_packet(planner: Any, operation_ref: str, dossier: 
     }
     existing_packet = order.get("mission_packet") if isinstance(order.get("mission_packet"), Mapping) else None
 
-    # Refreshing a briefing must not reopen a staging phase that the formation
-    # already completed.  The completed order remains authoritative until Qin
-    # supplies a new lawful basis to cross into the hostile state.
     staging_already_completed = (
         not entry_authorized
         and isinstance(existing_packet, Mapping)
@@ -879,6 +876,12 @@ def ensure_actionable_mission_packet(planner: Any, operation_ref: str, dossier: 
             and enemy_estimate["contact_status"] == enemy_then.get("contact_status")
         )
         if packet_is_current:
+            reconciled = reconcile_campaign_arrival(planner, operation_ref, destination_ref=destination_ref, at=at)
+            if reconciled is not None:
+                _refreshed_path, refreshed_operation = _load_operation(planner, operation_ref)
+                refreshed_packet = _latest_order(refreshed_operation).get("mission_packet")
+                if isinstance(refreshed_packet, Mapping):
+                    return copy.deepcopy(dict(refreshed_packet))
             return copy.deepcopy(dict(existing_packet))
 
     mission_phase = "campaign_concentration_and_advance" if entry_authorized else "campaign_muster_and_staging"
@@ -916,9 +919,17 @@ def ensure_actionable_mission_packet(planner: Any, operation_ref: str, dossier: 
     orders[order_index] = order
     operation["operational_orders"] = orders
     operation["order_status"] = "staff_briefed_awaiting_commander_execution"
-    operation["campaign_phase"] = "campaign_concentration"
+    if not str(operation.get("campaign_phase") or "").strip():
+        operation["campaign_phase"] = "campaign_concentration"
     planner.put(path, operation)
+    reconciled = reconcile_campaign_arrival(planner, operation_ref, destination_ref=destination_ref, at=at)
+    if reconciled is not None:
+        _refreshed_path, refreshed_operation = _load_operation(planner, operation_ref)
+        refreshed_packet = _latest_order(refreshed_operation).get("mission_packet")
+        if isinstance(refreshed_packet, Mapping):
+            return copy.deepcopy(dict(refreshed_packet))
     return copy.deepcopy(packet)
+
 
 def _persist_information(
     planner: Any,
@@ -986,10 +997,6 @@ def persist_campaign_briefing(planner: Any, *, dossier: Mapping[str, Any], summa
         classification="command_intelligence", location_ref=str(player.get("location", "")) or None,
         at=at, campaign_context=context,
     )
-    # The operation owns which briefing is current for its actionable packet.
-    # Information claims remain immutable historical knowledge, so timestamp/order
-    # inference is insufficient when two materially different briefings are issued
-    # at the same campaign instant during a deterministic reconciliation.
     try:
         operation_path, operation = _load_operation(planner, operation_ref)
     except (FileNotFoundError, KeyError, ValueError):
@@ -1061,10 +1068,6 @@ def reconcile_campaign_arrival(
 
     packet = copy.deepcopy(dict(packet)); packet["phase_status"] = "completed"; packet["completed_at"] = at; packet["actual_arrival_ref"] = destination_ref
     staged_only = str(packet.get("mission_phase", "")) == "campaign_muster_and_staging" and not bool(packet.get("hostile_entry_authorized"))
-
-    # Once a lawful hostile advance physically reaches its destination, exact
-    # co-located enemy formations become real operation participants. This is
-    # contact proof, not ownership transfer and not an automatic battle command.
     contact_rows: list[dict[str, Any]] = []
     if not staged_only:
         locations = _location_rows(planner)
