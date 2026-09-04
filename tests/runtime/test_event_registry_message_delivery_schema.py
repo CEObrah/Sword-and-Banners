@@ -7,6 +7,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 from sword_runtime.causal_event_store import get_causal_event, read_causal_event_owner
+from sword_runtime.contact_request_flow import _settle_institutional_followup
 from sword_runtime.player_story_flow import settle_player_story_message_delivery, settle_player_story_review
 from sword_runtime.production_planner import ProductionCampaignPlanner
 from sword_runtime.sim.calendar import CampaignTime
@@ -75,3 +76,29 @@ def test_player_story_message_delivery_validates_in_transit_and_delivered(campai
     assert delivered["delivery"]["status"] == "delivered"
     assert delivered["delivery"]["source_location_ref"]
     assert delivered["delivery"]["courier_route"]["origin_ref"] == delivered["delivery"]["source_location_ref"]
+
+
+def test_message_reply_receipt_delivery_travel_metadata_validates(campaign) -> None:
+    planner = _planner(campaign)
+    now = str(planner.read("state/runtime.json")["world_time"])
+    contact_ref = "interaction_attempt_schema_receipt_regression"
+    host = {
+        "contact_ref": contact_ref,
+        "source_process_ref": "event_test_source_message",
+        "source_owner_ref": "char_tang_wei",
+        "response_summary": "Tang Wei's reply reaches its recipient through the physical courier route.",
+        "delivery_route": "physical courier",
+        "response_stage": "reply_received",
+        "route_domain": "message_reply_receipt",
+        "actor_ref": "char_test_recipient",
+        "communication_travel_seconds": 104400,
+    }
+
+    event_ref = _settle_institutional_followup(planner, host, now)
+    assert event_ref
+    _validate_event_owner(planner)
+
+    receipt = get_causal_event(planner, event_ref)
+    assert receipt is not None
+    assert receipt["kind"] == "message_receipt"
+    assert receipt["delivery"]["communication_travel_seconds"] == 104400

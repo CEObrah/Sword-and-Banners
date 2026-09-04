@@ -283,6 +283,10 @@
                 "minLength": 1,
                 "maxLength": 1000
               },
+              "communication_travel_seconds": {
+                "type": "integer",
+                "minimum": 0
+              },
               "courier_route": {
                 "type": "object",
                 "required": [
