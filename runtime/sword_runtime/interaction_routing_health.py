@@ -49,6 +49,13 @@ def _attempt_rows(source: Any) -> list[dict[str, Any]]:
     return [dict(row) for row in rows[-_HISTORY_WINDOW:] if isinstance(row, Mapping)]
 
 
+def _response_expected_attempt(attempt: Mapping[str, Any]) -> bool:
+    """Respect explicit response intent while preserving legacy action inference."""
+    if "expects_response" in attempt:
+        return attempt.get("expects_response") is True
+    return attempt.get("action") in _RESPONSE_ACTIONS
+
+
 def _pending_for(runtime: Mapping[str, Any], attempt_ref: str) -> bool:
     hosts = runtime.get("hosts") if isinstance(runtime, Mapping) else None
     if not isinstance(hosts, Mapping):
@@ -144,7 +151,7 @@ def summarize_interaction_routing(source: Any) -> dict[str, Any]:
     legacy_invalid: list[str] = []
 
     for attempt in _attempt_rows(source):
-        if attempt.get("actor_id") != "char_tang_wei" or attempt.get("action") not in _RESPONSE_ACTIONS:
+        if attempt.get("actor_id") != "char_tang_wei" or not _response_expected_attempt(attempt):
             continue
         if attempt.get("thread_status") == "abandoned_with_scene_close":
             continue
