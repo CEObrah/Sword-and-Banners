@@ -218,6 +218,11 @@ def test_production_pre_advance_reconciles_arrival_before_follow_on(monkeypatch)
         raising=False,
     )
     monkeypatch.setattr(
+        production,
+        "normalize_current_contact_development_order",
+        lambda self: calls.append("follow_on_semantics") or True,
+    )
+    monkeypatch.setattr(
         production.ProductionTimeIntegrationMixin,
         "_prepare_scheduler_for_advance",
         lambda self, target_text: calls.append(("scheduler", target_text)),
@@ -230,5 +235,6 @@ def test_production_pre_advance_reconciles_arrival_before_follow_on(monkeypatch)
         "arrival",
         ("follow_on", ["operation.test"]),
         "command_decisions",
+        "follow_on_semantics",
         ("scheduler", "244-BCE-11-15T08:22:48+08:00"),
     ]

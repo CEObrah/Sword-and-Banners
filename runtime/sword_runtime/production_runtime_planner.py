@@ -7,6 +7,7 @@ from sword_runtime.campaign_command_contact import CampaignCommandContactMixin
 from sword_runtime.campaign_command_decision import CampaignCommandDecisionMixin
 from sword_runtime.campaign_command_requests import CampaignCommandRequestMixin
 from sword_runtime.campaign_follow_on_order import materialize_reconciled_campaign_follow_on_orders
+from sword_runtime.campaign_follow_on_semantics import normalize_current_contact_development_order
 from sword_runtime.causal_wait_provenance import CausalWaitProvenanceMixin
 from sword_runtime.message_reply_flow import MessageReplyFlowMixin
 from sword_runtime.production_planner import ProductionCampaignPlanner as _BaseProductionCampaignPlanner
@@ -38,14 +39,15 @@ class ProductionCampaignPlanner(
         # lifecycle work, not alternate chronology owners. Materialize any entry
         # repair first, then reconcile arrival through the existing physical
         # formation-location authority before a historical zero-distance packet
-        # can suppress the field command cycle again. Only then let the campaign
-        # decision owner forward newly known command intelligence and persist a
-        # bounded mission-level follow-on before the normal scheduler registers
-        # its existing delivery path.
+        # can suppress the field command cycle again. Let campaign command create
+        # any bounded mission-level follow-on, canonicalize that mission so
+        # completed-arrival metadata cannot bleed into its semantics, and only
+        # then let the normal scheduler register its existing delivery paths.
         refreshed = self._reconcile_campaign_entry_authority()
         reconcile_satisfied_player_campaign_arrivals(self)
         materialize_reconciled_campaign_follow_on_orders(self, refreshed)
         self._sync_campaign_command_decisions()
+        normalize_current_contact_development_order(self)
         super()._prepare_scheduler_for_advance(target_text)
 
 
