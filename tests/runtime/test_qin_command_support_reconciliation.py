@@ -15,6 +15,7 @@ PRIOR_ISSUED = "244-BCE-11-15T08:22:48+08:00"
 PENDING_ISSUED = "244-BCE-11-19T20:22:48+08:00"
 RUNTIME_PATH = "state/runtime.json"
 LOGISTICS_PATH = "game/data/mechanics/logistics.json"
+EVENT_OWNER_PATH = "state/event/events-messages-and-movement.json"
 AUTO_WORK_REF = "auto_qin_campaign_briefing_fixture"
 AUTO_HOST_REF = "host_qin_command_support_fixture"
 AUTO_EVENT_REF = "event_qin_command_support_due_fixture"
@@ -82,6 +83,12 @@ class _Planner:
             },
             LOGISTICS_PATH: {
                 "military_supply_policy": {"qin_support_review_delay_hours": 4}
+            },
+            EVENT_OWNER_PATH: {
+                "schema": "event-registry",
+                "owner_id": "events_messages_and_movement",
+                "causal_events": {},
+                "archives": [],
             },
         }
 
@@ -281,6 +288,25 @@ def test_exhausted_host_for_resolved_briefing_is_not_reactivated(monkeypatch):
         world_time="244-BCE-12-21T12:00:00+08:00",
         next_due=None,
     )
+
+    assert reconciliation.reconcile_overdue_qin_command_support_routes(planner) == []
+    assert planner.data[RUNTIME_PATH]["hosts"][AUTO_HOST_REF]["next_due"] is None
+
+
+def test_existing_institutional_response_prevents_route_reactivation(monkeypatch):
+    planner = _Planner()
+    monkeypatch.setattr(reconciliation, "exact_operation_record", _exact_operation_record)
+    _seed_auto_route(
+        planner,
+        world_time="244-BCE-12-21T12:00:00+08:00",
+        next_due=None,
+    )
+    response_ref = reconciliation._response_ref(AUTO_WORK_REF)
+    planner.data[EVENT_OWNER_PATH]["causal_events"][response_ref] = {
+        "event_ref": response_ref,
+        "kind": "institutional_response",
+        "status": "triggered",
+    }
 
     assert reconciliation.reconcile_overdue_qin_command_support_routes(planner) == []
     assert planner.data[RUNTIME_PATH]["hosts"][AUTO_HOST_REF]["next_due"] is None
