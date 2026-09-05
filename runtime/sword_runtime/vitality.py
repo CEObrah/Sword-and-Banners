@@ -14,6 +14,9 @@ from sword_runtime.world_arc_report_handoff import source_has_player_safe_world_
 from sword_runtime.world_arcs import _visibility as _world_arc_visibility
 
 
+_ACTIVE_OPERATION_STATUSES = {"active", "mobilizing", "advancing", "engaged", "occupied"}
+
+
 def _mapping(value: Any) -> Mapping[str, Any]:
     return value if isinstance(value, Mapping) else {}
 
@@ -68,6 +71,68 @@ def _awaiting_qin_command_without_receiving_path(
     return blocked
 
 
+def _latest_pending_briefing_order(operation: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    orders = operation.get("operational_orders")
+    if not isinstance(orders, list):
+        return None
+    # Only the newest unresolved head matters. A later actionable/completed order
+    # lawfully supersedes older pending strategic pressure and must not resurrect it.
+    for row in reversed(orders):
+        if not isinstance(row, Mapping):
+            continue
+        actionability = str(row.get("actionability_status", ""))
+        if actionability == "pending_operational_briefing":
+            return row
+        if actionability in {"actionable", "completed"}:
+            return None
+    return None
+
+
+def _pending_qin_briefings_without_support_path(store: Any, hosts: Mapping[str, Any]) -> int:
+    index = _optional_json(store, "state/operations/index.json")
+    operation_paths = _mapping(index.get("operations"))
+    blocked = 0
+    for path in operation_paths.values():
+        if not isinstance(path, str):
+            continue
+        operation = _optional_json(store, path)
+        if str(operation.get("status", "")) not in _ACTIVE_OPERATION_STATUSES:
+            continue
+        if str(operation.get("institutional_owner_ref", "")) != "state_qin":
+            continue
+        authorities = {
+            str(operation.get("administrative_authority", "")),
+            str(operation.get("assignment_authority_ref", "")),
+        }
+        raw_authorities = operation.get("administrative_authorities")
+        if isinstance(raw_authorities, list):
+            authorities.update(str(ref) for ref in raw_authorities if isinstance(ref, str))
+        if "char_tang_wei" not in authorities:
+            continue
+        pending = _latest_pending_briefing_order(operation)
+        if not isinstance(pending, Mapping):
+            continue
+        operation_ref = str(operation.get("operation_ref", ""))
+        order_ref = str(pending.get("order_ref", ""))
+        if not operation_ref or not order_ref:
+            continue
+        has_route = any(
+            isinstance(host, Mapping)
+            and host.get("kind") == "qin_command_support_review"
+            and host.get("support_kind") == "operational_briefing"
+            and host.get("operation_ref") == operation_ref
+            and host.get("next_due") is not None
+            and (
+                host.get("order_ref") == order_ref
+                or not isinstance(host.get("order_ref"), str)
+            )
+            for host in hosts.values()
+        )
+        if not has_route:
+            blocked += 1
+    return blocked
+
+
 def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     meta = _mapping(store.read_json("state/meta.json"))
     runtime = _mapping(store.read_json("state/runtime.json"))
@@ -108,6 +173,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
         "story_appointment_reply",
         "qin_command_receiving",
         "qin_command_assumption",
+        "qin_command_support_review",
     }
     scheduled_reports = sum(
         1 for host in hosts.values()
@@ -117,6 +183,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     causal_head = _mapping(events.get("causal_events"))
     causal_events = max(0, int(events.get("archived_event_count", 0))) + len(causal_head)
     blocked_qin_assumptions = _awaiting_qin_command_without_receiving_path(player, hosts, causal_head)
+    blocked_qin_briefings = _pending_qin_briefings_without_support_path(store, hosts)
     scheduler = _mapping(runtime.get("scheduler"))
     scheduler_frontier = scheduler.get("causal_settled_through")
     scheduler_frontier_matches = isinstance(scheduler_frontier, str) and scheduler_frontier == runtime.get("world_time")
@@ -192,6 +259,9 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     if blocked_qin_assumptions:
         diagnostics.append("awaiting_qin_command_at_report_site_without_receiving_path")
         suggestions.append("route_qin_command_report_attempt_into_institutional_receiving_process")
+    if blocked_qin_briefings:
+        diagnostics.append("pending_qin_operational_briefing_without_support_route")
+        suggestions.append("reconcile_qin_command_support_routing_before_waiting_for_orders")
     if not scheduler_frontier_matches:
         diagnostics.append("global_causal_frontier_diverged_from_world_time")
         suggestions.append("repair_scheduler_frontier_before_advancing_time")
@@ -214,6 +284,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
         "scene_projection_fresh": bool(scene_fresh),
         "pending_wake": pending_wake,
         "blocked_awaiting_qin_command_assumptions": blocked_qin_assumptions,
+        "blocked_pending_qin_operational_briefings": blocked_qin_briefings,
         "scheduler_causal_settled_through": scheduler_frontier,
         "scheduler_frontier_matches_world_time": bool(scheduler_frontier_matches),
         "scheduler_dirty": bool(scheduler_dirty),
