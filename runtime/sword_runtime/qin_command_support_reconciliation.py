@@ -19,6 +19,7 @@ import hashlib
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.causal_event_store import get_causal_event
 from sword_runtime.operation_routing import exact_operation_record
 from sword_runtime.sim.calendar import CampaignTime
 
@@ -44,6 +45,10 @@ _REVIEW_PRIORITY = 43
 
 def _digest(prefix: str, value: str) -> str:
     return hashlib.sha256(f"{prefix}|{value}".encode("utf-8")).hexdigest()[:20]
+
+
+def _response_ref(work_ref: str) -> str:
+    return f"event_qin_command_support_{_digest('response', work_ref)}"
 
 
 def _review_event_id(work_ref: str) -> str:
@@ -272,9 +277,10 @@ def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
     compatibility pass shortens automatic briefing routes whose order was issued
     earlier than the registration frontier and reactivates exhausted legacy
     one-shot hosts when the exact order is still the newest unresolved pending
-    briefing. Explicit player requests are intentionally untouched. An overdue
-    route is placed one second beyond the current frontier because scheduler
-    boundaries are strictly ``(current, target]``.
+    briefing and no institutional response already exists. Explicit player
+    requests are intentionally untouched. An overdue route is placed one second
+    beyond the current frontier because scheduler boundaries are strictly
+    ``(current, target]``.
     """
     try:
         runtime_raw = planner.read(_RUNTIME_PATH)
@@ -312,6 +318,8 @@ def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
             or raw_host.get("support_kind") != "operational_briefing"
             or not work_ref.startswith(_AUTO_BRIEFING_PREFIX)
         ):
+            continue
+        if isinstance(get_causal_event(planner, _response_ref(work_ref)), Mapping):
             continue
         operation_ref = str(raw_host.get("operation_ref") or "")
         order_ref = str(raw_host.get("order_ref") or "")
