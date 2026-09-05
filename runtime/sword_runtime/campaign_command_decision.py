@@ -3,7 +3,7 @@
 The campaign cycle already owns councils, daily headquarters cadence, and delivery
 of persisted superior orders. This module owns the missing middle: material
 command intelligence already known to Tang Wei is forwarded upward, explicit
-follow-on requests receive a causal headquarters review route, and the named
+follow-on requests travel in the same upward command report, and the named
 superior may persist one bounded mission-level follow-on order. No hidden enemy
 truth is read and no formation is moved, reassigned, or committed to battle here.
 """
@@ -98,13 +98,7 @@ def _attempt_rows(planner: Any) -> list[dict[str, Any]]:
 
 
 def _is_follow_on_request(row: Mapping[str, Any]) -> bool:
-    """Return whether one interaction explicitly expects a campaign follow-on answer.
-
-    Legacy rows may not contain ``expects_response`` and retain the historical
-    action/topic inference. Once the flag exists, however, ``False`` is
-    authoritative: downstream command routing must never resurrect a request the
-    public interaction surface explicitly recorded as non-response-bearing.
-    """
+    """Return whether one interaction explicitly expects a campaign follow-on answer."""
     if row.get("actor_id") != _PLAYER_REF:
         return False
     if "expects_response" in row and row.get("expects_response") is not True:
@@ -160,15 +154,7 @@ def campaign_command_follow_on_route(
     *,
     cycle: Mapping[str, Any] | None = None,
 ) -> dict[str, Any] | None:
-    """Resolve one follow-on request to the exact physical superior-command route.
-
-    This is the shared admission/scheduler predicate. If this function returns a
-    route, the public interaction surface may admit the response-bearing request
-    and the scheduler has the same exact cycle, endpoints and courier path needed
-    to register it. Direct speech to an absent named superior is deliberately not
-    treated as a headquarters channel here; person-access validation remains a
-    separate authority.
-    """
+    """Resolve one follow-on request to the exact physical superior-command route."""
     if not _is_follow_on_request(attempt):
         return None
     planner = _reader(source)
@@ -207,12 +193,7 @@ def campaign_command_follow_on_route(
     if not isinstance(request_origin, str) or not request_origin:
         return None
     try:
-        courier_route = command_message_route(
-            planner.read,
-            request_origin,
-            target_location,
-            round_trip=True,
-        )
+        courier_route = command_message_route(planner.read, request_origin, target_location, round_trip=True)
     except (FileNotFoundError, KeyError, TypeError, ValueError):
         return None
 
@@ -276,14 +257,32 @@ def _report_material_inputs(
     return info_refs, new_request_refs
 
 
-def _request_is_causally_received(planner: Any, row: Mapping[str, Any]) -> bool:
+def _request_is_causally_received(
+    planner: Any,
+    row: Mapping[str, Any],
+    cycle: Mapping[str, Any] | None = None,
+) -> bool:
+    """Return whether superior command has physically received this request.
+
+    Current authority is the delivered upward campaign report. Historical generic
+    follow-up responses remain a compatibility route for old saves only.
+    """
+    attempt_ref = row.get("event_id")
+    if not isinstance(attempt_ref, str) or not attempt_ref:
+        return False
+    if isinstance(cycle, Mapping):
+        delivered = {
+            str(ref) for ref in cycle.get("reported_follow_on_request_refs", [])
+            if isinstance(ref, str) and ref
+        }
+        if attempt_ref in delivered:
+            return True
     response_ref = row.get("response_ref")
     if isinstance(response_ref, str) and response_ref:
         return True
-    attempt_ref = row.get("event_id")
-    return bool(
-        isinstance(attempt_ref, str)
-        and isinstance(get_causal_event_from_reader(planner, campaign_command_request_response_ref(attempt_ref)), Mapping)
+    return isinstance(
+        get_causal_event_from_reader(planner, campaign_command_request_response_ref(attempt_ref)),
+        Mapping,
     )
 
 
@@ -399,7 +398,7 @@ def sync_campaign_command_decisions(planner: Any) -> list[str]:
     reported_info = [str(ref) for ref in cycle.get("reported_command_information_refs", []) if isinstance(ref, str)]
     received_request_refs = [
         str(row.get("event_id")) for row in requests
-        if isinstance(row.get("event_id"), str) and _request_is_causally_received(planner, row)
+        if isinstance(row.get("event_id"), str) and _request_is_causally_received(planner, row, cycle)
     ]
     if not reported_info and not received_request_refs:
         return []
@@ -421,6 +420,11 @@ def sync_campaign_command_decisions(planner: Any) -> list[str]:
     if any(isinstance(row, Mapping) and str(row.get("order_ref", "")) == order_ref for row in orders):
         return []
 
+    prior_operation_state = {
+        "last_operational_order_ref": operation.get("last_operational_order_ref"),
+        "order_status": operation.get("order_status"),
+        "campaign_phase": operation.get("campaign_phase"),
+    }
     order = _mission_order(
         operation, cycle, base_order, at=at,
         information_refs=reported_info, request_refs=received_request_refs, signature=signature,
@@ -443,6 +447,7 @@ def sync_campaign_command_decisions(planner: Any) -> list[str]:
         "follow_on_request_refs": received_request_refs,
         "new_information_refs": new_info_refs,
         "new_follow_on_request_refs": new_request_refs,
+        "prior_operation_state": prior_operation_state,
     })
     cycle["campaign_command_decisions"] = decisions[-32:]
     cycle["campaign_command_decision_refs"] = list(dict.fromkeys(decision_refs + [decision_ref]))[-64:]
@@ -453,13 +458,11 @@ def sync_campaign_command_decisions(planner: Any) -> list[str]:
 
 
 def _route_follow_on_requests(planner: Any, runtime: dict[str, Any]) -> None:
-    """Give every saved follow-on request its own physical HQ review route.
+    """Legacy parallel review route retained for compatibility tests/old saves.
 
-    Scheduler identity is request-scoped, not cycle-scoped: two distinct player
-    requests must never overwrite each other merely because they concern the same
-    campaign command cycle. The same route resolver used by public pre-admission
-    supplies the exact cycle and courier endpoints here, so a request cannot be
-    admitted on one routing theory and scheduled on another.
+    Production composition retires these hosts in the same reconciliation pass;
+    current requests travel upward in the ordinary campaign report and current
+    decision orders return through ``campaign_command_superior_order`` delivery.
     """
     hosts = runtime.get("hosts")
     events = runtime.get("events")
@@ -542,13 +545,11 @@ def _route_follow_on_requests(planner: Any, runtime: dict[str, Any]) -> None:
             "courier_route": courier_route,
             "communication_rule": "request dispatch is not headquarters receipt; reply delivery is not player receipt until the physical return route settles",
             "delivery_route": (
-                f"physical courier {request_origin} -> {target_location} -> {request_origin}; "
-                "superior headquarters staff review follows receipt"
+                f"physical courier {request_origin} -> {target_location} -> {request_origin}; superior headquarters staff review follows receipt"
                 if travel_seconds > 0 else
                 "co-located superior headquarters staff review; no courier travel required"
             ),
         }
-
         prior = existing_by_attempt.get(attempt_ref)
         if prior is not None:
             host_id, host = prior

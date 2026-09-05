@@ -42,6 +42,19 @@ def _read_optional(source: Any, path: str) -> Any:
     raise TypeError("interaction routing audit requires a JSON reader")
 
 
+def _owner_path(source: Any, ref: str) -> str | None:
+    if hasattr(source, "owner_path"):
+        try:
+            value = source.owner_path(ref)
+            return str(value) if isinstance(value, str) and value else None
+        except (KeyError, FileNotFoundError, ValueError):
+            return None
+    index = _read_optional(source, "state/index/owner-index.json")
+    owners = index.get("owners") if isinstance(index, Mapping) else None
+    value = owners.get(ref) if isinstance(owners, Mapping) else None
+    return str(value) if isinstance(value, str) and value else None
+
+
 def _attempt_rows(source: Any) -> list[dict[str, Any]]:
     ledger = _read_optional(source, _LEDGER_PATH)
     rows = ledger.get("attempts", []) if isinstance(ledger, Mapping) else []
@@ -94,14 +107,71 @@ def _answered_by_provenance(source: Any, attempt_ref: str) -> bool:
     return False
 
 
+def _campaign_follow_on_state(source: Any, attempt: Mapping[str, Any]) -> str | None:
+    """Return the exact command-chain state for a follow-on request.
+
+    The ordinary upward report is the authority for superior receipt. A request
+    is answered only when a decision order tied to it has itself been physically
+    delivered to Tang Wei. Historical generic ``institutional_followup`` review
+    events are therefore not treated as substantive answers for this domain.
+    """
+    route = campaign_command_follow_on_route(source, attempt)
+    if route is None:
+        return None
+    cycle_ref = route.get("cycle_ref")
+    attempt_ref = attempt.get("event_id")
+    if not isinstance(cycle_ref, str) or not cycle_ref or not isinstance(attempt_ref, str) or not attempt_ref:
+        return "routable"
+    path = _owner_path(source, cycle_ref)
+    cycle = _read_optional(source, path) if isinstance(path, str) else None
+    if not isinstance(cycle, Mapping):
+        return "routable"
+
+    delivered_orders = {
+        str(ref) for ref in cycle.get("delivered_superior_order_refs", [])
+        if isinstance(ref, str) and ref
+    }
+    decisions = cycle.get("campaign_command_decisions") if isinstance(cycle.get("campaign_command_decisions"), list) else []
+    for decision in decisions:
+        if not isinstance(decision, Mapping):
+            continue
+        requests = {
+            str(ref) for ref in decision.get("follow_on_request_refs", [])
+            if isinstance(ref, str) and ref
+        }
+        if attempt_ref not in requests:
+            continue
+        order_ref = decision.get("order_ref")
+        if isinstance(order_ref, str) and order_ref in delivered_orders:
+            return "answered"
+        return "pending"
+
+    reports = cycle.get("upward_reports") if isinstance(cycle.get("upward_reports"), list) else []
+    for report in reversed(reports):
+        if not isinstance(report, Mapping):
+            continue
+        requests = {
+            str(ref) for ref in report.get("follow_on_request_refs", [])
+            if isinstance(ref, str) and ref
+        }
+        if attempt_ref not in requests:
+            continue
+        status = str(report.get("delivery_status", ""))
+        if status in {"in_transit", "delivered"}:
+            return "pending"
+        if status == "route_unresolved":
+            return "routable"
+    return "routable"
+
+
 def _route_available(source: Any, attempt: Mapping[str, Any]) -> bool:
     if _route_for_attempt(source, attempt) is not None:
         return True
     if _campaign_cycle_for_attempt(source, attempt) is not None:
         return True
-    # Campaign follow-on requests have their own superior-review lifecycle. Use
-    # its exact physical route resolver here as well as in the scheduler so
-    # public pre-admission and causal registration cannot disagree.
+    # Campaign follow-on requests use one shared physical resolver for public
+    # admission and the command-decision owner. Actual outbound receipt travels
+    # through the ordinary upward campaign report rather than a second review host.
     if campaign_command_follow_on_route(source, attempt) is not None:
         return True
     topics = _campaign_request_topics(attempt)
@@ -131,8 +201,6 @@ def _person_access_legacy_invalid(source: Any, attempt: Mapping[str, Any]) -> bo
         return False
     if attempt.get("action") == "seek_contact":
         return False
-    # A saved scene session ref is evidence that this attempt occurred during an
-    # established direct scene, even if that scene has since closed.
     if isinstance(attempt.get("scene_session_ref"), str) and attempt.get("scene_session_ref"):
         return False
     process_ref = attempt.get("process_ref")
@@ -165,6 +233,19 @@ def summarize_interaction_routing(source: Any) -> dict[str, Any]:
         if not isinstance(attempt_ref, str) or not attempt_ref:
             continue
         response_expected += 1
+
+        campaign_state = _campaign_follow_on_state(source, attempt)
+        if campaign_state is not None:
+            if campaign_state == "answered":
+                answered += 1
+            elif campaign_state == "pending":
+                pending += 1
+            elif _route_available(source, attempt):
+                routable += 1
+            else:
+                unrouted.append(attempt_ref)
+            continue
+
         if isinstance(attempt.get("response_ref"), str) and attempt.get("response_ref"):
             answered += 1
             continue
