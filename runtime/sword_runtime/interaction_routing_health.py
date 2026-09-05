@@ -12,6 +12,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from sword_runtime.campaign_command_contact import _campaign_cycle_for_attempt
+from sword_runtime.campaign_command_decision import campaign_command_follow_on_route
 from sword_runtime.campaign_command_requests import _cycle_for_attempt as _campaign_request_cycle
 from sword_runtime.campaign_command_requests import _operation_for_cycle as _campaign_operation_for_cycle
 from sword_runtime.campaign_command_requests import _request_topics as _campaign_request_topics
@@ -97,6 +98,11 @@ def _route_available(source: Any, attempt: Mapping[str, Any]) -> bool:
     if _route_for_attempt(source, attempt) is not None:
         return True
     if _campaign_cycle_for_attempt(source, attempt) is not None:
+        return True
+    # Campaign follow-on requests have their own superior-review lifecycle. Use
+    # its exact physical route resolver here as well as in the scheduler so
+    # public pre-admission and causal registration cannot disagree.
+    if campaign_command_follow_on_route(source, attempt) is not None:
         return True
     topics = _campaign_request_topics(attempt)
     if topics:
