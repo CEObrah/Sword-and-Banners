@@ -4,13 +4,14 @@ Older saves may carry a valid Qin field-command appointment whose command-group
 link predates the appointment ``operation_ref`` field. A short-lived compatibility
 repair also displaced newer pending directives by restoring older executable
 missions as the operation's current order. Older one-shot Qin briefing routes may
-also survive in the scheduler registry after exhaustion with no next due time.
-This module normalizes those legacy routing/pointer facts and catches recovered
-automatic briefing routes up to the current causal frontier.
+also survive in the scheduler registry after exhaustion with no next due time, or
+may never have been registered when legacy order history was stored out of
+issuance order.
 
-The reconciliation does not create orders, move formations, authorize battle, or
-change ownership. Normal Qin staff support remains responsible for briefing the
-exact pending directive.
+This module normalizes those legacy routing/pointer facts and catches recovered
+automatic briefing routes up to the current causal frontier. It does not create
+orders, move formations, authorize battle, or change ownership. Normal Qin staff
+support remains responsible for briefing the exact pending directive.
 """
 from __future__ import annotations
 
@@ -19,6 +20,11 @@ import hashlib
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.campaign_communications import (
+    command_endpoint_location,
+    command_message_route,
+    player_command_location,
+)
 from sword_runtime.causal_event_store import get_causal_event
 from sword_runtime.operation_routing import exact_operation_record
 from sword_runtime.sim.calendar import CampaignTime
@@ -27,6 +33,7 @@ from sword_runtime.sim.calendar import CampaignTime
 _PLAYER_PATH = "state/player.json"
 _RUNTIME_PATH = "state/runtime.json"
 _LOGISTICS_RULES_PATH = "game/data/mechanics/logistics.json"
+_QIN_BUREAU_REF = "inst_qin_military_bureau"
 _ACTIVE_OPERATION_STATUSES = {"active", "mobilizing", "advancing", "engaged", "occupied"}
 _TERMINAL_ORDER_STATUSES = {
     "completed",
@@ -51,8 +58,13 @@ def _response_ref(work_ref: str) -> str:
     return f"event_qin_command_support_{_digest('response', work_ref)}"
 
 
-def _review_event_id(work_ref: str) -> str:
-    return f"event_qin_command_support_due_{_digest('review', work_ref)}"
+def _review_ids(work_ref: str) -> tuple[str, str]:
+    digest = _digest("review", work_ref)
+    return f"host_qin_command_support_{digest}", f"event_qin_command_support_due_{digest}"
+
+
+def _auto_briefing_work_ref(operation_ref: str, order_ref: str) -> str:
+    return f"auto_qin_campaign_briefing_{_digest('auto-briefing', operation_ref + '|' + order_ref)}"
 
 
 def _formation_refs(appointment: Mapping[str, Any]) -> list[str]:
@@ -158,6 +170,41 @@ def _order_time(order: Mapping[str, Any]) -> CampaignTime | None:
         return None
 
 
+def _newest_relevant_order(operation: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    """Select current briefing pressure by issuance chronology, not list position."""
+    orders = operation.get("operational_orders")
+    if not isinstance(orders, list):
+        return None
+    timestamped: list[tuple[CampaignTime, int, Mapping[str, Any]]] = []
+    fallback: list[Mapping[str, Any]] = []
+    for index, row in enumerate(orders):
+        if not isinstance(row, Mapping):
+            continue
+        actionability = str(row.get("actionability_status") or "")
+        if actionability not in {_PENDING, _ACTIONABLE, "completed"}:
+            continue
+        fallback.append(row)
+        issued = _order_time(row)
+        if issued is not None:
+            timestamped.append((issued, index, row))
+    if timestamped:
+        return max(timestamped, key=lambda item: (item[0], item[1]))[2]
+    return fallback[-1] if fallback else None
+
+
+def _latest_pending_order_ref(planner: Any, operation_ref: str) -> str:
+    resolved = _active_operation(planner, operation_ref)
+    if resolved is None:
+        return ""
+    _path, operation = resolved
+    newest = _newest_relevant_order(operation)
+    if not isinstance(newest, Mapping):
+        return ""
+    if str(newest.get("actionability_status") or "") != _PENDING:
+        return ""
+    return str(newest.get("order_ref") or "")
+
+
 def _reconcile_newest_live_order_pointer(
     planner: Any, *, operation_path: str, operation: Mapping[str, Any]
 ) -> bool:
@@ -226,26 +273,35 @@ def _find_order(planner: Any, operation_ref: str, order_ref: str) -> Mapping[str
     return None
 
 
-def _latest_pending_order_ref(planner: Any, operation_ref: str) -> str:
-    """Return the newest unresolved pending briefing order, if one still exists."""
-    resolved = exact_operation_record(planner, operation_ref)
-    if resolved is None:
-        return ""
-    _path, operation = resolved
-    if not isinstance(operation, Mapping):
-        return ""
-    orders = operation.get("operational_orders")
-    if not isinstance(orders, list):
-        return ""
-    for row in reversed(orders):
-        if not isinstance(row, Mapping):
+def _active_qin_scopes(planner: Any) -> list[dict[str, Any]]:
+    try:
+        player = planner.read(_PLAYER_PATH)
+    except (KeyError, FileNotFoundError, ValueError):
+        return []
+    career = player.get("career_state") if isinstance(player, Mapping) else None
+    appointments = career.get("appointments") if isinstance(career, Mapping) else None
+    if not isinstance(appointments, list):
+        return []
+    scopes: list[dict[str, Any]] = []
+    for raw in appointments:
+        if not isinstance(raw, Mapping):
             continue
-        actionability = str(row.get("actionability_status") or "")
-        if actionability == _PENDING:
-            return str(row.get("order_ref") or "")
-        if actionability in {_ACTIONABLE, "completed"}:
-            return ""
-    return ""
+        if not (
+            raw.get("kind") == "qin_field_command"
+            and raw.get("state_ref") == "state_qin"
+            and raw.get("status") == "active"
+        ):
+            continue
+        resolved = _resolve_appointment_operation(planner, raw)
+        if resolved is None:
+            continue
+        operation_ref, _path, _operation = resolved
+        scopes.append({
+            "office": str(raw.get("office") or ""),
+            "operation_ref": operation_ref,
+            "formation_refs": _formation_refs(raw),
+        })
+    return scopes
 
 
 def _canonicalize_review_event(
@@ -270,17 +326,80 @@ def _canonicalize_review_event(
     events[:] = retained
 
 
-def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
-    """Catch recovered automatic briefings up to their original causal schedule.
+def _ensure_missing_automatic_routes(
+    planner: Any,
+    runtime: dict[str, Any],
+    *,
+    current: CampaignTime,
+    review_seconds: int,
+) -> list[str]:
+    """Register an exact automatic briefing route absent from the legacy scheduler."""
+    hosts = runtime.get("hosts")
+    events = runtime.get("events")
+    if not isinstance(hosts, dict) or not isinstance(events, list):
+        return []
+    changed: list[str] = []
+    for scope in _active_qin_scopes(planner):
+        operation_ref = str(scope.get("operation_ref") or "")
+        order_ref = _latest_pending_order_ref(planner, operation_ref)
+        if not operation_ref or not order_ref:
+            continue
+        work_ref = _auto_briefing_work_ref(operation_ref, order_ref)
+        if isinstance(get_causal_event(planner, _response_ref(work_ref)), Mapping):
+            continue
+        host_id, event_id = _review_ids(work_ref)
+        if host_id in hosts:
+            continue
+        order = _find_order(planner, operation_ref, order_ref)
+        if not isinstance(order, Mapping):
+            continue
+        bureau_location = command_endpoint_location(planner, _QIN_BUREAU_REF)
+        response_target = player_command_location(planner)
+        if not bureau_location or not response_target:
+            continue
+        route = command_message_route(planner.read, bureau_location, response_target, round_trip=False)
+        travel_seconds = max(0, int(route.get("travel_seconds", 0) or 0))
+        issued = _order_time(order)
+        normal_due = (
+            issued.add_seconds(review_seconds + travel_seconds)
+            if issued is not None
+            else current.add_seconds(review_seconds + travel_seconds)
+        )
+        due = normal_due if normal_due > current else current.add_seconds(1)
+        hosts[host_id] = {
+            "host_id": host_id,
+            "kind": "qin_command_support_review",
+            "owner_ref": _QIN_BUREAU_REF,
+            "work_ref": work_ref,
+            "source_event_id": None,
+            "support_kind": "operational_briefing",
+            "appointment_office": scope.get("office"),
+            "operation_ref": operation_ref,
+            "order_ref": order_ref,
+            "formation_refs": list(scope.get("formation_refs", [])),
+            "bureau_location_ref": bureau_location,
+            "response_target_location_ref": response_target,
+            "communication_travel_seconds": travel_seconds,
+            "institution_processing_seconds": review_seconds,
+            "courier_route": copy.deepcopy(dict(route)),
+            "communication_rule": "automatic staff briefing is not delivered until review and physical courier travel complete",
+            "recurrence_seconds": 0,
+            "next_due": str(due),
+            "resolved_through": str(due.add_seconds(-1)),
+            "safe_through": str(due.add_seconds(-1)),
+        }
+        _canonicalize_review_event(events, event_id=event_id, host_id=host_id, due_at=str(due))
+        changed.append(work_ref)
+    return changed
 
-    The normal support flow registers the physical review/courier route. This
-    compatibility pass shortens automatic briefing routes whose order was issued
-    earlier than the registration frontier and reactivates exhausted legacy
-    one-shot hosts when the exact order is still the newest unresolved pending
-    briefing and no institutional response already exists. Explicit player
-    requests are intentionally untouched. An overdue route is placed one second
-    beyond the current frontier because scheduler boundaries are strictly
-    ``(current, target]``.
+
+def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
+    """Repair missing, exhausted, or late automatic Qin briefing routes.
+
+    Exact pending pressure is selected by ``issued_at`` chronology rather than
+    durable list position. Explicit player support requests are untouched. An
+    overdue recovered route is placed one second beyond the current frontier
+    because scheduler boundaries are strictly ``(current, target]``.
     """
     try:
         runtime_raw = planner.read(_RUNTIME_PATH)
@@ -303,12 +422,18 @@ def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
     if not isinstance(hosts, dict) or not isinstance(events, list) or not isinstance(now_text, str):
         return []
     try:
-        now = CampaignTime.parse(now_text)
+        current = CampaignTime.parse(now_text)
     except (TypeError, ValueError):
         return []
 
     review_seconds = review_hours * 3600
-    changed_work_refs: list[str] = []
+    changed_work_refs = _ensure_missing_automatic_routes(
+        planner,
+        runtime,
+        current=current,
+        review_seconds=review_seconds,
+    )
+
     for host_id, raw_host in list(hosts.items()):
         if not isinstance(raw_host, Mapping):
             continue
@@ -348,11 +473,11 @@ def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
                 existing_due = None
 
         normal_due = issued.add_seconds(review_seconds + travel_seconds)
-        earliest_future = now.add_seconds(1)
-        desired_due = normal_due if normal_due > now else earliest_future
+        earliest_future = current.add_seconds(1)
+        desired_due = normal_due if normal_due > current else earliest_future
         scheduled_due = desired_due if existing_due is None or desired_due < existing_due else existing_due
         scheduled_text = str(scheduled_due)
-        event_id = _review_event_id(work_ref)
+        _host_id, event_id = _review_ids(work_ref)
         active_event = any(
             isinstance(raw_event, Mapping)
             and str(raw_event.get("event_id") or "") == event_id
@@ -385,15 +510,7 @@ def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
 
 
 def reconcile_legacy_qin_command_support_state(planner: Any) -> list[str]:
-    """Normalize legacy Qin appointment routing and repair regressed order pointers.
-
-    The reconciliation is deterministic and idempotent. It considers active Qin
-    field-command appointments held by Tang Wei, validates their exact active
-    command-group operation, records that operation on legacy appointments, and
-    restores a newer live order only when its ``issued_at`` proves the current
-    pointer is older. It never replaces a newer pending directive merely because
-    an older mission is actionable.
-    """
+    """Normalize legacy Qin appointment routing and repair regressed order pointers."""
     player_raw = planner.read(_PLAYER_PATH)
     if not isinstance(player_raw, Mapping):
         return []
