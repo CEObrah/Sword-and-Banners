@@ -4,6 +4,7 @@ import copy
 
 from sword_runtime.causal_event_store import get_causal_event
 from sword_runtime.production_runtime_planner import ProductionCampaignPlanner
+from sword_runtime.qin_operational_order_guard import _downgrade_underspecified_qin_order
 from sword_runtime.qin_command_support_flow import (
     QIN_COMMAND_SUPPORT_DELIVERY_INDEX,
     settle_qin_command_support,
@@ -206,3 +207,50 @@ def test_vitality_flags_pending_briefing_without_route_and_clears_after_sync(cam
     assert after["blocked_pending_qin_operational_briefings"] == 0
     assert "pending_qin_operational_briefing_without_support_route" not in after["diagnostics"]
     assert after["scheduled_player_relevant_hosts"] >= 1
+
+
+def test_guard_does_not_revive_old_actionable_order_past_intervening_completed_phase(campaign):
+    planner = _planner(campaign)
+    op_path = _prepare_actionable_scope(planner)
+    operation = copy.deepcopy(planner.read(op_path))
+    now = str(planner.read("state/runtime.json")["world_time"])
+    completed_ref = "operational_order_fixture_completed_intervening"
+    pending_ref = "operational_order_fixture_new_pending_after_completion"
+    operation["operational_orders"].append({
+        "order_ref": completed_ref,
+        "issued_at": now,
+        "issuer_ref": "state_qin",
+        "arc_ref": ARC_REF,
+        "target_ref": "state_wei",
+        "objective": "complete the prior contact-development phase and await direction",
+        "status": "phase_complete_awaiting_follow_on_direction",
+        "actionability_status": "completed",
+        "applies_to_formation_refs": sorted(QIN_REFS),
+    })
+    operation["operational_orders"].append({
+        "order_ref": pending_ref,
+        "issued_at": now,
+        "issuer_ref": "state_qin",
+        "arc_ref": ARC_REF,
+        "target_ref": "state_wei",
+        "objective": "open offensive operations against northern Wei",
+        "status": "awaiting_commander_execution",
+        "applies_to_formation_refs": sorted(QIN_REFS),
+    })
+    operation["last_operational_order_ref"] = pending_ref
+    operation["order_status"] = "awaiting_commander_execution"
+    planner.put(op_path, operation)
+
+    _downgrade_underspecified_qin_order(planner, {
+        "kind": "player_command_operational_order_issued",
+        "issuer_ref": "state_qin",
+        "operation_ref": OP_REF,
+        "order_ref": pending_ref,
+    })
+
+    after = planner.read(op_path)
+    assert after["last_operational_order_ref"] == pending_ref
+    assert after["last_operational_order_ref"] != PRIOR_ORDER_REF
+    assert after["order_status"] == "awaiting_operational_briefing"
+    pending = next(row for row in after["operational_orders"] if row.get("order_ref") == pending_ref)
+    assert pending["actionability_status"] == "pending_operational_briefing"
