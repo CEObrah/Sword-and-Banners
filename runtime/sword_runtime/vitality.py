@@ -10,7 +10,12 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from sword_runtime.qin_command_support_reconciliation import _newest_relevant_order
+from sword_runtime.causal_event_store import get_causal_event_from_reader
+from sword_runtime.qin_command_support_reconciliation import (
+    _auto_briefing_work_ref,
+    _newest_relevant_order,
+    _response_ref,
+)
 from sword_runtime.world_arc_report_handoff import source_has_player_safe_world_arc_report
 from sword_runtime.world_arcs import _visibility as _world_arc_visibility
 
@@ -82,10 +87,9 @@ def _latest_pending_briefing_order(operation: Mapping[str, Any]) -> Mapping[str,
     return newest
 
 
-def _pending_qin_briefings_without_support_path(store: Any, hosts: Mapping[str, Any]) -> int:
+def _iter_player_qin_pending_briefings(store: Any):
     index = _optional_json(store, "state/operations/index.json")
     operation_paths = _mapping(index.get("operations"))
-    blocked = 0
     for path in operation_paths.values():
         if not isinstance(path, str):
             continue
@@ -108,8 +112,13 @@ def _pending_qin_briefings_without_support_path(store: Any, hosts: Mapping[str, 
             continue
         operation_ref = str(operation.get("operation_ref", ""))
         order_ref = str(pending.get("order_ref", ""))
-        if not operation_ref or not order_ref:
-            continue
+        if operation_ref and order_ref:
+            yield operation_ref, order_ref
+
+
+def _pending_qin_briefings_without_support_path(store: Any, hosts: Mapping[str, Any]) -> int:
+    blocked = 0
+    for operation_ref, order_ref in _iter_player_qin_pending_briefings(store):
         has_route = any(
             isinstance(host, Mapping)
             and host.get("kind") == "qin_command_support_review"
@@ -125,6 +134,16 @@ def _pending_qin_briefings_without_support_path(store: Any, hosts: Mapping[str, 
         if not has_route:
             blocked += 1
     return blocked
+
+
+def _pending_qin_briefing_responses_without_actionability(store: Any) -> int:
+    """Count exact auto-briefing responses whose target order is still pending."""
+    inconsistent = 0
+    for operation_ref, order_ref in _iter_player_qin_pending_briefings(store):
+        work_ref = _auto_briefing_work_ref(operation_ref, order_ref)
+        if isinstance(get_causal_event_from_reader(store, _response_ref(work_ref)), Mapping):
+            inconsistent += 1
+    return inconsistent
 
 
 def summarize_playability_vitality(store: Any) -> dict[str, Any]:
@@ -178,6 +197,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     causal_events = max(0, int(events.get("archived_event_count", 0))) + len(causal_head)
     blocked_qin_assumptions = _awaiting_qin_command_without_receiving_path(player, hosts, causal_head)
     blocked_qin_briefings = _pending_qin_briefings_without_support_path(store, hosts)
+    stale_qin_briefing_responses = _pending_qin_briefing_responses_without_actionability(store)
     scheduler = _mapping(runtime.get("scheduler"))
     scheduler_frontier = scheduler.get("causal_settled_through")
     scheduler_frontier_matches = isinstance(scheduler_frontier, str) and scheduler_frontier == runtime.get("world_time")
@@ -256,6 +276,9 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     if blocked_qin_briefings:
         diagnostics.append("pending_qin_operational_briefing_without_support_route")
         suggestions.append("reconcile_qin_command_support_routing_before_waiting_for_orders")
+    if stale_qin_briefing_responses:
+        diagnostics.append("pending_qin_operational_briefing_response_without_actionability")
+        suggestions.append("repair_qin_briefing_settlement_dedupe_before_waiting_for_orders")
     if not scheduler_frontier_matches:
         diagnostics.append("global_causal_frontier_diverged_from_world_time")
         suggestions.append("repair_scheduler_frontier_before_advancing_time")
@@ -279,6 +302,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
         "pending_wake": pending_wake,
         "blocked_awaiting_qin_command_assumptions": blocked_qin_assumptions,
         "blocked_pending_qin_operational_briefings": blocked_qin_briefings,
+        "pending_qin_operational_briefing_responses_without_actionability": stale_qin_briefing_responses,
         "scheduler_causal_settled_through": scheduler_frontier,
         "scheduler_frontier_matches_world_time": bool(scheduler_frontier_matches),
         "scheduler_dirty": bool(scheduler_dirty),
