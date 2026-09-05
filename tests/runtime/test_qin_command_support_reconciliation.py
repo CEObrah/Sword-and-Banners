@@ -15,6 +15,7 @@ PRIOR_ISSUED = "244-BCE-11-15T08:22:48+08:00"
 PENDING_ISSUED = "244-BCE-11-19T20:22:48+08:00"
 RUNTIME_PATH = "state/runtime.json"
 LOGISTICS_PATH = "game/data/mechanics/logistics.json"
+EVENT_OWNER_PATH = "state/event/events-messages-and-movement.json"
 AUTO_WORK_REF = "auto_qin_campaign_briefing_fixture"
 AUTO_HOST_REF = "host_qin_command_support_fixture"
 AUTO_EVENT_REF = "event_qin_command_support_due_fixture"
@@ -82,6 +83,12 @@ class _Planner:
             },
             LOGISTICS_PATH: {
                 "military_supply_policy": {"qin_support_review_delay_hours": 4}
+            },
+            EVENT_OWNER_PATH: {
+                "schema": "event-registry",
+                "owner_id": "events_messages_and_movement",
+                "causal_events": {},
+                "archives": [],
             },
         }
 
@@ -224,6 +231,85 @@ def test_fresh_automatic_briefing_uses_original_issue_time(monkeypatch):
     assert changed == [AUTO_WORK_REF]
     assert planner.data[RUNTIME_PATH]["hosts"][AUTO_HOST_REF]["next_due"] == "244-BCE-12-22T14:00:00+08:00"
     assert planner.data[RUNTIME_PATH]["events"][0]["due_at"] == "244-BCE-12-22T14:00:00+08:00"
+
+
+def test_exhausted_automatic_briefing_host_is_reactivated(monkeypatch):
+    planner = _Planner()
+    monkeypatch.setattr(reconciliation, "exact_operation_record", _exact_operation_record)
+    _seed_auto_route(
+        planner,
+        world_time="244-BCE-12-21T12:00:00+08:00",
+        next_due=None,
+    )
+    planner.data[RUNTIME_PATH]["events"][0]["suspended"] = True
+
+    changed = reconciliation.reconcile_overdue_qin_command_support_routes(planner)
+
+    assert changed == [AUTO_WORK_REF]
+    host = planner.data[RUNTIME_PATH]["hosts"][AUTO_HOST_REF]
+    assert host["next_due"] == "244-BCE-12-21T12:00:01+08:00"
+    events = planner.data[RUNTIME_PATH]["events"]
+    assert len(events) == 1
+    assert events[0]["target_host"] == AUTO_HOST_REF
+    assert events[0]["due_at"] == "244-BCE-12-21T12:00:01+08:00"
+    assert events[0].get("suspended") is not True
+
+
+def test_missing_scheduler_event_for_live_automatic_briefing_is_rebuilt(monkeypatch):
+    planner = _Planner()
+    monkeypatch.setattr(reconciliation, "exact_operation_record", _exact_operation_record)
+    planner.data[OP_PATH]["operational_orders"][1]["issued_at"] = "244-BCE-12-21T11:00:00+08:00"
+    due = "244-BCE-12-22T14:00:00+08:00"
+    _seed_auto_route(
+        planner,
+        world_time="244-BCE-12-21T12:00:00+08:00",
+        next_due=due,
+    )
+    planner.data[RUNTIME_PATH]["events"] = []
+
+    changed = reconciliation.reconcile_overdue_qin_command_support_routes(planner)
+
+    assert changed == [AUTO_WORK_REF]
+    assert planner.data[RUNTIME_PATH]["hosts"][AUTO_HOST_REF]["next_due"] == due
+    events = planner.data[RUNTIME_PATH]["events"]
+    assert len(events) == 1
+    assert events[0]["target_host"] == AUTO_HOST_REF
+    assert events[0]["due_at"] == due
+
+
+def test_exhausted_host_for_resolved_briefing_is_not_reactivated(monkeypatch):
+    planner = _Planner()
+    monkeypatch.setattr(reconciliation, "exact_operation_record", _exact_operation_record)
+    pending = planner.data[OP_PATH]["operational_orders"][1]
+    pending["status"] = "staff_briefed_awaiting_commander_execution"
+    pending["actionability_status"] = "actionable"
+    _seed_auto_route(
+        planner,
+        world_time="244-BCE-12-21T12:00:00+08:00",
+        next_due=None,
+    )
+
+    assert reconciliation.reconcile_overdue_qin_command_support_routes(planner) == []
+    assert planner.data[RUNTIME_PATH]["hosts"][AUTO_HOST_REF]["next_due"] is None
+
+
+def test_existing_institutional_response_prevents_route_reactivation(monkeypatch):
+    planner = _Planner()
+    monkeypatch.setattr(reconciliation, "exact_operation_record", _exact_operation_record)
+    _seed_auto_route(
+        planner,
+        world_time="244-BCE-12-21T12:00:00+08:00",
+        next_due=None,
+    )
+    response_ref = reconciliation._response_ref(AUTO_WORK_REF)
+    planner.data[EVENT_OWNER_PATH]["causal_events"][response_ref] = {
+        "event_ref": response_ref,
+        "kind": "institutional_response",
+        "status": "triggered",
+    }
+
+    assert reconciliation.reconcile_overdue_qin_command_support_routes(planner) == []
+    assert planner.data[RUNTIME_PATH]["hosts"][AUTO_HOST_REF]["next_due"] is None
 
 
 def test_explicit_support_request_timing_is_untouched(monkeypatch):
