@@ -10,6 +10,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.campaign_command_cycle import _cycle_ref
 from sword_runtime.causal_event_store import get_causal_event_from_reader
 from sword_runtime.qin_command_support_reconciliation import (
     _auto_briefing_work_ref,
@@ -146,6 +147,95 @@ def _pending_qin_briefing_responses_without_actionability(store: Any) -> int:
     return inconsistent
 
 
+def _campaign_decision_orders_exposed_before_delivery(store: Any) -> int:
+    """Count undelivered campaign decisions exposed as current/executable.
+
+    Superior decision issuance is headquarters truth, not Tang Wei receipt. A
+    ``campaign_command_follow_on_mission`` may exist durably while its courier is
+    in transit, but until the exact order is physically represented in the
+    cycle's delivered-order set it must neither be a current-order pointer nor
+    advertise executable actionability. This invariant is deliberately read-only
+    and independent of scheduler reconciliation so an ownership regression is
+    visible immediately in OOC vitality.
+    """
+    index = _optional_json(store, "state/operations/index.json")
+    operation_paths = _mapping(index.get("operations"))
+    owner_index = _optional_json(store, "state/index/owner-index.json")
+    owner_paths = _mapping(owner_index.get("owners"))
+    inconsistent = 0
+
+    for path in operation_paths.values():
+        if not isinstance(path, str):
+            continue
+        operation = _optional_json(store, path)
+        if str(operation.get("status", "")) not in _ACTIVE_OPERATION_STATUSES:
+            continue
+        operation_ref = operation.get("operation_ref")
+        if not isinstance(operation_ref, str) or not operation_ref:
+            continue
+        cycle_ref = _cycle_ref(operation_ref)
+        cycle_path = owner_paths.get(cycle_ref)
+        if not isinstance(cycle_path, str):
+            continue
+        cycle = _optional_json(store, cycle_path)
+        if not cycle:
+            continue
+
+        delivered_refs = {
+            str(ref) for ref in cycle.get("delivered_superior_order_refs", [])
+            if isinstance(ref, str) and ref
+        }
+        decisions = cycle.get("campaign_command_decisions")
+        if not isinstance(decisions, list):
+            continue
+        decision_rows = {
+            str(row.get("order_ref")): row
+            for row in decisions
+            if isinstance(row, Mapping)
+            and isinstance(row.get("order_ref"), str)
+            and row.get("order_ref")
+        }
+        if not decision_rows:
+            continue
+
+        current_operation_ref = str(operation.get("last_operational_order_ref", ""))
+        current_cycle = _mapping(cycle.get("current_superior_order"))
+        current_cycle_ref = str(current_cycle.get("order_ref", ""))
+        orders = operation.get("operational_orders")
+        if not isinstance(orders, list):
+            continue
+
+        operation_inconsistent = False
+        for order in orders:
+            if not isinstance(order, Mapping):
+                continue
+            order_ref = str(order.get("order_ref", ""))
+            if not order_ref or order_ref not in decision_rows:
+                continue
+            if str(order.get("order_kind", "")) != "campaign_command_follow_on_mission":
+                continue
+            decision = decision_rows[order_ref]
+            delivered = (
+                order_ref in delivered_refs
+                or str(decision.get("delivery_status", "")) == "delivered"
+                or isinstance(order.get("delivered_at"), str)
+            )
+            if delivered:
+                continue
+            executable = (
+                str(order.get("actionability_status", "")) == "actionable"
+                or str(order.get("status", "")) == "staff_briefed_awaiting_commander_execution"
+            )
+            current = order_ref in {current_operation_ref, current_cycle_ref}
+            if executable or current:
+                operation_inconsistent = True
+                break
+        if operation_inconsistent:
+            inconsistent += 1
+
+    return inconsistent
+
+
 def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     meta = _mapping(store.read_json("state/meta.json"))
     runtime = _mapping(store.read_json("state/runtime.json"))
@@ -179,6 +269,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     player_relevant_kinds = {
         "world_arc_report",
         "campaign_event",
+        "campaign_command_superior_order",
         "institutional_process",
         "household_request",
         "household_recruitment_watch",
@@ -198,6 +289,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     blocked_qin_assumptions = _awaiting_qin_command_without_receiving_path(player, hosts, causal_head)
     blocked_qin_briefings = _pending_qin_briefings_without_support_path(store, hosts)
     stale_qin_briefing_responses = _pending_qin_briefing_responses_without_actionability(store)
+    exposed_campaign_decisions = _campaign_decision_orders_exposed_before_delivery(store)
     scheduler = _mapping(runtime.get("scheduler"))
     scheduler_frontier = scheduler.get("causal_settled_through")
     scheduler_frontier_matches = isinstance(scheduler_frontier, str) and scheduler_frontier == runtime.get("world_time")
@@ -279,6 +371,9 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
     if stale_qin_briefing_responses:
         diagnostics.append("pending_qin_operational_briefing_response_without_actionability")
         suggestions.append("repair_qin_briefing_settlement_dedupe_before_waiting_for_orders")
+    if exposed_campaign_decisions:
+        diagnostics.append("campaign_command_decision_exposed_before_physical_delivery")
+        suggestions.append("reconcile_campaign_order_delivery_before_treating_superior_decision_as_current")
     if not scheduler_frontier_matches:
         diagnostics.append("global_causal_frontier_diverged_from_world_time")
         suggestions.append("repair_scheduler_frontier_before_advancing_time")
@@ -303,6 +398,7 @@ def summarize_playability_vitality(store: Any) -> dict[str, Any]:
         "blocked_awaiting_qin_command_assumptions": blocked_qin_assumptions,
         "blocked_pending_qin_operational_briefings": blocked_qin_briefings,
         "pending_qin_operational_briefing_responses_without_actionability": stale_qin_briefing_responses,
+        "campaign_command_decisions_exposed_before_delivery": exposed_campaign_decisions,
         "scheduler_causal_settled_through": scheduler_frontier,
         "scheduler_frontier_matches_world_time": bool(scheduler_frontier_matches),
         "scheduler_dirty": bool(scheduler_dirty),
