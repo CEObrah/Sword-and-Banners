@@ -3,9 +3,10 @@
 Older saves may carry a valid Qin field-command appointment whose command-group
 link predates the appointment ``operation_ref`` field. A short-lived compatibility
 repair also displaced newer pending directives by restoring older executable
-missions as the operation's current order. This module normalizes those legacy
-routing/pointer facts and catches overdue automatic briefing routes up to the
-current causal frontier.
+missions as the operation's current order. Older one-shot Qin briefing routes may
+also survive in the scheduler registry after exhaustion with no next due time.
+This module normalizes those legacy routing/pointer facts and catches recovered
+automatic briefing routes up to the current causal frontier.
 
 The reconciliation does not create orders, move formations, authorize battle, or
 change ownership. Normal Qin staff support remains responsible for briefing the
@@ -14,6 +15,7 @@ exact pending directive.
 from __future__ import annotations
 
 import copy
+import hashlib
 from collections.abc import Mapping
 from typing import Any
 
@@ -37,6 +39,15 @@ _PENDING = "pending_operational_briefing"
 _ACTIONABLE = "actionable"
 _PENDING_OPERATION_STATUS = "awaiting_operational_briefing"
 _AUTO_BRIEFING_PREFIX = "auto_qin_campaign_briefing_"
+_REVIEW_PRIORITY = 43
+
+
+def _digest(prefix: str, value: str) -> str:
+    return hashlib.sha256(f"{prefix}|{value}".encode("utf-8")).hexdigest()[:20]
+
+
+def _review_event_id(work_ref: str) -> str:
+    return f"event_qin_command_support_due_{_digest('review', work_ref)}"
 
 
 def _formation_refs(appointment: Mapping[str, Any]) -> list[str]:
@@ -210,14 +221,60 @@ def _find_order(planner: Any, operation_ref: str, order_ref: str) -> Mapping[str
     return None
 
 
+def _latest_pending_order_ref(planner: Any, operation_ref: str) -> str:
+    """Return the newest unresolved pending briefing order, if one still exists."""
+    resolved = exact_operation_record(planner, operation_ref)
+    if resolved is None:
+        return ""
+    _path, operation = resolved
+    if not isinstance(operation, Mapping):
+        return ""
+    orders = operation.get("operational_orders")
+    if not isinstance(orders, list):
+        return ""
+    for row in reversed(orders):
+        if not isinstance(row, Mapping):
+            continue
+        actionability = str(row.get("actionability_status") or "")
+        if actionability == _PENDING:
+            return str(row.get("order_ref") or "")
+        if actionability in {_ACTIONABLE, "completed"}:
+            return ""
+    return ""
+
+
+def _canonicalize_review_event(
+    events: list[Any], *, event_id: str, host_id: str, due_at: str
+) -> None:
+    """Keep one active scheduler event for an exact recovered support host."""
+    retained: list[Any] = []
+    for raw in events:
+        if isinstance(raw, Mapping) and (
+            str(raw.get("event_id") or "") == event_id
+            or str(raw.get("target_host") or "") == host_id
+        ):
+            continue
+        retained.append(raw)
+    retained.append({
+        "event_id": event_id,
+        "kind": "qin_command_support_review",
+        "priority": _REVIEW_PRIORITY,
+        "target_host": host_id,
+        "due_at": due_at,
+    })
+    events[:] = retained
+
+
 def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
     """Catch recovered automatic briefings up to their original causal schedule.
 
     The normal support flow registers the physical review/courier route. This
-    compatibility pass only shortens automatic briefing routes whose order was
-    issued earlier than the registration frontier. Explicit player requests are
-    intentionally untouched. An overdue route is placed one second beyond the
-    current frontier because scheduler boundaries are strictly ``(current, target]``.
+    compatibility pass shortens automatic briefing routes whose order was issued
+    earlier than the registration frontier and reactivates exhausted legacy
+    one-shot hosts when the exact order is still the newest unresolved pending
+    briefing. Explicit player requests are intentionally untouched. An overdue
+    route is placed one second beyond the current frontier because scheduler
+    boundaries are strictly ``(current, target]``.
     """
     try:
         runtime_raw = planner.read(_RUNTIME_PATH)
@@ -258,6 +315,10 @@ def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
             continue
         operation_ref = str(raw_host.get("operation_ref") or "")
         order_ref = str(raw_host.get("order_ref") or "")
+        if not operation_ref or not order_ref:
+            continue
+        if _latest_pending_order_ref(planner, operation_ref) != order_ref:
+            continue
         order = _find_order(planner, operation_ref, order_ref)
         if not isinstance(order, Mapping):
             continue
@@ -266,39 +327,46 @@ def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
         travel_seconds = raw_host.get("communication_travel_seconds", 0)
         if (
             issued is None
-            or not isinstance(due_text, str)
             or isinstance(travel_seconds, bool)
             or not isinstance(travel_seconds, int)
             or travel_seconds < 0
         ):
             continue
-        try:
-            existing_due = CampaignTime.parse(due_text)
-        except (TypeError, ValueError):
-            continue
+        existing_due = None
+        if isinstance(due_text, str):
+            try:
+                existing_due = CampaignTime.parse(due_text)
+            except (TypeError, ValueError):
+                existing_due = None
 
         normal_due = issued.add_seconds(review_seconds + travel_seconds)
         earliest_future = now.add_seconds(1)
         desired_due = normal_due if normal_due > now else earliest_future
-        if desired_due >= existing_due:
+        scheduled_due = desired_due if existing_due is None or desired_due < existing_due else existing_due
+        scheduled_text = str(scheduled_due)
+        event_id = _review_event_id(work_ref)
+        active_event = any(
+            isinstance(raw_event, Mapping)
+            and str(raw_event.get("event_id") or "") == event_id
+            and str(raw_event.get("target_host") or "") == str(host_id)
+            and raw_event.get("suspended") is not True
+            and str(raw_event.get("due_at") or "") == scheduled_text
+            for raw_event in events
+        )
+        if existing_due is not None and scheduled_due == existing_due and active_event:
             continue
 
         host = copy.deepcopy(dict(raw_host))
-        host["next_due"] = str(desired_due)
-        host["resolved_through"] = str(desired_due.add_seconds(-1))
-        host["safe_through"] = str(desired_due.add_seconds(-1))
+        host["next_due"] = scheduled_text
+        host["resolved_through"] = str(scheduled_due.add_seconds(-1))
+        host["safe_through"] = str(scheduled_due.add_seconds(-1))
         hosts[host_id] = host
-
-        event_changed = False
-        for index, raw_event in enumerate(events):
-            if not isinstance(raw_event, Mapping) or raw_event.get("target_host") != host_id:
-                continue
-            event = copy.deepcopy(dict(raw_event))
-            event["due_at"] = str(desired_due)
-            events[index] = event
-            event_changed = True
-        if not event_changed:
-            continue
+        _canonicalize_review_event(
+            events,
+            event_id=event_id,
+            host_id=str(host_id),
+            due_at=scheduled_text,
+        )
         changed_work_refs.append(work_ref)
 
     if changed_work_refs:
