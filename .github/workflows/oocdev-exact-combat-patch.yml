@@ -1,0 +1,47 @@
+name: OOC DEV exact-combat patch runner
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: write
+
+jobs:
+  patch-owner-branch:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.head.ref == 'oocdev/brace-frontage-integrity' &&
+      github.event.pull_request.user.login == 'CEObrah'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact owner branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Apply exact source replacements
+        run: python .github/oocdev/apply_combat_integrity_patch.py
+      - name: Install runtime test dependencies
+        run: python -m pip install -e ".[service-test]"
+      - name: Run combat integrity regressions
+        run: python -m pytest -q tests/runtime/test_personal_combat_integrity_policies.py tests/runtime/test_personal_combat_multi_actor.py
+      - name: Validate diff
+        run: git diff --check
+      - name: Commit verified production wiring
+        shell: bash
+        run: |
+          if git diff --quiet -- runtime/sword_runtime/personal_combat.py; then
+            echo "Production wiring already present."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add runtime/sword_runtime/personal_combat.py
+          git commit -m "fix: preserve brace offense and block linear melee body lanes"
+          git push origin HEAD:refs/heads/oocdev/brace-frontage-integrity
