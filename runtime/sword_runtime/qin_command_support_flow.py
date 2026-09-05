@@ -45,6 +45,9 @@ _REVIEW_PRIORITY = 43
 _PLAYER_REF = "char_tang_wei"
 _QIN_BUREAU_REF = "inst_qin_military_bureau"
 QIN_COMMAND_SUPPORT_DELIVERY_INDEX = "state/index/qin-command-support-delivery.json"
+_ACTIVE_OPERATION_STATUSES = {"active", "mobilizing", "advancing", "engaged", "occupied"}
+_PENDING = "pending_operational_briefing"
+_PENDING_OPERATION_STATUS = "awaiting_operational_briefing"
 
 
 def _digest(prefix: str, value: str) -> str:
@@ -69,6 +72,100 @@ def _policy(planner: Any) -> Mapping[str, Any]:
     if isinstance(review_hours, bool) or not isinstance(review_hours, int) or review_hours <= 0:
         raise ValueError("Qin support review delay is invalid")
     return policy
+
+
+def _active_operation(planner: Any, operation_ref: str) -> Mapping[str, Any] | None:
+    if not operation_ref:
+        return None
+    resolved = exact_operation_record(planner, operation_ref)
+    if resolved is None:
+        return None
+    _path, operation = resolved
+    if not isinstance(operation, Mapping):
+        return None
+    if str(operation.get("status", "")) not in _ACTIVE_OPERATION_STATUSES:
+        return None
+    return operation
+
+
+def _active_operation_order(planner: Any, operation_ref: str) -> tuple[Mapping[str, Any], Mapping[str, Any]] | None:
+    operation = _active_operation(planner, operation_ref)
+    if operation is None:
+        return None
+    order_ref = str(operation.get("last_operational_order_ref", ""))
+    orders = operation.get("operational_orders") if isinstance(operation.get("operational_orders"), list) else []
+    order = None
+    for row in reversed(orders):
+        if not isinstance(row, Mapping):
+            continue
+        if order_ref and str(row.get("order_ref", "")) != order_ref:
+            continue
+        order = row
+        break
+    return (operation, order) if isinstance(order, Mapping) else None
+
+
+def _latest_pending_operational_briefing(operation: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    """Return only the unresolved pending order at the head of order history.
+
+    A pending directive may intentionally not be the operation's current
+    executable order. A later actionable/completed order supersedes older pending
+    pressure, so do not resurrect historical work merely because it remains in
+    the durable order log.
+    """
+    orders = operation.get("operational_orders")
+    if not isinstance(orders, list):
+        return None
+    for row in reversed(orders):
+        if not isinstance(row, Mapping):
+            continue
+        actionability = str(row.get("actionability_status", ""))
+        if actionability == _PENDING:
+            return row
+        if actionability in {"actionable", "completed"}:
+            return None
+    return None
+
+
+def _resolve_scope_operation_ref(planner: Any, appointment: Mapping[str, Any], formation_refs: list[str]) -> str:
+    """Resolve the current operation for a long-lived Qin field appointment.
+
+    Older campaign appointments predate the persisted ``operation_ref`` field.
+    Their command group is still the exact authority for the currently active
+    operational context, so use that link rather than requiring a state repair.
+    Fail closed if the context is not an active operation for this command group
+    or does not contain any of the appointment's Qin formations.
+    """
+    direct = appointment.get("operation_ref")
+    if isinstance(direct, str) and direct and _active_operation(planner, direct) is not None:
+        return direct
+
+    command_group_ref = appointment.get("command_group_ref")
+    if not isinstance(command_group_ref, str) or not command_group_ref:
+        return ""
+    try:
+        group_path = planner.owner_path(command_group_ref)
+    except (KeyError, FileNotFoundError, ValueError):
+        return ""
+    group = planner.read_optional(group_path)
+    if not isinstance(group, Mapping):
+        return ""
+    candidate = group.get("active_context_ref")
+    if not isinstance(candidate, str) or not candidate:
+        return ""
+    operation = _active_operation(planner, candidate)
+    if operation is None:
+        return ""
+    operation_group_ref = operation.get("command_group_ref")
+    if isinstance(operation_group_ref, str) and operation_group_ref and operation_group_ref != command_group_ref:
+        return ""
+    participants = {
+        str(ref) for ref in operation.get("formation_refs", [])
+        if isinstance(ref, str) and ref
+    }
+    if formation_refs and not participants.intersection(formation_refs):
+        return ""
+    return candidate
 
 
 def _active_qin_scopes(planner: Any) -> list[dict[str, Any]]:
@@ -99,69 +196,6 @@ def _active_qin_scopes(planner: Any) -> list[dict[str, Any]]:
             "formation_refs": refs,
         })
     return scopes
-
-
-def _active_operation_order(planner: Any, operation_ref: str) -> tuple[Mapping[str, Any], Mapping[str, Any]] | None:
-    if not operation_ref:
-        return None
-    resolved = exact_operation_record(planner, operation_ref)
-    if resolved is None:
-        return None
-    _path, operation = resolved
-    if not isinstance(operation, Mapping) or str(operation.get("status", "")) not in {"active", "mobilizing", "advancing", "engaged", "occupied"}:
-        return None
-    order_ref = str(operation.get("last_operational_order_ref", ""))
-    orders = operation.get("operational_orders") if isinstance(operation.get("operational_orders"), list) else []
-    order = None
-    for row in reversed(orders):
-        if not isinstance(row, Mapping):
-            continue
-        if order_ref and str(row.get("order_ref", "")) != order_ref:
-            continue
-        order = row; break
-    return (operation, order) if isinstance(order, Mapping) else None
-
-
-def _resolve_scope_operation_ref(planner: Any, appointment: Mapping[str, Any], formation_refs: list[str]) -> str:
-    """Resolve the current operation for a long-lived Qin field appointment.
-
-    Older campaign appointments predate the persisted ``operation_ref`` field.
-    Their command group is still the exact authority for the currently active
-    operational context, so use that link rather than requiring a state repair.
-    Fail closed if the context is not an active operation for this command group
-    or does not contain any of the appointment's Qin formations.
-    """
-    direct = appointment.get("operation_ref")
-    if isinstance(direct, str) and direct and _active_operation_order(planner, direct) is not None:
-        return direct
-
-    command_group_ref = appointment.get("command_group_ref")
-    if not isinstance(command_group_ref, str) or not command_group_ref:
-        return ""
-    try:
-        group_path = planner.owner_path(command_group_ref)
-    except (KeyError, FileNotFoundError, ValueError):
-        return ""
-    group = planner.read_optional(group_path)
-    if not isinstance(group, Mapping):
-        return ""
-    candidate = group.get("active_context_ref")
-    if not isinstance(candidate, str) or not candidate:
-        return ""
-    active = _active_operation_order(planner, candidate)
-    if active is None:
-        return ""
-    operation, _order = active
-    operation_group_ref = operation.get("command_group_ref")
-    if isinstance(operation_group_ref, str) and operation_group_ref and operation_group_ref != command_group_ref:
-        return ""
-    participants = {
-        str(ref) for ref in operation.get("formation_refs", [])
-        if isinstance(ref, str) and ref
-    }
-    if formation_refs and not participants.intersection(formation_refs):
-        return ""
-    return candidate
 
 
 def _auto_briefing_work_ref(operation_ref: str, order_ref: str) -> str:
@@ -278,12 +312,96 @@ def _provision(planner: Any, host: Mapping[str, Any], at: str) -> str:
     )[:4000]
 
 
+def _restore_current_order(
+    planner: Any,
+    *,
+    operation_ref: str,
+    promoted_order_ref: str,
+    prior_order_ref: str,
+    prior_order_status: Any,
+) -> None:
+    resolved = exact_operation_record(planner, operation_ref)
+    if resolved is None:
+        return
+    path, raw = resolved
+    if not isinstance(raw, Mapping) or str(raw.get("last_operational_order_ref", "")) != promoted_order_ref:
+        return
+    operation = copy.deepcopy(dict(raw))
+    operation["last_operational_order_ref"] = prior_order_ref or None
+    if prior_order_status is None:
+        operation.pop("order_status", None)
+    else:
+        operation["order_status"] = prior_order_status
+    planner.put(path, operation)
+
+
+def _ensure_exact_actionable_mission_packet(
+    planner: Any,
+    operation_ref: str,
+    order_ref: str,
+    dossier: Mapping[str, Any],
+    *,
+    at: str,
+) -> dict[str, Any] | None:
+    """Brief one exact pending directive without revoking the current mission early."""
+    if not order_ref:
+        return ensure_actionable_mission_packet(planner, operation_ref, dossier, at=at)
+    resolved = exact_operation_record(planner, operation_ref)
+    if resolved is None:
+        return None
+    path, raw = resolved
+    if not isinstance(raw, Mapping):
+        return None
+    orders = raw.get("operational_orders")
+    target = None
+    if isinstance(orders, list):
+        for row in reversed(orders):
+            if isinstance(row, Mapping) and str(row.get("order_ref", "")) == order_ref:
+                target = row
+                break
+    if not isinstance(target, Mapping):
+        return None
+    if str(target.get("actionability_status", "")) != _PENDING:
+        packet = target.get("mission_packet")
+        return copy.deepcopy(dict(packet)) if isinstance(packet, Mapping) else None
+
+    prior_order_ref = str(raw.get("last_operational_order_ref", ""))
+    prior_order_status = raw.get("order_status")
+    changed = prior_order_ref != order_ref
+    if changed:
+        operation = copy.deepcopy(dict(raw))
+        operation["last_operational_order_ref"] = order_ref
+        operation["order_status"] = _PENDING_OPERATION_STATUS
+        planner.put(path, operation)
+
+    succeeded = False
+    try:
+        packet = ensure_actionable_mission_packet(planner, operation_ref, dossier, at=at)
+        succeeded = packet is not None
+        return packet
+    finally:
+        if changed and not succeeded:
+            _restore_current_order(
+                planner,
+                operation_ref=operation_ref,
+                promoted_order_ref=order_ref,
+                prior_order_ref=prior_order_ref,
+                prior_order_status=prior_order_status,
+            )
+
+
 def _operation_summary(planner: Any, host: Mapping[str, Any], at: str) -> tuple[str, str]:
     operation_ref = str(host.get("operation_ref", ""))
     if not operation_ref:
         raise ValueError("Qin support review lost its active operation")
     dossier = build_campaign_dossier(planner, operation_ref)
-    packet = ensure_actionable_mission_packet(planner, operation_ref, dossier, at=at)
+    packet = _ensure_exact_actionable_mission_packet(
+        planner,
+        operation_ref,
+        str(host.get("order_ref", "")),
+        dossier,
+        at=at,
+    )
     # Rebuild after staff work so rendering reflects the newly established packet.
     dossier = build_campaign_dossier(planner, operation_ref)
     summary = render_campaign_briefing(planner, dossier, packet)
@@ -321,16 +439,22 @@ def settle_qin_command_support(planner: Any, host: Mapping[str, Any], at: str) -
         return None
     information_ref = None
     prior_delivery_ref = None
+    prior_delivery_order_ref = None
     prior_delivery_established = False
     delivery_index = None
     operation_ref = ""
-    if support_kind == "operational_briefing" and work_ref.startswith("auto_qin_campaign_briefing_"):
+    auto_briefing = support_kind == "operational_briefing" and work_ref.startswith("auto_qin_campaign_briefing_")
+    if auto_briefing:
         delivery_index = copy.deepcopy(planner.read_optional(QIN_COMMAND_SUPPORT_DELIVERY_INDEX) or {
-            "schema": "generic-object", "authority": False, "by_operation": {}
+            "schema": "generic-object", "authority": False, "by_operation": {}, "by_order": {}
         })
         operation_ref = str(host.get("operation_ref", ""))
         prior = delivery_index.setdefault("by_operation", {}).get(operation_ref)
+        prior_exact = delivery_index.setdefault("by_order", {}).get(operation_ref)
         prior_delivery_ref = str(prior.get("information_ref", "")) if isinstance(prior, Mapping) else None
+        prior_delivery_order_ref = str(prior_exact.get("order_ref", "")) if isinstance(prior_exact, Mapping) else None
+        if isinstance(prior_exact, Mapping) and prior_exact.get("information_ref"):
+            prior_delivery_ref = str(prior_exact.get("information_ref"))
         if prior_delivery_ref:
             exact_prior = planner.read_optional(f"state/information/{prior_delivery_ref}.json")
             prior_delivery_established = bool(
@@ -342,16 +466,24 @@ def settle_qin_command_support(planner: Any, host: Mapping[str, Any], at: str) -
         summary = _provision(planner, host, at)
     elif support_kind == "operational_briefing":
         summary, information_ref = _operation_summary(planner, host, at)
-        if work_ref.startswith("auto_qin_campaign_briefing_"):
-            # The delivery index is routing/dedupe only.  It may suppress an
-            # unchanged auto-briefing only when its pointer was already backed
-            # by an exact player-known information owner before this settlement.
-            # A stale index entry alone must never swallow the first real
-            # briefing response or its player-facing wake.
-            if prior_delivery_established and prior_delivery_ref == str(information_ref):
+        if auto_briefing:
+            # Dedupe is exact-order scoped. Two different strategic directives may
+            # render the same information claim, but the newer order still needs
+            # its own institutional response so the player can observe that it has
+            # become executable.
+            host_order_ref = str(host.get("order_ref", ""))
+            if (
+                prior_delivery_established
+                and prior_delivery_ref == str(information_ref)
+                and prior_delivery_order_ref == host_order_ref
+            ):
                 return None
             assert isinstance(delivery_index, dict)
             delivery_index["by_operation"][operation_ref] = {"information_ref": information_ref}
+            delivery_index["by_order"][operation_ref] = {
+                "information_ref": information_ref,
+                "order_ref": host_order_ref,
+            }
             planner.put(QIN_COMMAND_SUPPORT_DELIVERY_INDEX, delivery_index)
     else:
         summary = _march_summary(planner, host)
@@ -377,8 +509,6 @@ def settle_qin_command_support(planner: Any, host: Mapping[str, Any], at: str) -
     return wake
 
 
-
-
 def sync_qin_command_support(planner: Any, runtime: dict[str, Any]) -> None:
     hosts, events = runtime.get("hosts"), runtime.get("events")
     if not isinstance(hosts, dict) or not isinstance(events, list):
@@ -390,16 +520,16 @@ def sync_qin_command_support(planner: Any, runtime: dict[str, Any]) -> None:
     review_delay = int(_policy(planner)["qin_support_review_delay_hours"]) * 3600
     event_ids = {str(row.get("event_id")) for row in events if isinstance(row, Mapping)}
 
-    # An accepted field command should not require the player to guess that a
-    # strategic directive is missing staff work. Pending Qin orders automatically
-    # route one idempotent operational briefing review.
+    # Pending strategic directives may coexist with an older executable field
+    # mission. Route staff work from the durable order history rather than only
+    # from last_operational_order_ref, and bind the work to the exact order.
     for scope in scopes:
         operation_ref = str(scope.get("operation_ref", ""))
-        current_order = _active_operation_order(planner, operation_ref)
-        if current_order is None:
+        operation = _active_operation(planner, operation_ref)
+        if operation is None:
             continue
-        operation, order = current_order
-        if str(order.get("actionability_status", "")) != "pending_operational_briefing":
+        order = _latest_pending_operational_briefing(operation)
+        if not isinstance(order, Mapping):
             continue
         order_ref = str(order.get("order_ref", ""))
         if not order_ref:
@@ -418,19 +548,35 @@ def sync_qin_command_support(planner: Any, runtime: dict[str, Any]) -> None:
         travel_seconds = max(0, int(route.get("travel_seconds", 0) or 0))
         due = current.add_seconds(review_delay + travel_seconds)
         hosts[host_id] = {
-            "host_id": host_id, "kind": "qin_command_support_review", "owner_ref": _QIN_BUREAU_REF,
-            "work_ref": work_ref, "source_event_id": None, "support_kind": "operational_briefing",
-            "appointment_office": scope.get("office"), "operation_ref": operation_ref,
+            "host_id": host_id,
+            "kind": "qin_command_support_review",
+            "owner_ref": _QIN_BUREAU_REF,
+            "work_ref": work_ref,
+            "source_event_id": None,
+            "support_kind": "operational_briefing",
+            "appointment_office": scope.get("office"),
+            "operation_ref": operation_ref,
+            "order_ref": order_ref,
             "formation_refs": list(scope.get("formation_refs", [])),
-            "bureau_location_ref": bureau_location, "response_target_location_ref": response_target,
-            "communication_travel_seconds": travel_seconds, "institution_processing_seconds": review_delay,
+            "bureau_location_ref": bureau_location,
+            "response_target_location_ref": response_target,
+            "communication_travel_seconds": travel_seconds,
+            "institution_processing_seconds": review_delay,
             "courier_route": copy.deepcopy(dict(route)),
             "communication_rule": "automatic staff briefing is not delivered until review and physical courier travel complete",
             "recurrence_seconds": 0,
-            "next_due": str(due), "resolved_through": str(due.add_seconds(-1)), "safe_through": str(due.add_seconds(-1)),
+            "next_due": str(due),
+            "resolved_through": str(due.add_seconds(-1)),
+            "safe_through": str(due.add_seconds(-1)),
         }
         if event_id not in event_ids:
-            events.append({"event_id": event_id, "kind": "qin_command_support_review", "priority": _REVIEW_PRIORITY, "target_host": host_id, "due_at": str(due)})
+            events.append({
+                "event_id": event_id,
+                "kind": "qin_command_support_review",
+                "priority": _REVIEW_PRIORITY,
+                "target_host": host_id,
+                "due_at": str(due),
+            })
             event_ids.add(event_id)
 
     attempts, _ = recent_interaction_attempts(planner, _PLAYER_REF, limit=_HISTORY_WINDOW)
@@ -528,12 +674,15 @@ class QinCommandSupportFlowMixin:
             # the packet destination. Calling it after grouped travel is safe and
             # closes the handoff path that used to exist only for move_army.
             handoff = reconcile_campaign_arrival(
-                self, operation_ref, destination_ref=destination_ref,
+                self,
+                operation_ref,
+                destination_ref=destination_ref,
                 at=str(result.get("world_time") or self._world_time()),
                 unit_duties=result.get("unit_duties") if isinstance(result.get("unit_duties"), list) else None,
             )
             if isinstance(handoff, Mapping):
-                result = dict(result); result["campaign_handoff"] = copy.deepcopy(dict(handoff))
+                result = dict(result)
+                result["campaign_handoff"] = copy.deepcopy(dict(handoff))
                 break
         return result
 
