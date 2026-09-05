@@ -50,16 +50,17 @@ def _matching_order(operation: Mapping[str, Any], order_ref: str) -> tuple[list[
 
 
 def _prior_executable_order(orders: list[Any], before_index: int) -> Mapping[str, Any] | None:
-    """Return the newest still-executable order that predates a new directive."""
-    for row in reversed(orders[:before_index]):
-        if not isinstance(row, Mapping):
-            continue
-        if str(row.get("actionability_status", "")) != _ACTIONABLE:
-            continue
-        if str(row.get("status", "")) in _TERMINAL_ORDER_STATUSES:
-            continue
-        return row
-    return None
+    """Return only the order directly displaced by a newly appended directive."""
+    if before_index <= 0:
+        return None
+    row = orders[before_index - 1]
+    if not isinstance(row, Mapping):
+        return None
+    if str(row.get("actionability_status", "")) != _ACTIONABLE:
+        return None
+    if str(row.get("status", "")) in _TERMINAL_ORDER_STATUSES:
+        return None
+    return row
 
 
 def _downgrade_underspecified_qin_order(planner: Any, evidence: Mapping[str, Any]) -> dict[str, Any]:
