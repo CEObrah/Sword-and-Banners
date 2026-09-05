@@ -12,6 +12,7 @@ from sword_runtime.causal_wait_provenance import CausalWaitProvenanceMixin
 from sword_runtime.message_reply_flow import MessageReplyFlowMixin
 from sword_runtime.production_planner import ProductionCampaignPlanner as _BaseProductionCampaignPlanner
 from sword_runtime.qin_command_support_flow import QinCommandSupportFlowMixin
+from sword_runtime.qin_command_support_reconciliation import reconcile_legacy_qin_command_support_state
 from sword_runtime.qin_operational_order_guard import QinOperationalOrderGuardMixin
 from sword_runtime.reconnaissance import MilitaryReconnaissanceMixin
 from sword_runtime.sovereign_campaign_authority_mixin import SovereignCampaignAuthorityMixin
@@ -41,13 +42,15 @@ class ProductionCampaignPlanner(
         # formation-location authority before a historical zero-distance packet
         # can suppress the field command cycle again. Let campaign command create
         # any bounded mission-level follow-on, canonicalize that mission so
-        # completed-arrival metadata cannot bleed into its semantics, and only
-        # then let the normal scheduler register its existing delivery paths.
+        # completed-arrival metadata cannot bleed into its semantics, normalize
+        # legacy Qin command-support routing/pointers, and only then let the normal
+        # scheduler register its existing delivery paths.
         refreshed = self._reconcile_campaign_entry_authority()
         reconcile_satisfied_player_campaign_arrivals(self)
         materialize_reconciled_campaign_follow_on_orders(self, refreshed)
         self._sync_campaign_command_decisions()
         normalize_current_contact_development_order(self)
+        reconcile_legacy_qin_command_support_state(self)
         super()._prepare_scheduler_for_advance(target_text)
 
 
