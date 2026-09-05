@@ -15,8 +15,13 @@ import json
 from collections.abc import Mapping
 from typing import Any
 
-from sword_runtime.campaign_command_cycle import _latest_order, _load_operation, _read_cycle
-from sword_runtime.campaign_communications import command_message_route, command_person_location, queue_upward_report
+from sword_runtime.campaign_command_cycle import _latest_order, _load_operation, _read_cycle, _reader
+from sword_runtime.campaign_communications import (
+    command_message_route,
+    command_person_location,
+    player_command_location,
+    queue_upward_report,
+)
 from sword_runtime.campaign_command_requests import campaign_command_request_response_ref
 from sword_runtime.causal_event_store import get_causal_event_from_reader
 from sword_runtime.sim.calendar import CampaignTime
@@ -28,11 +33,14 @@ _INFO_INDEX = "state/information/index.json"
 _ATTEMPT_LEDGER = "state/index/interaction-attempts.json"
 _REQUEST_PRIORITY = 48
 _COMPLETED_ORDER_STATES = {"completed", "phase_complete_awaiting_follow_on_direction"}
+_CLOSED_CYCLE_STATUSES = {"closed", "completed", "cancelled", "inactive"}
 _FOLLOW_ON_TERMS = (
     "follow_on_order", "follow-on order", "follow on order",
     "follow-on operational order", "follow on operational order",
     "next operational order", "next campaign order",
     "follow-on campaign order", "follow on campaign order",
+    "follow_on_direction", "follow-on direction", "follow on direction",
+    "next_objective", "next objective", "next mission",
 )
 
 
@@ -90,7 +98,16 @@ def _attempt_rows(planner: Any) -> list[dict[str, Any]]:
 
 
 def _is_follow_on_request(row: Mapping[str, Any]) -> bool:
+    """Return whether one interaction explicitly expects a campaign follow-on answer.
+
+    Legacy rows may not contain ``expects_response`` and retain the historical
+    action/topic inference. Once the flag exists, however, ``False`` is
+    authoritative: downstream command routing must never resurrect a request the
+    public interaction surface explicitly recorded as non-response-bearing.
+    """
     if row.get("actor_id") != _PLAYER_REF:
+        return False
+    if "expects_response" in row and row.get("expects_response") is not True:
         return False
     if str(row.get("action", "")) not in {"ask", "request", "petition", "report", "present", "seek_contact"}:
         return False
@@ -98,17 +115,123 @@ def _is_follow_on_request(row: Mapping[str, Any]) -> bool:
     return any(term in text for term in _FOLLOW_ON_TERMS)
 
 
+def _valid_cycle(cycle: object) -> Mapping[str, Any] | None:
+    if not isinstance(cycle, Mapping):
+        return None
+    if cycle.get("kind") != "campaign_command_cycle":
+        return None
+    if str(cycle.get("status", "")).lower() in _CLOSED_CYCLE_STATUSES:
+        return None
+    participants = cycle.get("participant_commander_refs")
+    if not isinstance(participants, list) or _PLAYER_REF not in participants:
+        return None
+    cycle_ref = cycle.get("cycle_ref")
+    operation_ref = cycle.get("operation_ref")
+    if not isinstance(cycle_ref, str) or not cycle_ref or not isinstance(operation_ref, str) or not operation_ref:
+        return None
+    return cycle
+
+
+def _cycle_from_route_ref(planner: Any, ref: object) -> Mapping[str, Any] | None:
+    if not isinstance(ref, str) or not ref:
+        return None
+    if ref.startswith("campaign_command_cycle."):
+        try:
+            path = planner.owner_path(ref)
+        except (KeyError, FileNotFoundError, ValueError):
+            return None
+        return _valid_cycle(planner.read_optional(path))
+    existing = _read_cycle(planner, ref)
+    return _valid_cycle(existing[1]) if existing is not None else None
+
+
+def _active_field_cycle(planner: Any) -> Mapping[str, Any] | None:
+    try:
+        root = planner.read_optional("state/cmd/command-groups/cmdgrp.tang_wei.field_army.json")
+    except (FileNotFoundError, KeyError, ValueError):
+        return None
+    operation_ref = root.get("active_context_ref") if isinstance(root, Mapping) else None
+    return _cycle_from_route_ref(planner, operation_ref)
+
+
+def campaign_command_follow_on_route(
+    source: Any,
+    attempt: Mapping[str, Any],
+    *,
+    cycle: Mapping[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """Resolve one follow-on request to the exact physical superior-command route.
+
+    This is the shared admission/scheduler predicate. If this function returns a
+    route, the public interaction surface may admit the response-bearing request
+    and the scheduler has the same exact cycle, endpoints and courier path needed
+    to register it. Direct speech to an absent named superior is deliberately not
+    treated as a headquarters channel here; person-access validation remains a
+    separate authority.
+    """
+    if not _is_follow_on_request(attempt):
+        return None
+    planner = _reader(source)
+    resolved = _valid_cycle(cycle)
+    if resolved is None:
+        for ref in (attempt.get("process_ref"), attempt.get("target_ref")):
+            resolved = _cycle_from_route_ref(planner, ref)
+            if resolved is not None:
+                break
+    if resolved is None:
+        resolved = _active_field_cycle(planner)
+    if resolved is None:
+        return None
+
+    cycle_ref = str(resolved.get("cycle_ref") or "")
+    operation_ref = str(resolved.get("operation_ref") or "")
+    venue_ref = str(resolved.get("venue_ref") or "")
+    coordination_ref = str(resolved.get("coordination_authority_ref") or "")
+    target_ref = str(attempt.get("target_ref") or "")
+    process_ref = str(attempt.get("process_ref") or "")
+    channel_targets = {ref for ref in (cycle_ref, operation_ref, venue_ref, coordination_ref) if ref}
+    if target_ref not in channel_targets:
+        return None
+    if process_ref and process_ref not in {cycle_ref, operation_ref}:
+        return None
+
+    superior_ref = resolved.get("superior_command_ref") or resolved.get("supreme_commander_ref")
+    if not isinstance(superior_ref, str) or not superior_ref:
+        return None
+    target_location = command_person_location(planner, superior_ref)
+    if not target_location:
+        return None
+    request_origin = attempt.get("origin_location_ref")
+    if not isinstance(request_origin, str) or not request_origin:
+        request_origin = player_command_location(planner)
+    if not isinstance(request_origin, str) or not request_origin:
+        return None
+    try:
+        courier_route = command_message_route(
+            planner.read,
+            request_origin,
+            target_location,
+            round_trip=True,
+        )
+    except (FileNotFoundError, KeyError, TypeError, ValueError):
+        return None
+
+    return {
+        "cycle_ref": cycle_ref,
+        "operation_ref": operation_ref,
+        "superior_ref": superior_ref,
+        "request_origin_location_ref": request_origin,
+        "target_location_ref": target_location,
+        "courier_route": copy.deepcopy(dict(courier_route)),
+    }
+
+
 def _requests_for_cycle(planner: Any, cycle: Mapping[str, Any]) -> list[dict[str, Any]]:
     cycle_ref = str(cycle.get("cycle_ref") or "")
-    operation_ref = str(cycle.get("operation_ref") or "")
-    venue_ref = str(cycle.get("venue_ref") or "")
     values: list[dict[str, Any]] = []
     for row in _attempt_rows(planner):
-        if not _is_follow_on_request(row):
-            continue
-        target = str(row.get("target_ref") or "")
-        process = str(row.get("process_ref") or "")
-        if target in {cycle_ref, operation_ref, venue_ref} or process in {cycle_ref, operation_ref}:
+        route = campaign_command_follow_on_route(planner, row, cycle=cycle)
+        if route is not None and route.get("cycle_ref") == cycle_ref:
             values.append(row)
     return values
 
@@ -334,9 +457,9 @@ def _route_follow_on_requests(planner: Any, runtime: dict[str, Any]) -> None:
 
     Scheduler identity is request-scoped, not cycle-scoped: two distinct player
     requests must never overwrite each other merely because they concern the same
-    campaign command cycle. The attempt's saved origin is the dispatch point; a
-    returned reply targets that same point and may chase Wei later through the
-    shared delivery helper if he has moved.
+    campaign command cycle. The same route resolver used by public pre-admission
+    supplies the exact cycle and courier endpoints here, so a request cannot be
+    admitted on one routing theory and scheduled on another.
     """
     hosts = runtime.get("hosts")
     events = runtime.get("events")
@@ -365,9 +488,6 @@ def _route_follow_on_requests(planner: Any, runtime: dict[str, Any]) -> None:
     superior = cycle.get("superior_command_ref") or cycle.get("supreme_commander_ref")
     if not cycle_ref or not isinstance(superior, str) or not superior:
         return
-    target_location = command_person_location(planner, superior)
-    if not target_location:
-        return
 
     existing_by_attempt = {
         str(host.get("source_interaction_attempt_ref")): (host_id, host)
@@ -378,12 +498,11 @@ def _route_follow_on_requests(planner: Any, runtime: dict[str, Any]) -> None:
         and host.get("campaign_command_cycle_ref") == cycle_ref
         and isinstance(host.get("source_interaction_attempt_ref"), str)
     }
-    player = planner.read_optional("state/player.json")
-    current_player_location = ""
-    if isinstance(player, Mapping):
-        current_player_location = str(player.get("location") or player.get("current_location") or player.get("location_ref") or "")
 
     for attempt in reversed(_requests_for_cycle(planner, cycle)):
+        route = campaign_command_follow_on_route(planner, attempt, cycle=cycle)
+        if route is None:
+            continue
         attempt_ref = attempt.get("event_id")
         if not isinstance(attempt_ref, str) or not attempt_ref or isinstance(attempt.get("response_ref"), str):
             continue
@@ -392,17 +511,9 @@ def _route_follow_on_requests(planner: Any, runtime: dict[str, Any]) -> None:
         requested_at = attempt.get("at")
         if not isinstance(requested_at, str):
             continue
-        request_origin = attempt.get("origin_location_ref")
-        if not isinstance(request_origin, str) or not request_origin:
-            request_origin = current_player_location
-        if not request_origin:
-            continue
-        try:
-            courier_route = command_message_route(
-                planner.read, request_origin, target_location, round_trip=True,
-            )
-        except (FileNotFoundError, KeyError, TypeError, ValueError):
-            continue
+        request_origin = str(route["request_origin_location_ref"])
+        target_location = str(route["target_location_ref"])
+        courier_route = copy.deepcopy(dict(route["courier_route"]))
         travel_seconds = max(0, int(courier_route.get("travel_seconds", 0) or 0))
         staff_seconds = delay_minutes * 60
         due = max(current, CampaignTime.parse(requested_at).add_seconds(travel_seconds + staff_seconds))
@@ -428,7 +539,7 @@ def _route_follow_on_requests(planner: Any, runtime: dict[str, Any]) -> None:
             "target_location_ref": target_location,
             "response_target_location_ref": request_origin,
             "communication_travel_seconds": travel_seconds,
-            "courier_route": copy.deepcopy(dict(courier_route)),
+            "courier_route": courier_route,
             "communication_rule": "request dispatch is not headquarters receipt; reply delivery is not player receipt until the physical return route settles",
             "delivery_route": (
                 f"physical courier {request_origin} -> {target_location} -> {request_origin}; "
@@ -487,4 +598,8 @@ class CampaignCommandDecisionMixin:
         _route_follow_on_requests(self, runtime)
 
 
-__all__ = ["CampaignCommandDecisionMixin", "sync_campaign_command_decisions"]
+__all__ = [
+    "CampaignCommandDecisionMixin",
+    "campaign_command_follow_on_route",
+    "sync_campaign_command_decisions",
+]
