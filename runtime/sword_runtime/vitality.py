@@ -10,6 +10,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
+from sword_runtime.qin_command_support_reconciliation import _newest_relevant_order
 from sword_runtime.world_arc_report_handoff import source_has_player_safe_world_arc_report
 from sword_runtime.world_arcs import _visibility as _world_arc_visibility
 
@@ -72,20 +73,13 @@ def _awaiting_qin_command_without_receiving_path(
 
 
 def _latest_pending_briefing_order(operation: Mapping[str, Any]) -> Mapping[str, Any] | None:
-    orders = operation.get("operational_orders")
-    if not isinstance(orders, list):
+    """Use the same issuance chronology as Qin command-support reconciliation."""
+    newest = _newest_relevant_order(operation)
+    if not isinstance(newest, Mapping):
         return None
-    # Only the newest unresolved head matters. A later actionable/completed order
-    # lawfully supersedes older pending strategic pressure and must not resurrect it.
-    for row in reversed(orders):
-        if not isinstance(row, Mapping):
-            continue
-        actionability = str(row.get("actionability_status", ""))
-        if actionability == "pending_operational_briefing":
-            return row
-        if actionability in {"actionable", "completed"}:
-            return None
-    return None
+    if str(newest.get("actionability_status", "")) != "pending_operational_briefing":
+        return None
+    return newest
 
 
 def _pending_qin_briefings_without_support_path(store: Any, hosts: Mapping[str, Any]) -> int:
