@@ -6,12 +6,16 @@ repair also displaced newer pending directives by restoring older executable
 missions as the operation's current order. Older one-shot Qin briefing routes may
 also survive in the scheduler registry after exhaustion with no next due time, or
 may never have been registered when legacy order history was stored out of
-issuance order.
+issuance order. A legacy briefing may also have written its deterministic
+institutional response before the exact order became actionable; that stale
+response must not permanently suppress lawful staff work for the still-pending
+order.
 
 This module normalizes those legacy routing/pointer facts and catches recovered
-automatic briefing routes up to the current causal frontier. It does not create
-orders, move formations, authorize battle, or change ownership. Normal Qin staff
-support remains responsible for briefing the exact pending directive.
+briefing routes up to the current causal frontier. It does not create orders, move
+formations, authorize battle, or change ownership. Normal Qin staff support
+remains responsible for briefing the exact pending directive, including any
+compatibility retry scheduled here.
 """
 from __future__ import annotations
 
@@ -47,6 +51,7 @@ _PENDING = "pending_operational_briefing"
 _ACTIONABLE = "actionable"
 _PENDING_OPERATION_STATUS = "awaiting_operational_briefing"
 _AUTO_BRIEFING_PREFIX = "auto_qin_campaign_briefing_"
+_RECOVERY_BRIEFING_PREFIX = "recovery_qin_campaign_briefing_"
 _REVIEW_PRIORITY = 43
 
 
@@ -65,6 +70,11 @@ def _review_ids(work_ref: str) -> tuple[str, str]:
 
 def _auto_briefing_work_ref(operation_ref: str, order_ref: str) -> str:
     return f"auto_qin_campaign_briefing_{_digest('auto-briefing', operation_ref + '|' + order_ref)}"
+
+
+def _recovery_briefing_work_ref(operation_ref: str, order_ref: str, original_work_ref: str) -> str:
+    payload = f"{operation_ref}|{order_ref}|{original_work_ref}"
+    return f"{_RECOVERY_BRIEFING_PREFIX}{_digest('recovery-briefing', payload)}"
 
 
 def _formation_refs(appointment: Mapping[str, Any]) -> list[str]:
@@ -333,7 +343,7 @@ def _ensure_missing_automatic_routes(
     current: CampaignTime,
     review_seconds: int,
 ) -> list[str]:
-    """Register an exact automatic briefing route absent from the legacy scheduler."""
+    """Register missing automatic briefing or compatibility-retry routes."""
     hosts = runtime.get("hosts")
     events = runtime.get("events")
     if not isinstance(hosts, dict) or not isinstance(events, list):
@@ -344,14 +354,28 @@ def _ensure_missing_automatic_routes(
         order_ref = _latest_pending_order_ref(planner, operation_ref)
         if not operation_ref or not order_ref:
             continue
-        work_ref = _auto_briefing_work_ref(operation_ref, order_ref)
-        if isinstance(get_causal_event(planner, _response_ref(work_ref)), Mapping):
-            continue
-        host_id, event_id = _review_ids(work_ref)
-        if host_id in hosts:
-            continue
         order = _find_order(planner, operation_ref, order_ref)
         if not isinstance(order, Mapping):
+            continue
+
+        original_work_ref = _auto_briefing_work_ref(operation_ref, order_ref)
+        original_response = get_causal_event(planner, _response_ref(original_work_ref))
+        if isinstance(original_response, Mapping):
+            # Legacy settlement could persist its deterministic response before
+            # the exact order became actionable. Preserve that historical event,
+            # but do not let its ID permanently suppress staff work. A distinct,
+            # deterministic retry still settles through the ordinary Qin support
+            # domain and exact order_ref.
+            work_ref = _recovery_briefing_work_ref(
+                operation_ref, order_ref, original_work_ref
+            )
+            if isinstance(get_causal_event(planner, _response_ref(work_ref)), Mapping):
+                continue
+        else:
+            work_ref = original_work_ref
+
+        host_id, event_id = _review_ids(work_ref)
+        if host_id in hosts:
             continue
         bureau_location = command_endpoint_location(planner, _QIN_BUREAU_REF)
         response_target = player_command_location(planner)
@@ -382,7 +406,11 @@ def _ensure_missing_automatic_routes(
             "communication_travel_seconds": travel_seconds,
             "institution_processing_seconds": review_seconds,
             "courier_route": copy.deepcopy(dict(route)),
-            "communication_rule": "automatic staff briefing is not delivered until review and physical courier travel complete",
+            "communication_rule": (
+                "automatic staff briefing is not delivered until review and physical courier travel complete"
+                if work_ref == original_work_ref
+                else "legacy Qin briefing response existed before actionability; retry uses the same exact order and ordinary staff/courier settlement path"
+            ),
             "recurrence_seconds": 0,
             "next_due": str(due),
             "resolved_through": str(due.add_seconds(-1)),
@@ -394,7 +422,7 @@ def _ensure_missing_automatic_routes(
 
 
 def reconcile_overdue_qin_command_support_routes(planner: Any) -> list[str]:
-    """Repair missing, exhausted, or late automatic Qin briefing routes.
+    """Repair missing, exhausted, late, or stale-response Qin briefing routes.
 
     Exact pending pressure is selected by ``issued_at`` chronology rather than
     durable list position. Explicit player support requests are untouched. An
