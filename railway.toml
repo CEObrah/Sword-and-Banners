@@ -11,11 +11,12 @@ watchPatterns = [
   "!/README.md"
 ]
 
-# Source and gameplay durability share the single canonical main branch.
-# State-only runtime commits do not rebuild the service because state/** is
-# excluded from deployment watch paths.
+# Startup first reconciles the immutable deployed source revision into a
+# dedicated campaign durability branch, then performs the normal checkout,
+# integrity, recovery, and ASGI startup gates. Source releases therefore do not
+# move the branch used by live gameplay transactions.
 [deploy]
-startCommand = "SWORD_GIT_BRANCH=main PYTHONPATH=/app/runtime python -m sword_runtime.bootstrap"
+startCommand = "PYTHONPATH=/app/runtime python -m sword_runtime.branch_bootstrap"
 healthcheckPath = "/health"
 healthcheckTimeout = 120
 restartPolicyType = "ON_FAILURE"
