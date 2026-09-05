@@ -16,9 +16,8 @@ PENDING_ISSUED = "244-BCE-11-19T20:22:48+08:00"
 RUNTIME_PATH = "state/runtime.json"
 LOGISTICS_PATH = "game/data/mechanics/logistics.json"
 EVENT_OWNER_PATH = "state/event/events-messages-and-movement.json"
-AUTO_WORK_REF = "auto_qin_campaign_briefing_fixture"
-AUTO_HOST_REF = "host_qin_command_support_fixture"
-AUTO_EVENT_REF = "event_qin_command_support_due_fixture"
+AUTO_WORK_REF = reconciliation._auto_briefing_work_ref(OP_REF, PENDING_REF)
+AUTO_HOST_REF, AUTO_EVENT_REF = reconciliation._review_ids(AUTO_WORK_REF)
 
 
 class _Planner:
@@ -135,6 +134,37 @@ def _seed_auto_route(planner, *, world_time, next_due, travel_seconds=23 * 3600,
     }
 
 
+def _seed_empty_runtime(planner, *, world_time="244-BCE-12-21T12:00:00+08:00"):
+    planner.data[RUNTIME_PATH] = {
+        "world_time": world_time,
+        "hosts": {},
+        "events": [],
+    }
+
+
+def _patch_route(monkeypatch):
+    monkeypatch.setattr(
+        reconciliation,
+        "command_endpoint_location",
+        lambda planner, ref: "loc_qin_bureau" if ref == "inst_qin_military_bureau" else None,
+    )
+    monkeypatch.setattr(reconciliation, "player_command_location", lambda planner: "loc_sanyou")
+    monkeypatch.setattr(
+        reconciliation,
+        "command_message_route",
+        lambda read, origin, destination, round_trip=False: {
+            "origin_ref": origin,
+            "destination_ref": destination,
+            "travel_seconds": 23 * 3600,
+            "one_way_seconds": 23 * 3600,
+            "round_trip": round_trip,
+            "path": [origin, destination],
+            "route_refs": ["route_fixture_qin_support"],
+            "modes": ["horse", "foot"],
+        },
+    )
+
+
 def test_legacy_qin_appointment_is_normalized_without_rolling_back_newer_pending_order(monkeypatch):
     planner = _Planner()
     monkeypatch.setattr(reconciliation, "exact_operation_record", _exact_operation_record)
@@ -196,6 +226,53 @@ def test_legacy_group_mismatch_fails_closed(monkeypatch):
     assert "operation_ref" not in appointment
     assert planner.data[OP_PATH]["last_operational_order_ref"] == PENDING_REF
     assert planner.writes == []
+
+
+def test_pending_order_selection_uses_issued_at_not_list_position(monkeypatch):
+    planner = _Planner()
+    monkeypatch.setattr(reconciliation, "exact_operation_record", _exact_operation_record)
+    orders = planner.data[OP_PATH]["operational_orders"]
+    planner.data[OP_PATH]["operational_orders"] = [orders[1], orders[0]]
+
+    assert reconciliation._latest_pending_order_ref(planner, OP_REF) == PENDING_REF
+
+
+def test_newer_actionable_order_suppresses_older_pending_by_issued_at(monkeypatch):
+    planner = _Planner()
+    monkeypatch.setattr(reconciliation, "exact_operation_record", _exact_operation_record)
+    planner.data[OP_PATH]["operational_orders"][0]["issued_at"] = "244-BCE-11-21T08:22:48+08:00"
+
+    assert reconciliation._latest_pending_order_ref(planner, OP_REF) == ""
+
+
+def test_missing_automatic_briefing_host_is_created_from_qin_scope(monkeypatch):
+    planner = _Planner()
+    monkeypatch.setattr(reconciliation, "exact_operation_record", _exact_operation_record)
+    _patch_route(monkeypatch)
+    orders = planner.data[OP_PATH]["operational_orders"]
+    planner.data[OP_PATH]["operational_orders"] = [orders[1], orders[0]]
+    _seed_empty_runtime(planner)
+
+    changed = reconciliation.reconcile_overdue_qin_command_support_routes(planner)
+
+    assert changed == [AUTO_WORK_REF]
+    host = planner.data[RUNTIME_PATH]["hosts"][AUTO_HOST_REF]
+    assert host["support_kind"] == "operational_briefing"
+    assert host["operation_ref"] == OP_REF
+    assert host["order_ref"] == PENDING_REF
+    assert host["formation_refs"] == ["formation_qin_a"]
+    assert host["next_due"] == "244-BCE-12-21T12:00:01+08:00"
+    assert host["communication_travel_seconds"] == 23 * 3600
+    events = planner.data[RUNTIME_PATH]["events"]
+    assert len(events) == 1
+    assert events[0]["event_id"] == AUTO_EVENT_REF
+    assert events[0]["target_host"] == AUTO_HOST_REF
+    assert events[0]["due_at"] == "244-BCE-12-21T12:00:01+08:00"
+
+    planner.writes.clear()
+    assert reconciliation.reconcile_overdue_qin_command_support_routes(planner) == []
+    assert planner.writes == []
+    assert len(planner.data[RUNTIME_PATH]["events"]) == 1
 
 
 def test_overdue_automatic_briefing_is_due_at_next_scheduler_tick(monkeypatch):
