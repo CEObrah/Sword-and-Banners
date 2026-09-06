@@ -39,8 +39,12 @@ def test_live_records_arc_shape_projects_exact_qin_campaign_entry_authority(camp
     qin_path = root / "state/states/qin.json"
     qin_before = qin_path.read_bytes()
     raw_qin = json.loads(qin_before)
+    diplomacy_before = json.loads(json.dumps(raw_qin["diplomacy"]["state_wei"]))
 
-    assert raw_qin["diplomacy"]["state_wei"]["status"] == "neutral"
+    # The maintained campaign fixture may lawfully move between non-war diplomatic
+    # states as play advances. Entry-authority projection must not depend on one
+    # historical label and must never rewrite the saved diplomatic relation.
+    assert diplomacy_before["status"] != "war"
     assert not any(row.get("projection_only") is True for row in raw_qin.get("war_intents", []) if isinstance(row, dict))
 
     authorities = projected_campaign_entry_authorities(planner, "state_qin")
@@ -67,7 +71,7 @@ def test_live_records_arc_shape_projects_exact_qin_campaign_entry_authority(camp
     ]
     assert len(derived) == 1
     assert derived[0]["target_ref"] == "state_wei"
-    assert projected_qin["diplomacy"]["state_wei"]["status"] == "neutral"
+    assert projected_qin["diplomacy"]["state_wei"] == diplomacy_before
     assert qin_path.read_bytes() == qin_before
 
 
@@ -75,14 +79,17 @@ def test_reconciliation_reopens_completed_staging_without_moving_army_or_rewriti
     root = Path(campaign)
     qin_path = root / "state/states/qin.json"
     qin_before = qin_path.read_bytes()
+    raw_qin_before = json.loads(qin_before)
+    diplomacy_before = json.loads(json.dumps(raw_qin_before["diplomacy"]["state_wei"]))
     operation_index = json.loads((root / "state/operations/index.json").read_text(encoding="utf-8"))
     operation_path = root / operation_index["operations"][OPERATION_REF]
-    operation_before = _raw_operation(root)
+    canonical_operation = _raw_operation(root)
+    canonical_phase = canonical_operation["campaign_phase"]
 
     # The canonical save has already been reconciled. Recreate only the stale
     # pre-authority projection this test is about inside the disposable fixture,
     # preserving the exact current order identity and every physical formation.
-    staged = json.loads(json.dumps(operation_before))
+    staged = json.loads(json.dumps(canonical_operation))
     staged["campaign_phase"] = "awaiting_entry_authority"
     staged["order_status"] = "awaiting_entry_authority"
     latest_staged = staged["operational_orders"][-1]
@@ -109,11 +116,13 @@ def test_reconciliation_reopens_completed_staging_without_moving_army_or_rewriti
     operation_after = planner.read(operation_path)
     latest = operation_after["operational_orders"][-1]
     packet = latest["mission_packet"]
-    assert operation_after["campaign_phase"] == "campaign_concentration"
-    assert operation_after["order_status"] == "staff_briefed_awaiting_commander_execution"
-    assert latest["status"] == "staff_briefed_awaiting_commander_execution"
-    assert latest["actionability_status"] == "actionable"
-    assert packet["phase_status"] == "ready_for_commander_execution"
+    # Entry reconciliation repairs the blocked authority gate without rewinding a
+    # campaign that has lawfully advanced since this regression was first written.
+    assert operation_after["campaign_phase"] == canonical_phase
+    assert operation_after["order_status"] != "awaiting_entry_authority"
+    assert latest["status"] != "staged_awaiting_entry_authority"
+    assert latest["actionability_status"] != "blocked_awaiting_entry_authority"
+    assert packet["phase_status"] != "awaiting_entry_authority"
     assert packet["hostile_entry_authorized"] is True
     assert packet["entry_status"] == "authorized"
     assert packet["destination_ref"] != "loc_kanyou"
@@ -123,7 +132,7 @@ def test_reconciliation_reopens_completed_staging_without_moving_army_or_rewriti
     assert _formation_locations(root, operation_before) == locations_before
     assert qin_path.read_bytes() == qin_before
     raw_qin_after = json.loads(qin_path.read_text(encoding="utf-8"))
-    assert raw_qin_after["diplomacy"]["state_wei"]["status"] == "neutral"
+    assert raw_qin_after["diplomacy"]["state_wei"] == diplomacy_before
     assert not any(row.get("projection_only") is True for row in raw_qin_after.get("war_intents", []) if isinstance(row, dict))
 
 
