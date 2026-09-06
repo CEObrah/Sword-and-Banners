@@ -1,0 +1,43 @@
+name: OOC DEV same-boundary withdrawal repair
+
+on:
+  push:
+    branches:
+      - oocdev/fix-runtime-ci-deps
+
+permissions:
+  contents: write
+
+jobs:
+  repair-and-verify:
+    if: github.repository == 'CEObrah/Sword-and-Banners'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: oocdev/fix-runtime-ci-deps
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install runtime test dependencies
+        run: python -m pip install -e ".[service,service-test]"
+      - name: Apply causal boundary repair
+        run: python .github/oocdev/apply_same_boundary_withdrawal_fix.py
+      - name: Verify battle lifecycle regression
+        run: python -m pytest -q tests/runtime/test_battle_lifecycle.py::test_side_wide_received_withdrawal_concludes_battle_not_campaign
+      - name: Validate patch
+        run: git diff --check
+      - name: Commit verified production repair and remove scaffolding
+        shell: bash
+        run: |
+          rm -f .github/oocdev/apply_same_boundary_withdrawal_fix.py
+          rm -f .github/workflows/oocdev-same-boundary-withdrawal.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add runtime/sword_runtime/battle_command.py .github/oocdev/apply_same_boundary_withdrawal_fix.py .github/workflows/oocdev-same-boundary-withdrawal.yml
+          git diff --cached --check
+          git commit -m "fix: preserve received withdrawal through battle conclusion"
+          git push origin HEAD:oocdev/fix-runtime-ci-deps
