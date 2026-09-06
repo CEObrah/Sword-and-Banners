@@ -57,6 +57,8 @@ def test_operation_after_action_is_not_a_war_ceremony(campaign):
     now = str(p.read("state/runtime.json")["world_time"])
     ref = "operation_after_action_only"
     _register_test_operation(p, ref, ["formation_red_lance_a"], status="completed")
+    before_war_closures = len(_history(p, "war_campaign_closure"))
+    before_ceremonies = len(_history(p, "war_closure_ceremony"))
 
     review = record_operation_after_action(p, ref, at=now)
 
@@ -64,8 +66,8 @@ def test_operation_after_action_is_not_a_war_ceremony(campaign):
     assert review["participant_formation_refs"] == ["formation_red_lance_a"]
     assert "char_tang_wei" in review["participant_person_refs"]
     assert _history(p, "campaign_after_action_review")
-    assert not _history(p, "war_campaign_closure")
-    assert not _history(p, "war_closure_ceremony")
+    assert len(_history(p, "war_campaign_closure")) == before_war_closures
+    assert len(_history(p, "war_closure_ceremony")) == before_ceremonies
     assert p.read(p.owner_path(ref))["campaign_phase"] == "operation_closed_awaiting_campaign_direction"
 
 
