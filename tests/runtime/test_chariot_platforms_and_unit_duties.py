@@ -27,7 +27,7 @@ def _expected_chariot_capacity(formation, rules):
         "crew_personnel": crew_personnel,
         "physical_platforms": physical,
         "direct_rider_horses": min(horses, direct_riders),
-        "chariot_horses": operational * horses_per,
+        "chariot_horses": horses_for_chariots,
         "operational_platforms": operational,
         "operational_crew": operational * crew_per,
     }
