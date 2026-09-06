@@ -148,23 +148,29 @@ def test_all_tang_wei_command_people_route_to_exact_current_characters():
         assert str(person.get("life_status", "active")) != "dead"
 
 
-def test_every_persistent_500_plus_formation_has_exact_live_commander_or_causal_vacancy():
+def test_every_persistent_500_plus_formation_has_exact_available_commander_or_causal_vacancy():
     owners = load("state/index/owner-index.json")["owners"]
-    dead_command_scopes = set()
+    unavailable_command_scopes = set()
     for ref, route in owners.items():
         if not str(ref).startswith("char_"):
             continue
         person = load_route(route)
         if person.get("schema") != "sab_character":
             continue
-        if str(person.get("life_status", person.get("health_status", "active"))).lower() not in {"dead", "deceased"}:
+        life = str(person.get("life_status", person.get("health_status", "active"))).lower()
+        custody = person.get("custody_state", {})
+        custody_status = str(custody.get("status", "")).lower() if isinstance(custody, dict) else ""
+        if life not in {"dead", "deceased"} and custody_status not in {"captured", "prisoner"}:
             continue
         current_formation = person.get("current_formation_id")
         if isinstance(current_formation, str) and current_formation:
-            dead_command_scopes.add(current_formation)
+            unavailable_command_scopes.add(current_formation)
+        assignment_scope = person.get("command_assignment", {}).get("formation_ref")
+        if isinstance(assignment_scope, str) and assignment_scope.startswith("formation_"):
+            unavailable_command_scopes.add(assignment_scope)
         military_scope = person.get("military_command", {}).get("formation_scope")
         if isinstance(military_scope, str) and military_scope.startswith("formation_"):
-            dead_command_scopes.add(military_scope)
+            unavailable_command_scopes.add(military_scope)
 
     for path in (ROOT / "state/formations").glob("*.json"):
         f = json.loads(path.read_text())
@@ -174,12 +180,16 @@ def test_every_persistent_500_plus_formation_has_exact_live_commander_or_causal_
         formation_ref = f.get("formation_ref")
         commander = f.get("commander_ref")
         if commander is None:
-            assert f.get("status") == "commander_vacant" or formation_ref in dead_command_scopes, formation_ref
+            assert f.get("status") == "commander_vacant" or formation_ref in unavailable_command_scopes, formation_ref
             continue
         assert isinstance(commander, str) and commander in owners, formation_ref
         person = load_route(owners[commander])
         assert person["schema"] == "sab_character", (formation_ref, commander)
-        assert str(person.get("life_status", person.get("health_status", "active"))).lower() not in {"dead", "deceased"}, (formation_ref, commander)
+        life = str(person.get("life_status", person.get("health_status", "active"))).lower()
+        custody = person.get("custody_state", {})
+        custody_status = str(custody.get("status", "")).lower() if isinstance(custody, dict) else ""
+        assert life not in {"dead", "deceased"}, (formation_ref, commander)
+        assert custody_status not in {"captured", "prisoner"}, (formation_ref, commander)
 
 
 def test_no_parent_child_command_group_double_hat():
