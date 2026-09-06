@@ -28,13 +28,15 @@ def test_hot_fort_materialization_does_not_create_population_and_cold_blueprint_
     assert p.read_optional('state/depots/fort-gyou.json') is None
     profile=p._fortification_profile_for_site('loc_gyou')
     assert profile['logistics_blueprint']['authority'] is True
+    expected_garrison=sum(int(p._load_formation(ref)[1].get('personnel',0)) for ref in p._formations_at('loc_gyou'))
     pop_before={s:int(p.read(f'state/population/{s}.json')['population_total']) for s in ('qin','zhao','chu','wei','han','yan','qi')}
     result=p._ensure_hot_fortified_site_resources('loc_gyou',at=str(p._world_time()),authority_ref='state_zhao')
     assert result['site_ref']=='loc_gyou'
     assert result['depot_ref']=='depot_fort_gyou'
     depot=p.read('state/depots/fort-gyou.json')
     assert depot['geography']['owns_local_population'] is False
-    assert depot['garrison_summary']['personnel']==0
+    assert depot['garrison_summary']['personnel']==expected_garrison
+    assert result['garrison_personnel']==expected_garrison
     assert depot['stocks'].get('construction_material_units',0)==0
     art=p.read('state/art/fort-gyou.json')
     assert art['site_ref']=='loc_gyou' and art['depot_ref']=='depot_fort_gyou'
@@ -52,13 +54,14 @@ def test_stale_location_index_cannot_create_phantom_fort_garrison(campaign):
     remote['location_ref']='loc_kanyou'
     p.put(remote_path, remote)
     assert p._load_formation(remote_ref)[1]['location_ref']=='loc_kanyou'
+    expected_garrison=sum(int(p._load_formation(ref)[1].get('personnel',0)) for ref in p._formations_at('loc_gyou'))
     idx=copy.deepcopy(p.read('state/index/location-formation-index.json'))
     idx.setdefault('locations',{}).setdefault('loc_gyou',[]).append(remote_ref)
     p.put('state/index/location-formation-index.json',idx)
 
     assert remote_ref not in p._formations_at('loc_gyou')
     result=p._ensure_hot_fortified_site_resources('loc_gyou',at=str(p._world_time()),authority_ref='state_zhao')
-    assert result['garrison_personnel']==0
+    assert result['garrison_personnel']==expected_garrison
 
 
 def test_kankoku_uses_exact_specialized_hot_owners(campaign):
