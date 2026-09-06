@@ -196,6 +196,11 @@ def test_production_pre_advance_reconciles_arrival_before_follow_on(monkeypatch)
     planner = object.__new__(production.ProductionCampaignPlanner)
 
     monkeypatch.setattr(
+        production,
+        "reconcile_undelivered_campaign_decisions",
+        lambda self: calls.append("undelivered_decisions") or [],
+    )
+    monkeypatch.setattr(
         production.ProductionCampaignPlanner,
         "_reconcile_campaign_entry_authority",
         lambda self: calls.append("entry_authority") or ["operation.test"],
@@ -223,18 +228,37 @@ def test_production_pre_advance_reconciles_arrival_before_follow_on(monkeypatch)
         lambda self: calls.append("follow_on_semantics") or True,
     )
     monkeypatch.setattr(
+        production,
+        "reconcile_legacy_qin_command_support_state",
+        lambda self: calls.append("legacy_qin_support") or [],
+    )
+    monkeypatch.setattr(
+        production,
+        "sync_campaign_decision_delivery_routes",
+        lambda self: calls.append("delivery_routes") or [],
+    )
+    monkeypatch.setattr(
         production.ProductionTimeIntegrationMixin,
         "_prepare_scheduler_for_advance",
         lambda self, target_text: calls.append(("scheduler", target_text)),
+    )
+    monkeypatch.setattr(
+        production,
+        "reconcile_overdue_qin_command_support_routes",
+        lambda self: calls.append("overdue_qin_support") or [],
     )
 
     planner._prepare_scheduler_for_advance("244-BCE-11-15T08:22:48+08:00")
 
     assert calls == [
+        "undelivered_decisions",
         "entry_authority",
         "arrival",
         ("follow_on", ["operation.test"]),
         "command_decisions",
         "follow_on_semantics",
+        "legacy_qin_support",
+        "delivery_routes",
         ("scheduler", "244-BCE-11-15T08:22:48+08:00"),
+        "overdue_qin_support",
     ]
