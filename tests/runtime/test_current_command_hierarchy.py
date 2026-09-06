@@ -148,29 +148,42 @@ def test_all_tang_wei_command_people_route_to_exact_current_characters():
         assert str(person.get("life_status", "active")) != "dead"
 
 
-def test_every_persistent_500_plus_formation_has_exact_available_commander_or_causal_vacancy():
+def test_every_persistent_500_plus_formation_has_exact_available_commander_or_explicit_command_representation():
     owners = load("state/index/owner-index.json")["owners"]
     unavailable_command_scopes = set()
+    aggregate_command_scopes = set()
     for ref, route in owners.items():
-        if not str(ref).startswith("char_"):
+        owner = load_route(route)
+        if owner.get("schema") == "sab_character" and str(ref).startswith("char_"):
+            life = str(owner.get("life_status", owner.get("health_status", "active"))).lower()
+            custody = owner.get("custody_state", {})
+            custody_status = str(custody.get("status", "")).lower() if isinstance(custody, dict) else ""
+            if life in {"dead", "deceased"} or custody_status in {"captured", "prisoner"}:
+                for scope in (
+                    owner.get("current_formation_id"),
+                    owner.get("command_assignment", {}).get("formation_ref"),
+                    owner.get("military_command", {}).get("formation_scope"),
+                ):
+                    if isinstance(scope, str) and scope.startswith("formation_"):
+                        unavailable_command_scopes.add(scope)
             continue
-        person = load_route(route)
-        if person.get("schema") != "sab_character":
+        if owner.get("schema") not in {"mercenary", "mercenary-company", "regional-mercenary-company"}:
             continue
-        life = str(person.get("life_status", person.get("health_status", "active"))).lower()
-        custody = person.get("custody_state", {})
-        custody_status = str(custody.get("status", "")).lower() if isinstance(custody, dict) else ""
-        if life not in {"dead", "deceased"} and custody_status not in {"captured", "prisoner"}:
+        formation_ref = owner.get("tactical_formation_ref")
+        unit_command = owner.get("command_structure", {}).get("unit_command", {})
+        if not isinstance(formation_ref, str) or not formation_ref.startswith("formation_"):
             continue
-        current_formation = person.get("current_formation_id")
-        if isinstance(current_formation, str) and current_formation:
-            unavailable_command_scopes.add(current_formation)
-        assignment_scope = person.get("command_assignment", {}).get("formation_ref")
-        if isinstance(assignment_scope, str) and assignment_scope.startswith("formation_"):
-            unavailable_command_scopes.add(assignment_scope)
-        military_scope = person.get("military_command", {}).get("formation_scope")
-        if isinstance(military_scope, str) and military_scope.startswith("formation_"):
-            unavailable_command_scopes.add(military_scope)
+        if not isinstance(unit_command, dict) or unit_command.get("representation") != "aggregate":
+            continue
+        assert int(unit_command.get("commander_billets", 0) or 0) >= 1, (ref, formation_ref)
+        allocation = owner.get("external_personnel_allocations", {}).get(formation_ref, {})
+        allocated_command = sum(
+            int(value)
+            for role, value in allocation.items()
+            if isinstance(role, str) and "command" in role
+        ) if isinstance(allocation, dict) else 0
+        assert allocated_command >= 1, (ref, formation_ref)
+        aggregate_command_scopes.add(formation_ref)
 
     for path in (ROOT / "state/formations").glob("*.json"):
         f = json.loads(path.read_text())
@@ -180,6 +193,10 @@ def test_every_persistent_500_plus_formation_has_exact_available_commander_or_ca
         formation_ref = f.get("formation_ref")
         commander = f.get("commander_ref")
         if commander is None:
+            if formation_ref in aggregate_command_scopes:
+                attached = f.get("attached_unit_command_by_role", {})
+                assert isinstance(attached, dict) and sum(int(v) for v in attached.values()) >= 1, formation_ref
+                continue
             assert f.get("status") == "commander_vacant" or formation_ref in unavailable_command_scopes, formation_ref
             continue
         assert isinstance(commander, str) and commander in owners, formation_ref
