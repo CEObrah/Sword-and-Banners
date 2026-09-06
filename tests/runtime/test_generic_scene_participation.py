@@ -15,10 +15,30 @@ def _cast(context, field):
     return {row["person_id"]: row for row in context.get("scene", {}).get("scene_cast", {}).get(field, []) if isinstance(row, dict) and row.get("person_id")}
 
 
+def _exact_person_location(campaign, person_ref):
+    root = Path(campaign)
+    owners = json.loads((root / "state/index/owner-index.json").read_text())["owners"]
+    route = owners[person_ref]
+    assert "#" not in route
+    person = json.loads((root / route).read_text())
+    location = person.get("current_location") or person.get("location") or person.get("location_ref")
+    assert isinstance(location, str) and location
+    return location
+
+
+def _place_player_with_exact_staff(campaign, refs):
+    locations = {_exact_person_location(campaign, ref) for ref in refs}
+    assert len(locations) == 1, locations
+    location = next(iter(locations))
+    player_path = Path(campaign) / "state/player.json"
+    player = json.loads(player_path.read_text())
+    player["location"] = location
+    player["current_location"] = location
+    player_path.write_text(json.dumps(player) + "\n")
+    return location
+
+
 def test_command_staff_at_current_staging_site_surface_without_location_invention(campaign):
-    player_path=Path(campaign)/"state/player.json"; player=json.loads(player_path.read_text()); player["location"]="loc_wei_regional_02"; player["current_location"]="loc_wei_regional_02"; player_path.write_text(json.dumps(player)+"\n")
-    context=_ops(campaign).play_context()
-    nearby=_cast(context,"nearby_people"); present=_cast(context,"present_people")
     refs = (
         "char_lin_zhen",
         "char_tang_command_black_banner_4000",
@@ -26,13 +46,17 @@ def test_command_staff_at_current_staging_site_surface_without_location_inventio
         "char_tang_command_high_guard_qin_reserve",
         "char_tang_command_red_lance_1000",
     )
-    assert context["player"]["location"] == "loc_wei_regional_02"
+    location = _place_player_with_exact_staff(campaign, refs)
+    context = _ops(campaign).play_context()
+    nearby = _cast(context, "nearby_people")
+    present = _cast(context, "present_people")
+    assert context["player"]["location"] == location
     for ref in refs:
         row = present.get(ref) or nearby.get(ref)
         assert row is not None
         assert row["location"] == context["player"]["location"]
     # A current exact command event may establish some senior staff as present;
-    # broad regional co-location alone remains nearby.  Either way, the cast
+    # broad regional co-location alone remains nearby. Either way, the cast
     # must come from lawful command/scene routing rather than teleportation.
     routed = present.get("char_tang_command_black_banner_4000") or nearby["char_tang_command_black_banner_4000"]
     assert set(routed.get("scene_basis", [])) & {"house_or_command_duty", "campaign_command_event", "already_player_visible"}
@@ -56,9 +80,14 @@ def test_house_command_routing_does_not_teleport_absent_person(campaign):
 
 
 def test_scene_participants_become_bounded_permitted_people(campaign):
-    player_path=Path(campaign)/"state/player.json"; player=json.loads(player_path.read_text()); player["location"]="loc_wei_regional_02"; player["current_location"]="loc_wei_regional_02"; player_path.write_text(json.dumps(player)+"\n")
+    refs = (
+        "char_lin_zhen",
+        "char_tang_command_black_banner_4000",
+        "char_tang_command_high_guard_foot_core",
+    )
+    _place_player_with_exact_staff(campaign, refs)
     context=_ops(campaign).play_context(); permitted=set(context["permitted_person_ids"])
-    assert {"char_lin_zhen","char_tang_command_black_banner_4000","char_tang_command_high_guard_foot_core"} <= permitted
+    assert set(refs) <= permitted
     rule=context["scene"]["scene_cast"]["generic_participation_rule"]
     assert "revalidated against exact current location" in rule
 

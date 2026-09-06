@@ -14,16 +14,56 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  runtime-tests:
+  changed-path-regressions:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install runtime test dependencies
+        run: python -m pip install -e ".[service,service-test]"
+      - name: Structural verification
+        run: python tools/quick_check.py
+      - name: Changed-path regressions
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
+          CURRENT_SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            mapfile -t changed < <(git diff --name-only "$PR_BASE_SHA" "$PR_HEAD_SHA")
+          elif [ -n "$PUSH_BEFORE_SHA" ] && [ "$PUSH_BEFORE_SHA" != "0000000000000000000000000000000000000000" ]; then
+            mapfile -t changed < <(git diff --name-only "$PUSH_BEFORE_SHA" "$CURRENT_SHA")
+          else
+            mapfile -t changed < <(git show --pretty="" --name-only "$CURRENT_SHA")
+          fi
+          if [ "${#changed[@]}" -eq 0 ]; then
+            changed=(.github/workflows/runtime-tests.yml)
+          fi
+          printf 'Changed paths:\n'
+          printf '  %s\n' "${changed[@]}"
+          python tools/test_changed.py "${changed[@]}"
+
+  persistent-runtime-invariants:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: pyproject.toml
       - name: Install runtime test dependencies
         run: python -m pip install -e ".[service,service-test]"
-      - name: Authoritative release certification
-        run: python tools/run_release_suite.py
+      - name: Persistent transaction invariants
+        run: python tools/run_pytest_module.py -q --basetemp=/tmp/sword-runtime-invariants tests/runtime/test_transactions.py

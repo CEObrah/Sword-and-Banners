@@ -21,7 +21,15 @@ def _seed_actionable_arrival(planner):
     operation = copy.deepcopy(planner.read(op_path))
     operation["location_ref"] = "loc_qin_eastern_depot"
     operation["order_status"] = "staff_briefed_awaiting_commander_execution"
-    order = copy.deepcopy(operation["operational_orders"][-1])
+
+    order_ref = str(operation["last_operational_order_ref"])
+    orders = copy.deepcopy(operation["operational_orders"])
+    order_index = next(
+        i
+        for i in range(len(orders) - 1, -1, -1)
+        if str(orders[i].get("order_ref", "")) == order_ref
+    )
+    order = copy.deepcopy(orders[order_index])
     order["status"] = "staff_briefed_awaiting_commander_execution"
     order["actionability_status"] = "actionable"
     packet = copy.deepcopy(order["mission_packet"])
@@ -32,7 +40,8 @@ def _seed_actionable_arrival(planner):
     packet["hostile_entry_authorized"] = False
     packet["entry_status"] = "awaiting_war_or_entry_authority"
     order["mission_packet"] = packet
-    operation["operational_orders"][-1] = order
+    orders[order_index] = order
+    operation["operational_orders"] = orders
     planner.put(op_path, operation)
     opposing = set(operation.get("opposing_formation_refs", []))
     participants = [str(ref) for ref in operation.get("formation_refs", []) if ref not in opposing]
@@ -67,7 +76,12 @@ def test_movement_reconciliation_delivers_arrival_report_when_last_participant_i
     assert operation["order_status"] == "awaiting_entry_authority"
     assert operation["campaign_phase"] == "awaiting_entry_authority"
     assert operation["last_phase_information_ref"] == reports[0]["information_ref"]
-    order = operation["operational_orders"][-1]
+    order_ref = str(operation["last_operational_order_ref"])
+    order = next(
+        row
+        for row in reversed(operation["operational_orders"])
+        if str(row.get("order_ref", "")) == order_ref
+    )
     assert order["actionability_status"] == "completed"
     assert order["status"] == "staged_awaiting_entry_authority"
     assert order["mission_packet"]["phase_status"] == "completed"

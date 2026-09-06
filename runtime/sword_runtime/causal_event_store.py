@@ -212,7 +212,11 @@ def iter_causal_events_newest(reader: Any, *, kinds: set[str] | frozenset[str] |
         if kinds is None or str(event.get("kind", "")) in kinds:
             yield ref, event
 
-    segment_count = max(0, int(owner.get("archive_segment_count", owner.get("next_archive_seq", 1)) - 1))
+    archive_segment_count = owner.get("archive_segment_count")
+    if archive_segment_count is None:
+        segment_count = max(0, int(owner.get("next_archive_seq", 1)) - 1)
+    else:
+        segment_count = max(0, int(archive_segment_count))
     if segment_count <= 0:
         recent = owner.get("archives", [])
         if isinstance(recent, list):

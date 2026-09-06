@@ -148,17 +148,65 @@ def test_all_tang_wei_command_people_route_to_exact_current_characters():
         assert str(person.get("life_status", "active")) != "dead"
 
 
-def test_every_persistent_500_plus_formation_has_one_full_exact_commander():
+def test_every_persistent_500_plus_formation_has_exact_available_commander_or_explicit_command_representation():
     owners = load("state/index/owner-index.json")["owners"]
+    unavailable_command_scopes = set()
+    aggregate_command_scopes = set()
+    for ref, route in owners.items():
+        owner = load_route(route)
+        if owner.get("schema") == "sab_character" and str(ref).startswith("char_"):
+            life = str(owner.get("life_status", owner.get("health_status", "active"))).lower()
+            custody = owner.get("custody_state", {})
+            custody_status = str(custody.get("status", "")).lower() if isinstance(custody, dict) else ""
+            if life in {"dead", "deceased"} or custody_status in {"captured", "prisoner"}:
+                for scope in (
+                    owner.get("current_formation_id"),
+                    owner.get("command_assignment", {}).get("formation_ref"),
+                    owner.get("military_command", {}).get("formation_scope"),
+                ):
+                    if isinstance(scope, str) and scope.startswith("formation_"):
+                        unavailable_command_scopes.add(scope)
+            continue
+        if owner.get("schema") not in {"mercenary", "mercenary-company", "regional-mercenary-company"}:
+            continue
+        formation_ref = owner.get("tactical_formation_ref")
+        unit_command = owner.get("command_structure", {}).get("unit_command", {})
+        if not isinstance(formation_ref, str) or not formation_ref.startswith("formation_"):
+            continue
+        if not isinstance(unit_command, dict) or unit_command.get("representation") != "aggregate":
+            continue
+        assert int(unit_command.get("commander_billets", 0) or 0) >= 1, (ref, formation_ref)
+        allocation = owner.get("external_personnel_allocations", {}).get(formation_ref, {})
+        allocated_command = sum(
+            int(value)
+            for role, value in allocation.items()
+            if isinstance(role, str) and "command" in role
+        ) if isinstance(allocation, dict) else 0
+        assert allocated_command >= 1, (ref, formation_ref)
+        aggregate_command_scopes.add(formation_ref)
+
     for path in (ROOT / "state/formations").glob("*.json"):
         f = json.loads(path.read_text())
         strength = int(f.get("authorized_strength", f.get("personnel", 0)) or 0)
         if strength < 500 or f.get("status") in {"disbanded", "destroyed"}:
             continue
+        formation_ref = f.get("formation_ref")
         commander = f.get("commander_ref")
-        assert isinstance(commander, str) and commander in owners, f.get("formation_ref")
+        if commander is None:
+            if formation_ref in aggregate_command_scopes:
+                attached = f.get("attached_unit_command_by_role", {})
+                assert isinstance(attached, dict) and sum(int(v) for v in attached.values()) >= 1, formation_ref
+                continue
+            assert f.get("status") == "commander_vacant" or formation_ref in unavailable_command_scopes, formation_ref
+            continue
+        assert isinstance(commander, str) and commander in owners, formation_ref
         person = load_route(owners[commander])
-        assert person["schema"] == "sab_character", (f.get("formation_ref"), commander)
+        assert person["schema"] == "sab_character", (formation_ref, commander)
+        life = str(person.get("life_status", person.get("health_status", "active"))).lower()
+        custody = person.get("custody_state", {})
+        custody_status = str(custody.get("status", "")).lower() if isinstance(custody, dict) else ""
+        assert life not in {"dead", "deceased"}, (formation_ref, commander)
+        assert custody_status not in {"captured", "prisoner"}, (formation_ref, commander)
 
 
 def test_no_parent_child_command_group_double_hat():

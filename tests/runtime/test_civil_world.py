@@ -149,6 +149,7 @@ def test_interstate_peace_creates_first_class_treaty_terms(campaign):
     path = planner.owner_path('interstate_warring_states')
     world = copy.deepcopy(planner.read(path))
     record = world['theaters']['qin_zhao_gyou']
+    previous_treaty_ref = record.get('last_treaty_ref')
     record.update({
         'phase': 'peace_settlement',
         'cycle': 1,
@@ -162,9 +163,14 @@ def test_interstate_peace_creates_first_class_treaty_terms(campaign):
     host = copy.deepcopy(planner.read('state/runtime.json')['hosts']['host_interstate_wars'])
     at = str(host['next_due'])
     planner._autonomy_interstate(host, 1, at)
+    settled = planner.read(path)['theaters']['qin_zhao_gyou']
+    treaty_ref = settled.get('last_treaty_ref')
+    assert treaty_ref
+    assert treaty_ref != previous_treaty_ref
     treaties = planner.read('state/politics/treaties.json')['records']
-    assert treaties
-    treaty = next(iter(treaties.values()))
+    treaty = treaties[treaty_ref]
+    assert treaty['kind'] == 'ceasefire_and_war_settlement'
+    assert treaty['theater_ref'] == 'qin_zhao_gyou'
     assert treaty['terms']['ceasefire'] is True
     assert treaty['terms']['territorial_status']['legal_claim_resolution'] == 'not_implied_by_military_control'
     assert CampaignTime.parse(treaty['truce_until']) > CampaignTime.parse(treaty['signed_at'])

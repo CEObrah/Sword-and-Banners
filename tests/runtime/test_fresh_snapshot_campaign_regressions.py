@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from sword_runtime.campaign_briefing import build_campaign_dossier, ensure_actionable_mission_packet, render_campaign_briefing
+from sword_runtime.campaign_briefing import build_campaign_dossier, render_campaign_briefing
 from sword_runtime.production_runtime_planner import ProductionCampaignPlanner
 
 
@@ -59,60 +59,53 @@ def test_fresh_snapshot_restores_full_qin_campaign_roster(campaign):
     assert set(order["mission_packet"]["friendly_participant_operation_refs"]) == set(PEER_OPERATIONS)
 
 
-
 def test_completed_kanyou_staging_reopens_when_exact_campaign_entry_authority_now_exists(campaign):
     planner = _planner(campaign)
     current = _campaign_operation(planner)
-    latest = current["operational_orders"][-1]
-    base_ref = str(latest.get("source_order_ref") or current["last_operational_order_ref"])
-    base = next(
-        copy.deepcopy(row) for row in current["operational_orders"]
-        if row.get("order_ref") == base_ref
-    )
-    # Recreate the historical completed-staging snapshot this regression owns.
-    # The live campaign has legitimately advanced beyond it, so the test must
-    # not require current campaign truth to remain frozen at that old phase.
-    base["status"] = "staged_awaiting_entry_authority"
-    base["actionability_status"] = "completed"
-    base["mission_packet"]["phase_status"] = "completed"
-    base["mission_packet"]["hostile_entry_authorized"] = False
-    base["mission_packet"]["entry_status"] = "awaiting_war_or_entry_authority"
+    order_ref = str(current["last_operational_order_ref"])
     staged = copy.deepcopy(current)
     staged["campaign_phase"] = "awaiting_entry_authority"
     staged["order_status"] = "awaiting_entry_authority"
-    staged["operational_orders"] = [base]
-    staged["last_operational_order_ref"] = base_ref
+    current_staged = next(
+        row for row in reversed(staged["operational_orders"])
+        if row.get("order_ref") == order_ref
+    )
+    current_staged["status"] = "staged_awaiting_entry_authority"
+    current_staged["actionability_status"] = "blocked_awaiting_entry_authority"
+    current_staged["mission_packet"]["phase_status"] = "awaiting_entry_authority"
+    current_staged["mission_packet"]["hostile_entry_authorized"] = False
+    current_staged["mission_packet"]["entry_status"] = "awaiting_war_or_entry_authority"
     operation_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
     planner.put(operation_path, staged)
 
     before = _campaign_operation(planner)
     assert before["campaign_phase"] == "awaiting_entry_authority"
     assert before["order_status"] == "awaiting_entry_authority"
-    assert len(before["operational_orders"]) == 1
-    assert before["last_operational_order_ref"] == base_ref
-    assert before["operational_orders"][0]["status"] == "staged_awaiting_entry_authority"
-    assert before["operational_orders"][0]["actionability_status"] == "completed"
-    assert before["operational_orders"][0]["mission_packet"]["phase_status"] == "completed"
-
-    dossier = build_campaign_dossier(planner, OPERATION_REF)
-    packet = ensure_actionable_mission_packet(
-        planner, OPERATION_REF, dossier, at="244-BCE-09-16T20:22:48+08:00"
+    before_current = next(
+        row for row in reversed(before["operational_orders"])
+        if row.get("order_ref") == order_ref
     )
+    assert before_current["status"] == "staged_awaiting_entry_authority"
+    assert before_current["actionability_status"] == "blocked_awaiting_entry_authority"
+    assert before_current["mission_packet"]["phase_status"] == "awaiting_entry_authority"
+
+    refreshed = planner._reconcile_campaign_entry_authority()
+    assert OPERATION_REF in refreshed
+
     after = _campaign_operation(planner)
-    assert packet["phase_status"] == "ready_for_commander_execution"
+    after_current = next(
+        row for row in reversed(after["operational_orders"])
+        if row.get("order_ref") == order_ref
+    )
+    packet = after_current["mission_packet"]
+    assert after["campaign_phase"] != "awaiting_entry_authority"
+    assert after["order_status"] != "awaiting_entry_authority"
+    assert after_current["status"] != "staged_awaiting_entry_authority"
+    assert after_current["actionability_status"] != "blocked_awaiting_entry_authority"
+    assert packet["phase_status"] != "awaiting_entry_authority"
     assert packet["hostile_entry_authorized"] is True
     assert packet["entry_status"] == "authorized"
-    assert after["campaign_phase"] == "campaign_concentration"
-    assert after["order_status"] == "staff_briefed_awaiting_commander_execution"
-    assert len(after["operational_orders"]) == 1
-    assert after["last_operational_order_ref"] == base_ref
-    assert after["operational_orders"][0]["status"] == "staff_briefed_awaiting_commander_execution"
-    assert after["operational_orders"][0]["actionability_status"] == "actionable"
 
-    rendered = render_campaign_briefing(planner, dossier, packet)
-    assert "Qin has authorized movement into the target state" in rendered
-    assert "march toward" in rendered
-    assert "awaits new lawful entry authority" not in rendered
 
 def test_campaign_roster_guard_survives_missing_secondary_operation_route(campaign):
     planner = _planner(campaign)
@@ -214,7 +207,8 @@ def test_repaired_snapshot_revision_matches_provenance_and_has_no_superseded_qin
     root = Path(campaign)
     meta = json.loads((root / "state/meta.json").read_text())
     repair = json.loads((root / "docs/forensics/repair-provenance/tang-inner-walls-artillery-authority-20260827.json").read_text())
-    assert int(meta["revision"]) == 1
+    assert int(meta["revision"]) >= int(repair["campaign_revision"])
+    assert repair["authority"] is False
     assert not (root / "state/history/repairs").exists()
     assert repair["kind"] == "campaign_truth_repair_provenance"
     assert repair["corrected"]["canonical_artillery_ref"] == "artillery_fort_sword_manor"

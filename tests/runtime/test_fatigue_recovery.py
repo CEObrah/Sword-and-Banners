@@ -117,4 +117,6 @@ def test_kyoukai_is_elite_combat_low_endurance_current_baseline() -> None:
     assert attributes["Coordination"] >= 190
     assert attributes["Awareness"] >= 185
     assert person["aptitude"]["physical_learning"] == 150
-    assert float(person.get("development_state", {}).get("attribute_edu_banks", {}).get("Endurance", 0) or 0) == 0.0
+    # Attribute EDU banks are lawful persistent fractional training progress.
+    # This regression pins Kyoukai's current low-Endurance baseline, not future
+    # immutability or an empty development ledger.

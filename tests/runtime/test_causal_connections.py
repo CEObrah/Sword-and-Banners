@@ -184,10 +184,6 @@ def test_undergarrisoned_unfunded_occupation_can_revolt_and_becomes_state_threat
     assert planner.read("state/population/zhao.json")["strata"]["rebel_military"] == int(rebel_force["headcount"])
     assert planner.read(planner.owner_path(threat["operation_ref"]))["status"] == "active"
 
-    # The state response consumes the saved threat while the revolt remains a real
-    # opposing faction/force/formation rather than a scalar-only obstacle. The live
-    # baseline already commits Qin's standing formations elsewhere, so this disposable
-    # fixture releases the mobile reserve from that unrelated operation first.
     _free_qin_mobile_reserve_for_state_response(planner)
     planner._autonomy_state(_state_host(planner, "qin"), 1, at)
     index = planner.read("state/operations/index.json")["operations"]
@@ -196,8 +192,6 @@ def test_undergarrisoned_unfunded_occupation_can_revolt_and_becomes_state_threat
     assert operation["target_location_ref"] == "loc_gyou"
     assert "occupation_revolt:loc_gyou" in operation["objective_refs"]
 
-    # The same force is combat-capable and autonomous losses are charged back to
-    # the exact Zhao rebel-military stratum rather than disappearing from population.
     pop_before = copy.deepcopy(planner.read("state/population/zhao.json"))
     force_before = int(planner.read(planner.owner_path(threat["force_ref"]))["headcount"])
     loss_result = planner._autonomy_apply_battle_losses(
@@ -341,7 +335,6 @@ def test_foreign_service_casualties_are_charged_to_origin_population(campaign):
     qin_before = copy.deepcopy(planner.read(qin_pop_path))
     zhao_before = copy.deepcopy(planner.read("state/population/zhao.json"))
     loss = 10
-    # Reproduce the base battle reducer's owner-state population debit before exact provenance reconciliation.
     qin_debited = copy.deepcopy(qin_before)
     qin_debited["strata"]["active_military"] -= loss
     qin_debited["population_total"] -= loss
@@ -393,8 +386,6 @@ def test_house_can_proclaim_proto_state_and_take_territory_with_exact_occupation
         if isinstance(event, dict):
             event["suspended"] = True
     planner.put("state/runtime.json", runtime)
-    # The operation index is routing-only. Losing the route must not erase the
-    # exact occupation owner or block a consequence backed by that owner.
     operation_index = copy.deepcopy(planner.read("state/operations/index.json"))
     operation_index.get("operations", {}).pop(operation_ref, None)
     planner.put("state/operations/index.json", operation_index)
@@ -406,8 +397,6 @@ def test_house_can_proclaim_proto_state_and_take_territory_with_exact_occupation
     assert polity["status"] == "proto_state"
     assert "loc_gyou" in polity["occupied_site_refs"]
 
-    # Recognition is a separate state-owned act; two exact state recognitions elevate
-    # the proto-state without rewriting House identity into an existing kingdom.
     for state in ("qin", "wei"):
         recognize = SimpleNamespace(command_type="state_action", digest=f"recognize{state}1234", semantic_digest=f"recognize{state}1234", request_id=f"recognize-{state}", actor_id="internal:sword-autonomy", expected_revision=int(planner.read("state/meta.json")["revision"]), submitted_at=str(planner.read("state/meta.json")["time"]))
         planner._recognize_polity(recognize, {"state": state, "action": "recognize_polity", "polity_ref": "polity_tang"})
@@ -445,7 +434,6 @@ def test_project_cancellation_releases_workers_and_refunds_unused_inputs(campaig
     assert 0 <= float(project["progress_at_cancellation"]) < 1
 
 
-
 def test_weighted_local_baselines_preserve_state_totals_and_site_differences(campaign):
     planner = planner_for(campaign); planner._reset()
     baselines = planner._ensure_local_site_baselines("zhao")
@@ -481,7 +469,6 @@ def test_hostile_interdiction_operation_disrupts_market_route_without_territoria
     assert planner.read("state/territory/control.json")["sites"]["loc_kankoku_pass"]["controller"] == "state_qin"
 
 
-
 def test_archived_player_facing_report_remains_discoverable_without_exact_id(campaign):
     planner = planner_for(campaign); planner._reset()
     _path, owner = read_causal_event_owner(planner)
@@ -502,9 +489,21 @@ def test_archived_player_facing_report_remains_discoverable_without_exact_id(cam
         }
     write_causal_event_owner(planner, owner)
     assert old_ref not in planner.read("state/event/events-messages-and-movement.json")["causal_events"]
-    page = triggered_interaction_page(planner, limit=20)
-    assert page["count"] >= 1
-    assert old_ref in {row["interaction_ref"] for row in page["interaction_handles"]}
+
+    cursor = None
+    found = False
+    seen_cursors = set()
+    while cursor not in seen_cursors:
+        seen_cursors.add(cursor)
+        page = triggered_interaction_page(planner, cursor=cursor, limit=20)
+        assert page["count"] >= 1
+        if old_ref in {row["interaction_ref"] for row in page["interaction_handles"]}:
+            found = True
+            break
+        cursor = page.get("next_cursor")
+        if cursor is None:
+            break
+    assert found
 
 
 def test_causal_archive_metadata_and_new_route_shards_remain_bounded(campaign, monkeypatch):
@@ -514,8 +513,6 @@ def test_causal_archive_metadata_and_new_route_shards_remain_bounded(campaign, m
     planner = planner_for(campaign); planner._reset()
     _path, owner = read_causal_event_owner(planner)
     now = str(planner.read("state/runtime.json")["world_time"])
-    # A small patched metadata window exercises the same bounded behavior without
-    # making the regression itself a multi-minute synthetic archive benchmark.
     for i in range(EVENT_HEAD_LIMIT + 256 * (metadata_limit + 2)):
         ref = f"event_archive_scale_{i:06d}"
         owner["causal_events"][ref] = {
@@ -527,7 +524,6 @@ def test_causal_archive_metadata_and_new_route_shards_remain_bounded(campaign, m
     assert len(hot.get("archives", [])) <= metadata_limit
     route_paths = sorted(path for path in planner._writes if path.startswith("state/event/index/route_"))
     assert route_paths
-    # New route shards use four hex characters, not the older two-hex bucket.
     assert all(len(Path(path).stem.removeprefix("route_")) == 4 for path in route_paths)
     assert get_causal_event(planner, "event_archive_scale_000000") is not None
 
@@ -749,9 +745,6 @@ def test_local_population_ledger_conserves_regional_bodies_and_blocks_native_rec
     sites = pop["local_population"]["sites"]
     assert sum(planner._local_origin_living(row) for row in sites.values()) == int(pop["population_total"])
 
-    # Make Gyou the only locally agricultural Zhao source while leaving the global
-    # agricultural stratum untouched.  Once Qin controls Gyou, Zhao must not be able
-    # to recruit those anonymous statewide bodies through another site.
     for row in sites.values():
         row.setdefault("civilian_strata", {})["agricultural"] = 0
         planner._sync_local_population_row(row)
@@ -824,7 +817,6 @@ def test_occupation_recruitment_updates_exact_local_origin_ledger(campaign):
 
     qin_force_path = "state/forces/state-qin.json"
     qin_force = copy.deepcopy(planner.read(qin_force_path)); qin_force["authorized_strength"] = int(qin_force["headcount"]) + 500; planner.put(qin_force_path, qin_force)
-    # Keep this assertion about occupied recruitment isolated from native Qin intake.
     qin_path = "state/population/qin.json"
     _qp, qin = planner._ensure_local_population_ledger("qin", copy.deepcopy(planner.read(qin_path)))
     for row in qin["local_population"]["sites"].values():
@@ -900,7 +892,6 @@ def test_adjacent_sovereigns_do_not_drift_into_war_from_elapsed_pressure_alone(c
     planner.put(path, world)
     host = copy.deepcopy(planner.read("state/runtime.json")["hosts"]["host_interstate_wars"])
     at = CampaignTime.parse(str(host["next_due"]))
-    # Many peace reviews cannot manufacture willingness or a casus belli.
     for _ in range(12):
         host["next_due"] = str(at)
         planner._autonomy_interstate(host, 1, str(at))
@@ -947,7 +938,7 @@ def test_autonomous_counterinsurgency_settles_real_contact_and_conserved_losses(
     state = copy.deepcopy(planner.read("state/states/qin.json")); state["treasury_silver"] = 0; planner.put("state/states/qin.json", state)
     planner._settle_occupation_administration("qin", 1, at)
     revolt = planner.read("state/territory/control.json")["sites"]["loc_gyou"]["governance"]["revolt"]
-    faction_ref = revolt["faction_ref"]; rebel_ref = revolt["formation_refs"][0]
+    faction_ref = revolt["faction_ref"]
     _free_qin_mobile_reserve_for_state_response(planner)
     planner._autonomy_state(_state_host(planner, "qin"), 1, at)
     index = planner.read("state/operations/index.json")["operations"]
@@ -1062,11 +1053,11 @@ def test_exact_treaty_registry_prevents_duplicate_standing_agreements_when_summa
         "proposer_ref": "state_wei", "target_ref": "state_qin",
         "kind": "military_access", "direction": "proposer_to_target", "terms": {"duration_days": 365},
     }, str(CampaignTime.parse(at).add_days(1)))
-    # The convenience bilateral status now describes the most recent agreement,
-    # but the alliance remains an exact active treaty and must not be forgotten.
     assert planner.read("state/states/qin.json")["diplomacy"]["state_wei"]["status"] == "access_agreement"
     pair = planner._active_treaties_between("state_qin", "state_wei", str(CampaignTime.parse(at).add_days(2)))
-    assert {row["kind"] for row in pair} == {"alliance", "military_access"}
+    pair_by_ref = {row["treaty_ref"]: row for row in pair}
+    assert pair_by_ref[alliance_ref]["kind"] == "alliance"
+    assert pair_by_ref[access_ref]["kind"] == "military_access"
 
     renewed_ref = planner._activate_diplomatic_treaty({
         "proposal_ref": "diplomatic_proposal_qin_wei_duplicate_alliance_registry_test",
@@ -1167,9 +1158,6 @@ def test_defensive_alliance_creates_exact_third_party_war_obligation_when_ally_i
 
 def test_military_access_treaty_is_consumed_by_exact_formation_transit_validation(campaign):
     planner = planner_for(campaign); planner._reset(); at = str(planner.read("state/runtime.json")["world_time"])
-    # Isolate peaceful-access behavior from any live Qin->Zhao war intent in the
-    # campaign snapshot. Wartime entry is independently lawful and would bypass
-    # the treaty condition this regression is specifically testing.
     qin_path = "state/states/qin.json"
     qin = copy.deepcopy(planner.read(qin_path))
     qin["war_intents"] = [
