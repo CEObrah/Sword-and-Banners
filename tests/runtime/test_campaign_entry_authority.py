@@ -25,6 +25,15 @@ def _raw_operation(root: Path) -> dict:
     return json.loads((root / index["operations"][OPERATION_REF]).read_text(encoding="utf-8"))
 
 
+def _current_order(operation: dict) -> dict:
+    order_ref = str(operation.get("last_operational_order_ref", ""))
+    return next(
+        row
+        for row in reversed(operation.get("operational_orders", []))
+        if isinstance(row, dict) and (not order_ref or str(row.get("order_ref", "")) == order_ref)
+    )
+
+
 def _formation_locations(root: Path, operation: dict) -> dict[str, str | None]:
     owners = json.loads((root / "state/index/owner-index.json").read_text(encoding="utf-8"))["owners"]
     return {
@@ -50,12 +59,12 @@ def test_live_records_arc_shape_projects_exact_qin_campaign_entry_authority(camp
     authorities = projected_campaign_entry_authorities(planner, "state_qin")
     authority = next(row for row in authorities if row["operation_ref"] == OPERATION_REF)
     operation = _raw_operation(root)
-    latest = operation["operational_orders"][-1]
+    current = _current_order(operation)
     assert authority["target_ref"] == "state_wei"
-    # Current-save tests must follow the exact active order rather than pinning
-    # a superseded order ID from an earlier campaign revision.
-    assert authority["order_ref"] == latest["order_ref"]
-    expected_arc_ref = latest.get("arc_ref") or operation.get("campaign_arc_ref") or next(
+    # Current-save tests must follow the exact active order named by the
+    # operation rather than assuming list tail equals current order.
+    assert authority["order_ref"] == current["order_ref"]
+    expected_arc_ref = current.get("arc_ref") or operation.get("campaign_arc_ref") or next(
         ref for ref in operation.get("objective_refs", [])
         if isinstance(ref, str) and ref.startswith("arc_")
     )
@@ -91,10 +100,10 @@ def test_reconciliation_reopens_completed_staging_without_moving_army_or_rewriti
     staged = json.loads(json.dumps(canonical_operation))
     staged["campaign_phase"] = "awaiting_entry_authority"
     staged["order_status"] = "awaiting_entry_authority"
-    latest_staged = staged["operational_orders"][-1]
-    latest_staged["status"] = "staged_awaiting_entry_authority"
-    latest_staged["actionability_status"] = "blocked_awaiting_entry_authority"
-    packet_staged = latest_staged["mission_packet"]
+    current_staged = _current_order(staged)
+    current_staged["status"] = "staged_awaiting_entry_authority"
+    current_staged["actionability_status"] = "blocked_awaiting_entry_authority"
+    packet_staged = current_staged["mission_packet"]
     packet_staged["hostile_entry_authorized"] = False
     packet_staged["entry_status"] = "awaiting_war_or_entry_authority"
     packet_staged["phase_status"] = "awaiting_entry_authority"
@@ -105,23 +114,24 @@ def test_reconciliation_reopens_completed_staging_without_moving_army_or_rewriti
     locations_before = _formation_locations(root, operation_before)
 
     assert operation_before["campaign_phase"] == "awaiting_entry_authority"
-    assert operation_before["operational_orders"][-1]["status"] == "staged_awaiting_entry_authority"
-    assert operation_before["operational_orders"][-1]["mission_packet"]["hostile_entry_authorized"] is False
+    current_before = _current_order(operation_before)
+    assert current_before["status"] == "staged_awaiting_entry_authority"
+    assert current_before["mission_packet"]["hostile_entry_authorized"] is False
 
     refreshed = planner._reconcile_campaign_entry_authority()
     assert refreshed == [OPERATION_REF]
 
     operation_path = planner.read("state/operations/index.json")["operations"][OPERATION_REF]
     operation_after = planner.read(operation_path)
-    latest = operation_after["operational_orders"][-1]
-    packet = latest["mission_packet"]
+    current = _current_order(operation_after)
+    packet = current["mission_packet"]
     # Entry reconciliation owns the stale authority gate only. Later campaign
     # phases are separate owners, so this regression asserts that the gate is
     # cleared rather than asking entry reconciliation to reconstruct later play.
     assert operation_after["campaign_phase"] != "awaiting_entry_authority"
     assert operation_after["order_status"] != "awaiting_entry_authority"
-    assert latest["status"] != "staged_awaiting_entry_authority"
-    assert latest["actionability_status"] != "blocked_awaiting_entry_authority"
+    assert current["status"] != "staged_awaiting_entry_authority"
+    assert current["actionability_status"] != "blocked_awaiting_entry_authority"
     assert packet["phase_status"] != "awaiting_entry_authority"
     assert packet["hostile_entry_authorized"] is True
     assert packet["entry_status"] == "authorized"
