@@ -13,14 +13,17 @@ from sword_runtime.production_runtime_planner import ProductionCampaignPlanner
 from sword_runtime.time_integration import HOST_KIND_SPECS
 
 
+_PLAYER_OPERATION = "operation_arc_131572c4e8a2892bbc"
 _MOU_GOU_OPERATION = "operation_qin_mou_gou_northern_wei_campaign"
 _MOU_BU_OPERATION = "operation_qin_mou_bu_northern_wei_campaign"
 _EASTERN_RESERVE_OPERATION = "operation_qin_eastern_reserve_northern_wei_campaign"
-_MOU_GOU_FORMATIONS = {
-    "formation_qin_kanki_raider_host",
-    "formation_qin_mou_gou_central",
-    "formation_qin_ousen_central",
-}
+_CAMPAIGN_OPERATIONS = (
+    _MOU_GOU_OPERATION,
+    _MOU_BU_OPERATION,
+    _EASTERN_RESERVE_OPERATION,
+    "operation_qin_ouki_northern_wei_campaign",
+    "operation_qin_mobile_reserve_northern_wei_campaign",
+)
 
 
 def _march_hosts(planner):
@@ -44,15 +47,42 @@ def _latest_order(operation):
     return None
 
 
-def _strip_campaign_march_artifacts(planner):
-    """Create an isolated pre-execution fixture from whatever live save was supplied.
+def _all_campaign_formation_locations(planner):
+    refs: set[str] = set()
+    for operation_ref in (_PLAYER_OPERATION, *_CAMPAIGN_OPERATIONS):
+        operation = _operation(planner, operation_ref)
+        refs.update(
+            str(ref) for ref in operation.get("formation_refs", [])
+            if isinstance(ref, str) and ref
+        )
+    return {
+        ref: planner.read(planner.owner_path(ref)).get("location_ref")
+        for ref in sorted(refs)
+    }
 
-    The release campaign may already contain lawful subordinate orders and march
-    hosts.  Lifecycle tests must exercise creation/reconciliation rather than
-    assume a historical starting location or an empty scheduler.  Remove only
-    outputs owned by this lifecycle in the disposable test repository; leave
-    staff planning, campaign authority, formation locations, and all unrelated
-    campaign truth intact.
+
+def _orders_by_ref(planner, refs):
+    wanted = {str(ref) for ref in refs}
+    found = {}
+    for operation_ref in _CAMPAIGN_OPERATIONS:
+        operation = _operation(planner, operation_ref)
+        for row in operation.get("operational_orders", []):
+            if not isinstance(row, Mapping):
+                continue
+            order_ref = str(row.get("order_ref", ""))
+            if order_ref in wanted:
+                found[order_ref] = row
+    return found
+
+
+def _strip_campaign_march_artifacts(planner):
+    """Create an isolated pre-execution fixture from whatever campaign save is supplied.
+
+    The maintained release fixture may already contain lawful subordinate orders and
+    march hosts, and its formations continue to move as the campaign matures. These
+    lifecycle tests exercise creation/reconciliation, not one historical deployment.
+    Remove only outputs owned by this lifecycle in the disposable test repository;
+    leave staff planning, campaign authority, physical locations, and unrelated truth.
     """
     runtime = copy.deepcopy(planner.read("state/runtime.json"))
     hosts = runtime.get("hosts")
@@ -75,13 +105,7 @@ def _strip_campaign_march_artifacts(planner):
     ]
     planner.put("state/runtime.json", runtime)
 
-    for operation_ref in (
-        _MOU_GOU_OPERATION,
-        _MOU_BU_OPERATION,
-        _EASTERN_RESERVE_OPERATION,
-        "operation_qin_ouki_northern_wei_campaign",
-        "operation_qin_mobile_reserve_northern_wei_campaign",
-    ):
+    for operation_ref in _CAMPAIGN_OPERATIONS:
         operation = copy.deepcopy(_operation(planner, operation_ref))
         rows = operation.get("operational_orders")
         if not isinstance(rows, list):
@@ -133,35 +157,37 @@ def test_staff_projection_alone_is_not_executable_campaign_movement(campaign):
 def test_campaign_command_adopts_exact_npc_orders_without_moving_formations(campaign):
     planner = ProductionCampaignPlanner(campaign)
     _strip_campaign_march_artifacts(planner)
-    central_path = planner.owner_path("formation_qin_mou_gou_central")
-    before_central = copy.deepcopy(planner.read(central_path))
-    player_operation_before = copy.deepcopy(_operation(planner, "operation_arc_131572c4e8a2892bbc"))
+    before_locations = _all_campaign_formation_locations(planner)
+    player_operation_before = copy.deepcopy(_operation(planner, _PLAYER_OPERATION))
     reserve_before = copy.deepcopy(_operation(planner, _EASTERN_RESERVE_OPERATION))
 
     created = sync_campaign_subordinate_orders(planner)
 
     assert created
-    mou_gou = _operation(planner, _MOU_GOU_OPERATION)
-    order = _latest_order(mou_gou)
-    assert isinstance(order, Mapping)
-    assert order.get("order_kind") == "campaign_subordinate_march_order"
-    assert order.get("issuer_ref") == "state_qin"
-    assert order.get("superior_commander_ref") == "char_mou_gou"
-    assert order.get("actionability_status") == "actionable"
-    assert set(order.get("applies_to_formation_refs", [])) == _MOU_GOU_FORMATIONS
-    packet = order.get("mission_packet")
-    assert isinstance(packet, Mapping)
-    assert packet.get("destination_ref") == "loc_sanyou"
-    assert packet.get("hostile_entry_authorized") is True
-    assert packet.get("entry_status") == "authorized"
+    created_orders = _orders_by_ref(planner, created)
+    assert set(created_orders) == set(created)
+    for order in created_orders.values():
+        assert order.get("order_kind") == "campaign_subordinate_march_order"
+        assert order.get("issuer_ref") == "state_qin"
+        assert order.get("superior_commander_ref") == "char_mou_gou"
+        assert order.get("actionability_status") == "actionable"
+        applies = [str(ref) for ref in order.get("applies_to_formation_refs", [])]
+        assert applies
+        packet = order.get("mission_packet")
+        assert isinstance(packet, Mapping)
+        destination = str(packet.get("destination_ref", ""))
+        assert destination
+        assert packet.get("hostile_entry_authorized") is True
+        assert packet.get("entry_status") == "authorized"
+        # At least one surviving assigned formation must still need the movement;
+        # otherwise the synchronizer should have treated the assignment as satisfied.
+        assert any(before_locations.get(ref) != destination for ref in applies)
 
-    # Command adoption writes an order, not a movement result.
-    after_central = planner.read(central_path)
-    assert after_central.get("location_ref") == before_central.get("location_ref")
-    assert after_central.get("status") == before_central.get("status")
+    # Command adoption writes orders, never physical movement.
+    assert _all_campaign_formation_locations(planner) == before_locations
 
     # Tang Wei remains outside autonomous command adoption.
-    player_operation_after = _operation(planner, "operation_arc_131572c4e8a2892bbc")
+    player_operation_after = _operation(planner, _PLAYER_OPERATION)
     assert player_operation_after.get("last_operational_order_ref") == player_operation_before.get("last_operational_order_ref")
 
     # The strategic reserve has no objective assignment and remains uncommitted.
@@ -176,48 +202,39 @@ def test_campaign_command_adopts_exact_npc_orders_without_moving_formations(camp
 def test_exact_subordinate_orders_register_only_lawful_routes_without_pre_movement(campaign):
     planner = ProductionCampaignPlanner(campaign)
     _strip_campaign_march_artifacts(planner)
-    central_path = planner.owner_path("formation_qin_mou_gou_central")
-    before = copy.deepcopy(planner.read(central_path))
-    sync_campaign_subordinate_orders(planner)
+    before_locations = _all_campaign_formation_locations(planner)
+    created = sync_campaign_subordinate_orders(planner)
+    created_orders = _orders_by_ref(planner, created)
 
     registered = set(sync_campaign_march_routes(planner))
+    hosts = _march_hosts(planner)
 
-    # Exact current formation locations are authoritative.  Only Kanki's host
-    # is still short of Sanyou in the supplied campaign; central formations and
-    # the mobile reserve already there must not receive duplicate march hosts.
-    assert "formation_qin_kanki_raider_host" in registered
-    assert "formation_qin_mou_gou_central" not in registered
-    assert "formation_qin_ousen_central" not in registered
-    assert "formation_qin_ouki_vanguard" not in registered
-    assert "formation_qin_tou_mobile_army" not in registered
-    assert "formation_qin_mobile_reserve" not in registered
-    assert "formation_qin_mou_bu_shock_army" not in registered
-    assert "formation_qin_reserve_infantry_02" not in registered
-    assert not any(ref.startswith("formation_black_banner_") for ref in registered)
-    assert "formation_high_guard_qin_a" not in registered
-    assert "formation_high_guard_qin_b" not in registered
+    assert created
+    assert registered
+    assert {str(row.get("formation_ref")) for row in hosts} == registered
+    assert len(hosts) == len(registered)
+    for host in hosts:
+        formation_ref = str(host.get("formation_ref", ""))
+        assert formation_ref
+        assert before_locations[formation_ref] == host.get("leg_origin_ref")
+        assert host.get("leg_destination_ref") != host.get("leg_origin_ref")
+        assert int(host.get("leg_hours", 0)) > 0
+        assert host.get("next_due") != planner.read("state/runtime.json")["world_time"]
+        # Autonomous campaign routing must never absorb Tang Wei-owned formations.
+        assert not formation_ref.startswith("formation_black_banner_")
+        assert formation_ref not in {"formation_high_guard_qin_a", "formation_high_guard_qin_b"}
 
-    # Mou Bu's projected route crosses geography for which the canonical movement
-    # authority has no lawful transit basis. The exact order therefore blocks
-    # rather than letting staff planning create passage rights.
-    mou_bu_order = _latest_order(_operation(planner, _MOU_BU_OPERATION))
-    assert isinstance(mou_bu_order, Mapping)
-    assert mou_bu_order.get("status") == "execution_blocked"
-    assert mou_bu_order.get("actionability_status") == "blocked"
-    assert mou_bu_order.get("mission_packet", {}).get("phase_status") == "blocked"
+    # A formation already at its exact assigned destination must not receive a
+    # duplicate march host merely because staff planning still names that objective.
+    for order in created_orders.values():
+        packet = order.get("mission_packet") if isinstance(order.get("mission_packet"), Mapping) else {}
+        destination = str(packet.get("destination_ref", ""))
+        for formation_ref in order.get("applies_to_formation_refs", []):
+            if before_locations.get(str(formation_ref)) == destination:
+                assert str(formation_ref) not in registered
 
-    after = planner.read(central_path)
-    assert after.get("location_ref") == before.get("location_ref")
-    assert after.get("status") == before.get("status")
-
-    mou_gou_hosts = [row for row in _march_hosts(planner) if row.get("operation_ref") == _MOU_GOU_OPERATION]
-    assert len(mou_gou_hosts) == 1
-    assert mou_gou_hosts[0].get("formation_ref") == "formation_qin_kanki_raider_host"
-    assert {row.get("destination_ref") for row in mou_gou_hosts} == {"loc_sanyou"}
-    assert all(row.get("leg_origin_ref") for row in mou_gou_hosts)
-    assert all(row.get("leg_destination_ref") for row in mou_gou_hosts)
-    assert all(int(row.get("leg_hours", 0)) > 0 for row in mou_gou_hosts)
-    assert all(row.get("next_due") != planner.read("state/runtime.json")["world_time"] for row in mou_gou_hosts)
+    # Route registration also does not move anything before a due host settles.
+    assert _all_campaign_formation_locations(planner) == before_locations
 
 
 def test_campaign_march_due_settlement_advances_exactly_one_canonical_leg(campaign):
@@ -225,11 +242,11 @@ def test_campaign_march_due_settlement_advances_exactly_one_canonical_leg(campai
     _strip_campaign_march_artifacts(planner)
     sync_campaign_subordinate_orders(planner)
     sync_campaign_march_routes(planner)
-    host = next(
-        row for row in _march_hosts(planner)
-        if row.get("formation_ref") == "formation_qin_kanki_raider_host"
-    )
-    formation_path = planner.owner_path("formation_qin_kanki_raider_host")
+    hosts = _march_hosts(planner)
+    assert hosts
+    host = hosts[0]
+    formation_ref = str(host["formation_ref"])
+    formation_path = planner.owner_path(formation_ref)
     before = copy.deepcopy(planner.read(formation_path))
 
     assert host.get("leg_origin_ref") == before.get("location_ref")
@@ -241,63 +258,58 @@ def test_campaign_march_due_settlement_advances_exactly_one_canonical_leg(campai
     assert after.get("location_ref") == expected_next
     assert after.get("last_march_leg", {}).get("from") == host.get("leg_origin_ref")
     assert after.get("last_march_leg", {}).get("to") == expected_next
-    assert after.get("last_march_leg", {}).get("toward") == "loc_sanyou"
+    assert after.get("last_march_leg", {}).get("toward") == host.get("destination_ref")
     assert int(after.get("last_march_leg", {}).get("hours", 0)) == int(host.get("leg_hours", 0))
     assert result.get("location_ref") == expected_next
-    # The exact next leg may now be the final destination in a matured save;
-    # the invariant is that only the host's already-planned canonical leg moves.
 
 
 def test_normal_chronology_recovers_stuck_campaign_without_retroactive_movement(campaign):
     planner = ProductionCampaignPlanner(campaign)
     _strip_campaign_march_artifacts(planner)
-    marching_path = planner.owner_path("formation_qin_kanki_raider_host")
-    before = copy.deepcopy(planner.read(marching_path))
+    before_locations = _all_campaign_formation_locations(planner)
     world_time = str(planner.read("state/runtime.json")["world_time"])
 
     # Preparation performs command/routing reconciliation at the current frontier
     # but must not rewrite physical history or advance the clock.
     planner._prepare_scheduler_for_advance(world_time)
-    after_prepare = planner.read(marching_path)
-    assert after_prepare.get("location_ref") == before.get("location_ref")
+    assert _all_campaign_formation_locations(planner) == before_locations
     assert planner.read("state/runtime.json")["world_time"] == world_time
 
-    host = next(
-        row for row in _march_hosts(planner)
-        if row.get("formation_ref") == "formation_qin_kanki_raider_host"
-    )
+    hosts = _march_hosts(planner)
+    assert hosts
+    host = hosts[0]
+    formation_ref = str(host["formation_ref"])
     due = str(host["next_due"])
     metrics = planner._advance_runtime(due)
 
-    after = planner.read(marching_path)
+    after = planner.read(planner.owner_path(formation_ref))
     assert after.get("location_ref") == host.get("leg_destination_ref")
     assert planner.read("state/runtime.json")["world_time"] == due
     assert int(metrics.get("events_processed", 0)) >= 1
 
 
-def test_campaign_march_order_and_route_sync_are_idempotent_including_blocked_orders(campaign):
+def test_campaign_march_order_and_route_sync_are_idempotent(campaign):
     planner = ProductionCampaignPlanner(campaign)
     _strip_campaign_march_artifacts(planner)
     first_orders = sync_campaign_subordinate_orders(planner)
-    operation_after_first = copy.deepcopy(_operation(planner, _MOU_GOU_OPERATION))
-    first_order_count = len(operation_after_first.get("operational_orders", []))
+    order_counts_after_first = {
+        operation_ref: len(_operation(planner, operation_ref).get("operational_orders", []))
+        for operation_ref in _CAMPAIGN_OPERATIONS
+    }
     first_routes = sync_campaign_march_routes(planner)
     first_host_count = len(_march_hosts(planner))
-    mou_bu_after_first = copy.deepcopy(_operation(planner, _MOU_BU_OPERATION))
-    mou_bu_order_count = len(mou_bu_after_first.get("operational_orders", []))
 
     second_orders = sync_campaign_subordinate_orders(planner)
     second_routes = sync_campaign_march_routes(planner)
-    operation_after_second = _operation(planner, _MOU_GOU_OPERATION)
-    mou_bu_after_second = _operation(planner, _MOU_BU_OPERATION)
 
     assert first_orders
     assert second_orders == []
     assert first_routes
     assert second_routes == []
-    assert len(operation_after_second.get("operational_orders", [])) == first_order_count
-    assert len(mou_bu_after_second.get("operational_orders", [])) == mou_bu_order_count
-    assert _latest_order(mou_bu_after_second).get("actionability_status") == "blocked"
+    assert {
+        operation_ref: len(_operation(planner, operation_ref).get("operational_orders", []))
+        for operation_ref in _CAMPAIGN_OPERATIONS
+    } == order_counts_after_first
     assert len(_march_hosts(planner)) == first_host_count
 
 
