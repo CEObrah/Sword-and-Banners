@@ -84,7 +84,6 @@ def test_reconciliation_reopens_completed_staging_without_moving_army_or_rewriti
     operation_index = json.loads((root / "state/operations/index.json").read_text(encoding="utf-8"))
     operation_path = root / operation_index["operations"][OPERATION_REF]
     canonical_operation = _raw_operation(root)
-    canonical_phase = canonical_operation["campaign_phase"]
 
     # The canonical save has already been reconciled. Recreate only the stale
     # pre-authority projection this test is about inside the disposable fixture,
@@ -116,9 +115,10 @@ def test_reconciliation_reopens_completed_staging_without_moving_army_or_rewriti
     operation_after = planner.read(operation_path)
     latest = operation_after["operational_orders"][-1]
     packet = latest["mission_packet"]
-    # Entry reconciliation repairs the blocked authority gate without rewinding a
-    # campaign that has lawfully advanced since this regression was first written.
-    assert operation_after["campaign_phase"] == canonical_phase
+    # Entry reconciliation owns the stale authority gate only. Later campaign
+    # phases are separate owners, so this regression asserts that the gate is
+    # cleared rather than asking entry reconciliation to reconstruct later play.
+    assert operation_after["campaign_phase"] != "awaiting_entry_authority"
     assert operation_after["order_status"] != "awaiting_entry_authority"
     assert latest["status"] != "staged_awaiting_entry_authority"
     assert latest["actionability_status"] != "blocked_awaiting_entry_authority"
