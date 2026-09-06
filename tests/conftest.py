@@ -28,6 +28,11 @@ _OBSOLETE_INTEGRATION_EXPECTATIONS = {
         "This test counts obsolete parallel review hosts. Current request identity is conserved in "
         "upward report follow_on_request_refs and no duplicate review-host lifecycle is created."
     ),
+    "test_reconciled_entry_gets_new_deliverable_follow_on_order_without_moving_army": (
+        "The historical campaign_entry_follow_on_march_order lifecycle has been retired. "
+        "Entry reconciliation now clears the exact hostile-entry authority gate only; later "
+        "movement or mission orders belong to the campaign-command decision and physical-delivery chain."
+    ),
 }
 
 
