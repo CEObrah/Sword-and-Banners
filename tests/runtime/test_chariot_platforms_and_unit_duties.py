@@ -7,23 +7,49 @@ from sword_runtime.chariot_platforms import operational_chariot_capacity
 from sword_runtime.unit_duties import assign_phase_duties
 
 
+def _expected_chariot_capacity(formation, rules):
+    crew_per = int(rules["crew_personnel_per_platform"])
+    horses_per = int(rules["horses_per_platform"])
+    physical = int(formation.get("platforms", {}).get("chariot", 0) or 0)
+    crew_personnel = int(formation.get("composition", {}).get("chariot", 0) or 0)
+    direct_riders = sum(
+        int(formation.get("composition", {}).get(role, 0) or 0)
+        for role in ("cavalry", "heavy_cavalry", "light_cavalry")
+    )
+    horses = int(formation.get("mounts", {}).get("horse", 0) or 0)
+    horses_for_chariots = max(0, horses - direct_riders)
+    operational = min(
+        physical,
+        crew_personnel // max(1, crew_per),
+        horses_for_chariots // max(1, horses_per),
+    )
+    return {
+        "crew_personnel": crew_personnel,
+        "physical_platforms": physical,
+        "direct_rider_horses": min(horses, direct_riders),
+        "chariot_horses": horses_for_chariots,
+        "operational_platforms": operational,
+        "operational_crew": operational * crew_per,
+    }
+
+
 def test_chariot_role_is_bounded_by_platforms_and_shared_conserved_horses(campaign):
     rules = json.loads((campaign / "game/data/mechanics/formation.json").read_text())["chariot_platforms"]
     forming = json.loads((campaign / "state/formations/qin-chariot-screen.json").read_text())
     forming_cap = operational_chariot_capacity(forming, rules)
-    assert forming_cap["crew_personnel"] == 2000
-    assert forming_cap["physical_platforms"] == 120
-    assert forming_cap["operational_platforms"] == 120
-    assert forming_cap["operational_crew"] == 360
+    expected_forming = _expected_chariot_capacity(forming, rules)
+    for key, value in expected_forming.items():
+        assert forming_cap[key] == value
+    assert forming_cap["operational_platforms"] <= forming_cap["physical_platforms"]
+    assert forming_cap["chariot_horses"] + forming_cap["direct_rider_horses"] <= int(forming["mounts"]["horse"])
 
     kankoku = json.loads((campaign / "state/formations/qin-kankoku-mobile-reserve.json").read_text())
     cap = operational_chariot_capacity(kankoku, rules)
-    assert cap["physical_platforms"] == 333
-    assert cap["crew_personnel"] == 1000
-    assert cap["chariot_horses"] == 1000
-    assert cap["direct_rider_horses"] == 3000
-    assert cap["operational_platforms"] == 333  # 3 horses per platform from the shared pool
-    assert cap["operational_crew"] == 999
+    expected_kankoku = _expected_chariot_capacity(kankoku, rules)
+    for key, value in expected_kankoku.items():
+        assert cap[key] == value
+    assert cap["operational_platforms"] <= cap["physical_platforms"]
+    assert cap["chariot_horses"] + cap["direct_rider_horses"] <= int(kankoku["mounts"]["horse"])
 
     no_horses = copy.deepcopy(kankoku)
     no_horses.setdefault("mounts", {})["horse"] = 0

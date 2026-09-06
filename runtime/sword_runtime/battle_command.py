@@ -595,6 +595,18 @@ def review_battle_command_plan(planner: Any, operation: Mapping[str, Any], battl
         ]
         if not active_mission_refs:
             continue
+        # A withdrawal that became effective at this exact chronology boundary is
+        # terminal evidence first, not an invitation for the standing mission
+        # review to overwrite it in the same instant.  If the wider battle does
+        # not terminate, a later lawful review/counter-order may still retask it.
+        if all(
+            isinstance(assignments.get(ref), Mapping)
+            and assignments[ref].get("order") == "withdraw"
+            and not assignments[ref].get("pending_order")
+            and str(assignments[ref].get("updated_at") or "") == at
+            for ref in active_mission_refs
+        ):
+            continue
         sector = sectors[sector_ref]
         pressure = sector.get("pressure_milli") if isinstance(sector.get("pressure_milli"), Mapping) else {}
         own_pressure = max(0, min(1000, int(pressure.get(side_ref, 0) or 0)))

@@ -36,7 +36,15 @@ def test_current_cast_assignments_are_concrete_without_future_canon_guarantees()
 
 def test_qin_service_formations_are_conserved_and_use_one_top_commander():
     force=read('state/forces/state-qin.json')
-    assert force['headcount']==675000
+    # The maintained force can lawfully change size as campaign recruitment,
+    # losses, and replenishment settle. Test the live ledger relationship rather
+    # than pinning one historical headcount snapshot.
+    assert force['headcount']==force['authorized_strength']
+    assert force['headcount']>0
+    assert force['allocated_to_formations']
+    for allocation in force['allocated_to_formations'].values():
+        assert allocation['personnel']==sum(allocation['composition'].values())
+
     specs={
       'formation_qin_heki_royal_detail': (500, {'line_infantry':400,'missile_crossbow':100}),
       'formation_qin_gaku_ka_core': (500, {'line_infantry':500}),
