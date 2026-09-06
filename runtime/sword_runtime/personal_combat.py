@@ -28,6 +28,10 @@ from sword_runtime.combat_geometry import (
     surrounding_pressure,
     surface_gap,
 )
+from sword_runtime.combat_commitment import (
+    first_linear_melee_body_blocker,
+    pending_action_preservation,
+)
 from sword_runtime.combat_objectives import evaluate_objective, objective_model
 from sword_runtime.fatigue import endurance_fatigue_rate_factor, person_fatigue_factors
 
@@ -3660,7 +3664,18 @@ class PersonalCombatMixin:
                 path_obstacle = None  # already resolved against the fixed release lane above
             else:
                 path_ax,path_ay=contact_group_positions.get(actor_ref,position_at(actor_ref,resolve_at)); path_tx,path_ty=contact_group_positions.get(target_ref,position_at(target_ref,resolve_at))
-                path_obstacle=obstacle_on_path(path_ax,path_ay,path_tx,path_ty,radius_m=0.025)
+                static_path_obstacle=obstacle_on_path(path_ax,path_ay,path_tx,path_ty,radius_m=0.025)
+                body_path_obstacle=first_linear_melee_body_blocker(
+                    actor_ref=actor_ref, target_ref=target_ref, attack_mode=str(action.get("attack_mode", "")),
+                    start={"x_m":path_ax,"y_m":path_ay}, end={"x_m":path_tx,"y_m":path_ty},
+                    positions=geometry_positions(resolve_at), lane_half_width_m=0.025,
+                )
+                if static_path_obstacle is None:
+                    path_obstacle=body_path_obstacle
+                elif body_path_obstacle is not None and _num(body_path_obstacle.get("path_t"),1.0) < _num(static_path_obstacle.get("path_t"),1.0):
+                    path_obstacle=body_path_obstacle
+                else:
+                    path_obstacle=static_path_obstacle
             reach_advantage = (a_reach - d_reach) * 5.0
             legal_range = (path_obstacle is None) and a_min <= combat_gap <= a_reach + 0.10
             melee_tracking_factor = 1.0
@@ -3842,8 +3857,10 @@ class PersonalCombatMixin:
                     must_render.append(defense_event["id"])
                 else:
                     may_compress.append(defense_event["id"])
-                # A real defensive response consumes readiness and aborts any
-                # simultaneously committed action by that defender.
+                # A real defensive response consumes readiness. Hard or
+                # displacing responses may abort another body commitment, but a
+                # non-displacing brace does not retroactively erase offense that
+                # had already started.
                 if timing_factor > 0.10:
                     action_exertion[target_ref] += {"dodge":0.72,"reposition":0.78,"block":0.48,"parry":0.42,"deflect":0.39,"brace":0.34,"counter_intercept":0.62}.get(defense_method,0.35) * (1.0 + (1.0 - saturation_factor) * 0.55)
                     defense_serial[target_ref] += 1
@@ -3894,13 +3911,15 @@ class PersonalCombatMixin:
                     body_state[target_ref]["facing_deg"] = new_facing
                     positions[target_ref]["facing_deg"] = new_facing
                     defender_pending = pending.get(target_ref)
-                    preserve_committed_contact = bool(
-                        isinstance(defender_pending, Mapping)
-                        and defender_pending.get("kind") == "attack"
-                        and _num(defender_pending.get("start_at_s"), resolve_at) <= resolve_at
-                        and _num(defender_pending.get("resolve_at_s"), resolve_at + 999.0) <= resolve_at + simultaneous_window_s
+                    preservation_reason = pending_action_preservation(
+                        defense_method, defender_pending, resolve_at_s=resolve_at,
+                        simultaneous_window_s=simultaneous_window_s,
                     )
-                    if preserve_committed_contact:
+                    if preservation_reason == "brace_preserves_started_offense":
+                        defender_pending["committed_through_brace"] = True
+                        defense_event["pending_offense_preserved"] = True
+                        defense_event["pending_offense_preservation_reason"] = preservation_reason
+                    elif preservation_reason == "simultaneous_contact":
                         defender_pending["committed_through_simultaneous_contact"] = True
                     else:
                         interrupted = pending.pop(target_ref, None)
@@ -5123,7 +5142,7 @@ class PersonalCombatMixin:
                 "simultaneous_contact_window_ms": int(round(simultaneous_window_s * 1000.0)),
                 "trace_window_milliseconds": int(round(phase_horizon_seconds * 1000.0)),
                 "trace_window_seconds": round(phase_horizon_seconds, 3),
-                "rule": "all exact participants on both sides share one local timeline; allies and enemies continue scheduling while any one fighter attacks; being forced to defend consumes that defender's shared body/weapon/foot commitment and interrupts a pending action unless its contact is already inside the simultaneous-contact window; ordinary dodge/parry/block consume cumulative whole-body active-defense load that decays continuously while weapon/shield readiness remains separate; distinct attackers inside the recovery window add conflicting-source pressure; near-simultaneous contacts share one pre-contact geometry snapshot instead of resetting the defender",
+                "rule": "all exact participants on both sides share one local timeline; allies and enemies continue scheduling while any one fighter attacks; being forced to defend consumes that defender's shared body/weapon/foot commitment; hard or displacing defenses can interrupt pending actions, while a non-displacing brace preserves offense that had already started and simultaneous contacts remain committed; ordinary dodge/parry/block/brace consume cumulative whole-body active-defense load that decays continuously while weapon/shield readiness remains separate; distinct attackers inside the recovery window add conflicting-source pressure; near-simultaneous contacts share one pre-contact geometry snapshot instead of resetting the defender",
             },
             "sequencing_model": {
                 "mode": "adaptive_physical_sequence",
