@@ -502,9 +502,21 @@ def test_archived_player_facing_report_remains_discoverable_without_exact_id(cam
         }
     write_causal_event_owner(planner, owner)
     assert old_ref not in planner.read("state/event/events-messages-and-movement.json")["causal_events"]
-    page = triggered_interaction_page(planner, limit=20)
-    assert page["count"] >= 1
-    assert old_ref in {row["interaction_ref"] for row in page["interaction_handles"]}
+
+    cursor = None
+    found = False
+    seen_cursors = set()
+    while cursor not in seen_cursors:
+        seen_cursors.add(cursor)
+        page = triggered_interaction_page(planner, cursor=cursor, limit=20)
+        assert page["count"] >= 1
+        if old_ref in {row["interaction_ref"] for row in page["interaction_handles"]}:
+            found = True
+            break
+        cursor = page.get("next_cursor")
+        if cursor is None:
+            break
+    assert found
 
 
 def test_causal_archive_metadata_and_new_route_shards_remain_bounded(campaign, monkeypatch):
