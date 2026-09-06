@@ -33,6 +33,15 @@ _OBSOLETE_INTEGRATION_EXPECTATIONS = {
         "Entry reconciliation now clears the exact hostile-entry authority gate only; later "
         "movement or mission orders belong to the campaign-command decision and physical-delivery chain."
     ),
+    "test_project_cancellation_releases_workers_and_refunds_unused_inputs": (
+        "This fixture seeds construction material only in the retired state-wide private-economy aggregate. "
+        "Funded projects now reserve workers/materials from the institution's exact regional economy. "
+        "Equivalent regional-owner coverage lives in test_project_regional_economy.py."
+    ),
+    "test_project_workers_are_reserved_from_craft_production_until_release": (
+        "This fixture predates regional private-economy ownership and reads project labor from the aggregate root. "
+        "Equivalent regional-owner labor reservation coverage lives in test_project_regional_economy.py."
+    ),
 }
 
 
