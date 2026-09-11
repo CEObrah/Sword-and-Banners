@@ -18,6 +18,18 @@ class _PresenceStore:
                 "char_stays": "state/char/stays.json",
                 "char_left": "state/char/left.json",
             }},
+            "state/cmd/command-groups/index.json": {
+                "command_person_groups": {
+                    "char_tang_wei": ["cmdgrp.tang_wei.field_army"],
+                }
+            },
+            "state/cmd/command-groups/cmdgrp.tang_wei.field_army.json": {
+                "context": "field_army",
+                "commander_ref": "char_tang_wei",
+                "authority_ref": "char_tang_wei",
+                "location": "loc_hall",
+                "direct_person_refs": ["char_stays", "char_left"],
+            },
             "state/char/wei.json": {"name": "Tang Wei", "current_location": "loc_hall"},
             "state/char/stays.json": {"name": "Officer Stays", "role": "staff officer", "current_location": "loc_hall"},
             "state/char/left.json": {"name": "Officer Left", "current_location": "loc_road"},
@@ -70,6 +82,50 @@ def test_open_war_council_attendees_remain_present_after_start_instant():
         runtime=runtime,
         active_session=active_session,
     ) == set()
+
+
+def test_current_qin_operational_briefing_rehydrates_only_exact_local_direct_hq_staff():
+    handles = [{
+        "interaction_ref": "event_qin_support",
+        "kind": "institutional_response",
+        "process_kind": "qin_field_command_support",
+        "process_stage": "operational_briefing",
+        "triggered_at": "244-BCE-12-21T12:00:01+08:00",
+        "delivery": {"location_ref": "loc_hall"},
+    }]
+
+    refs = _campaign_command_present_refs(
+        handles,
+        current_time="244-BCE-12-21T12:00:01+08:00",
+        player_location="loc_hall",
+        runtime={"hosts": {}},
+        store=_PresenceStore(),
+        player_id="char_tang_wei",
+    )
+
+    assert refs == {"char_tang_wei", "char_stays"}
+
+
+def test_other_institutional_responses_do_not_promote_nearby_people_into_scene():
+    handles = [{
+        "interaction_ref": "event_generic_response",
+        "kind": "institutional_response",
+        "process_kind": "some_other_process",
+        "process_stage": "reply",
+        "triggered_at": "244-BCE-12-21T12:00:01+08:00",
+        "delivery": {"location_ref": "loc_hall"},
+    }]
+
+    refs = _campaign_command_present_refs(
+        handles,
+        current_time="244-BCE-12-21T12:00:01+08:00",
+        player_location="loc_hall",
+        runtime={"hosts": {}},
+        store=_PresenceStore(),
+        player_id="char_tang_wei",
+    )
+
+    assert refs == set()
 
 
 def test_one_departed_attendee_does_not_erase_remaining_live_conversation():

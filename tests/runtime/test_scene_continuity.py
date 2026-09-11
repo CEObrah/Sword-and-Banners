@@ -26,6 +26,11 @@ def test_stale_scene_retains_only_presentation_continuity(campaign):
     scene.setdefault("narrative", {})["last_scene_summary"] = prior_summary
     scene["world_time"] = "stale-continuity-test"
     scene_path.write_text(json.dumps(scene, indent=2) + "\n")
+    # Production reads fail closed on dirty repositories. Commit this disposable
+    # presentation mutation so the test exercises continuity recovery itself.
+    import subprocess
+    subprocess.run(["git", "-C", str(campaign), "add", "state/scene.json"], check=True)
+    subprocess.run(["git", "-C", str(campaign), "commit", "--quiet", "-m", "test stale scene continuity"], check=True)
 
     # A fresh service instance must never present the stale authored scene as
     # current truth. It rebuilds a current runtime projection and carries only

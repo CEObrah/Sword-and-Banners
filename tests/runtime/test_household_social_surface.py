@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from pathlib import Path
 
 from sword_runtime.api.equipment_operations import EquipmentAwareCampaignOperations
@@ -22,6 +23,13 @@ def _present_people(context):
 
 
 
+
+def _commit_fixture(campaign, *paths):
+    rel = [str(Path(path).relative_to(campaign)) for path in paths]
+    subprocess.run(["git", "-C", str(campaign), "add", *rel], check=True)
+    subprocess.run(["git", "-C", str(campaign), "commit", "--quiet", "-m", "test household scene fixture"], check=True)
+
+
 def _co_locate_parents(campaign):
     player_path = Path(campaign) / "state/player.json"
     player = json.loads(player_path.read_text())
@@ -29,11 +37,14 @@ def _co_locate_parents(campaign):
     player["location"] = location
     player["current_location"] = location
     player_path.write_text(json.dumps(player, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
+    changed = [player_path]
     for filename in ("tang-zhu.json", "tang-ling.json"):
         path = Path(campaign) / "state/char" / filename
         person = json.loads(path.read_text())
         person["current_location"] = location
         path.write_text(json.dumps(person, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
+        changed.append(path)
+    _commit_fixture(campaign, *changed)
 
 def test_co_located_parents_are_direct_scene_contacts(campaign):
     _co_locate_parents(campaign)
@@ -91,6 +102,7 @@ def test_household_residence_does_not_fake_presence(campaign):
     father = json.loads(father_path.read_text())
     father["current_location"] = "loc_kanyou"
     father_path.write_text(json.dumps(father, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
+    _commit_fixture(campaign, father_path)
 
     context = _ops(campaign).play_context()
     present = _present_people(context)
@@ -132,6 +144,12 @@ def test_direct_parent_scene_uses_owner_identity_not_char_prefix(campaign):
                 replaced = True
         path.write_text(json.dumps(parentage, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
     assert replaced
+    changed = [alias_path, owners_path]
+    for ref in links:
+        parentage_path = family.get("parentage", {}).get(ref)
+        if isinstance(parentage_path, str):
+            changed.append(Path(campaign) / parentage_path)
+    _commit_fixture(campaign, *changed)
 
     context = _ops(campaign).play_context()
     present = _present_people(context)
@@ -157,6 +175,7 @@ def test_direct_family_scene_recovers_missing_person_index_routes(campaign):
     family = json.loads(family_path.read_text())
     family.setdefault("person_index", {})["char_tang_wei"] = {}
     family_path.write_text(json.dumps(family, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
+    _commit_fixture(campaign, family_path)
 
     context = _ops(campaign).play_context()
     present = _present_people(context)
