@@ -739,7 +739,11 @@ def _format_triggered_interaction(event_ref: str, raw: object) -> dict[str, Any]
         "summary": raw.get("summary"),
         "provenance": raw.get("provenance"),
     }
-    for key in ("arc_ref", "source_event_ref", "delivery", "operation_ref", "campaign_command_cycle_ref", "campaign_command_context", "present_person_refs"):
+    for key in (
+        "arc_ref", "source_event_ref", "delivery", "operation_ref",
+        "campaign_command_cycle_ref", "campaign_command_context",
+        "process_kind", "process_stage", "present_person_refs",
+    ):
         if key in raw:
             record[key] = raw.get(key)
     return record

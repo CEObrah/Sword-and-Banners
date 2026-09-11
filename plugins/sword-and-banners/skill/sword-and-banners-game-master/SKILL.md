@@ -47,7 +47,7 @@ This game remains completely self-contained. Shared GM craft concepts may be ind
 
 ## Start every live turn
 
-GM_SKILL_CONTRACT_TOKEN: ec08f177e28c26a5971b57e0697a219231313bcff2aee5f55fd8f620cdee5063
+GM_SKILL_CONTRACT_TOKEN: 2b93513efffd5f74af07607826965245ace20b3b2299de745dce951ad23eca73
 
 1. Classify each block as normal gameplay / `IC:`, read-only `OOC:`, or `OOC DEV:`. Resolve mixed blocks in order.
 2. For every live gameplay or live-state OOC turn, call `get_play_context` before interpreting current state, resolving action, or narrating current events. This includes `continue`. Pass the exact value from the `GM_SKILL_CONTRACT_TOKEN` line above as `skill_contract_token` on every call. This token is a non-secret release fingerprint, not authentication.

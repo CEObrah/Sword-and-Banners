@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from pathlib import Path
 
 from sword_runtime.api.warfare_operations import WarfareCampaignOperations
@@ -47,6 +48,10 @@ def test_command_group_projection_keeps_lin_visible_and_surfaces_desync(campaign
     index = json.loads(index_path.read_text(encoding="utf-8"))
     index.setdefault("staff_person_groups", {})["char_lin_zhen"] = ["cmdgrp.somewhere_else"]
     index_path.write_text(json.dumps(index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    # Production reads correctly reject dirty campaign repositories. Commit the
+    # disposable desync fixture so this test reaches command-group diagnostics.
+    subprocess.run(["git", "-C", str(campaign), "add", "state/char/lin-zhen.json", "state/cmd/command-groups/index.json"], check=True)
+    subprocess.run(["git", "-C", str(campaign), "commit", "--quiet", "-m", "test command group desync"], check=True)
 
     operations = _ops(campaign, "runtime-command-group-lin-desync")
     context = operations.play_context()
