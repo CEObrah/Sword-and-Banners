@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command Group Index",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "count",
+    "refs",
+    "primary_person_group",
+    "primary_formation_group",
+    "staff_person_groups",
+    "command_person_groups"
+  ],
+  "properties": {
+    "schema": {
+      "const": "command-group-index"
+    },
+    "authority": {
+      "const": false
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "primary_person_group": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Non-authoritative deterministic primary organizational route. A real command outranks staff/direct membership; command_person_groups preserves every command held."
+    },
+    "primary_formation_group": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "staff_person_groups": {
+      "type": "object",
+      "description": "Non-authoritative additive routing from exact person ref to command groups where that person holds a staff role. This never replaces primary_person_group.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      }
+    },
+    "command_person_groups": {
+      "type": "object",
+      "description": "Non-authoritative person -> all exact command groups where that person is commander. Multiple commands are lawful; exact group records remain authority.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "kind",
+    "authority",
+    "archetypes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "content-archetypes"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "authority": {
+      "const": "cold_non_state_content"
+    },
+    "archetypes": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Cold non-state archetypes. They create no canonical event/mission until instantiated through current state."
+}

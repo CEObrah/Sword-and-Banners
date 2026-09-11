@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "numerical_authority",
+    "diplomacy_autonomy",
+    "formulas",
+    "input_rules",
+    "coalition_bands",
+    "exposure_bands",
+    "evidence_thresholds",
+    "legal_margin_bands",
+    "rule"
+  ],
+  "properties": {
+    "schema": {
+      "const": "politics-mechanics"
+    },
+    "numerical_authority": {
+      "const": true
+    },
+    "diplomacy_autonomy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinary_initiative_cooldown_days",
+        "urgent_initiative_cooldown_days",
+        "urgent_threat_severity",
+        "rule"
+      ],
+      "properties": {
+        "ordinary_initiative_cooldown_days": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "urgent_initiative_cooldown_days": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "urgent_threat_severity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "formulas": {
+      "type": "object"
+    },
+    "input_rules": {
+      "type": "object"
+    },
+    "coalition_bands": {
+      "type": "object"
+    },
+    "exposure_bands": {
+      "type": "object"
+    },
+    "evidence_thresholds": {
+      "type": "object"
+    },
+    "legal_margin_bands": {
+      "type": "object"
+    },
+    "rule": {
+      "type": "string"
+    }
+  }
+}

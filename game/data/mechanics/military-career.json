@@ -1,0 +1,66 @@
+{
+  "schema": "military-career",
+  "principle": "Earned rank, current billet, and current command span are separate durable facts. Numerical 2,000-9,000 grades recognize independent command scale; casualties alter span, reassignment alters billet, and only an explicit promotion or demotion alters rank.",
+  "formal_rank_order": {
+    "unranked": 0,
+    "100_commander": 10,
+    "500_commander": 20,
+    "1000_commander": 30,
+    "2000_commander": 32,
+    "3000_commander": 34,
+    "4000_commander": 36,
+    "5000_commander": 38,
+    "6000_commander": 40,
+    "7000_commander": 42,
+    "8000_commander": 44,
+    "9000_commander": 46,
+    "general": 50,
+    "great_general": 60
+  },
+  "non_ladder_grades": [
+    "not_formally_recorded",
+    "corps_commander",
+    "corps_staff_officer",
+    "Marshal of the Four Bastion Corps",
+    "Deputy Marshal of the Four Bastion Corps"
+  ],
+  "rank_sources": {
+    "current_baseline": "Exact current-state normalization from already-saved role/rank/command evidence; does not itself constitute a promotion event.",
+    "runtime_career": "A later explicit lawful promotion or demotion recorded through the career-event surface."
+  },
+  "promotion_rule": "Promotion is an explicit durable grade change. It requires a higher formal grade than the current formal grade and lawful authority/evidence. Assignment to a larger force, temporary command, casualty replacement, or autonomous staffing never silently promotes anybody.",
+  "demotion_rule": "Demotion is an explicit career consequence with lawful authority and evidence. Losses, smaller current strength, relief from command, illness, transfer, or cadre reserve status never silently demote rank.",
+  "relief_rule": "Relief removes or changes a billet while preserving durable rank unless a separate explicit demotion is also ordered.",
+  "reserve_rule": "Reserve/cadre status removes active command span while preserving durable rank and career history.",
+  "retirement_rule": "Retirement ends active billet/service while preserving rank history. Return to service requires a new lawful billet.",
+  "career_evidence_rule": "Performance creates evidence and opportunity. It never automatically promotes, demotes, appoints, or relieves anyone.",
+  "representation_rule": "Aggregate officers keep rank inventory/cadre state inside their formation. A materialized exact person carries the same durable rank separately from billet and span; materialization never grants rank.",
+  "army_lifecycle": {
+    "post_battle_rule": "Shattered Units are preserved as organizations/cadres by default. Refill uses conserved trained reserves; merger, dissolution, demotion and detachment require explicit lawful reorganization.",
+    "promotion_growth_rule": "Promotion may create a new Nested Army around an existing Unit, but later staffing attaches only exact physically available direct Units or intact subordinate Nested Armies. Descendants are never flattened or duplicated.",
+    "casualty_rule": "Casualties update strength and may create vacancies or cadre surplus. They do not change surviving officers' durable rank.",
+    "immediate_staff_review_casualty_basis_points": 1500,
+    "immediate_staff_review_rule": "A single battle causing at least 15% personnel loss to a formation, or destroying it, immediately reviews that formation's exact containing NPC command group. Review may reassign only existing co-located direct parent Units; player-directed hierarchies, durable rank, and recursive Unit identity are untouched."
+  },
+  "standing_army_mobilization": {
+    "principle": "A sovereign may permanently reinforce an existing state field army from already-conserved active military reserve when that command is mobilized for war. Rank provides a normal wartime establishment target, not a hard cap or free manpower grant. Reinforcement preserves troop-role provenance, existing formation history, and permanent army identity; it never creates levy/support/engineer/command-support fighting roles.",
+    "eligible_contexts": [
+      "state_field_army"
+    ],
+    "target_recursive_strength_by_rank": {
+      "general": 40000,
+      "great_general": 60000
+    },
+    "integration_baseline": {
+      "readiness": 55,
+      "morale": 65,
+      "cohesion": 35,
+      "training_progress": 45,
+      "fatigue": 0
+    },
+    "minimum_increment": 100,
+    "permanent_assignment_rule": "Personnel transferred from an active sovereign force reserve into a standing army remain assigned after the operation unless a later lawful reorganization transfers or releases them.",
+    "nested_army_rule": "Eligible same-state nested field armies are reinforced before their parent so recursive strength is conserved and never double-counted.",
+    "player_rule": "Autonomous state mobilization never enlarges a player-directed command; player force growth requires an explicit lawful assignment or recruitment path."
+  }
+}

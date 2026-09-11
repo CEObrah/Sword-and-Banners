@@ -1,0 +1,32 @@
+{
+  "authority": false,
+  "campaign_revision": 45,
+  "defect": "One campaign follow-on request was simultaneously routed through the superior-command decision/delivery lifecycle and a generic Qin Bureau operational-briefing support host. The superior order is the authoritative response path; the shadow support route could later surface a stale duplicate briefing.",
+  "interaction_attempt_ref": "interaction_attempt_1801588e9249ea1029d1936b",
+  "kind": "campaign-state-repair-provenance",
+  "preserved_authoritative_route": {
+    "delivery_due_at": "244-BCE-12-22T11:15:01+08:00",
+    "event_ref": "event_campaign_command_superior_order_75b2018303209da7cb9a",
+    "host_ref": "host_campaign_command_superior_order_75b2018303209da7cb9a",
+    "order_ref": "operational_order_123e10462cbb1d875619",
+    "source_commander_ref": "char_mou_gou",
+    "target_location_ref": "loc_sanyou"
+  },
+  "removed_shadow_route": {
+    "event_ref": "event_qin_command_support_due_1bdea072142a611a86f5",
+    "host_ref": "host_qin_command_support_1bdea072142a611a86f5",
+    "scheduled_due_at": "244-BCE-12-23T19:00:01+08:00",
+    "support_kind": "operational_briefing"
+  },
+  "runtime_sha256_after": "4df343558616685c9d2c505ece3b58f49a04a9d5716f12a09c83e85340c14301",
+  "runtime_sha256_before": "c43f2809720d4d9e94e0681381bda090193656b21848d91e722623a8613c9983",
+  "scheduler_coverage_after": {
+    "complete": true,
+    "errors": [],
+    "event_count": 405,
+    "host_count": 405,
+    "overdue_host_refs": []
+  },
+  "scope_rule": "Removes only the redundant pending shadow host/event and refreshes scheduler coverage at the same world time. It does not alter campaign revision, world time, formations, locations, manpower, equipment, injuries, current completed order, or the already-issued superior follow-on order.",
+  "world_time": "244-BCE-12-21T12:00:01+08:00"
+}

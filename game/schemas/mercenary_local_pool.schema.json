@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mercenary local pool",
+  "type": "object",
+  "required": [
+    "armed_total",
+    "classes",
+    "owner_id",
+    "owner_type",
+    "schema"
+  ],
+  "properties": {
+    "armed_total": {
+      "type": "integer"
+    },
+    "classes": {
+      "type": "array"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current schema contract."
+}

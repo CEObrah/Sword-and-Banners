@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "required": [
+        "profile_ref"
+      ]
+    },
+    {
+      "required": [
+        "state",
+        "kind"
+      ]
+    }
+  ],
+  "properties": {
+    "capacity": {},
+    "kind": {},
+    "owner_id": {},
+    "profile_ref": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "sword-institution"
+    },
+    "state": {},
+    "administration_review": {},
+    "administrative_owner": {},
+    "backlog": {},
+    "body_ownership": {},
+    "command_or_patron_ref": {},
+    "fortification_review": {},
+    "geography": {},
+    "last_procurement": {},
+    "last_review": {},
+    "location_ref": {},
+    "medical_support_capacity_people": {},
+    "military_review": {},
+    "name": {},
+    "operating_contract": {},
+    "policy": {},
+    "procurement_count": {},
+    "projects": {},
+    "purpose": {},
+    "recruitment_review": {},
+    "resources": {},
+    "service_region_refs": {},
+    "staffing": {},
+    "created_at": {
+      "type": "string"
+    },
+    "sovereign_polity_ref": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "capacity"
+  ],
+  "type": "object"
+}

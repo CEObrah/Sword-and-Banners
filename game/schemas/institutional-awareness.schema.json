@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "subjects"
+  ],
+  "properties": {
+    "schema": {
+      "const": "institutional-awareness"
+    },
+    "authority": {
+      "const": true
+    },
+    "subjects": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "subject_type",
+          "audiences"
+        ],
+        "properties": {
+          "subject_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "audiences": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status",
+                "known_fact_classes"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "institutionally_known",
+                    "widely_known_in_network"
+                  ]
+                },
+                "known_fact_classes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "restricted_fact_classes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

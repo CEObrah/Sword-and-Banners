@@ -1,0 +1,20 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.external_state_force.line_infantry",
+  "doctrine": {
+    "label": "State Line Infantry Doctrine",
+    "scope": "formation_role",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#line_infantry",
+    "formation_policy": {
+      "battlefield_role": "line_fix",
+      "contact_style": "ordered",
+      "charge_policy": "advantage_required",
+      "pursuit_policy": "controlled",
+      "disengagement": "hold_until_ordered"
+    },
+    "compatibility": [
+      "ordered_spear",
+      "shield_line"
+    ]
+  }
+}

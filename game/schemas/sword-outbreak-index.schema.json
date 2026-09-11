@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "outbreaks",
+    "active_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-outbreak-index"
+    },
+    "authority": {
+      "const": false
+    },
+    "outbreaks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "active_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": true
+}

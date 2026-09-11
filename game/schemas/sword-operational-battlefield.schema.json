@@ -1,0 +1,429 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "battlefield_ref",
+    "status",
+    "side_refs",
+    "sectors",
+    "sector_edges",
+    "assignments",
+    "reports",
+    "opened_at",
+    "last_settled_at",
+    "objective_markers"
+  ],
+  "$defs": {
+    "formationRefList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "contactMarker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contact_ref",
+        "sector_ref",
+        "started_at",
+        "ends_at",
+        "light_mode",
+        "attacker_formation_refs",
+        "defender_formation_refs"
+      ],
+      "properties": {
+        "contact_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sector_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "started_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ends_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "light_mode": {
+          "enum": [
+            "daylight",
+            "night"
+          ]
+        },
+        "attacker_formation_refs": {
+          "$ref": "#/$defs/formationRefList"
+        },
+        "defender_formation_refs": {
+          "$ref": "#/$defs/formationRefList"
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema": {
+      "const": "sword-operational-battlefield"
+    },
+    "battlefield_ref": {
+      "type": "string",
+      "pattern": "^battlefield_"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "ended",
+        "closed"
+      ]
+    },
+    "side_refs": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "sectors": {
+      "type": "object"
+    },
+    "sector_edges": {
+      "type": "array"
+    },
+    "assignments": {
+      "type": "object"
+    },
+    "reports": {
+      "type": "array"
+    },
+    "opened_at": {
+      "type": "string"
+    },
+    "last_settled_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "closed_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "day_cycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "battle_day",
+        "posture",
+        "last_transition_at",
+        "last_dawn_at",
+        "last_dusk_at",
+        "camped_formation_refs",
+        "last_dawn_refit",
+        "transition_tail"
+      ],
+      "properties": {
+        "battle_day": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "posture": {
+          "enum": [
+            "day_operations",
+            "night_camp"
+          ]
+        },
+        "last_transition_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "last_dawn_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_dusk_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "camped_formation_refs": {
+          "$ref": "#/$defs/formationRefList"
+        },
+        "last_dawn_refit": {
+          "type": "array"
+        },
+        "transition_tail": {
+          "type": "array"
+        }
+      }
+    },
+    "active_contact": {
+      "$ref": "#/$defs/contactMarker"
+    },
+    "last_contact": {
+      "$ref": "#/$defs/contactMarker"
+    },
+    "outcome": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "after_action": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "command_plan": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "concluded_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conclusion": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "ended_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "last_autonomous_contact_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "next_autonomous_contact_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "physical_object_bindings": {
+      "type": "array"
+    },
+    "tactical_object_control": {
+      "type": "object"
+    },
+    "termination_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "location_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "layout_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_side_refs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "field_geometry": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "generator",
+        "scale_band",
+        "terrain_archetype",
+        "terrain_tags",
+        "max_side_personnel",
+        "side_strengths",
+        "front_sector_count",
+        "reserve_sector_count",
+        "distance_unit_m",
+        "estimated_span_m",
+        "usable_frontage_m",
+        "estimated_depth_m"
+      ],
+      "properties": {
+        "generator": {
+          "const": "terrain_force_v1"
+        },
+        "scale_band": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terrain_archetype": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terrain_tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_side_personnel": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "side_strengths": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "front_sector_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "reserve_sector_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "distance_unit_m": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "estimated_span_m": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "usable_frontage_m": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "estimated_depth_m": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "operational_commands": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "command_ref",
+            "display_name",
+            "formation_refs",
+            "strength",
+            "tactical_leaf_count",
+            "echelon_role"
+          ],
+          "properties": {
+            "command_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "display_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "commander_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "formation_refs": {
+              "$ref": "#/$defs/formationRefList"
+            },
+            "strength": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tactical_leaf_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "echelon_role": {
+              "const": "primary_operational_command"
+            }
+          }
+        }
+      }
+    },
+    "objective_markers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "objective_ref",
+          "sector_ref",
+          "kind",
+          "importance",
+          "mission"
+        ],
+        "properties": {
+          "objective_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sector_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "importance": {
+            "enum": [
+              "supporting",
+              "key",
+              "decisive"
+            ]
+          },
+          "mission": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

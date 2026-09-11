@@ -1,0 +1,19 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.external_state_force.mounted_archer",
+  "doctrine": {
+    "label": "State Mounted Archer Screen Doctrine",
+    "scope": "formation_role",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#mounted_archer",
+    "formation_policy": {
+      "battlefield_role": "mounted_archer_screen",
+      "contact_style": "mobile_harassment",
+      "charge_policy": "opportunity_only",
+      "pursuit_policy": "aggressive_bounded",
+      "disengagement": "mobile_break_contact"
+    },
+    "compatibility": [
+      "mounted_archery"
+    ]
+  }
+}

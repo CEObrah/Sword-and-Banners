@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sword causal event archive route shard",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "authority",
+    "prefix",
+    "routes",
+    "route_count"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-causal-event-route-shard"
+    },
+    "owner_id": {
+      "type": "string",
+      "pattern": "^causal_event_route_[0-9a-f]{2,4}$"
+    },
+    "authority": {
+      "const": false
+    },
+    "prefix": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{2,4}$"
+    },
+    "routes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^state/event/archive/segment_[0-9]{6}\\.json$"
+      }
+    },
+    "route_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "establishment-rules",
+  "rules": {
+    "world_owned_forces_preorganized": true,
+    "tang_wei_personal_force_preorganized": false,
+    "raw_personnel_given_to_tang_wei_to_organize_preorganized": false,
+    "intact_assigned_units_keep_home_organization": true,
+    "formation_is_operational_not_ownership": true,
+    "return_restores_home_chain_not_condition": true,
+    "stable_series_units_are_real_units": true
+  },
+  "return_invariant": "Temporary player organization dissolves on return unless source owner formally adopts it. Casualties, injuries, experience, equipment state, promotions, cohesion, and history persist.",
+  "id": "establishment.rule.standard",
+  "unit_boundary_invariants": {
+    "one_troop_type": true,
+    "one_standard_loadout": true,
+    "subset_persistent_change_requires_split": true,
+    "split_merge_conserves_people_horses_equipment_and_state": true
+  },
+  "materialization_rule": "Stable units pre-exist as organizational slots. Materialize detail only when command, location, casualties, equipment, cohesion, history, or direct causal interaction diverges."
+}

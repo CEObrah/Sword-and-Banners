@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "count"
+  ],
+  "properties": {
+    "schema": {
+      "const": "latent-identity-catalog"
+    },
+    "owner_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "active_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "id_namespace": {
+      "type": "string",
+      "minLength": 1
+    },
+    "roster_seed": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rank": {
+      "type": "string",
+      "minLength": 1
+    },
+    "institutional_owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_kind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "identity_policy": {
+      "enum": [
+        "explicit_names",
+        "deterministic_latent_roster"
+      ]
+    },
+    "latent_vector_labels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "assignment_ranges": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start_index",
+            "end_index"
+          ],
+          "properties": {
+            "start_index": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "end_index": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      }
+    },
+    "member_overrides": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "promotion_batches": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "identities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_hint": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "identity_policy": {
+            "const": "deterministic_latent_roster"
+          }
+        },
+        "required": [
+          "identity_policy"
+        ]
+      },
+      "then": {
+        "required": [
+          "owner_id",
+          "active_count",
+          "id_namespace",
+          "roster_seed",
+          "rank",
+          "institutional_owner"
+        ]
+      }
+    }
+  ]
+}

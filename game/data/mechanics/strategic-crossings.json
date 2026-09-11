@@ -1,0 +1,43 @@
+{
+  "schema": "strategic-crossing-mechanics",
+  "principle": "Strategic rivers are physical route bottlenecks. Static geometry stays cold in route data; water stage, bridge/ferry condition and ford state are mutable only when causally changed.",
+  "bridge": {
+    "troops_per_m_width_per_day": 6500,
+    "wagons_per_m_width_per_day": 220,
+    "condition_capacity_exponent": 1.15,
+    "base_delay_hours": 0.5
+  },
+  "ferry": {
+    "operating_hours_per_day": 16,
+    "default_cycle_minutes": 36,
+    "loading_efficiency": 0.55,
+    "equipped_people_per_tonne": 15,
+    "base_delay_hours": 1.5
+  },
+  "ford": {
+    "daily_troop_throughput": 12000,
+    "daily_wagon_throughput": 240,
+    "base_delay_hours": 1.0
+  },
+  "vehicle_assumptions": {
+    "wagon_equivalent_loaded_tonnes": 1.8
+  },
+  "water_stage_factors": {
+    "low": {
+      "throughput": 1.0,
+      "ferry": 0.9
+    },
+    "normal": {
+      "throughput": 1.0,
+      "ferry": 1.0
+    },
+    "high": {
+      "throughput": 0.82,
+      "ferry": 0.68
+    },
+    "flood": {
+      "throughput": 0.45,
+      "ferry": 0.0
+    }
+  }
+}

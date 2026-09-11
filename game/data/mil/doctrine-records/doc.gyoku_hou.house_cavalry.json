@@ -1,0 +1,20 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.gyoku_hou.house_cavalry",
+  "doctrine": {
+    "label": "Gyoku Hou House Ou Shock Cavalry Doctrine",
+    "scope": "formation_role",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#heavy_cavalry",
+    "formation_policy": {
+      "battlefield_role": "heavy_shock",
+      "contact_style": "decisive_shock",
+      "charge_policy": "shock_window",
+      "pursuit_policy": "controlled",
+      "disengagement": "protected_withdrawal"
+    },
+    "compatibility": [
+      "mounted_mobility",
+      "heavy_shock"
+    ]
+  }
+}

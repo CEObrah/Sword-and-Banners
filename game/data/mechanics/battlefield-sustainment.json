@@ -1,0 +1,43 @@
+{
+  "schema": "battlefield-sustainment-rules",
+  "authority": "Deterministic temporary battlefield sustainment at the 100-person command echelon. It moves conserved formation-custody stock between the fighting line and field HQ/baggage reserve and never creates personnel, ammunition, equipment, or mounts.",
+  "command_scale_personnel": 100,
+  "planned_hq_ammunition_loads": 1.0,
+  "base_rotation_fraction": 0.1,
+  "control_rotation_fraction": 0.2,
+  "maximum_rotation_fraction": 0.36,
+  "minimum_frontline_fraction": 0.55,
+  "breach_rotation_penalty_per_sector": 0.18,
+  "reserve_relief_rotation_bonus": 0.08,
+  "fatigue_rotation_trigger": 55,
+  "fatigue_rotation_fraction": 0.12,
+  "fatigue_rotation_max_breached_sectors": 1,
+  "hold_for_rest_min_control_milli": 700,
+  "rest_hold_phase_fraction": 0.55,
+  "rearward_rest_credit_fraction": 0.6,
+  "maximum_battle_fatigue_reduction_fraction": 0.55,
+  "minimum_battle_fatigue_gain": 5,
+  "turnaround_hours": {
+    "ammunition": 0.45,
+    "outfitting": 0.7,
+    "remount": 0.9,
+    "fatigue_recovery": 1.1
+  },
+  "rules": {
+    "ammunition": "At contact start, anonymous/cohort missile troops have at most one registered carried load on the fighting line. Additional formation-custody war arrows or bolts remain at field HQ/baggage. A competent 100-person commander may send a bounded temporary carrier detail forward when ammunition is the only need and the rear route is secure; otherwise the hundred rotates rearward. If neither carried ammunition nor HQ stock exists, ranged fire is unavailable.",
+    "equipment": "A rearward 100-person element may replace battle-broken shield or armor components only from complete spare role-outfitting sets already in formation custody. Using a complete set removes it from the complete-spare count; no replacement is free.",
+    "remounts": "Replacement horses must already exist as formation-custody remount_horses. Lost active horses do not reappear. A serviced 100-person mounted element may draw available remounts and return later in the same battle.",
+    "fatigue": "Rearward elements gain bounded recovery credit while absent from contact. The rest credit can reduce battle fatigue gain but cannot erase the minimum fatigue cost of fighting.",
+    "command": "Routine resupply, relief and return are delegated to the 100-person command echelon. Higher and unit command quality controls how many hundreds can leave the line at once; local breaches reduce that freedom. This creates no persistent subunits.",
+    "return": "Serviced elements rejoin when their commander judges the line needs them. Under pressure they return promptly after service; with a stable line and high fatigue a capable commander may hold them rearward longer for recovery."
+  },
+  "forward_ammunition": {
+    "enabled": true,
+    "minimum_command_control_milli": 650,
+    "maximum_breached_sectors": 0,
+    "carriers_per_hundred": 8,
+    "load_multiplier_per_carrier": 4.0,
+    "turnaround_hours": 0.3,
+    "rule": "When ammunition is the only material need and the rear route is stable, each 100-person commander may temporarily detail a bounded handful of its own bodies to carry arrows or bolts forward. This is not a new unit and does not permit equipment repair, remounting, or meaningful rest without a full rearward rotation."
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "parentage_id",
+    "child_id",
+    "authority",
+    "parent_links",
+    "guardian_links"
+  ],
+  "properties": {
+    "schema": {
+      "const": "family-parentage"
+    },
+    "parentage_id": {
+      "type": "string"
+    },
+    "child_id": {
+      "type": "string"
+    },
+    "authority": {
+      "const": true
+    },
+    "parent_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "parent_id",
+          "kind"
+        ],
+        "properties": {
+          "parent_id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "biological",
+              "adoptive",
+              "recognized_legal"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "guardian_links": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}

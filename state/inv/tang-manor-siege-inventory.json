@@ -1,0 +1,71 @@
+{
+  "fortification_profile_ref": "fort_profile_tang_manor",
+  "fortification_site_ref": "loc_tang_manor",
+  "name": "Tang Manor Siege Defense Inventory",
+  "owner_id": "tang_manor_siege_inventory",
+  "owner_type": "siege_inventory",
+  "records": [
+    {
+      "label": "Overview",
+      "record_id": "overview"
+    },
+    {
+      "facts": {
+        "Defensive Trebuchets installed": 140,
+        "Defensive Trebuchets reserve": 20,
+        "Defensive Trebuchets total": 160,
+        "Tang Defensive Firepot Systems installed": 700,
+        "Tang Wall Bed Crossbows installed": 1540,
+        "Tang Wall Bed Crossbows reserve": 160,
+        "Tang Wall Bed Crossbows total": 1700,
+        "Tang Wall Stone-Drop Cranes installed": 700,
+        "mutable_ammunition_fields": [
+          "war_bolts",
+          "trebuchet_stones_50kg",
+          "prepared_drop_stones_20kg",
+          "prepared_firepots"
+        ],
+        "mutable_ammunition_owner_ref": "depot_house_tang"
+      },
+      "items": [
+        "bed crossbows: 1,400 outer wall + 60 Inner Walls + 40 Inner Citadel + 40 main gate",
+        "trebuchets: 112 outer wall + 18 Inner Walls + 10 Inner Citadel",
+        "stone-drop cranes: 700 outer-wall tower systems",
+        "firepot systems: 700 outer-wall tower systems"
+      ],
+      "label": "Installed artillery",
+      "record_id": "installed_artillery"
+    },
+    {
+      "facts": {
+        "Cut stone repair blocks tonnes": 12000,
+        "Heavy Battering Rams for controlled counterassault or gate recovery": 8,
+        "Heavy repair timber cubic meters": 8000,
+        "Large Mantlets": 300,
+        "Rope and hauling sets": 600,
+        "Shielded Siege Galleries": 40,
+        "Siege Mining and Countermining Tool Sets": 120
+      },
+      "label": "Counter-siege engineering",
+      "record_id": "counter_siege_engineering"
+    },
+    {
+      "facts": {
+        "Red Crane establishment": 16000,
+        "bed_crossbow_full_alert_crew": 7700,
+        "firepot_full_alert_crew": 1400,
+        "full_alert_active_total": 14000,
+        "maintenance_command_and_relief_reserve": 2000,
+        "qualification_counts_are_nonexclusive": true,
+        "stone_drop_full_alert_crew": 2100,
+        "trebuchet_full_alert_crew": 2800
+      },
+      "label": "Crew qualifications",
+      "record_id": "crew_qualifications"
+    }
+  ],
+  "runtime": {
+    "last_settled_at": "245-BCE-12-02T06:00:00+08:00"
+  },
+  "schema": "siege-inventory"
+}

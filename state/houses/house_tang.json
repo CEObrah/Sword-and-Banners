@@ -1,0 +1,92 @@
+{
+  "administrative_programs": {
+    "wei_field_preparation": {
+      "champions_formation_ref": "cmdgrp.tang_wei.red_lance",
+      "equipment_issue_status": "issued_for_departure",
+      "material_issued_at": "244-BCE-07-23T10:22:48+08:00",
+      "outfitting_rules_ref": "game/data/mechanics/outfitting.json",
+      "policy_ref": "game/data/mechanics/house-tang-field-service.json#field_service_preparation",
+      "principal_ref": "char_tang_wei",
+      "requested_at": "244-BCE-07-23T10:22:48+08:00",
+      "reserve_days": 120,
+      "shortfalls": [],
+      "status": "issued_for_departure",
+      "wei_house_guard_formation_ref": "cmdgrp.tang_wei.high_guard"
+    }
+  },
+  "duty_assignments": {
+    "char_tang_ling": {
+      "assigned_at": "244-BCE-01-25T01:22:48+08:00",
+      "duty": "Investigate the assigned Qin formation: commander, strength, route, mission, supply, and any concrete need for additional officers or troops.",
+      "grantor_ref": "char_tang_wei",
+      "house_ref": "house_tang"
+    }
+  },
+  "estate_support": {
+    "depot_ref": "depot_house_tang",
+    "food_monthly_output_kg": 14000000,
+    "house_mounts": 112000,
+    "master_plan_ref": "game/data/world/tang-manor-master-plan.json",
+    "population_ref": "population_tang_manor",
+    "strategic_autarky": true,
+    "strategic_food_reserve_kg": 450000000,
+    "supported_fighting_personnel": 176060,
+    "treasury_ref": "treasury_house_tang"
+  },
+  "force_employment_policy_ref": "game/data/mechanics/house-tang-force-policy.json",
+  "goals": [
+    "preserve household",
+    "improve standing"
+  ],
+  "house_ref": "house_tang",
+  "last_review": "244-BCE-07-23T01:22:48+08:00",
+  "leader_ref": "char_tang_zhu",
+  "lineage_cohort": {
+    "adults": 3,
+    "aggregate_marriages": 0,
+    "children": 1,
+    "elders": 0,
+    "exact_member_refs": [
+      "char_tang_kai",
+      "char_tang_ling",
+      "char_tang_wei",
+      "char_tang_zhu"
+    ],
+    "population_ref": "population_qin",
+    "unmaterialized_members": {
+      "adults": 0,
+      "children": 0,
+      "elders": 0
+    }
+  },
+  "military_command": {
+    "chief_administrator_ref": "char_tang_ling",
+    "command_group_ref": "cmdgrp.house_tang.field_army",
+    "commander_ref": "char_tang_zhu",
+    "field_army_command_ref": "cmdgrp.house_tang.field_army",
+    "force_ref": "force_house_tang",
+    "inner_citadel_command_ref": "cmdgrp.house_tang.inner_citadel",
+    "inner_walls_command_ref": "cmdgrp.house_tang.inner_walls",
+    "outer_wall_command_ref": "cmdgrp.house_tang.outer_wall"
+  },
+  "military_force_ref": "force_house_tang",
+  "military_force_refs": [
+    "force_house_tang"
+  ],
+  "nobility": {
+    "grade": "recognized_house"
+  },
+  "owner_id": "house_tang",
+  "politics": {
+    "court_access": 95,
+    "influence": 37,
+    "information_access": 64,
+    "patronage": 67,
+    "relationships": {}
+  },
+  "projects": [],
+  "schema": "sword-house",
+  "state": "qin",
+  "threat_level": "0.1",
+  "treasury_ref": "treasury_house_tang"
+}

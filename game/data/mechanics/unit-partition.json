@@ -1,0 +1,58 @@
+{
+  "authority": "game/data/mechanics/unit-partition.json",
+  "explicit_selection": {
+    "anti_exploit": "Repeated split/merge cannot fish for favorable child statistics. No model-variation sampling is permitted.",
+    "requirements": [
+      "selection criteria",
+      "legal authority",
+      "inspection/records or another valid evidence source",
+      "real selection/reorganization time",
+      "deterministic selection method or registered deterministic draw where genuinely uncertain"
+    ],
+    "result": "Recalculate every affected child distribution from the selected and remainder populations. The weighted recombination must match the pre-selection parent population apart from separately paid/elapsed changes.",
+    "rule": "A request such as veteran company, best archers, strongest fighters, qualified medics or fastest riders is not a neutral split."
+  },
+  "game_scope": "This repository only.",
+  "largest_remainder": {
+    "formula": "quota_i = total_category_count * child_personnel_i / parent_personnel; base_i=floor(quota_i); distribute remaining integers to highest fractional remainders; exact ties sort by stable child unit ID ascending.",
+    "invariant": "sum(child_category_counts) == parent_category_count for every conserved category."
+  },
+  "merge": {
+    "categorical_state": "Sum conserved integer categories exactly.",
+    "cohesion": "Start no higher than the personnel-weighted source cohesion and apply any real integration penalty required by doctrine/familiarity/history. Real joint training/time may later restore it.",
+    "continuous_mean": "mu = sum(n_i * mu_i) / N",
+    "continuous_population_variance": "var = sum(n_i * (sigma_i^2 + (mu_i-mu)^2)) / N; sigma=sqrt(max(0,var))",
+    "derived_data": "Recompute full aggregate capability and derived battle kernel from the merged authoritative state.",
+    "experience_history": "Pool experience by personnel weighting while preserving source lineage/service history. Do not erase veteran history or duplicate experience receipts.",
+    "morale_fatigue": "Use personnel-weighted current state unless a more exact underlying distribution is owned. Merge never resets either.",
+    "preconditions": "Same troop type; ownership/authority permits merge; intended loadout standard is compatible; doctrine/training/command differences are explicitly resolved."
+  },
+  "neutral_split": {
+    "categorical_integer_state": "For injuries, ranks, condition bands, equipment issue quantities, ammunition lots, mounts/animals and other conserved integer categories, allocate proportionally by child headcount using deterministic largest remainder. Equal remainders tie-break by stable child formation ID, never model preference.",
+    "cohesion": "A split may retain parent cohesion only where the child follows an already-practiced substructure. Creating a genuinely new organization may apply a non-positive integration/familiarity adjustment. Splitting can never increase cohesion for free.",
+    "continuous_capability": "For an unselected aggregate split, every child initially inherits the parent capability mean and spread vectors. This preserves the represented population distribution without inventing arbitrary better/worse children. Later training, casualties, replacements, service or explicit selection may make children diverge.",
+    "derived_data": "Invalidate/rebuild every child full capability derivative and battle kernel after a state-changing partition. Derived caches never choose the partition.",
+    "equipment": "Initial split partitions the parent's actually held/issued equipment claims; a child targeting a different standard then enters refit and consumes separate real stock/time. The split itself does not conjure the new loadout.",
+    "headcount": "Requested child integer counts must be positive and sum exactly to the parent live personnel claim.",
+    "lineage": "ID continuity is deterministic. If the split isolates a specified subset from a residual parent population, the residual child retains the parent formation ID and every isolated child receives a new stable ID. If there is no distinguished residual child, the largest child retains the parent ID; exact personnel ties use the lowest stable child ordinal/ID. If the player/institution explicitly dissolves the parent into an entirely new organization, no child retains the parent ID and the parent ID is retired. The transaction receipt records the continuity rule, before/after IDs, and parent lineage for every child.",
+    "morale_fatigue_experience": "Children inherit parent aggregate values at the split instant unless exact conserved substate is already tracked. Splitting never heals fatigue/injuries or raises experience/morale.",
+    "named_members": "Named exact/individual-lite members are not sampled from an aggregate distribution. If the parent contains named members, their destination must be explicitly specified by lawful order/source substructure or deterministically preserved by an existing membership claim; never duplicate or silently move them."
+  },
+  "principle": "Splitting and merging formation state is deterministic conservation, never a reroll. A neutral split changes organization, not personnel quality. Selection may change child composition only when a real selection action with criteria, authority and time is persisted.",
+  "receipts": {
+    "authority": "runtime transaction receipt plus material semantic history",
+    "idempotency": "A semantic request ID may commit once. Exact retries return the durable receipt; changed command bytes under the same request ID are rejected.",
+    "required_evidence": [
+      "before/after unit IDs",
+      "before/after personnel totals",
+      "partition or merge method",
+      "named-member claims when present",
+      "equipment/ammunition/supply/mount claims when material",
+      "injury/fatigue/experience lineage",
+      "capability recomputation evidence",
+      "derived cache rebuild references",
+      "parent-ID continuity mode and continuity child"
+    ]
+  },
+  "schema": "unit_partition_mechanics"
+}

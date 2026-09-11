@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Persistent investigation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "investigation_ref",
+    "question",
+    "subject_ref",
+    "investigator_ref",
+    "status",
+    "worked_hours",
+    "discovered_claim_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-investigation"
+    },
+    "investigation_ref": {
+      "type": "string"
+    },
+    "question": {
+      "type": "string"
+    },
+    "subject_ref": {
+      "type": "string"
+    },
+    "location_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "investigator_ref": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "closed"
+      ]
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "closed_at": {
+      "type": "string"
+    },
+    "worked_hours": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "discovered_claim_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "work_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "at",
+          "hours",
+          "investigator_ref",
+          "search_score_milli",
+          "discovered_claim_refs"
+        ],
+        "properties": {
+          "at": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "investigator_ref": {
+            "type": "string"
+          },
+          "search_score_milli": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "discovered_claim_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    }
+  }
+}

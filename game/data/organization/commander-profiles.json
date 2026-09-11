@@ -1,0 +1,70 @@
+{
+  "schema": "commander_profile_registry",
+  "authority": "Sword and Banners only",
+  "rule": "A cold commander profile supplies command/control capability without creating a free named person. When a commander becomes causally important, materialize an exact or individual-lite person from a conserved qualified-person source.",
+  "profiles": {
+    "command_profile.state_line_officer": {
+      "scope": "state line/missile unit",
+      "leadership": 62,
+      "formation_command": 64,
+      "tactics": 58,
+      "strategy": 42,
+      "logistics": 48,
+      "mass_combat": 61
+    },
+    "command_profile.state_cavalry_officer": {
+      "scope": "state cavalry/chariot unit",
+      "leadership": 64,
+      "formation_command": 62,
+      "tactics": 62,
+      "strategy": 42,
+      "logistics": 44,
+      "mass_combat": 62
+    },
+    "command_profile.state_support_officer": {
+      "scope": "state combat/service support unit",
+      "leadership": 58,
+      "formation_command": 54,
+      "tactics": 48,
+      "strategy": 38,
+      "logistics": 62,
+      "mass_combat": 51
+    },
+    "command_profile.mercenary_captain": {
+      "scope": "mercenary unit",
+      "leadership": 62,
+      "formation_command": 58,
+      "tactics": 60,
+      "strategy": 42,
+      "logistics": 50,
+      "mass_combat": 59
+    },
+    "command_profile.escort_captain": {
+      "scope": "escort command group",
+      "leadership": 58,
+      "formation_command": 50,
+      "tactics": 54,
+      "strategy": 36,
+      "logistics": 52,
+      "mass_combat": 52
+    },
+    "command_profile.school_instructor": {
+      "scope": "school unit/mobilization group",
+      "leadership": 60,
+      "formation_command": 48,
+      "tactics": 52,
+      "strategy": 34,
+      "logistics": 42,
+      "mass_combat": 50
+    },
+    "command_profile.irregular_leader": {
+      "scope": "local/tribal/raider unit",
+      "leadership": 58,
+      "formation_command": 46,
+      "tactics": 58,
+      "strategy": 34,
+      "logistics": 38,
+      "mass_combat": 52
+    }
+  }
+}

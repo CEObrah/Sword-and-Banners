@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "formulas",
+    "rules",
+    "disease_level_values",
+    "disease_contact_fraction_by_margin",
+    "levy_system"
+  ],
+  "properties": {
+    "schema": {
+      "const": "settlement-mechanics"
+    },
+    "formulas": {},
+    "rules": {},
+    "disease_level_values": {},
+    "disease_contact_fraction_by_margin": {},
+    "levy_system": {
+      "type": "object"
+    }
+  }
+}

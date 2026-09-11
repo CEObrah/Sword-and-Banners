@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "description": "Homogeneous accounting-only manpower source. It cannot fight. Current mutable aggregate capability is embedded in the owning troop pool; organized units own battlefield state.",
+  "properties": {
+    "capability": {
+      "description": "Current mutable aggregate capability for this exact conserved pool.",
+      "type": "object"
+    },
+    "count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "id": {
+      "type": "string"
+    },
+    "schema": {
+      "const": "troop_pool"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "count",
+    "capability"
+  ],
+  "title": "Troop Pool",
+  "type": "object"
+}

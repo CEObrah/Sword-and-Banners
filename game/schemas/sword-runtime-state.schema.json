@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "events": {},
+    "hosts": {},
+    "metrics": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-runtime-state"
+    },
+    "world_time": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "world_time",
+    "hosts",
+    "events",
+    "metrics"
+  ],
+  "type": "object"
+}

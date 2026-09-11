@@ -1,0 +1,18 @@
+{
+  "schema": "support_mechanics",
+  "authority": "Sword and Banners current support-duty model",
+  "combat_classes": {
+    "line_combat": "Persistent military manpower is represented by real fighting arms and command personnel. Scouts remain combat reconnaissance troops when represented as a fighting role.",
+    "temporary_support_duty": "Engineering, baggage handling, signals, firefighting, casualty collection and similar work are temporary duties assigned from already-conserved formation manpower. Duty assignment does not create a new troop owner, cohort species or command slot.",
+    "noncombat_support": "Civilian dependents, physicians, healers, laborers and other noncombat populations remain civilians unless lawfully recruited into a real fighting formation."
+  },
+  "capacities": {
+    "engineering": "throughput = temporarily assigned army manpower x responsible commander/officer Engineering and command efficiency x tools/materials x work time x site access x enemy interference",
+    "logistics": "throughput = temporarily assigned army manpower x responsible command Logistics/Leadership x exact carts/mounts/stores x route quality x handling time x security",
+    "signal": "order relay depends on command skill, temporary relay duty manpower, communications equipment, visibility/range, terrain, disruption and command load",
+    "medical": "casualty handling and treatment depend on temporarily assigned manpower, qualified Medicine capability where treatment is technical, medical stores, time and facility/camp quality"
+  },
+  "camp_followers": "Civilian camp followers and dependents remain noncombat populations. Cart drivers, baggage guards, stretcher crews, runners and working parties are temporary duties borne by existing army manpower when the army performs those tasks.",
+  "lightweight_service_state": "No separate military support-unit representation is required. Persist physical carts, stores, siege works, facilities, injuries and other causal objects; derive service capacity from the army and its command.",
+  "casualty_rule": "A soldier temporarily performing support duty remains part of the same conserved formation and suffers casualties only through that formation's actual exposure."
+}

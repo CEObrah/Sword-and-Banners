@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "measurement_policy",
+    "blueprints"
+  ],
+  "properties": {
+    "schema": {
+      "const": "infrastructure-blueprints"
+    },
+    "measurement_policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "blueprints": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "category",
+          "unit_name",
+          "support_capacity_add",
+          "works_add",
+          "physical_geometry"
+        ],
+        "properties": {
+          "category": {
+            "type": "string",
+            "minLength": 1
+          },
+          "unit_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "silver_cost": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "construction_material_units": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "labor_hours": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minimum_calendar_hours": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "support_capacity_add": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "works_add": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "physical_geometry": {
+            "type": "object"
+          },
+          "physical_cost_model": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "material_unit_formula",
+              "labor_hours_by_class",
+              "workfront_capacity_workers",
+              "reference_local_haul_km",
+              "critical_path_hours",
+              "calibration_rule"
+            ],
+            "properties": {
+              "material_unit_formula": {
+                "type": "object",
+                "minProperties": 1,
+                "additionalProperties": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "labor_hours_by_class": {
+                "type": "object",
+                "minProperties": 1,
+                "additionalProperties": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "workfront_capacity_workers": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "reference_local_haul_km": {
+                "type": "number",
+                "minimum": 0
+              },
+              "critical_path_hours": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "calibration_rule": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "physical_cost_model"
+            ]
+          },
+          {
+            "required": [
+              "silver_cost",
+              "construction_material_units",
+              "labor_hours",
+              "minimum_calendar_hours"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "principle",
+    "workday",
+    "material_equivalent",
+    "labor",
+    "resident_support_standards",
+    "maintenance",
+    "development"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-construction-physics"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workday": {
+      "type": "object"
+    },
+    "material_equivalent": {
+      "type": "object"
+    },
+    "labor": {
+      "type": "object"
+    },
+    "resident_support_standards": {
+      "type": "object"
+    },
+    "maintenance": {
+      "type": "object"
+    },
+    "development": {
+      "type": "object"
+    }
+  }
+}

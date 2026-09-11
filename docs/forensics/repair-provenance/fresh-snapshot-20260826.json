@@ -1,0 +1,44 @@
+{
+  "authority": false,
+  "campaign_revision": 1,
+  "corrected": {
+    "campaign_phase_repair": {
+      "completed_at": "244-BCE-09-11T12:22:48+08:00",
+      "completed_staging_order_ref": "operational_order_669dd21e8390d23c6b",
+      "current_phase": "awaiting_entry_authority",
+      "reason": "an equivalent later Qin directive incorrectly reopened the already-completed Kanyou staging phase; the directive is repaired as a reaffirmation of the standing completed order",
+      "removed_duplicate_order_ref": "operational_order_a7f16128b063afafa2"
+    },
+    "expected_combined_campaign_strength": 176800,
+    "qin_campaign_participant_operations": [
+      "operation_qin_mou_gou_northern_wei_campaign",
+      "operation_qin_ouki_northern_wei_campaign",
+      "operation_qin_mou_bu_northern_wei_campaign",
+      "operation_qin_mobile_reserve_northern_wei_campaign",
+      "operation_qin_eastern_reserve_northern_wei_campaign"
+    ],
+    "qin_peer_campaign_mobilization": {
+      "formation_refs": [
+        "formation_qin_ousen_central",
+        "formation_qin_tou_mobile_army",
+        "formation_qin_mou_bu_shock_army",
+        "formation_qin_reserve_infantry_02"
+      ],
+      "reason": "peer Qin formations formally assigned to active northern Wei campaign operations must be mobilized; this repairs seed-state operation readiness without moving formations or changing ownership"
+    },
+    "qin_peer_strength": 167300,
+    "tang_ling_identity": {
+      "person_ref": "char_tang_ling",
+      "pronouns": "she/her",
+      "relation_to_tang_wei": "mother"
+    },
+    "tang_wei_field_strength": 9500,
+    "tang_wei_house_auxiliary_strength": 4500,
+    "tang_wei_qin_assigned_strength": 5000
+  },
+  "kind": "fresh_snapshot_repair_provenance",
+  "repair_ref": "repair_fresh_snapshot_campaign_roster_20260826",
+  "reset_policy": "This repository state is the new revision-1 starting authority. Superseded briefing claims and stale presentation/repair clutter are removed; conserved world owners and chronology are retained. Railway private WAL/receipt state must start empty with the new volume.",
+  "rule": "repair current campaign routing and player-safe identity/presentation only; do not create manpower, transfer ownership, advance chronology, or choose Tang Wei actions",
+  "world_time": "244-BCE-09-16T20:22:48+08:00"
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "guarding", "fixed_site_holding", "field_holding", "rule"],
+  "properties": {"schema": {"const": "custody-mechanics"}},
+  "additionalProperties": true
+}

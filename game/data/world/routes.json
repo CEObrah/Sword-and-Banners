@@ -1,0 +1,3248 @@
+{
+  "authority_model": "one strategic route registry; local_routes are internal access edges and never independent geographic owners",
+  "local_routes": [
+    {
+      "a": "loc_kanyou",
+      "b": "loc_kanyou_officer_bureau",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "ref": "local_kanyou_officer_bureau",
+      "scope": "local"
+    },
+    {
+      "a": "loc_kanyou",
+      "b": "loc_kanyou_strategist_academy",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "ref": "local_kanyou_strategist_academy",
+      "scope": "local"
+    },
+    {
+      "a": "loc_qin_regional_01",
+      "b": "loc_jouto_village",
+      "hours": 4,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "ref": "local_qin_heartland_jouto",
+      "scope": "local"
+    },
+    {
+      "a": "loc_qin_regional_01",
+      "b": "loc_kokuhi_village",
+      "hours": 5,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "ref": "local_qin_heartland_kokuhi",
+      "scope": "local"
+    },
+    {
+      "a": "loc_tang_manor",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node",
+      "b": "loc_tang_manor_defense_camp",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "ref": "local_tang_estate_defense_camp",
+      "scope": "local"
+    },
+    {
+      "a": "loc_tang_inner_citadel",
+      "access_control_ref": "loc_tang_inner_citadel",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node",
+      "b": "loc_tang_manor_inner_citadel_family_hall",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "courier"
+      ],
+      "ref": "local_tang_estate_family_hall",
+      "scope": "local"
+    },
+    {
+      "a": "loc_tang_manor",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node",
+      "b": "loc_tang_manor_garrison_yard",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "ref": "local_tang_estate_garrison",
+      "scope": "local"
+    },
+    {
+      "a": "loc_tang_manor",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node",
+      "b": "loc_tang_manor_market_gate",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "convoy"
+      ],
+      "ref": "local_tang_estate_market",
+      "scope": "local"
+    },
+    {
+      "a": "loc_tang_inner_walls",
+      "access_control_ref": "loc_tang_inner_walls",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node",
+      "b": "loc_tang_manor_training_ground",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "ref": "local_tang_estate_training",
+      "scope": "local"
+    },
+    {
+      "a": "loc_tang_manor_outer_gate",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "inside/enclosing-fortification access; hostile formations require parent physical control except at the strategic outer access node",
+      "b": "loc_tang_manor",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "ref": "local_tang_gate_estate",
+      "scope": "local"
+    },
+    {
+      "a": "loc_tang_manor",
+      "access_control_ref": "loc_tang_manor",
+      "access_semantics": "estate-internal approach to the inner-citadel gate; crossing into the citadel still uses route_inner_citadel_gate_access",
+      "b": "loc_tang_inner_citadel_gate",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier"
+      ],
+      "ref": "local_tang_estate_inner_citadel_approach",
+      "scope": "local"
+    }
+  ],
+  "movement_modes": {
+    "convoy": "loaded_transport",
+    "courier": "priority_mounted",
+    "foot": "individual",
+    "formation": "organized_military",
+    "horse": "individual_mounted"
+  },
+  "routes": [
+    {
+      "a": "loc_chu_regional_01",
+      "b": "loc_shintei",
+      "base_distance_units": 7,
+      "hours": 7,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 18.2,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_chu_capital_heartland",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_chu_regional_01",
+      "b": "loc_chu_regional_03",
+      "base_distance_units": 22,
+      "hours": 22,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 57.2,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_chu_heartland_east",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "river_plain",
+      "water_crossing": {
+        "bridge_load_capacity_tonnes": 22.0,
+        "bridge_span_m": 232.0,
+        "bridge_width_m": 6.5,
+        "crossing_type": "permanent_bridge_with_ferry_support",
+        "ferry_boats": 18,
+        "ferry_cycle_minutes": 38.0,
+        "ferry_payload_tonnes_each": 4.5,
+        "ford_available_low_stage": false,
+        "ford_available_normal_stage": false,
+        "measurement_policy": "exact game-authored strategic river-crossing simulation geometry; not claimed historical survey data",
+        "normal_current_m_per_s": 1.05,
+        "normal_depth_m": 4.2,
+        "river_width_m": 210.0
+      }
+    },
+    {
+      "a": "loc_chu_regional_01",
+      "b": "loc_chu_regional_02",
+      "base_distance_units": 24,
+      "hours": 24,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 62.4,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_chu_heartland_north",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "mixed_plain"
+    },
+    {
+      "a": "loc_chu_regional_01",
+      "b": "loc_chu_regional_04",
+      "base_distance_units": 26,
+      "hours": 26,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 67.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_chu_heartland_west",
+      "road_quality": "rough",
+      "scope": "strategic",
+      "terrain": "wooded_hills"
+    },
+    {
+      "a": "loc_chu_regional_02",
+      "b": "loc_chu_north_fort",
+      "base_distance_units": 9,
+      "control_site_ref": "loc_chu_north_fort",
+      "hours": 9,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 28.8,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_chu_north_fort",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "mixed_plain"
+    },
+    {
+      "a": "loc_gyou",
+      "b": "loc_kantan",
+      "base_distance_units": 20,
+      "hours": 20,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 52.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_gyou_kantan",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_han_regional_01",
+      "b": "loc_han_capital",
+      "base_distance_units": 6,
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 15.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_han_capital_heartland",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_han_regional_03",
+      "b": "loc_chu_regional_02",
+      "base_distance_units": 28,
+      "border_crossing": {
+        "from": "han",
+        "to": "chu"
+      },
+      "frontier": true,
+      "hours": 28,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 72.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_han_chu_southern_corridor",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "mixed_plain"
+    },
+    {
+      "a": "loc_han_regional_01",
+      "b": "loc_han_regional_04",
+      "base_distance_units": 15,
+      "hours": 15,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 39.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_han_heartland_east",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_han_regional_01",
+      "b": "loc_han_regional_03",
+      "base_distance_units": 17,
+      "hours": 17,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 44.2,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_han_heartland_south",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_han_regional_01",
+      "b": "loc_han_regional_02",
+      "base_distance_units": 15,
+      "hours": 15,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 39.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_han_heartland_west",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_han_regional_04",
+      "b": "loc_qi_regional_02",
+      "base_distance_units": 40,
+      "border_crossing": {
+        "from": "han",
+        "to": "qi"
+      },
+      "frontier": true,
+      "hours": 40,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 104.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_han_qi_trade_corridor",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_han_regional_02",
+      "b": "loc_han_frontier_fort",
+      "base_distance_units": 6,
+      "control_site_ref": "loc_han_frontier_fort",
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 19.2,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_han_west_fort",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "wooded_hills"
+    },
+    {
+      "a": "loc_tang_inner_citadel_gate",
+      "access_control_ref": "loc_tang_inner_citadel",
+      "b": "loc_tang_inner_citadel",
+      "base_distance_units": 1,
+      "control_site_ref": "loc_tang_inner_citadel",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_crossing": {
+        "fixed_causeway_m": 19.0,
+        "lifting_drawbridge_m": 16.0,
+        "moat_width_m": 35.0,
+        "wheeled_engine_access_requires_bridge_down_or_engineered_crossing": true
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 2.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_inner_citadel_gate_access",
+      "road_quality": "fortress_approach",
+      "route_role": "nested_fortified_gate_access",
+      "scope": "strategic",
+      "terrain": "fortified_crossing"
+    },
+    {
+      "a": "loc_jo_mountain_region",
+      "b": "loc_chu_regional_02",
+      "base_distance_units": 22,
+      "border_crossing": {
+        "from": "jo",
+        "to": "chu"
+      },
+      "frontier": true,
+      "hours": 22,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 57.2,
+        "maximum_sustained_grade_percent": 15.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_jo_chu_northern_trail",
+      "road_quality": "mountain_trail",
+      "scope": "strategic",
+      "terrain": "mountain"
+    },
+    {
+      "a": "loc_jo_city",
+      "b": "loc_jo_mountain_region",
+      "base_distance_units": 4,
+      "hours": 4,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 10.4,
+        "maximum_sustained_grade_percent": 15.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_jo_city_mountain_region",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "mountain_basin"
+    },
+    {
+      "a": "loc_jo_mountain_region",
+      "b": "loc_wei_regional_03",
+      "base_distance_units": 18,
+      "border_crossing": {
+        "from": "jo",
+        "to": "wei"
+      },
+      "frontier": true,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 46.8,
+        "maximum_sustained_grade_percent": 15.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_jo_wei_southern_trail",
+      "road_quality": "mountain_trail",
+      "scope": "strategic",
+      "terrain": "mountain"
+    },
+    {
+      "a": "loc_jo_mountain_region",
+      "b": "loc_zhao_regional_04",
+      "base_distance_units": 20,
+      "border_crossing": {
+        "from": "jo",
+        "to": "zhao"
+      },
+      "frontier": true,
+      "hours": 20,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 52.0,
+        "maximum_sustained_grade_percent": 15.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_jo_zhao_western_trail",
+      "road_quality": "mountain_trail",
+      "scope": "strategic",
+      "terrain": "mountain"
+    },
+    {
+      "a": "loc_kankoku_pass",
+      "b": "loc_keiyou",
+      "base_distance_units": 22,
+      "border_crossing": {
+        "from": "qin",
+        "to": "wei"
+      },
+      "control_site_ref": "loc_kankoku_pass",
+      "frontier": true,
+      "hours": 22,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "chokepoint_control_ref": "loc_kankoku_pass",
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 5,
+        "length_km": 70.4,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 6.5
+      },
+      "ref": "route_kankoku_keiyou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "corridor"
+    },
+    {
+      "a": "loc_kanyou",
+      "b": "loc_kankoku_pass",
+      "base_distance_units": 24,
+      "control_site_ref": "loc_kankoku_pass",
+      "hours": 24,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "chokepoint_control_ref": "loc_kankoku_pass",
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 5,
+        "length_km": 76.8,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 6.5
+      },
+      "ref": "route_kanyou_kankoku",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "corridor"
+    },
+    {
+      "a": "loc_kanyou",
+      "b": "loc_qin_eastern_depot",
+      "base_distance_units": 18,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 57.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_kanyou_qin_east_depot",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_kanyou",
+      "b": "loc_qin_western_fort",
+      "base_distance_units": 26,
+      "hours": 26,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 83.2,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_kanyou_qin_west_fort",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "upland"
+    },
+    {
+      "a": "loc_kanyou",
+      "b": "loc_sai",
+      "base_distance_units": 20,
+      "hours": 20,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 52.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_kanyou_sai",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_kanyou",
+      "b": "loc_tang_manor_outer_gate",
+      "base_distance_units": 6,
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 15.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_kanyou_tang_manor_gate",
+      "road_quality": "estate_road",
+      "route_role": "estate_approach",
+      "scope": "strategic",
+      "terrain": "cultivated_plain"
+    },
+    {
+      "a": "loc_keiyou",
+      "b": "loc_dairyou",
+      "base_distance_units": 18,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 46.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_keiyou_dairyou",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_qi_regional_01",
+      "b": "loc_ei",
+      "base_distance_units": 6,
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 15.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qi_capital_heartland",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_qi_regional_01",
+      "b": "loc_qi_regional_04",
+      "base_distance_units": 16,
+      "hours": 16,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 41.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qi_heartland_coast",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "wetland"
+    },
+    {
+      "a": "loc_qi_regional_01",
+      "b": "loc_qi_regional_03",
+      "base_distance_units": 18,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 46.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qi_heartland_north",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_qi_regional_01",
+      "b": "loc_qi_regional_02",
+      "base_distance_units": 20,
+      "hours": 20,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 52.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qi_heartland_west",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_qi_regional_02",
+      "b": "loc_qi_west_fort",
+      "base_distance_units": 7,
+      "control_site_ref": "loc_qi_west_fort",
+      "hours": 7,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 22.4,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_qi_west_fort",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_bu_pass",
+      "b": "loc_chu_north_fort",
+      "base_distance_units": 30,
+      "border_crossing": {
+        "from": "qin",
+        "to": "chu"
+      },
+      "control_site_ref": "loc_bu_pass",
+      "frontier": true,
+      "hours": 30,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "chokepoint_control_ref": "loc_bu_pass",
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 5,
+        "length_km": 78.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 6.5
+      },
+      "ref": "route_qin_bu_chu_north",
+      "road_quality": "rough",
+      "scope": "strategic",
+      "terrain": "hills"
+    },
+    {
+      "a": "loc_qin_regional_01",
+      "b": "loc_kanyou",
+      "base_distance_units": 6,
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 15.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qin_capital_basin_kanyou",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_qin_regional_01",
+      "b": "loc_qin_regional_02",
+      "base_distance_units": 18,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 46.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qin_capital_east",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_qin_regional_01",
+      "b": "loc_qin_regional_03",
+      "base_distance_units": 22,
+      "hours": 22,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 57.2,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qin_capital_north",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "upland"
+    },
+    {
+      "a": "loc_qin_regional_01",
+      "b": "loc_qin_regional_04",
+      "base_distance_units": 20,
+      "hours": 20,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 52.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qin_capital_south",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "hills"
+    },
+    {
+      "a": "loc_qin_regional_02",
+      "b": "loc_kankoku_pass",
+      "base_distance_units": 10,
+      "control_site_ref": "loc_kankoku_pass",
+      "hours": 10,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "chokepoint_control_ref": "loc_kankoku_pass",
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 5,
+        "length_km": 32.0,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 6.5
+      },
+      "ref": "route_qin_east_kankoku",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "corridor"
+    },
+    {
+      "a": "loc_qin_regional_02",
+      "b": "loc_sai",
+      "base_distance_units": 8,
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 20.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qin_east_sai",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_qin_regional_03",
+      "b": "loc_quanrong_highlands",
+      "base_distance_units": 36,
+      "border_crossing": {
+        "from": "qin",
+        "to": "quanrong"
+      },
+      "frontier": true,
+      "hours": 36,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 93.6,
+        "maximum_sustained_grade_percent": 15.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_qin_north_quanrong_highlands",
+      "road_quality": "rough",
+      "scope": "strategic",
+      "terrain": "mountain"
+    },
+    {
+      "a": "loc_qin_regional_03",
+      "b": "loc_qin_western_fort",
+      "base_distance_units": 8,
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 25.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_qin_north_west_fort",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "upland"
+    },
+    {
+      "a": "loc_qin_regional_04",
+      "b": "loc_bu_pass",
+      "base_distance_units": 8,
+      "control_site_ref": "loc_bu_pass",
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "chokepoint_control_ref": "loc_bu_pass",
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 5,
+        "length_km": 25.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 6.5
+      },
+      "ref": "route_qin_south_bu",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "hills"
+    },
+    {
+      "a": "loc_qin_regional_02",
+      "b": "loc_gyou",
+      "base_distance_units": 32,
+      "border_crossing": {
+        "from": "qin",
+        "to": "zhao"
+      },
+      "frontier": true,
+      "hours": 32,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 102.4,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_qin_zhao_gyou_corridor",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_quanrong_highlands",
+      "b": "loc_ryouyou",
+      "base_distance_units": 16,
+      "control_site_ref": "loc_ryouyou",
+      "hours": 16,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 41.6,
+        "maximum_sustained_grade_percent": 15.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_quanrong_highlands_ryouyou",
+      "road_quality": "rough",
+      "scope": "strategic",
+      "terrain": "mountain"
+    },
+    {
+      "a": "loc_tang_inner_walls_outer_gate",
+      "access_control_ref": "loc_tang_inner_walls",
+      "b": "loc_tang_inner_walls",
+      "base_distance_units": 1,
+      "control_site_ref": "loc_tang_inner_walls",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_crossing": {
+        "fixed_causeway_m": 27.0,
+        "lifting_drawbridge_m": 18.0,
+        "moat_width_m": 45.0,
+        "wheeled_engine_access_requires_bridge_down_or_engineered_crossing": true
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 2.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_tang_inner_walls_gate_access",
+      "road_quality": "fortress_approach",
+      "route_role": "nested_fortified_gate_access",
+      "scope": "strategic",
+      "terrain": "fortified_crossing"
+    },
+    {
+      "a": "loc_tang_inner_walls",
+      "b": "loc_tang_inner_citadel_gate",
+      "base_distance_units": 1,
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 2.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_tang_inner_walls_inner_citadel_gate",
+      "road_quality": "fortress_approach",
+      "route_role": "internal_citadel_approach",
+      "scope": "strategic",
+      "terrain": "fortified_compound"
+    },
+    {
+      "a": "loc_tang_manor",
+      "b": "loc_tang_inner_walls_outer_gate",
+      "base_distance_units": 2,
+      "hours": 2,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 5.2,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_tang_estate_sword_manor_gate",
+      "road_quality": "estate_road",
+      "route_role": "internal_fortress_approach",
+      "scope": "strategic",
+      "terrain": "cultivated_estate"
+    },
+    {
+      "a": "loc_tang_manor_outer_gate",
+      "b": "loc_qin_regional_01",
+      "base_distance_units": 7,
+      "hours": 7,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 18.2,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_tang_gate_capital_basin",
+      "road_quality": "estate_road",
+      "route_role": "estate_approach",
+      "scope": "strategic",
+      "terrain": "cultivated_plain"
+    },
+    {
+      "a": "loc_tang_manor_outer_gate",
+      "access_control_ref": "loc_tang_manor",
+      "b": "loc_tang_manor",
+      "base_distance_units": 1,
+      "control_site_ref": "loc_tang_manor",
+      "hours": 1,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_crossing": {
+        "fixed_causeway_m": 52.0,
+        "lifting_drawbridge_m": 18.0,
+        "moat_width_m": 70.0,
+        "wheeled_engine_access_requires_bridge_down_or_engineered_crossing": true
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 2.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_tang_manor_outer_gate_access",
+      "road_quality": "fortress_approach",
+      "route_role": "fortified_estate_gate_access",
+      "scope": "strategic",
+      "terrain": "fortified_crossing"
+    },
+    {
+      "a": "loc_wei_regional_01",
+      "b": "loc_dairyou",
+      "base_distance_units": 6,
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 15.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_wei_capital_heartland",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_wei_west_fort",
+      "b": "loc_han_frontier_fort",
+      "base_distance_units": 14,
+      "border_crossing": {
+        "from": "wei",
+        "to": "han"
+      },
+      "frontier": true,
+      "hours": 14,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 44.8,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_wei_han_frontier",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "hills"
+    },
+    {
+      "a": "loc_wei_regional_01",
+      "b": "loc_wei_regional_04",
+      "base_distance_units": 16,
+      "hours": 16,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 41.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_wei_heartland_east",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_wei_regional_01",
+      "b": "loc_wei_regional_03",
+      "base_distance_units": 18,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 46.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_wei_heartland_south",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_wei_regional_01",
+      "b": "loc_wei_regional_02",
+      "base_distance_units": 16,
+      "hours": 16,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 41.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_wei_heartland_west",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_wei_regional_02",
+      "b": "loc_wei_west_fort",
+      "base_distance_units": 7,
+      "control_site_ref": "loc_wei_west_fort",
+      "hours": 7,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 22.4,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_wei_west_fort",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "corridor"
+    },
+    {
+      "a": "loc_wei_regional_02",
+      "b": "loc_keiyou",
+      "base_distance_units": 6,
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 15.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_wei_west_keiyou",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_yan_regional_01",
+      "b": "loc_ji",
+      "base_distance_units": 6,
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 15.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_yan_capital_heartland",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_yan_regional_01",
+      "b": "loc_yan_regional_04",
+      "base_distance_units": 18,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 46.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_yan_heartland_east",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_yan_regional_01",
+      "b": "loc_yan_regional_03",
+      "base_distance_units": 24,
+      "hours": 24,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 62.4,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_yan_heartland_north",
+      "road_quality": "rough",
+      "scope": "strategic",
+      "terrain": "steppe_edge"
+    },
+    {
+      "a": "loc_yan_regional_01",
+      "b": "loc_yan_regional_02",
+      "base_distance_units": 22,
+      "hours": 22,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 57.2,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_yan_heartland_south",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_yan_south_fort",
+      "b": "loc_qi_west_fort",
+      "base_distance_units": 30,
+      "border_crossing": {
+        "from": "yan",
+        "to": "qi"
+      },
+      "frontier": true,
+      "hours": 30,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 96.0,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_yan_qi_frontier",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_yan_regional_02",
+      "b": "loc_yan_south_fort",
+      "base_distance_units": 8,
+      "control_site_ref": "loc_yan_south_fort",
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 25.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_yan_south_fort",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_zhao_regional_02",
+      "b": "loc_gyou",
+      "base_distance_units": 7,
+      "hours": 7,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 18.2,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_zhao_gyou_plain_city",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_zhao_regional_01",
+      "b": "loc_zhao_regional_02",
+      "base_distance_units": 18,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 46.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_zhao_heartland_gyou_plain",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_zhao_regional_01",
+      "b": "loc_kantan",
+      "base_distance_units": 6,
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 15.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_zhao_heartland_kantan",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_zhao_regional_01",
+      "b": "loc_zhao_regional_03",
+      "base_distance_units": 24,
+      "hours": 24,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 62.4,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_zhao_heartland_north",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "steppe_edge"
+    },
+    {
+      "a": "loc_zhao_regional_01",
+      "b": "loc_zhao_regional_04",
+      "base_distance_units": 20,
+      "hours": 20,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 52.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_zhao_heartland_west",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "hills"
+    },
+    {
+      "a": "loc_zhao_regional_02",
+      "b": "loc_zhao_border_fort",
+      "base_distance_units": 8,
+      "control_site_ref": "loc_zhao_border_fort",
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 25.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_zhao_south_fort",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_zhao_regional_04",
+      "b": "loc_wei_regional_02",
+      "base_distance_units": 30,
+      "border_crossing": {
+        "from": "zhao",
+        "to": "wei"
+      },
+      "frontier": true,
+      "hours": 30,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 78.0,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_zhao_wei_western_corridor",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "hills"
+    },
+    {
+      "a": "loc_zhao_regional_03",
+      "b": "loc_yan_regional_03",
+      "base_distance_units": 38,
+      "border_crossing": {
+        "from": "zhao",
+        "to": "yan"
+      },
+      "frontier": true,
+      "hours": 38,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 98.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_zhao_yan_northern_corridor",
+      "road_quality": "rough",
+      "scope": "strategic",
+      "terrain": "steppe_edge"
+    },
+    {
+      "a": "loc_wei_regional_02",
+      "b": "loc_sanyou",
+      "base_distance_units": 8,
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 34.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 25.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_wei_west_sanyou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "hilly_plain"
+    },
+    {
+      "a": "loc_sanyou",
+      "b": "loc_keiyou",
+      "base_distance_units": 14,
+      "hours": 14,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 58.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 36.4,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_sanyou_keiyou",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "hilly_plain"
+    },
+    {
+      "a": "loc_qin_regional_02",
+      "b": "loc_sanyou",
+      "base_distance_units": 18,
+      "border_crossing": {
+        "from": "qin",
+        "to": "wei"
+      },
+      "frontier": true,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 76.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 57.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_qin_east_sanyou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "corridor"
+    },
+    {
+      "a": "loc_zhao_regional_04",
+      "b": "loc_retsubi",
+      "base_distance_units": 8,
+      "control_site_ref": "loc_retsubi",
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 32.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 25.6,
+        "maximum_sustained_grade_percent": 11.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_zhao_west_retsubi",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "river_mountain_pass",
+      "water_crossing": {
+        "bridge_load_capacity_tonnes": 20.0,
+        "bridge_span_m": 96.0,
+        "bridge_width_m": 7.0,
+        "crossing_type": "fortified_bridge_with_ferry_support",
+        "ferry_boats": 10,
+        "ferry_cycle_minutes": 34.0,
+        "ferry_payload_tonnes_each": 3.5,
+        "ford_available_low_stage": true,
+        "ford_available_normal_stage": false,
+        "low_stage_ford_geometry": {
+          "crossing_width_m": 108.0,
+          "maximum_depth_m": 0.85,
+          "prepared_approach_width_m": 8.0
+        },
+        "measurement_policy": "exact game-authored strategic river-crossing simulation geometry; not claimed historical survey data",
+        "normal_current_m_per_s": 1.45,
+        "normal_depth_m": 2.4,
+        "river_width_m": 85.0
+      }
+    },
+    {
+      "a": "loc_retsubi",
+      "b": "loc_gyou",
+      "base_distance_units": 18,
+      "control_site_ref": "loc_retsubi",
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 74.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 57.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_retsubi_gyou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "river_plain",
+      "water_crossing": {
+        "bridge_load_capacity_tonnes": 22.0,
+        "bridge_span_m": 176.0,
+        "bridge_width_m": 7.0,
+        "crossing_type": "permanent_bridge_with_ferry_support",
+        "ferry_boats": 14,
+        "ferry_cycle_minutes": 36.0,
+        "ferry_payload_tonnes_each": 4.0,
+        "ford_available_low_stage": false,
+        "ford_available_normal_stage": false,
+        "measurement_policy": "exact game-authored strategic river-crossing simulation geometry; not claimed historical survey data",
+        "normal_current_m_per_s": 0.95,
+        "normal_depth_m": 3.6,
+        "river_width_m": 160.0
+      }
+    },
+    {
+      "a": "loc_zhao_regional_03",
+      "b": "loc_gian",
+      "base_distance_units": 13,
+      "hours": 13,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 55.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 33.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_zhao_north_gian",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "northern_plain"
+    },
+    {
+      "a": "loc_gian",
+      "b": "loc_hango",
+      "base_distance_units": 9,
+      "hours": 9,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 38.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 23.4,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_gian_hango",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "northern_plain"
+    },
+    {
+      "a": "loc_gian",
+      "b": "loc_hika",
+      "base_distance_units": 7,
+      "hours": 7,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 29.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 5.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 18.2,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_gian_hika",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "northern_plain"
+    },
+    {
+      "a": "loc_hango",
+      "b": "loc_roumou",
+      "base_distance_units": 10,
+      "hours": 10,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 42.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 32.0,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_hango_roumou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "northern_corridor"
+    },
+    {
+      "a": "loc_zhao_regional_03",
+      "b": "loc_roumou",
+      "base_distance_units": 11,
+      "hours": 11,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 46.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 35.2,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_zhao_north_roumou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "northern_corridor"
+    },
+    {
+      "a": "loc_zhao_regional_03",
+      "b": "loc_houshi",
+      "base_distance_units": 16,
+      "hours": 16,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 68.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 41.6,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_zhao_north_houshi",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "eastern_plain"
+    },
+    {
+      "a": "loc_houshi",
+      "b": "loc_seika",
+      "base_distance_units": 8,
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 33.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 20.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_houshi_seika",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "eastern_border_hills"
+    },
+    {
+      "a": "loc_seika",
+      "b": "loc_yan_regional_02",
+      "base_distance_units": 20,
+      "border_crossing": {
+        "from": "zhao",
+        "to": "yan"
+      },
+      "frontier": true,
+      "hours": 20,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 82.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 64.0,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_seika_yan_frontier",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "border_hills"
+    },
+    {
+      "a": "loc_zhao_regional_04",
+      "b": "loc_atsuyo",
+      "base_distance_units": 9,
+      "control_site_ref": "loc_atsuyo",
+      "hours": 9,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 37.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 28.8,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_zhao_west_atsuyo",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "northwestern_hills"
+    },
+    {
+      "a": "loc_atsuyo",
+      "b": "loc_hango",
+      "base_distance_units": 18,
+      "hours": 18,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 74.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 57.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_atsuyo_hango",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "northern_hills"
+    },
+    {
+      "a": "loc_zhao_regional_02",
+      "b": "loc_bujou",
+      "base_distance_units": 7,
+      "control_site_ref": "loc_bujou",
+      "hours": 7,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 29.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 22.4,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_zhao_south_bujou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_zhao_regional_02",
+      "b": "loc_heiyou",
+      "base_distance_units": 7,
+      "control_site_ref": "loc_heiyou",
+      "hours": 7,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 29.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 22.4,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_zhao_south_heiyou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_bujou",
+      "b": "loc_heiyou",
+      "base_distance_units": 6,
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 25.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 19.2,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_bujou_heiyou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_han_regional_02",
+      "b": "loc_nanyou",
+      "base_distance_units": 8,
+      "control_site_ref": "loc_nanyou",
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 33.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 25.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_han_west_nanyou",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "western_corridor"
+    },
+    {
+      "a": "loc_nanyou",
+      "b": "loc_han_capital",
+      "base_distance_units": 15,
+      "hours": 15,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 63.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 48.0,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_nanyou_shintei",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "plain"
+    },
+    {
+      "a": "loc_nanyou",
+      "b": "loc_koukei",
+      "base_distance_units": 6,
+      "control_site_ref": "loc_koukei",
+      "hours": 6,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 24.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 19.2,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_nanyou_koukei",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "western_checkpoint"
+    },
+    {
+      "a": "loc_koukei",
+      "b": "loc_qin_regional_04",
+      "base_distance_units": 17,
+      "border_crossing": {
+        "from": "han",
+        "to": "qin"
+      },
+      "control_site_ref": "loc_koukei",
+      "frontier": true,
+      "hours": 17,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 71.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 6.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 54.4,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_koukei_qin_south",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "hilly_corridor"
+    },
+    {
+      "a": "loc_chu_regional_02",
+      "b": "loc_juuko",
+      "base_distance_units": 8,
+      "control_site_ref": "loc_juuko",
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 34.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 8.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 25.6,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_chu_north_juuko",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "four_state_crossroads"
+    },
+    {
+      "a": "loc_juuko",
+      "b": "loc_han_regional_03",
+      "base_distance_units": 12,
+      "border_crossing": {
+        "from": "chu",
+        "to": "han"
+      },
+      "control_site_ref": "loc_juuko",
+      "frontier": true,
+      "hours": 12,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 50.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 8.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 38.4,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_juuko_han_south",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "four_state_crossroads"
+    },
+    {
+      "a": "loc_juuko",
+      "b": "loc_wei_regional_03",
+      "base_distance_units": 14,
+      "border_crossing": {
+        "from": "chu",
+        "to": "wei"
+      },
+      "control_site_ref": "loc_juuko",
+      "frontier": true,
+      "hours": 14,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 58.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 8.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 44.8,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_juuko_wei_south",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "four_state_crossroads"
+    },
+    {
+      "a": "loc_juuko",
+      "b": "loc_qin_regional_04",
+      "base_distance_units": 16,
+      "border_crossing": {
+        "from": "chu",
+        "to": "qin"
+      },
+      "control_site_ref": "loc_juuko",
+      "frontier": true,
+      "hours": 16,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 66.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 8.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 60000,
+        "daily_wagon_throughput": 3200,
+        "formation_files_abreast_baseline": 7,
+        "length_km": 51.2,
+        "maximum_sustained_grade_percent": 8.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "compacted_gravel_and_earth",
+        "usable_road_width_m": 9.0
+      },
+      "ref": "route_juuko_qin_south",
+      "road_quality": "military_road",
+      "scope": "strategic",
+      "terrain": "four_state_crossroads"
+    },
+    {
+      "a": "loc_chu_regional_03",
+      "b": "loc_chu_ei",
+      "base_distance_units": 8,
+      "hours": 8,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_baseline": {
+        "length_km": 34.0,
+        "measurement_policy": "exact game operational route baseline; not claimed canon distance",
+        "road_width_m": 7.0
+      },
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity, not a cap on army existence; excess bodies clear the route in additional waves/time",
+        "daily_troop_throughput": 32000,
+        "daily_wagon_throughput": 1400,
+        "formation_files_abreast_baseline": 4,
+        "length_km": 20.8,
+        "maximum_sustained_grade_percent": 12.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "maintained_earth",
+        "usable_road_width_m": 5.5
+      },
+      "ref": "route_chu_east_ei",
+      "road_quality": "maintained",
+      "scope": "strategic",
+      "terrain": "river_plain",
+      "water_crossing": {
+        "bridge_load_capacity_tonnes": 20.0,
+        "bridge_span_m": 144.0,
+        "bridge_width_m": 6.5,
+        "crossing_type": "capital_approach_bridge_with_ferry_support",
+        "ferry_boats": 16,
+        "ferry_cycle_minutes": 35.0,
+        "ferry_payload_tonnes_each": 4.0,
+        "ford_available_low_stage": false,
+        "ford_available_normal_stage": false,
+        "measurement_policy": "exact game-authored strategic river-crossing simulation geometry; not claimed historical survey data",
+        "normal_current_m_per_s": 1.1,
+        "normal_depth_m": 3.1,
+        "river_width_m": 130.0
+      }
+    },
+    {
+      "a": "loc_qin_regional_03",
+      "b": "loc_yotanwa_mountain_confederation",
+      "base_distance_units": 64,
+      "border_crossing": {
+        "from": "qin",
+        "to": "yotanwa_confederation"
+      },
+      "frontier": true,
+      "hours": 64,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity; excess bodies require additional waves/time",
+        "daily_troop_throughput": 14000,
+        "daily_wagon_throughput": 350,
+        "formation_files_abreast_baseline": 2,
+        "length_km": 153.6,
+        "maximum_sustained_grade_percent": 18.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "mixed trail and earth",
+        "usable_road_width_m": 4.0
+      },
+      "ref": "route_qin_north_yotanwa_confederation",
+      "road_quality": "rough",
+      "scope": "strategic",
+      "terrain": "mountain_highlands"
+    },
+    {
+      "a": "loc_zhao_regional_04",
+      "b": "loc_northern_steppe_confederation",
+      "base_distance_units": 72,
+      "border_crossing": {
+        "from": "zhao",
+        "to": "northern_steppe"
+      },
+      "frontier": true,
+      "hours": 72,
+      "modes": [
+        "foot",
+        "horse",
+        "courier",
+        "formation",
+        "convoy"
+      ],
+      "physical_geometry": {
+        "column_clearance_rule": "throughput is physical route capacity; excess bodies require additional waves/time",
+        "daily_troop_throughput": 26000,
+        "daily_wagon_throughput": 900,
+        "formation_files_abreast_baseline": 2,
+        "length_km": 172.8,
+        "maximum_sustained_grade_percent": 10.0,
+        "measurement_policy": "exact game-authored strategic-route simulation geometry; not claimed historical survey data",
+        "surface": "mixed trail and earth",
+        "usable_road_width_m": 4.0
+      },
+      "ref": "route_zhao_north_steppe_confederation",
+      "road_quality": "rough",
+      "scope": "strategic",
+      "terrain": "steppe_edge"
+    }
+  ],
+  "schema": "sword-world-routes"
+}

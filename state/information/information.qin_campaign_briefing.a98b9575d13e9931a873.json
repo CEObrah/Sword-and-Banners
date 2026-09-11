@@ -1,0 +1,223 @@
+{
+  "campaign_context": {
+    "arc_ref": "arc_ryo_fui_northern_wei_campaign",
+    "target_state_ref": "state_wei",
+    "objective": "participate in major Qin operation against northern Wei while Qin court power is divided; execute the institutional order with the assigned Qin formations under Tang Wei's current field-command authority",
+    "own_strength": 9500,
+    "own_assigned_strength": 5000,
+    "own_auxiliary_strength": 4500,
+    "own_location_refs": [
+      "loc_kanyou"
+    ],
+    "friendly_total_strength": 176800,
+    "other_friendly_participants": [
+      {
+        "operation_ref": "operation_qin_mou_gou_northern_wei_campaign",
+        "objective": "concentrate Mou Gou, Ousen, and Kanki field forces for the northern Wei campaign",
+        "strength": 73200,
+        "formation_count": 3,
+        "location_refs": [
+          "loc_qin_regional_01",
+          "loc_qin_regional_03"
+        ],
+        "commanders": [
+          {
+            "person_ref": "char_kanki",
+            "name": "Kanki"
+          },
+          {
+            "person_ref": "char_mou_gou",
+            "name": "Mou Gou"
+          },
+          {
+            "person_ref": "char_ousen",
+            "name": "Ousen"
+          }
+        ]
+      },
+      {
+        "operation_ref": "operation_qin_ouki_northern_wei_campaign",
+        "objective": "concentrate Ouki and Tou field forces for the northern Wei campaign",
+        "strength": 46100,
+        "formation_count": 2,
+        "location_refs": [
+          "loc_qin_regional_02"
+        ],
+        "commanders": [
+          {
+            "person_ref": "char_ouki",
+            "name": "Ouki"
+          },
+          {
+            "person_ref": "char_tou",
+            "name": "Tou"
+          }
+        ]
+      },
+      {
+        "operation_ref": "operation_qin_mou_bu_northern_wei_campaign",
+        "objective": "hold Mou Bu's shock army ready for the northern Wei campaign",
+        "strength": 40000,
+        "formation_count": 1,
+        "location_refs": [
+          "loc_qin_regional_04"
+        ],
+        "commanders": [
+          {
+            "person_ref": "char_mou_bu",
+            "name": "Mou Bu"
+          }
+        ]
+      },
+      {
+        "operation_ref": "operation_qin_mobile_reserve_northern_wei_campaign",
+        "objective": "maintain the Qin mobile reserve as a participant in the northern Wei campaign",
+        "strength": 5000,
+        "formation_count": 1,
+        "location_refs": [
+          "loc_qin_regional_01"
+        ],
+        "commanders": [
+          {
+            "person_ref": "char_cmd_qin_mobile_reserve",
+            "name": "Fan Yi"
+          }
+        ]
+      },
+      {
+        "operation_ref": "operation_qin_eastern_reserve_northern_wei_campaign",
+        "objective": "maintain the eastern reserve as a participant in the northern Wei campaign",
+        "strength": 3000,
+        "formation_count": 1,
+        "location_refs": [
+          "loc_qin_eastern_depot"
+        ],
+        "commanders": [
+          {
+            "person_ref": "char_shou_hei_kun",
+            "name": "Shou Hei Kun"
+          }
+        ]
+      }
+    ],
+    "campaign_commander_ref": null,
+    "campaign_commander_name": null,
+    "coordination_authority_ref": "inst_qin_military_bureau",
+    "operational_area": {
+      "destination_ref": "loc_kanyou",
+      "destination_name": "Kanyou",
+      "strategic_target_ref": "loc_sanyou",
+      "strategic_target_name": "Sanyou",
+      "target_state_ref": "state_wei",
+      "hostile_entry_authorized": false,
+      "entry_status": "awaiting_war_or_entry_authority",
+      "route_hours_from_current_assembly": 0,
+      "selection_basis": "nearest lawful friendly strategic staging node on the approach to the target theater"
+    },
+    "enemy_intelligence": {
+      "estimated_strength_low": 94000,
+      "estimated_strength_high": 156000,
+      "reported_formation_count": 10,
+      "reported_commanders": [
+        {
+          "person_ref": "char_cmd_wei_engineered_line",
+          "name": "Deng Shan",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        },
+        {
+          "person_ref": "char_gai_mou",
+          "name": "Gai Mou",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        },
+        {
+          "person_ref": "char_go_hou_mei",
+          "name": "Go Hou Mei",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        },
+        {
+          "person_ref": "char_cmd_wei_crossbow_corps",
+          "name": "Huan Zhen",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        },
+        {
+          "person_ref": "char_cmd_wei_reserve_infantry_03",
+          "name": "Jing Ning",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        },
+        {
+          "person_ref": "char_cmd_wei_disciplined_line",
+          "name": "Jing Rong",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        },
+        {
+          "person_ref": "char_cmd_wei_reserve_infantry_01",
+          "name": "Luo Qian",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        },
+        {
+          "person_ref": "char_cmd_wei_reserve_infantry_02",
+          "name": "Qiao He",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        },
+        {
+          "person_ref": "char_cmd_wei_chariot_screen",
+          "name": "Qiao Jie",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        },
+        {
+          "person_ref": "char_rei_ou",
+          "name": "Rei Ou",
+          "confidence_milli": 620,
+          "basis": "theater_reinforcement_potential"
+        }
+      ],
+      "confidence_milli": 700,
+      "basis": "Qin operational intelligence synthesis from campaign activity and forces able to reach the selected theater within roughly two days",
+      "contact_status": "no confirmed battle contact",
+      "confirmed_contact": null
+    }
+  },
+  "claim": "Qin Military Bureau briefing. Tang Wei's field command numbers 9,500 troops in 19 formation(s), currently at Kanyou. Of these, 5,000 are Qin-assigned troops and 4,500 are House or retinue troops accompanying under Tang Wei's own authority. Other Qin forces on the campaign roster: 73,200 troops in 3 formation(s), under Kanki, Mou Gou, Ousen, at Qin Capital Basin, Qin Northern Frontier, task: concentrate Mou Gou, Ousen, and Kanki field forces for the northern Wei campaign; 46,100 troops in 2 formation(s), under Ouki, Tou, at Qin Eastern March, task: concentrate Ouki and Tou field forces for the northern Wei campaign; 40,000 troops in 1 formation(s), under Mou Bu, at Qin Southern March, task: hold Mou Bu's shock army ready for the northern Wei campaign; 5,000 troops in 1 formation(s), under Fan Yi, at Qin Capital Basin, task: maintain the Qin mobile reserve as a participant in the northern Wei campaign; 3,000 troops in 1 formation(s), under Shou Hei Kun, at Qin Eastern Military Depot, task: maintain the eastern reserve as a participant in the northern Wei campaign. Combined Qin strength on the current campaign roster is 176,800. The staff designate Kanyou as the present operational area. The field command has completed its lawful staging at Kanyou; Sanyou remains the strategic target, but Qin has not yet authorized entry into Wei territory. Intelligence estimate: an official estimate of roughly 94,000-156,000 troops able to influence the theater; reported opposing commanders: Deng Shan, Gai Mou, Go Hou Mei, Huan Zhen, Jing Ning, Jing Rong, Luo Qian, Qiao He, Qiao Jie, Rei Ou; no confirmed battle contact. These are staff estimates rather than confirmed enemy counts. The Bureau's standing orders record concentration at Kanyou as complete. Further advance into Wei territory awaits new lawful entry authority.",
+  "claim_status": "runtime_established_estimate",
+  "classification": "command_intelligence",
+  "confidence": "0.800",
+  "confidence_milli": 800,
+  "created_at": "244-BCE-09-16T20:22:48+08:00",
+  "deliveries": [],
+  "discoverability_milli": 1000,
+  "epistemic_kind": "official_military_briefing",
+  "evidence_refs": [
+    "operation_arc_131572c4e8a2892bbc"
+  ],
+  "fact": "Qin Military Bureau briefing. Tang Wei's field command numbers 9,500 troops in 19 formation(s), currently at Kanyou. Of these, 5,000 are Qin-assigned troops and 4,500 are House or retinue troops accompanying under Tang Wei's own authority. Other Qin forces on the campaign roster: 73,200 troops in 3 formation(s), under Kanki, Mou Gou, Ousen, at Qin Capital Basin, Qin Northern Frontier, task: concentrate Mou Gou, Ousen, and Kanki field forces for the northern Wei campaign; 46,100 troops in 2 formation(s), under Ouki, Tou, at Qin Eastern March, task: concentrate Ouki and Tou field forces for the northern Wei campaign; 40,000 troops in 1 formation(s), under Mou Bu, at Qin Southern March, task: hold Mou Bu's shock army ready for the northern Wei campaign; 5,000 troops in 1 formation(s), under Fan Yi, at Qin Capital Basin, task: maintain the Qin mobile reserve as a participant in the northern Wei campaign; 3,000 troops in 1 formation(s), under Shou Hei Kun, at Qin Eastern Military Depot, task: maintain the eastern reserve as a participant in the northern Wei campaign. Combined Qin strength on the current campaign roster is 176,800. The staff designate Kanyou as the present operational area. The field command has completed its lawful staging at Kanyou; Sanyou remains the strategic target, but Qin has not yet authorized entry into Wei territory. Intelligence estimate: an official estimate of roughly 94,000-156,000 troops able to influence the theater; reported opposing commanders: Deng Shan, Gai Mou, Go Hou Mei, Huan Zhen, Jing Ning, Jing Rong, Luo Qian, Qiao He, Qiao Jie, Rei Ou; no confirmed battle contact. These are staff estimates rather than confirmed enemy counts. The Bureau's standing orders record concentration at Kanyou as complete. Further advance into Wei territory awaits new lawful entry authority.",
+  "holder_states": {
+    "char_tang_wei": {
+      "channel": "Qin Military Bureau operational briefing",
+      "confidence_milli": 800,
+      "epistemic_kind": "official_military_briefing",
+      "learned_at": "244-BCE-09-16T20:22:48+08:00",
+      "source_ref": "arc_ryo_fui_northern_wei_campaign"
+    }
+  },
+  "information_ref": "information.qin_campaign_briefing.a98b9575d13e9931a873",
+  "investigation_discoverable": false,
+  "knowers": [
+    "char_tang_wei"
+  ],
+  "location_ref": "loc_kanyou",
+  "origin_authority": "runtime_established",
+  "owner_id": "information.qin_campaign_briefing.a98b9575d13e9931a873",
+  "provenance": "Qin Military Bureau operational briefing",
+  "schema": "sword-information",
+  "subject_ref": "arc_ryo_fui_northern_wei_campaign",
+  "world_truth_authority": false
+}

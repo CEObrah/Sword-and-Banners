@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "formationMemory": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "wins": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "losses": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "last_result_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "wins",
+        "losses",
+        "last_result_at"
+      ]
+    },
+    "stateMemory": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "formation_candidate_cursor": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "formation_candidate_cursor"
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "sword-operational-memory"
+    },
+    "authority": {
+      "const": false
+    },
+    "as_of": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state_memory": {
+      "type": "object",
+      "maxProperties": 16,
+      "additionalProperties": {
+        "$ref": "#/$defs/stateMemory"
+      }
+    },
+    "formation_memory": {
+      "type": "object",
+      "maxProperties": 256,
+      "additionalProperties": {
+        "$ref": "#/$defs/formationMemory"
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "authority",
+    "as_of",
+    "state_memory",
+    "formation_memory"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "owner_id": {},
+    "schema": {
+      "const": "sword-depot"
+    },
+    "state": {},
+    "stocks": {},
+    "artillery_ref": {},
+    "consumption_history": {},
+    "current_shortfalls": {},
+    "damage_history": {},
+    "damage_state": {},
+    "depot_kind": {},
+    "fortification_profile_ref": {},
+    "garrison_formation_refs": {},
+    "garrison_personnel_at_materialization": {},
+    "garrison_summary": {},
+    "garrison_support_targets": {},
+    "geography": {},
+    "hot_state": {},
+    "infrastructure_capacity": {},
+    "installed_equipment": {},
+    "kind": {},
+    "location_ref": {},
+    "materialized_at": {},
+    "medical_reserve": {},
+    "mounts": {},
+    "physical_capacity_authority": {},
+    "procurement_history": {},
+    "region_ref": {},
+    "resupply_sources": {},
+    "site_ref": {},
+    "source_aggregate_depot_ref": {},
+    "source_depot_ref": {},
+    "storage_capacity": {},
+    "storage_class": {},
+    "transfer_history": {},
+    "wagon_staging": {},
+    "water_reserve": {},
+    "water_reserve_person_days": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "state",
+    "stocks"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "mass_kg",
+    "coverage",
+    "articulation_factor"
+  ],
+  "properties": {
+    "schema": {
+      "const": "horse_armor"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mass_kg": {},
+    "coverage": {},
+    "cut_resistance": {},
+    "thrust_resistance": {},
+    "blunt_resistance": {},
+    "articulation_factor": {},
+    "heat_modifier": {},
+    "burden_model": {}
+  },
+  "additionalProperties": true
+}

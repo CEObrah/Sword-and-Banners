@@ -1,0 +1,184 @@
+{
+  "schema": "training-session-mechanics",
+  "authority": "Exact-person deliberate-training attribute stimulus and sustainable standing-training recovery. Skill EDU remains owned by training.json; aggregate cohort role stimulus remains owned by recruitment-cohort-profiles.json.",
+  "standing_recovery": {
+    "fatigue_recovery_per_24h": 8.0,
+    "excess_deliberate_training_fatigue_per_hour": 0.5,
+    "rule": "Standing training represents a distributed daily schedule with ordinary sleep and recovery. Training at or below the normal deliberate-hours ceiling creates no chronic fatigue by itself; elapsed full-day recovery removes saved fatigue. Only deliberate hours above the normal weekly ceiling create residual training fatigue. Immediate training, marching, combat, deprivation, wounds and other acute sources remain separate mechanics."
+  },
+  "attribute_aptitude_map": {
+    "Strength": "physical_learning",
+    "Agility": "physical_learning",
+    "Endurance": "physical_learning",
+    "Toughness": "physical_learning",
+    "Coordination": "physical_learning",
+    "Awareness": "tactical_learning",
+    "Composure": "tactical_learning",
+    "Intelligence": "academic_learning",
+    "Presence": "social_learning"
+  },
+  "attribute_age_category_map": {
+    "Strength": "physical_attribute",
+    "Agility": "physical_attribute",
+    "Endurance": "physical_attribute",
+    "Toughness": "physical_attribute",
+    "Coordination": "physical_attribute",
+    "Awareness": "mental_skill",
+    "Composure": "command_or_civil_skill",
+    "Intelligence": "mental_skill",
+    "Presence": "command_or_civil_skill"
+  },
+  "skill_attribute_stimulus": {
+    "Sword": [
+      "Strength",
+      "Agility",
+      "Coordination",
+      "Awareness"
+    ],
+    "Polearms": [
+      "Strength",
+      "Endurance",
+      "Coordination",
+      "Awareness"
+    ],
+    "Heavy Weapons": [
+      "Strength",
+      "Endurance",
+      "Toughness"
+    ],
+    "Bow": [
+      "Strength",
+      "Endurance",
+      "Coordination",
+      "Awareness"
+    ],
+    "Crossbow": [
+      "Coordination",
+      "Awareness"
+    ],
+    "Shield": [
+      "Strength",
+      "Toughness",
+      "Coordination",
+      "Composure"
+    ],
+    "Athletics": [
+      "Strength",
+      "Agility",
+      "Endurance",
+      "Toughness"
+    ],
+    "Formation Fighting": [
+      "Awareness",
+      "Composure",
+      "Intelligence",
+      "Presence"
+    ],
+    "Grappling": [
+      "Strength",
+      "Agility",
+      "Endurance",
+      "Toughness"
+    ],
+    "Unarmed": [
+      "Strength",
+      "Agility",
+      "Endurance",
+      "Coordination"
+    ],
+    "Riding": [
+      "Agility",
+      "Coordination",
+      "Awareness",
+      "Composure"
+    ],
+    "Survival": [
+      "Endurance",
+      "Toughness",
+      "Awareness"
+    ],
+    "Stealth": [
+      "Agility",
+      "Coordination",
+      "Awareness",
+      "Composure"
+    ],
+    "Scouting": [
+      "Agility",
+      "Endurance",
+      "Awareness"
+    ],
+    "Medicine": [
+      "Intelligence",
+      "Coordination",
+      "Awareness",
+      "Composure"
+    ],
+    "Engineering": [
+      "Intelligence",
+      "Coordination",
+      "Awareness"
+    ],
+    "Leadership": [
+      "Presence",
+      "Composure",
+      "Awareness",
+      "Intelligence"
+    ],
+    "Formation Command": [
+      "Presence",
+      "Composure",
+      "Awareness",
+      "Intelligence"
+    ],
+    "Tactics": [
+      "Intelligence",
+      "Awareness",
+      "Composure"
+    ],
+    "Strategy": [
+      "Intelligence",
+      "Awareness",
+      "Composure"
+    ],
+    "Logistics": [
+      "Intelligence",
+      "Awareness",
+      "Composure"
+    ],
+    "Intelligence Operations": [
+      "Intelligence",
+      "Awareness",
+      "Composure",
+      "Presence"
+    ],
+    "Diplomacy": [
+      "Presence",
+      "Intelligence",
+      "Composure",
+      "Awareness"
+    ],
+    "Law": [
+      "Intelligence",
+      "Composure",
+      "Presence"
+    ],
+    "Trade": [
+      "Intelligence",
+      "Presence",
+      "Awareness"
+    ],
+    "Governance": [
+      "Intelligence",
+      "Presence",
+      "Composure",
+      "Awareness"
+    ]
+  },
+  "rules": {
+    "attribute_stimulus_uses_training_json_share_limit": true,
+    "attribute_points_use_cohort_progression_cost_law": true,
+    "combat_experience_does_not_call_exact_person_attribute_stimulus": true,
+    "standing_recovery_requires_elapsed_calendar_time": true
+  }
+}

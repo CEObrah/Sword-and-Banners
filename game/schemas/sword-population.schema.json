@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "owner_id": {},
+    "population_total": {},
+    "schema": {
+      "const": "sword-population"
+    },
+    "state": {},
+    "strata": {},
+    "civil_recruitment_policy": {},
+    "demography": {},
+    "geographic_partition": {},
+    "last_population_mobility": {},
+    "local_population": {},
+    "parent_population_ref": {},
+    "provenance": {},
+    "recruitment_runtime": {},
+    "subset_of_parent": {},
+    "last_parent_sync": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "state",
+    "population_total",
+    "strata"
+  ],
+  "type": "object"
+}

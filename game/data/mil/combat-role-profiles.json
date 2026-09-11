@@ -1,0 +1,390 @@
+{
+  "schema": "combat-role-profiles",
+  "authority": "Canonical combat and command role profiles. Support functions are temporary duties from conserved manpower, not separate troop roles.",
+  "profiles": {
+    "line_infantry": {
+      "loadout_id": "loadout_state_line_infantry",
+      "melee_skill_weights": {
+        "Polearms": 0.404762,
+        "Shield": 0.166667,
+        "Formation Fighting": 0.357143,
+        "Athletics": 0.071428
+      },
+      "attribute_weights": {
+        "Strength": 0.12,
+        "Endurance": 0.16,
+        "Toughness": 0.1,
+        "Coordination": 0.18,
+        "Awareness": 0.14,
+        "Composure": 0.18,
+        "Agility": 0.12
+      },
+      "ranged_skill_weights": {},
+      "frontage_spacing_m": 0.9,
+      "depth_support_factor": 0.35,
+      "terrain_tags": [
+        "infantry"
+      ]
+    },
+    "cavalry": {
+      "loadout_id": "loadout_state_cavalry",
+      "melee_skill_weights": {
+        "Polearms": 0.272727,
+        "Riding": 0.25,
+        "Formation Fighting": 0.25,
+        "Athletics": 0.068182,
+        "Bow": 0.159091
+      },
+      "attribute_weights": {
+        "Strength": 0.1,
+        "Agility": 0.16,
+        "Endurance": 0.12,
+        "Coordination": 0.2,
+        "Awareness": 0.16,
+        "Composure": 0.16,
+        "Toughness": 0.1
+      },
+      "ranged_skill_weights": {
+        "Bow": 0.48,
+        "Riding": 0.18,
+        "Coordination": 0.0,
+        "Formation Fighting": 0.14,
+        "Awareness": 0.0,
+        "Composure": 0.0,
+        "Scouting": 0.1,
+        "Athletics": 0.1
+      },
+      "frontage_spacing_m": 1.8,
+      "depth_support_factor": 0.2,
+      "terrain_tags": [
+        "cavalry"
+      ]
+    },
+    "household_retainer": {
+      "loadout_id": "loadout_escort_guard",
+      "melee_skill_weights": {
+        "Polearms": 0.26506,
+        "Sword": 0.168675,
+        "Shield": 0.144578,
+        "Formation Fighting": 0.349398,
+        "Athletics": 0.072289
+      },
+      "attribute_weights": {
+        "Strength": 0.11,
+        "Agility": 0.12,
+        "Endurance": 0.14,
+        "Toughness": 0.1,
+        "Coordination": 0.18,
+        "Awareness": 0.16,
+        "Composure": 0.19
+      },
+      "ranged_skill_weights": {
+        "Bow": 0.647059,
+        "Formation Fighting": 0.176471,
+        "Awareness": 0.0,
+        "Coordination": 0.0,
+        "Composure": 0.0,
+        "Athletics": 0.117647,
+        "Scouting": 0.058823
+      },
+      "frontage_spacing_m": 0.95,
+      "depth_support_factor": 0.33,
+      "terrain_tags": [
+        "infantry",
+        "guard"
+      ]
+    },
+    "missile_crossbow": {
+      "loadout_id": "loadout_state_missile_crossbow",
+      "melee_skill_weights": {
+        "Sword": 0.275,
+        "Formation Fighting": 0.375,
+        "Athletics": 0.1,
+        "Shield": 0.25
+      },
+      "attribute_weights": {
+        "Strength": 0.08,
+        "Agility": 0.1,
+        "Endurance": 0.12,
+        "Toughness": 0.08,
+        "Coordination": 0.24,
+        "Awareness": 0.18,
+        "Composure": 0.2
+      },
+      "ranged_skill_weights": {
+        "Crossbow": 0.630435,
+        "Formation Fighting": 0.26087,
+        "Athletics": 0.054348,
+        "Scouting": 0.054347
+      },
+      "frontage_spacing_m": 1.0,
+      "depth_support_factor": 0.4,
+      "terrain_tags": [
+        "missile",
+        "infantry",
+        "crossbow"
+      ]
+    },
+    "chariot": {
+      "loadout_id": "loadout_state_chariot",
+      "melee_skill_weights": {
+        "Polearms": 0.244444,
+        "Sword": 0.088889,
+        "Riding": 0.2,
+        "Formation Fighting": 0.244444,
+        "Bow": 0.222223
+      },
+      "attribute_weights": {
+        "Strength": 0.08,
+        "Agility": 0.13,
+        "Endurance": 0.1,
+        "Toughness": 0.07,
+        "Coordination": 0.22,
+        "Awareness": 0.2,
+        "Composure": 0.2
+      },
+      "ranged_skill_weights": {
+        "Bow": 0.521739,
+        "Riding": 0.195652,
+        "Formation Fighting": 0.195652,
+        "Scouting": 0.086957
+      },
+      "frontage_spacing_m": 2.8,
+      "depth_support_factor": 0.12,
+      "terrain_tags": [
+        "chariot",
+        "missile"
+      ]
+    },
+    "archer": {
+      "loadout_id": "loadout_state_archer",
+      "melee_skill_weights": {
+        "Sword": 0.368421,
+        "Formation Fighting": 0.368421,
+        "Athletics": 0.131579,
+        "Shield": 0.131579
+      },
+      "attribute_weights": {
+        "Strength": 0.06,
+        "Agility": 0.14,
+        "Endurance": 0.12,
+        "Toughness": 0.06,
+        "Coordination": 0.26,
+        "Awareness": 0.2,
+        "Composure": 0.16
+      },
+      "ranged_skill_weights": {
+        "Bow": 0.638298,
+        "Formation Fighting": 0.191489,
+        "Athletics": 0.053191,
+        "Scouting": 0.06383,
+        "Survival": 0.053192
+      },
+      "frontage_spacing_m": 1.05,
+      "depth_support_factor": 0.42,
+      "terrain_tags": [
+        "missile",
+        "infantry",
+        "archer"
+      ]
+    },
+    "command_personnel": {
+      "loadout_id": "loadout_state_command_personnel",
+      "melee_skill_weights": {
+        "Sword": 0.3,
+        "Shield": 0.175,
+        "Formation Fighting": 0.325,
+        "Athletics": 0.075,
+        "Tactics": 0.125
+      },
+      "attribute_weights": {
+        "Strength": 0.09,
+        "Agility": 0.13,
+        "Endurance": 0.11,
+        "Toughness": 0.08,
+        "Coordination": 0.18,
+        "Awareness": 0.19,
+        "Composure": 0.22
+      },
+      "ranged_skill_weights": {},
+      "frontage_spacing_m": 0.95,
+      "depth_support_factor": 0.25,
+      "terrain_tags": [
+        "command",
+        "infantry"
+      ]
+    },
+    "heavy_cavalry": {
+      "loadout_id": "loadout_state_heavy_cavalry",
+      "melee_skill_weights": {
+        "Polearms": 0.34,
+        "Riding": 0.25,
+        "Formation Fighting": 0.24,
+        "Athletics": 0.07,
+        "Shield": 0.1
+      },
+      "attribute_weights": {
+        "Strength": 0.16,
+        "Agility": 0.1,
+        "Endurance": 0.15,
+        "Coordination": 0.18,
+        "Awareness": 0.12,
+        "Composure": 0.14,
+        "Toughness": 0.15
+      },
+      "ranged_skill_weights": {},
+      "frontage_spacing_m": 1.95,
+      "depth_support_factor": 0.16,
+      "terrain_tags": [
+        "cavalry",
+        "heavy",
+        "shock"
+      ]
+    },
+    "mounted_archer": {
+      "loadout_id": "loadout_state_mounted_archer",
+      "melee_skill_weights": {
+        "Riding": 0.3,
+        "Bow": 0.25,
+        "Formation Fighting": 0.18,
+        "Sword": 0.12,
+        "Athletics": 0.07,
+        "Scouting": 0.08
+      },
+      "attribute_weights": {
+        "Strength": 0.05,
+        "Agility": 0.19,
+        "Endurance": 0.12,
+        "Coordination": 0.25,
+        "Awareness": 0.18,
+        "Composure": 0.13,
+        "Toughness": 0.08
+      },
+      "ranged_skill_weights": {
+        "Bow": 0.52,
+        "Riding": 0.22,
+        "Formation Fighting": 0.1,
+        "Scouting": 0.08,
+        "Awareness": 0.04,
+        "Composure": 0.04
+      },
+      "frontage_spacing_m": 2.1,
+      "depth_support_factor": 0.15,
+      "terrain_tags": [
+        "cavalry",
+        "missile",
+        "mounted_archer"
+      ]
+    },
+    "light_cavalry": {
+      "loadout_id": "loadout_state_cavalry",
+      "melee_skill_weights": {
+        "Polearms": 0.31,
+        "Riding": 0.27,
+        "Formation Fighting": 0.24,
+        "Athletics": 0.08,
+        "Shield": 0.1
+      },
+      "attribute_weights": {
+        "Strength": 0.1,
+        "Agility": 0.16,
+        "Endurance": 0.12,
+        "Coordination": 0.2,
+        "Awareness": 0.16,
+        "Composure": 0.16,
+        "Toughness": 0.1
+      },
+      "ranged_skill_weights": {},
+      "frontage_spacing_m": 1.8,
+      "depth_support_factor": 0.2,
+      "terrain_tags": [
+        "cavalry",
+        "light_cavalry"
+      ]
+    },
+    "house_infantry": {
+      "loadout_id": "loadout_tang_foot",
+      "melee_skill_weights": {
+        "Polearms": 0.36,
+        "Shield": 0.16,
+        "Formation Fighting": 0.32,
+        "Sword": 0.08,
+        "Athletics": 0.08
+      },
+      "attribute_weights": {
+        "Strength": 0.12,
+        "Endurance": 0.16,
+        "Toughness": 0.1,
+        "Coordination": 0.18,
+        "Awareness": 0.14,
+        "Composure": 0.16,
+        "Agility": 0.14
+      },
+      "ranged_skill_weights": {
+        "Bow": 0.68,
+        "Formation Fighting": 0.14,
+        "Athletics": 0.06,
+        "Awareness": 0.0,
+        "Coordination": 0.0,
+        "Composure": 0.0,
+        "Survival": 0.06,
+        "Scouting": 0.06
+      },
+      "frontage_spacing_m": 0.9,
+      "depth_support_factor": 0.35,
+      "terrain_tags": [
+        "infantry",
+        "house_tang"
+      ]
+    },
+    "house_cavalry": {
+      "loadout_id": "loadout_tang_mounted",
+      "melee_skill_weights": {
+        "Polearms": 0.3,
+        "Riding": 0.24,
+        "Formation Fighting": 0.22,
+        "Sword": 0.07,
+        "Shield": 0.07,
+        "Athletics": 0.05,
+        "Bow": 0.05
+      },
+      "attribute_weights": {
+        "Strength": 0.11,
+        "Agility": 0.15,
+        "Endurance": 0.14,
+        "Toughness": 0.1,
+        "Coordination": 0.19,
+        "Awareness": 0.16,
+        "Composure": 0.15
+      },
+      "ranged_skill_weights": {
+        "Bow": 0.52,
+        "Riding": 0.2,
+        "Formation Fighting": 0.12,
+        "Scouting": 0.08,
+        "Athletics": 0.08
+      },
+      "frontage_spacing_m": 1.85,
+      "depth_support_factor": 0.2,
+      "terrain_tags": [
+        "cavalry",
+        "house_tang"
+      ]
+    }
+  },
+  "fallbacks": {
+    "cavalry": "cavalry",
+    "chariot": "chariot",
+    "guard": "household_retainer",
+    "retainer": "household_retainer",
+    "archer": "archer",
+    "crossbow": "missile_crossbow",
+    "infantry": "line_infantry",
+    "command_personnel": "command_personnel",
+    "command": "command_personnel",
+    "staff": "command_personnel",
+    "heavy_cavalry": "heavy_cavalry",
+    "mounted_archer": "mounted_archer",
+    "light_cavalry": "light_cavalry"
+  }
+}

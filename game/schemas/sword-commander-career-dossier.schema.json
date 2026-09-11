@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Commander career attraction dossier",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "commander_ref",
+    "command_scale",
+    "public_reputation_milli",
+    "institutional_reputation_milli",
+    "evidence_refs",
+    "published_at"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-commander-career-dossier"
+    },
+    "authority": {
+      "const": false
+    },
+    "commander_ref": {
+      "type": "string"
+    },
+    "state_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "formation_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "command_scale": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "public_reputation_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "institutional_reputation_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "casualty_stewardship_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "logistics_reliability_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "promotion_opportunity_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "political_risk_milli": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "published_at": {
+      "type": "string"
+    },
+    "public_summary": {
+      "type": "string"
+    },
+    "state_context_kind": {
+      "type": "string",
+      "enum": [
+        "current_military_service",
+        "personal_or_institutional_state"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

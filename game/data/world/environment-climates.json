@@ -1,0 +1,282 @@
+{
+  "basis": "Game-tuned regional climate profiles. Current conditions derive deterministically from campaign world seed, campaign time, and location climate; this file is static rules data, not mutable campaign weather state.",
+  "location_prefix_states": {
+    "loc_chu_": "chu",
+    "loc_han_": "han",
+    "loc_kanyou": "qin",
+    "loc_qi_": "qi",
+    "loc_qin_": "qin",
+    "loc_tang_manor_": "qin",
+    "loc_wei_": "wei",
+    "loc_yan_": "yan",
+    "loc_zhao_": "zhao"
+  },
+  "profiles": {
+    "chu": {
+      "cloud_chance_pct": {
+        "autumn": 52,
+        "spring": 58,
+        "summer": 56,
+        "winter": 52
+      },
+      "fog_chance_pct": {
+        "autumn": 12,
+        "spring": 13,
+        "summer": 9,
+        "winter": 11
+      },
+      "precipitation_chance_pct": {
+        "autumn": 34,
+        "spring": 42,
+        "summer": 52,
+        "winter": 28
+      },
+      "storm_chance_pct": {
+        "autumn": 7,
+        "spring": 7,
+        "summer": 12,
+        "winter": 3
+      },
+      "temperature_index_by_season": {
+        "autumn": 1,
+        "spring": 1,
+        "summer": 3,
+        "winter": 0
+      },
+      "wind_bias": -2
+    },
+    "default": {
+      "cloud_chance_pct": {
+        "autumn": 43,
+        "spring": 48,
+        "summer": 44,
+        "winter": 44
+      },
+      "fog_chance_pct": {
+        "autumn": 9,
+        "spring": 9,
+        "summer": 6,
+        "winter": 8
+      },
+      "precipitation_chance_pct": {
+        "autumn": 23,
+        "spring": 28,
+        "summer": 32,
+        "winter": 18
+      },
+      "storm_chance_pct": {
+        "autumn": 4,
+        "spring": 5,
+        "summer": 8,
+        "winter": 3
+      },
+      "temperature_index_by_season": {
+        "autumn": 0,
+        "spring": 0,
+        "summer": 2,
+        "winter": -1
+      },
+      "wind_bias": 0
+    },
+    "han": {
+      "cloud_chance_pct": {
+        "autumn": 45,
+        "spring": 49,
+        "summer": 47,
+        "winter": 45
+      },
+      "fog_chance_pct": {
+        "autumn": 10,
+        "spring": 11,
+        "summer": 7,
+        "winter": 9
+      },
+      "precipitation_chance_pct": {
+        "autumn": 26,
+        "spring": 31,
+        "summer": 40,
+        "winter": 20
+      },
+      "storm_chance_pct": {
+        "autumn": 5,
+        "spring": 6,
+        "summer": 9,
+        "winter": 3
+      },
+      "temperature_index_by_season": {
+        "autumn": 0,
+        "spring": 0,
+        "summer": 2,
+        "winter": -1
+      },
+      "wind_bias": 0
+    },
+    "qi": {
+      "cloud_chance_pct": {
+        "autumn": 50,
+        "spring": 52,
+        "summer": 50,
+        "winter": 50
+      },
+      "fog_chance_pct": {
+        "autumn": 14,
+        "spring": 13,
+        "summer": 10,
+        "winter": 13
+      },
+      "precipitation_chance_pct": {
+        "autumn": 30,
+        "spring": 34,
+        "summer": 43,
+        "winter": 24
+      },
+      "storm_chance_pct": {
+        "autumn": 7,
+        "spring": 7,
+        "summer": 11,
+        "winter": 5
+      },
+      "temperature_index_by_season": {
+        "autumn": 0,
+        "spring": 0,
+        "summer": 2,
+        "winter": -1
+      },
+      "wind_bias": 6
+    },
+    "qin": {
+      "cloud_chance_pct": {
+        "autumn": 36,
+        "spring": 42,
+        "summer": 40,
+        "winter": 36
+      },
+      "fog_chance_pct": {
+        "autumn": 7,
+        "spring": 7,
+        "summer": 5,
+        "winter": 6
+      },
+      "precipitation_chance_pct": {
+        "autumn": 18,
+        "spring": 22,
+        "summer": 30,
+        "winter": 12
+      },
+      "storm_chance_pct": {
+        "autumn": 4,
+        "spring": 5,
+        "summer": 7,
+        "winter": 3
+      },
+      "temperature_index_by_season": {
+        "autumn": 0,
+        "spring": 0,
+        "summer": 2,
+        "winter": -1
+      },
+      "wind_bias": 4
+    },
+    "wei": {
+      "cloud_chance_pct": {
+        "autumn": 43,
+        "spring": 47,
+        "summer": 44,
+        "winter": 42
+      },
+      "fog_chance_pct": {
+        "autumn": 10,
+        "spring": 10,
+        "summer": 6,
+        "winter": 8
+      },
+      "precipitation_chance_pct": {
+        "autumn": 24,
+        "spring": 28,
+        "summer": 36,
+        "winter": 17
+      },
+      "storm_chance_pct": {
+        "autumn": 4,
+        "spring": 5,
+        "summer": 8,
+        "winter": 3
+      },
+      "temperature_index_by_season": {
+        "autumn": 0,
+        "spring": 0,
+        "summer": 2,
+        "winter": -1
+      },
+      "wind_bias": 1
+    },
+    "yan": {
+      "cloud_chance_pct": {
+        "autumn": 48,
+        "spring": 48,
+        "summer": 43,
+        "winter": 48
+      },
+      "fog_chance_pct": {
+        "autumn": 12,
+        "spring": 11,
+        "summer": 8,
+        "winter": 10
+      },
+      "precipitation_chance_pct": {
+        "autumn": 23,
+        "spring": 29,
+        "summer": 34,
+        "winter": 22
+      },
+      "storm_chance_pct": {
+        "autumn": 6,
+        "spring": 6,
+        "summer": 7,
+        "winter": 6
+      },
+      "temperature_index_by_season": {
+        "autumn": -1,
+        "spring": -1,
+        "summer": 1,
+        "winter": -2
+      },
+      "wind_bias": 9
+    },
+    "zhao": {
+      "cloud_chance_pct": {
+        "autumn": 42,
+        "spring": 43,
+        "summer": 38,
+        "winter": 43
+      },
+      "fog_chance_pct": {
+        "autumn": 8,
+        "spring": 8,
+        "summer": 5,
+        "winter": 7
+      },
+      "precipitation_chance_pct": {
+        "autumn": 19,
+        "spring": 24,
+        "summer": 28,
+        "winter": 18
+      },
+      "storm_chance_pct": {
+        "autumn": 5,
+        "spring": 6,
+        "summer": 6,
+        "winter": 5
+      },
+      "temperature_index_by_season": {
+        "autumn": -1,
+        "spring": -1,
+        "summer": 1,
+        "winter": -2
+      },
+      "wind_bias": 10
+    }
+  },
+  "schema": "sword-environment-climate-catalog",
+  "weather_block_hours": 6
+}

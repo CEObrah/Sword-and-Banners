@@ -1,0 +1,28 @@
+{
+  "authority": "Static House Tang administrative program rules. This file registers lawful program templates and treasury-safety policy; it does not prove that any campaign program has been accepted or opened.",
+  "treasury_safety": {
+    "reserve_months_of_stable_expense": 12,
+    "discretionary_program_fraction_basis_points": 1000,
+    "rule": "A new discretionary House program may receive at most the registered fraction of cash remaining after the protected stable-expense reserve. Opening a program reserves no money and spends nothing by itself."
+  },
+  "field_preparation": {
+    "minimum_staging_hours": 2,
+    "departure_reserve_days": 7,
+    "rule": "An explicitly requested House Tang campaign-preparation stage may load at most the registered departure reserve from exact House stores. Military field subsistence is a derived strategic-supply condition, not a stored commodity. It may form already-conserved Tang Wei personal-force manpower and issue only exact registered stock. Missing equipment remains a persisted shortfall rather than being manufactured by narration.",
+    "field_supply_policy_ref": "game/data/mechanics/logistics.json#/military_field_supply"
+  },
+  "house_tang_military_replacement_intake": {
+    "roles": [
+      "house_infantry",
+      "house_cavalry"
+    ],
+    "selection_profile": "household_retainer_screen",
+    "training_ground_ref": "loc_tang_manor_training_ground",
+    "physical_capacity_ref": "state/infrastructure/settlements.json#/sites/loc_tang_inner_walls",
+    "force_ref": "force_house_tang",
+    "rule": "Replacement intake fills only real vacancies from conserved population and is bounded by assessment throughput, standard equipment, cavalry harness, remounts, and the ordinary House training clock."
+  },
+  "house_tang_command_cadre": {
+    "rule": "Persistent 500+ command billets require distinct exact named characters; officer is a billet/career appointment, never a troop species or promotion outcome."
+  }
+}

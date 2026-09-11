@@ -1,0 +1,195 @@
+{
+  "schema": "commander-cognition-registry",
+  "rule": "Cognitive profiles alter decision thresholds, information discipline, adaptation and initiative only. They never add direct combat strength or omniscient knowledge.",
+  "people": {
+    "char_riboku": {
+      "archetype": "analytical_predictive",
+      "dimensions": {
+        "analytical_planning": 990,
+        "pattern_recognition": 970,
+        "instinctive_opportunity_detection": 760,
+        "adaptability": 930,
+        "deception_literacy": 960,
+        "risk_tolerance": 430,
+        "initiative": 760,
+        "patience": 950,
+        "information_discipline": 990,
+        "command_presence": 870
+      }
+    },
+    "char_ousen": {
+      "archetype": "contingency_preservation",
+      "dimensions": {
+        "analytical_planning": 995,
+        "pattern_recognition": 940,
+        "instinctive_opportunity_detection": 700,
+        "adaptability": 950,
+        "deception_literacy": 950,
+        "risk_tolerance": 300,
+        "initiative": 650,
+        "patience": 990,
+        "information_discipline": 985,
+        "command_presence": 820
+      }
+    },
+    "char_kanki": {
+      "archetype": "psychological_disruption",
+      "dimensions": {
+        "analytical_planning": 790,
+        "pattern_recognition": 920,
+        "instinctive_opportunity_detection": 950,
+        "adaptability": 930,
+        "deception_literacy": 995,
+        "risk_tolerance": 920,
+        "initiative": 950,
+        "patience": 520,
+        "information_discipline": 680,
+        "command_presence": 900
+      }
+    },
+    "char_mou_bu": {
+      "archetype": "decisive_force",
+      "dimensions": {
+        "analytical_planning": 330,
+        "pattern_recognition": 730,
+        "instinctive_opportunity_detection": 900,
+        "adaptability": 720,
+        "deception_literacy": 420,
+        "risk_tolerance": 970,
+        "initiative": 980,
+        "patience": 290,
+        "information_discipline": 520,
+        "command_presence": 995
+      }
+    },
+    "char_shin": {
+      "archetype": "emergent_instinctive",
+      "dimensions": {
+        "analytical_planning": 230,
+        "pattern_recognition": 650,
+        "instinctive_opportunity_detection": 910,
+        "adaptability": 760,
+        "deception_literacy": 380,
+        "risk_tolerance": 880,
+        "initiative": 930,
+        "patience": 350,
+        "information_discipline": 410,
+        "command_presence": 820
+      }
+    },
+    "char_renpa": {
+      "archetype": "hybrid_master",
+      "dimensions": {
+        "analytical_planning": 900,
+        "pattern_recognition": 970,
+        "instinctive_opportunity_detection": 950,
+        "adaptability": 985,
+        "deception_literacy": 900,
+        "risk_tolerance": 800,
+        "initiative": 930,
+        "patience": 790,
+        "information_discipline": 850,
+        "command_presence": 990
+      }
+    },
+    "char_ouki": {
+      "archetype": "hybrid_battlefield_reader",
+      "dimensions": {
+        "analytical_planning": 900,
+        "pattern_recognition": 975,
+        "instinctive_opportunity_detection": 950,
+        "adaptability": 960,
+        "deception_literacy": 880,
+        "risk_tolerance": 780,
+        "initiative": 920,
+        "patience": 800,
+        "information_discipline": 850,
+        "command_presence": 995
+      }
+    }
+  },
+  "behavior_cue_biases": {
+    "patient": {
+      "patience": 90,
+      "information_discipline": 30,
+      "risk_tolerance": -30
+    },
+    "calculating": {
+      "analytical_planning": 90,
+      "information_discipline": 60,
+      "deception_literacy": 40
+    },
+    "evidence-based": {
+      "information_discipline": 80,
+      "analytical_planning": 30
+    },
+    "self-preserving": {
+      "risk_tolerance": -120,
+      "patience": 50
+    },
+    "cautious": {
+      "risk_tolerance": -80,
+      "patience": 60,
+      "information_discipline": 30
+    },
+    "composed": {
+      "information_discipline": 45,
+      "adaptability": 25
+    },
+    "calm execution": {
+      "information_discipline": 55,
+      "adaptability": 35,
+      "initiative": 30
+    },
+    "controlled": {
+      "information_discipline": 35,
+      "risk_tolerance": -20
+    },
+    "initiative": {
+      "initiative": 70,
+      "adaptability": 35
+    },
+    "decisive": {
+      "initiative": 75,
+      "risk_tolerance": 55
+    },
+    "aggressive": {
+      "initiative": 70,
+      "risk_tolerance": 85,
+      "patience": -55
+    },
+    "improvisation": {
+      "adaptability": 55,
+      "initiative": 30
+    },
+    "avoid unsupported improvisation": {
+      "initiative": -70,
+      "information_discipline": 45,
+      "patience": 35
+    },
+    "defensible positions": {
+      "patience": 35,
+      "information_discipline": 25,
+      "risk_tolerance": -35
+    },
+    "preserve": {
+      "patience": 30,
+      "risk_tolerance": -25
+    },
+    "deception": {
+      "deception_literacy": 80,
+      "pattern_recognition": 25
+    },
+    "scouting": {
+      "information_discipline": 45,
+      "pattern_recognition": 30
+    },
+    "logistics": {
+      "information_discipline": 40,
+      "patience": 25
+    },
+    "chaos": {
+      "adaptability": 25
+    }
+  }
+}

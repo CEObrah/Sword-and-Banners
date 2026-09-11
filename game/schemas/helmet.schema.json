@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "mass_kg",
+    "coverage"
+  ],
+  "properties": {
+    "schema": {
+      "const": "helmet"
+    },
+    "id": {
+      "type": "string"
+    },
+    "mass_kg": {},
+    "coverage": {},
+    "cut_resistance": {},
+    "thrust_resistance": {},
+    "blunt_resistance": {},
+    "vision_aperture_fraction": {},
+    "hearing_occlusion_fraction": {},
+    "neck_articulation_factor": {},
+    "burden_model": {}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sword-diplomatic-proposal.schema.json",
+  "title": "Sword diplomatic proposal",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "proposal_ref",
+    "proposer_ref",
+    "target_ref",
+    "kind",
+    "status",
+    "proposed_at",
+    "arrives_at",
+    "terms",
+    "direction"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-diplomatic-proposal"
+    },
+    "owner_id": {
+      "type": "string",
+      "pattern": "^diplomatic_proposal_"
+    },
+    "proposal_ref": {
+      "type": "string",
+      "pattern": "^diplomatic_proposal_"
+    },
+    "proposer_ref": {
+      "type": "string",
+      "pattern": "^(state_|polity_)"
+    },
+    "target_ref": {
+      "type": "string",
+      "pattern": "^(state_|polity_)"
+    },
+    "kind": {
+      "enum": [
+        "alliance",
+        "nonaggression",
+        "tribute",
+        "military_access",
+        "guarantee",
+        "client_state",
+        "hostage_exchange",
+        "marriage_alliance",
+        "reparations",
+        "territorial_exchange",
+        "coalition"
+      ]
+    },
+    "direction": {
+      "enum": [
+        "mutual",
+        "proposer_to_target",
+        "target_to_proposer"
+      ]
+    },
+    "status": {
+      "enum": [
+        "in_transit",
+        "pending_response",
+        "accepted",
+        "rejected",
+        "withdrawn",
+        "expired"
+      ]
+    },
+    "proposed_at": {
+      "type": "string"
+    },
+    "arrives_at": {
+      "type": "string"
+    },
+    "responded_at": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string"
+    },
+    "terms": {
+      "type": "object"
+    },
+    "response_basis": {
+      "type": "object"
+    },
+    "treaty_ref": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

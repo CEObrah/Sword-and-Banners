@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "cash_silver": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-private-economy"
+    },
+    "state": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "state",
+    "cash_silver"
+  ],
+  "type": "object"
+}

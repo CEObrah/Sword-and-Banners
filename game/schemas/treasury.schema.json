@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Treasury",
+  "type": "object",
+  "required": [
+    "food_kg",
+    "monthly_flow_components",
+    "owner_id",
+    "owner_type",
+    "schema",
+    "silver",
+    "stable_monthly_flows"
+  ],
+  "properties": {
+    "food_kg": {
+      "type": "integer"
+    },
+    "monthly_flow_components": {
+      "type": "object"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "object"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "silver": {
+      "type": "integer"
+    },
+    "stable_monthly_flows": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current schema contract."
+}

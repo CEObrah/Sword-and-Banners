@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "goals": {},
+    "knowledge": {},
+    "owner_id": {},
+    "resources": {},
+    "schema": {
+      "const": "sword-faction-agenda"
+    }
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "goals",
+    "knowledge",
+    "resources"
+  ],
+  "type": "object"
+}

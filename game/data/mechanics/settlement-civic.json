@@ -1,0 +1,62 @@
+{
+  "autonomous_pressure": {
+    "justice_seed_minimum_pressure_score": 18,
+    "maximum_new_cases_per_state_review": 1,
+    "maximum_new_outbreaks_per_state_review": 1,
+    "outbreak_seed_minimum_pressure_score": 20,
+    "rule": "autonomous seeding requires exact saved crowding/displacement/support/food/occupation/stability pressure; no uncaused random cases or outbreaks"
+  },
+  "local_justice": {
+    "case_kinds": [
+      "theft",
+      "violence",
+      "corruption",
+      "tax_dispute",
+      "banditry",
+      "desertion",
+      "property",
+      "contract",
+      "other"
+    ],
+    "dispositions": [
+      "dismissed",
+      "remedy",
+      "sanction",
+      "escalated"
+    ],
+    "principle": "material local cases are exact records; allegation, evidence, judgment and hidden objective fact remain separate"
+  },
+  "outbreak": {
+    "fatality_reduction_per_resistance_point": 0.003,
+    "maximum_seed_cases": 50,
+    "minimum_seed_cases": 2,
+    "quarantine_isolation_points_per_strength": 0.2,
+    "review_hours": 24,
+    "route_export_fraction": 0.01,
+    "severity": {
+      "critical": {
+        "daily_resolution_fraction": 0.08,
+        "fatality_fraction_of_resolved": 0.2
+      },
+      "mild": {
+        "daily_resolution_fraction": 0.2,
+        "fatality_fraction_of_resolved": 0.002
+      },
+      "moderate": {
+        "daily_resolution_fraction": 0.14,
+        "fatality_fraction_of_resolved": 0.02
+      },
+      "severe": {
+        "daily_resolution_fraction": 0.1,
+        "fatality_fraction_of_resolved": 0.08
+      }
+    }
+  },
+  "principles": {
+    "named_person_health_remains_exact_person_authority": true,
+    "no_duplicate_population_owner": true,
+    "no_household_simulation": true,
+    "propagation_requires_actual_route_and_destination_population": true
+  },
+  "schema": "settlement-civic-mechanics"
+}

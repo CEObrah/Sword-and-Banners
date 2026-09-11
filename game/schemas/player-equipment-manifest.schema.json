@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "equipment_manifest",
+    "player_ref"
+  ],
+  "properties": {
+    "schema": {
+      "const": "player-equipment-manifest"
+    },
+    "authority": {
+      "const": "player_equipment_manifest"
+    },
+    "equipment_manifest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "item_id",
+          "quantity",
+          "custody",
+          "current_state"
+        ],
+        "properties": {
+          "item_id": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "custody": {
+            "type": "string"
+          },
+          "current_state": {
+            "type": "string"
+          },
+          "condition_pct": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "player_ref": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

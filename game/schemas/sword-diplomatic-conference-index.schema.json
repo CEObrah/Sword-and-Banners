@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Diplomatic conference routing index",
+  "type": "object",
+  "required": [
+    "schema",
+    "authority",
+    "conferences",
+    "active_refs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-diplomatic-conference-index"
+    },
+    "authority": {
+      "const": false
+    },
+    "conferences": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "active_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": true
+}

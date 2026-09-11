@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "events": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-history-index"
+    },
+    "archive_segment_size": {},
+    "archived_event_count": {},
+    "archives": {},
+    "head_limit": {},
+    "next_archive_seq": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "events"
+  ],
+  "type": "object"
+}

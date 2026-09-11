@@ -1,0 +1,16 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.house_tang.house_infantry",
+  "doctrine": {
+    "inherits": "doc.world_force.standard",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#house_infantry",
+    "institution_overlay_ref": "game/data/mil/institution-doctrine-overlays.json#house_tang",
+    "principles": [
+      "Open with the standard bow whenever range and order permit.",
+      "Transition to spear and shield before close contact; preserve frontage and mutual protection.",
+      "Use sword and shield after spear reach is lost or compressed terrain makes the spear unsuitable.",
+      "Wall, siege-support, escort and field duties are assignments of House Infantry, not separate troop species."
+    ],
+    "weapon_transition_rule": "BOW -> SPEAR + SHIELD -> SWORD + SHIELD"
+  }
+}

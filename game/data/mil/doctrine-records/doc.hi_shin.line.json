@@ -1,0 +1,20 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.hi_shin.line",
+  "doctrine": {
+    "label": "Hi Shin Assault Infantry Doctrine",
+    "scope": "formation_role",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#line_infantry",
+    "formation_policy": {
+      "battlefield_role": "line_assault",
+      "contact_style": "ordered",
+      "charge_policy": "advantage_required",
+      "pursuit_policy": "aggressive_bounded",
+      "disengagement": "hold_until_ordered"
+    },
+    "compatibility": [
+      "ordered_spear",
+      "shield_line"
+    ]
+  }
+}

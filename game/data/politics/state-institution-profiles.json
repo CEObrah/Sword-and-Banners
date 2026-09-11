@@ -1,0 +1,1434 @@
+{
+  "id": "state-institution-profiles",
+  "profiles": {
+    "inst_chu_fortification_bureau": {
+      "fortification_profile_authority": "game/data/world/fortification-profiles.json",
+      "geography": {
+        "headquarters_location_ref": "loc_shintei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_chu_regional_01",
+          "loc_chu_regional_02",
+          "loc_chu_regional_03",
+          "loc_chu_regional_04"
+        ]
+      },
+      "kind": "fortification_bureau",
+      "location_ref": "loc_shintei",
+      "name": "CHU Fortification Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "fortification_review",
+          "project_pipeline",
+          "material_requirements"
+        ]
+      },
+      "owner_id": "inst_chu_fortification_bureau",
+      "policy": "CHU: review controlled fortified sites and material-funded fortification projects; never create construction without reserved inputs",
+      "service_region_refs": [
+        "loc_chu_regional_01",
+        "loc_chu_regional_02",
+        "loc_chu_regional_03",
+        "loc_chu_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "chu"
+    },
+    "inst_chu_granary_depot_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_shintei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_chu_regional_01",
+          "loc_chu_regional_02",
+          "loc_chu_regional_03",
+          "loc_chu_regional_04"
+        ]
+      },
+      "kind": "granary_depot_office",
+      "linked_depot_ref": "state_depot_chu",
+      "location_ref": "loc_shintei",
+      "name": "CHU Granary and Depot Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "grain_procurement",
+          "depot_stock",
+          "treasury_cost"
+        ]
+      },
+      "owner_id": "inst_chu_granary_depot_office",
+      "policy": "CHU: procure physical grain into exact state depots from the private economy using state treasury funds",
+      "service_region_refs": [
+        "loc_chu_regional_01",
+        "loc_chu_regional_02",
+        "loc_chu_regional_03",
+        "loc_chu_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "chu"
+    },
+    "inst_chu_horse_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_shintei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_chu_regional_01",
+          "loc_chu_regional_02",
+          "loc_chu_regional_03",
+          "loc_chu_regional_04"
+        ]
+      },
+      "kind": "horse_administration",
+      "linked_mount_pool_ref": "mount_pool_chu",
+      "location_ref": "loc_shintei",
+      "name": "CHU Horse Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "mount_recovery",
+          "custody_accounting"
+        ]
+      },
+      "owner_id": "inst_chu_horse_administration",
+      "policy": "CHU: recover existing state mounts and account for fit/recovering custody without creating horses",
+      "service_region_refs": [
+        "loc_chu_regional_01",
+        "loc_chu_regional_02",
+        "loc_chu_regional_03",
+        "loc_chu_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "chu"
+    },
+    "inst_chu_military_bureau": {
+      "geography": {
+        "headquarters_location_ref": "loc_shintei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_chu_regional_01",
+          "loc_chu_regional_02",
+          "loc_chu_regional_03",
+          "loc_chu_regional_04"
+        ]
+      },
+      "kind": "military_bureau",
+      "linked_force_ref": "force_state_chu",
+      "location_ref": "loc_shintei",
+      "name": "CHU Military Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "formation_readiness",
+          "command_vacancies",
+          "operational_priorities"
+        ]
+      },
+      "owner_id": "inst_chu_military_bureau",
+      "policy": "CHU: review exact formations, commander vacancies, readiness, supply and operational commitments; recommend priorities without inventing commanders or equipment",
+      "service_region_refs": [
+        "loc_chu_regional_01",
+        "loc_chu_regional_02",
+        "loc_chu_regional_03",
+        "loc_chu_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "chu"
+    },
+    "inst_chu_recruitment_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_shintei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_chu_regional_01",
+          "loc_chu_regional_02",
+          "loc_chu_regional_03",
+          "loc_chu_regional_04"
+        ]
+      },
+      "kind": "recruitment_office",
+      "linked_force_ref": "force_state_chu",
+      "linked_population_ref": "population_chu",
+      "location_ref": "loc_shintei",
+      "name": "CHU Recruitment Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "recruitment_capacity",
+          "population_availability",
+          "force_shortage"
+        ]
+      },
+      "owner_id": "inst_chu_recruitment_office",
+      "policy": "CHU: administer recruitment throughput against real population and force demand; office capacity constrains intake rather than creating recruits",
+      "service_region_refs": [
+        "loc_chu_regional_01",
+        "loc_chu_regional_02",
+        "loc_chu_regional_03",
+        "loc_chu_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "chu"
+    },
+    "inst_chu_regional_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_shintei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_chu_regional_01",
+          "loc_chu_regional_02",
+          "loc_chu_regional_03",
+          "loc_chu_regional_04"
+        ]
+      },
+      "kind": "regional_administration",
+      "location_ref": "loc_shintei",
+      "name": "CHU Regional Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "occupation_administration",
+          "tax_compliance",
+          "loyalty",
+          "resistance"
+        ]
+      },
+      "owner_id": "inst_chu_regional_administration",
+      "policy": "CHU: administer territory, taxation compliance, elite cooperation, civilian loyalty and resistance after conquest",
+      "service_region_refs": [
+        "loc_chu_regional_01",
+        "loc_chu_regional_02",
+        "loc_chu_regional_03",
+        "loc_chu_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "chu"
+    },
+    "inst_han_fortification_bureau": {
+      "fortification_profile_authority": "game/data/world/fortification-profiles.json",
+      "geography": {
+        "headquarters_location_ref": "loc_han_capital",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_han_regional_01",
+          "loc_han_regional_02",
+          "loc_han_regional_03",
+          "loc_han_regional_04"
+        ]
+      },
+      "kind": "fortification_bureau",
+      "location_ref": "loc_han_capital",
+      "name": "HAN Fortification Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "fortification_review",
+          "project_pipeline",
+          "material_requirements"
+        ]
+      },
+      "owner_id": "inst_han_fortification_bureau",
+      "policy": "HAN: review controlled fortified sites and material-funded fortification projects; never create construction without reserved inputs",
+      "service_region_refs": [
+        "loc_han_regional_01",
+        "loc_han_regional_02",
+        "loc_han_regional_03",
+        "loc_han_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "han"
+    },
+    "inst_han_granary_depot_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_han_capital",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_han_regional_01",
+          "loc_han_regional_02",
+          "loc_han_regional_03",
+          "loc_han_regional_04"
+        ]
+      },
+      "kind": "granary_depot_office",
+      "linked_depot_ref": "state_depot_han",
+      "location_ref": "loc_han_capital",
+      "name": "HAN Granary and Depot Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "grain_procurement",
+          "depot_stock",
+          "treasury_cost"
+        ]
+      },
+      "owner_id": "inst_han_granary_depot_office",
+      "policy": "HAN: procure physical grain into exact state depots from the private economy using state treasury funds",
+      "service_region_refs": [
+        "loc_han_regional_01",
+        "loc_han_regional_02",
+        "loc_han_regional_03",
+        "loc_han_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "han"
+    },
+    "inst_han_horse_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_han_capital",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_han_regional_01",
+          "loc_han_regional_02",
+          "loc_han_regional_03",
+          "loc_han_regional_04"
+        ]
+      },
+      "kind": "horse_administration",
+      "linked_mount_pool_ref": "mount_pool_han",
+      "location_ref": "loc_han_capital",
+      "name": "HAN Horse Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "mount_recovery",
+          "custody_accounting"
+        ]
+      },
+      "owner_id": "inst_han_horse_administration",
+      "policy": "HAN: recover existing state mounts and account for fit/recovering custody without creating horses",
+      "service_region_refs": [
+        "loc_han_regional_01",
+        "loc_han_regional_02",
+        "loc_han_regional_03",
+        "loc_han_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "han"
+    },
+    "inst_han_military_bureau": {
+      "geography": {
+        "headquarters_location_ref": "loc_han_capital",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_han_regional_01",
+          "loc_han_regional_02",
+          "loc_han_regional_03",
+          "loc_han_regional_04"
+        ]
+      },
+      "kind": "military_bureau",
+      "linked_force_ref": "force_state_han",
+      "location_ref": "loc_han_capital",
+      "name": "HAN Military Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "formation_readiness",
+          "command_vacancies",
+          "operational_priorities"
+        ]
+      },
+      "owner_id": "inst_han_military_bureau",
+      "policy": "HAN: review exact formations, commander vacancies, readiness, supply and operational commitments; recommend priorities without inventing commanders or equipment",
+      "service_region_refs": [
+        "loc_han_regional_01",
+        "loc_han_regional_02",
+        "loc_han_regional_03",
+        "loc_han_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "han"
+    },
+    "inst_han_recruitment_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_han_capital",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_han_regional_01",
+          "loc_han_regional_02",
+          "loc_han_regional_03",
+          "loc_han_regional_04"
+        ]
+      },
+      "kind": "recruitment_office",
+      "linked_force_ref": "force_state_han",
+      "linked_population_ref": "population_han",
+      "location_ref": "loc_han_capital",
+      "name": "HAN Recruitment Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "recruitment_capacity",
+          "population_availability",
+          "force_shortage"
+        ]
+      },
+      "owner_id": "inst_han_recruitment_office",
+      "policy": "HAN: administer recruitment throughput against real population and force demand; office capacity constrains intake rather than creating recruits",
+      "service_region_refs": [
+        "loc_han_regional_01",
+        "loc_han_regional_02",
+        "loc_han_regional_03",
+        "loc_han_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "han"
+    },
+    "inst_han_regional_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_han_capital",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_han_regional_01",
+          "loc_han_regional_02",
+          "loc_han_regional_03",
+          "loc_han_regional_04"
+        ]
+      },
+      "kind": "regional_administration",
+      "location_ref": "loc_han_capital",
+      "name": "HAN Regional Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "occupation_administration",
+          "tax_compliance",
+          "loyalty",
+          "resistance"
+        ]
+      },
+      "owner_id": "inst_han_regional_administration",
+      "policy": "HAN: administer territory, taxation compliance, elite cooperation, civilian loyalty and resistance after conquest",
+      "service_region_refs": [
+        "loc_han_regional_01",
+        "loc_han_regional_02",
+        "loc_han_regional_03",
+        "loc_han_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "han"
+    },
+    "inst_qi_fortification_bureau": {
+      "fortification_profile_authority": "game/data/world/fortification-profiles.json",
+      "geography": {
+        "headquarters_location_ref": "loc_ei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qi_regional_01",
+          "loc_qi_regional_02",
+          "loc_qi_regional_03",
+          "loc_qi_regional_04"
+        ]
+      },
+      "kind": "fortification_bureau",
+      "location_ref": "loc_ei",
+      "name": "QI Fortification Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "fortification_review",
+          "project_pipeline",
+          "material_requirements"
+        ]
+      },
+      "owner_id": "inst_qi_fortification_bureau",
+      "policy": "QI: review controlled fortified sites and material-funded fortification projects; never create construction without reserved inputs",
+      "service_region_refs": [
+        "loc_qi_regional_01",
+        "loc_qi_regional_02",
+        "loc_qi_regional_03",
+        "loc_qi_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qi"
+    },
+    "inst_qi_granary_depot_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_ei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qi_regional_01",
+          "loc_qi_regional_02",
+          "loc_qi_regional_03",
+          "loc_qi_regional_04"
+        ]
+      },
+      "kind": "granary_depot_office",
+      "linked_depot_ref": "state_depot_qi",
+      "location_ref": "loc_ei",
+      "name": "QI Granary and Depot Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "grain_procurement",
+          "depot_stock",
+          "treasury_cost"
+        ]
+      },
+      "owner_id": "inst_qi_granary_depot_office",
+      "policy": "QI: procure physical grain into exact state depots from the private economy using state treasury funds",
+      "service_region_refs": [
+        "loc_qi_regional_01",
+        "loc_qi_regional_02",
+        "loc_qi_regional_03",
+        "loc_qi_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qi"
+    },
+    "inst_qi_horse_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_ei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qi_regional_01",
+          "loc_qi_regional_02",
+          "loc_qi_regional_03",
+          "loc_qi_regional_04"
+        ]
+      },
+      "kind": "horse_administration",
+      "linked_mount_pool_ref": "mount_pool_qi",
+      "location_ref": "loc_ei",
+      "name": "QI Horse Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "mount_recovery",
+          "custody_accounting"
+        ]
+      },
+      "owner_id": "inst_qi_horse_administration",
+      "policy": "QI: recover existing state mounts and account for fit/recovering custody without creating horses",
+      "service_region_refs": [
+        "loc_qi_regional_01",
+        "loc_qi_regional_02",
+        "loc_qi_regional_03",
+        "loc_qi_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qi"
+    },
+    "inst_qi_military_bureau": {
+      "geography": {
+        "headquarters_location_ref": "loc_ei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qi_regional_01",
+          "loc_qi_regional_02",
+          "loc_qi_regional_03",
+          "loc_qi_regional_04"
+        ]
+      },
+      "kind": "military_bureau",
+      "linked_force_ref": "force_state_qi",
+      "location_ref": "loc_ei",
+      "name": "QI Military Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "formation_readiness",
+          "command_vacancies",
+          "operational_priorities"
+        ]
+      },
+      "owner_id": "inst_qi_military_bureau",
+      "policy": "QI: review exact formations, commander vacancies, readiness, supply and operational commitments; recommend priorities without inventing commanders or equipment",
+      "service_region_refs": [
+        "loc_qi_regional_01",
+        "loc_qi_regional_02",
+        "loc_qi_regional_03",
+        "loc_qi_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qi"
+    },
+    "inst_qi_recruitment_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_ei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qi_regional_01",
+          "loc_qi_regional_02",
+          "loc_qi_regional_03",
+          "loc_qi_regional_04"
+        ]
+      },
+      "kind": "recruitment_office",
+      "linked_force_ref": "force_state_qi",
+      "linked_population_ref": "population_qi",
+      "location_ref": "loc_ei",
+      "name": "QI Recruitment Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "recruitment_capacity",
+          "population_availability",
+          "force_shortage"
+        ]
+      },
+      "owner_id": "inst_qi_recruitment_office",
+      "policy": "QI: administer recruitment throughput against real population and force demand; office capacity constrains intake rather than creating recruits",
+      "service_region_refs": [
+        "loc_qi_regional_01",
+        "loc_qi_regional_02",
+        "loc_qi_regional_03",
+        "loc_qi_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qi"
+    },
+    "inst_qi_regional_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_ei",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qi_regional_01",
+          "loc_qi_regional_02",
+          "loc_qi_regional_03",
+          "loc_qi_regional_04"
+        ]
+      },
+      "kind": "regional_administration",
+      "location_ref": "loc_ei",
+      "name": "QI Regional Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "occupation_administration",
+          "tax_compliance",
+          "loyalty",
+          "resistance"
+        ]
+      },
+      "owner_id": "inst_qi_regional_administration",
+      "policy": "QI: administer territory, taxation compliance, elite cooperation, civilian loyalty and resistance after conquest",
+      "service_region_refs": [
+        "loc_qi_regional_01",
+        "loc_qi_regional_02",
+        "loc_qi_regional_03",
+        "loc_qi_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qi"
+    },
+    "inst_qin_fortification_bureau": {
+      "fortification_profile_authority": "game/data/world/fortification-profiles.json",
+      "geography": {
+        "headquarters_location_ref": "loc_kanyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qin_regional_01",
+          "loc_qin_regional_02",
+          "loc_qin_regional_03",
+          "loc_qin_regional_04"
+        ]
+      },
+      "kind": "fortification_bureau",
+      "location_ref": "loc_kanyou",
+      "name": "Qin Fortification Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "fortification_review",
+          "project_pipeline",
+          "material_requirements"
+        ]
+      },
+      "owner_id": "inst_qin_fortification_bureau",
+      "policy": "QIN: review controlled fortified sites and material-funded fortification projects; never create construction without reserved inputs",
+      "service_region_refs": [
+        "loc_qin_regional_01",
+        "loc_qin_regional_02",
+        "loc_qin_regional_03",
+        "loc_qin_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qin"
+    },
+    "inst_qin_granary_depot_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_kanyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qin_regional_01",
+          "loc_qin_regional_02",
+          "loc_qin_regional_03",
+          "loc_qin_regional_04"
+        ]
+      },
+      "kind": "granary_depot_office",
+      "linked_depot_ref": "state_depot_qin",
+      "location_ref": "loc_kanyou",
+      "name": "Qin Granary and Depot Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "grain_procurement",
+          "depot_stock",
+          "treasury_cost"
+        ]
+      },
+      "owner_id": "inst_qin_granary_depot_office",
+      "policy": "QIN: procure physical grain into exact state depots from the private economy using state treasury funds",
+      "service_region_refs": [
+        "loc_qin_regional_01",
+        "loc_qin_regional_02",
+        "loc_qin_regional_03",
+        "loc_qin_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qin"
+    },
+    "inst_qin_horse_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_kanyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qin_regional_01",
+          "loc_qin_regional_02",
+          "loc_qin_regional_03",
+          "loc_qin_regional_04"
+        ]
+      },
+      "kind": "horse_administration",
+      "linked_mount_pool_ref": "mount_pool_qin",
+      "location_ref": "loc_kanyou",
+      "name": "Qin Horse Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "mount_recovery",
+          "custody_accounting"
+        ]
+      },
+      "owner_id": "inst_qin_horse_administration",
+      "policy": "QIN: recover existing state mounts and account for fit/recovering custody without creating horses",
+      "service_region_refs": [
+        "loc_qin_regional_01",
+        "loc_qin_regional_02",
+        "loc_qin_regional_03",
+        "loc_qin_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qin"
+    },
+    "inst_qin_military_bureau": {
+      "geography": {
+        "headquarters_location_ref": "loc_kanyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qin_regional_01",
+          "loc_qin_regional_02",
+          "loc_qin_regional_03",
+          "loc_qin_regional_04"
+        ]
+      },
+      "kind": "military_bureau",
+      "linked_force_ref": "force_state_qin",
+      "location_ref": "loc_kanyou",
+      "name": "Qin Military Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "formation_readiness",
+          "command_vacancies",
+          "operational_priorities"
+        ]
+      },
+      "owner_id": "inst_qin_military_bureau",
+      "policy": "QIN: review exact formations, commander vacancies, readiness, supply and operational commitments; recommend priorities without inventing commanders or equipment",
+      "service_region_refs": [
+        "loc_qin_regional_01",
+        "loc_qin_regional_02",
+        "loc_qin_regional_03",
+        "loc_qin_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qin"
+    },
+    "inst_qin_recruitment_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_kanyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qin_regional_01",
+          "loc_qin_regional_02",
+          "loc_qin_regional_03",
+          "loc_qin_regional_04"
+        ]
+      },
+      "kind": "recruitment_office",
+      "linked_force_ref": "force_state_qin",
+      "linked_population_ref": "population_qin",
+      "location_ref": "loc_kanyou",
+      "name": "Qin Recruitment Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "recruitment_capacity",
+          "population_availability",
+          "force_shortage"
+        ]
+      },
+      "owner_id": "inst_qin_recruitment_office",
+      "policy": "QIN: administer recruitment throughput against real population and force demand; office capacity constrains intake rather than creating recruits",
+      "service_region_refs": [
+        "loc_qin_regional_01",
+        "loc_qin_regional_02",
+        "loc_qin_regional_03",
+        "loc_qin_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qin"
+    },
+    "inst_qin_regional_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_kanyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_qin_regional_01",
+          "loc_qin_regional_02",
+          "loc_qin_regional_03",
+          "loc_qin_regional_04"
+        ]
+      },
+      "kind": "regional_administration",
+      "location_ref": "loc_kanyou",
+      "name": "Qin Regional Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "occupation_administration",
+          "tax_compliance",
+          "loyalty",
+          "resistance"
+        ]
+      },
+      "owner_id": "inst_qin_regional_administration",
+      "policy": "QIN: administer territory, taxation compliance, elite cooperation, civilian loyalty and resistance after conquest",
+      "service_region_refs": [
+        "loc_qin_regional_01",
+        "loc_qin_regional_02",
+        "loc_qin_regional_03",
+        "loc_qin_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "qin"
+    },
+    "inst_wei_fortification_bureau": {
+      "fortification_profile_authority": "game/data/world/fortification-profiles.json",
+      "geography": {
+        "headquarters_location_ref": "loc_dairyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_wei_regional_01",
+          "loc_wei_regional_02",
+          "loc_wei_regional_03",
+          "loc_wei_regional_04"
+        ]
+      },
+      "kind": "fortification_bureau",
+      "location_ref": "loc_dairyou",
+      "name": "WEI Fortification Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "fortification_review",
+          "project_pipeline",
+          "material_requirements"
+        ]
+      },
+      "owner_id": "inst_wei_fortification_bureau",
+      "policy": "WEI: review controlled fortified sites and material-funded fortification projects; never create construction without reserved inputs",
+      "service_region_refs": [
+        "loc_wei_regional_01",
+        "loc_wei_regional_02",
+        "loc_wei_regional_03",
+        "loc_wei_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "wei"
+    },
+    "inst_wei_granary_depot_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_dairyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_wei_regional_01",
+          "loc_wei_regional_02",
+          "loc_wei_regional_03",
+          "loc_wei_regional_04"
+        ]
+      },
+      "kind": "granary_depot_office",
+      "linked_depot_ref": "state_depot_wei",
+      "location_ref": "loc_dairyou",
+      "name": "WEI Granary and Depot Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "grain_procurement",
+          "depot_stock",
+          "treasury_cost"
+        ]
+      },
+      "owner_id": "inst_wei_granary_depot_office",
+      "policy": "WEI: procure physical grain into exact state depots from the private economy using state treasury funds",
+      "service_region_refs": [
+        "loc_wei_regional_01",
+        "loc_wei_regional_02",
+        "loc_wei_regional_03",
+        "loc_wei_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "wei"
+    },
+    "inst_wei_horse_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_dairyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_wei_regional_01",
+          "loc_wei_regional_02",
+          "loc_wei_regional_03",
+          "loc_wei_regional_04"
+        ]
+      },
+      "kind": "horse_administration",
+      "linked_mount_pool_ref": "mount_pool_wei",
+      "location_ref": "loc_dairyou",
+      "name": "WEI Horse Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "mount_recovery",
+          "custody_accounting"
+        ]
+      },
+      "owner_id": "inst_wei_horse_administration",
+      "policy": "WEI: recover existing state mounts and account for fit/recovering custody without creating horses",
+      "service_region_refs": [
+        "loc_wei_regional_01",
+        "loc_wei_regional_02",
+        "loc_wei_regional_03",
+        "loc_wei_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "wei"
+    },
+    "inst_wei_military_bureau": {
+      "geography": {
+        "headquarters_location_ref": "loc_dairyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_wei_regional_01",
+          "loc_wei_regional_02",
+          "loc_wei_regional_03",
+          "loc_wei_regional_04"
+        ]
+      },
+      "kind": "military_bureau",
+      "linked_force_ref": "force_state_wei",
+      "location_ref": "loc_dairyou",
+      "name": "WEI Military Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "formation_readiness",
+          "command_vacancies",
+          "operational_priorities"
+        ]
+      },
+      "owner_id": "inst_wei_military_bureau",
+      "policy": "WEI: review exact formations, commander vacancies, readiness, supply and operational commitments; recommend priorities without inventing commanders or equipment",
+      "service_region_refs": [
+        "loc_wei_regional_01",
+        "loc_wei_regional_02",
+        "loc_wei_regional_03",
+        "loc_wei_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "wei"
+    },
+    "inst_wei_recruitment_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_dairyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_wei_regional_01",
+          "loc_wei_regional_02",
+          "loc_wei_regional_03",
+          "loc_wei_regional_04"
+        ]
+      },
+      "kind": "recruitment_office",
+      "linked_force_ref": "force_state_wei",
+      "linked_population_ref": "population_wei",
+      "location_ref": "loc_dairyou",
+      "name": "WEI Recruitment Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "recruitment_capacity",
+          "population_availability",
+          "force_shortage"
+        ]
+      },
+      "owner_id": "inst_wei_recruitment_office",
+      "policy": "WEI: administer recruitment throughput against real population and force demand; office capacity constrains intake rather than creating recruits",
+      "service_region_refs": [
+        "loc_wei_regional_01",
+        "loc_wei_regional_02",
+        "loc_wei_regional_03",
+        "loc_wei_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "wei"
+    },
+    "inst_wei_regional_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_dairyou",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_wei_regional_01",
+          "loc_wei_regional_02",
+          "loc_wei_regional_03",
+          "loc_wei_regional_04"
+        ]
+      },
+      "kind": "regional_administration",
+      "location_ref": "loc_dairyou",
+      "name": "WEI Regional Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "occupation_administration",
+          "tax_compliance",
+          "loyalty",
+          "resistance"
+        ]
+      },
+      "owner_id": "inst_wei_regional_administration",
+      "policy": "WEI: administer territory, taxation compliance, elite cooperation, civilian loyalty and resistance after conquest",
+      "service_region_refs": [
+        "loc_wei_regional_01",
+        "loc_wei_regional_02",
+        "loc_wei_regional_03",
+        "loc_wei_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "wei"
+    },
+    "inst_yan_fortification_bureau": {
+      "fortification_profile_authority": "game/data/world/fortification-profiles.json",
+      "geography": {
+        "headquarters_location_ref": "loc_ji",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_yan_regional_01",
+          "loc_yan_regional_02",
+          "loc_yan_regional_03",
+          "loc_yan_regional_04"
+        ]
+      },
+      "kind": "fortification_bureau",
+      "location_ref": "loc_ji",
+      "name": "YAN Fortification Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "fortification_review",
+          "project_pipeline",
+          "material_requirements"
+        ]
+      },
+      "owner_id": "inst_yan_fortification_bureau",
+      "policy": "YAN: review controlled fortified sites and material-funded fortification projects; never create construction without reserved inputs",
+      "service_region_refs": [
+        "loc_yan_regional_01",
+        "loc_yan_regional_02",
+        "loc_yan_regional_03",
+        "loc_yan_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "yan"
+    },
+    "inst_yan_granary_depot_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_ji",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_yan_regional_01",
+          "loc_yan_regional_02",
+          "loc_yan_regional_03",
+          "loc_yan_regional_04"
+        ]
+      },
+      "kind": "granary_depot_office",
+      "linked_depot_ref": "state_depot_yan",
+      "location_ref": "loc_ji",
+      "name": "YAN Granary and Depot Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "grain_procurement",
+          "depot_stock",
+          "treasury_cost"
+        ]
+      },
+      "owner_id": "inst_yan_granary_depot_office",
+      "policy": "YAN: procure physical grain into exact state depots from the private economy using state treasury funds",
+      "service_region_refs": [
+        "loc_yan_regional_01",
+        "loc_yan_regional_02",
+        "loc_yan_regional_03",
+        "loc_yan_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "yan"
+    },
+    "inst_yan_horse_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_ji",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_yan_regional_01",
+          "loc_yan_regional_02",
+          "loc_yan_regional_03",
+          "loc_yan_regional_04"
+        ]
+      },
+      "kind": "horse_administration",
+      "linked_mount_pool_ref": "mount_pool_yan",
+      "location_ref": "loc_ji",
+      "name": "YAN Horse Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "mount_recovery",
+          "custody_accounting"
+        ]
+      },
+      "owner_id": "inst_yan_horse_administration",
+      "policy": "YAN: recover existing state mounts and account for fit/recovering custody without creating horses",
+      "service_region_refs": [
+        "loc_yan_regional_01",
+        "loc_yan_regional_02",
+        "loc_yan_regional_03",
+        "loc_yan_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "yan"
+    },
+    "inst_yan_military_bureau": {
+      "geography": {
+        "headquarters_location_ref": "loc_ji",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_yan_regional_01",
+          "loc_yan_regional_02",
+          "loc_yan_regional_03",
+          "loc_yan_regional_04"
+        ]
+      },
+      "kind": "military_bureau",
+      "linked_force_ref": "force_state_yan",
+      "location_ref": "loc_ji",
+      "name": "YAN Military Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "formation_readiness",
+          "command_vacancies",
+          "operational_priorities"
+        ]
+      },
+      "owner_id": "inst_yan_military_bureau",
+      "policy": "YAN: review exact formations, commander vacancies, readiness, supply and operational commitments; recommend priorities without inventing commanders or equipment",
+      "service_region_refs": [
+        "loc_yan_regional_01",
+        "loc_yan_regional_02",
+        "loc_yan_regional_03",
+        "loc_yan_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "yan"
+    },
+    "inst_yan_recruitment_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_ji",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_yan_regional_01",
+          "loc_yan_regional_02",
+          "loc_yan_regional_03",
+          "loc_yan_regional_04"
+        ]
+      },
+      "kind": "recruitment_office",
+      "linked_force_ref": "force_state_yan",
+      "linked_population_ref": "population_yan",
+      "location_ref": "loc_ji",
+      "name": "YAN Recruitment Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "recruitment_capacity",
+          "population_availability",
+          "force_shortage"
+        ]
+      },
+      "owner_id": "inst_yan_recruitment_office",
+      "policy": "YAN: administer recruitment throughput against real population and force demand; office capacity constrains intake rather than creating recruits",
+      "service_region_refs": [
+        "loc_yan_regional_01",
+        "loc_yan_regional_02",
+        "loc_yan_regional_03",
+        "loc_yan_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "yan"
+    },
+    "inst_yan_regional_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_ji",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_yan_regional_01",
+          "loc_yan_regional_02",
+          "loc_yan_regional_03",
+          "loc_yan_regional_04"
+        ]
+      },
+      "kind": "regional_administration",
+      "location_ref": "loc_ji",
+      "name": "YAN Regional Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "occupation_administration",
+          "tax_compliance",
+          "loyalty",
+          "resistance"
+        ]
+      },
+      "owner_id": "inst_yan_regional_administration",
+      "policy": "YAN: administer territory, taxation compliance, elite cooperation, civilian loyalty and resistance after conquest",
+      "service_region_refs": [
+        "loc_yan_regional_01",
+        "loc_yan_regional_02",
+        "loc_yan_regional_03",
+        "loc_yan_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "yan"
+    },
+    "inst_zhao_fortification_bureau": {
+      "fortification_profile_authority": "game/data/world/fortification-profiles.json",
+      "geography": {
+        "headquarters_location_ref": "loc_kantan",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_zhao_regional_01",
+          "loc_zhao_regional_02",
+          "loc_zhao_regional_03",
+          "loc_zhao_regional_04"
+        ]
+      },
+      "kind": "fortification_bureau",
+      "location_ref": "loc_kantan",
+      "name": "ZHAO Fortification Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "fortification_review",
+          "project_pipeline",
+          "material_requirements"
+        ]
+      },
+      "owner_id": "inst_zhao_fortification_bureau",
+      "policy": "ZHAO: review controlled fortified sites and material-funded fortification projects; never create construction without reserved inputs",
+      "service_region_refs": [
+        "loc_zhao_regional_01",
+        "loc_zhao_regional_02",
+        "loc_zhao_regional_03",
+        "loc_zhao_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "zhao"
+    },
+    "inst_zhao_granary_depot_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_kantan",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_zhao_regional_01",
+          "loc_zhao_regional_02",
+          "loc_zhao_regional_03",
+          "loc_zhao_regional_04"
+        ]
+      },
+      "kind": "granary_depot_office",
+      "linked_depot_ref": "state_depot_zhao",
+      "location_ref": "loc_kantan",
+      "name": "ZHAO Granary and Depot Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "grain_procurement",
+          "depot_stock",
+          "treasury_cost"
+        ]
+      },
+      "owner_id": "inst_zhao_granary_depot_office",
+      "policy": "ZHAO: procure physical grain into exact state depots from the private economy using state treasury funds",
+      "service_region_refs": [
+        "loc_zhao_regional_01",
+        "loc_zhao_regional_02",
+        "loc_zhao_regional_03",
+        "loc_zhao_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "zhao"
+    },
+    "inst_zhao_horse_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_kantan",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_zhao_regional_01",
+          "loc_zhao_regional_02",
+          "loc_zhao_regional_03",
+          "loc_zhao_regional_04"
+        ]
+      },
+      "kind": "horse_administration",
+      "linked_mount_pool_ref": "mount_pool_zhao",
+      "location_ref": "loc_kantan",
+      "name": "ZHAO Horse Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "mount_recovery",
+          "custody_accounting"
+        ]
+      },
+      "owner_id": "inst_zhao_horse_administration",
+      "policy": "ZHAO: recover existing state mounts and account for fit/recovering custody without creating horses",
+      "service_region_refs": [
+        "loc_zhao_regional_01",
+        "loc_zhao_regional_02",
+        "loc_zhao_regional_03",
+        "loc_zhao_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "zhao"
+    },
+    "inst_zhao_military_bureau": {
+      "geography": {
+        "headquarters_location_ref": "loc_kantan",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_zhao_regional_01",
+          "loc_zhao_regional_02",
+          "loc_zhao_regional_03",
+          "loc_zhao_regional_04"
+        ]
+      },
+      "kind": "military_bureau",
+      "linked_force_ref": "force_state_zhao",
+      "location_ref": "loc_kantan",
+      "name": "ZHAO Military Bureau",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "formation_readiness",
+          "command_vacancies",
+          "operational_priorities"
+        ]
+      },
+      "owner_id": "inst_zhao_military_bureau",
+      "policy": "ZHAO: review exact formations, commander vacancies, readiness, supply and operational commitments; recommend priorities without inventing commanders or equipment",
+      "service_region_refs": [
+        "loc_zhao_regional_01",
+        "loc_zhao_regional_02",
+        "loc_zhao_regional_03",
+        "loc_zhao_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "zhao"
+    },
+    "inst_zhao_recruitment_office": {
+      "geography": {
+        "headquarters_location_ref": "loc_kantan",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_zhao_regional_01",
+          "loc_zhao_regional_02",
+          "loc_zhao_regional_03",
+          "loc_zhao_regional_04"
+        ]
+      },
+      "kind": "recruitment_office",
+      "linked_force_ref": "force_state_zhao",
+      "linked_population_ref": "population_zhao",
+      "location_ref": "loc_kantan",
+      "name": "ZHAO Recruitment Office",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "recruitment_capacity",
+          "population_availability",
+          "force_shortage"
+        ]
+      },
+      "owner_id": "inst_zhao_recruitment_office",
+      "policy": "ZHAO: administer recruitment throughput against real population and force demand; office capacity constrains intake rather than creating recruits",
+      "service_region_refs": [
+        "loc_zhao_regional_01",
+        "loc_zhao_regional_02",
+        "loc_zhao_regional_03",
+        "loc_zhao_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "zhao"
+    },
+    "inst_zhao_regional_administration": {
+      "geography": {
+        "headquarters_location_ref": "loc_kantan",
+        "owns_local_population": false,
+        "service_region_refs": [
+          "loc_zhao_regional_01",
+          "loc_zhao_regional_02",
+          "loc_zhao_regional_03",
+          "loc_zhao_regional_04"
+        ]
+      },
+      "kind": "regional_administration",
+      "location_ref": "loc_kantan",
+      "name": "ZHAO Regional Administration",
+      "operating_contract": {
+        "authority": "exact existing owners only",
+        "outputs": [
+          "occupation_administration",
+          "tax_compliance",
+          "loyalty",
+          "resistance"
+        ]
+      },
+      "owner_id": "inst_zhao_regional_administration",
+      "policy": "ZHAO: administer territory, taxation compliance, elite cooperation, civilian loyalty and resistance after conquest",
+      "service_region_refs": [
+        "loc_zhao_regional_01",
+        "loc_zhao_regional_02",
+        "loc_zhao_regional_03",
+        "loc_zhao_regional_04"
+      ],
+      "staffing": "aggregate",
+      "state": "zhao"
+    }
+  },
+  "schema": "state-institution-profile-registry"
+}

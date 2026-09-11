@@ -1,0 +1,41 @@
+{
+  "schema": "generic-object",
+  "owner_id": "outfitting_mechanics",
+  "principle": "Organizations outfit formations with aggregate complete role-appropriate personal equipment sets. The set inherits the formation role's registered loadout, so consolidated weapon families stay mechanically meaningful without an item-by-item reserve diary. Ammunition and living mounts remain separate conserved physical stocks.",
+  "house_tang_reserve": {
+    "inventory_path": "state/inv/inventories.json",
+    "record_id": "house_tang_outfitting_sets",
+    "standard_role_set_key": "standard_role_sets_reserve",
+    "crossbow_role_set_key": "crossbow_role_sets_reserve",
+    "mounted_harness_set_key": "mounted_harness_sets_reserve"
+  },
+  "new_role_set_work": {
+    "construction_material_units_per_set": 8.0,
+    "worker_hours_per_set": 954.0,
+    "silver_per_set": 37.0,
+    "maximum_parallel_workers": 7000,
+    "worker_stratum": "craft_and_industry",
+    "rule": "A new standard set is an aggregate of the currently registered role loadout's ordinary personal arms and protection. This is procurement/manufacture work, not a monthly factory tick."
+  },
+  "mounted_harness_work": {
+    "construction_material_units_per_set": 5.0,
+    "worker_hours_per_set": 540.0,
+    "silver_per_set": 21.0,
+    "maximum_parallel_workers": 5000,
+    "worker_stratum": "stable_remount_and_carriage_workers",
+    "rule": "Mounted harness work covers tack and horse armor only. A horse body is never created by this set."
+  },
+  "repair": {
+    "minimum_repairable_condition_pct": 5.0,
+    "worker_hours_per_equivalent_destroyed_set": 334.0,
+    "construction_material_units_per_equivalent_destroyed_set": 2.4,
+    "silver_per_equivalent_destroyed_set": 11.1,
+    "maximum_parallel_workers": 7000,
+    "worker_stratum": "craft_and_industry",
+    "rule": "Repair restores only surviving equipment condition. Missing equipment requires a replacement role set."
+  },
+  "procurement_region_refs": [
+    "loc_tang_manor",
+    "loc_qin_regional_01"
+  ]
+}

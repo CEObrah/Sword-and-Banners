@@ -1,0 +1,88 @@
+{
+  "schema": "siege-mechanics",
+  "formulas": {
+    "crew_factor": "clamp(fit_crew/optimal_crew,0.50,1.00)",
+    "artillery_control": "0.24*relevant_weapon_skill + 0.22*Engineering + 0.14*Coordination + 0.14*Awareness + 0.10*Composure + 0.10*commander_Formation_Command + 0.06*commander_Tactics",
+    "control_factor": "clamp(0.70+artillery_control/400,0.60,1.25)",
+    "weather_factor": "visibility_factor*wind_factor*precipitation_factor",
+    "structure_protection": "structural_resistance*sqrt(contacted_thickness_m)*structure_condition_factor*angle_factor",
+    "damage_ratio": "impact_index/max(structure_protection,0.001)",
+    "integrity_loss_percent": "round_0.1(min(10,2*damage_ratio^1.35))",
+    "ram_cycle_seconds": "base_cycle_seconds/clamp(crew_factor*engineering_factor*crew_training_factor,0.70,1.30)",
+    "current_artillery_cycle_seconds": "base_cycle_seconds/clamp(crew_factor*engineering_factor*crew_training_factor*condition_factor,0.70,1.25)",
+    "engineering_factor": "clamp(0.75+usable_engineering/300,0.75,1.25)",
+    "ram_impact_index": "base_impact_index*crew_factor*engineering_factor*crew_training_factor*condition_factor*access_factor",
+    "completed_releases": "min(floor(elapsed_seconds/current_cycle_seconds),exact_ammunition_available)",
+    "range_factor": "1.0 if range<=effective_range; linear from 1.0 to 0.70 between effective_range and maximum_range; illegal beyond maximum_range",
+    "trebuchet_impact_index": "base_impact_index*range_factor*contact_multiplier*condition_factor",
+    "crew_fatigue_gain": "release_exertion*load_factor*heat_factor*injury_factor/endurance_factor",
+    "bed_crossbow_dispersion_radius": "base_dispersion*(range/effective_range)^1.15/(crew_factor*control_factor)*visibility_penalty*wind_penalty",
+    "bed_crossbow_penetration_index": "base_penetration*range_factor*condition_factor",
+    "bed_crossbow_cycle_seconds": "base_cycle_seconds/clamp(crew_factor*control_factor*condition_factor,0.70,1.30)",
+    "trebuchet_dispersion_radius": "base_dispersion*range_penalty*weather_penalty/(crew_factor*control_factor)",
+    "trebuchet_projectile_impact_index": "base_impact*(projectile_mass_kg/standard_projectile_kg)*range_factor*condition_factor",
+    "stone_drop_impact_index": "payload_kg*drop_height_m*0.045*condition_factor",
+    "ignition_score": "100*fuel_condition*ignition_source*weather_factor*target_flammability",
+    "bed_crossbow_impact_index": "base_impact*range_factor*condition_factor"
+  },
+  "stable_scatter": {
+    "algorithm": "sha256",
+    "seed_material": "world_seed|event_id|weapon_id|release_index",
+    "radius": "dispersion_radius*sqrt(u1)",
+    "angle": "2*pi*u2",
+    "reroll_forbidden": true
+  },
+  "bed_crossbow": {
+    "minimum_crew": 4,
+    "optimal_crew": 6,
+    "specialists": 1,
+    "base_cycle_seconds": 48,
+    "effective_range_m": 280,
+    "maximum_range_m": 420,
+    "base_penetration": 190,
+    "base_dispersion_m": 1.5,
+    "base_impact": 165,
+    "mechanism_power_rule": "stored mechanism energy sets launch impact/penetration; crew capability changes aim, dispersion, timing and cycle, never latched launch energy"
+  },
+  "trebuchet": {
+    "minimum_crew": 60,
+    "optimal_crew": 80,
+    "specialists": 8,
+    "standard_projectile_kg": 50,
+    "base_cycle_seconds": 180,
+    "effective_range_m": 90,
+    "maximum_range_m": 170,
+    "base_dispersion_m": 12,
+    "base_impact": 220
+  },
+  "rule": "Every release conserves crew, ammunition, time, weapon condition, target geometry, casualties and structural damage; reloading cannot reroll scatter.",
+  "crew_training_factor": {
+    "unfamiliar": 0.7,
+    "probationary": 0.85,
+    "qualified": 1.0,
+    "advanced": 1.0
+  },
+  "access_factor": {
+    "blocked": "illegal",
+    "poor": 0.7,
+    "prepared": 1.0,
+    "ideal": 1.1
+  },
+  "structure_states": {
+    "70.1_to_100": "sound",
+    "40.1_to_70": "damaged",
+    "20.1_to_40": "critically_damaged",
+    "0.1_to_20": "breached_or_failing",
+    "0": "collapsed_or_destroyed"
+  },
+  "stone_drop": {
+    "minimum_crew": 4,
+    "maximum_payload_kg": 120,
+    "base_cycle_seconds": 35
+  },
+  "firepot": {
+    "minimum_crew": 3,
+    "prepared_capacity": 40,
+    "consumes_per_release": 1
+  }
+}

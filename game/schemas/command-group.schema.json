@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Zero-body recursive army command. One ordered direct OOB contains Units; each Unit is either one persistent mixed-role formation or one intact nested army.",
+  "properties": {
+    "active_context_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "authority_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "commander_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "communication_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "context": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "direct_person_refs": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "display_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "familiarity_milli": {
+      "maximum": 1000,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "id": {
+      "pattern": "^cmdgrp\\.",
+      "type": "string"
+    },
+    "last_operational_movement": {
+      "additionalProperties": false,
+      "properties": {
+        "army_battle_ready_at": {
+          "type": "string"
+        },
+        "army_tail_arrived_at": {
+          "type": "string"
+        },
+        "departed_at": {
+          "type": "string"
+        },
+        "destination_ref": {
+          "type": "string"
+        },
+        "formation_count": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "operation_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ordered_formation_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "origin_ref": {
+          "type": "string"
+        },
+        "required_wagon_equivalents": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "route_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "total_personnel": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "origin_ref",
+        "destination_ref",
+        "departed_at",
+        "army_tail_arrived_at",
+        "army_battle_ready_at",
+        "total_personnel",
+        "formation_count",
+        "route_refs",
+        "ordered_formation_refs"
+      ],
+      "type": "object"
+    },
+    "location": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mobilization_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "organizational_state": {
+      "additionalProperties": true,
+      "properties": {
+        "authorized_direct_unit_slots": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "authorized_strength": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "current_direct_formation_strength": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "current_recursive_strength": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "direct_unit_count": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "recursive_formation_count": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "reorganization_need": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "parent_command_group_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "role_assignments": {
+      "additionalProperties": {
+        "type": "string",
+        "enum": [
+          "chief_administrator",
+          "chief_of_staff",
+          "operations_officer",
+          "strategist",
+          "training_and_operations_officer",
+          "training_officer",
+          "training_operations_officer"
+        ]
+      },
+      "type": "object",
+      "description": "Exact person ref to an explicit registered staff/specialist role. A Strategist may carry recursive operational-order authority inside this command-group subtree when registered by command-staff policy, but staff never implies troop ownership, succession, hidden knowledge, combat power, or authority outside its scope."
+    },
+    "schema": {
+      "const": "command-group"
+    },
+    "standing_doctrine_ref": {
+      "description": "Registered standing command doctrine for this command group. Temporary orders do not rewrite it.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "standing_order_refs": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "standing_orders": {
+      "type": "array"
+    },
+    "successor_refs": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "units": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "formation",
+              "nested_army"
+            ]
+          },
+          "ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "ref"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "verified_group_training_hours": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "unit_role_assignments": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Operational role label to direct Unit/nested-army ref. Separate from person staff role_assignments."
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "commander_ref",
+    "units",
+    "direct_person_refs"
+  ],
+  "title": "Command Group",
+  "type": "object"
+}

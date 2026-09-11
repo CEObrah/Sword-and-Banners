@@ -1,0 +1,44 @@
+{
+  "deterministic_by_default": true,
+  "resolution_order": [
+    "validate_legality",
+    "lock_snapshot",
+    "perception",
+    "timing",
+    "movement",
+    "contact",
+    "defense",
+    "impact_or_effect",
+    "armor_protection",
+    "injury",
+    "displacement",
+    "equipment_wear",
+    "fatigue_morale",
+    "knowledge",
+    "time",
+    "process_settlement",
+    "validation",
+    "commit",
+    "narration"
+  ],
+  "rng": {
+    "algorithm": "sha256_counter_u64",
+    "allowed_for": [
+      "genuinely unresolved physical uncertainty where no owned causal fact determines the outcome",
+      "bounded autonomous choice among multiple lawful plausible actions when saved goals, threats, resources, relationships, doctrine, logistics, and commitments do not uniquely determine one action"
+    ],
+    "forbidden_for": [
+      "ownership or conservation",
+      "legal authority or eligibility",
+      "construction geometry, material requirements, or elapsed work already determined by physical inputs",
+      "retroactively changing an already committed outcome",
+      "using process hash order, filesystem order, set iteration order, or other implementation accidents as entropy"
+    ],
+    "model_sampling_forbidden": true,
+    "record_seed_and_draw_index": true,
+    "replay_rule": "The same complete snapshot with the same explicit saved seed and RNG stream state must replay the same committed causal result. Alternate explicit simulation seeds may choose different lawful autonomous futures. Reproducibility is an engine/debugging invariant, not a requirement that every plausible campaign branch be identical.",
+    "seed_source": "state.meta.world_seed + persisted causal occurrence identity or transaction_id + named_rng_stream",
+    "stream_rule": "named_rng_stream is a stable domain-purpose identifier; draw_index starts at 0 and advances only when that stream actually consumes a draw"
+  },
+  "schema": "mechanics-core"
+}

@@ -1,0 +1,101 @@
+{
+  "disease_contact_fraction_by_margin": [
+    {
+      "contact_fraction": 0.0,
+      "max_margin": 0
+    },
+    {
+      "contact_fraction": 0.02,
+      "max_margin": 8,
+      "min_margin": 1
+    },
+    {
+      "contact_fraction": 0.05,
+      "max_margin": 16,
+      "min_margin": 9
+    },
+    {
+      "contact_fraction": 0.1,
+      "max_margin": 24,
+      "min_margin": 17
+    },
+    {
+      "contact_fraction": 0.2,
+      "max_margin": 40,
+      "min_margin": 25
+    },
+    {
+      "contact_fraction": 0.35,
+      "max_margin": null,
+      "min_margin": 41
+    }
+  ],
+  "disease_level_values": {
+    "clear": 8,
+    "decisive": 16,
+    "major": 12,
+    "minor": 4
+  },
+  "formulas": {
+    "activity_progress": "max(0,current_work_score-difficulty+10)",
+    "cycle_output": "base_capacity*input_completion*skilled_labor_factor*tool_condition_factor*attendance*quality_factor",
+    "daily_progress_labor": "available_laborers*attendance*skill_tool_factor*weather_security_factor",
+    "disease_margin": "exposure_pressure-population_resistance",
+    "estate_net_cash": "realized_sales+rents+transfers_in-wages-purchased_inputs-maintenance-taxes-debt_service-losses-transfers_out",
+    "exposure_pressure": "infectious_contacts+contaminated_water_food+vector_exposure+corpse_waste_exposure-isolation-sanitation-protective_behavior",
+    "food_balance": "opening_edible_stock+production+imports-civilian_consumption-military_consumption-exports-spoilage-seizure",
+    "levy_total_burden": "cash_paid+food_transport_consumed+equipment_supervision+lost_output_tax+household_relief+expected_desertion_disorder_political_cost",
+    "new_case_fractional_carry": "exposed_susceptible*contact_fraction+prior_fractional_carry-new_cases",
+    "new_cases": "floor(exposed_susceptible*contact_fraction+prior_fractional_carry)",
+    "population_resistance": "nutrition+prior_resistance+shelter+medical_support-exhaustion-crowding-concurrent_illness",
+    "recruitment_availability": "eligible_population-essential_labor_floor-current_service-disability-protected_dependents-recent_levy_exhaustion"
+  },
+  "rules": {
+    "disease_contact_fraction_must_come_from_registered_pressure_resistance_band": true,
+    "new_cases_capped_by_actual_exposed_susceptible": true,
+    "outputs_conserve_people_stock_cash_and_labor": true,
+    "project_progress_is_capped_by_workfront_supervision_tools_materials_and_coordination": true
+  },
+  "schema": "settlement-mechanics",
+  "levy_system": {
+    "maximum_active_fraction_of_total_population": 0.08,
+    "minimum_call_personnel": 500,
+    "organization_silver_per_person": 2,
+    "source_strata_order": [
+      "agricultural",
+      "household_and_service",
+      "merchant_and_transport",
+      "craft_and_industry"
+    ],
+    "essential_labor_floor_fraction": {
+      "agricultural": 0.65,
+      "household_and_service": 0.6,
+      "merchant_and_transport": 0.65,
+      "craft_and_industry": 0.6
+    },
+    "background_profile_by_source_stratum": {
+      "agricultural": "agricultural_laborer",
+      "household_and_service": "household_service",
+      "merchant_and_transport": "merchant_caravan",
+      "craft_and_industry": "artisan"
+    },
+    "initial_formation_state": {
+      "readiness": 30,
+      "morale": 55,
+      "cohesion": 20,
+      "training_progress": 5,
+      "experience": "unblooded"
+    },
+    "training_regimen_ref": "levy_basic",
+    "rule": "Only a sovereign state or explicitly delegated sovereign authority may call a levy. Levy bodies are conserved civilians in temporary state military service and use ordinary role, equipment, training, casualty and combat mechanics.",
+    "mobilization_strain": {
+      "maximum_milli": 1000,
+      "recovery_milli_per_day": 3,
+      "call_burden_milli_at_full_state_levy_cap": 650,
+      "casualty_burden_milli_at_full_state_levy_cap": 450,
+      "maximum_active_cap_penalty_fraction": 0.5,
+      "rule": "Mobilization strain is a compact decaying current accumulator. Calling conserved civilians adds strain; demobilization does not erase it; casualties add further burden. It reduces near-term repeat levy capacity and temporarily depresses available civil labor after demobilization without storing session history.",
+      "maximum_civil_labor_penalty_fraction": 0.25
+    }
+  }
+}

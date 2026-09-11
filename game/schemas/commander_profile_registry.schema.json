@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Commander Profile Registry",
+  "type": "object",
+  "required": [
+    "schema",
+    "profiles"
+  ],
+  "properties": {
+    "schema": {
+      "const": "commander_profile_registry"
+    },
+    "profiles": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,144 @@
+{
+  "authority": false,
+  "campaign_revision": 45,
+  "corrected": {
+    "han": {
+      "after_local_native_military": 152382,
+      "autonomous_battle_loss_evidence": [
+        {
+          "at": "244-BCE-12-04T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 413,
+          "formation_ref": "formation_han_fortress_reserve",
+          "losing_side": false,
+          "opponent_state": "wei"
+        },
+        {
+          "at": "244-BCE-12-04T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 230,
+          "formation_ref": "formation_han_mobile_screen",
+          "losing_side": false,
+          "opponent_state": "wei"
+        },
+        {
+          "at": "244-BCE-12-18T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 397,
+          "formation_ref": "formation_han_fortress_reserve",
+          "losing_side": false,
+          "opponent_state": "wei"
+        },
+        {
+          "at": "244-BCE-12-18T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 221,
+          "formation_ref": "formation_han_mobile_screen",
+          "losing_side": false,
+          "opponent_state": "wei"
+        }
+      ],
+      "before_local_native_military": 153643,
+      "force_ref": "force_state_han",
+      "global_active_military": 152382,
+      "local_debits_by_site": {
+        "loc_han_capital": 259,
+        "loc_han_frontier_fort": 153,
+        "loc_han_regional_01": 214,
+        "loc_han_regional_02": 255,
+        "loc_han_regional_03": 190,
+        "loc_han_regional_04": 190
+      },
+      "population_ref": "population_han",
+      "proven_missing_local_deaths": 1261
+    },
+    "wei": {
+      "after_local_native_military": 345180,
+      "autonomous_battle_loss_evidence": [
+        {
+          "at": "244-BCE-12-04T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 470,
+          "formation_ref": "formation_wei_chariot_screen",
+          "losing_side": true,
+          "opponent_state": "han"
+        },
+        {
+          "at": "244-BCE-12-04T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 706,
+          "formation_ref": "formation_wei_reserve_infantry_01",
+          "losing_side": true,
+          "opponent_state": "han"
+        },
+        {
+          "at": "244-BCE-12-04T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 588,
+          "formation_ref": "formation_wei_reserve_infantry_02",
+          "losing_side": true,
+          "opponent_state": "han"
+        },
+        {
+          "at": "244-BCE-12-04T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 235,
+          "formation_ref": "formation_wei_reserve_infantry_03",
+          "losing_side": true,
+          "opponent_state": "han"
+        },
+        {
+          "at": "244-BCE-12-18T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 428,
+          "formation_ref": "formation_wei_chariot_screen",
+          "losing_side": true,
+          "opponent_state": "han"
+        },
+        {
+          "at": "244-BCE-12-18T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 642,
+          "formation_ref": "formation_wei_reserve_infantry_01",
+          "losing_side": true,
+          "opponent_state": "han"
+        },
+        {
+          "at": "244-BCE-12-18T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 535,
+          "formation_ref": "formation_wei_reserve_infantry_02",
+          "losing_side": true,
+          "opponent_state": "han"
+        },
+        {
+          "at": "244-BCE-12-18T20:22:48+08:00",
+          "basis": "conserved autonomous battle losses",
+          "casualties": 214,
+          "formation_ref": "formation_wei_reserve_infantry_03",
+          "losing_side": true,
+          "opponent_state": "han"
+        }
+      ],
+      "before_local_native_military": 348998,
+      "force_ref": "force_state_wei",
+      "global_active_military": 345180,
+      "local_debits_by_site": {
+        "loc_dairyou": 689,
+        "loc_keiyou": 286,
+        "loc_wei_regional_01": 531,
+        "loc_wei_regional_02": 955,
+        "loc_wei_regional_03": 572,
+        "loc_wei_regional_04": 571,
+        "loc_wei_west_fort": 214
+      },
+      "population_ref": "population_wei",
+      "proven_missing_local_deaths": 3818
+    }
+  },
+  "kind": "campaign_truth_repair_provenance",
+  "repair_ref": "repair_local_service_casualty_partition_20260907",
+  "repair_rule": "remove only the proven duplicate local presence of already-dead native state soldiers; distribute unprovenanced legacy bodies deterministically across the force's existing local native-service allocations; do not change global population, force strength, campaign revision, world time, battle outcome, territory, authority, or player agency",
+  "root_cause": "autonomous state-force casualties were globally conserved, but local-origin reconciliation silently skipped legacy baseline cohorts whose origin population/location fields predated the local ledger",
+  "world_time": "244-BCE-12-21T12:00:01+08:00"
+}

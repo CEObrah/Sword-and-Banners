@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "required": [
+    "schema",
+    "count",
+    "ids",
+    "record_index"
+  ],
+  "properties": {
+    "schema": {
+      "const": "loadouts-index"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "record_index": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "canonical_aliases": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "physical_record_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": true
+}

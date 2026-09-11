@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bastion Corps Policy",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "institution_ref",
+    "house_ref",
+    "status",
+    "mercenary_status",
+    "command_accounting",
+    "recruitment",
+    "corps"
+  ],
+  "properties": {
+    "schema": {
+      "const": "bastion-corps-policy"
+    },
+    "institution_ref": {
+      "type": "string"
+    },
+    "house_ref": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "mercenary_status": {
+      "const": false
+    },
+    "command_accounting": {
+      "type": "object"
+    },
+    "recruitment": {
+      "type": "object"
+    },
+    "common_induction_days": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "corps": {
+      "type": "object",
+      "required": [
+        "iron_wall",
+        "red_thunder",
+        "white_blade",
+        "stone_spear"
+      ]
+    }
+  }
+}

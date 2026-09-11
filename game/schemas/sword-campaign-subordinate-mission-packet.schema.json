@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sword-campaign-subordinate-mission-packet.schema.json",
+  "title": "Sword Campaign Subordinate Mission Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "mission_phase",
+    "phase_status",
+    "destination_ref",
+    "strategic_target_ref",
+    "target_state_ref",
+    "hostile_entry_authorized",
+    "entry_status",
+    "campaign_arc_ref",
+    "source_campaign_cycle_ref",
+    "source_staff_command_ref",
+    "success_condition",
+    "next_phase_trigger"
+  ],
+  "properties": {
+    "schema": {"const": "sword-campaign-subordinate-mission-packet-1.0"},
+    "mission_phase": {"const": "campaign_advance"},
+    "phase_status": {
+      "enum": [
+        "ready_for_commander_execution",
+        "executing",
+        "completed",
+        "blocked"
+      ]
+    },
+    "destination_ref": {"type": "string", "minLength": 1},
+    "strategic_target_ref": {"type": "string", "minLength": 1},
+    "target_state_ref": {"type": "string", "minLength": 1},
+    "hostile_entry_authorized": {"const": true},
+    "entry_status": {"const": "authorized"},
+    "campaign_arc_ref": {
+      "anyOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "null"}
+      ]
+    },
+    "source_campaign_cycle_ref": {"type": "string", "minLength": 1},
+    "source_staff_command_ref": {
+      "anyOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "null"}
+      ]
+    },
+    "success_condition": {"type": "string", "minLength": 1},
+    "next_phase_trigger": {"type": "string", "minLength": 1},
+    "authority_rule": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional pre-compaction explanatory provenance. Canonical hot-state compaction may remove this prose; executable authority is carried by the exact cycle/command refs, issuer/superior order fields, and hostile-entry authorization."
+    },
+    "execution_started_at": {"type": "string", "minLength": 1},
+    "completed_at": {"type": "string", "minLength": 1},
+    "actual_arrival_ref": {"type": "string", "minLength": 1},
+    "blocked_at": {"type": "string", "minLength": 1},
+    "blocked_reason": {"type": "string", "minLength": 1, "maxLength": 240}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"phase_status": {"const": "executing"}}},
+      "then": {"required": ["execution_started_at"]}
+    },
+    {
+      "if": {"properties": {"phase_status": {"const": "completed"}}},
+      "then": {"required": ["completed_at", "actual_arrival_ref"]}
+    },
+    {
+      "if": {"properties": {"phase_status": {"const": "blocked"}}},
+      "then": {"required": ["blocked_at"]}
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mercenary",
+  "type": "object",
+  "required": [
+    "troop_pools",
+    "combat_tendencies",
+    "contracts",
+    "doctrine",
+    "doctrine_familiarity",
+    "headcount",
+    "name",
+    "owner_id",
+    "owner_type",
+    "schema",
+    "status",
+    "training"
+  ],
+  "properties": {
+    "combat_tendencies": {
+      "type": "object"
+    },
+    "contracts": {
+      "type": "array"
+    },
+    "doctrine": {
+      "type": "string"
+    },
+    "doctrine_familiarity": {
+      "type": "integer"
+    },
+    "headcount": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "training": {
+      "type": "string"
+    },
+    "troop_pools": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true,
+  "description": "Current schema contract."
+}

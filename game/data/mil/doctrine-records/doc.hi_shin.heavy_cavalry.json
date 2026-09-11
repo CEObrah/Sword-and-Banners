@@ -1,0 +1,20 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.hi_shin.heavy_cavalry",
+  "doctrine": {
+    "label": "Hi Shin Heavy Breakthrough Doctrine",
+    "scope": "formation_role",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#heavy_cavalry",
+    "formation_policy": {
+      "battlefield_role": "heavy_shock",
+      "contact_style": "decisive_shock",
+      "charge_policy": "shock_window",
+      "pursuit_policy": "aggressive_bounded",
+      "disengagement": "protected_withdrawal"
+    },
+    "compatibility": [
+      "mounted_mobility",
+      "heavy_shock"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "schema": {"const": "court-reward-review"},
+    "owner_id": {"type": "string", "minLength": 1},
+    "review_ref": {"type": "string", "minLength": 1},
+    "state": {"type": "string", "minLength": 1},
+    "subject_ref": {"type": "string", "minLength": 1},
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "status": {"enum": ["open", "settled"]}
+  },
+  "required": ["schema", "owner_id", "review_ref", "state", "subject_ref", "evidence_refs", "status"]
+}

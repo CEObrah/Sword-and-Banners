@@ -1,0 +1,415 @@
+{
+  "schema": "generic-object",
+  "owner_id": "terrain_mechanics",
+  "authority": true,
+  "aliases": {
+    "default": [
+      "plain"
+    ],
+    "open": [
+      "plain"
+    ],
+    "plain": [
+      "plain"
+    ],
+    "mixed_plain": [
+      "plain"
+    ],
+    "northern_plain": [
+      "plain"
+    ],
+    "southern_kantan_plain": [
+      "plain"
+    ],
+    "eastern_plain": [
+      "plain"
+    ],
+    "eastern_border_plain": [
+      "plain"
+    ],
+    "upland_plain": [
+      "plain",
+      "hills"
+    ],
+    "cultivated_plain": [
+      "cultivated"
+    ],
+    "cultivated_estate": [
+      "cultivated"
+    ],
+    "coastal_plain": [
+      "plain",
+      "wetland"
+    ],
+    "river_plain": [
+      "floodplain"
+    ],
+    "riverlands": [
+      "floodplain"
+    ],
+    "eastern_riverlands": [
+      "floodplain"
+    ],
+    "corridor": [
+      "plain"
+    ],
+    "northern_corridor": [
+      "plain"
+    ],
+    "western_corridor": [
+      "hills"
+    ],
+    "four_state_crossroads": [
+      "plain"
+    ],
+    "hills": [
+      "hills"
+    ],
+    "hilly_plain": [
+      "hills"
+    ],
+    "hilly_corridor": [
+      "hills"
+    ],
+    "river_hills": [
+      "hills",
+      "floodplain"
+    ],
+    "broken_hills": [
+      "hills",
+      "woodland"
+    ],
+    "border_hills": [
+      "hills",
+      "woodland"
+    ],
+    "northern_hills": [
+      "hills",
+      "woodland"
+    ],
+    "northwestern_hills": [
+      "hills",
+      "woodland"
+    ],
+    "eastern_border_hills": [
+      "hills",
+      "woodland"
+    ],
+    "upland": [
+      "hills"
+    ],
+    "mountain": [
+      "mountain",
+      "woodland"
+    ],
+    "mountain_highlands": [
+      "mountain",
+      "woodland"
+    ],
+    "mountain_basin": [
+      "mountain"
+    ],
+    "mountain_valleys": [
+      "mountain",
+      "woodland"
+    ],
+    "river_mountain_pass": [
+      "mountain",
+      "woodland",
+      "floodplain",
+      "pass"
+    ],
+    "steppe_edge": [
+      "steppe"
+    ],
+    "fortified_crossing": [
+      "floodplain",
+      "fortified"
+    ],
+    "fortified_compound": [
+      "plain",
+      "urban",
+      "fortified"
+    ],
+    "western_checkpoint": [
+      "hills",
+      "fortified"
+    ],
+    "forest": [
+      "woodland"
+    ],
+    "woodland": [
+      "woodland"
+    ],
+    "wooded_hills": [
+      "hills",
+      "woodland"
+    ],
+    "marsh": [
+      "marsh"
+    ],
+    "wetland": [
+      "wetland"
+    ],
+    "floodplain": [
+      "floodplain"
+    ]
+  },
+  "profiles": {
+    "plain": {
+      "travel_time_milli": 1000,
+      "visibility_milli": 1000,
+      "ranged_effectiveness_milli": 1000,
+      "formation_mobility_milli": 1000,
+      "mounted_mobility_milli": 1000,
+      "chariot_mobility_milli": 1000,
+      "frontage_milli": 1000,
+      "concealment_milli": 300,
+      "scouting_milli": 1000,
+      "pursuit_milli": 1000,
+      "fatigue_milli": 1000,
+      "defense_milli": 1000
+    },
+    "cultivated": {
+      "travel_time_milli": 1040,
+      "visibility_milli": 940,
+      "ranged_effectiveness_milli": 950,
+      "formation_mobility_milli": 950,
+      "mounted_mobility_milli": 900,
+      "chariot_mobility_milli": 850,
+      "frontage_milli": 900,
+      "concealment_milli": 650,
+      "scouting_milli": 940,
+      "pursuit_milli": 900,
+      "fatigue_milli": 1020,
+      "defense_milli": 1020
+    },
+    "hills": {
+      "travel_time_milli": 1200,
+      "visibility_milli": 900,
+      "ranged_effectiveness_milli": 930,
+      "formation_mobility_milli": 850,
+      "mounted_mobility_milli": 760,
+      "chariot_mobility_milli": 600,
+      "frontage_milli": 720,
+      "concealment_milli": 700,
+      "scouting_milli": 850,
+      "pursuit_milli": 780,
+      "fatigue_milli": 1120,
+      "defense_milli": 1100
+    },
+    "woodland": {
+      "travel_time_milli": 1160,
+      "visibility_milli": 720,
+      "ranged_effectiveness_milli": 800,
+      "formation_mobility_milli": 760,
+      "mounted_mobility_milli": 620,
+      "chariot_mobility_milli": 350,
+      "frontage_milli": 600,
+      "concealment_milli": 1500,
+      "scouting_milli": 780,
+      "pursuit_milli": 650,
+      "fatigue_milli": 1080,
+      "defense_milli": 1080
+    },
+    "mountain": {
+      "travel_time_milli": 1450,
+      "visibility_milli": 850,
+      "ranged_effectiveness_milli": 860,
+      "formation_mobility_milli": 650,
+      "mounted_mobility_milli": 500,
+      "chariot_mobility_milli": 200,
+      "frontage_milli": 420,
+      "concealment_milli": 850,
+      "scouting_milli": 700,
+      "pursuit_milli": 550,
+      "fatigue_milli": 1300,
+      "defense_milli": 1180
+    },
+    "floodplain": {
+      "travel_time_milli": 1120,
+      "visibility_milli": 920,
+      "ranged_effectiveness_milli": 940,
+      "formation_mobility_milli": 880,
+      "mounted_mobility_milli": 800,
+      "chariot_mobility_milli": 700,
+      "frontage_milli": 820,
+      "concealment_milli": 650,
+      "scouting_milli": 880,
+      "pursuit_milli": 800,
+      "fatigue_milli": 1060,
+      "defense_milli": 1030
+    },
+    "wetland": {
+      "travel_time_milli": 1300,
+      "visibility_milli": 820,
+      "ranged_effectiveness_milli": 880,
+      "formation_mobility_milli": 700,
+      "mounted_mobility_milli": 550,
+      "chariot_mobility_milli": 250,
+      "frontage_milli": 550,
+      "concealment_milli": 950,
+      "scouting_milli": 720,
+      "pursuit_milli": 550,
+      "fatigue_milli": 1200,
+      "defense_milli": 1050
+    },
+    "marsh": {
+      "travel_time_milli": 1500,
+      "visibility_milli": 780,
+      "ranged_effectiveness_milli": 850,
+      "formation_mobility_milli": 580,
+      "mounted_mobility_milli": 420,
+      "chariot_mobility_milli": 120,
+      "frontage_milli": 450,
+      "concealment_milli": 1100,
+      "scouting_milli": 650,
+      "pursuit_milli": 420,
+      "fatigue_milli": 1350,
+      "defense_milli": 1060
+    },
+    "steppe": {
+      "travel_time_milli": 1050,
+      "visibility_milli": 1100,
+      "ranged_effectiveness_milli": 1040,
+      "formation_mobility_milli": 1020,
+      "mounted_mobility_milli": 1120,
+      "chariot_mobility_milli": 1060,
+      "frontage_milli": 1050,
+      "concealment_milli": 220,
+      "scouting_milli": 1120,
+      "pursuit_milli": 1120,
+      "fatigue_milli": 1020,
+      "defense_milli": 970
+    },
+    "urban": {
+      "travel_time_milli": 1180,
+      "visibility_milli": 720,
+      "ranged_effectiveness_milli": 780,
+      "formation_mobility_milli": 620,
+      "mounted_mobility_milli": 420,
+      "chariot_mobility_milli": 250,
+      "frontage_milli": 500,
+      "concealment_milli": 1300,
+      "scouting_milli": 700,
+      "pursuit_milli": 520,
+      "fatigue_milli": 1080,
+      "defense_milli": 1180
+    },
+    "pass": {
+      "travel_time_milli": 1250,
+      "visibility_milli": 860,
+      "ranged_effectiveness_milli": 900,
+      "formation_mobility_milli": 700,
+      "mounted_mobility_milli": 620,
+      "chariot_mobility_milli": 450,
+      "frontage_milli": 420,
+      "concealment_milli": 850,
+      "scouting_milli": 780,
+      "pursuit_milli": 600,
+      "fatigue_milli": 1150,
+      "defense_milli": 1160
+    },
+    "fortified": {
+      "travel_time_milli": 1000,
+      "visibility_milli": 900,
+      "ranged_effectiveness_milli": 900,
+      "formation_mobility_milli": 850,
+      "mounted_mobility_milli": 700,
+      "chariot_mobility_milli": 650,
+      "frontage_milli": 650,
+      "concealment_milli": 750,
+      "scouting_milli": 850,
+      "pursuit_milli": 750,
+      "fatigue_milli": 1040,
+      "defense_milli": 1200
+    },
+    "higher_ground": {
+      "travel_time_milli": 1050,
+      "visibility_milli": 1050,
+      "ranged_effectiveness_milli": 1060,
+      "formation_mobility_milli": 950,
+      "mounted_mobility_milli": 920,
+      "chariot_mobility_milli": 900,
+      "frontage_milli": 950,
+      "concealment_milli": 900,
+      "scouting_milli": 1050,
+      "pursuit_milli": 900,
+      "fatigue_milli": 1040,
+      "defense_milli": 1120
+    },
+    "broken_ground": {
+      "travel_time_milli": 1120,
+      "visibility_milli": 920,
+      "ranged_effectiveness_milli": 940,
+      "formation_mobility_milli": 820,
+      "mounted_mobility_milli": 700,
+      "chariot_mobility_milli": 500,
+      "frontage_milli": 780,
+      "concealment_milli": 1150,
+      "scouting_milli": 900,
+      "pursuit_milli": 720,
+      "fatigue_milli": 1100,
+      "defense_milli": 1060
+    },
+    "dense_woodland": {
+      "travel_time_milli": 1120,
+      "visibility_milli": 780,
+      "ranged_effectiveness_milli": 850,
+      "formation_mobility_milli": 820,
+      "mounted_mobility_milli": 680,
+      "chariot_mobility_milli": 450,
+      "frontage_milli": 780,
+      "concealment_milli": 1300,
+      "scouting_milli": 850,
+      "pursuit_milli": 700,
+      "fatigue_milli": 1060,
+      "defense_milli": 1060
+    },
+    "soft_ground": {
+      "travel_time_milli": 1120,
+      "visibility_milli": 980,
+      "ranged_effectiveness_milli": 980,
+      "formation_mobility_milli": 800,
+      "mounted_mobility_milli": 700,
+      "chariot_mobility_milli": 520,
+      "frontage_milli": 850,
+      "concealment_milli": 950,
+      "scouting_milli": 900,
+      "pursuit_milli": 720,
+      "fatigue_milli": 1120,
+      "defense_milli": 1020
+    }
+  },
+  "location_kind_overlays": {
+    "capital": [
+      "urban",
+      "fortified"
+    ],
+    "city": [
+      "urban"
+    ],
+    "town": [
+      "urban"
+    ],
+    "estate": [
+      "urban"
+    ],
+    "hall": [
+      "urban"
+    ],
+    "fort": [
+      "fortified"
+    ],
+    "fortress": [
+      "fortified"
+    ],
+    "pass": [
+      "pass"
+    ],
+    "gate": [
+      "fortified"
+    ]
+  },
+  "rule": "Terrain is layered. Static terrain labels resolve to physical ground tags; location kind/fortification add overlays; weather then modifies the same movement/combat channels. Unknown terrain labels are errors rather than neutral 1.0 fallbacks."
+}

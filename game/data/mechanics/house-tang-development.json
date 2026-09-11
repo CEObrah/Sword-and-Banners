@@ -1,0 +1,25 @@
+{
+  "authority": "Registered House Tang Inner Walls physical expansion package. Mutable project state remains in House, treasury, infrastructure, land, population and runtime owners.",
+  "inner_walls_expansion": {
+    "capacity_projects": [
+      {
+        "blueprint_ref": "military_barracks_1000",
+        "constraint": "military_beds",
+        "quantity": 2
+      },
+      {
+        "blueprint_ref": "training_complex_1000",
+        "constraint": "training_space",
+        "quantity": 2
+      },
+      {
+        "blueprint_ref": "settlement_medical_1000",
+        "constraint": "medical_support",
+        "quantity": 2
+      }
+    ],
+    "economic_source_site_ref": "loc_tang_manor",
+    "rule": "Existing built capacity is used before new construction. If physical capacity becomes the binding intake constraint, House Tang may start the appropriate registered shared infrastructure project using exact House treasury silver, local construction materials, conserved construction labor, finite Inner Walls land and shared calendar-time physics. No House-only package price or magic capacity grant exists.",
+    "target_site_ref": "loc_tang_inner_walls"
+  }
+}

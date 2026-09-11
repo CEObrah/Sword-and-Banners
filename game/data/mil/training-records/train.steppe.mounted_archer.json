@@ -1,0 +1,11 @@
+{
+  "schema": "training-profile-record",
+  "id": "train.steppe.mounted_archer",
+  "profile": {
+    "id": "train.steppe.mounted_archer",
+    "inherits": "train.world_force.standard",
+    "resource_gated": true,
+    "deterministic_program_policy": "program.mounted_archer",
+    "gain_authority": "game/data/mil/deterministic-training-programs.json + game/data/mechanics/training.json"
+  }
+}

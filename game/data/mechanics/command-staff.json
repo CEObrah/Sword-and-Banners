@@ -1,0 +1,57 @@
+{
+  "authority": "Registered command-staff roles. Staff authority is scoped to the command group where the person is assigned. It never creates troop ownership, hidden knowledge, succession, combat power, or instantaneous communication.",
+  "roles": {
+    "strategist": {
+      "recursive_order_authority": true,
+      "chain_of_command_default": true,
+      "may_address_root_units": true,
+      "may_address_descendant_units": true,
+      "may_address_nested_armies": true,
+      "knowledge_rule": "May act only on information lawfully available or delivered to that strategist/command staff.",
+      "communication_rule": "Orders still use the normal messenger/signaling/communication path and latency; recursive authority never teleports instructions or formations.",
+      "decision_rule": "May formulate, coordinate, and transmit plans/orders within the assigned command subtree. The commander remains the command group's senior decision authority unless a separate lawful delegation or succession state says otherwise."
+    },
+    "chief_administrator": {
+      "recursive_order_authority": false,
+      "chain_of_command_default": true,
+      "knowledge_rule": "May use only information lawfully available or delivered to this staff appointment.",
+      "communication_rule": "Staff work uses normal command communication paths and latency.",
+      "decision_rule": "Administrative coordination role with no inherent operational order authority."
+    },
+    "chief_of_staff": {
+      "recursive_order_authority": false,
+      "chain_of_command_default": true,
+      "knowledge_rule": "May use only information lawfully available or delivered to this staff appointment.",
+      "communication_rule": "Staff work uses normal command communication paths and latency.",
+      "decision_rule": "Staff coordination role with no inherent operational order authority unless separately delegated."
+    },
+    "operations_officer": {
+      "recursive_order_authority": false,
+      "chain_of_command_default": true,
+      "knowledge_rule": "May use only information lawfully available or delivered to this staff appointment.",
+      "communication_rule": "Staff work uses normal command communication paths and latency.",
+      "decision_rule": "Operational staff role that supports planning/execution but has no inherent recursive order authority."
+    },
+    "training_and_operations_officer": {
+      "recursive_order_authority": false,
+      "chain_of_command_default": true,
+      "knowledge_rule": "May use only information lawfully available or delivered to this staff appointment.",
+      "communication_rule": "Staff work uses normal command communication paths and latency.",
+      "decision_rule": "Combined training/operations staff role without inherent recursive order authority."
+    },
+    "training_officer": {
+      "recursive_order_authority": false,
+      "chain_of_command_default": true,
+      "knowledge_rule": "May use only information lawfully available or delivered to this staff appointment.",
+      "communication_rule": "Staff work uses normal command communication paths and latency.",
+      "decision_rule": "Training staff role without operational order authority."
+    },
+    "training_operations_officer": {
+      "recursive_order_authority": false,
+      "chain_of_command_default": true,
+      "knowledge_rule": "May use only information lawfully available or delivered to this staff appointment.",
+      "communication_rule": "Staff work uses normal command communication paths and latency.",
+      "decision_rule": "Training/operations staff role without inherent recursive order authority."
+    }
+  }
+}

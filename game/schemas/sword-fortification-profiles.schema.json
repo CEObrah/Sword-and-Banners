@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "profiles": {},
+    "schema": {
+      "const": "sword-fortification-profiles"
+    }
+  },
+  "required": [
+    "schema",
+    "profiles"
+  ],
+  "type": "object"
+}

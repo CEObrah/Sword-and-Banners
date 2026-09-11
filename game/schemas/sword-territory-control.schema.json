@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "owner_id": {},
+    "schema": {
+      "const": "sword-territory-control"
+    },
+    "sites": {}
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "sites"
+  ],
+  "type": "object"
+}

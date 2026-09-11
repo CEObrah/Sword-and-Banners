@@ -1,0 +1,25 @@
+{
+  "schema": "generic-object",
+  "field_contract_kinds": ["state_campaign", "state_contract"],
+  "regional_specialties": {
+    "spear": {"combat_role": "line_infantry", "loadout_id": "loadout_mercenary_line"},
+    "escort": {"combat_role": "light_infantry", "loadout_id": "loadout_mercenary_light"},
+    "crossbow": {"combat_role": "missile_crossbow", "loadout_id": "loadout_mercenary_crossbow"},
+    "cavalry": {"combat_role": "cavalry", "loadout_id": "loadout_mercenary_cavalry"},
+    "sapper": {"combat_role": "line_infantry", "loadout_id": "loadout_mercenary_engineer"},
+    "reconnaissance": {"combat_role": "light_infantry", "loadout_id": "loadout_mercenary_reconnaissance"},
+    "veteran_line": {"combat_role": "line_infantry", "loadout_id": "loadout_mercenary_heavy_infantry"},
+    "river_guard": {"combat_role": "line_infantry", "loadout_id": "loadout_mercenary_line"},
+    "wagon": {"combat_role": "light_infantry", "loadout_id": "loadout_mercenary_light"},
+    "line_infantry": {"combat_role": "line_infantry", "loadout_id": "loadout_mercenary_line"},
+    "archer": {"combat_role": "archer", "loadout_id": "loadout_state_archer"},
+    "fortress_guard": {"combat_role": "line_infantry", "loadout_id": "loadout_mercenary_heavy_infantry"}
+  },
+  "defaults": {
+    "combat_role": "line_infantry",
+    "loadout_id": "loadout_mercenary_line",
+    "morale": 60,
+    "readiness": 60,
+    "cohesion": 55
+  }
+}

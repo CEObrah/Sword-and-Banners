@@ -1,0 +1,35 @@
+{
+  "schema": "derived-environment-contract",
+  "version": 1,
+  "authority": {
+    "kind": "deterministic_derived_runtime_authority",
+    "mutable_owner": false,
+    "inputs": [
+      "state/meta.json#campaign_id",
+      "state/meta.json#world_seed",
+      "authoritative campaign world time",
+      "game/data/world/locations.json",
+      "game/data/world/environment-climates.json"
+    ],
+    "rule": "Same campaign id, world seed, location and campaign instant must produce exactly the same environment snapshot. Environment derivation may not write campaign state."
+  },
+  "separation_invariants": [
+    "Static terrain/location kind is not transient weather.",
+    "Derived weather does not own mutable fire, smoke, flood-control, siege, office-hours, gate, staffing, or institutional availability state.",
+    "A weather transition does not by itself create a player wake or scheduler event.",
+    "Player-safe context exposes current-location environment only unless another read lawfully authorizes a different location.",
+    "Mechanical consumers use only registered mechanical_effects channels; narration may not invent additional bonuses or penalties."
+  ],
+  "mechanical_channels": [
+    "travel_time_milli",
+    "visibility_milli",
+    "ranged_effectiveness_milli",
+    "formation_mobility_milli",
+    "mounted_mobility_milli",
+    "market_transport_milli",
+    "forage_availability_milli",
+    "agriculture_output_milli",
+    "fire_spread_milli",
+    "hazard_milli"
+  ]
+}

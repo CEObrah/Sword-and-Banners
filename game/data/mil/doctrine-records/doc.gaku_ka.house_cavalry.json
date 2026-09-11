@@ -1,0 +1,19 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.gaku_ka.house_cavalry",
+  "doctrine": {
+    "label": "Gaku Ka House Mou Cavalry Doctrine",
+    "scope": "formation_role",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#cavalry",
+    "formation_policy": {
+      "battlefield_role": "cavalry_screen",
+      "contact_style": "elastic",
+      "charge_policy": "advantage_required",
+      "pursuit_policy": "controlled",
+      "disengagement": "mobile_break_contact"
+    },
+    "compatibility": [
+      "mounted_mobility"
+    ]
+  }
+}

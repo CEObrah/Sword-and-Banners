@@ -1,0 +1,25 @@
+[build]
+builder = "RAILPACK"
+watchPatterns = [
+  "**",
+  "!/state/**",
+  "!/plugins/**",
+  "!/docs/**",
+  "!/tests/**",
+  "!/tools/**",
+  "!/.github/**",
+  "!/README.md"
+]
+
+# Startup first reconciles the immutable deployed source revision into a
+# dedicated campaign durability branch, then performs the normal checkout,
+# integrity, recovery, and ASGI startup gates. Source releases therefore do not
+# move the branch used by live gameplay transactions.
+[deploy]
+startCommand = "PYTHONPATH=/app/runtime python -m sword_runtime.branch_bootstrap"
+healthcheckPath = "/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+overlapSeconds = 0
+drainingSeconds = 30

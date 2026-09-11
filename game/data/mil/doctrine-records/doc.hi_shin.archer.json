@@ -1,0 +1,19 @@
+{
+  "schema": "doctrine-record",
+  "id": "doc.hi_shin.archer",
+  "doctrine": {
+    "label": "Hi Shin Archer Opening Doctrine",
+    "scope": "formation_role",
+    "role_profile_ref": "game/data/mil/doctrine-role-profiles.json#archer",
+    "formation_policy": {
+      "battlefield_role": "archer_shape",
+      "contact_style": "ranged_shaping",
+      "charge_policy": "not_applicable",
+      "pursuit_policy": "none",
+      "disengagement": "early_if_compromised"
+    },
+    "compatibility": [
+      "bow_fire"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "requests",
+    "commissions"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sword-commission-index"
+    },
+    "requests": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "commissions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "by_actor": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

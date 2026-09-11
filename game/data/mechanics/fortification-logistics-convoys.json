@@ -1,0 +1,6 @@
+{
+  "schema": "fortification-logistics-convoys",
+  "max_distinct_cargo_keys": 16,
+  "max_units_per_dispatch": 1000000000,
+  "rule": "campaign resupply removes physical stock from an exact source depot into one aggregate convoy owner; destination stock changes only on arrival; baseline materialization partition is separate and occurs only at clean-world initialization"
+}

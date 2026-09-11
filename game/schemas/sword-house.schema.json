@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "house_ref": {},
+    "lineage_cohort": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-house"
+    },
+    "state": {},
+    "nobility": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "grade": {
+          "enum": [
+            "unranked_house",
+            "recognized_house",
+            "minor_noble_house",
+            "noble_house",
+            "high_noble_house",
+            "great_noble_house"
+          ]
+        },
+        "last_changed_at": {
+          "type": "string"
+        },
+        "last_grant_ref": {
+          "type": "string"
+        },
+        "last_grantor_ref": {
+          "type": "string"
+        },
+        "last_evidence_ref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "grade"
+      ]
+    },
+    "administrative_programs": {},
+    "administrative_requests": {},
+    "authorized_by_role": {},
+    "civil_finance": {},
+    "development_requests": {},
+    "duties": {},
+    "duty_assignments": {},
+    "estate_support": {},
+    "force_employment_policy_ref": {},
+    "goals": {},
+    "last_review": {},
+    "leader_ref": {},
+    "lineage_runtime": {},
+    "material_directives": {},
+    "military_command": {},
+    "military_force_ref": {},
+    "military_force_refs": {},
+    "politics": {},
+    "projects": {},
+    "recruitment_reporting": {},
+    "resolved_effects": {},
+    "sovereignty_ref": {},
+    "threat_level": {},
+    "treasury_ref": {},
+    "treasury_silver": {},
+    "world_arc_priorities": {},
+    "last_political_action": {
+      "type": "object"
+    },
+    "political_action_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "house_ref",
+    "state",
+    "lineage_cohort",
+    "nobility"
+  ],
+  "type": "object"
+}

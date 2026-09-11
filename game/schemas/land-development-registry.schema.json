@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema",
+    "owner_id",
+    "authority",
+    "regions",
+    "sites",
+    "holdings"
+  ],
+  "properties": {
+    "schema": {
+      "const": "land-development-registry"
+    },
+    "owner_id": {
+      "const": "land_development"
+    },
+    "authority": {
+      "const": true
+    },
+    "regions": {
+      "type": "object"
+    },
+    "sites": {
+      "type": "object"
+    },
+    "holdings": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

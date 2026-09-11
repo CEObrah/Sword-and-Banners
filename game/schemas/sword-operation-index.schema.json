@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "operations": {},
+    "owner_id": {},
+    "schema": {
+      "const": "sword-operation-index"
+    },
+    "active_battlefield_operation_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema",
+    "owner_id",
+    "operations",
+    "active_battlefield_operation_refs"
+  ],
+  "type": "object"
+}

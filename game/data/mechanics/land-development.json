@@ -1,0 +1,512 @@
+{
+  "authority_boundaries": {
+    "land_physics": "state/development/land.json owns current finite parcel area, nested land use, enclosure geometry and private holding area.",
+    "physical_construction": "game/data/mechanics/infrastructure-blueprints.json plus construction-physics.json own physical work intensity; runtime reserves real silver, material stock, labor and time.",
+    "population": "state/population/ owns people. Land development never creates population.",
+    "property": "A private holding is property inside a sovereign region. Property ownership never changes sovereignty by itself.",
+    "static_geography": "game/data/world/locations.json owns location identity, hierarchy and terrain.",
+    "territorial_control": "state/territory/control.json owns current political/military control and claims."
+  },
+  "building_land_category_by_blueprint_category": {
+    "agriculture": "agriculture",
+    "civic": "civic_storage",
+    "food_storage": "civic_storage",
+    "fortification": "fortification",
+    "general_storage": "civic_storage",
+    "housing": "residential",
+    "industry": "industry",
+    "market": "civic_storage",
+    "medical": "civic_storage",
+    "military_ground": "military",
+    "military_housing": "military",
+    "sanitation": "civic_storage",
+    "settlement_foundation": "residential",
+    "stabling": "military",
+    "training": "training",
+    "transport": "transport",
+    "water": "civic_storage"
+  },
+  "building_site_area_factors": {
+    "design_floor_area_to_land_area": 1.7,
+    "floor_area_to_land_area": 1.5,
+    "gatehouse_land_factor": 1.5,
+    "granary_floor_area_to_land_area": 1.25,
+    "latrine_drainage_land_m2": 3000,
+    "tower_land_factor": 1.5,
+    "well_cluster_land_m2": 5000
+  },
+  "defensive_stores": {
+    "base_procurement_silver_per_unit": 0.35,
+    "rule": "Prepared stones, fire mixtures, spare barricade material and similar expendable wall-defense consumables are one conserved defensive-stores stock. Arrows and bolts remain separate ammunition because weapon systems consume them directly.",
+    "storage_volume_m3_per_unit": 0.012,
+    "trebuchet_shot_use_units": 3.0,
+    "unit_equivalent_kg": 20.0,
+    "wall_station_hourly_use_units": 2.0
+  },
+  "enclosed_initial_use_fractions": {
+    "fort": {
+      "civic_storage": 0.15,
+      "fortification": 0.08,
+      "industry": 0.04,
+      "military": 0.34,
+      "open_developable": 0.07,
+      "residential": 0.05,
+      "training": 0.1,
+      "transport": 0.12,
+      "water": 0.05
+    },
+    "small_urban": {
+      "civic_storage": 0.08,
+      "fortification": 0.03,
+      "industry": 0.1,
+      "military": 0.1,
+      "open_developable": 0.15,
+      "residential": 0.34,
+      "training": 0.03,
+      "transport": 0.14,
+      "water": 0.03
+    },
+    "urban": {
+      "civic_storage": 0.1,
+      "fortification": 0.02,
+      "industry": 0.14,
+      "military": 0.08,
+      "open_developable": 0.08,
+      "residential": 0.38,
+      "training": 0.03,
+      "transport": 0.15,
+      "water": 0.02
+    },
+    "village": {
+      "civic_storage": 0.05,
+      "fortification": 0.0,
+      "industry": 0.06,
+      "military": 0.02,
+      "open_developable": 0.47,
+      "residential": 0.28,
+      "training": 0.01,
+      "transport": 0.08,
+      "water": 0.03
+    }
+  },
+  "enclosure_expansion": {
+    "cannot_exceed_parcel_without_land_allocation": true,
+    "farmland_outside_city_wall_does_not_require_wall_expansion": true,
+    "rectangle_rule": "Annex one contiguous strip along the longer side to minimize new wall. The absorbed old wall segment becomes an internal wall unless separately demolished. New wall length equals the outer replacement side plus the two connecting sides.",
+    "stadium_rule": "Preserve radius and extend one straight end when possible. The absorbed old semicircular end becomes internal; new work includes two straight extensions plus one replacement semicircular end."
+  },
+  "external_initial_use_fractions": {
+    "default": {
+      "agriculture": 0.34,
+      "extraction": 0.03,
+      "open_developable": 0.22,
+      "pasture": 0.14,
+      "transport": 0.04,
+      "unsuitable": 0.05,
+      "water": 0.04,
+      "woodland": 0.14
+    },
+    "mountain": {
+      "agriculture": 0.18,
+      "extraction": 0.06,
+      "open_developable": 0.17,
+      "pasture": 0.12,
+      "transport": 0.03,
+      "unsuitable": 0.16,
+      "water": 0.04,
+      "woodland": 0.24
+    },
+    "steppe": {
+      "agriculture": 0.14,
+      "extraction": 0.03,
+      "open_developable": 0.24,
+      "pasture": 0.4,
+      "transport": 0.03,
+      "unsuitable": 0.08,
+      "water": 0.03,
+      "woodland": 0.05
+    }
+  },
+  "fairness_invariants": [
+    "same owner class does not change formulas",
+    "same geometry and local inputs produce the same cost and duration",
+    "NPC and player construction use the same resolver",
+    "a House, city, fortress or polity cannot build beyond available land",
+    "land use is conserved inside each parcel",
+    "state land totals are derived from territorial regions instead of duplicated",
+    "site parcels are nested inside regions and never double-count sovereign territory",
+    "a wall encloses only its saved enclosed area",
+    "farmland normally remains outside city and fortress walls unless explicitly enclosed",
+    "status and nobility affect authority and access, not physical construction efficiency"
+  ],
+  "farmland_conversion": {
+    "base_construction_material_units_per_km2": 500,
+    "base_engineering_labor_hours_per_km2": 2000,
+    "base_general_labor_hours_per_km2": 70000,
+    "base_skilled_labor_hours_per_km2": 8000,
+    "minimum_calendar_hours": 720,
+    "rule": "Conversion consumes existing open developable land. Terrain construction factor multiplies clearing/earthwork effort. Irrigation is a separate physical project and never creates land.",
+    "workfront_capacity_workers_per_km2": 500
+  },
+  "fixed_defense_physics": {
+    "bed_crossbow": {
+      "engineering_labor_hours_each": 600,
+      "general_labor_hours_each": 1200,
+      "material_units_each": 180,
+      "skilled_labor_hours_each": 1800
+    },
+    "counterweight_trebuchet": {
+      "engineering_labor_hours_each": 1600,
+      "general_labor_hours_each": 4600,
+      "material_units_each": 520,
+      "skilled_labor_hours_each": 5200
+    },
+    "gate_mechanism_set": {
+      "engineering_labor_hours_each": 700,
+      "general_labor_hours_each": 1400,
+      "material_units_each": 240,
+      "skilled_labor_hours_each": 2100
+    },
+    "rule": "These are ordinary shared fortification mechanisms. The same physical counts use the same cost formula at Tang Manor, Jo, a state fortress, or an NPC House estate.",
+    "signal_tower_set": {
+      "engineering_labor_hours_each": 180,
+      "general_labor_hours_each": 600,
+      "material_units_each": 90,
+      "skilled_labor_hours_each": 500
+    },
+    "wall_defense_station": {
+      "engineering_labor_hours_each": 120,
+      "general_labor_hours_each": 500,
+      "material_units_each": 70,
+      "skilled_labor_hours_each": 450
+    }
+  },
+  "house_holdings": {
+    "adjacent_grant_may_expand_existing_holding": true,
+    "distant_grant_creates_separate_holding": true,
+    "land_grant_requires_sovereign_or_delegated_authority": true,
+    "multiple_holdings_allowed": true,
+    "nobility_does_not_create_land": true,
+    "private_property_does_not_change_sovereignty": true
+  },
+  "land_use_categories": [
+    "agriculture",
+    "pasture",
+    "woodland",
+    "water",
+    "extraction",
+    "residential",
+    "industry",
+    "civic_storage",
+    "military",
+    "training",
+    "transport",
+    "fortification",
+    "private_holdings",
+    "open_developable",
+    "unsuitable"
+  ],
+  "land_use_development": {
+    "agriculture": {
+      "engineering_labor_hours_per_km2": 2000,
+      "general_labor_hours_per_km2": 70000,
+      "material_units_per_km2": 500,
+      "minimum_calendar_hours": 720,
+      "skilled_labor_hours_per_km2": 8000,
+      "workfront_workers_per_km2": 500
+    },
+    "extraction": {
+      "engineering_labor_hours_per_km2": 2000,
+      "general_labor_hours_per_km2": 40000,
+      "material_units_per_km2": 400,
+      "minimum_calendar_hours": 720,
+      "skilled_labor_hours_per_km2": 6000,
+      "workfront_workers_per_km2": 400
+    },
+    "pasture": {
+      "engineering_labor_hours_per_km2": 500,
+      "general_labor_hours_per_km2": 25000,
+      "material_units_per_km2": 250,
+      "minimum_calendar_hours": 360,
+      "skilled_labor_hours_per_km2": 2000,
+      "workfront_workers_per_km2": 300
+    },
+    "woodland": {
+      "engineering_labor_hours_per_km2": 250,
+      "general_labor_hours_per_km2": 12000,
+      "material_units_per_km2": 120,
+      "minimum_calendar_hours": 360,
+      "skilled_labor_hours_per_km2": 1500,
+      "workfront_workers_per_km2": 180
+    }
+  },
+  "principle": "Every House holding, settlement, fortress and sovereign region uses the same conserved land and construction rules. Status, owner identity and canon fame never create free land, free walls, free buildings, free labor or discounted construction.",
+  "productive_land": {
+    "agriculture": {
+      "base_unirrigated_yield_factor": 0.82,
+      "default_crop_mix": {
+        "specialty": 0.029,
+        "staple": 0.971
+      },
+      "gross_staple_kg_per_km2_year": 250000.0,
+      "normal_loss_fraction": 0.04,
+      "rule": "Agricultural land output is capped by physical area and actual agricultural labor. Crop mix is compact; it does not create separate crop inventories.",
+      "seed_fraction": 0.08,
+      "specialty_goods_units_per_km2_month": 25.0,
+      "workers_per_km2_full_output": 36.0
+    },
+    "extraction": {
+      "rule": "Quarry, clay, lime and basic extraction contribute aggregate local economic output and construction capacity; they do not create a persistent material commodity pile.",
+      "workers_per_km2_full_output": 20,
+      "economic_output_silver_per_km2_month": 75.0
+    },
+    "pasture": {
+      "rule": "Pasture is productive rural land supporting livestock, horse country and local economic output. It does not create a tracked feed commodity or horses.",
+      "workers_per_km2_full_output": 4.0,
+      "economic_output_silver_per_km2_month": 833.333333
+    },
+    "woodland": {
+      "rule": "Managed woodland contributes aggregate local economic output and construction capacity; it does not create a persistent material commodity pile.",
+      "workers_per_km2_full_output": 8,
+      "economic_output_silver_per_km2_month": 50.0
+    }
+  },
+  "region_initial_use_fractions": {
+    "fertile": {
+      "agriculture": 0.52,
+      "extraction": 0.03,
+      "open_developable": 0.14,
+      "pasture": 0.1,
+      "transport": 0.03,
+      "unsuitable": 0.03,
+      "water": 0.05,
+      "woodland": 0.1
+    },
+    "mixed": {
+      "agriculture": 0.38,
+      "extraction": 0.04,
+      "open_developable": 0.14,
+      "pasture": 0.13,
+      "transport": 0.03,
+      "unsuitable": 0.06,
+      "water": 0.04,
+      "woodland": 0.18
+    },
+    "mountain": {
+      "agriculture": 0.18,
+      "extraction": 0.07,
+      "open_developable": 0.12,
+      "pasture": 0.13,
+      "transport": 0.02,
+      "unsuitable": 0.17,
+      "water": 0.04,
+      "woodland": 0.27
+    },
+    "steppe": {
+      "agriculture": 0.16,
+      "extraction": 0.03,
+      "open_developable": 0.2,
+      "pasture": 0.42,
+      "transport": 0.02,
+      "unsuitable": 0.08,
+      "water": 0.03,
+      "woodland": 0.06
+    }
+  },
+  "region_population_density_people_per_km2": {
+    "broken_hills": 30,
+    "coastal_plain": 85,
+    "corridor": 50,
+    "default": 55,
+    "eastern_riverlands": 90,
+    "hills": 35,
+    "hilly_plain": 50,
+    "mixed_plain": 70,
+    "mountain_basin": 35,
+    "mountain_highlands": 12,
+    "mountain_valleys": 20,
+    "northern_corridor": 45,
+    "plain": 80,
+    "river_hills": 45,
+    "river_mountain_pass": 18,
+    "river_plain": 100,
+    "riverlands": 90,
+    "steppe_edge": 25,
+    "upland_plain": 55,
+    "western_corridor": 45
+  },
+  "schema": "land-development-mechanics",
+  "site_class_circulation_minimum_fraction": {
+    "capital": 0.15,
+    "city": 0.15,
+    "default": 0.1,
+    "estate": 0.015,
+    "fort": 0.12,
+    "fortified_settlement": 0.12,
+    "fortress": 0.12,
+    "military_campus": 0.08,
+    "pass": 0.12,
+    "settlement": 0.08,
+    "small_urban": 0.14,
+    "town": 0.14,
+    "training_campus": 0.08,
+    "village": 0.08
+  },
+  "site_geometry_defaults": {
+    "capital": {
+      "aspect_ratio": 1.5,
+      "parcel_multiplier_over_enclosure": 1.5,
+      "shape": "rectangle",
+      "unwalled_population_density": 18000
+    },
+    "city": {
+      "aspect_ratio": 1.5,
+      "parcel_multiplier_over_enclosure": 1.5,
+      "shape": "rectangle",
+      "unwalled_population_density": 12000
+    },
+    "estate": {
+      "aspect_ratio": 1.8,
+      "parcel_multiplier_over_enclosure": 1.0,
+      "shape": "rectangle",
+      "unwalled_population_density": 4000
+    },
+    "fort": {
+      "aspect_ratio": 2.0,
+      "parcel_multiplier_over_enclosure": 1.4,
+      "shape": "rectangle",
+      "unwalled_population_density": 6000
+    },
+    "fortified_settlement": {
+      "aspect_ratio": 1.6,
+      "parcel_multiplier_over_enclosure": 1.35,
+      "shape": "rectangle",
+      "unwalled_population_density": 9000
+    },
+    "fortress": {
+      "aspect_ratio": 1.7,
+      "parcel_multiplier_over_enclosure": 1.0,
+      "shape": "rectangle",
+      "unwalled_population_density": 6000
+    },
+    "pass": {
+      "aspect_ratio": 4.0,
+      "parcel_multiplier_over_enclosure": 1.6,
+      "shape": "rectangle",
+      "unwalled_population_density": 5000
+    },
+    "town": {
+      "aspect_ratio": 1.6,
+      "parcel_multiplier_over_enclosure": 1.6,
+      "shape": "rectangle",
+      "unwalled_population_density": 8000
+    },
+    "village": {
+      "aspect_ratio": 1.8,
+      "parcel_multiplier_over_enclosure": 2.5,
+      "shape": "rectangle",
+      "unwalled_population_density": 2500
+    }
+  },
+  "terrain_construction_factor": {
+    "broken_hills": 1.35,
+    "coastal_plain": 1.08,
+    "corridor": 1.15,
+    "cultivated_estate": 1.0,
+    "default": 1.15,
+    "eastern_riverlands": 1.08,
+    "hills": 1.25,
+    "hilly_plain": 1.15,
+    "mixed_plain": 1.05,
+    "mountain_basin": 1.35,
+    "mountain_highlands": 1.8,
+    "mountain_valleys": 1.45,
+    "northern_corridor": 1.2,
+    "plain": 1.0,
+    "river_hills": 1.28,
+    "river_mountain_pass": 1.65,
+    "river_plain": 1.05,
+    "riverlands": 1.08,
+    "steppe_edge": 1.1,
+    "upland_plain": 1.12,
+    "western_corridor": 1.2
+  },
+  "terrain_cultivability": {
+    "broken_hills": 0.28,
+    "coastal_plain": 0.64,
+    "corridor": 0.42,
+    "cultivated_estate": 0.78,
+    "default": 0.45,
+    "eastern_riverlands": 0.74,
+    "hills": 0.34,
+    "hilly_plain": 0.48,
+    "mixed_plain": 0.62,
+    "mountain_basin": 0.38,
+    "mountain_highlands": 0.12,
+    "mountain_valleys": 0.3,
+    "northern_corridor": 0.36,
+    "plain": 0.72,
+    "river_hills": 0.44,
+    "river_mountain_pass": 0.16,
+    "river_plain": 0.82,
+    "riverlands": 0.78,
+    "steppe_edge": 0.22,
+    "upland_plain": 0.52,
+    "western_corridor": 0.36
+  },
+  "territorial_growth": {
+    "current_region_area_rule": "Region area is current conserved territorial area, not a permanent maximum. A sovereign polity may reallocate land among its own sites without changing sovereignty. Cross-border growth requires lawful cession, annexation, conquest settlement, purchase where recognized, or another territorial transfer from an adjacent polity; land is never created.",
+    "enclosure_rule": "Expanding a site parcel does not expand its walls. Enclosure expansion is a separate physical project using the universal wall/moat/tower formulas.",
+    "frontier_rule": "Strategic cross-state routes define represented adjacent frontiers. Across a represented frontier, controlled land belongs directly to one side or the other unless an exact disputed/unclaimed parcel is explicitly materialized; there is no implicit free wilderness buffer.",
+    "full_map_representation": "The simulation uses finite regional areas plus explicit strategic adjacency rather than heavyweight polygon GIS. This is sufficient for conserved land transfer, route control, settlement growth and campaign movement without storing millions of coordinate cells.",
+    "site_parcel_rule": "A city, fort, estate, village, or other site parcel is only the land currently allocated to that site. It can expand by consuming adjacent land from its parent region or an already-granted private holding. The current parcel is never a level cap."
+  },
+  "wall_physics": {
+    "default_tower_interval_m": 200,
+    "engineering_labor_hours_per_wall_m3": 0.4166666667,
+    "gate_engineering_labor_hours_each": 7000,
+    "gate_general_labor_hours_each": 28000,
+    "gate_material_units_each": 1800,
+    "gate_skilled_labor_hours_each": 22000,
+    "general_labor_hours_per_wall_m3": 8.75,
+    "material_units_per_wall_m3": 0.42,
+    "moat_general_labor_hours_per_m3": 0.55,
+    "moat_skilled_labor_hours_per_m3": 0.05,
+    "reference_critical_path_hours": 2160,
+    "rule": "Wall cost derives from the new wall segment volume and any new moat excavation. Existing walls remain physical works; expanding an enclosure does not erase or refund them.",
+    "skilled_labor_hours_per_wall_m3": 1.25,
+    "tower_engineering_labor_hours_each": 2000,
+    "tower_general_labor_hours_each": 10000,
+    "tower_material_units_each": 420,
+    "tower_skilled_labor_hours_each": 9000,
+    "workfront_workers_per_wall_meter": 2.2
+  },
+  "centralized_residence_labor_access": {
+    "full_productivity_average_commute_km": 20.0,
+    "maximum_average_commute_km": 50.0,
+    "minimum_distance_factor_at_maximum": 0.35,
+    "worker_gate_throughput_per_gate_hour": 4500,
+    "outbound_commute_window_hours": 3.0,
+    "road_capacity_rule": "A centralized site receives full ordinary productive access only when its actual transport/circulation land meets the shared site-class minimum; below that threshold labor access scales proportionally.",
+    "gate_capacity_rule": "Daily productive access is capped by the actual resident enclosure gate count times shared per-gate outbound worker throughput. Gate count is physical infrastructure, not an owner bonus.",
+    "distance_rule": "Average commute at or below the full-productivity distance has no penalty. Beyond it, access declines linearly to the registered minimum at the maximum average commute; beyond the maximum, daily commuting is not a reliable ordinary labor source.",
+    "temporary_camp_rule": "Temporary work camps may reduce commute pressure only when a real operation/project creates and supplies them; they never become permanent population owners automatically."
+  },
+  "urban_capacity_planning": {
+    "housing_land_km2_per_1000_civilian_capacity": 0.05,
+    "water_land_km2_per_1000_resident_capacity": 0.005,
+    "sanitation_land_km2_per_1000_resident_capacity": 0.0006,
+    "work_access_land_km2_per_1000_resident_capacity": 0.03,
+    "food_storage_land_km2_per_1000_resident_capacity": 0.00048,
+    "civic_land_km2_per_1000_resident_capacity": 0.0012,
+    "market_land_km2_per_1000_resident_capacity": 0.0024,
+    "military_barracks_land_km2_per_1000_permanent_service": 0.0306,
+    "training_land_km2_per_1000_permanent_service": 0.012,
+    "open_future_reserve_fraction": 0.1,
+    "default_enclosed_fraction": 0.9,
+    "capital_inner_city_fraction_of_enclosed": 0.25,
+    "capital_citadel_fraction_of_enclosed": 0.08,
+    "city_inner_keep_fraction_of_enclosed": 0.1,
+    "rule": "Urban physical parcels are derived from saved resident-support capacity and actual permanent service population. Urban parcel allocation consumes existing parent-region land; capacity does not create people, stock, labor, or treasury."
+  }
+}
