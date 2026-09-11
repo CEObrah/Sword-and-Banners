@@ -67,6 +67,11 @@ def test_current_exact_present_family_gets_private_director_context_before_conve
     player["location"] = family_location
     player["current_location"] = family_location
     player_path.write_text(json.dumps(player) + "\n")
+    # Production reads reject dirty campaign repositories. Commit this
+    # disposable location setup so the test reaches the scene-direction logic.
+    import subprocess
+    subprocess.run(['git','-C',str(campaign),'add','state/player.json'],check=True)
+    subprocess.run(['git','-C',str(campaign),'commit','--quiet','-m','test co-located family scene'],check=True)
 
     operations = WarfareCampaignOperations(
         ProductionSwordRuntime(campaign, runtime_root=tmp_path / "runtime-scene-director")

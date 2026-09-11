@@ -11,7 +11,7 @@ import secrets
 from typing import Any
 
 GM_SKILL_CONTRACT_ID = "sword-and-banners-gm-skill-v1"
-GM_SKILL_CONTRACT_TOKEN = "ec08f177e28c26a5971b57e0697a219231313bcff2aee5f55fd8f620cdee5063"
+GM_SKILL_CONTRACT_TOKEN = "2b93513efffd5f74af07607826965245ace20b3b2299de745dce951ad23eca73"
 
 
 def verify_gm_skill_contract_token(value: object) -> bool:

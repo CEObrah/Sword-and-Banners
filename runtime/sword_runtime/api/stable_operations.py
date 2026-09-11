@@ -69,7 +69,76 @@ _TRANSACTION_CODES = {
 
 _COMMAND_SCENE_EVENT_KINDS = frozenset({
     "campaign_command_council", "campaign_command_superior_order", "campaign_command_after_action_review",
+    "institutional_response",
 })
+
+
+def _player_field_command_briefing_staff_refs(
+    store: Any,
+    *,
+    player_id: str,
+    player_location: str,
+) -> set[str]:
+    """Return exact direct HQ staff for a local field-command briefing.
+
+    Broad site co-location is never scene presence.  This helper is deliberately
+    narrower: it follows the player's exact root field-command group and admits
+    only its explicitly assigned ``direct_person_refs`` whose exact person owner
+    remains at the briefing location.  It is used only when a current
+    Qin-field-command operational briefing event establishes the people-centered
+    HQ process itself.
+    """
+    try:
+        index = store.read_json("state/cmd/command-groups/index.json")
+        owner_index = store.read_json("state/index/owner-index.json")
+    except (FileNotFoundError, ValueError):
+        return set()
+    if not isinstance(index, Mapping) or not isinstance(owner_index, Mapping):
+        return set()
+    command_person_groups = index.get("command_person_groups")
+    owners = owner_index.get("owners")
+    if not isinstance(command_person_groups, Mapping) or not isinstance(owners, Mapping):
+        return set()
+    group_refs = command_person_groups.get(player_id, [])
+    if not isinstance(group_refs, list):
+        return set()
+
+    present: set[str] = {player_id}
+    for group_ref in group_refs:
+        if not isinstance(group_ref, str) or not group_ref:
+            continue
+        try:
+            group = store.read_json(f"state/cmd/command-groups/{group_ref}.json")
+        except (FileNotFoundError, ValueError):
+            continue
+        if not isinstance(group, Mapping):
+            continue
+        if group.get("context") != "field_army":
+            continue
+        if group.get("commander_ref") != player_id and group.get("authority_ref") != player_id:
+            continue
+        group_location = group.get("location") or group.get("current_location") or group.get("location_ref")
+        if group_location != player_location:
+            continue
+        direct_refs = group.get("direct_person_refs", [])
+        if not isinstance(direct_refs, list):
+            continue
+        for ref in direct_refs:
+            if not isinstance(ref, str) or not ref or ref == player_id:
+                continue
+            path = owners.get(ref)
+            if not isinstance(path, str):
+                continue
+            try:
+                person = store.read_json(path)
+            except (FileNotFoundError, ValueError):
+                continue
+            if not isinstance(person, Mapping):
+                continue
+            location = person.get("current_location") or person.get("location_ref") or person.get("location")
+            if location == player_location:
+                present.add(ref)
+    return present
 
 
 def _compact_interaction_attempts(attempts: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -270,14 +339,22 @@ def _campaign_command_present_refs(
     player_location: object,
     runtime: Mapping[str, Any],
     active_session: Mapping[str, Any] | None = None,
+    store: Any | None = None,
+    player_id: str | None = None,
 ) -> set[str]:
-    """Return exact command-event people whose scene window is still live.
+    """Return exact command/briefing-event people whose scene window is live.
 
     Most command events are point-in-time handoffs. A formal war council is a
     multi-hour physical session: its exact attendees remain scene-present until
     the deterministic council-return host retires. This preserves the event's
     physical truth across interaction writes and conservative in-scene time
     advances without turning broad city co-location into same-room presence.
+
+    A current Qin operational briefing is also a people-centered field-HQ beat.
+    Legacy briefing events did not persist ``present_person_refs``. For that one
+    event class only, direct staff from Tang Wei's exact root field-command group
+    may be rehydrated after exact-location validation. Arbitrary nearby people,
+    subordinate formations and generic site residents remain excluded.
     """
     hosts = runtime.get("hosts") if isinstance(runtime, Mapping) else None
     active_council_cycles = {
@@ -298,6 +375,13 @@ def _campaign_command_present_refs(
         kind = row.get("kind")
         if kind not in _COMMAND_SCENE_EVENT_KINDS:
             continue
+        local_field_briefing = (
+            kind == "institutional_response"
+            and row.get("process_kind") == "qin_field_command_support"
+            and row.get("process_stage") == "operational_briefing"
+        )
+        if kind == "institutional_response" and not local_field_briefing:
+            continue
         cycle_ref = row.get("campaign_command_cycle_ref")
         active_council = (
             kind == "campaign_command_council"
@@ -313,9 +397,22 @@ def _campaign_command_present_refs(
         delivery = row.get("delivery") if isinstance(row.get("delivery"), Mapping) else {}
         if delivery.get("location_ref") != player_location:
             continue
-        for ref in row.get("present_person_refs", []) if isinstance(row.get("present_person_refs"), list) else []:
-            if isinstance(ref, str) and ref:
-                refs.add(ref)
+        row_refs = {
+            str(ref)
+            for ref in row.get("present_person_refs", [])
+            if isinstance(ref, str) and ref
+        } if isinstance(row.get("present_person_refs"), list) else set()
+        if (
+            local_field_briefing
+            and not row_refs
+            and store is not None
+            and isinstance(player_id, str) and player_id
+            and isinstance(player_location, str) and player_location
+        ):
+            row_refs = _player_field_command_briefing_staff_refs(
+                store, player_id=player_id, player_location=player_location,
+            )
+        refs.update(row_refs)
     return refs
 
 
@@ -1235,6 +1332,8 @@ class StableCampaignOperations(CampaignOperations):
             player_location=player_location_for_cast,
             runtime=self.runtime.store.read_json("state/runtime.json"),
             active_session=active_session,
+            store=self.store,
+            player_id=player_id,
         )
         if command_present_refs and isinstance(context.get("scene"), dict):
             owner_index = self.store.read_json("state/index/owner-index.json")

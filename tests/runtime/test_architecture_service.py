@@ -249,6 +249,12 @@ def test_play_context_scene_projection_freshness_and_readiness(campaign):
         # owners and already-triggered player-visible facts.
         scene['world_time']='stale-projection-test'
         scene_path.write_text(json.dumps(scene,indent=2)+'\n')
+        # Production reads correctly fail closed on dirty campaign repositories.
+        # Commit the disposable presentation-only mutation so this test exercises
+        # stale projection recovery rather than the repository integrity guard.
+        import subprocess
+        subprocess.run(['git','-C',str(campaign),'add','state/scene.json'],check=True)
+        subprocess.run(['git','-C',str(campaign),'commit','--quiet','-m','test stale scene projection'],check=True)
         stale=client.get('/v1/play/context',headers=headers).json()
         projected=stale['scene']
         assert projected['projection_status']=='fresh_runtime_projection'

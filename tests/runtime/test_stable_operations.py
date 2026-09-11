@@ -29,15 +29,39 @@ class _Store:
         raise AssertionError(path)
 
 
+class _NoopGit:
+    def assert_pristine(self):
+        return None
+
+
+class _NoopPlanner:
+    def _reset(self):
+        return None
+
+
+class _NoopCoordinator:
+    def __init__(self, root: Path):
+        self.lock_path = root / "campaign.lock"
+        self.lock_timeout = 1.0
+        self.git = _NoopGit()
+
+    def _recover_locked(self):
+        return None
+
+
 class _WakeRuntime:
     store = _Store()
+
+    def __init__(self, root: Path):
+        self.coordinator = _NoopCoordinator(root)
+        self.planner = _NoopPlanner()
 
     def preview_for_execution(self, command):
         raise HighSalienceWakeRequired("wake")
 
 
-def test_high_salience_wake_has_stable_player_surface_code() -> None:
-    operations = StableCampaignOperations(_WakeRuntime())
+def test_high_salience_wake_has_stable_player_surface_code(tmp_path: Path) -> None:
+    operations = StableCampaignOperations(_WakeRuntime(tmp_path))
     command = CommandEnvelope(
         campaign_id="campaign",
         request_id="wake.test",
